@@ -1,0 +1,244 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "label": "fal-prompt-enricher.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_enrichmode",
+      "label": "EnrichMode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_enrichedprompt",
+      "label": "EnrichedPrompt",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_modeconfig",
+      "label": "ModeConfig",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_modes",
+      "label": "MODES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_enrich_modes",
+      "label": "ENRICH_MODES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L97"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_dedupesuffix",
+      "label": "dedupeSuffix()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L99"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_enrichprompt",
+      "label": "enrichPrompt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L117"
+    },
+    {
+      "id": "providers_fal_prompt_enricher_isfastmoderequested",
+      "label": "isFastModeRequested()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L140"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_enrichmode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_enrichedprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_modeconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_modes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_enrich_modes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_dedupesuffix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_enrichprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_prompt_enricher_ts",
+      "target": "providers_fal_prompt_enricher_isfastmoderequested",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_fal_prompt_enricher_enrichprompt",
+      "target": "providers_fal_prompt_enricher_dedupesuffix",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L124",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_fal_prompt_enricher_dedupesuffix",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_dedupesuffix",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_dedupesuffix",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_dedupesuffix",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_dedupesuffix",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_dedupesuffix",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_enrichprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_isfastmoderequested",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_isfastmoderequested",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_isfastmoderequested",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_isfastmoderequested",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_isfastmoderequested",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "providers_fal_prompt_enricher_isfastmoderequested",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal-prompt-enricher.ts",
+      "source_location": "L147"
+    }
+  ]
+}

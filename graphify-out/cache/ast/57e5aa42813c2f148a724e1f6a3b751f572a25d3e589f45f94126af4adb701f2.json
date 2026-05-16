@@ -1,0 +1,204 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "label": "document-parse.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "workers_document_parse_handler",
+      "label": "handler",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "workers_document_parse_startdocumentparseworker",
+      "label": "startDocumentParseWorker()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L112"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "node_buffer",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "assets_variants_updatevariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_llamaparse_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "providers_llamaparse_parsedocument",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "storage_index_getglobalstorage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_permanent_error_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "jobs_permanent_error_permanentjoberror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "jobs_types_documentparseinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "jobs_types_jobresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "jobs_worker_base_startworker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "jobs_worker_base_workerhandler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "workers_document_parse_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_document_parse_ts",
+      "target": "workers_document_parse_startdocumentparseworker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "workers_document_parse_startdocumentparseworker",
+      "callee": "startWorker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/document-parse.ts",
+      "source_location": "L113"
+    }
+  ]
+}

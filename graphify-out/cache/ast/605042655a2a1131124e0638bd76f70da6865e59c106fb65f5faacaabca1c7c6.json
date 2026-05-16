@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "label": "pricing.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_pricing_model_pricing",
+      "label": "MODEL_PRICING",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "llm_pricing_computecostusd",
+      "label": "computeCostUsd()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L49"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "target": "llm_pricing_model_pricing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "target": "llm_pricing_computecostusd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_pricing_computecostusd",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts",
+      "source_location": "L60"
+    }
+  ]
+}

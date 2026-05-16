@@ -1,0 +1,148 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "label": "useSplineApp.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_safe_usesplineapp_target_objects",
+      "label": "TARGET_OBJECTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "spatial_safe_usesplineapp_splinetargetname",
+      "label": "SplineTargetName",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "spatial_safe_usesplineapp_usesplineapp",
+      "label": "UseSplineApp",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L23"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "target": "runtime",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "target": "spatial_safe_usesplineapp_target_objects",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "target": "spatial_safe_usesplineapp_splinetargetname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "target": "spatial_safe_usesplineapp_usesplineapp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "target": "spatial_safe_usesplineapp_usesplineapp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplineapp_usesplineapp",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineApp.ts",
+      "source_location": "L86"
+    }
+  ]
+}

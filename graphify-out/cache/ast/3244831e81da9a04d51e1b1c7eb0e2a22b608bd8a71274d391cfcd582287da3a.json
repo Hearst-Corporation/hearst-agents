@@ -1,0 +1,1153 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "label": "pre-meeting-intel.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_premeetingparticipant",
+      "label": "PreMeetingParticipant",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_premeetingintel",
+      "label": "PreMeetingIntel",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_cacheentry",
+      "label": "CacheEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_cachekey",
+      "label": "cacheKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_rawattendee",
+      "label": "RawAttendee",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_rawevent",
+      "label": "RawEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_gcalattendee",
+      "label": "GcalAttendee",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_gcalevent",
+      "label": "GcalEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_unwrapevents",
+      "label": "unwrapEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "label": "listUpcomingEventsWithAttendees()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L111"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_kgedgelite",
+      "label": "KgEdgeLite",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L194"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "label": "findPersonNodeByEmail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L206"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_getlastinteractions",
+      "label": "getLastInteractions()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L242"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_buildkgsummary",
+      "label": "buildKgSummary()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L296"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_agenda_prompt",
+      "label": "AGENDA_PROMPT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L318"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "label": "generateSuggestedAgenda()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L331"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_intelscope",
+      "label": "IntelScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L371"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "label": "getPreMeetingIntel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L386"
+    },
+    {
+      "id": "cockpit_pre_meeting_intel_clearpremeetingintelcache",
+      "label": "__clearPreMeetingIntelCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L442"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "composio_client_executecomposioaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "google_calendar_getupcomingevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "llm_safe_chat_chatwithcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "memory_kg_kgnode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "db_supabase_requireserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_premeetingparticipant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_premeetingintel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_cacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_cachekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_rawattendee",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_rawevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_gcalattendee",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_gcalevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_unwrapevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_kgedgelite",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L194",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_getlastinteractions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_buildkgsummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L296",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_agenda_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L318",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L331",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_intelscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L371",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L386",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_pre_meeting_intel_ts",
+      "target": "cockpit_pre_meeting_intel_clearpremeetingintelcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L442",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "target": "cockpit_pre_meeting_intel_unwrapevents",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "target": "cockpit_pre_meeting_intel_cachekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L390",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "target": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L396",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "target": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L426",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_unwrapevents",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_unwrapevents",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_unwrapevents",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_unwrapevents",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "executeComposioAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "getUpcomingEvents",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_listupcomingeventswithattendees",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L187"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "requireServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L211"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L212"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "contains",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "ilike",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_findpersonnodebyemail",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "requireServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L274"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L275"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "in",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L284"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getlastinteractions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L302"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L303"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L305"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L305"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L305"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_buildkgsummary",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L337"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L337"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L337"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L346"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_generatesuggestedagenda",
+      "callee": "chatWithCircuitBreaker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L393"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L397"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L401"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L402"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_getpremeetingintel",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L437"
+    },
+    {
+      "caller_nid": "cockpit_pre_meeting_intel_clearpremeetingintelcache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/pre-meeting-intel.ts",
+      "source_location": "L443"
+    }
+  ]
+}

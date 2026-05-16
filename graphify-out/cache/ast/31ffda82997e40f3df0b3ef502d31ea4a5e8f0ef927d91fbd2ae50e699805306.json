@@ -1,0 +1,97 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_user_resolver_test_ts",
+      "label": "user-resolver.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "auth_user_resolver_test_mockrpc",
+      "label": "mockRpc",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "auth_user_resolver_test_mockgetserversupabase",
+      "label": "mockGetServerSupabase",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "auth_user_resolver_test_makesupabasemock",
+      "label": "makeSupabaseMock()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "auth_user_resolver_test_consolespy",
+      "label": "consoleSpy",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L83"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_user_resolver_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_user_resolver_test_ts",
+      "target": "auth_user_resolver_test_mockrpc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_user_resolver_test_ts",
+      "target": "auth_user_resolver_test_mockgetserversupabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_user_resolver_test_ts",
+      "target": "auth_user_resolver_test_makesupabasemock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_user_resolver_test_ts",
+      "target": "auth_user_resolver_test_consolespy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_user_resolver_test_ts",
+      "target": "auth_user_resolver_test_consolespy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/user-resolver.test.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

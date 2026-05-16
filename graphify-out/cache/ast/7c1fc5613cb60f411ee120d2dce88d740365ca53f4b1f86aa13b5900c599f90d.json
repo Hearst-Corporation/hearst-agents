@@ -1,0 +1,146 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_radar_tsx",
+      "label": "Radar.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "blocks_radar_radarseries",
+      "label": "RadarSeries",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "blocks_radar_radarprops",
+      "label": "RadarProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "blocks_radar_radar",
+      "label": "Radar()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L44"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_radar_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_radar_tsx",
+      "target": "blocks_format_fmtnumber",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_radar_tsx",
+      "target": "blocks_radar_radarseries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_radar_tsx",
+      "target": "blocks_radar_radarprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_radar_tsx",
+      "target": "blocks_radar_radar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L44",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "flatMap",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "blocks_radar_radar",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Radar.tsx",
+      "source_location": "L187"
+    }
+  ]
+}

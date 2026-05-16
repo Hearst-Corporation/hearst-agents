@@ -1,0 +1,337 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "connections_types_connectedaccount",
+      "label": "ConnectedAccount",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "connections_types_composioapp",
+      "label": "ComposioApp",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "connections_types_discoveredtool",
+      "label": "DiscoveredTool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "connections_types_drawerstate",
+      "label": "DrawerState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "connections_types_category_label",
+      "label": "CATEGORY_LABEL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "connections_types_categorylabel",
+      "label": "categoryLabel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "connections_types_categorylabelbyid",
+      "label": "categoryLabelById()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "connections_types_intent_keywords",
+      "label": "INTENT_KEYWORDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "connections_types_suggestion_picks",
+      "label": "SUGGESTION_PICKS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L140"
+    },
+    {
+      "id": "connections_types_status_rank",
+      "label": "STATUS_RANK",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L157"
+    },
+    {
+      "id": "connections_types_starter_picks",
+      "label": "STARTER_PICKS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L177"
+    },
+    {
+      "id": "connections_types_stagevariant",
+      "label": "stageVariant()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L184"
+    },
+    {
+      "id": "connections_types_truncatedescription",
+      "label": "truncateDescription()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L200"
+    },
+    {
+      "id": "connections_types_actionlabel",
+      "label": "actionLabel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L210"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_connectedaccount",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_composioapp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_discoveredtool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_drawerstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_category_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_categorylabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_categorylabelbyid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_intent_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_suggestion_picks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_status_rank",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_starter_picks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_stagevariant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L184",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_truncatedescription",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "target": "connections_types_actionlabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L210",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "connections_types_truncatedescription",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "connections_types_truncatedescription",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "connections_types_truncatedescription",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "connections_types_truncatedescription",
+      "callee": "trimEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "connections_types_truncatedescription",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L212"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L214"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "charAt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "connections_types_actionlabel",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/types.ts",
+      "source_location": "L216"
+    }
+  ]
+}

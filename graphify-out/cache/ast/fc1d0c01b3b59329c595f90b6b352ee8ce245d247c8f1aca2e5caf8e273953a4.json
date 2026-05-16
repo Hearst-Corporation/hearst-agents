@@ -1,0 +1,244 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "label": "ChatRunReceipt.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_chatrunreceipt_runsummary",
+      "label": "RunSummary",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "components_chatrunreceipt_selectrunsummary",
+      "label": "selectRunSummary()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "components_chatrunreceipt_formatduration",
+      "label": "formatDuration()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L48"
+    },
+    {
+      "id": "components_chatrunreceipt_chatrunreceipt",
+      "label": "ChatRunReceipt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L53"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "stores_runtime_streamevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "stores_runtime_useruntimestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "components_chatrunreceipt_runsummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "components_chatrunreceipt_selectrunsummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "components_chatrunreceipt_formatduration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatrunreceipt_tsx",
+      "target": "components_chatrunreceipt_chatrunreceipt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "components_chatrunreceipt_chatrunreceipt",
+      "target": "components_chatrunreceipt_formatduration",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L67",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_chatrunreceipt_selectrunsummary",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_selectrunsummary",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_selectrunsummary",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_selectrunsummary",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_selectrunsummary",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_selectrunsummary",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_formatduration",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "components_chatrunreceipt_chatrunreceipt",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatRunReceipt.tsx",
+      "source_location": "L83"
+    }
+  ]
+}

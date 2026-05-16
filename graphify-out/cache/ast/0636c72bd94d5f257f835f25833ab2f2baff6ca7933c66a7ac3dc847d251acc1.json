@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_utils_surfaceplaceholders_ts",
+      "label": "surfacePlaceholders.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/utils/surfacePlaceholders.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_surfaceplaceholders_surface_placeholders",
+      "label": "SURFACE_PLACEHOLDERS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/utils/surfacePlaceholders.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "utils_surfaceplaceholders_resolveplaceholder",
+      "label": "resolvePlaceholder()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/utils/surfacePlaceholders.ts",
+      "source_location": "L14"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_utils_surfaceplaceholders_ts",
+      "target": "utils_surfaceplaceholders_surface_placeholders",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/utils/surfacePlaceholders.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_utils_surfaceplaceholders_ts",
+      "target": "utils_surfaceplaceholders_resolveplaceholder",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/utils/surfacePlaceholders.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

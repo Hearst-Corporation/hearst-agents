@@ -1,0 +1,737 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "label": "metrics.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_metrics_default_pricing",
+      "label": "DEFAULT_PRICING",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "llm_metrics_recordcallschema",
+      "label": "RecordCallSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "llm_metrics_recordcallinput",
+      "label": "RecordCallInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L84"
+    },
+    {
+      "id": "llm_metrics_recorderrorschema",
+      "label": "RecordErrorSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "llm_metrics_recorderrorinput",
+      "label": "RecordErrorInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L91"
+    },
+    {
+      "id": "llm_metrics_counterkindschema",
+      "label": "CounterKindSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L93"
+    },
+    {
+      "id": "llm_metrics_counterkind",
+      "label": "CounterKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L95"
+    },
+    {
+      "id": "llm_metrics_providerstate",
+      "label": "ProviderState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L97"
+    },
+    {
+      "id": "llm_metrics_counterstate",
+      "label": "CounterState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L111"
+    },
+    {
+      "id": "llm_metrics_providermetrics",
+      "label": "ProviderMetrics",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L121"
+    },
+    {
+      "id": "llm_metrics_circuitbreakerentry",
+      "label": "CircuitBreakerEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L147"
+    },
+    {
+      "id": "llm_metrics_metricssnapshot",
+      "label": "MetricsSnapshot",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L154"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator",
+      "label": "LLMMetricsAggregator",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L170"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L180"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_recordcall",
+      "label": ".recordCall()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L185"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_recorderror",
+      "label": ".recordError()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L204"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_incrementcounter",
+      "label": ".incrementCounter()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L213"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_reset",
+      "label": ".reset()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L229"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "label": ".getMetrics()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L240"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_getorcreate",
+      "label": ".getOrCreate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L273"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_computecost",
+      "label": ".computeCost()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L292"
+    },
+    {
+      "id": "llm_metrics_llmmetricsaggregator_buildprovidermetrics",
+      "label": ".buildProviderMetrics()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L316"
+    },
+    {
+      "id": "llm_metrics_percentile",
+      "label": "percentile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L371"
+    },
+    {
+      "id": "llm_metrics_round4",
+      "label": "round4()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L382"
+    },
+    {
+      "id": "llm_metrics_defaultmetrics",
+      "label": "defaultMetrics",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L390"
+    },
+    {
+      "id": "llm_metrics_getmetrics",
+      "label": "getMetrics()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L393"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_circuit_breaker_circuitstate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_circuit_breaker_defaultcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_circuit_breaker_llmcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_default_pricing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_recordcallschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_recordcallinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_recorderrorschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_recorderrorinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_counterkindschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_counterkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_providerstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_counterstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_providermetrics",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_circuitbreakerentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_metricssnapshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_llmmetricsaggregator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L180",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_recordcall",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_recorderror",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_incrementcounter",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L213",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_reset",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L229",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_getorcreate",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L273",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_computecost",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L292",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator",
+      "target": "llm_metrics_llmmetricsaggregator_buildprovidermetrics",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L316",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_percentile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L371",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_round4",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L382",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_defaultmetrics",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L390",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "target": "llm_metrics_getmetrics",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L393",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator_recordcall",
+      "target": "llm_metrics_llmmetricsaggregator_getorcreate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator_recordcall",
+      "target": "llm_metrics_llmmetricsaggregator_computecost",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator_recorderror",
+      "target": "llm_metrics_llmmetricsaggregator_getorcreate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "target": "llm_metrics_llmmetricsaggregator_buildprovidermetrics",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator_buildprovidermetrics",
+      "target": "llm_metrics_percentile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L341",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_metrics_llmmetricsaggregator_buildprovidermetrics",
+      "target": "llm_metrics_round4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L346",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_recordcall",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_recordcall",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L190"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_recordcall",
+      "callee": "shift",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L192"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_recorderror",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_recorderror",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L208"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_recorderror",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_incrementcounter",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L214"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_reset",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L230"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_reset",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L236"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L242"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L243"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L245"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L248"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "getProviderSnapshot",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L255"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L261"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L262"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getmetrics",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L262"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getorcreate",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L274"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_getorcreate",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L287"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_computecost",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_buildprovidermetrics",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "llm_metrics_llmmetricsaggregator_buildprovidermetrics",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L329"
+    },
+    {
+      "caller_nid": "llm_metrics_percentile",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "llm_metrics_percentile",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "llm_metrics_percentile",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L376"
+    },
+    {
+      "caller_nid": "llm_metrics_percentile",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L378"
+    },
+    {
+      "caller_nid": "llm_metrics_round4",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/metrics.ts",
+      "source_location": "L383"
+    }
+  ]
+}

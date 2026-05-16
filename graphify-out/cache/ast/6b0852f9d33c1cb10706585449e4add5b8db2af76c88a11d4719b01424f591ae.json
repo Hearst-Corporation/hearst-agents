@@ -1,0 +1,156 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_runwaterfall_tsx",
+      "label": "RunWaterfall.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "canvas_runwaterfall_persistedevent",
+      "label": "PersistedEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "canvas_runwaterfall_props",
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "canvas_runwaterfall_speeds",
+      "label": "SPEEDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "canvas_runwaterfall_event_dot",
+      "label": "EVENT_DOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L24"
+    },
+    {
+      "id": "canvas_runwaterfall_formatms",
+      "label": "formatMs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L35"
+    },
+    {
+      "id": "canvas_runwaterfall_runwaterfall",
+      "label": "RunWaterfall()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L40"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_runwaterfall_tsx",
+      "target": "canvas_runwaterfall_persistedevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_runwaterfall_tsx",
+      "target": "canvas_runwaterfall_props",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_runwaterfall_tsx",
+      "target": "canvas_runwaterfall_speeds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_runwaterfall_tsx",
+      "target": "canvas_runwaterfall_event_dot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_runwaterfall_tsx",
+      "target": "canvas_runwaterfall_formatms",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_runwaterfall_tsx",
+      "target": "canvas_runwaterfall_runwaterfall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "canvas_runwaterfall_runwaterfall",
+      "target": "canvas_runwaterfall_formatms",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L174",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "canvas_runwaterfall_formatms",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "canvas_runwaterfall_runwaterfall",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "canvas_runwaterfall_runwaterfall",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "canvas_runwaterfall_runwaterfall",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "canvas_runwaterfall_runwaterfall",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/RunWaterfall.tsx",
+      "source_location": "L153"
+    }
+  ]
+}

@@ -1,0 +1,2927 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "hearst_os_package_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "hearst_os_package_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "hearst_os_package_packagemanager",
+      "label": "packageManager",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "hearst_os_package_private",
+      "label": "private",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "hearst_os_package_main",
+      "label": "main",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "hearst_os_package_scripts",
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "hearst_os_package_scripts_dev",
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "hearst_os_package_scripts_dev_solo",
+      "label": "dev:solo",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "hearst_os_package_scripts_dev_stack",
+      "label": "dev:stack",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L10"
+    },
+    {
+      "id": "hearst_os_package_scripts_dev_fresh",
+      "label": "dev:fresh",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L11"
+    },
+    {
+      "id": "hearst_os_package_scripts_electron_compile",
+      "label": "electron:compile",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "hearst_os_package_scripts_electron",
+      "label": "electron",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L13"
+    },
+    {
+      "id": "hearst_os_package_scripts_dev_electron",
+      "label": "dev:electron",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "hearst_os_package_scripts_electron_build",
+      "label": "electron:build",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L15"
+    },
+    {
+      "id": "hearst_os_package_scripts_electron_dist",
+      "label": "electron:dist",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L16"
+    },
+    {
+      "id": "hearst_os_package_scripts_launch",
+      "label": "launch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "hearst_os_package_scripts_launch_all",
+      "label": "launch:all",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L18"
+    },
+    {
+      "id": "hearst_os_package_scripts_stop",
+      "label": "stop",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L19"
+    },
+    {
+      "id": "hearst_os_package_scripts_prebuild",
+      "label": "prebuild",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L20"
+    },
+    {
+      "id": "hearst_os_package_scripts_build",
+      "label": "build",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L21"
+    },
+    {
+      "id": "hearst_os_package_scripts_start",
+      "label": "start",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L22"
+    },
+    {
+      "id": "hearst_os_package_scripts_lint",
+      "label": "lint",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L23"
+    },
+    {
+      "id": "hearst_os_package_scripts_lint_visual",
+      "label": "lint:visual",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L24"
+    },
+    {
+      "id": "hearst_os_package_scripts_typecheck",
+      "label": "typecheck",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L25"
+    },
+    {
+      "id": "hearst_os_package_scripts_typecheck_watch",
+      "label": "typecheck:watch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L26"
+    },
+    {
+      "id": "hearst_os_package_scripts_format",
+      "label": "format",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L27"
+    },
+    {
+      "id": "hearst_os_package_scripts_format_check",
+      "label": "format:check",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L28"
+    },
+    {
+      "id": "hearst_os_package_scripts_test",
+      "label": "test",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L29"
+    },
+    {
+      "id": "hearst_os_package_scripts_test_watch",
+      "label": "test:watch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L30"
+    },
+    {
+      "id": "hearst_os_package_scripts_test_e2e",
+      "label": "test:e2e",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L31"
+    },
+    {
+      "id": "hearst_os_package_scripts_test_e2e_ci",
+      "label": "test:e2e:ci",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L32"
+    },
+    {
+      "id": "hearst_os_package_scripts_test_e2e_ui",
+      "label": "test:e2e:ui",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L33"
+    },
+    {
+      "id": "hearst_os_package_scripts_test_visual",
+      "label": "test:visual",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L34"
+    },
+    {
+      "id": "hearst_os_package_scripts_test_visual_update",
+      "label": "test:visual:update",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L35"
+    },
+    {
+      "id": "hearst_os_package_scripts_validate",
+      "label": "validate",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L36"
+    },
+    {
+      "id": "hearst_os_package_scripts_validate_full",
+      "label": "validate:full",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L37"
+    },
+    {
+      "id": "hearst_os_package_scripts_deadcode",
+      "label": "deadcode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L38"
+    },
+    {
+      "id": "hearst_os_package_scripts_circular",
+      "label": "circular",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L39"
+    },
+    {
+      "id": "hearst_os_package_scripts_audit_deps",
+      "label": "audit:deps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L40"
+    },
+    {
+      "id": "hearst_os_package_scripts_routes_list",
+      "label": "routes:list",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L41"
+    },
+    {
+      "id": "hearst_os_package_scripts_stores_list",
+      "label": "stores:list",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L42"
+    },
+    {
+      "id": "hearst_os_package_scripts_doctor",
+      "label": "doctor",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L43"
+    },
+    {
+      "id": "hearst_os_package_scripts_composio_enable_all",
+      "label": "composio:enable-all",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L44"
+    },
+    {
+      "id": "hearst_os_package_scripts_health",
+      "label": "health",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L45"
+    },
+    {
+      "id": "hearst_os_package_scripts_audit",
+      "label": "audit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L46"
+    },
+    {
+      "id": "hearst_os_package_scripts_workers_audit",
+      "label": "workers:audit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L47"
+    },
+    {
+      "id": "hearst_os_package_scripts_workers_kill_orphans",
+      "label": "workers:kill-orphans",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L48"
+    },
+    {
+      "id": "hearst_os_package_scripts_features_manifest",
+      "label": "features:manifest",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L49"
+    },
+    {
+      "id": "hearst_os_package_scripts_features_test",
+      "label": "features:test",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L50"
+    },
+    {
+      "id": "hearst_os_package_scripts_hom_run",
+      "label": "hom:run",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "hearst_os_package_scripts_audit_render",
+      "label": "audit:render",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "hearst_os_package_scripts_battle_render",
+      "label": "battle:render",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L53"
+    },
+    {
+      "id": "hearst_os_package_scripts_battle_status",
+      "label": "battle:status",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L54"
+    },
+    {
+      "id": "hearst_os_package_scripts_battle_next",
+      "label": "battle:next",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L55"
+    },
+    {
+      "id": "hearst_os_package_scripts_battle_mark",
+      "label": "battle:mark",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L56"
+    },
+    {
+      "id": "hearst_os_package_scripts_spatial_lint",
+      "label": "spatial:lint",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L57"
+    },
+    {
+      "id": "hearst_os_package_scripts_spatial_audit",
+      "label": "spatial:audit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L58"
+    },
+    {
+      "id": "hearst_os_package_scripts_prepare",
+      "label": "prepare",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L59"
+    },
+    {
+      "id": "hearst_os_package_scripts_kill_zombies",
+      "label": "kill:zombies",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L60"
+    },
+    {
+      "id": "hearst_os_package_simple_git_hooks",
+      "label": "simple-git-hooks",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L62"
+    },
+    {
+      "id": "hearst_os_package_simple_git_hooks_pre_commit",
+      "label": "pre-commit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L63"
+    },
+    {
+      "id": "hearst_os_package_lint_staged",
+      "label": "lint-staged",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L65"
+    },
+    {
+      "id": "hearst_os_package_lint_staged_ts_tsx_js_jsx",
+      "label": "*.{ts,tsx,js,jsx}",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L66"
+    },
+    {
+      "id": "hearst_os_package_lint_staged_json",
+      "label": "*.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L69"
+    },
+    {
+      "id": "hearst_os_package_lint_staged_md_css_yml_yaml",
+      "label": "*.{md,css,yml,yaml}",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L72"
+    },
+    {
+      "id": "hearst_os_package_dependencies",
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L74"
+    },
+    {
+      "id": "hearst_os_package_dependencies_ai_sdk_anthropic",
+      "label": "@ai-sdk/anthropic",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L75"
+    },
+    {
+      "id": "hearst_os_package_dependencies_ai_sdk_openai",
+      "label": "@ai-sdk/openai",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L76"
+    },
+    {
+      "id": "hearst_os_package_dependencies_alloc_quick_lru",
+      "label": "@alloc/quick-lru",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L77"
+    },
+    {
+      "id": "hearst_os_package_dependencies_anthropic_ai_sdk",
+      "label": "@anthropic-ai/sdk",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L78"
+    },
+    {
+      "id": "hearst_os_package_dependencies_arcjet_next",
+      "label": "@arcjet/next",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L79"
+    },
+    {
+      "id": "hearst_os_package_dependencies_aws_sdk_client_s3",
+      "label": "@aws-sdk/client-s3",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L80"
+    },
+    {
+      "id": "hearst_os_package_dependencies_aws_sdk_lib_storage",
+      "label": "@aws-sdk/lib-storage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L81"
+    },
+    {
+      "id": "hearst_os_package_dependencies_aws_sdk_s3_request_presigner",
+      "label": "@aws-sdk/s3-request-presigner",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L82"
+    },
+    {
+      "id": "hearst_os_package_dependencies_composio_core",
+      "label": "@composio/core",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L83"
+    },
+    {
+      "id": "hearst_os_package_dependencies_e2b_code_interpreter",
+      "label": "@e2b/code-interpreter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L84"
+    },
+    {
+      "id": "hearst_os_package_dependencies_react_three_drei",
+      "label": "@react-three/drei",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L85"
+    },
+    {
+      "id": "hearst_os_package_dependencies_react_three_fiber",
+      "label": "@react-three/fiber",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L86"
+    },
+    {
+      "id": "hearst_os_package_dependencies_sentry_nextjs",
+      "label": "@sentry/nextjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L87"
+    },
+    {
+      "id": "hearst_os_package_dependencies_splinetool_react_spline",
+      "label": "@splinetool/react-spline",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L88"
+    },
+    {
+      "id": "hearst_os_package_dependencies_splinetool_runtime",
+      "label": "@splinetool/runtime",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L89"
+    },
+    {
+      "id": "hearst_os_package_dependencies_supabase_supabase_js",
+      "label": "@supabase/supabase-js",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L90"
+    },
+    {
+      "id": "hearst_os_package_dependencies_upstash_redis",
+      "label": "@upstash/redis",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "hearst_os_package_dependencies_ai",
+      "label": "ai",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L92"
+    },
+    {
+      "id": "hearst_os_package_dependencies_bullmq",
+      "label": "bullmq",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L93"
+    },
+    {
+      "id": "hearst_os_package_dependencies_cytoscape",
+      "label": "cytoscape",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L94"
+    },
+    {
+      "id": "hearst_os_package_dependencies_exceljs",
+      "label": "exceljs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L95"
+    },
+    {
+      "id": "hearst_os_package_dependencies_framer_motion",
+      "label": "framer-motion",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L96"
+    },
+    {
+      "id": "hearst_os_package_dependencies_googleapis",
+      "label": "googleapis",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L97"
+    },
+    {
+      "id": "hearst_os_package_dependencies_inngest",
+      "label": "inngest",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L98"
+    },
+    {
+      "id": "hearst_os_package_dependencies_ioredis",
+      "label": "ioredis",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L99"
+    },
+    {
+      "id": "hearst_os_package_dependencies_langfuse",
+      "label": "langfuse",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L100"
+    },
+    {
+      "id": "hearst_os_package_dependencies_next",
+      "label": "next",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L101"
+    },
+    {
+      "id": "hearst_os_package_dependencies_next_auth",
+      "label": "next-auth",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L102"
+    },
+    {
+      "id": "hearst_os_package_dependencies_openai",
+      "label": "openai",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L103"
+    },
+    {
+      "id": "hearst_os_package_dependencies_pdfkit",
+      "label": "pdfkit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L104"
+    },
+    {
+      "id": "hearst_os_package_dependencies_pino",
+      "label": "pino",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L105"
+    },
+    {
+      "id": "hearst_os_package_dependencies_pino_pretty",
+      "label": "pino-pretty",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L106"
+    },
+    {
+      "id": "hearst_os_package_dependencies_react",
+      "label": "react",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L107"
+    },
+    {
+      "id": "hearst_os_package_dependencies_react_cytoscapejs",
+      "label": "react-cytoscapejs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L108"
+    },
+    {
+      "id": "hearst_os_package_dependencies_react_dom",
+      "label": "react-dom",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L109"
+    },
+    {
+      "id": "hearst_os_package_dependencies_resend",
+      "label": "resend",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L110"
+    },
+    {
+      "id": "hearst_os_package_dependencies_stripe",
+      "label": "stripe",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L111"
+    },
+    {
+      "id": "hearst_os_package_dependencies_three",
+      "label": "three",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L112"
+    },
+    {
+      "id": "hearst_os_package_dependencies_zod",
+      "label": "zod",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L113"
+    },
+    {
+      "id": "hearst_os_package_dependencies_zustand",
+      "label": "zustand",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L114"
+    },
+    {
+      "id": "hearst_os_package_overrides",
+      "label": "overrides",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L116"
+    },
+    {
+      "id": "hearst_os_package_overrides_opentelemetry_auto_instrumentations_node",
+      "label": "@opentelemetry/auto-instrumentations-node",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L117"
+    },
+    {
+      "id": "hearst_os_package_overrides_opentelemetry_exporter_prometheus",
+      "label": "@opentelemetry/exporter-prometheus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L118"
+    },
+    {
+      "id": "hearst_os_package_overrides_opentelemetry_sdk_node",
+      "label": "@opentelemetry/sdk-node",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L119"
+    },
+    {
+      "id": "hearst_os_package_overrides_postcss",
+      "label": "postcss",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L120"
+    },
+    {
+      "id": "hearst_os_package_devdependencies",
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L122"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_biomejs_biome",
+      "label": "@biomejs/biome",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L123"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_playwright_test",
+      "label": "@playwright/test",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L124"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_tailwindcss_postcss",
+      "label": "@tailwindcss/postcss",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L125"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_testing_library_react",
+      "label": "@testing-library/react",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L126"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_types_node",
+      "label": "@types/node",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L127"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_types_pdfkit",
+      "label": "@types/pdfkit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L128"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_types_react",
+      "label": "@types/react",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L129"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_types_react_dom",
+      "label": "@types/react-dom",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L130"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_types_three",
+      "label": "@types/three",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L131"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_babel_plugin_react_compiler",
+      "label": "babel-plugin-react-compiler",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L132"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_concurrently",
+      "label": "concurrently",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L133"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_dotenv",
+      "label": "dotenv",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L134"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_electron",
+      "label": "electron",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L135"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_electron_builder",
+      "label": "electron-builder",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L136"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_esbuild",
+      "label": "esbuild",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L137"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_jsdom",
+      "label": "jsdom",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L138"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_knip",
+      "label": "knip",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L139"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_lint_staged",
+      "label": "lint-staged",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L140"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_madge",
+      "label": "madge",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L141"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_pixelmatch",
+      "label": "pixelmatch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L142"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_playwright",
+      "label": "playwright",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L143"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_pngjs",
+      "label": "pngjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L144"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_simple_git_hooks",
+      "label": "simple-git-hooks",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L145"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_tailwindcss",
+      "label": "tailwindcss",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L146"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_typescript",
+      "label": "typescript",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L147"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_vitest",
+      "label": "vitest",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L148"
+    },
+    {
+      "id": "hearst_os_package_devdependencies_wait_on",
+      "label": "wait-on",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L149"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_name",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_packagemanager",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_private",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_scripts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_dev",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_dev_solo",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_dev_stack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_dev_fresh",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_electron_compile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_electron",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_dev_electron",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_electron_build",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_electron_dist",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_launch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_launch_all",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_stop",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_prebuild",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_build",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_start",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_lint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_lint_visual",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_typecheck",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_typecheck_watch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_format",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_format_check",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_test",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_test_watch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_test_e2e",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_test_e2e_ci",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_test_e2e_ui",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_test_visual",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_test_visual_update",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_validate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_validate_full",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_deadcode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_circular",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_audit_deps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_routes_list",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_stores_list",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_doctor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_composio_enable_all",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_health",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_audit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_workers_audit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_workers_kill_orphans",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_features_manifest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_features_test",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_hom_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_audit_render",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_battle_render",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_battle_status",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_battle_next",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_battle_mark",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_spatial_lint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_spatial_audit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_prepare",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_scripts",
+      "target": "hearst_os_package_scripts_kill_zombies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_simple_git_hooks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_simple_git_hooks",
+      "target": "hearst_os_package_simple_git_hooks_pre_commit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_lint_staged",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_lint_staged",
+      "target": "hearst_os_package_lint_staged_ts_tsx_js_jsx",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_lint_staged_ts_tsx_js_jsx",
+      "target": "ref_biome_check_write",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L66",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_lint_staged",
+      "target": "hearst_os_package_lint_staged_json",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_lint_staged_json",
+      "target": "ref_biome_format_write",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L69",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_lint_staged",
+      "target": "hearst_os_package_lint_staged_md_css_yml_yaml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_dependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_ai_sdk_anthropic",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_ai_sdk_anthropic",
+      "target": "ai_sdk_anthropic",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L75",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_ai_sdk_openai",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_ai_sdk_openai",
+      "target": "ai_sdk_openai",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L76",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_alloc_quick_lru",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_alloc_quick_lru",
+      "target": "alloc_quick_lru",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L77",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_anthropic_ai_sdk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_anthropic_ai_sdk",
+      "target": "anthropic_ai_sdk",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L78",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_arcjet_next",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_arcjet_next",
+      "target": "arcjet_next",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L79",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_aws_sdk_client_s3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_aws_sdk_client_s3",
+      "target": "aws_sdk_client_s3",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_aws_sdk_lib_storage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_aws_sdk_lib_storage",
+      "target": "aws_sdk_lib_storage",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L81",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_aws_sdk_s3_request_presigner",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_aws_sdk_s3_request_presigner",
+      "target": "aws_sdk_s3_request_presigner",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L82",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_composio_core",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_composio_core",
+      "target": "composio_core",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L83",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_e2b_code_interpreter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_e2b_code_interpreter",
+      "target": "e2b_code_interpreter",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L84",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_react_three_drei",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_react_three_drei",
+      "target": "react_three_drei",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L85",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_react_three_fiber",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_react_three_fiber",
+      "target": "react_three_fiber",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L86",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_sentry_nextjs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_sentry_nextjs",
+      "target": "sentry_nextjs",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L87",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_splinetool_react_spline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_splinetool_react_spline",
+      "target": "splinetool_react_spline",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L88",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_splinetool_runtime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_splinetool_runtime",
+      "target": "splinetool_runtime",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L89",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_supabase_supabase_js",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_supabase_supabase_js",
+      "target": "supabase_supabase_js",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L90",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_upstash_redis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_upstash_redis",
+      "target": "upstash_redis",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L91",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_ai",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_ai",
+      "target": "ai",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L92",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_bullmq",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_bullmq",
+      "target": "bullmq",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L93",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_cytoscape",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_cytoscape",
+      "target": "cytoscape",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L94",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_exceljs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_exceljs",
+      "target": "exceljs",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L95",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_framer_motion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_framer_motion",
+      "target": "framer_motion",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_googleapis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_googleapis",
+      "target": "googleapis",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L97",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_inngest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_inngest",
+      "target": "inngest",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_ioredis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_ioredis",
+      "target": "ioredis",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L99",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_langfuse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_langfuse",
+      "target": "langfuse",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L100",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_next",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_next",
+      "target": "next",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L101",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_next_auth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_next_auth",
+      "target": "next_auth",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L102",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_openai",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_openai",
+      "target": "openai",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_pdfkit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_pdfkit",
+      "target": "pdfkit",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L104",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_pino",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_pino",
+      "target": "pino",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L105",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_pino_pretty",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_pino_pretty",
+      "target": "pino_pretty",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_react",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_react",
+      "target": "react",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L107",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_react_cytoscapejs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_react_cytoscapejs",
+      "target": "react_cytoscapejs",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L108",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_react_dom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_react_dom",
+      "target": "react_dom",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L109",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_resend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_resend",
+      "target": "resend",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L110",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_stripe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_stripe",
+      "target": "stripe",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L111",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_three",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_three",
+      "target": "three",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L112",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_zod",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_zod",
+      "target": "zod",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L113",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_dependencies",
+      "target": "hearst_os_package_dependencies_zustand",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_dependencies_zustand",
+      "target": "zustand",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L114",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_overrides",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_overrides",
+      "target": "hearst_os_package_overrides_opentelemetry_auto_instrumentations_node",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_overrides",
+      "target": "hearst_os_package_overrides_opentelemetry_exporter_prometheus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_overrides",
+      "target": "hearst_os_package_overrides_opentelemetry_sdk_node",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_overrides",
+      "target": "hearst_os_package_overrides_postcss",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_package_json",
+      "target": "hearst_os_package_devdependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_biomejs_biome",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_biomejs_biome",
+      "target": "biomejs_biome",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L123",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_playwright_test",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_playwright_test",
+      "target": "playwright_test",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L124",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_tailwindcss_postcss",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_tailwindcss_postcss",
+      "target": "tailwindcss_postcss",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L125",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_testing_library_react",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_testing_library_react",
+      "target": "testing_library_react",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L126",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_types_node",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_types_node",
+      "target": "types_node",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L127",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_types_pdfkit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_types_pdfkit",
+      "target": "types_pdfkit",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L128",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_types_react",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_types_react",
+      "target": "types_react",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L129",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_types_react_dom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_types_react_dom",
+      "target": "types_react_dom",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L130",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_types_three",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_types_three",
+      "target": "types_three",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L131",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_babel_plugin_react_compiler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_babel_plugin_react_compiler",
+      "target": "babel_plugin_react_compiler",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L132",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_concurrently",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_concurrently",
+      "target": "concurrently",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_dotenv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_dotenv",
+      "target": "dotenv",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L134",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_electron",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_electron",
+      "target": "electron",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L135",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_electron_builder",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_electron_builder",
+      "target": "electron_builder",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L136",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_esbuild",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_esbuild",
+      "target": "esbuild",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L137",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_jsdom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_jsdom",
+      "target": "jsdom",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_knip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_knip",
+      "target": "knip",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L139",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_lint_staged",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_lint_staged",
+      "target": "lint_staged",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L140",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_madge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_madge",
+      "target": "madge",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L141",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_pixelmatch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_pixelmatch",
+      "target": "pixelmatch",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L142",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_playwright",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_playwright",
+      "target": "playwright",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L143",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_pngjs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_pngjs",
+      "target": "pngjs",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L144",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_simple_git_hooks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_simple_git_hooks",
+      "target": "simple_git_hooks",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L145",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_tailwindcss",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_tailwindcss",
+      "target": "tailwindcss",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L146",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_typescript",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_typescript",
+      "target": "typescript",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L147",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_vitest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_vitest",
+      "target": "vitest",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L148",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "hearst_os_package_devdependencies",
+      "target": "hearst_os_package_devdependencies_wait_on",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_package_devdependencies_wait_on",
+      "target": "wait_on",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/package.json",
+      "source_location": "L149",
+      "weight": 1.0,
+      "context": "import"
+    }
+  ]
+}

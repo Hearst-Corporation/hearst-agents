@@ -1,0 +1,194 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "label": "code-exec.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "workers_code_exec_handler",
+      "label": "handler",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "workers_code_exec_startcodeexecworker",
+      "label": "startCodeExecWorker()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L105"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "assets_variants_updatevariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_e2b_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "providers_e2b_executecode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "storage_index_getglobalstorage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_permanent_error_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "jobs_permanent_error_permanentjoberror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "jobs_types_codeexecinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "jobs_types_jobresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "jobs_worker_base_startworker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "jobs_worker_base_workerhandler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "workers_code_exec_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_code_exec_ts",
+      "target": "workers_code_exec_startcodeexecworker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "workers_code_exec_startcodeexecworker",
+      "callee": "startWorker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/code-exec.ts",
+      "source_location": "L106"
+    }
+  ]
+}

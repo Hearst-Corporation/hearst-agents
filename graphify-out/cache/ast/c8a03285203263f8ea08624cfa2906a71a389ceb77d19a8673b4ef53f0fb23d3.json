@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_customer_360_ts",
+      "label": "customer-360.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "catalog_customer_360_buildcustomer360",
+      "label": "buildCustomer360()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "catalog_customer_360_customer_360_required_apps",
+      "label": "CUSTOMER_360_REQUIRED_APPS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L187"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_customer_360_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_customer_360_ts",
+      "target": "blocks_format_fmtcitation",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_customer_360_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_customer_360_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_customer_360_ts",
+      "target": "catalog_customer_360_buildcustomer360",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_customer_360_ts",
+      "target": "catalog_customer_360_customer_360_required_apps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "catalog_customer_360_buildcustomer360",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "catalog_customer_360_buildcustomer360",
+      "callee": "fmtCitation",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "catalog_customer_360_buildcustomer360",
+      "callee": "fmtCitation",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "catalog_customer_360_buildcustomer360",
+      "callee": "fmtCitation",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "catalog_customer_360_buildcustomer360",
+      "callee": "fmtCitation",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/customer-360.ts",
+      "source_location": "L149"
+    }
+  ]
+}

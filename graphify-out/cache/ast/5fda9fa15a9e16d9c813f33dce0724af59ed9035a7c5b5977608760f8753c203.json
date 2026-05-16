@@ -1,0 +1,230 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "id_page_featureentry",
+      "label": "FeatureEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "id_page_manifest",
+      "label": "Manifest",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L26"
+    },
+    {
+      "id": "id_page_statut_styles",
+      "label": "STATUT_STYLES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L34"
+    },
+    {
+      "id": "id_page_statut_labels",
+      "label": "STATUT_LABELS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "id_page_niveau_styles",
+      "label": "NIVEAU_STYLES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L50"
+    },
+    {
+      "id": "id_page_test_gap_styles",
+      "label": "TEST_GAP_STYLES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L56"
+    },
+    {
+      "id": "id_page_featuredetailpage",
+      "label": "FeatureDetailPage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L63"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "promises",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "link",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "navigation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "id_page_featureentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "id_page_manifest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "id_page_statut_styles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "id_page_statut_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "id_page_niveau_styles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "id_page_test_gap_styles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_id_page_tsx",
+      "target": "id_page_featuredetailpage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L63",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "cwd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "cwd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "id_page_featuredetailpage",
+      "callee": "notFound",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/[id]/page.tsx",
+      "source_location": "L84"
+    }
+  ]
+}

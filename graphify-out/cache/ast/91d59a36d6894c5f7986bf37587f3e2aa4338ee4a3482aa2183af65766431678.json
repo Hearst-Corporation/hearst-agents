@@ -1,0 +1,94 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_suggestionssection_tsx",
+      "label": "SuggestionsSection.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "parts_suggestionssection_suggestionsgrid",
+      "label": "SuggestionsGrid()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "parts_suggestionssection_suggestioncard",
+      "label": "SuggestionCard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L24"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_suggestionssection_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_applogo_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_suggestionssection_tsx",
+      "target": "connections_applogo_applogo",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_suggestionssection_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_suggestionssection_tsx",
+      "target": "connections_types_composioapp",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_suggestionssection_tsx",
+      "target": "parts_suggestionssection_suggestionsgrid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_suggestionssection_tsx",
+      "target": "parts_suggestionssection_suggestioncard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L24",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "parts_suggestionssection_suggestionsgrid",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/SuggestionsSection.tsx",
+      "source_location": "L17"
+    }
+  ]
+}

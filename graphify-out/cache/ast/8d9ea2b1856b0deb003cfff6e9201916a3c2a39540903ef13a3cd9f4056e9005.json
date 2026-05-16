@@ -1,0 +1,313 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "label": "VariantCarousel.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_variantcarousel_variantcarouselprops",
+      "label": "VariantCarouselProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "components_variantcarousel_kind_label",
+      "label": "KIND_LABEL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "components_variantcarousel_supported_kinds",
+      "label": "SUPPORTED_KINDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L40"
+    },
+    {
+      "id": "components_variantcarousel_variantcarousel",
+      "label": "VariantCarousel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L44"
+    },
+    {
+      "id": "components_variantcarousel_statusdot",
+      "label": "StatusDot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L197"
+    },
+    {
+      "id": "components_variantcarousel_variantthumbnail",
+      "label": "VariantThumbnail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L215"
+    },
+    {
+      "id": "components_variantcarousel_waveform",
+      "label": "Waveform()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L286"
+    },
+    {
+      "id": "components_variantcarousel_activevariantpanelprops",
+      "label": "ActiveVariantPanelProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L306"
+    },
+    {
+      "id": "components_variantcarousel_activevariantpanel",
+      "label": "ActiveVariantPanel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L314"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "image",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "assets_variants_assetvariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "assets_variants_assetvariantkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "ui_index_action",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_variantcarouselprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_kind_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_supported_kinds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_variantcarousel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_statusdot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L197",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_variantthumbnail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_waveform",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L286",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_activevariantpanelprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L306",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_variantcarousel_tsx",
+      "target": "components_variantcarousel_activevariantpanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L314",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "components_variantcarousel_variantcarousel",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "components_variantcarousel_waveform",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx",
+      "source_location": "L291"
+    }
+  ]
+}

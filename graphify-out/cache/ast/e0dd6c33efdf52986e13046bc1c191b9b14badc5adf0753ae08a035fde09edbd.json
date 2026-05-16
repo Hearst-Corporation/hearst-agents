@@ -1,0 +1,102 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "label": "SpatialLogoCore.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "core_spatiallogocore_spline",
+      "label": "Spline",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "core_spatiallogocore_spatiallogocoreprops",
+      "label": "SpatialLogoCoreProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "core_spatiallogocore_spatiallogocore",
+      "label": "SpatialLogoCore()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L30"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "target": "dynamic",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "target": "runtime",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogointeraction_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "target": "core_spatiallogointeraction_spatiallogointeraction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "target": "core_spatiallogocore_spline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "target": "core_spatiallogocore_spatiallogocoreprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatiallogocore_tsx",
+      "target": "core_spatiallogocore_spatiallogocore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

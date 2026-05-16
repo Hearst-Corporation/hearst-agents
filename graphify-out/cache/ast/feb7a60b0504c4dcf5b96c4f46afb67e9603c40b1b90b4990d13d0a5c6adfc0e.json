@@ -1,0 +1,183 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_signed_state_ts",
+      "label": "signed-state.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "auth_signed_state_signoauthstate",
+      "label": "signOAuthState()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "auth_signed_state_verifyoauthstate",
+      "label": "verifyOAuthState()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L28"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_signed_state_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_signed_state_ts",
+      "target": "auth_signed_state_signoauthstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_signed_state_ts",
+      "target": "auth_signed_state_verifyoauthstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "auth_signed_state_signoauthstate",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "auth_signed_state_signoauthstate",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "auth_signed_state_signoauthstate",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "auth_signed_state_signoauthstate",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "auth_signed_state_signoauthstate",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "auth_signed_state_signoauthstate",
+      "callee": "createHmac",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "lastIndexOf",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "createHmac",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "timingSafeEqual",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "auth_signed_state_verifyoauthstate",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/signed-state.ts",
+      "source_location": "L54"
+    }
+  ]
+}

@@ -1,0 +1,648 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "label": "sse-adapter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "consumers_sse_adapter_stripemoji",
+      "label": "stripEmoji()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "consumers_sse_adapter_thinkstripstate",
+      "label": "ThinkStripState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "consumers_sse_adapter_ambiguoustaillength",
+      "label": "ambiguousTailLength()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "consumers_sse_adapter_stripthinktags",
+      "label": "stripThinkTags()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "consumers_sse_adapter_flushthinkbuffer",
+      "label": "flushThinkBuffer()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L100"
+    },
+    {
+      "id": "consumers_sse_adapter_native_tool_to_provider",
+      "label": "NATIVE_TOOL_TO_PROVIDER",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "consumers_sse_adapter_provider_labels",
+      "label": "PROVIDER_LABELS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L125"
+    },
+    {
+      "id": "consumers_sse_adapter_prettylabel",
+      "label": "prettyLabel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L176"
+    },
+    {
+      "id": "consumers_sse_adapter_deriveprovider",
+      "label": "deriveProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L180"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter",
+      "label": "SSEAdapter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L215"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L224"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_pipe",
+      "label": ".pipe()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L228"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_startheartbeat",
+      "label": ".startHeartbeat()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L240"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_stopheartbeat",
+      "label": ".stopHeartbeat()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L256"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_close",
+      "label": ".close()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L263"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_senderror",
+      "label": ".sendError()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L274"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_handleevent",
+      "label": ".handleEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L279"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_send",
+      "label": ".send()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L297"
+    },
+    {
+      "id": "consumers_sse_adapter_sseadapter_tosse",
+      "label": ".toSSE()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L313"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "events_bus_runeventbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "events_types_runevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_stripemoji",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_thinkstripstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_ambiguoustaillength",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_stripthinktags",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_flushthinkbuffer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_native_tool_to_provider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_provider_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_prettylabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_deriveprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L180",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "target": "consumers_sse_adapter_sseadapter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L224",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_pipe",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L228",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_startheartbeat",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_stopheartbeat",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L256",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_close",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L263",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_senderror",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L274",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_handleevent",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L279",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_send",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L297",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter",
+      "target": "consumers_sse_adapter_sseadapter_tosse",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L313",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_stripthinktags",
+      "target": "consumers_sse_adapter_ambiguoustaillength",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_deriveprovider",
+      "target": "consumers_sse_adapter_prettylabel",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_close",
+      "target": "consumers_sse_adapter_sseadapter_stopheartbeat",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L264",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_senderror",
+      "target": "consumers_sse_adapter_sseadapter_send",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_handleevent",
+      "target": "consumers_sse_adapter_flushthinkbuffer",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L288",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_handleevent",
+      "target": "consumers_sse_adapter_sseadapter_send",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L290",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_handleevent",
+      "target": "consumers_sse_adapter_sseadapter_tosse",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L293",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_tosse",
+      "target": "consumers_sse_adapter_deriveprovider",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L368",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_tosse",
+      "target": "consumers_sse_adapter_stripthinktags",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L430",
+      "weight": 1.0
+    },
+    {
+      "source": "consumers_sse_adapter_sseadapter_tosse",
+      "target": "consumers_sse_adapter_stripemoji",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L432",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "consumers_sse_adapter_stripemoji",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripemoji",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_ambiguoustaillength",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_ambiguoustaillength",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_ambiguoustaillength",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "indexOf",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "indexOf",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_stripthinktags",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_prettylabel",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_prettylabel",
+      "callee": "charAt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_prettylabel",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_deriveprovider",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_deriveprovider",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_deriveprovider",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_deriveprovider",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_sseadapter_constructor",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L225"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_sseadapter_startheartbeat",
+      "callee": "setInterval",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L242"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_sseadapter_stopheartbeat",
+      "callee": "clearInterval",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_sseadapter_close",
+      "callee": "cleanup",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_sseadapter_send",
+      "callee": "enqueue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_sseadapter_send",
+      "callee": "encode",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "consumers_sse_adapter_sseadapter_send",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/consumers/sse-adapter.ts",
+      "source_location": "L300"
+    }
+  ]
+}

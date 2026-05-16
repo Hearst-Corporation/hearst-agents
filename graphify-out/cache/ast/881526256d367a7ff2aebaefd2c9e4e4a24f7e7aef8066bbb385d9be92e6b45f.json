@@ -1,0 +1,331 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "label": "notion-adapter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "integrations_notion_adapter_notion_read_page_action",
+      "label": "NOTION_READ_PAGE_ACTION",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "integrations_notion_adapter_notionadapter",
+      "label": "NotionAdapter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "integrations_notion_adapter_notionadapter_execute",
+      "label": ".execute()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "integrations_notion_adapter_notionadapter_healthcheck",
+      "label": ".healthCheck()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L142"
+    },
+    {
+      "id": "integrations_notion_adapter_notionadapter_buildheaders",
+      "label": ".buildHeaders()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L170"
+    },
+    {
+      "id": "integrations_notion_adapter_notionadapter_sanitizepage",
+      "label": ".sanitizePage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L178"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "target": "integrations_adapter_adapteraction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "target": "integrations_adapter_adapterresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "target": "integrations_adapter_integrationadapter",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "target": "integrations_adapter_integrationcredentials",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "target": "integrations_notion_adapter_notion_read_page_action",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_notion_adapter_ts",
+      "target": "integrations_notion_adapter_notionadapter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_notion_adapter_notionadapter",
+      "target": "integrations_notion_adapter_notionadapter_execute",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_notion_adapter_notionadapter",
+      "target": "integrations_notion_adapter_notionadapter_healthcheck",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_notion_adapter_notionadapter",
+      "target": "integrations_notion_adapter_notionadapter_buildheaders",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_notion_adapter_notionadapter",
+      "target": "integrations_notion_adapter_notionadapter_sanitizepage",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_notion_adapter_notionadapter_execute",
+      "target": "integrations_notion_adapter_notionadapter_buildheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_notion_adapter_notionadapter_execute",
+      "target": "integrations_notion_adapter_notionadapter_sanitizepage",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_notion_adapter_notionadapter_healthcheck",
+      "target": "integrations_notion_adapter_notionadapter_buildheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L156",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "timeout",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "timeout",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_execute",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_healthcheck",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_healthcheck",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_healthcheck",
+      "callee": "timeout",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_healthcheck",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_healthcheck",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "integrations_notion_adapter_notionadapter_healthcheck",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/notion-adapter.ts",
+      "source_location": "L165"
+    }
+  ]
+}

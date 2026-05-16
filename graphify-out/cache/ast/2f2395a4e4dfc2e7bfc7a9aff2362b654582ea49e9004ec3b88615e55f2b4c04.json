@@ -1,0 +1,239 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "label": "use-oauth-expiry.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_severity",
+      "label": "Severity",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_cacheentry",
+      "label": "CacheEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_subscribers",
+      "label": "subscribers",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_notify",
+      "label": "notify()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_fetchonce",
+      "label": "fetchOnce()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_invalidateoauthexpirycache",
+      "label": "invalidateOAuthExpiryCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L80"
+    },
+    {
+      "id": "hooks_use_oauth_expiry_useoauthexpiry",
+      "label": "useOAuthExpiry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L86"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connections_oauth_constants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "connections_oauth_constants_expiringconnection",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_severity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_cacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_subscribers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_notify",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_fetchonce",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_invalidateoauthexpirycache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_oauth_expiry_ts",
+      "target": "hooks_use_oauth_expiry_useoauthexpiry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "hooks_use_oauth_expiry_invalidateoauthexpirycache",
+      "target": "hooks_use_oauth_expiry_fetchonce",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hooks_use_oauth_expiry_notify",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "hooks_use_oauth_expiry_fetchonce",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "hooks_use_oauth_expiry_fetchonce",
+      "callee": "(async () => {\n    try {\n      const res = await fetch(\"/api/connections/expiring\", {\n        credentials: \"include\",\n        cache: \"no-store\",\n      });\n      if (!res.ok) return cache.connections;\n      const data: { connections?: ExpiringConnection[] } = await res.json();\n      if (Array.isArray(data.connections)) {\n        cache.connections = data.connections;\n        cache.fetchedAt = Date.now();\n        notify();\n      }\n      return cache.connections;\n    } catch {\n      return cache.connections;\n    } finally {\n      cache.inFlight = null;\n    }\n  })",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "hooks_use_oauth_expiry_useoauthexpiry",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "hooks_use_oauth_expiry_useoauthexpiry",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "hooks_use_oauth_expiry_useoauthexpiry",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "hooks_use_oauth_expiry_useoauthexpiry",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "hooks_use_oauth_expiry_useoauthexpiry",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts",
+      "source_location": "L113"
+    }
+  ]
+}

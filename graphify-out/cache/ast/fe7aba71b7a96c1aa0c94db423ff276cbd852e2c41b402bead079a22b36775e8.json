@@ -1,0 +1,380 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "label": "lifecycle.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_lifecycle_runstatus",
+      "label": "RunStatus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "runtime_lifecycle_run_transitions",
+      "label": "RUN_TRANSITIONS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "runtime_lifecycle_cantransitionrun",
+      "label": "canTransitionRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "runtime_lifecycle_assertruntransition",
+      "label": "assertRunTransition()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "runtime_lifecycle_tracestatus",
+      "label": "TraceStatus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "runtime_lifecycle_trace_transitions",
+      "label": "TRACE_TRANSITIONS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "runtime_lifecycle_cantransitiontrace",
+      "label": "canTransitionTrace()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "runtime_lifecycle_runtrigger",
+      "label": "RunTrigger",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "runtime_lifecycle_runtimeerrorcode",
+      "label": "RuntimeErrorCode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "runtime_lifecycle_runtimeerror",
+      "label": "RuntimeError",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L73"
+    },
+    {
+      "id": "runtime_lifecycle_runtimeerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "runtime_lifecycle_timeoutconfig",
+      "label": "TimeoutConfig",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "runtime_lifecycle_default_timeouts",
+      "label": "DEFAULT_TIMEOUTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "runtime_lifecycle_withtimeout",
+      "label": "withTimeout()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "runtime_lifecycle_retrypolicy",
+      "label": "RetryPolicy",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L121"
+    },
+    {
+      "id": "runtime_lifecycle_default_retry",
+      "label": "DEFAULT_RETRY",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L127"
+    },
+    {
+      "id": "runtime_lifecycle_withretry",
+      "label": "withRetry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "runtime_lifecycle_tracepayload",
+      "label": "TracePayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L166"
+    },
+    {
+      "id": "runtime_lifecycle_runeventkind",
+      "label": "RunEventKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L185"
+    },
+    {
+      "id": "runtime_lifecycle_runevent",
+      "label": "RunEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L199"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_runstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_run_transitions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_cantransitionrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_assertruntransition",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_tracestatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_trace_transitions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_cantransitiontrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_runtrigger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_runtimeerrorcode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_runtimeerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_lifecycle_runtimeerror",
+      "target": "runtime_lifecycle_runtimeerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_timeoutconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_default_timeouts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_withtimeout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_retrypolicy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_default_retry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_withretry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_tracepayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_runeventkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "target": "runtime_lifecycle_runevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_lifecycle_assertruntransition",
+      "target": "runtime_lifecycle_cantransitionrun",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_lifecycle_cantransitionrun",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "runtime_lifecycle_cantransitiontrace",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "runtime_lifecycle_runtimeerror_constructor",
+      "callee": "super",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "runtime_lifecycle_withretry",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "runtime_lifecycle_withretry",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/lifecycle.ts",
+      "source_location": "L152"
+    }
+  ]
+}

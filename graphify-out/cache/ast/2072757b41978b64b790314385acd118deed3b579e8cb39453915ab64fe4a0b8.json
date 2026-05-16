@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_financial_pnl_ts",
+      "label": "financial-pnl.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "catalog_financial_pnl_buildfinancialpnl",
+      "label": "buildFinancialPnL()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "catalog_financial_pnl_financial_pnl_required_apps",
+      "label": "FINANCIAL_PNL_REQUIRED_APPS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L446"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_financial_pnl_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_financial_pnl_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_financial_pnl_ts",
+      "target": "catalog_financial_pnl_buildfinancialpnl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_financial_pnl_ts",
+      "target": "catalog_financial_pnl_financial_pnl_required_apps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L446",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "catalog_financial_pnl_buildfinancialpnl",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/financial-pnl.ts",
+      "source_location": "L39"
+    }
+  ]
+}

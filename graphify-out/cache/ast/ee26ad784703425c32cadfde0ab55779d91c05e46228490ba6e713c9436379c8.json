@@ -1,0 +1,188 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "label": "ownership.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missions_ownership_verifymissionownership",
+      "label": "verifyMissionOwnership()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L27"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "missions_store_getmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "observability_logger_logger",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_redact_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "utils_redact_redactid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "target": "missions_ownership_verifymissionownership",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "getMission",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "redactId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "missions_ownership_verifymissionownership",
+      "callee": "redactId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/ownership.ts",
+      "source_location": "L88"
+    }
+  ]
+}

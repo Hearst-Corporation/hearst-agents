@@ -1,0 +1,209 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "label": "webhooks-invariants.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "webhooks_webhooks_invariants_test_makewebhook",
+      "label": "makeWebhook()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "webhooks_webhooks_invariants_test_capturedheaders",
+      "label": "capturedHeaders",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "webhooks_webhooks_invariants_test_fetcher",
+      "label": "fetcher()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "webhooks_webhooks_invariants_test_webhook",
+      "label": "webhook",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L58"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_dispatcher_testinternals",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_types_customwebhook",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_makewebhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_capturedheaders",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_fetcher",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_webhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_capturedheaders",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_fetcher",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_webhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_fetcher",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_fetcher",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_fetcher",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_webhooks_webhooks_invariants_test_ts",
+      "target": "webhooks_webhooks_invariants_test_fetcher",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L139",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "webhooks_webhooks_invariants_test_makewebhook",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/webhooks/webhooks-invariants.test.ts",
+      "source_location": "L39"
+    }
+  ]
+}

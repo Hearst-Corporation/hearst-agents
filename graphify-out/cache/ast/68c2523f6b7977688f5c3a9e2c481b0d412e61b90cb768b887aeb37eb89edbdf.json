@@ -1,0 +1,341 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "label": "use-event-stream.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "canvas_use_event_stream_node_by_actor",
+      "label": "NODE_BY_ACTOR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "canvas_use_event_stream_canvasstoreapi",
+      "label": "CanvasStoreApi",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "canvas_use_event_stream_applyeventtostore",
+      "label": "applyEventToStore()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "canvas_use_event_stream_streammessage",
+      "label": "StreamMessage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L113"
+    },
+    {
+      "id": "canvas_use_event_stream_isrunevent",
+      "label": "isRunEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "canvas_use_event_stream_useeventstream",
+      "label": "useEventStream()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L129"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "engine_types_stepactor",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "events_types_runevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_store_usecanvasstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_topology_nodeid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_use_event_stream_node_by_actor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_use_event_stream_canvasstoreapi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_use_event_stream_applyeventtostore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_use_event_stream_streammessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_use_event_stream_isrunevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_use_event_stream_ts",
+      "target": "canvas_use_event_stream_useeventstream",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "emitPacket",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "emitPacket",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "emitPacket",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setNodeState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L104"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "setLastEventAt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_applyeventtostore",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "canvas_use_event_stream_useeventstream",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts",
+      "source_location": "L130"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_components_agentlockcard_tsx",
+      "label": "AgentLockCard.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_agentlockcard_agentlockstate",
+      "label": "AgentLockState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "components_agentlockcard_props",
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "components_agentlockcard_agentlockcard",
+      "label": "AgentLockCard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_components_agentlockcard_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_components_agentlockcard_tsx",
+      "target": "components_agentlockcard_agentlockstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_components_agentlockcard_tsx",
+      "target": "components_agentlockcard_props",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_agent_driven_dev_components_agentlockcard_tsx",
+      "target": "components_agentlockcard_agentlockcard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_agentlockcard_agentlockcard",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "components_agentlockcard_agentlockcard",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "components_agentlockcard_agentlockcard",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "components_agentlockcard_agentlockcard",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "components_agentlockcard_agentlockcard",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "components_agentlockcard_agentlockcard",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/_components/AgentLockCard.tsx",
+      "source_location": "L62"
+    }
+  ]
+}

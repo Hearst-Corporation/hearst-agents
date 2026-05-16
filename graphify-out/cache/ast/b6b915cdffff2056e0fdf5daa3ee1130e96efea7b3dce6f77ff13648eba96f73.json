@@ -1,0 +1,127 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "label": "useSplineToolBridge.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_safe_usesplinetoolbridge_provider_to_spline_key",
+      "label": "PROVIDER_TO_SPLINE_KEY",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "spatial_safe_usesplinetoolbridge_tool_event_types",
+      "label": "TOOL_EVENT_TYPES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "spatial_safe_usesplinetoolbridge_usesplinetoolbridge",
+      "label": "useSplineToolBridge()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L33"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "stores_runtime_useruntimestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplineapp_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "spatial_safe_usesplineapp_usesplineapp",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "spatial_safe_usesplinetoolbridge_provider_to_spline_key",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "spatial_safe_usesplinetoolbridge_tool_event_types",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usesplinetoolbridge_ts",
+      "target": "spatial_safe_usesplinetoolbridge_usesplinetoolbridge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_safe_usesplinetoolbridge_usesplinetoolbridge",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "spatial_safe_usesplinetoolbridge_usesplinetoolbridge",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSplineToolBridge.ts",
+      "source_location": "L36"
+    }
+  ]
+}

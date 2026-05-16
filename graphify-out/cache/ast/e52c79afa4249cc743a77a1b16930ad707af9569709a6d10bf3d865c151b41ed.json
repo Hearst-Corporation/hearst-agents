@@ -1,0 +1,199 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "label": "output-validator.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_output_validator_outputclassification",
+      "label": "OutputClassification",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "runtime_output_validator_outputvalidationresult",
+      "label": "OutputValidationResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "runtime_output_validator_validateoutput",
+      "label": "validateOutput()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L28"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_prompt_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_prompt_guard_agentguardpolicy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_prompt_guard_outputtrust",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_prompt_guard_policycheckresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_prompt_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_prompt_guard_applyagentguardpolicy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_prompt_guard_checkoutputbasicguards",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_prompt_guard_determineoutputtrust",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_output_validator_outputclassification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_output_validator_outputvalidationresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "target": "runtime_output_validator_validateoutput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "checkOutputBasicGuards",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "applyAgentGuardPolicy",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "determineOutputTrust",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "runtime_output_validator_validateoutput",
+      "callee": "determineOutputTrust",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/output-validator.ts",
+      "source_location": "L98"
+    }
+  ]
+}

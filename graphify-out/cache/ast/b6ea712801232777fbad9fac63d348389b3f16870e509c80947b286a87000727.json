@@ -1,0 +1,931 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "label": "contracts.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "design_system_contracts_agent_id",
+      "label": "agent_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "design_system_contracts_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "design_system_contracts_model",
+      "label": "model",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "design_system_contracts_model_primary",
+      "label": "primary",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "design_system_contracts_model_fallback",
+      "label": "fallback",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "design_system_contracts_scope",
+      "label": "scope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "design_system_contracts_scope_files_allowed",
+      "label": "files_allowed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "design_system_contracts_scope_files_denied",
+      "label": "files_denied",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "design_system_contracts_scope_domains_owned",
+      "label": "domains_owned",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L13"
+    },
+    {
+      "id": "design_system_contracts_scope_domains_read_only",
+      "label": "domains_read_only",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "design_system_contracts_tools",
+      "label": "tools",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L16"
+    },
+    {
+      "id": "design_system_contracts_tools_allowed",
+      "label": "allowed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "design_system_contracts_tools_denied",
+      "label": "denied",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L18"
+    },
+    {
+      "id": "design_system_contracts_permissions",
+      "label": "permissions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L20"
+    },
+    {
+      "id": "design_system_contracts_permissions_memory_access",
+      "label": "memory_access",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L21"
+    },
+    {
+      "id": "design_system_contracts_permissions_policy_access",
+      "label": "policy_access",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L22"
+    },
+    {
+      "id": "design_system_contracts_permissions_release_permissions",
+      "label": "release_permissions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L23"
+    },
+    {
+      "id": "design_system_contracts_permissions_escalation_permissions",
+      "label": "escalation_permissions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L24"
+    },
+    {
+      "id": "design_system_contracts_permissions_write_permissions",
+      "label": "write_permissions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L25"
+    },
+    {
+      "id": "design_system_contracts_budgets",
+      "label": "budgets",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L27"
+    },
+    {
+      "id": "design_system_contracts_budgets_max_runtime_seconds",
+      "label": "max_runtime_seconds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L28"
+    },
+    {
+      "id": "design_system_contracts_budgets_max_tokens_per_run",
+      "label": "max_tokens_per_run",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L29"
+    },
+    {
+      "id": "design_system_contracts_budgets_max_cost_usd_per_run",
+      "label": "max_cost_usd_per_run",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L30"
+    },
+    {
+      "id": "design_system_contracts_budgets_max_retries",
+      "label": "max_retries",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L31"
+    },
+    {
+      "id": "design_system_contracts_validation",
+      "label": "validation",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L33"
+    },
+    {
+      "id": "design_system_contracts_validation_validated_by",
+      "label": "validated_by",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L34"
+    },
+    {
+      "id": "design_system_contracts_validation_validates",
+      "label": "validates",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L35"
+    },
+    {
+      "id": "design_system_contracts_validation_self_approval",
+      "label": "self_approval",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L36"
+    },
+    {
+      "id": "design_system_contracts_outputs",
+      "label": "outputs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L38"
+    },
+    {
+      "id": "design_system_contracts_outputs_report_path",
+      "label": "report_path",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L39"
+    },
+    {
+      "id": "design_system_contracts_outputs_schema",
+      "label": "schema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L40"
+    },
+    {
+      "id": "design_system_contracts_outputs_evidence_required_for",
+      "label": "evidence_required_for",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L41"
+    },
+    {
+      "id": "design_system_contracts_quarantine",
+      "label": "quarantine",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L43"
+    },
+    {
+      "id": "design_system_contracts_quarantine_anomaly_threshold",
+      "label": "anomaly_threshold",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L44"
+    },
+    {
+      "id": "design_system_contracts_quarantine_auto_quarantine_signals",
+      "label": "auto_quarantine_signals",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L45"
+    },
+    {
+      "id": "design_system_contracts_telemetry",
+      "label": "telemetry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L47"
+    },
+    {
+      "id": "design_system_contracts_telemetry_spans_required",
+      "label": "spans_required",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L48"
+    },
+    {
+      "id": "design_system_contracts_telemetry_metrics_emitted",
+      "label": "metrics_emitted",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L49"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_agent_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_model",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_model",
+      "target": "design_system_contracts_model_primary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_model",
+      "target": "design_system_contracts_model_fallback",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_scope",
+      "target": "design_system_contracts_scope_files_allowed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_scope_files_allowed",
+      "target": "ref_app_globals_css",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_files_allowed",
+      "target": "ref_app_tsx",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_files_allowed",
+      "target": "ref_tailwind_config",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_files_allowed",
+      "target": "ref_scripts_lint_visual_mjs",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope",
+      "target": "design_system_contracts_scope_files_denied",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_scope_files_denied",
+      "target": "ref_app_api",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_files_denied",
+      "target": "ref_electron",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_files_denied",
+      "target": "ref_docs_agent_lock_json",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope",
+      "target": "design_system_contracts_scope_domains_owned",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_scope_domains_owned",
+      "target": "ref_tokens",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_domains_owned",
+      "target": "ref_magic_numbers",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_domains_owned",
+      "target": "ref_voix_editoriale",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_domains_owned",
+      "target": "ref_spacing",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope_domains_owned",
+      "target": "ref_radius",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_scope",
+      "target": "design_system_contracts_scope_domains_read_only",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_scope_domains_read_only",
+      "target": "ref_product_experience",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_tools",
+      "target": "design_system_contracts_tools_allowed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_tools_allowed",
+      "target": "ref_read",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools_allowed",
+      "target": "ref_grep",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools_allowed",
+      "target": "ref_glob",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools_allowed",
+      "target": "ref_bash_ro",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools",
+      "target": "design_system_contracts_tools_denied",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_tools_denied",
+      "target": "ref_edit",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools_denied",
+      "target": "ref_write",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools_denied",
+      "target": "ref_bash_destructive",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools_denied",
+      "target": "ref_external_network",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_tools_denied",
+      "target": "ref_spawn_subagent",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_permissions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_permissions",
+      "target": "design_system_contracts_permissions_memory_access",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_permissions",
+      "target": "design_system_contracts_permissions_policy_access",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_permissions",
+      "target": "design_system_contracts_permissions_release_permissions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_permissions",
+      "target": "design_system_contracts_permissions_escalation_permissions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_permissions",
+      "target": "design_system_contracts_permissions_write_permissions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_budgets",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_budgets",
+      "target": "design_system_contracts_budgets_max_runtime_seconds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_budgets",
+      "target": "design_system_contracts_budgets_max_tokens_per_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_budgets",
+      "target": "design_system_contracts_budgets_max_cost_usd_per_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_budgets",
+      "target": "design_system_contracts_budgets_max_retries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_validation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_validation",
+      "target": "design_system_contracts_validation_validated_by",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_validation_validated_by",
+      "target": "ref_master",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_validation_validated_by",
+      "target": "ref_qa",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_validation",
+      "target": "design_system_contracts_validation_validates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_validation",
+      "target": "design_system_contracts_validation_self_approval",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_outputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_outputs",
+      "target": "design_system_contracts_outputs_report_path",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_outputs",
+      "target": "design_system_contracts_outputs_schema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_outputs",
+      "target": "design_system_contracts_outputs_evidence_required_for",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_outputs_evidence_required_for",
+      "target": "ref_high",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_outputs_evidence_required_for",
+      "target": "ref_critical",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_quarantine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_quarantine",
+      "target": "design_system_contracts_quarantine_anomaly_threshold",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_quarantine",
+      "target": "design_system_contracts_quarantine_auto_quarantine_signals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_quarantine_auto_quarantine_signals",
+      "target": "ref_hallucination",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L45",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_quarantine_auto_quarantine_signals",
+      "target": "ref_schema_violation",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L45",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_quarantine_auto_quarantine_signals",
+      "target": "ref_runaway",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L45",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_agents_design_system_contracts_json",
+      "target": "design_system_contracts_telemetry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_telemetry",
+      "target": "design_system_contracts_telemetry_spans_required",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_telemetry",
+      "target": "design_system_contracts_telemetry_metrics_emitted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "design_system_contracts_telemetry_metrics_emitted",
+      "target": "ref_agent_duration_ms",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L49",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "design_system_contracts_telemetry_metrics_emitted",
+      "target": "ref_findings_count",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/agents/design-system/contracts.json",
+      "source_location": "L49",
+      "weight": 1.0,
+      "context": "import"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_connectionslist_tsx",
+      "label": "ConnectionsList.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/ConnectionsList.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "connections_connectionslist_header",
+      "label": "Header()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/ConnectionsList.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "connections_connectionslist_sectionlabel",
+      "label": "SectionLabel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/ConnectionsList.tsx",
+      "source_location": "L114"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_connectionslist_tsx",
+      "target": "connections_connectionslist_header",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/ConnectionsList.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_connectionslist_tsx",
+      "target": "connections_connectionslist_sectionlabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/ConnectionsList.tsx",
+      "source_location": "L114",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

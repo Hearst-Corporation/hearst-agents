@@ -1,0 +1,129 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_vscode_extensions_json",
+      "label": "extensions.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "vscode_extensions_recommendations",
+      "label": "recommendations",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vscode_extensions_json",
+      "target": "vscode_extensions_recommendations",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_bradlc_vscode_tailwindcss",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_dbaeumer_vscode_eslint",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_esbenp_prettier_vscode",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_ms_playwright_playwright",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_vitest_explorer",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_vivaxy_vscode_conventional_commits",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_yoavbls_pretty_ts_errors",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_wix_vscode_import_cost",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_streetsidesoftware_code_spell_checker",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "vscode_extensions_recommendations",
+      "target": "ref_moonshot_ai_kimi_code",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vscode/extensions.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "context": "import"
+    }
+  ]
+}

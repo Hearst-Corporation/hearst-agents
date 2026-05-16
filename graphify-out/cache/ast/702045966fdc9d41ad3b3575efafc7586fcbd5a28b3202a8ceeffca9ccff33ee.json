@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_diagnostics_cli_traces_json",
+      "label": "cli_traces.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/cli_traces.json",
+      "source_location": "L1"
+    }
+  ],
+  "edges": []
+}

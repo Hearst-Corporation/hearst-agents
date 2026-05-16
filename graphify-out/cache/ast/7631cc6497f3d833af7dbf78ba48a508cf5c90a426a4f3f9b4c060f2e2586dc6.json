@@ -1,0 +1,116 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "label": "SpatialThemeProvider.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_safe_spatialthemeprovider_spatialthemecontexttype",
+      "label": "SpatialThemeContextType",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "spatial_safe_spatialthemeprovider_spatialthemecontext",
+      "label": "SpatialThemeContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "spatial_safe_spatialthemeprovider_usespatialtheme",
+      "label": "useSpatialTheme()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "spatial_safe_spatialthemeprovider_spatialthemeprovider",
+      "label": "SpatialThemeProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L20"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_safe_constants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "target": "spatial_safe_constants_spatial_theme_dark",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "target": "spatial_safe_spatialthemeprovider_spatialthemecontexttype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "target": "spatial_safe_spatialthemeprovider_spatialthemecontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "target": "spatial_safe_spatialthemeprovider_usespatialtheme",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialthemeprovider_tsx",
+      "target": "spatial_safe_spatialthemeprovider_spatialthemeprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_safe_spatialthemeprovider_usespatialtheme",
+      "callee": "useContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialThemeProvider.tsx",
+      "source_location": "L18"
+    }
+  ]
+}

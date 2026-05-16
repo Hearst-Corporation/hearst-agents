@@ -1,0 +1,453 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "label": "war-room.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hom_war_room_snapshotindexentry",
+      "label": "SnapshotIndexEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "hom_war_room_generatewarroomsnapshot",
+      "label": "generateWarRoomSnapshot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "hom_war_room_appendindex",
+      "label": "appendIndex()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "hom_war_room_renderhtml",
+      "label": "renderHTML()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L58"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "promises",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_fs_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_fs_utils_ensuredir",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_fs_utils_nowiso",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_fs_utils_readjson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_fs_utils_sha256",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_fs_utils_writejson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_paths_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_paths_hom",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_types_rundecisionfile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_types_trustscores",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_war_room_snapshotindexentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_war_room_generatewarroomsnapshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_war_room_appendindex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_war_room_ts",
+      "target": "hom_war_room_renderhtml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_war_room_generatewarroomsnapshot",
+      "target": "hom_war_room_renderhtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_war_room_generatewarroomsnapshot",
+      "target": "hom_war_room_appendindex",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "warRoomSnapshot",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "ensureDir",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "writeFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "nowIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "sha256",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "writeJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "cwd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "hom_war_room_generatewarroomsnapshot",
+      "callee": "cwd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "hom_war_room_appendindex",
+      "callee": "await readJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "hom_war_room_appendindex",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "hom_war_room_appendindex",
+      "callee": "writeJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "escape",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "escape",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "escape",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "escape",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "escape",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "escape",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L255"
+    },
+    {
+      "caller_nid": "hom_war_room_renderhtml",
+      "callee": "escape",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/war-room.ts",
+      "source_location": "L255"
+    }
+  ]
+}

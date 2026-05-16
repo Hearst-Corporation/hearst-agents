@@ -1,0 +1,293 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "label": "auth-required-recovery.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_auth_required_recovery_test_toolresultenvelope",
+      "label": "ToolResultEnvelope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "orchestrator_auth_required_recovery_test_maybeemitauthrecovery",
+      "label": "maybeEmitAuthRecovery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "orchestrator_auth_required_recovery_test_emit",
+      "label": "emit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "orchestrator_auth_required_recovery_test_triggered",
+      "label": "triggered",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L40"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_toolresultenvelope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_maybeemitauthrecovery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_triggered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_auth_required_recovery_test_ts",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_auth_required_recovery_test_maybeemitauthrecovery",
+      "target": "orchestrator_auth_required_recovery_test_emit",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_auth_required_recovery_test_maybeemitauthrecovery",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "orchestrator_auth_required_recovery_test_maybeemitauthrecovery",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/auth-required-recovery.test.ts",
+      "source_location": "L27"
+    }
+  ]
+}

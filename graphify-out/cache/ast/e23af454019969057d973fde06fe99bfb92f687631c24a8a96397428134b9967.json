@@ -1,0 +1,391 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "label": "pipeline.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "formatting_pipeline_outputtier",
+      "label": "OutputTier",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "formatting_pipeline_outputtone",
+      "label": "OutputTone",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "formatting_pipeline_outputformat",
+      "label": "OutputFormat",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "formatting_pipeline_outputqualityprofile",
+      "label": "OutputQualityProfile",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "formatting_pipeline_output_profiles",
+      "label": "OUTPUT_PROFILES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "formatting_pipeline_formattedsection",
+      "label": "FormattedSection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "formatting_pipeline_formattedoutput",
+      "label": "FormattedOutput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "formatting_pipeline_detectoutputtier",
+      "label": "detectOutputTier()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "formatting_pipeline_formatoutput",
+      "label": "formatOutput()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "formatting_pipeline_extractsections",
+      "label": "extractSections()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L100"
+    },
+    {
+      "id": "formatting_pipeline_derivetitle",
+      "label": "deriveTitle()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L130"
+    },
+    {
+      "id": "formatting_pipeline_derivesummary",
+      "label": "deriveSummary()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L140"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_outputtier",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_outputtone",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_outputformat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_outputqualityprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_output_profiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_formattedsection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_formattedoutput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_detectoutputtier",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_formatoutput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_extractsections",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_derivetitle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "target": "formatting_pipeline_derivesummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "formatting_pipeline_formatoutput",
+      "target": "formatting_pipeline_extractsections",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "formatting_pipeline_formatoutput",
+      "target": "formatting_pipeline_derivetitle",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "formatting_pipeline_formatoutput",
+      "target": "formatting_pipeline_derivesummary",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "formatting_pipeline_detectoutputtier",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "formatting_pipeline_detectoutputtier",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "formatting_pipeline_formatoutput",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "formatting_pipeline_formatoutput",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "formatting_pipeline_extractsections",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivetitle",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivetitle",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivetitle",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivesummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivesummary",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivesummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivesummary",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivesummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivesummary",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "formatting_pipeline_derivesummary",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/formatting/pipeline.ts",
+      "source_location": "L145"
+    }
+  ]
+}

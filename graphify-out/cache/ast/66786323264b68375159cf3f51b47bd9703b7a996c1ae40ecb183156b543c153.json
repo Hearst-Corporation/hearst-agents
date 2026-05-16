@@ -1,0 +1,322 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "label": "render-blocks.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_render_blocks_renderedblock",
+      "label": "RenderedBlock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "engine_render_blocks_renderedsource",
+      "label": "RenderedSource",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "engine_render_blocks_renderpayload",
+      "label": "RenderPayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "engine_render_blocks_renderblocks",
+      "label": "renderBlocks()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "engine_render_blocks_trimrows",
+      "label": "trimRows()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L121"
+    },
+    {
+      "id": "engine_render_blocks_shapedata",
+      "label": "shapeData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L145"
+    },
+    {
+      "id": "engine_render_blocks_extractscalars",
+      "label": "extractScalars()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L178"
+    },
+    {
+      "id": "engine_render_blocks_isstringrecord",
+      "label": "isStringRecord()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L206"
+    },
+    {
+      "id": "engine_render_blocks_isprimitive",
+      "label": "isPrimitive()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L210"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "spec_schema_blockspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_tabular_tabular",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_renderedblock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_renderedsource",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_renderpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_renderblocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_trimrows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_shapedata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_extractscalars",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_isstringrecord",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "target": "engine_render_blocks_isprimitive",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L210",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_render_blocks_renderblocks",
+      "target": "engine_render_blocks_trimrows",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_render_blocks_renderblocks",
+      "target": "engine_render_blocks_shapedata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_render_blocks_renderblocks",
+      "target": "engine_render_blocks_extractscalars",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_render_blocks_extractscalars",
+      "target": "engine_render_blocks_isprimitive",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L183",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_render_blocks_extractscalars",
+      "target": "engine_render_blocks_isstringrecord",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_render_blocks_renderblocks",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "engine_render_blocks_renderblocks",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "engine_render_blocks_trimrows",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "engine_render_blocks_trimrows",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "engine_render_blocks_trimrows",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "engine_render_blocks_shapedata",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "engine_render_blocks_shapedata",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "engine_render_blocks_extractscalars",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "engine_render_blocks_isstringrecord",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/render-blocks.ts",
+      "source_location": "L207"
+    }
+  ]
+}

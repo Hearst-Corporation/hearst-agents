@@ -1,0 +1,278 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "label": "useRightPanelData.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "chat_userightpaneldata_rightpaneldatastate",
+      "label": "RightPanelDataState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "chat_userightpaneldata_userightpaneldata",
+      "label": "useRightPanelData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L21"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "types_index_rightpaneldata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "types_focal_mapfocalobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "types_focal_mapfocalobjects",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_focal_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "stores_focal_usefocalstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_navigation_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "stores_navigation_usenavigationstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "stores_runtime_useruntimestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userunreportsuggestion_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "chat_userunreportsuggestion_userunreportsuggestion",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "chat_userightpaneldata_rightpaneldatastate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_userightpaneldata_ts",
+      "target": "chat_userightpaneldata_userightpaneldata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "setTrackedThreadId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "setData",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "chat_userightpaneldata_userightpaneldata",
+      "callee": "useRunReportSuggestion",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/useRightPanelData.ts",
+      "source_location": "L132"
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "label": "safety-gate.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_safety_gate_safetyverdict",
+      "label": "SafetyVerdict",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "orchestrator_safety_gate_violent_patterns",
+      "label": "VIOLENT_PATTERNS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "orchestrator_safety_gate_harassment_patterns",
+      "label": "HARASSMENT_PATTERNS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "orchestrator_safety_gate_illegal_patterns",
+      "label": "ILLEGAL_PATTERNS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "orchestrator_safety_gate_exfil_patterns",
+      "label": "EXFIL_PATTERNS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "orchestrator_safety_gate_mass_patterns",
+      "label": "MASS_PATTERNS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "orchestrator_safety_gate_normalizeforsafety",
+      "label": "normalizeForSafety()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L73"
+    },
+    {
+      "id": "orchestrator_safety_gate_checksafetygate",
+      "label": "checkSafetyGate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L77"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_safetyverdict",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_violent_patterns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_harassment_patterns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_illegal_patterns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_exfil_patterns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_mass_patterns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_normalizeforsafety",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "target": "orchestrator_safety_gate_checksafetygate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_safety_gate_checksafetygate",
+      "target": "orchestrator_safety_gate_normalizeforsafety",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_safety_gate_normalizeforsafety",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_normalizeforsafety",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_normalizeforsafety",
+      "callee": "normalize",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "parseInt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "orchestrator_safety_gate_checksafetygate",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/safety-gate.ts",
+      "source_location": "L139"
+    }
+  ]
+}

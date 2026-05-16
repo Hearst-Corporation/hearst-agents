@@ -1,0 +1,233 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "label": "to-ai-tools.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composio_to_ai_tools_aitoolmap",
+      "label": "AiToolMap",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "composio_to_ai_tools_buildschema",
+      "label": "buildSchema()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "composio_to_ai_tools_toaitoolscontext",
+      "label": "ToAiToolsContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "composio_to_ai_tools_toaitools",
+      "label": "toAiTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L72"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_hitl_confirmation_token_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "hitl_confirmation_token_hashtoolargs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "hitl_confirmation_token_verifyconfirmationtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_client_executecomposioaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_discovery_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_discovery_discoveredtool",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "preview_formatters_index_getformatterforaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_write_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_write_guard_formatactionpreview",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_write_guard_iswriteaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_to_ai_tools_aitoolmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_to_ai_tools_buildschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_to_ai_tools_toaitoolscontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "target": "composio_to_ai_tools_toaitools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "composio_to_ai_tools_toaitools",
+      "callee": "fromEntries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "composio_to_ai_tools_toaitools",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/to-ai-tools.ts",
+      "source_location": "L77"
+    }
+  ]
+}

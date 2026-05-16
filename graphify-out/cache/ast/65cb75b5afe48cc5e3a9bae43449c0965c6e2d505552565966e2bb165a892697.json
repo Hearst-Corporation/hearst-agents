@@ -1,0 +1,697 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "label": "cache.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_cache_stablestringify",
+      "label": "stableStringify()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "engine_cache_hashkey",
+      "label": "hashKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "engine_cache_anyclient",
+      "label": "AnyClient",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "engine_cache_client",
+      "label": "client()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L65"
+    },
+    {
+      "id": "engine_cache_isexpired",
+      "label": "isExpired()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L69"
+    },
+    {
+      "id": "engine_cache_getsourcecache",
+      "label": "getSourceCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L75"
+    },
+    {
+      "id": "engine_cache_setsourcecache",
+      "label": "setSourceCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L89"
+    },
+    {
+      "id": "engine_cache_gettransformcache",
+      "label": "getTransformCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L104"
+    },
+    {
+      "id": "engine_cache_settransformcache",
+      "label": "setTransformCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "engine_cache_rendercachekey",
+      "label": "RenderCacheKey",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "engine_cache_rendercachevalue",
+      "label": "RenderCacheValue",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L139"
+    },
+    {
+      "id": "engine_cache_getrendercache",
+      "label": "getRenderCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L144"
+    },
+    {
+      "id": "engine_cache_setrendercache",
+      "label": "setRenderCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L160"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_types_reportrendercacherow",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_types_reportsourcecacherow",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_types_reporttransformcacherow",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_stablestringify",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_hashkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_anyclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_isexpired",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_getsourcecache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_setsourcecache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_gettransformcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_settransformcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_rendercachekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_rendercachevalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_getrendercache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "target": "engine_cache_setrendercache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L160",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_hashkey",
+      "target": "engine_cache_stablestringify",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_getsourcecache",
+      "target": "engine_cache_client",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_getsourcecache",
+      "target": "engine_cache_isexpired",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_setsourcecache",
+      "target": "engine_cache_client",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_gettransformcache",
+      "target": "engine_cache_client",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_gettransformcache",
+      "target": "engine_cache_isexpired",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_settransformcache",
+      "target": "engine_cache_client",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_getrendercache",
+      "target": "engine_cache_client",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_getrendercache",
+      "target": "engine_cache_isexpired",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cache_setrendercache",
+      "target": "engine_cache_client",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "engine_cache_stablestringify",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "engine_cache_hashkey",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "engine_cache_hashkey",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "engine_cache_hashkey",
+      "callee": "createHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "engine_cache_client",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "engine_cache_isexpired",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "engine_cache_isexpired",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "engine_cache_getsourcecache",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "engine_cache_getsourcecache",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "engine_cache_getsourcecache",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "engine_cache_getsourcecache",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "engine_cache_setsourcecache",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "engine_cache_setsourcecache",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "engine_cache_setsourcecache",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "engine_cache_setsourcecache",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "engine_cache_gettransformcache",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "engine_cache_gettransformcache",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "engine_cache_gettransformcache",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "engine_cache_gettransformcache",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "engine_cache_settransformcache",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "engine_cache_settransformcache",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "engine_cache_settransformcache",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "engine_cache_settransformcache",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "engine_cache_getrendercache",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "engine_cache_getrendercache",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "engine_cache_getrendercache",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "engine_cache_getrendercache",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "engine_cache_getrendercache",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "engine_cache_getrendercache",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "engine_cache_setrendercache",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "engine_cache_setrendercache",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "engine_cache_setrendercache",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "engine_cache_setrendercache",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache.ts",
+      "source_location": "L168"
+    }
+  ]
+}

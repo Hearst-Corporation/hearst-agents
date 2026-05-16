@@ -1,0 +1,244 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "analytics_route_log",
+      "label": "log",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "analytics_route_analyticsbodyschema",
+      "label": "analyticsBodySchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "analytics_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L29"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_analytics_events_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "analytics_events_loganalyticsevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "observability_logger_redactederror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "observability_logger_withroute",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_scope_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "auth_scope_requirescope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "analytics_route_log",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "analytics_route_analyticsbodyschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_analytics_route_ts",
+      "target": "analytics_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "requireScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "flatten",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "logAnalyticsEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "analytics_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/analytics/route.ts",
+      "source_location": "L59"
+    }
+  ]
+}

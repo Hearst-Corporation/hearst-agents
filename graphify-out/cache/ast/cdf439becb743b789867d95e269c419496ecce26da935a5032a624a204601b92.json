@@ -1,0 +1,128 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cost_meter_ts",
+      "label": "cost-meter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_cost_meter_modelpricing",
+      "label": "ModelPricing",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "engine_cost_meter_sonnet_4_6_pricing",
+      "label": "SONNET_4_6_PRICING",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "engine_cost_meter_tokenusage",
+      "label": "TokenUsage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "engine_cost_meter_computecostusd",
+      "label": "computeCostUsd()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "engine_cost_meter_costcheck",
+      "label": "CostCheck",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "engine_cost_meter_checkreportbudget",
+      "label": "checkReportBudget()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L75"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cost_meter_ts",
+      "target": "engine_cost_meter_modelpricing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cost_meter_ts",
+      "target": "engine_cost_meter_sonnet_4_6_pricing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cost_meter_ts",
+      "target": "engine_cost_meter_tokenusage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cost_meter_ts",
+      "target": "engine_cost_meter_computecostusd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cost_meter_ts",
+      "target": "engine_cost_meter_costcheck",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cost_meter_ts",
+      "target": "engine_cost_meter_checkreportbudget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_meter_checkreportbudget",
+      "target": "engine_cost_meter_computecostusd",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_cost_meter_computecostusd",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cost-meter.ts",
+      "source_location": "L58"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "label": "registry.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "scenes_registry_scene",
+      "label": "Scene",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "scenes_registry_scenes",
+      "label": "SCENES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "target": "scenes_chartsscene_chartsscene",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "target": "scenes_cockpitscene_cockpitscene",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "target": "scenes_registry_scene",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_registry_ts",
+      "target": "scenes_registry_scenes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/registry.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

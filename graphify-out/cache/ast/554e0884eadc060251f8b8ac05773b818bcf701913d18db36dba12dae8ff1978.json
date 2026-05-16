@@ -1,0 +1,108 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_variant_ready_notification_ts",
+      "label": "use-variant-ready-notification.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_use_variant_ready_notification_notificationpermissionstate",
+      "label": "NotificationPermissionState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "hooks_use_variant_ready_notification_notifyoptions",
+      "label": "NotifyOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "label": "useVariantReadyNotification()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L35"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_variant_ready_notification_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_variant_ready_notification_ts",
+      "target": "hooks_use_variant_ready_notification_notificationpermissionstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_variant_ready_notification_ts",
+      "target": "hooks_use_variant_ready_notification_notifyoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_variant_ready_notification_ts",
+      "target": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-variant-ready-notification.ts",
+      "source_location": "L80"
+    }
+  ]
+}

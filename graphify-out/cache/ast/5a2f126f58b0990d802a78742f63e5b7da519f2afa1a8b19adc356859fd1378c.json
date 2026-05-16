@@ -1,0 +1,317 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "token_page_pageprops",
+      "label": "PageProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L26"
+    },
+    {
+      "id": "token_page_lookuppngurl",
+      "label": "lookupPngUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L50"
+    },
+    {
+      "id": "token_page_loadcardfortoken",
+      "label": "loadCardForToken()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L58"
+    },
+    {
+      "id": "token_page_generatemetadata",
+      "label": "generateMetadata()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L84"
+    },
+    {
+      "id": "token_page_publichearstcardpage",
+      "label": "PublicHearstCardPage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L122"
+    },
+    {
+      "id": "token_page_copylinkbutton",
+      "label": "CopyLinkButton()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L383"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "next",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "headers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "link",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "script",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "cockpit_monthly_card_buildmonthlycarddata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_token_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "cockpit_monthly_card_token_verifycardtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "cockpit_monthly_card_view_monthlycardview",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "token_page_pageprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "token_page_lookuppngurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "token_page_loadcardfortoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "token_page_generatemetadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "token_page_publichearstcardpage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_hearst_card_token_page_tsx",
+      "target": "token_page_copylinkbutton",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L383",
+      "weight": 1.0
+    },
+    {
+      "source": "token_page_loadcardfortoken",
+      "target": "token_page_lookuppngurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "token_page_generatemetadata",
+      "target": "token_page_loadcardfortoken",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "token_page_publichearstcardpage",
+      "target": "token_page_loadcardfortoken",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L125",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "token_page_lookuppngurl",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "token_page_lookuppngurl",
+      "callee": "getPublicUrl",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "token_page_lookuppngurl",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "token_page_loadcardfortoken",
+      "callee": "verifyCardToken",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "token_page_loadcardfortoken",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "token_page_loadcardfortoken",
+      "callee": "buildMonthlyCardData",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "token_page_loadcardfortoken",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "token_page_publichearstcardpage",
+      "callee": "headers",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx",
+      "source_location": "L123"
+    }
+  ]
+}

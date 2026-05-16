@@ -1,0 +1,601 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "label": "KnowledgeStage.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "stages_knowledgestage_knowledgestageprops",
+      "label": "KnowledgeStageProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "stages_knowledgestage_cytoscapecomponent",
+      "label": "CytoscapeComponent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "stages_knowledgestage_cytoscapeelement",
+      "label": "CytoscapeElement",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "stages_knowledgestage_cytoscapestyleentry",
+      "label": "CytoscapeStyleEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "stages_knowledgestage_cytoscapecorelike",
+      "label": "CytoscapeCoreLike",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L35"
+    },
+    {
+      "id": "stages_knowledgestage_phase",
+      "label": "Phase",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L43"
+    },
+    {
+      "id": "stages_knowledgestage_node_color_by_type",
+      "label": "NODE_COLOR_BY_TYPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L45"
+    },
+    {
+      "id": "stages_knowledgestage_knowledgestage",
+      "label": "KnowledgeStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L54"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "dynamic",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_toast_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "hooks_use_toast_toast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "memory_kg_kgedge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "memory_kg_kgnode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_navigation_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stores_navigation_usenavigationstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stores_stage_data_usestagedata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_kg_kgnodedetail_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "kg_kgnodedetail_kgnodedetail",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_kg_kgquerybar_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "kg_kgquerybar_kgquerybar",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "ui_index_action",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_stageactionbar_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_stageactionbar_stageaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_stageactionbar_stageactionbar",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_knowledgestageprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_cytoscapecomponent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_cytoscapeelement",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_cytoscapestyleentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_cytoscapecorelike",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_phase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_node_color_by_type",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_knowledgestage_tsx",
+      "target": "stages_knowledgestage_knowledgestage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L54",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useStageData",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L194"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L208"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L239"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L261"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L332"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L334"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L345"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L348"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L349"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L363"
+    },
+    {
+      "caller_nid": "stages_knowledgestage_knowledgestage",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/KnowledgeStage.tsx",
+      "source_location": "L373"
+    }
+  ]
+}

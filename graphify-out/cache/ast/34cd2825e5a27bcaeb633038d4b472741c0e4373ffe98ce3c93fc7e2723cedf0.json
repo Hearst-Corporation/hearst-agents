@@ -1,0 +1,637 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "label": "hybrid.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "storage_hybrid_cacheentry",
+      "label": "CacheEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageoptions",
+      "label": "HybridStorageOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider",
+      "label": "HybridStorageProvider",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_upload",
+      "label": ".upload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_download",
+      "label": ".download()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_getsignedurl",
+      "label": ".getSignedUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L123"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_delete",
+      "label": ".delete()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_exists",
+      "label": ".exists()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L142"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_list",
+      "label": ".list()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L147"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_health",
+      "label": ".health()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L152"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_warmcache",
+      "label": ".warmCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L169"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_updatecache",
+      "label": ".updateCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L201"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "label": ".evictIfNeeded()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L220"
+    },
+    {
+      "id": "storage_hybrid_hybridstorageprovider_getcachestats",
+      "label": ".getCacheStats()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L265"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_local_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_local_localstorageprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_r2_r2storageprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_types_downloadresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_types_signedurloptions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_types_storageobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_types_storageprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_types_uploadresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_hybrid_cacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_hybrid_hybridstorageoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_hybrid_ts",
+      "target": "storage_hybrid_hybridstorageprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_upload",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_download",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_getsignedurl",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_delete",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_exists",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_list",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_health",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_warmcache",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L169",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_updatecache",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L201",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L220",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider",
+      "target": "storage_hybrid_hybridstorageprovider_getcachestats",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L265",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_upload",
+      "target": "storage_hybrid_hybridstorageprovider_updatecache",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_download",
+      "target": "storage_hybrid_hybridstorageprovider_exists",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_download",
+      "target": "storage_hybrid_hybridstorageprovider_updatecache",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_download",
+      "target": "storage_hybrid_hybridstorageprovider_upload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_warmcache",
+      "target": "storage_hybrid_hybridstorageprovider_exists",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L175",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_warmcache",
+      "target": "storage_hybrid_hybridstorageprovider_download",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_warmcache",
+      "target": "storage_hybrid_hybridstorageprovider_upload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_warmcache",
+      "target": "storage_hybrid_hybridstorageprovider_updatecache",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_updatecache",
+      "target": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "target": "storage_hybrid_hybridstorageprovider_delete",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L227",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_download",
+      "callee": "getReader",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_download",
+      "callee": "read",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_download",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_download",
+      "callee": "concat",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_download",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_delete",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_delete",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_health",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_health",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_health",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_warmcache",
+      "callee": "getReader",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L181"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_warmcache",
+      "callee": "read",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L184"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_warmcache",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_warmcache",
+      "callee": "concat",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_warmcache",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_updatecache",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_updatecache",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_updatecache",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L210"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_updatecache",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L213"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L222"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L226"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L233"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L254"
+    },
+    {
+      "caller_nid": "storage_hybrid_hybridstorageprovider_evictifneeded",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/hybrid.ts",
+      "source_location": "L258"
+    }
+  ]
+}

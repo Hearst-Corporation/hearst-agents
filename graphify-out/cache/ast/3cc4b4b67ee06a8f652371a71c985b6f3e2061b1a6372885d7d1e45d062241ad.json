@@ -1,0 +1,203 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_builds_json",
+      "label": "builds.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "output_builds",
+      "label": "//",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "output_builds_target",
+      "label": "target",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "output_builds_argv",
+      "label": "argv",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "output_builds_builds",
+      "label": "builds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "output_builds_error",
+      "label": "error",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L31"
+    },
+    {
+      "id": "output_builds_error_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L32"
+    },
+    {
+      "id": "output_builds_error_stack",
+      "label": "stack",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L33"
+    },
+    {
+      "id": "output_builds_error_message",
+      "label": "message",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L34"
+    },
+    {
+      "id": "output_builds_error_hidestacktrace",
+      "label": "hideStackTrace",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L35"
+    },
+    {
+      "id": "output_builds_error_code",
+      "label": "code",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L36"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_builds_json",
+      "target": "output_builds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_builds_json",
+      "target": "output_builds_target",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_builds_json",
+      "target": "output_builds_argv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "output_builds_argv",
+      "target": "ref_users_adrienbeyondcrypto_nvm_versions_node_v22_22_1_bin_node",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "output_builds_argv",
+      "target": "ref_usr_local_bin_vercel",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "output_builds_argv",
+      "target": "ref_build",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_builds_json",
+      "target": "output_builds_builds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_builds_json",
+      "target": "output_builds_error",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "output_builds_error",
+      "target": "output_builds_error_name",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "output_builds_error",
+      "target": "output_builds_error_stack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "output_builds_error",
+      "target": "output_builds_error_message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "output_builds_error",
+      "target": "output_builds_error_hidestacktrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "output_builds_error",
+      "target": "output_builds_error_code",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/builds.json",
+      "source_location": "L36",
+      "weight": 1.0
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_spatialhud_tsx",
+      "label": "SpatialHUD.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "overlays_spatialhud_spatialhudprops",
+      "label": "SpatialHUDProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "overlays_spatialhud_spatialhud",
+      "label": "SpatialHUD()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_spatialhud_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_spatialhud_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_safe_constants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_spatialhud_tsx",
+      "target": "spatial_safe_constants_spatial_z_layers",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_spatialhud_tsx",
+      "target": "overlays_spatialhud_spatialhudprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_spatialhud_tsx",
+      "target": "overlays_spatialhud_spatialhud",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/SpatialHUD.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

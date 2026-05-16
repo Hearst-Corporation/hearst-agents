@@ -1,0 +1,799 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "label": "today.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "cockpit_today_cockpitscope",
+      "label": "CockpitScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "cockpit_today_cockpitmission",
+      "label": "CockpitMission",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "cockpit_today_cockpitsuggestion",
+      "label": "CockpitSuggestion",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "cockpit_today_cockpitfavoritereport",
+      "label": "CockpitFavoriteReport",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "cockpit_today_cockpitinboxsection",
+      "label": "CockpitInboxSection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "cockpit_today_cockpittodaypayload",
+      "label": "CockpitTodayPayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "cockpit_today_safe",
+      "label": "safe()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "cockpit_today_buildmissionsrunning",
+      "label": "buildMissionsRunning()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L103"
+    },
+    {
+      "id": "cockpit_today_buildsuggestions",
+      "label": "buildSuggestions()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L191"
+    },
+    {
+      "id": "cockpit_today_buildfavoritereports",
+      "label": "buildFavoriteReports()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L231"
+    },
+    {
+      "id": "cockpit_today_buildinbox",
+      "label": "buildInbox()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L241"
+    },
+    {
+      "id": "cockpit_today_iscalendarconnected",
+      "label": "isCalendarConnected()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L280"
+    },
+    {
+      "id": "cockpit_today_getcockpittoday",
+      "label": "getCockpitToday()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L302"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "control_plane_store_getconnectionsbyscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "missions_budget_getmonthlymissioncost",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_ops_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "missions_ops_store_getallmissionops",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "missions_store_getallmissions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "state_adapter_getscheduledmissions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "inbox_inbox_brief_inboxbrief",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "inbox_store_loadlatestinboxbrief",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_service_map_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "integrations_service_map_getallserviceids",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "integrations_service_map_getprovideridforservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_tokens_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "auth_tokens_gettokens",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "catalog_index_catalog",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "catalog_index_getapplicablereports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agenda_live_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_agenda_live_getliveagenda",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_types_cockpitagendaitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_cockpitscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_cockpitmission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_cockpitsuggestion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_cockpitfavoritereport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_cockpitinboxsection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_cockpittodaypayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_safe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_buildmissionsrunning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_buildsuggestions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_buildfavoritereports",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L231",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_buildinbox",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L241",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_iscalendarconnected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L280",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "target": "cockpit_today_getcockpittoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L302",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_today_buildmissionsrunning",
+      "target": "cockpit_today_safe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_today_buildsuggestions",
+      "target": "cockpit_today_safe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_today_buildinbox",
+      "target": "cockpit_today_safe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_today_getcockpittoday",
+      "target": "cockpit_today_safe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L304",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_today_getcockpittoday",
+      "target": "cockpit_today_buildfavoritereports",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L319",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "cockpit_today_safe",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "cockpit_today_safe",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "getAllMissionOps",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L104"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "getMemoryMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L163"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L180"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "cockpit_today_buildmissionsrunning",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L208"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "getAllServiceIds",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L208"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "getApplicableReports",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L213"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_today_buildsuggestions",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "cockpit_today_buildfavoritereports",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L232"
+    },
+    {
+      "caller_nid": "cockpit_today_buildfavoritereports",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L232"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L254"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L254"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "await safe",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L260"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L266"
+    },
+    {
+      "caller_nid": "cockpit_today_buildinbox",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L270"
+    },
+    {
+      "caller_nid": "cockpit_today_iscalendarconnected",
+      "callee": "getTokens",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "cockpit_today_iscalendarconnected",
+      "callee": "getConnectionsByScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L289"
+    },
+    {
+      "caller_nid": "cockpit_today_iscalendarconnected",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L294"
+    },
+    {
+      "caller_nid": "cockpit_today_getcockpittoday",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L303"
+    },
+    {
+      "caller_nid": "cockpit_today_getcockpittoday",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L322"
+    },
+    {
+      "caller_nid": "cockpit_today_getcockpittoday",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/today.ts",
+      "source_location": "L328"
+    }
+  ]
+}

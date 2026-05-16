@@ -1,0 +1,292 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "label": "useVariantPolling.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_usevariantpolling_usevariantpollingresult",
+      "label": "UseVariantPollingResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "hooks_usevariantpolling_usevariantpolling",
+      "label": "useVariantPolling()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L36"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_variant_ready_notification_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "hooks_use_variant_ready_notification_usevariantreadynotification",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "assets_variants_assetvariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "assets_variants_assetvariantkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "stores_stage_data_usestagedata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_shared_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "asset_variant_tabs_shared_generation_timeout_ms",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "asset_variant_tabs_shared_poll_interval_ms",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "asset_variant_tabs_shared_variant_labels",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "hooks_usevariantpolling_usevariantpollingresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_asset_variant_tabs_hooks_usevariantpolling_ts",
+      "target": "hooks_usevariantpolling_usevariantpolling",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useVariantReadyNotification",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useStageData",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "hooks_usevariantpolling_usevariantpolling",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/asset-variant-tabs/hooks/useVariantPolling.ts",
+      "source_location": "L158"
+    }
+  ]
+}

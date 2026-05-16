@@ -1,0 +1,270 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "label": "SpatialSceneR3F.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "core_spatialscener3f_groundfog",
+      "label": "GroundFog()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "core_spatialscener3f_cameracontroller",
+      "label": "CameraController()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "core_spatialscener3f_spatialscener3f",
+      "label": "SpatialSceneR3F()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L34"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "fiber",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "drei",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialenvironment_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_spatialenvironment_spatialenvironment",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialdustfield_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_spatialdustfield_spatialdustfield",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialpostfx_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_spatialpostfx_spatialpostfx",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_dev_spatialdevhelpers_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "dev_spatialdevhelpers_spatialdevhelpers",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_scenefog_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_scenefog_scenefog",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_scenecamera_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_scenecamera_scenecamera",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_3d_spatialpanels3d_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "panels_3d_spatialpanels3d_spatialpanels3d",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_3d_spatialchatparticles_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "panels_3d_spatialchatparticles_spatialchatparticles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_usespatialcamerafocus",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "spatial_usespatialcamerafocus_usespatialcamerafocus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_spatialscener3f_groundfog",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_spatialscener3f_cameracontroller",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_core_spatialscener3f_tsx",
+      "target": "core_spatialscener3f_spatialscener3f",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L34",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "core_spatialscener3f_cameracontroller",
+      "callee": "useSpatialCameraFocus",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx",
+      "source_location": "L30"
+    }
+  ]
+}

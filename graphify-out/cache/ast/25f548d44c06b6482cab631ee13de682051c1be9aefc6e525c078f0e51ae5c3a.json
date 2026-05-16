@@ -1,0 +1,114 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_footer_tsx",
+      "label": "Footer.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_footer_footercontent",
+      "label": "FooterContent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "components_footer_footer_data",
+      "label": "FOOTER_DATA",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "components_footer_footer",
+      "label": "Footer()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L75"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_footer_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_footer_tsx",
+      "target": "stores_stage_stageid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_footer_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_footer_tsx",
+      "target": "components_footer_footercontent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_footer_tsx",
+      "target": "components_footer_footer_data",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_footer_tsx",
+      "target": "components_footer_footer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L75",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_footer_footer",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "components_footer_footer",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "components_footer_footer",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/Footer.tsx",
+      "source_location": "L170"
+    }
+  ]
+}

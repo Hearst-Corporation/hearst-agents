@@ -1,0 +1,172 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "label": "whatsapp.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "label": "formatWhatsappSendMessage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L7"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_shared_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "target": "preview_formatters_shared_footer",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "target": "preview_formatters_shared_header",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "target": "preview_formatters_shared_line",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "target": "preview_formatters_shared_preview",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "target": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L8"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L9"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "preview",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "header",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "callee": "footer",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/whatsapp.ts",
+      "source_location": "L20"
+    }
+  ]
+}

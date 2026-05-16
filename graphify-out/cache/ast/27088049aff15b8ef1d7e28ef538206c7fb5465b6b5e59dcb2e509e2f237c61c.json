@@ -1,0 +1,87 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_public_approvals_token_vote_form_tsx",
+      "label": "vote-form.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "token_vote_form_approvalvoteformprops",
+      "label": "ApprovalVoteFormProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "token_vote_form_submitstate",
+      "label": "SubmitState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L19"
+    },
+    {
+      "id": "token_vote_form_approvalvoteform",
+      "label": "ApprovalVoteForm()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L30"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_approvals_token_vote_form_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_approvals_token_vote_form_tsx",
+      "target": "token_vote_form_approvalvoteformprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_approvals_token_vote_form_tsx",
+      "target": "token_vote_form_submitstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_public_approvals_token_vote_form_tsx",
+      "target": "token_vote_form_approvalvoteform",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "token_vote_form_approvalvoteform",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "token_vote_form_approvalvoteform",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/vote-form.tsx",
+      "source_location": "L32"
+    }
+  ]
+}

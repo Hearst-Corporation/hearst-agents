@@ -1,0 +1,677 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "label": "ChatDock.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_chatdock_pushsseeventtochatstage",
+      "label": "pushSseEventToChatStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "components_chatdock_trackanalytics",
+      "label": "trackAnalytics()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L105"
+    },
+    {
+      "id": "components_chatdock_baseservices",
+      "label": "baseServices",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L116"
+    },
+    {
+      "id": "components_chatdock_chatdock",
+      "label": "ChatDock()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L121"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "navigation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_toast_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "hooks_use_toast_toast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "types_index_message",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_catalog_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "integrations_catalog_getallservices",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "integrations_types_servicewithconnectionstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_chat_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_chat_context_usechatcontext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_chat_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_chat_stage_usechatstagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_navigation_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_navigation_usenavigationstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_runtime_useruntimestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_services_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_services_useservicesstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_stage_stagepayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "stores_stage_data_usestagedata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_shell_stagefooter_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "shell_stagefooter_stagefooter",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatinput_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "components_chatinput_chatinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "components_chatdock_pushsseeventtochatstage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "components_chatdock_trackanalytics",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "components_chatdock_baseservices",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatdock_tsx",
+      "target": "components_chatdock_chatdock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L121",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "getState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "appendAssistantDelta",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "addToolCall",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "updateToolCall",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "updateToolCall",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "finalizeAssistantMessage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "setRunState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "setRunState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "components_chatdock_pushsseeventtochatstage",
+      "callee": "setTokenEstimate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "components_chatdock_trackanalytics",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "components_chatdock_trackanalytics",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "components_chatdock_trackanalytics",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useRouter",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "usePathname",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useSearchParams",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useStageData",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useServicesStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useServicesStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useServicesStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L190"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L191"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L197"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L237"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L238"
+    },
+    {
+      "caller_nid": "components_chatdock_chatdock",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx",
+      "source_location": "L240"
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "label": "composio-bridge.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "voice_composio_bridge_curateforvoice",
+      "label": "curateForVoice()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "voice_composio_bridge_tovoicetooldef",
+      "label": "toVoiceToolDef()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "voice_composio_bridge_getvoicecomposiotools",
+      "label": "getVoiceComposioTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "voice_composio_bridge_iscomposiotoolname",
+      "label": "isComposioToolName()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L89"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_discovery_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "composio_discovery_discoveredtool",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "composio_discovery_gettoolsforuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_defs_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "voice_tool_defs_voicetooldef",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "voice_composio_bridge_curateforvoice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "voice_composio_bridge_tovoicetooldef",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "voice_composio_bridge_getvoicecomposiotools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "target": "voice_composio_bridge_iscomposiotoolname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "voice_composio_bridge_getvoicecomposiotools",
+      "target": "voice_composio_bridge_curateforvoice",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "voice_composio_bridge_curateforvoice",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "voice_composio_bridge_curateforvoice",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "voice_composio_bridge_curateforvoice",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "voice_composio_bridge_getvoicecomposiotools",
+      "callee": "getToolsForUser",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "voice_composio_bridge_getvoicecomposiotools",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "voice_composio_bridge_getvoicecomposiotools",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "voice_composio_bridge_iscomposiotoolname",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/composio-bridge.ts",
+      "source_location": "L92"
+    }
+  ]
+}

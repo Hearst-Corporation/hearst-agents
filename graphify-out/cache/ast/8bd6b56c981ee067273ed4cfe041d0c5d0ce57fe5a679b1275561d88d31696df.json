@@ -1,0 +1,1423 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "label": "raw.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_samples",
+      "label": "samples",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_palette",
+      "label": "palette",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L508"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_topbg",
+      "label": "topBg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L570"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_topfg",
+      "label": "topFg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L596"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_topsizes",
+      "label": "topSizes",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L630"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_topradii",
+      "label": "topRadii",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L676"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_topshadows",
+      "label": "topShadows",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L710"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_fonts",
+      "label": "fonts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L720"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_logo",
+      "label": "logo",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L727"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_images",
+      "label": "images",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L728"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars",
+      "label": "cssVars",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L802"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_sm",
+      "label": "--_sizes---section-paddings--sm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L803"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_container_sizes_main_container",
+      "label": "--container-sizes--main-container",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L804"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_7",
+      "label": "--_font-sizes---display-size--display-7",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L805"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_medium",
+      "label": "--_font-sizes---font-weight--medium",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L806"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_100",
+      "label": "--system-colors--yellow-100",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L807"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_2",
+      "label": "--_font-sizes---display-size--display-2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L808"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_4xlg",
+      "label": "--_sizes---main-spacers--4xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L809"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_md",
+      "label": "--_sizes---section-paddings--md",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L810"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_700",
+      "label": "--neutral-colors--700",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L811"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_300",
+      "label": "--system-colors--yellow-300",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L812"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_none",
+      "label": "--_sizes---main-spacers--none",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L813"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_line_height_large",
+      "label": "--_font-sizes---line-height--large",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L814"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_400",
+      "label": "--system-colors--red-400",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L815"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_3",
+      "label": "--_font-sizes---display-size--display-3",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L816"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_5xlg",
+      "label": "--_sizes---main-spacers--5xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L817"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_300",
+      "label": "--neutral-colors--300",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L818"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_100",
+      "label": "--system-colors--blue-100",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L819"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_8xlg",
+      "label": "--_sizes---main-spacers--8xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L820"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_paragraph_size_rg",
+      "label": "--_font-sizes---paragraph-size--rg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L821"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_rg",
+      "label": "--_sizes---section-paddings--rg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L822"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_5xsm",
+      "label": "--_sizes---main-spacers--5xsm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L823"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_xlg",
+      "label": "--_sizes---section-paddings--xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L824"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_6",
+      "label": "--_font-sizes---display-size--display-6",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L825"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_border_radius_main_border_radius",
+      "label": "--_sizes---border-radius--main-border-radius",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L826"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_100",
+      "label": "--neutral-colors--100",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L827"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_300",
+      "label": "--system-colors--red-300",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L828"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_xlg",
+      "label": "--_sizes---main-spacers--xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L829"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_semibold",
+      "label": "--_font-sizes---font-weight--semibold",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L830"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_400",
+      "label": "--system-colors--green-400",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L831"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_md",
+      "label": "--_sizes---main-spacers--md",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L832"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_border_radius_section_border_radius",
+      "label": "--_sizes---border-radius--section-border-radius",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L833"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_200",
+      "label": "--system-colors--green-200",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L834"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_sm",
+      "label": "--_sizes---main-spacers--sm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L835"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_2xlg",
+      "label": "--_sizes---main-spacers--2xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L836"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_3xlg",
+      "label": "--_sizes---main-spacers--3xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L837"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_bold",
+      "label": "--_font-sizes---font-weight--bold",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L838"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_7xlg",
+      "label": "--_sizes---main-spacers--7xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L839"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_1",
+      "label": "--_font-sizes---display-size--display-1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L840"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_rg",
+      "label": "--_sizes---main-spacers--rg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L841"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_2xsm",
+      "label": "--_sizes---main-spacers--2xsm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L842"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_400",
+      "label": "--system-colors--yellow-400",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L843"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_300",
+      "label": "--system-colors--green-300",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L844"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_9",
+      "label": "--_font-sizes---display-size--display-9",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L845"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_200",
+      "label": "--neutral-colors--200",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L846"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_400",
+      "label": "--neutral-colors--400",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L847"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_100",
+      "label": "--system-colors--green-100",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L848"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_4",
+      "label": "--_font-sizes---display-size--display-4",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L849"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_100",
+      "label": "--system-colors--red-100",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L850"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_lg",
+      "label": "--_sizes---section-paddings--lg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L851"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_paragraph_size_lg",
+      "label": "--_font-sizes---paragraph-size--lg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L852"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_300",
+      "label": "--system-colors--blue-300",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L853"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_4xsm",
+      "label": "--_sizes---main-spacers--4xsm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L854"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_lg",
+      "label": "--_sizes---main-spacers--lg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L855"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_200",
+      "label": "--system-colors--red-200",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L856"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_10",
+      "label": "--_font-sizes---display-size--display-10",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L857"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_line_height_small",
+      "label": "--_font-sizes---line-height--small",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L858"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_5",
+      "label": "--_font-sizes---display-size--display-5",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L859"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_600",
+      "label": "--neutral-colors--600",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L860"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_400",
+      "label": "--system-colors--blue-400",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L861"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_xsm",
+      "label": "--_sizes---main-spacers--xsm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L862"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_3xsm",
+      "label": "--_sizes---main-spacers--3xsm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L863"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_200",
+      "label": "--system-colors--blue-200",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L864"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_800",
+      "label": "--neutral-colors--800",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L865"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_regular",
+      "label": "--_font-sizes---font-weight--regular",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L866"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_200",
+      "label": "--system-colors--yellow-200",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L867"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_paragraph_size_sm",
+      "label": "--_font-sizes---paragraph-size--sm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L868"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_xsm",
+      "label": "--_sizes---section-paddings--xsm",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L869"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_6xlg",
+      "label": "--_sizes---main-spacers--6xlg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L870"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_500",
+      "label": "--neutral-colors--500",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L871"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_line_height_regular",
+      "label": "--_font-sizes---line-height--regular",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L872"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_primary_font",
+      "label": "--_font-sizes---primary-font",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L873"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_8",
+      "label": "--_font-sizes---display-size--display-8",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L874"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_title",
+      "label": "title",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L876"
+    },
+    {
+      "id": "robotflowtemplate_webflow_io_raw_host",
+      "label": "host",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L877"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_samples",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_palette",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L508",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_topbg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L570",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_topfg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L596",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_topsizes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L630",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_topradii",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L676",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_topshadows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L710",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_fonts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L720",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_fonts",
+      "target": "ref_sans_serif",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L720",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_fonts",
+      "target": "ref_inter_tight_sans_serif",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L720",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_fonts",
+      "target": "ref_line_rounded_icon_font_brix_arial_sans_serif",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L720",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_fonts",
+      "target": "ref_robotflow_icon_arial_sans_serif",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L720",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_fonts",
+      "target": "ref_social_media_icon_font_brix_arial_sans_serif",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L720",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_logo",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L727",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_images",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L728",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L802",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_sm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L803",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_container_sizes_main_container",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L804",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_7",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L805",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_medium",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L806",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_100",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L807",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L808",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_4xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L809",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_md",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L810",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_700",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L811",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_300",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L812",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_none",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L813",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_line_height_large",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L814",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_400",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L815",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L816",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_5xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L817",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_300",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L818",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_100",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L819",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_8xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L820",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_paragraph_size_rg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L821",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_rg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L822",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_5xsm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L823",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L824",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_6",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L825",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_border_radius_main_border_radius",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L826",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_100",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L827",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_300",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L828",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L829",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_semibold",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L830",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_400",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L831",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_md",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L832",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_border_radius_section_border_radius",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L833",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_200",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L834",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_sm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L835",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_2xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L836",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_3xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L837",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_bold",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L838",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_7xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L839",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L840",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_rg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L841",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_2xsm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L842",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_400",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L843",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_300",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L844",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_9",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L845",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_200",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L846",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_400",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L847",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_green_100",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L848",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_4",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L849",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_100",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L850",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_lg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L851",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_paragraph_size_lg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L852",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_300",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L853",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_4xsm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L854",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_lg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L855",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_red_200",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L856",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_10",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L857",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_line_height_small",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L858",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_5",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L859",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_600",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L860",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_400",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L861",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_xsm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L862",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_3xsm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L863",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_blue_200",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L864",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_800",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L865",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_font_weight_regular",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L866",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_system_colors_yellow_200",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L867",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_paragraph_size_sm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L868",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_section_paddings_xsm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L869",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_sizes_main_spacers_6xlg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L870",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_neutral_colors_500",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L871",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_line_height_regular",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L872",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_primary_font",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L873",
+      "weight": 1.0
+    },
+    {
+      "source": "robotflowtemplate_webflow_io_raw_cssvars",
+      "target": "robotflowtemplate_webflow_io_raw_cssvars_font_sizes_display_size_display_8",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L874",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_title",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L876",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_themes_robotflowtemplate_webflow_io_raw_json",
+      "target": "robotflowtemplate_webflow_io_raw_host",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/themes/robotflowtemplate-webflow-io/raw.json",
+      "source_location": "L877",
+      "weight": 1.0
+    }
+  ]
+}

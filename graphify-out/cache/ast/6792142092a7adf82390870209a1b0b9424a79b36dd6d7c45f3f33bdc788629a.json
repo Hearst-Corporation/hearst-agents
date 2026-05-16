@@ -1,0 +1,352 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "label": "dispatcher.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "webhooks_dispatcher_signpayload",
+      "label": "signPayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "webhooks_dispatcher_postresult",
+      "label": "PostResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "webhooks_dispatcher_postwithretry",
+      "label": "postWithRetry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "webhooks_dispatcher_dispatchone",
+      "label": "dispatchOne()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L109"
+    },
+    {
+      "id": "webhooks_dispatcher_dispatchwebhookevent",
+      "label": "dispatchWebhookEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L157"
+    },
+    {
+      "id": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "label": "dispatchWebhookEventAsync()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L191"
+    },
+    {
+      "id": "webhooks_dispatcher_testinternals",
+      "label": "__testInternals",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L240"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "security_ssrf_guard_assertsafeurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_store_getactivewebhooksforevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_store_updatewebhookstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_types_customwebhook",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_types_webhookevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_types_webhookpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_dispatcher_signpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_dispatcher_postresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_dispatcher_postwithretry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_dispatcher_dispatchone",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_dispatcher_dispatchwebhookevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "target": "webhooks_dispatcher_testinternals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_dispatcher_dispatchone",
+      "target": "webhooks_dispatcher_signpayload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_dispatcher_dispatchone",
+      "target": "webhooks_dispatcher_postwithretry",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "webhooks_dispatcher_signpayload",
+      "callee": "createHmac",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_signpayload",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_signpayload",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_postwithretry",
+      "callee": "assertSafeUrl",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_postwithretry",
+      "callee": "attempt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchone",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchone",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchone",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchone",
+      "callee": "updateWebhookStatus",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchwebhookevent",
+      "callee": "(async () => {\n    try {\n      const webhooks = await getActiveWebhooksForEvent({ tenantId, event });\n\n      if (webhooks.length === 0) return;\n\n      const payload: WebhookPayload = {\n        event,\n        tenantId,\n        timestamp: new Date().toISOString(),\n        data,\n      };\n\n      await Promise.allSettled(webhooks.map((wh) => dispatchOne(wh, payload, fetcher ?? fetch)));\n    } catch (err) {\n      console.error(\n        `[WebhookDispatcher] Erreur non attendue pour event=\"${event}\" tenant=\"${tenantId}\":`,\n        err instanceof Error ? err.message : String(err),\n      );\n    }\n  })",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "callee": "getActiveWebhooksForEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "callee": "allSettled",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L213"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L214"
+    },
+    {
+      "caller_nid": "webhooks_dispatcher_dispatchwebhookeventasync",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/dispatcher.ts",
+      "source_location": "L233"
+    }
+  ]
+}

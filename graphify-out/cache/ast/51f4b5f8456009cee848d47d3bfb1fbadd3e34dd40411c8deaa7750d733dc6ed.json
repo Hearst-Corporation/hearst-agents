@@ -1,0 +1,260 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "label": "MissionConversation.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "mission_missionconversation_missioncontextdto",
+      "label": "MissionContextDto",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "mission_missionconversation_missionconversationprops",
+      "label": "MissionConversationProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L31"
+    },
+    {
+      "id": "mission_missionconversation_msg_time_fmt",
+      "label": "MSG_TIME_FMT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L37"
+    },
+    {
+      "id": "mission_missionconversation_missionconversation",
+      "label": "MissionConversation()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L45"
+    },
+    {
+      "id": "mission_missionconversation_messagerow",
+      "label": "MessageRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L235"
+    },
+    {
+      "id": "mission_missionconversation_summaryrendered",
+      "label": "SummaryRendered()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L283"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "memory_mission_context_missionmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "mission_missionconversation_missioncontextdto",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "mission_missionconversation_missionconversationprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "mission_missionconversation_msg_time_fmt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "mission_missionconversation_missionconversation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "mission_missionconversation_messagerow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L235",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mission_missionconversation_tsx",
+      "target": "mission_missionconversation_summaryrendered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L283",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "format",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L222"
+    },
+    {
+      "caller_nid": "mission_missionconversation_missionconversation",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L223"
+    },
+    {
+      "caller_nid": "mission_missionconversation_messagerow",
+      "callee": "format",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L260"
+    },
+    {
+      "caller_nid": "mission_missionconversation_summaryrendered",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L285"
+    },
+    {
+      "caller_nid": "mission_missionconversation_summaryrendered",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L285"
+    },
+    {
+      "caller_nid": "mission_missionconversation_summaryrendered",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L285"
+    },
+    {
+      "caller_nid": "mission_missionconversation_summaryrendered",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx",
+      "source_location": "L292"
+    }
+  ]
+}

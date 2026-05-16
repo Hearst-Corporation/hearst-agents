@@ -1,0 +1,247 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "label": "missions-invariants.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_missions_invariants_test_mocks",
+      "label": "mocks",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "engine_missions_invariants_test_mission",
+      "label": "mission",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L109"
+    },
+    {
+      "id": "engine_missions_invariants_test_isleader",
+      "label": "isLeader",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "engine_missions_invariants_test_trigger",
+      "label": "trigger",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L134"
+    },
+    {
+      "id": "engine_missions_invariants_test_stop",
+      "label": "stop",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L136"
+    },
+    {
+      "id": "engine_missions_invariants_test_result",
+      "label": "result",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L153"
+    },
+    {
+      "id": "engine_missions_invariants_test_stop1",
+      "label": "stop1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L221"
+    },
+    {
+      "id": "engine_missions_invariants_test_stop2",
+      "label": "stop2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L227"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_mocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_normalize_result_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "missions_normalize_result_normalizemissionresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "missions_scheduler_startscheduler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "missions_scheduler_stopscheduler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_mission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_isleader",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_trigger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_stop",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L153",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L169",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_mission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L183",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_trigger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_isleader",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_stop1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L221",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_missions_invariants_test_ts",
+      "target": "engine_missions_invariants_test_stop2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/missions-invariants.test.ts",
+      "source_location": "L227",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

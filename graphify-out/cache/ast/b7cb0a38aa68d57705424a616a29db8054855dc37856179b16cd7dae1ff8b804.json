@@ -1,0 +1,184 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "label": "VideoBatchForm.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "video_quick_launch_videobatchform_videobatchform",
+      "label": "VideoBatchForm()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L24"
+    },
+    {
+      "id": "video_quick_launch_videobatchform_videobatchvariantfield",
+      "label": "VideoBatchVariantField()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L93"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_segments_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_segments_segmentedinline",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_batchphase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_batchvariantform",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_batchvariantrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_durationoption",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_max_batch_variants",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_provider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_ratio_labels",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_types_ratiooption",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchgrid_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_videobatchgrid_videobatchgrid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_videobatchform_videobatchform",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videobatchform_tsx",
+      "target": "video_quick_launch_videobatchform_videobatchvariantfield",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L93",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "video_quick_launch_videobatchform_videobatchform",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx",
+      "source_location": "L64"
+    }
+  ]
+}

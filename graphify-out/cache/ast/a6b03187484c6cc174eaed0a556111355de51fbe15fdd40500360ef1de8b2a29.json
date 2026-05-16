@@ -1,0 +1,228 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "label": "worker-base.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "jobs_worker_base_workercontext",
+      "label": "WorkerContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "jobs_worker_base_workerhandler",
+      "label": "WorkerHandler",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "jobs_worker_base_startworker",
+      "label": "startWorker()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L41"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "bullmq",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "credits_client_settlecredits",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_configs_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_configs_job_queue_configs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_connection_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_connection_getbullconnection",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_permanent_error_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_permanent_error_ispermanenterror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_types_jobkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_types_jobpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_types_jobresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_worker_base_workercontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_worker_base_workerhandler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "target": "jobs_worker_base_startworker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "jobs_worker_base_startworker",
+      "callee": "getBullConnection",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "jobs_worker_base_startworker",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "jobs_worker_base_startworker",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "jobs_worker_base_startworker",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "jobs_worker_base_startworker",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts",
+      "source_location": "L130"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "label": "focal.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_focal_valid_focal_types",
+      "label": "VALID_FOCAL_TYPES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "types_focal_valid_focal_statuses",
+      "label": "VALID_FOCAL_STATUSES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "types_focal_focalmappingoptions",
+      "label": "FocalMappingOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "types_focal_mapfocalobject",
+      "label": "mapFocalObject()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "types_focal_mapfocalobjects",
+      "label": "mapFocalObjects()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L105"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_focal_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "stores_focal_focalobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "stores_focal_focalstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "stores_focal_focaltype",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "types_focal_valid_focal_types",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "types_focal_valid_focal_statuses",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "types_focal_focalmappingoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "types_focal_mapfocalobject",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "target": "types_focal_mapfocalobjects",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "types_focal_mapfocalobject",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobject",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobject",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobject",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobject",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobject",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobject",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobjects",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "types_focal_mapfocalobjects",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/core/types/focal.ts",
+      "source_location": "L106"
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "label": "to-ai-tools-write-guard.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_executecomposioaction",
+      "label": "{ executeComposioAction }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_exec_opts",
+      "label": "EXEC_OPTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_callexecute",
+      "label": "callExecute()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_writetool",
+      "label": "writeTool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_readtool",
+      "label": "readTool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_tools",
+      "label": "tools",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_ctx",
+      "label": "ctx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L95"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_params",
+      "label": "params",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L97"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_argshash",
+      "label": "argsHash",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L98"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_token",
+      "label": "token",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L99"
+    },
+    {
+      "id": "connectors_to_ai_tools_write_guard_test_schema",
+      "label": "schema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L147"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_executecomposioaction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_discovery_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "composio_discovery_discoveredtool",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "composio_to_ai_tools_toaitools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_hitl_confirmation_token_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "hitl_confirmation_token_hashtoolargs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "hitl_confirmation_token_issueconfirmationtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_exec_opts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_callexecute",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_writetool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_readtool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_ctx",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_params",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_argshash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_schema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_connectors_to_ai_tools_write_guard_test_ts",
+      "target": "connectors_to_ai_tools_write_guard_test_schema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "connectors_to_ai_tools_write_guard_test_callexecute",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/connectors/to-ai-tools-write-guard.test.ts",
+      "source_location": "L34"
+    }
+  ]
+}

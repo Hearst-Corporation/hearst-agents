@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_adapter_ts",
+      "label": "adapter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "integrations_adapter_integrationcredentials",
+      "label": "IntegrationCredentials",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "integrations_adapter_adapteraction",
+      "label": "AdapterAction",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "integrations_adapter_adapterresult",
+      "label": "AdapterResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "integrations_adapter_integrationadapter",
+      "label": "IntegrationAdapter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L35"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_adapter_ts",
+      "target": "integrations_adapter_integrationcredentials",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_adapter_ts",
+      "target": "integrations_adapter_adapteraction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_adapter_ts",
+      "target": "integrations_adapter_adapterresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_adapter_ts",
+      "target": "integrations_adapter_integrationadapter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/adapter.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

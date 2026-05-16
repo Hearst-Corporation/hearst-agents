@@ -1,0 +1,396 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "label": "kimi.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_kimi_kimiprovider",
+      "label": "KimiProvider",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "llm_kimi_kimiprovider_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "llm_kimi_kimiprovider_chat",
+      "label": ".chat()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "llm_kimi_kimiprovider_streamchat",
+      "label": ".streamChat()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "llm_kimi_kimiprovider_recordratelimitheaders",
+      "label": ".recordRateLimitHeaders()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L140"
+    },
+    {
+      "id": "llm_kimi_kimiprovider_maybewaitforratelimit",
+      "label": ".maybeWaitForRateLimit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L154"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "openai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_pricing_computecostusd",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_rate_limiter_defaultratelimiter",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_timeout_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_timeout_chat_timeout_ms",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_timeout_makeabortsignal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_timeout_stream_timeout_ms",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_types_chatrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_types_chatresponse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_types_llmprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_types_streamchunk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "target": "llm_kimi_kimiprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider",
+      "target": "llm_kimi_kimiprovider_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider",
+      "target": "llm_kimi_kimiprovider_chat",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider",
+      "target": "llm_kimi_kimiprovider_streamchat",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider",
+      "target": "llm_kimi_kimiprovider_recordratelimitheaders",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider",
+      "target": "llm_kimi_kimiprovider_maybewaitforratelimit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider_chat",
+      "target": "llm_kimi_kimiprovider_maybewaitforratelimit",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider_chat",
+      "target": "llm_kimi_kimiprovider_recordratelimitheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider_streamchat",
+      "target": "llm_kimi_kimiprovider_maybewaitforratelimit",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_kimi_kimiprovider_streamchat",
+      "target": "llm_kimi_kimiprovider_recordratelimitheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_kimi_kimiprovider_chat",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_chat",
+      "callee": "makeAbortSignal",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_chat",
+      "callee": "withResponse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_chat",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_chat",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_chat",
+      "callee": "computeCostUsd",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_chat",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_streamchat",
+      "callee": "makeAbortSignal",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_streamchat",
+      "callee": "withResponse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_streamchat",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_streamchat",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_streamchat",
+      "callee": "computeCostUsd",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_recordratelimitheaders",
+      "callee": "recordHeaders",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_recordratelimitheaders",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "llm_kimi_kimiprovider_maybewaitforratelimit",
+      "callee": "getNextDelay",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts",
+      "source_location": "L156"
+    }
+  ]
+}

@@ -1,0 +1,1037 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "label": "tracer.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_tracer_db",
+      "label": "DB",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "runtime_tracer_jsonrecord",
+      "label": "JsonRecord",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "runtime_tracer_replaymode",
+      "label": "ReplayMode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "runtime_tracer_startrunoptions",
+      "label": "StartRunOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "runtime_tracer_traceoptions",
+      "label": "TraceOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "runtime_tracer_traceresult",
+      "label": "TraceResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "runtime_tracer_runtracer",
+      "label": "RunTracer",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "runtime_tracer_runtracer_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "runtime_tracer_runtracer_startrun",
+      "label": ".startRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L91"
+    },
+    {
+      "id": "runtime_tracer_runtracer_trace",
+      "label": ".trace()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L129"
+    },
+    {
+      "id": "runtime_tracer_runtracer_endrun",
+      "label": ".endRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L250"
+    },
+    {
+      "id": "runtime_tracer_runtracer_getrunid",
+      "label": ".getRunId()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L309"
+    },
+    {
+      "id": "runtime_tracer_runtracer_getstatus",
+      "label": ".getStatus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L313"
+    },
+    {
+      "id": "runtime_tracer_runtracer_getevents",
+      "label": ".getEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L317"
+    },
+    {
+      "id": "runtime_tracer_runtracer_gettotals",
+      "label": ".getTotals()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L321"
+    },
+    {
+      "id": "runtime_tracer_runtracer_getreplaymode",
+      "label": ".getReplayMode()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L330"
+    },
+    {
+      "id": "runtime_tracer_runtracer_getcostbudget",
+      "label": ".getCostBudget()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L334"
+    },
+    {
+      "id": "runtime_tracer_runtracer_isterminal",
+      "label": ".isTerminal()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L338"
+    },
+    {
+      "id": "runtime_tracer_runtracer_emitevent",
+      "label": ".emitEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L342"
+    },
+    {
+      "id": "runtime_tracer_extractoutputtext",
+      "label": "extractOutputText()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L370"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "nextjs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "observability_langfuse_flushlangfuse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "observability_logger_logger",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "webhooks_dispatcher_dispatchwebhookevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_database_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "lib_database_types_database",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "lib_database_types_json",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "domain_types_runkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "domain_types_tracekind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_cost_sentinel_costbudget",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_cost_sentinel_default_cost_budget",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_cost_sentinel_enforcecostbudget",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_assertruntransition",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_default_timeouts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_runevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_runeventkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_runstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_runtrigger",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_runtimeerror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_tracestatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_lifecycle_withtimeout",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_output_validator_outputvalidationresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_output_validator_validateoutput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_prompt_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_prompt_guard_agentguardpolicy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_jsonrecord",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_replaymode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_startrunoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_traceoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_traceresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_runtracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_startrun",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_trace",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_endrun",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L250",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_getrunid",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L309",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_getstatus",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L313",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_getevents",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L317",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_gettotals",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L321",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_getreplaymode",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L330",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_getcostbudget",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L334",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_isterminal",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L338",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer",
+      "target": "runtime_tracer_runtracer_emitevent",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L342",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "target": "runtime_tracer_extractoutputtext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L370",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer_startrun",
+      "target": "runtime_tracer_runtracer_emitevent",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer_trace",
+      "target": "runtime_tracer_runtracer_isterminal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer_trace",
+      "target": "runtime_tracer_runtracer_emitevent",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer_trace",
+      "target": "runtime_tracer_extractoutputtext",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L231",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_tracer_runtracer_endrun",
+      "target": "runtime_tracer_runtracer_emitevent",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L282",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_tracer_runtracer_constructor",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_startrun",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_startrun",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_startrun",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_startrun",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_startrun",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "withTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "enforceCostBudget",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L198"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L198"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "captureMessage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "dispatchWebhookEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L218"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "validateOutput",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L232"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L238"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L238"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_trace",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L238"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "assertRunTransition",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L259"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L259"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L259"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L269"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "flushLangfuse",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L292"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "debug",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L295"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "captureException",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L302"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_endrun",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_gettotals",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_isterminal",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_emitevent",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L344"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_emitevent",
+      "callee": "captureMessage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L345"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_emitevent",
+      "callee": "dispatchWebhookEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L355"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_emitevent",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L361"
+    },
+    {
+      "caller_nid": "runtime_tracer_runtracer_emitevent",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L364"
+    },
+    {
+      "caller_nid": "runtime_tracer_extractoutputtext",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/tracer.ts",
+      "source_location": "L374"
+    }
+  ]
+}

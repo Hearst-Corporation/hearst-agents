@@ -1,0 +1,349 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "label": "hearst-actions.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "native_hearst_actions_aitoolmap",
+      "label": "AiToolMap",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "native_hearst_actions_startmeetingbotargs",
+      "label": "StartMeetingBotArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "native_hearst_actions_startsimulationargs",
+      "label": "StartSimulationArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "native_hearst_actions_generateimageargs",
+      "label": "GenerateImageArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "native_hearst_actions_startbrowserargs",
+      "label": "StartBrowserArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "native_hearst_actions_buildhearstactiontools",
+      "label": "buildHearstActionTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L57"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "assets_types_storeasset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "assets_variants_createvariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_browser_stagehand_executor_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "browser_stagehand_executor_runbrowsertask",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_browserbase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "providers_browserbase_createsession",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "providers_recall_ai_createmeetingbot",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "events_bus_runeventbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "jobs_queue_enqueuejob",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "jobs_types_imagegeninput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "multi_tenant_types_tenantscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "native_hearst_actions_aitoolmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "native_hearst_actions_startmeetingbotargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "native_hearst_actions_startsimulationargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "native_hearst_actions_generateimageargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "native_hearst_actions_startbrowserargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "target": "native_hearst_actions_buildhearstactiontools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "native_hearst_actions_buildhearstactiontools",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "native_hearst_actions_buildhearstactiontools",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "native_hearst_actions_buildhearstactiontools",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "native_hearst_actions_buildhearstactiontools",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/hearst-actions.ts",
+      "source_location": "L256"
+    }
+  ]
+}

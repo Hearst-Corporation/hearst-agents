@@ -1,0 +1,150 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_cleanup_leases_ts",
+      "label": "cleanup-leases.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missions_cleanup_leases_db",
+      "label": "db()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "label": "cleanupExpiredSchedulerLeases()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L15"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_cleanup_leases_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_cleanup_leases_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_cleanup_leases_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_cleanup_leases_ts",
+      "target": "missions_cleanup_leases_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_cleanup_leases_ts",
+      "target": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "target": "missions_cleanup_leases_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "missions_cleanup_leases_db",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "like",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "missions_cleanup_leases_cleanupexpiredschedulerleases",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/cleanup-leases.ts",
+      "source_location": "L36"
+    }
+  ]
+}

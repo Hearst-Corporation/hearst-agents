@@ -1,0 +1,270 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "jobs_types_jobkind",
+      "label": "JobKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "jobs_types_jobscopefields",
+      "label": "JobScopeFields",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "jobs_types_imagegeninput",
+      "label": "ImageGenInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "jobs_types_audiogeninput",
+      "label": "AudioGenInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "jobs_types_videogeninput",
+      "label": "VideoGenInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L69"
+    },
+    {
+      "id": "jobs_types_documentparseinput",
+      "label": "DocumentParseInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "jobs_types_codeexecinput",
+      "label": "CodeExecInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L90"
+    },
+    {
+      "id": "jobs_types_browsertaskinput",
+      "label": "BrowserTaskInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L99"
+    },
+    {
+      "id": "jobs_types_meetingbotinput",
+      "label": "MeetingBotInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L106"
+    },
+    {
+      "id": "jobs_types_memoryingestinput",
+      "label": "MemoryIngestInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L113"
+    },
+    {
+      "id": "jobs_types_assetvariantinput",
+      "label": "AssetVariantInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "jobs_types_inboxfetchinput",
+      "label": "InboxFetchInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L129"
+    },
+    {
+      "id": "jobs_types_dailybriefinput",
+      "label": "DailyBriefInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L146"
+    },
+    {
+      "id": "jobs_types_simulationinput",
+      "label": "SimulationInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L167"
+    },
+    {
+      "id": "jobs_types_jobpayload",
+      "label": "JobPayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L179"
+    },
+    {
+      "id": "jobs_types_jobresult",
+      "label": "JobResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L195"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_jobkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_jobscopefields",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_imagegeninput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_audiogeninput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_videogeninput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_documentparseinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_codeexecinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_browsertaskinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_meetingbotinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_memoryingestinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_assetvariantinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_inboxfetchinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_dailybriefinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_simulationinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_jobpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "target": "jobs_types_jobresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/types.ts",
+      "source_location": "L195",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

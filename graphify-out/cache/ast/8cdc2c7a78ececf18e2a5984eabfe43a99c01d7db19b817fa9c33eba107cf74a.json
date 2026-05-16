@@ -1,0 +1,350 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "label": "missions-idor.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_missions_idor_test_getmissionmock",
+      "label": "getMissionMock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "security_missions_idor_test_maybesinglemock",
+      "label": "maybeSingleMock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "security_missions_idor_test_getserversupabasemock",
+      "label": "getServerSupabaseMock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "security_missions_idor_test_childlogger",
+      "label": "childLogger",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "security_missions_idor_test_makeownershipclient",
+      "label": "makeOwnershipClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "security_missions_idor_test_scope_a",
+      "label": "SCOPE_A",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "security_missions_idor_test_scope_b",
+      "label": "SCOPE_B",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "security_missions_idor_test_db_row_owner_a",
+      "label": "DB_ROW_OWNER_A",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "security_missions_idor_test_deletebuildercalls",
+      "label": "DeleteBuilderCalls",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L238"
+    },
+    {
+      "id": "security_missions_idor_test_makedeleteclient",
+      "label": "makeDeleteClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L244"
+    },
+    {
+      "id": "security_missions_idor_test_rows",
+      "label": "rows",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L288"
+    },
+    {
+      "id": "security_missions_idor_test_client_calls",
+      "label": "{ client, calls }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L294"
+    },
+    {
+      "id": "security_missions_idor_test_client",
+      "label": "{ client }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L320"
+    },
+    {
+      "id": "security_missions_idor_test_updatebuildercalls",
+      "label": "UpdateBuilderCalls",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L346"
+    },
+    {
+      "id": "security_missions_idor_test_makeupdateclient",
+      "label": "makeUpdateClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L352"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_getmissionmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_maybesinglemock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_getserversupabasemock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_childlogger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "state_adapter_deletescheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "state_adapter_updatescheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_ownership_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "missions_ownership_verifymissionownership",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_makeownershipclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_scope_a",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_scope_b",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_db_row_owner_a",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_deletebuildercalls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L238",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_makedeleteclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_rows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L288",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_client_calls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L294",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_client_calls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L309",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L320",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_updatebuildercalls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L346",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_makeupdateclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L352",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_client_calls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L385",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_client_calls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L397",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_missions_idor_test_ts",
+      "target": "security_missions_idor_test_client_calls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/missions-idor.test.ts",
+      "source_location": "L409",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

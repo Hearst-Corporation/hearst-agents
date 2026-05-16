@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_reports_parts_blockeditorrow_tsx",
+      "label": "BlockEditorRow.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/_parts/BlockEditorRow.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "parts_blockeditorrow_blockeditorrowprops",
+      "label": "BlockEditorRowProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/_parts/BlockEditorRow.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "parts_blockeditorrow_blockeditorrow",
+      "label": "BlockEditorRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/_parts/BlockEditorRow.tsx",
+      "source_location": "L14"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_reports_parts_blockeditorrow_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/_parts/BlockEditorRow.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_reports_parts_blockeditorrow_tsx",
+      "target": "spec_schema_blockspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/_parts/BlockEditorRow.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_reports_parts_blockeditorrow_tsx",
+      "target": "parts_blockeditorrow_blockeditorrowprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/_parts/BlockEditorRow.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_reports_parts_blockeditorrow_tsx",
+      "target": "parts_blockeditorrow_blockeditorrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/_parts/BlockEditorRow.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

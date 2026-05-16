@@ -1,0 +1,185 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "label": "reports.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_reports_reportchannel",
+      "label": "ReportChannel",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "stores_reports_reportsstate",
+      "label": "ReportsState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "stores_reports_makesupabasebrowserclient",
+      "label": "makeSupabaseBrowserClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "stores_reports_parsepayload",
+      "label": "parsePayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "stores_reports_isrenderpayload",
+      "label": "isRenderPayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "stores_reports_usereportsstore",
+      "label": "useReportsStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L83"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "zustand",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "middleware",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "engine_render_blocks_renderpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "stores_reports_reportchannel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "stores_reports_reportsstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "stores_reports_makesupabasebrowserclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "stores_reports_parsepayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "stores_reports_isrenderpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_reports_ts",
+      "target": "stores_reports_usereportsstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "stores_reports_parsepayload",
+      "target": "stores_reports_isrenderpayload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stores_reports_makesupabasebrowserclient",
+      "callee": "createClient",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "stores_reports_parsepayload",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts",
+      "source_location": "L62"
+    }
+  ]
+}

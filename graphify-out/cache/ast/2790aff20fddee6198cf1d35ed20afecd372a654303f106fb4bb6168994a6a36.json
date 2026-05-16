@@ -1,0 +1,229 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "label": "signed-state.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "auth_signed_state_test_payload",
+      "label": "payload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "auth_signed_state_test_state",
+      "label": "state",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "auth_signed_state_test_decoded",
+      "label": "decoded",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "auth_signed_state_test_forgery",
+      "label": "forgery",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "auth_signed_state_test_result",
+      "label": "result",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "auth_signed_state_test_original",
+      "label": "original",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "auth_signed_state_test_sig",
+      "label": "[, sig]",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "auth_signed_state_test_maliciousbody",
+      "label": "maliciousBody",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "auth_signed_state_test_s1",
+      "label": "s1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L131"
+    },
+    {
+      "id": "auth_signed_state_test_s2",
+      "label": "s2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L132"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_payload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_state",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_decoded",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_forgery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_state",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_original",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_sig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_maliciousbody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_state",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_payload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_state",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_decoded",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_s1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_auth_signed_state_test_ts",
+      "target": "auth_signed_state_test_s2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/auth/signed-state.test.ts",
+      "source_location": "L132",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

@@ -1,0 +1,534 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "label": "in-app.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "notifications_in_app_notificationkindschema",
+      "label": "NotificationKindSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "notifications_in_app_notificationkind",
+      "label": "NotificationKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "notifications_in_app_notificationseverityschema",
+      "label": "NotificationSeveritySchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "notifications_in_app_notificationseverity",
+      "label": "NotificationSeverity",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "notifications_in_app_notificationschema",
+      "label": "NotificationSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "notifications_in_app_notification",
+      "label": "Notification",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "notifications_in_app_createnotificationinputschema",
+      "label": "CreateNotificationInputSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "notifications_in_app_createnotificationinput",
+      "label": "CreateNotificationInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "notifications_in_app_listnotificationsinputschema",
+      "label": "ListNotificationsInputSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "notifications_in_app_listnotificationsinput",
+      "label": "ListNotificationsInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "notifications_in_app_createnotification",
+      "label": "createNotification()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "notifications_in_app_listnotifications",
+      "label": "listNotifications()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L113"
+    },
+    {
+      "id": "notifications_in_app_markread",
+      "label": "markRead()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L157"
+    },
+    {
+      "id": "notifications_in_app_markallread",
+      "label": "markAllRead()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L176"
+    },
+    {
+      "id": "notifications_in_app_formatsignaltitle",
+      "label": "formatSignalTitle()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L201"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_notificationkindschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_notificationkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_notificationseverityschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_notificationseverity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_notificationschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_notification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_createnotificationinputschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_createnotificationinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_listnotificationsinputschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_listnotificationsinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_createnotification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_listnotifications",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_markread",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_markallread",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "target": "notifications_in_app_formatsignaltitle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L201",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "notifications_in_app_createnotification",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "or",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "is",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "notifications_in_app_listnotifications",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "notifications_in_app_markread",
+      "callee": "is",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "notifications_in_app_markread",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "notifications_in_app_markread",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "notifications_in_app_markread",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "notifications_in_app_markread",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "notifications_in_app_markread",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L163"
+    },
+    {
+      "caller_nid": "notifications_in_app_markread",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "notifications_in_app_markallread",
+      "callee": "is",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L180"
+    },
+    {
+      "caller_nid": "notifications_in_app_markallread",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L180"
+    },
+    {
+      "caller_nid": "notifications_in_app_markallread",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L180"
+    },
+    {
+      "caller_nid": "notifications_in_app_markallread",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L180"
+    },
+    {
+      "caller_nid": "notifications_in_app_markallread",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "notifications_in_app_markallread",
+      "callee": "or",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L187"
+    },
+    {
+      "caller_nid": "notifications_in_app_markallread",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "notifications_in_app_formatsignaltitle",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/in-app.ts",
+      "source_location": "L212"
+    }
+  ]
+}

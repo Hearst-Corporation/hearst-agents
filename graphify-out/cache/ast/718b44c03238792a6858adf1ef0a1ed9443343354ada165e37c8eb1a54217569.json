@@ -1,0 +1,339 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "label": "snapshot.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hom_snapshot_gitinfo",
+      "label": "gitInfo()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "hom_snapshot_hashfiles",
+      "label": "hashFiles()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "hom_snapshot_capturesnapshot",
+      "label": "captureSnapshot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L35"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "promises",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_fs_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_fs_utils_fileexists",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_fs_utils_nowiso",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_fs_utils_sha256",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_fs_utils_writejson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_paths_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_paths_hom",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_types_replaysnapshot",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_types_all_agents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_snapshot_gitinfo",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_snapshot_hashfiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_snapshot_ts",
+      "target": "hom_snapshot_capturesnapshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_snapshot_capturesnapshot",
+      "target": "hom_snapshot_gitinfo",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_snapshot_capturesnapshot",
+      "target": "hom_snapshot_hashfiles",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hom_snapshot_gitinfo",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "hom_snapshot_gitinfo",
+      "callee": "execSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "hom_snapshot_gitinfo",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "hom_snapshot_gitinfo",
+      "callee": "execSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "hom_snapshot_gitinfo",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "hom_snapshot_gitinfo",
+      "callee": "execSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "hom_snapshot_hashfiles",
+      "callee": "fileExists",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "hom_snapshot_hashfiles",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "hom_snapshot_hashfiles",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "hom_snapshot_hashfiles",
+      "callee": "sha256",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "hom_snapshot_hashfiles",
+      "callee": "sha256",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "hom_snapshot_hashfiles",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "hom_snapshot_capturesnapshot",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "hom_snapshot_capturesnapshot",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "hom_snapshot_capturesnapshot",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "hom_snapshot_capturesnapshot",
+      "callee": "nowIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "hom_snapshot_capturesnapshot",
+      "callee": "writeJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "hom_snapshot_capturesnapshot",
+      "callee": "runSnapshot",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/snapshot.ts",
+      "source_location": "L57"
+    }
+  ]
+}

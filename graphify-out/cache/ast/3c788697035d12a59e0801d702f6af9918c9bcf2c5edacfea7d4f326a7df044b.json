@@ -1,0 +1,166 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "label": "global-bus.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "events_global_bus_handler",
+      "label": "Handler",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "events_global_bus_globalrunbus",
+      "label": "GlobalRunBus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "events_global_bus_globalrunbus_broadcast",
+      "label": ".broadcast()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "events_global_bus_globalrunbus_subscribe",
+      "label": ".subscribe()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "events_global_bus_globalrunbus_getrecent",
+      "label": ".getRecent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L41"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "target": "events_types_runevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "target": "events_global_bus_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "target": "events_global_bus_globalrunbus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "events_global_bus_globalrunbus",
+      "target": "events_global_bus_globalrunbus_broadcast",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "events_global_bus_globalrunbus",
+      "target": "events_global_bus_globalrunbus_subscribe",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "events_global_bus_globalrunbus",
+      "target": "events_global_bus_globalrunbus_getrecent",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "target": "events_global_bus_globalrunbus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "events_global_bus_globalrunbus_broadcast",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "events_global_bus_globalrunbus_broadcast",
+      "callee": "shift",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "events_global_bus_globalrunbus_broadcast",
+      "callee": "h",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "events_global_bus_globalrunbus_broadcast",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "events_global_bus_globalrunbus_subscribe",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "events_global_bus_globalrunbus_getrecent",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/events/global-bus.ts",
+      "source_location": "L42"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_spatialtransition_tsx",
+      "label": "SpatialTransition.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "motion_spatialtransition_spatialtransitionprops",
+      "label": "SpatialTransitionProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "motion_spatialtransition_spatialtransition",
+      "label": "SpatialTransition()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L18"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_spatialtransition_tsx",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_spatialtransition_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_spatialtransition_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_spatialtransition_tsx",
+      "target": "motion_variants_emerge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_spatialtransition_tsx",
+      "target": "motion_spatialtransition_spatialtransitionprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_motion_spatialtransition_tsx",
+      "target": "motion_spatialtransition_spatialtransition",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/motion/SpatialTransition.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

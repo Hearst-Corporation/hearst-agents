@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Vision Glass Test Isolé</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400,200&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #000000;
+    --ink: rgba(255, 255, 255, 0.85);
+    --ink-mute: rgba(255, 255, 255, 0.55);
+    
+    /* Variables critiques du verre (Ultra Transparent) */
+    --surface-glass: rgba(255, 255, 255, 0.005);
+    --glass-blur-heavy: blur(64px) saturate(110%) brightness(105%);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.12);
+    --glass-shadow: 
+      inset 0 1px 1px rgba(255, 255, 255, 0.5),  /* Highlight crête haute */
+      inset 0 0 40px rgba(255, 255, 255, 0.02), /* Rebond interne (Fresnel) */
+      0 40px 80px rgba(0, 0, 0, 0.8);           /* Ombre portée lourde */
+  }
+
+  html, body { 
+    height: 100%; 
+    background: var(--bg); 
+    color: var(--ink);
+    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== Noise Overlay (Texture verre/grain) ===== */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== Lumières Ambiantes (Ce qui donne vie au verre) ===== */
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, 30px) scale(1.1); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(1.15); }
+  }
+
+  .amb-light-top, .amb-light-bottom {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: screen; /* CRITIQUE: Permet l'addition de lumière */
+  }
+  
+  .amb-light-top { 
+    background: 
+      radial-gradient(circle at 35% 25%, rgba(255,255,255,0.6), transparent 40%),
+      radial-gradient(circle at 65% 15%, rgba(255,255,255,0.4), transparent 45%);
+    filter: blur(40px);
+    animation: float1 18s ease-in-out infinite;
+  }
+  
+  .amb-light-bottom { 
+    background: 
+      radial-gradient(circle at 65% 85%, rgba(255,255,255,0.5), transparent 45%),
+      radial-gradient(circle at 35% 75%, rgba(255,255,255,0.3), transparent 50%);
+    filter: blur(40px);
+    animation: float2 22s ease-in-out infinite;
+  }
+
+  /* ===== La Box Vision Glass ===== */
+  .vision-box {
+    position: relative;
+    z-index: 10;
+    width: 440px;
+    padding: 56px 48px;
+    border-radius: 28px;
+    
+    /* Core Glass Pipeline */
+    background: var(--surface-glass);
+    border: var(--glass-border);
+    backdrop-filter: var(--glass-blur-heavy);
+    -webkit-backdrop-filter: var(--glass-blur-heavy);
+    box-shadow: var(--glass-shadow);
+    
+    text-align: center;
+  }
+
+  .vision-box h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .vision-box p {
+    font-size: 16px;
+    color: var(--ink-mute);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Lumières animées en arrière-plan -->
+  <div class="amb-light-top"></div>
+  <div class="amb-light-bottom"></div>
+
+  <!-- Box Glass Isolée -->
+  <div class="vision-box">
+    <h1>Test Vision Glass</h1>
+    <p>Ceci est un bac à sable isolé. Vous voyez le verre dépoli (`backdrop-filter`) réagir dynamiquement aux lumières blanches qui flottent derrière.</p>
+  </div>
+
+</body>
+</html>

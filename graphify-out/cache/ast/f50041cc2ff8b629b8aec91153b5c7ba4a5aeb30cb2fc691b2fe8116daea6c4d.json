@@ -1,0 +1,231 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "label": "metrics-page.test.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "admin_metrics_page_test_mock_snapshot",
+      "label": "MOCK_SNAPSHOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "admin_metrics_page_test_mock_webhooks",
+      "label": "MOCK_WEBHOOKS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L76"
+    },
+    {
+      "id": "admin_metrics_page_test_mockfetch",
+      "label": "mockFetch()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L105"
+    },
+    {
+      "id": "admin_metrics_page_test_hits",
+      "label": "hits",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L155"
+    },
+    {
+      "id": "admin_metrics_page_test_badges",
+      "label": "badges",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L198"
+    },
+    {
+      "id": "admin_metrics_page_test_snapshotcbclosed",
+      "label": "snapshotCBClosed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L230"
+    },
+    {
+      "id": "admin_metrics_page_test_el",
+      "label": "el",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L302"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "llm_circuit_breaker_circuitstate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "llm_metrics_metricssnapshot",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "webhooks_types_customwebhook",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_metrics_page_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "admin_metrics_page_test_mock_snapshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "admin_metrics_page_test_mock_webhooks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "admin_metrics_page_test_mockfetch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "admin_metrics_page_test_hits",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "admin_metrics_page_test_badges",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L198",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "admin_metrics_page_test_snapshotcbclosed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L230",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_admin_metrics_page_test_tsx",
+      "target": "admin_metrics_page_test_el",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L302",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "admin_metrics_page_test_mockfetch",
+      "callee": "mockImplementation",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "admin_metrics_page_test_mockfetch",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/admin/metrics-page.test.tsx",
+      "source_location": "L106"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_support_health_ts",
+      "label": "support-health.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "catalog_support_health_buildsupporthealth",
+      "label": "buildSupportHealth()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "catalog_support_health_support_health_required_apps",
+      "label": "SUPPORT_HEALTH_REQUIRED_APPS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L374"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_support_health_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_support_health_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_support_health_ts",
+      "target": "catalog_support_health_buildsupporthealth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_support_health_ts",
+      "target": "catalog_support_health_support_health_required_apps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L374",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "catalog_support_health_buildsupporthealth",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/support-health.ts",
+      "source_location": "L38"
+    }
+  ]
+}

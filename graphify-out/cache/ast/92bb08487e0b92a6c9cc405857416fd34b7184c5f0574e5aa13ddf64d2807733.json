@@ -1,0 +1,182 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_oauth_popup_ts",
+      "label": "popup.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "oauth_popup_popuphandle",
+      "label": "PopupHandle",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "oauth_popup_webpopuphandle",
+      "label": "WebPopupHandle",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "oauth_popup_webpopuphandle_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "oauth_popup_webpopuphandle_navigate",
+      "label": ".navigate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "oauth_popup_webpopuphandle_close",
+      "label": ".close()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "oauth_popup_webpopuphandle_focus",
+      "label": ".focus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "oauth_popup_webpopuphandle_closed",
+      "label": ".closed()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "oauth_popup_popupdriver",
+      "label": "PopupDriver",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "oauth_popup_driver",
+      "label": "_driver",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "oauth_popup_openoauthpopup",
+      "label": "openOAuthPopup()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L46"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_oauth_popup_ts",
+      "target": "oauth_popup_popuphandle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_oauth_popup_ts",
+      "target": "oauth_popup_webpopuphandle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "oauth_popup_webpopuphandle",
+      "target": "oauth_popup_webpopuphandle_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "oauth_popup_webpopuphandle",
+      "target": "oauth_popup_webpopuphandle_navigate",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "oauth_popup_webpopuphandle",
+      "target": "oauth_popup_webpopuphandle_close",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "oauth_popup_webpopuphandle",
+      "target": "oauth_popup_webpopuphandle_focus",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "oauth_popup_webpopuphandle",
+      "target": "oauth_popup_webpopuphandle_closed",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_oauth_popup_ts",
+      "target": "oauth_popup_popupdriver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_oauth_popup_ts",
+      "target": "oauth_popup_driver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_oauth_popup_ts",
+      "target": "oauth_popup_openoauthpopup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "oauth_popup_openoauthpopup",
+      "callee": "open",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/oauth/popup.ts",
+      "source_location": "L47"
+    }
+  ]
+}

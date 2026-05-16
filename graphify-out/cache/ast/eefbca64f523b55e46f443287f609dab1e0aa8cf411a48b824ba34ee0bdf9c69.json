@@ -1,0 +1,467 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "label": "FocalStage.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_focalstage_status_labels",
+      "label": "STATUS_LABELS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "components_focalstage_status_colors",
+      "label": "STATUS_COLORS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L26"
+    },
+    {
+      "id": "components_focalstage_type_labels",
+      "label": "TYPE_LABELS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L37"
+    },
+    {
+      "id": "components_focalstage_focalcontent",
+      "label": "FocalContent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L50"
+    },
+    {
+      "id": "components_focalstage_focalstageprops",
+      "label": "FocalStageProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L274"
+    },
+    {
+      "id": "components_focalstage_focalstage",
+      "label": "FocalStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L278"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_content_parser_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "assets_content_parser_ishtmlcontent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "assets_content_parser_tryparsereportpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "types_index_focalobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "types_index_focalstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_core_types_focal_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "types_focal_mapfocalobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_focal_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "stores_focal_usefocalstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_navigation_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "stores_navigation_usenavigationstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetvarianttabs_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_assetvarianttabs_assetvarianttabs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalretrybutton_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_focalretrybutton_focalretrybutton",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_reportlayout_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_reportlayout_reportlayout",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_reports_researchreportarticle_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "reports_researchreportarticle_researchreportarticle",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "ui_index_action",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_focalstage_status_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_focalstage_status_colors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_focalstage_type_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_focalstage_focalcontent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_focalstage_focalstageprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L274",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_focalstage_tsx",
+      "target": "components_focalstage_focalstage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L278",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "setTrackedAssetId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "setPreviewContent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "setPreviewLoading",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "tryParseReportPayload",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L214"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "tryParseReportPayload",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "components_focalstage_focalcontent",
+      "callee": "isHtmlContent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "components_focalstage_focalstage",
+      "callee": "useFocalStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L279"
+    },
+    {
+      "caller_nid": "components_focalstage_focalstage",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L280"
+    },
+    {
+      "caller_nid": "components_focalstage_focalstage",
+      "callee": "useFocalStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalStage.tsx",
+      "source_location": "L281"
+    }
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "revoke_route_revokebodyschema",
+      "label": "revokeBodySchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "revoke_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "revoke_route_delete",
+      "label": "DELETE()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L72"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_token_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "cockpit_monthly_card_token_verifycardtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_scope_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "auth_scope_requirescope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "http_parse_body_parsejsonbody",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "revoke_route_revokebodyschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "revoke_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_hearst_card_revoke_route_ts",
+      "target": "revoke_route_delete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "requireScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "parseJsonBody",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "verifyCardToken",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "createHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "revoke_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "revoke_route_delete",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/hearst-card/revoke/route.ts",
+      "source_location": "L99"
+    }
+  ]
+}

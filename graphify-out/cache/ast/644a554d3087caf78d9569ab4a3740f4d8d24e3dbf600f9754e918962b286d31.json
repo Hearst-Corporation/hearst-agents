@@ -1,0 +1,362 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "label": "leader-lease.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missions_leader_lease_db",
+      "label": "db()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "missions_leader_lease_tryacquireschedulerleadership",
+      "label": "tryAcquireSchedulerLeadership()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "missions_leader_lease_renewschedulerleadership",
+      "label": "renewSchedulerLeadership()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L91"
+    },
+    {
+      "id": "missions_leader_lease_getschedulerleader",
+      "label": "getSchedulerLeader()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L122"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_instance_id_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "runtime_instance_id_instance_id",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "missions_leader_lease_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "missions_leader_lease_tryacquireschedulerleadership",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "missions_leader_lease_renewschedulerleadership",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_leader_lease_ts",
+      "target": "missions_leader_lease_getschedulerleader",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_leader_lease_tryacquireschedulerleadership",
+      "target": "missions_leader_lease_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_leader_lease_renewschedulerleadership",
+      "target": "missions_leader_lease_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_leader_lease_getschedulerleader",
+      "target": "missions_leader_lease_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L126",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "missions_leader_lease_db",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "or",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "missions_leader_lease_tryacquireschedulerleadership",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "missions_leader_lease_renewschedulerleadership",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "missions_leader_lease_getschedulerleader",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "missions_leader_lease_getschedulerleader",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "missions_leader_lease_getschedulerleader",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "missions_leader_lease_getschedulerleader",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/leader-lease.ts",
+      "source_location": "L130"
+    }
+  ]
+}

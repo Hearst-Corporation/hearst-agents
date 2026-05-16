@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_artifact_previewpane_tsx",
+      "label": "PreviewPane.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "artifact_previewpane_execresultitem",
+      "label": "ExecResultItem",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "artifact_previewpane_execresult",
+      "label": "ExecResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "artifact_previewpane_previewpaneprops",
+      "label": "PreviewPaneProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L32"
+    },
+    {
+      "id": "artifact_previewpane_previewpane",
+      "label": "PreviewPane()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L40"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_artifact_previewpane_tsx",
+      "target": "image",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_artifact_previewpane_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_artifact_previewpane_tsx",
+      "target": "artifact_previewpane_execresultitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_artifact_previewpane_tsx",
+      "target": "artifact_previewpane_execresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_artifact_previewpane_tsx",
+      "target": "artifact_previewpane_previewpaneprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_artifact_previewpane_tsx",
+      "target": "artifact_previewpane_previewpane",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L40",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "artifact_previewpane_previewpane",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "artifact_previewpane_previewpane",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "artifact_previewpane_previewpane",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "artifact_previewpane_previewpane",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "artifact_previewpane_previewpane",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx",
+      "source_location": "L180"
+    }
+  ]
+}

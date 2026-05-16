@@ -1,0 +1,133 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "label": "NotificationBellSpatial.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "overlays_notificationbellspatial_notificationbellspatial",
+      "label": "NotificationBellSpatial()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_notifications_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "target": "stores_notifications_usenotificationsstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_safe_constants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "target": "spatial_safe_constants_spatial_z_layers",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_notificationbellspatial_tsx",
+      "target": "overlays_notificationbellspatial_notificationbellspatial",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "overlays_notificationbellspatial_notificationbellspatial",
+      "callee": "useSession",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "overlays_notificationbellspatial_notificationbellspatial",
+      "callee": "useNotificationsStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "overlays_notificationbellspatial_notificationbellspatial",
+      "callee": "useNotificationsStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "overlays_notificationbellspatial_notificationbellspatial",
+      "callee": "useNotificationsStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "overlays_notificationbellspatial_notificationbellspatial",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "overlays_notificationbellspatial_notificationbellspatial",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/NotificationBellSpatial.tsx",
+      "source_location": "L23"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_jobs_idor_test_ts",
+      "label": "jobs-idor.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_jobs_idor_test_job_user_a",
+      "label": "JOB_USER_A",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "security_jobs_idor_test_jobwithoutuserid",
+      "label": "jobWithoutUserId",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "security_jobs_idor_test_run",
+      "label": "run",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L61"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_jobs_idor_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_jobs_idor_test_ts",
+      "target": "security_jobs_idor_test_job_user_a",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_jobs_idor_test_ts",
+      "target": "security_jobs_idor_test_jobwithoutuserid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_jobs_idor_test_ts",
+      "target": "security_jobs_idor_test_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_jobs_idor_test_ts",
+      "target": "security_jobs_idor_test_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/jobs-idor.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

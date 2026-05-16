@@ -1,0 +1,301 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_features_manifest_json",
+      "label": "_manifest.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "features_manifest_generatedat",
+      "label": "generatedAt",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "features_manifest_total",
+      "label": "total",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "features_manifest_counts",
+      "label": "counts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "features_manifest_counts_verrouill\u00e9",
+      "label": "verrouill\u00e9",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "features_manifest_counts_in_progress",
+      "label": "in_progress",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "features_manifest_counts_review",
+      "label": "review",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "features_manifest_counts_active",
+      "label": "active",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "features_manifest_counts_autres",
+      "label": "autres",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "features_manifest_totals",
+      "label": "totals",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L11"
+    },
+    {
+      "id": "features_manifest_totals_invariants",
+      "label": "invariants",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "features_manifest_totals_testsexistants",
+      "label": "testsExistants",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L13"
+    },
+    {
+      "id": "features_manifest_totals_testsmanquants",
+      "label": "testsManquants",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "features_manifest_totals_orphans",
+      "label": "orphans",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L15"
+    },
+    {
+      "id": "features_manifest_actualtests",
+      "label": "actualTests",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "features_manifest_actualtests_files",
+      "label": "files",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L18"
+    },
+    {
+      "id": "features_manifest_actualtests_cases",
+      "label": "cases",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L19"
+    },
+    {
+      "id": "features_manifest_actualtests_note",
+      "label": "note",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L20"
+    },
+    {
+      "id": "features_manifest_features",
+      "label": "features",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L22"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_features_manifest_json",
+      "target": "features_manifest_generatedat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_features_manifest_json",
+      "target": "features_manifest_total",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_features_manifest_json",
+      "target": "features_manifest_counts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_counts",
+      "target": "features_manifest_counts_verrouill\u00e9",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_counts",
+      "target": "features_manifest_counts_in_progress",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_counts",
+      "target": "features_manifest_counts_review",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_counts",
+      "target": "features_manifest_counts_active",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_counts",
+      "target": "features_manifest_counts_autres",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_features_manifest_json",
+      "target": "features_manifest_totals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_totals",
+      "target": "features_manifest_totals_invariants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_totals",
+      "target": "features_manifest_totals_testsexistants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_totals",
+      "target": "features_manifest_totals_testsmanquants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_totals",
+      "target": "features_manifest_totals_orphans",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_features_manifest_json",
+      "target": "features_manifest_actualtests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_actualtests",
+      "target": "features_manifest_actualtests_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_actualtests",
+      "target": "features_manifest_actualtests_cases",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "features_manifest_actualtests",
+      "target": "features_manifest_actualtests_note",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_features_manifest_json",
+      "target": "features_manifest_features",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/features/_manifest.json",
+      "source_location": "L22",
+      "weight": 1.0
+    }
+  ]
+}

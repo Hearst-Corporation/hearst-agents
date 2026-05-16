@@ -1,0 +1,150 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_format_time_ts",
+      "label": "format-time.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_format_time_relativeinput",
+      "label": "RelativeInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "ui_format_time_tomillis",
+      "label": "toMillis()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "ui_format_time_formatrelative",
+      "label": "formatRelative()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L28"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_format_time_ts",
+      "target": "ui_format_time_relativeinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_format_time_ts",
+      "target": "ui_format_time_tomillis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_format_time_ts",
+      "target": "ui_format_time_formatrelative",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_format_time_formatrelative",
+      "target": "ui_format_time_tomillis",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "ui_format_time_tomillis",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "ui_format_time_tomillis",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "ui_format_time_tomillis",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "ui_format_time_tomillis",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "ui_format_time_tomillis",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "ui_format_time_formatrelative",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "ui_format_time_formatrelative",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "ui_format_time_formatrelative",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "ui_format_time_formatrelative",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "ui_format_time_formatrelative",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "ui_format_time_formatrelative",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/format-time.ts",
+      "source_location": "L48"
+    }
+  ]
+}

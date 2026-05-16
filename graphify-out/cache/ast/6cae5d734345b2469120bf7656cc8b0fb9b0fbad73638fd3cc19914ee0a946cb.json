@@ -1,0 +1,61 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_diagnostics_build_diagnostics_json",
+      "label": "build-diagnostics.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/build-diagnostics.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "diagnostics_build_diagnostics_buildstage",
+      "label": "buildStage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/build-diagnostics.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "diagnostics_build_diagnostics_buildoptions",
+      "label": "buildOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/build-diagnostics.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "diagnostics_build_diagnostics_buildoptions_usebuildworker",
+      "label": "useBuildWorker",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/build-diagnostics.json",
+      "source_location": "L4"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_diagnostics_build_diagnostics_json",
+      "target": "diagnostics_build_diagnostics_buildstage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/build-diagnostics.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_diagnostics_build_diagnostics_json",
+      "target": "diagnostics_build_diagnostics_buildoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/build-diagnostics.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "diagnostics_build_diagnostics_buildoptions",
+      "target": "diagnostics_build_diagnostics_buildoptions_usebuildworker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/build-diagnostics.json",
+      "source_location": "L4",
+      "weight": 1.0
+    }
+  ]
+}

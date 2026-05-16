@@ -1,0 +1,467 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "label": "composio-bulk-enable.mjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_composio_bulk_enable_args",
+      "label": "args",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L23"
+    },
+    {
+      "id": "scripts_composio_bulk_enable_verbose",
+      "label": "VERBOSE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L24"
+    },
+    {
+      "id": "scripts_composio_bulk_enable_dry_run",
+      "label": "DRY_RUN",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L25"
+    },
+    {
+      "id": "scripts_composio_bulk_enable_category_arg",
+      "label": "CATEGORY_ARG",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L26"
+    },
+    {
+      "id": "scripts_composio_bulk_enable_sleep",
+      "label": "sleep()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L30"
+    },
+    {
+      "id": "scripts_composio_bulk_enable_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L33"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "target": "core",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "target": "scripts_composio_bulk_enable_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "target": "scripts_composio_bulk_enable_verbose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "target": "scripts_composio_bulk_enable_dry_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "target": "scripts_composio_bulk_enable_category_arg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "target": "scripts_composio_bulk_enable_sleep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_composio_bulk_enable_mjs",
+      "target": "scripts_composio_bulk_enable_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_composio_bulk_enable_main",
+      "target": "scripts_composio_bulk_enable_sleep",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L96",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "write",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "padEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "padEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "padEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "padEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "padStart",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L155"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "padEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L155"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L155"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "scripts_composio_bulk_enable_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/composio-bulk-enable.mjs",
+      "source_location": "L162"
+    }
+  ]
+}

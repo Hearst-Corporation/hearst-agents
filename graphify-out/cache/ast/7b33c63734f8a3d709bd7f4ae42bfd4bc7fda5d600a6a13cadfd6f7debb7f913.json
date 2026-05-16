@@ -1,0 +1,676 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "label": "seed.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "admin_seed_db",
+      "label": "DB",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "admin_seed_seedresource",
+      "label": "SeedResource",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "admin_seed_seedreport",
+      "label": "SeedReport",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "admin_seed_agents",
+      "label": "AGENTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "admin_seed_tools",
+      "label": "TOOLS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L95"
+    },
+    {
+      "id": "admin_seed_skills",
+      "label": "SKILLS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L170"
+    },
+    {
+      "id": "admin_seed_datasets",
+      "label": "DATASETS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L213"
+    },
+    {
+      "id": "admin_seed_workflows",
+      "label": "WORKFLOWS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L294"
+    },
+    {
+      "id": "admin_seed_seedagents",
+      "label": "seedAgents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L357"
+    },
+    {
+      "id": "admin_seed_seedtools",
+      "label": "seedTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L382"
+    },
+    {
+      "id": "admin_seed_seedskills",
+      "label": "seedSkills()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L407"
+    },
+    {
+      "id": "admin_seed_seeddatasets",
+      "label": "seedDatasets()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L432"
+    },
+    {
+      "id": "admin_seed_seedworkflows",
+      "label": "seedWorkflows()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L473"
+    },
+    {
+      "id": "admin_seed_seeders",
+      "label": "SEEDERS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L525"
+    },
+    {
+      "id": "admin_seed_runseed",
+      "label": "runSeed()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L537"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_database_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "lib_database_types_database",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seedresource",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seedreport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_skills",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_datasets",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L213",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_workflows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L294",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seedagents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L357",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seedtools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L382",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seedskills",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L407",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seeddatasets",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L432",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seedworkflows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L473",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_seeders",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L525",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_seed_ts",
+      "target": "admin_seed_runseed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L537",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "admin_seed_seedagents",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L362"
+    },
+    {
+      "caller_nid": "admin_seed_seedagents",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L362"
+    },
+    {
+      "caller_nid": "admin_seed_seedagents",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L362"
+    },
+    {
+      "caller_nid": "admin_seed_seedagents",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L362"
+    },
+    {
+      "caller_nid": "admin_seed_seedagents",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L372"
+    },
+    {
+      "caller_nid": "admin_seed_seedagents",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L372"
+    },
+    {
+      "caller_nid": "admin_seed_seedagents",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "admin_seed_seedtools",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L387"
+    },
+    {
+      "caller_nid": "admin_seed_seedtools",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L387"
+    },
+    {
+      "caller_nid": "admin_seed_seedtools",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L387"
+    },
+    {
+      "caller_nid": "admin_seed_seedtools",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L387"
+    },
+    {
+      "caller_nid": "admin_seed_seedtools",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L397"
+    },
+    {
+      "caller_nid": "admin_seed_seedtools",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L397"
+    },
+    {
+      "caller_nid": "admin_seed_seedtools",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L399"
+    },
+    {
+      "caller_nid": "admin_seed_seedskills",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L412"
+    },
+    {
+      "caller_nid": "admin_seed_seedskills",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L412"
+    },
+    {
+      "caller_nid": "admin_seed_seedskills",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L412"
+    },
+    {
+      "caller_nid": "admin_seed_seedskills",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L412"
+    },
+    {
+      "caller_nid": "admin_seed_seedskills",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L422"
+    },
+    {
+      "caller_nid": "admin_seed_seedskills",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L422"
+    },
+    {
+      "caller_nid": "admin_seed_seedskills",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L424"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L437"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L437"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L437"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L437"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L444"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L444"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L444"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L444"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L450"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L460"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L460"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L465"
+    },
+    {
+      "caller_nid": "admin_seed_seeddatasets",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L466"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L479"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L479"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L482"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L486"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L486"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L486"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L486"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L495"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L495"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L495"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L495"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L506"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L512"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L512"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L516"
+    },
+    {
+      "caller_nid": "admin_seed_seedworkflows",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L519"
+    },
+    {
+      "caller_nid": "admin_seed_runseed",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L548"
+    },
+    {
+      "caller_nid": "admin_seed_runseed",
+      "callee": "SEEDERS[r]",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L548"
+    },
+    {
+      "caller_nid": "admin_seed_runseed",
+      "callee": "SEEDERS[resource]",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/seed.ts",
+      "source_location": "L552"
+    }
+  ]
+}

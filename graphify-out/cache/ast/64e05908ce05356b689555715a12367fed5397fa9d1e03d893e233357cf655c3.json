@@ -1,0 +1,62 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_analytics_feedback_ts",
+      "label": "feedback.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/analytics/feedback.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "analytics_feedback_feedbackkind",
+      "label": "FeedbackKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/analytics/feedback.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "analytics_feedback_feedbackpriority",
+      "label": "FeedbackPriority",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/analytics/feedback.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "analytics_feedback_feedbacksignal",
+      "label": "FeedbackSignal",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/analytics/feedback.ts",
+      "source_location": "L19"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_analytics_feedback_ts",
+      "target": "analytics_feedback_feedbackkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/analytics/feedback.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_analytics_feedback_ts",
+      "target": "analytics_feedback_feedbackpriority",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/analytics/feedback.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_analytics_feedback_ts",
+      "target": "analytics_feedback_feedbacksignal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/analytics/feedback.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

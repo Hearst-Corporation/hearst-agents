@@ -1,0 +1,369 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "label": "trust.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hom_trust_default_scores",
+      "label": "DEFAULT_SCORES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "hom_trust_loadhistory",
+      "label": "loadHistory()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "hom_trust_latestscores",
+      "label": "latestScores()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "hom_trust_trustcomputeinput",
+      "label": "TrustComputeInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "hom_trust_computetrust",
+      "label": "computeTrust()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "hom_trust_appendhistory",
+      "label": "appendHistory()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "hom_trust_trustgate",
+      "label": "trustGate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L89"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_fs_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_fs_utils_nowiso",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_fs_utils_readjson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_fs_utils_writejson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_paths_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_paths_hom",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_types_agentrunresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_types_trusthistoryentry",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_types_trustscores",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_trust_default_scores",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_trust_loadhistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_trust_latestscores",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_trust_trustcomputeinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_trust_computetrust",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_trust_appendhistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_trust_ts",
+      "target": "hom_trust_trustgate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_trust_latestscores",
+      "target": "hom_trust_loadhistory",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_trust_computetrust",
+      "target": "hom_trust_latestscores",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_trust_appendhistory",
+      "target": "hom_trust_loadhistory",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hom_trust_loadhistory",
+      "callee": "await readJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "hom_trust_latestscores",
+      "callee": "at",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "hom_trust_computetrust",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "hom_trust_computetrust",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "hom_trust_computetrust",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "hom_trust_computetrust",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "hom_trust_computetrust",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "hom_trust_computetrust",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "hom_trust_computetrust",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "hom_trust_appendhistory",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "hom_trust_appendhistory",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "hom_trust_appendhistory",
+      "callee": "nowIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "hom_trust_appendhistory",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "hom_trust_appendhistory",
+      "callee": "writeJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "hom_trust_trustgate",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "hom_trust_trustgate",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/trust.ts",
+      "source_location": "L104"
+    }
+  ]
+}

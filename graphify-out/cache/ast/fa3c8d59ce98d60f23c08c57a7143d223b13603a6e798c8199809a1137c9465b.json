@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_polling_effect_ts",
+      "label": "use-polling-effect.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_use_polling_effect_pollingoptions",
+      "label": "PollingOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "hooks_use_polling_effect_usepollingeffect",
+      "label": "usePollingEffect()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L30"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_polling_effect_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_polling_effect_ts",
+      "target": "hooks_use_polling_effect_pollingoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_polling_effect_ts",
+      "target": "hooks_use_polling_effect_usepollingeffect",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hooks_use_polling_effect_usepollingeffect",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "hooks_use_polling_effect_usepollingeffect",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "hooks_use_polling_effect_usepollingeffect",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts",
+      "source_location": "L43"
+    }
+  ]
+}

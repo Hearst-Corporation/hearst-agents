@@ -1,0 +1,975 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "label": "adapter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "state_adapter_log",
+      "label": "log",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "state_adapter_db",
+      "label": "db()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "state_adapter_status_map",
+      "label": "STATUS_MAP",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "state_adapter_saverun",
+      "label": "saveRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "state_adapter_updaterun",
+      "label": "updateRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "state_adapter_getruns",
+      "label": "getRuns()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L134"
+    },
+    {
+      "id": "state_adapter_getrunbyid",
+      "label": "getRunById()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L173"
+    },
+    {
+      "id": "state_adapter_torunrecord",
+      "label": "toRunRecord()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L192"
+    },
+    {
+      "id": "state_adapter_mapdbstatus",
+      "label": "mapDbStatus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L226"
+    },
+    {
+      "id": "state_adapter_savescheduledmission",
+      "label": "saveScheduledMission()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L234"
+    },
+    {
+      "id": "state_adapter_updatescheduledmission",
+      "label": "updateScheduledMission()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L290"
+    },
+    {
+      "id": "state_adapter_deletescheduledmission",
+      "label": "deleteScheduledMission()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L366"
+    },
+    {
+      "id": "state_adapter_getscheduledmissions",
+      "label": "getScheduledMissions()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L397"
+    },
+    {
+      "id": "state_adapter_toscheduledmission",
+      "label": "toScheduledMission()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L455"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "observability_logger_logger",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "observability_logger_redactederror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_types_persistedrunrecord",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_types_persistedscheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_log",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_status_map",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_saverun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_updaterun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_getruns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_getrunbyid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L173",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_torunrecord",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_mapdbstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L226",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_savescheduledmission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L234",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_updatescheduledmission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L290",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_deletescheduledmission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L366",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_getscheduledmissions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L397",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "target": "state_adapter_toscheduledmission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L455",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_saverun",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_updaterun",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_getruns",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_getrunbyid",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L174",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_getrunbyid",
+      "target": "state_adapter_torunrecord",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_torunrecord",
+      "target": "state_adapter_mapdbstatus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L210",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_savescheduledmission",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L235",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_updatescheduledmission",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L295",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_deletescheduledmission",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L370",
+      "weight": 1.0
+    },
+    {
+      "source": "state_adapter_getscheduledmissions",
+      "target": "state_adapter_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L402",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "state_adapter_db",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "state_adapter_saverun",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "state_adapter_saverun",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "state_adapter_saverun",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "state_adapter_saverun",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "state_adapter_saverun",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "state_adapter_saverun",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "state_adapter_updaterun",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "state_adapter_getruns",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "state_adapter_getrunbyid",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "state_adapter_getrunbyid",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "state_adapter_getrunbyid",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "state_adapter_getrunbyid",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "state_adapter_torunrecord",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L211"
+    },
+    {
+      "caller_nid": "state_adapter_torunrecord",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L212"
+    },
+    {
+      "caller_nid": "state_adapter_savescheduledmission",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L237"
+    },
+    {
+      "caller_nid": "state_adapter_savescheduledmission",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L245"
+    },
+    {
+      "caller_nid": "state_adapter_savescheduledmission",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L245"
+    },
+    {
+      "caller_nid": "state_adapter_savescheduledmission",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "state_adapter_savescheduledmission",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L276"
+    },
+    {
+      "caller_nid": "state_adapter_savescheduledmission",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L318"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L319"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L336"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L336"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L336"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L337"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L340"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L348"
+    },
+    {
+      "caller_nid": "state_adapter_updatescheduledmission",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L349"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L380"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L388"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L389"
+    },
+    {
+      "caller_nid": "state_adapter_deletescheduledmission",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L390"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L414"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L420"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L427"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L427"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L436"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L446"
+    },
+    {
+      "caller_nid": "state_adapter_getscheduledmissions",
+      "callee": "redactedError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L447"
+    },
+    {
+      "caller_nid": "state_adapter_toscheduledmission",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L467"
+    },
+    {
+      "caller_nid": "state_adapter_toscheduledmission",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/state/adapter.ts",
+      "source_location": "L476"
+    }
+  ]
+}

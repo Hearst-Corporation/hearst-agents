@@ -1,0 +1,461 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "label": "video-gen.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "workers_video_gen_estimatevideocostusd",
+      "label": "estimateVideoCostUsd()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "workers_video_gen_pollheygen",
+      "label": "pollHeyGen()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "workers_video_gen_pollrunway",
+      "label": "pollRunway()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "workers_video_gen_tryheygen",
+      "label": "tryHeyGen()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "workers_video_gen_handler",
+      "label": "handler",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L83"
+    },
+    {
+      "id": "workers_video_gen_startvideogenworker",
+      "label": "startVideoGenWorker()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L280"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "assets_variants_updatevariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_heygen_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "providers_heygen_heygengeneratevideo",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "providers_heygen_heygengetstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_runway_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "providers_runway_runwaygeneratevideo",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "providers_runway_runwaygettask",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "storage_index_getglobalstorage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_run_persistence_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "inngest_run_persistence_endjobrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "inngest_run_persistence_startjobrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_permanent_error_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "jobs_permanent_error_permanentjoberror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "jobs_types_jobresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "jobs_types_videogeninput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_worker_base_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "jobs_worker_base_startworker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "jobs_worker_base_workerhandler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "llm_circuit_breaker_defaultcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "observability_logger_logger",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "workers_video_gen_estimatevideocostusd",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "workers_video_gen_pollheygen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "workers_video_gen_pollrunway",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "workers_video_gen_tryheygen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "workers_video_gen_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_workers_video_gen_ts",
+      "target": "workers_video_gen_startvideogenworker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L280",
+      "weight": 1.0
+    },
+    {
+      "source": "workers_video_gen_tryheygen",
+      "target": "workers_video_gen_pollheygen",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "workers_video_gen_pollheygen",
+      "callee": "heygenGetStatus",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "workers_video_gen_pollrunway",
+      "callee": "runwayGetTask",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "workers_video_gen_tryheygen",
+      "callee": "isOpen",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "workers_video_gen_tryheygen",
+      "callee": "heygenGenerateVideo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "workers_video_gen_tryheygen",
+      "callee": "reportProgress",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "workers_video_gen_tryheygen",
+      "callee": "recordSuccess",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "workers_video_gen_tryheygen",
+      "callee": "recordFailure",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "workers_video_gen_tryheygen",
+      "callee": "getState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "workers_video_gen_tryheygen",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "workers_video_gen_startvideogenworker",
+      "callee": "startWorker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/workers/video-gen.ts",
+      "source_location": "L281"
+    }
+  ]
+}

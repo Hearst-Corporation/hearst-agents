@@ -1,0 +1,161 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "label": "SpatialMouseProvider.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_spatial_spatialmouseprovider_spatialmousecontextvalue",
+      "label": "SpatialMouseContextValue",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "providers_spatial_spatialmouseprovider_spatialmousecontext",
+      "label": "SpatialMouseContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "providers_spatial_spatialmouseprovider_spatialmouseprovider",
+      "label": "SpatialMouseProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "providers_spatial_spatialmouseprovider_usespatialmousecontext",
+      "label": "useSpatialMouseContext()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L47"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_utils",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "spatial_utils_normalizemouseposition",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "providers_spatial_spatialmouseprovider_spatialmousecontextvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "providers_spatial_spatialmouseprovider_spatialmousecontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "providers_spatial_spatialmouseprovider_spatialmouseprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_providers_spatial_spatialmouseprovider_tsx",
+      "target": "providers_spatial_spatialmouseprovider_usespatialmousecontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L47",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_spatial_spatialmouseprovider_spatialmouseprovider",
+      "callee": "useMotionValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "providers_spatial_spatialmouseprovider_spatialmouseprovider",
+      "callee": "useMotionValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "providers_spatial_spatialmouseprovider_spatialmouseprovider",
+      "callee": "useSpring",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "providers_spatial_spatialmouseprovider_spatialmouseprovider",
+      "callee": "useSpring",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "providers_spatial_spatialmouseprovider_spatialmouseprovider",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "providers_spatial_spatialmouseprovider_usespatialmousecontext",
+      "callee": "useContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx",
+      "source_location": "L48"
+    }
+  ]
+}

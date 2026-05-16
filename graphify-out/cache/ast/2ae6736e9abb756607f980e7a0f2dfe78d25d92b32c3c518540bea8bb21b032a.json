@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_thinkingdisclosure_tsx",
+      "label": "ThinkingDisclosure.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_thinkingdisclosure_thinkingdisclosureprops",
+      "label": "ThinkingDisclosureProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "components_thinkingdisclosure_thinkingdisclosure",
+      "label": "ThinkingDisclosure()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L9"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_thinkingdisclosure_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_thinkingdisclosure_tsx",
+      "target": "components_thinkingdisclosure_thinkingdisclosureprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_thinkingdisclosure_tsx",
+      "target": "components_thinkingdisclosure_thinkingdisclosure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_thinkingdisclosure_thinkingdisclosure",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L10"
+    },
+    {
+      "caller_nid": "components_thinkingdisclosure_thinkingdisclosure",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L11"
+    },
+    {
+      "caller_nid": "components_thinkingdisclosure_thinkingdisclosure",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ThinkingDisclosure.tsx",
+      "source_location": "L11"
+    }
+  ]
+}

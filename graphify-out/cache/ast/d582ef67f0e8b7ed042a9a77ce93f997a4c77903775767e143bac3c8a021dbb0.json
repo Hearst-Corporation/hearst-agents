@@ -1,0 +1,184 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_cache_ts",
+      "label": "cache.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composio_cache_cacheentry",
+      "label": "CacheEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "composio_cache_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "composio_cache_resetdiscoverycache",
+      "label": "resetDiscoveryCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "composio_cache_invalidateuserdiscovery",
+      "label": "invalidateUserDiscovery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "composio_cache_getcacheentry",
+      "label": "getCacheEntry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "composio_cache_setcacheentry",
+      "label": "setCacheEntry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L39"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_cache_ts",
+      "target": "composio_cache_cacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_cache_ts",
+      "target": "composio_cache_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_cache_ts",
+      "target": "composio_cache_resetdiscoverycache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_cache_ts",
+      "target": "composio_cache_invalidateuserdiscovery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_cache_ts",
+      "target": "composio_cache_getcacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_cache_ts",
+      "target": "composio_cache_setcacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "composio_cache_invalidateuserdiscovery",
+      "target": "composio_cache_resetdiscoverycache",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "composio_cache_resetdiscoverycache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "composio_cache_resetdiscoverycache",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "composio_cache_resetdiscoverycache",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "composio_cache_resetdiscoverycache",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "composio_cache_getcacheentry",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "composio_cache_getcacheentry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "composio_cache_getcacheentry",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "composio_cache_setcacheentry",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "composio_cache_setcacheentry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/cache.ts",
+      "source_location": "L40"
+    }
+  ]
+}

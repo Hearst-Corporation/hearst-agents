@@ -1,0 +1,228 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "label": "kimi.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_kimi_test_makefetchmock",
+      "label": "makeFetchMock()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "llm_kimi_test_mock_completion",
+      "label": "MOCK_COMPLETION",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "llm_kimi_test_provider",
+      "label": "provider",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "llm_kimi_test_fetchmock",
+      "label": "fetchMock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L99"
+    },
+    {
+      "id": "llm_kimi_test_a",
+      "label": "a",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L134"
+    },
+    {
+      "id": "llm_kimi_test_b",
+      "label": "b",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L135"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_kimiprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_router_getprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_router_resetllmprovidercache",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_makefetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_mock_completion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_provider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_provider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_provider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_a",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_b",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_a",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_kimi_test_ts",
+      "target": "llm_kimi_test_b",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_kimi_test_makefetchmock",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "llm_kimi_test_makefetchmock",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "llm_kimi_test_makefetchmock",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/kimi.test.ts",
+      "source_location": "L16"
+    }
+  ]
+}

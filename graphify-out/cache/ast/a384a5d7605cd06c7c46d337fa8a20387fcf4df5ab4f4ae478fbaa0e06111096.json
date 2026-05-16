@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialmotionprovider_tsx",
+      "label": "SpatialMotionProvider.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_safe_spatialmotionprovider_spatialmotioncontexttype",
+      "label": "SpatialMotionContextType",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "spatial_safe_spatialmotionprovider_spatialmotioncontext",
+      "label": "SpatialMotionContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "spatial_safe_spatialmotionprovider_usespatialmotion",
+      "label": "useSpatialMotion()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "spatial_safe_spatialmotionprovider_spatialmotionprovider",
+      "label": "SpatialMotionProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialmotionprovider_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialmotionprovider_tsx",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialmotionprovider_tsx",
+      "target": "spatial_safe_spatialmotionprovider_spatialmotioncontexttype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialmotionprovider_tsx",
+      "target": "spatial_safe_spatialmotionprovider_spatialmotioncontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialmotionprovider_tsx",
+      "target": "spatial_safe_spatialmotionprovider_usespatialmotion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialmotionprovider_tsx",
+      "target": "spatial_safe_spatialmotionprovider_spatialmotionprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_safe_spatialmotionprovider_usespatialmotion",
+      "callee": "useContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMotionProvider.tsx",
+      "source_location": "L14"
+    }
+  ]
+}

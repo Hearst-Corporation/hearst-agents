@@ -1,0 +1,334 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "label": "end-to-end-access.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_end_to_end_access_test_mockprovider",
+      "label": "mockProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "llm_end_to_end_access_test_req",
+      "label": "req",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "llm_end_to_end_access_test_costerr",
+      "label": "costErr",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "llm_end_to_end_access_test_rateerr",
+      "label": "rateErr",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "llm_end_to_end_access_test_timeouterr",
+      "label": "timeoutErr",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "llm_end_to_end_access_test_circuiterr",
+      "label": "circuitErr",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L80"
+    },
+    {
+      "id": "llm_end_to_end_access_test_signal",
+      "label": "signal",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L104"
+    },
+    {
+      "id": "llm_end_to_end_access_test_error",
+      "label": "error",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L111"
+    },
+    {
+      "id": "llm_end_to_end_access_test_toolnames",
+      "label": "toolNames",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "llm_end_to_end_access_test_requests",
+      "label": "requests",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L143"
+    },
+    {
+      "id": "llm_end_to_end_access_test_limiter",
+      "label": "limiter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L164"
+    },
+    {
+      "id": "llm_end_to_end_access_test_breaker",
+      "label": "breaker",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L182"
+    },
+    {
+      "id": "llm_end_to_end_access_test_controller",
+      "label": "controller",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L200"
+    },
+    {
+      "id": "llm_end_to_end_access_test_signaturemap",
+      "label": "signatureMap",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L212"
+    },
+    {
+      "id": "llm_end_to_end_access_test_testcases",
+      "label": "testCases",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L233"
+    },
+    {
+      "id": "llm_end_to_end_access_test_sanitized",
+      "label": "sanitized",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L244"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_types_chatrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_types_llmprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_mockprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_req",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_costerr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_rateerr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_timeouterr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_circuiterr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_signal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_error",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_toolnames",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_requests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_limiter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_breaker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_controller",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_signal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_signaturemap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L212",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_testcases",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L233",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_llm_end_to_end_access_test_ts",
+      "target": "llm_end_to_end_access_test_sanitized",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L244",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_end_to_end_access_test_mockprovider",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "llm_end_to_end_access_test_mockprovider",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/llm/end-to-end-access.test.ts",
+      "source_location": "L18"
+    }
+  ]
+}

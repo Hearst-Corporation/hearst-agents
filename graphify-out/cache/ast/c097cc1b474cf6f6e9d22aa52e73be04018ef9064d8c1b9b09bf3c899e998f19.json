@@ -1,0 +1,91 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_preview_tool_receipts_test_ts",
+      "label": "preview-tool-receipts.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_preview_tool_receipts_test_meta_tools",
+      "label": "META_TOOLS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "orchestrator_preview_tool_receipts_test_shouldskipchip",
+      "label": "shouldSkipChip()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L17"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_preview_tool_receipts_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_preview_tool_receipts_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_write_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_preview_tool_receipts_test_ts",
+      "target": "composio_write_guard_iswriteaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_preview_tool_receipts_test_ts",
+      "target": "orchestrator_preview_tool_receipts_test_meta_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_preview_tool_receipts_test_ts",
+      "target": "orchestrator_preview_tool_receipts_test_shouldskipchip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_preview_tool_receipts_test_shouldskipchip",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "orchestrator_preview_tool_receipts_test_shouldskipchip",
+      "callee": "isWriteAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/preview-tool-receipts.test.ts",
+      "source_location": "L20"
+    }
+  ]
+}

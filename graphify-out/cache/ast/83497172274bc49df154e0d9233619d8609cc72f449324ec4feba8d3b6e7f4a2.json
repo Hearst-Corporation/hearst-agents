@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hr_people_ts",
+      "label": "hr-people.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "catalog_hr_people_buildhrpeople",
+      "label": "buildHrPeople()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "catalog_hr_people_hr_people_required_apps",
+      "label": "HR_PEOPLE_REQUIRED_APPS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L412"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hr_people_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hr_people_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hr_people_ts",
+      "target": "catalog_hr_people_buildhrpeople",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hr_people_ts",
+      "target": "catalog_hr_people_hr_people_required_apps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L412",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "catalog_hr_people_buildhrpeople",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hr-people.ts",
+      "source_location": "L40"
+    }
+  ]
+}

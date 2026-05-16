@@ -1,0 +1,858 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "label": "proxy.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hearst_os_proxy_public_paths",
+      "label": "PUBLIC_PATHS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "hearst_os_proxy_state_changing_methods",
+      "label": "STATE_CHANGING_METHODS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "hearst_os_proxy_iscsrfsafe",
+      "label": "isCsrfSafe()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "hearst_os_proxy_ispublic",
+      "label": "isPublic()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "hearst_os_proxy_resolvetoken",
+      "label": "resolveToken()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "hearst_os_proxy_hasvalidapikey",
+      "label": "hasValidApiKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "hearst_os_proxy_isdevbypass",
+      "label": "isDevBypass()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "hearst_os_proxy_arcjet_protected_paths",
+      "label": "ARCJET_PROTECTED_PATHS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "hearst_os_proxy_arcjet_llm_job_paths",
+      "label": "ARCJET_LLM_JOB_PATHS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "hearst_os_proxy_isarcjetprotected",
+      "label": "isArcjetProtected()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "hearst_os_proxy_isllmjobpath",
+      "label": "isLlmJobPath()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L137"
+    },
+    {
+      "id": "hearst_os_proxy_arcjetdeniedresponse",
+      "label": "arcjetDeniedResponse()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L142"
+    },
+    {
+      "id": "hearst_os_proxy_extractuseridfromtoken",
+      "label": "extractUserIdFromToken()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L158"
+    },
+    {
+      "id": "hearst_os_proxy_applyarcjet",
+      "label": "applyArcjet()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L165"
+    },
+    {
+      "id": "hearst_os_proxy_proxy",
+      "label": "proxy()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L207"
+    },
+    {
+      "id": "hearst_os_proxy_config",
+      "label": "config",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L297"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "jwt",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_dev_bypass_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "auth_dev_bypass_isdevbypassenabled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_arcjet_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "security_arcjet_aj",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "security_arcjet_ajllmjobs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "security_arcjet_ajorchestrate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "security_arcjet_isarcjetenabled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_public_paths",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_state_changing_methods",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_iscsrfsafe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_ispublic",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_resolvetoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_hasvalidapikey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_isdevbypass",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_arcjet_protected_paths",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_arcjet_llm_job_paths",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_isarcjetprotected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_isllmjobpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_arcjetdeniedresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_extractuseridfromtoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_applyarcjet",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_proxy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L207",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_proxy_ts",
+      "target": "hearst_os_proxy_config",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L297",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_applyarcjet",
+      "target": "hearst_os_proxy_arcjetdeniedresponse",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_applyarcjet",
+      "target": "hearst_os_proxy_isllmjobpath",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_env_server_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_isdevbypass",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_resolvetoken",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_extractuseridfromtoken",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L233",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_isarcjetprotected",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L237",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_applyarcjet",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L238",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_ispublic",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_iscsrfsafe",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L255",
+      "weight": 1.0
+    },
+    {
+      "source": "hearst_os_proxy_proxy",
+      "target": "hearst_os_proxy_hasvalidapikey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L260",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hearst_os_proxy_iscsrfsafe",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_iscsrfsafe",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_iscsrfsafe",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_iscsrfsafe",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_ispublic",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_ispublic",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_resolvetoken",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_resolvetoken",
+      "callee": "getToken",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_hasvalidapikey",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_hasvalidapikey",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_hasvalidapikey",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_hasvalidapikey",
+      "callee": "timingSafeEqual",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_hasvalidapikey",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_hasvalidapikey",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_isdevbypass",
+      "callee": "isDevBypassEnabled",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_isarcjetprotected",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_isllmjobpath",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_isllmjobpath",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_arcjetdeniedresponse",
+      "callee": "isRateLimit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_arcjetdeniedresponse",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_arcjetdeniedresponse",
+      "callee": "isBot",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_arcjetdeniedresponse",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_arcjetdeniedresponse",
+      "callee": "isShield",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_arcjetdeniedresponse",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_arcjetdeniedresponse",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L150"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "isArcjetEnabled",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "protect",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "isDenied",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L187"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "protect",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L195"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "isDenied",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L196"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "protect",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_applyarcjet",
+      "callee": "isDenied",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L220"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L232"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L243"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L246"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L251"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L261"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L266"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L269"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L270"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L274"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L276"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "redirect",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L278"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L287"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L288"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L289"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "redirect",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L290"
+    },
+    {
+      "caller_nid": "hearst_os_proxy_proxy",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/proxy.ts",
+      "source_location": "L294"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_diagnostics_framework_json",
+      "label": "framework.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/framework.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "diagnostics_framework_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/framework.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "diagnostics_framework_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/framework.json",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_diagnostics_framework_json",
+      "target": "diagnostics_framework_name",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/framework.json",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_vercel_output_diagnostics_framework_json",
+      "target": "diagnostics_framework_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.vercel/output/diagnostics/framework.json",
+      "source_location": "L1",
+      "weight": 1.0
+    }
+  ]
+}

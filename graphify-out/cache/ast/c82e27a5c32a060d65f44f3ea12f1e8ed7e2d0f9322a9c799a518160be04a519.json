@@ -1,0 +1,1383 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_index_focalcontext",
+      "label": "FocalContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "orchestrator_index_orchestrateinput",
+      "label": "OrchestrateInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "orchestrator_index_buildtenantscope",
+      "label": "buildTenantScope()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L96"
+    },
+    {
+      "id": "orchestrator_index_orchestrate",
+      "label": "orchestrate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "orchestrator_index_handleaipipeline",
+      "label": "handleAiPipeline()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L159"
+    },
+    {
+      "id": "orchestrator_index_runpipeline",
+      "label": "runPipeline()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L200"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_settings_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "admin_settings_isfeatureenabled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_agents_agent_selector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "agents_agent_selector_selectagentforcontext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_router_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "capabilities_router_executiondecision",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "capabilities_router_resolvecapabilityscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "capabilities_router_resolveexecutionmode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "capabilities_router_scoperequiresproviders",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "control_plane_preflight_preflightconnector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "engine_index_runengine",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "engine_types_createruninput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "runs_store_addrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "runs_types_runrecord",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "state_adapter_saverun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "state_adapter_updaterun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_timeline_persist_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "timeline_persist_persistrunevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "timeline_persist_shouldpersistevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "events_bus_runeventbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_log_persister_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "consumers_log_persister_logpersister",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_consumers_sse_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "consumers_sse_adapter_sseadapter",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "events_global_bus_globalrunbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_conversation_summary_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "memory_conversation_summary_appendtosummary",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_format_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "memory_format_memorytoconversationhistory",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "memory_store_appendmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "memory_store_getrecentmessages",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_guards_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "multi_tenant_guards_asserttenantscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "multi_tenant_types_tenantscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_system_config_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "system_config_system_config",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_abort_registry_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_abort_registry_registerrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_abort_registry_unregisterrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_ai_pipeline_runaipipeline",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_provider_requirements_getblockedreasonforproviders",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_research_intent_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_research_intent_isreportintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_research_intent_isresearchintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_research_intent_shouldbypassresearchpath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_run_planner_workflow_iscomplexintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_run_planner_workflow_isplannerenabled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_research_report_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_run_research_report_runresearchreport",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_safety_gate_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_safety_gate_checksafetygate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_schedule_intent_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_schedule_intent_isscheduleintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_index_focalcontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_index_orchestrateinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_index_buildtenantscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_index_orchestrate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_index_handleaipipeline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_index_ts",
+      "target": "orchestrator_index_runpipeline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_index_runpipeline",
+      "target": "orchestrator_index_buildtenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_index_runpipeline",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_deepseek_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L607",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_index_runpipeline",
+      "target": "orchestrator_index_handleaipipeline",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L711",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_index_buildtenantscope",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L104"
+    },
+    {
+      "caller_nid": "orchestrator_index_buildtenantscope",
+      "callee": "assertTenantScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "orchestrator_index_orchestrate",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "orchestrator_index_orchestrate",
+      "callee": "attach",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "orchestrator_index_handleaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "orchestrator_index_handleaipipeline",
+      "callee": "runAiPipeline",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "appendMessage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L218"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L223"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "appendToSummary",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "getRecentMessages",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L231"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L233"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "memoryToConversationHistory",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L235"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "isScheduleIntent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L244"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "resolveCapabilityScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L248"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "resolveExecutionMode",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "isResearchIntent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L255"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "isReportIntent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L262"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L295"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "start",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L296"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "registerRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L302"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "isFeatureEnabled",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "checkSafetyGate",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L312"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L314"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L315"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L320"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "complete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L325"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "storeRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L344"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "persistRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L347"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L357"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L362"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L417"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "selectAgentForContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L429"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "persistUpdateRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L437"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L443"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L453"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L463"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L467"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L472"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L482"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "scopeRequiresProviders",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L521"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "getRequiredProvidersForInput",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L522"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L527"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L528"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L532"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L536"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L537"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "getBlockedReasonForProviders",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L545"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L548"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L556"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L559"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L562"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "complete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L569"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L576"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L593"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L601"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "deepseekChat",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L613"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L616"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L622"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "complete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L623"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L626"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L627"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L630"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "shouldBypassResearchPath",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L651"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L654"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "runResearchReport",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L659"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L669"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "isPlannerEnabled",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L681"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "isComplexIntent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L681"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L682"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "runPlannerWorkflow",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L688"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "complete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L695"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L698"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L699"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L714"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "unregisterRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L720"
+    },
+    {
+      "caller_nid": "orchestrator_index_runpipeline",
+      "callee": "storeAssistantMemory",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/index.ts",
+      "source_location": "L721"
+    }
+  ]
+}

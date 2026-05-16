@@ -1,0 +1,270 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "label": "topology.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "canvas_topology_nodeid",
+      "label": "NodeId",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "canvas_topology_portdirection",
+      "label": "PortDirection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "canvas_topology_canvasnode",
+      "label": "CanvasNode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "canvas_topology_edgebranch",
+      "label": "EdgeBranch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L46"
+    },
+    {
+      "id": "canvas_topology_canvasedge",
+      "label": "CanvasEdge",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "canvas_topology_point",
+      "label": "Point",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "canvas_topology_nodes",
+      "label": "NODES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L81"
+    },
+    {
+      "id": "canvas_topology_edges",
+      "label": "EDGES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "canvas_topology_node_by_id",
+      "label": "NODE_BY_ID",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L140"
+    },
+    {
+      "id": "canvas_topology_getnode",
+      "label": "getNode()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L148"
+    },
+    {
+      "id": "canvas_topology_edgeports",
+      "label": "edgePorts()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L158"
+    },
+    {
+      "id": "canvas_topology_portat",
+      "label": "portAt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L172"
+    },
+    {
+      "id": "canvas_topology_bezierpath",
+      "label": "bezierPath()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L192"
+    },
+    {
+      "id": "canvas_topology_offsetalong",
+      "label": "offsetAlong()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L205"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_nodeid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_portdirection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_canvasnode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_edgebranch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_canvasedge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_point",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_nodes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_edges",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_node_by_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_getnode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_edgeports",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_portat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_bezierpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "target": "canvas_topology_offsetalong",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L205",
+      "weight": 1.0
+    },
+    {
+      "source": "canvas_topology_bezierpath",
+      "target": "canvas_topology_offsetalong",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "canvas_topology_edgeports",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "canvas_topology_bezierpath",
+      "callee": "hypot",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L198"
+    },
+    {
+      "caller_nid": "canvas_topology_bezierpath",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/topology.ts",
+      "source_location": "L199"
+    }
+  ]
+}

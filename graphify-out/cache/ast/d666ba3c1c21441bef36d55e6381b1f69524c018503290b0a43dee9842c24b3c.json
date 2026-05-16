@@ -1,0 +1,243 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "label": "web-search-cache-isolation.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_tools",
+      "label": "tools",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_p1",
+      "label": "p1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_p2",
+      "label": "p2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_createhash",
+      "label": "{ createHash }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_hashquery",
+      "label": "hashQuery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_keynotenant",
+      "label": "keyNoTenant",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_keytenanta",
+      "label": "keyTenantA",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "security_web_search_cache_isolation_test_keytenantb",
+      "label": "keyTenantB",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L72"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_web_search_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "native_web_search_buildwebsearchtools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_p1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_p2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_createhash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_hashquery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_keynotenant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_keytenanta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_web_search_cache_isolation_test_ts",
+      "target": "security_web_search_cache_isolation_test_keytenantb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "security_web_search_cache_isolation_test_hashquery",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "security_web_search_cache_isolation_test_hashquery",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "security_web_search_cache_isolation_test_hashquery",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "security_web_search_cache_isolation_test_hashquery",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "security_web_search_cache_isolation_test_hashquery",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "security_web_search_cache_isolation_test_hashquery",
+      "callee": "createHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/web-search-cache-isolation.test.ts",
+      "source_location": "L66"
+    }
+  ]
+}

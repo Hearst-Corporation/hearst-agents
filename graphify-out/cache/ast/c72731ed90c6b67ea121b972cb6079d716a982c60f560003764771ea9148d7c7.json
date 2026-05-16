@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_hospitality_guest_arrival_prep_ts",
+      "label": "guest-arrival-prep.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/hospitality/guest-arrival-prep.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hospitality_guest_arrival_prep_guestarrivalpreptemplate",
+      "label": "guestArrivalPrepTemplate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/hospitality/guest-arrival-prep.ts",
+      "source_location": "L9"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_hospitality_guest_arrival_prep_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/hospitality/guest-arrival-prep.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_hospitality_guest_arrival_prep_ts",
+      "target": "workflows_types_workflowgraph",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/hospitality/guest-arrival-prep.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_hospitality_guest_arrival_prep_ts",
+      "target": "hospitality_guest_arrival_prep_guestarrivalpreptemplate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/hospitality/guest-arrival-prep.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

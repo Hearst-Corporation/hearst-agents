@@ -1,0 +1,215 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "label": "pdf.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "generators_pdf_getfontdir",
+      "label": "getFontDir()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "generators_pdf_generatepdfinput",
+      "label": "GeneratePdfInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "generators_pdf_generatepdfartifact",
+      "label": "generatePdfArtifact()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "generators_pdf_renderpdf",
+      "label": "renderPdf()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "pdfkit",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_file_storage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "assets_file_storage_saveassetfile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "assets_types_assetfileinfo",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "generators_pdf_getfontdir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "generators_pdf_generatepdfinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "generators_pdf_generatepdfartifact",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "target": "generators_pdf_renderpdf",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "generators_pdf_generatepdfartifact",
+      "target": "generators_pdf_renderpdf",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "generators_pdf_renderpdf",
+      "target": "generators_pdf_getfontdir",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "generators_pdf_getfontdir",
+      "callee": "resolve",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "generators_pdf_getfontdir",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "generators_pdf_getfontdir",
+      "callee": "dirname",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "generators_pdf_getfontdir",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "generators_pdf_getfontdir",
+      "callee": "cwd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "generators_pdf_generatepdfartifact",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "generators_pdf_generatepdfartifact",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "generators_pdf_generatepdfartifact",
+      "callee": "saveAssetFile",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/pdf.ts",
+      "source_location": "L42"
+    }
+  ]
+}

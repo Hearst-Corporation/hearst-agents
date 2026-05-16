@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_launch_stop_sh",
+      "label": "launch-stop.sh",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/launch-stop.sh",
+      "source_location": "L1"
+    }
+  ],
+  "edges": []
+}

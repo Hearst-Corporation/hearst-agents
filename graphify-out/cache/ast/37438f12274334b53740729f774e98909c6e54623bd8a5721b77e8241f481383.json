@@ -1,0 +1,92 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_cockpit_today_with_inbox_test_ts",
+      "label": "today-with-inbox.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "cockpit_today_with_inbox_test_mocks",
+      "label": "mocks",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "cockpit_today_with_inbox_test_actual",
+      "label": "actual",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "cockpit_today_with_inbox_test_scope",
+      "label": "SCOPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L49"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_cockpit_today_with_inbox_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_cockpit_today_with_inbox_test_ts",
+      "target": "cockpit_today_with_inbox_test_mocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_cockpit_today_with_inbox_test_ts",
+      "target": "cockpit_today_with_inbox_test_actual",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_cockpit_today_with_inbox_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_cockpit_today_with_inbox_test_ts",
+      "target": "cockpit_today_getcockpittoday",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_cockpit_today_with_inbox_test_ts",
+      "target": "cockpit_today_with_inbox_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/cockpit/today-with-inbox.test.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

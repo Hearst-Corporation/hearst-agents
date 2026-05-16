@@ -1,0 +1,407 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "label": "qa.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "agents_qa_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "agents_qa_scanqa",
+      "label": "scanQa()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "agents_qa_executeqa",
+      "label": "executeQa()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L110"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "promises",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_fs_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "hom_fs_utils_fileexists",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "hom_fs_utils_walkfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "hom_types_finding",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_base_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "agents_base_agentexecctx",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "agents_base_makefindingid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "agents_base_runagent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "agents_base_scanresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "agents_qa_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "agents_qa_scanqa",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_agents_qa_ts",
+      "target": "agents_qa_executeqa",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "walkFiles",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "dirname",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "fileExists",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "fileExists",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "makeFindingId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "makeFindingId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "walkFiles",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "makeFindingId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "walkFiles",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "basename",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "makeFindingId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "agents_qa_scanqa",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "agents_qa_executeqa",
+      "callee": "runAgent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/agents/qa.ts",
+      "source_location": "L111"
+    }
+  ]
+}

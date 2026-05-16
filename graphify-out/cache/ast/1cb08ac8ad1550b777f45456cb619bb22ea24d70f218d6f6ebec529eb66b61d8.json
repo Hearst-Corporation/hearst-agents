@@ -1,0 +1,470 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hospitality_index_tenantindustry",
+      "label": "TenantIndustry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "hospitality_index_hospitality_vocabulary",
+      "label": "HOSPITALITY_VOCABULARY",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "hospitality_index_hospitality_kpis",
+      "label": "HOSPITALITY_KPIS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "hospitality_index_db",
+      "label": "db()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "hospitality_index_memorystore",
+      "label": "memoryStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "hospitality_index_valid_industries",
+      "label": "VALID_INDUSTRIES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "hospitality_index_normalizeindustry",
+      "label": "normalizeIndustry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L83"
+    },
+    {
+      "id": "hospitality_index_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L95"
+    },
+    {
+      "id": "hospitality_index_gettenantindustry",
+      "label": "getTenantIndustry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L97"
+    },
+    {
+      "id": "hospitality_index_settenantindustry",
+      "label": "setTenantIndustry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L142"
+    },
+    {
+      "id": "hospitality_index_ishospitalitytenant",
+      "label": "isHospitalityTenant()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L166"
+    },
+    {
+      "id": "hospitality_index_resethospitalitycache",
+      "label": "__resetHospitalityCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L171"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_tenantindustry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_hospitality_vocabulary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_hospitality_kpis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_memorystore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_valid_industries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_normalizeindustry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_gettenantindustry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_settenantindustry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_ishospitalitytenant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_index_ts",
+      "target": "hospitality_index_resethospitalitycache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_index_gettenantindustry",
+      "target": "hospitality_index_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_index_gettenantindustry",
+      "target": "hospitality_index_normalizeindustry",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_index_settenantindustry",
+      "target": "hospitality_index_normalizeindustry",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_index_settenantindustry",
+      "target": "hospitality_index_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_index_ishospitalitytenant",
+      "target": "hospitality_index_gettenantindustry",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L167",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hospitality_index_db",
+      "callee": "createClient",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "hospitality_index_normalizeindustry",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "hospitality_index_gettenantindustry",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "hospitality_index_settenantindustry",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "hospitality_index_settenantindustry",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "hospitality_index_settenantindustry",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "hospitality_index_settenantindustry",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "hospitality_index_settenantindustry",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "hospitality_index_settenantindustry",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "hospitality_index_resethospitalitycache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "hospitality_index_resethospitalitycache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/index.ts",
+      "source_location": "L173"
+    }
+  ]
+}

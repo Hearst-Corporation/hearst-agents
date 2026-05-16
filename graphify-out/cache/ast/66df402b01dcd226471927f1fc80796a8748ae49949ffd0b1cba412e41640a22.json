@@ -1,0 +1,198 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "label": "KpiTile.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "blocks_kpitile_kpitiledata",
+      "label": "KpiTileData",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "blocks_kpitile_kpitileprops",
+      "label": "KpiTileProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "blocks_kpitile_kpitile",
+      "label": "KpiTile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L45"
+    },
+    {
+      "id": "blocks_kpitile_formatvalue",
+      "label": "formatValue()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L124"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_format_fmtcurrency",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_format_fmtdelta",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_format_fmtnumber",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_sparkline_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_sparkline_sparkline",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_kpitile_kpitiledata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_kpitile_kpitileprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_kpitile_kpitile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_kpitile_tsx",
+      "target": "blocks_kpitile_formatvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "blocks_kpitile_kpitile",
+      "target": "blocks_kpitile_formatvalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L54",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "blocks_kpitile_kpitile",
+      "callee": "fmtDelta",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "blocks_kpitile_kpitile",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "blocks_kpitile_formatvalue",
+      "callee": "fmtCurrency",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "blocks_kpitile_formatvalue",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "blocks_kpitile_formatvalue",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "blocks_kpitile_formatvalue",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "blocks_kpitile_formatvalue",
+      "callee": "fmtNumber",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/KpiTile.tsx",
+      "source_location": "L135"
+    }
+  ]
+}

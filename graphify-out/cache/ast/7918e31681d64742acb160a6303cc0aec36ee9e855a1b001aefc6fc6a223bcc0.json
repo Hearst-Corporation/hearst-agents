@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_safe_admin_fetch_ts",
+      "label": "safe-admin-fetch.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "canvas_safe_admin_fetch_fetchadminjson",
+      "label": "fetchAdminJson()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "canvas_safe_admin_fetch_sleep",
+      "label": "sleep()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L26"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_safe_admin_fetch_ts",
+      "target": "canvas_safe_admin_fetch_fetchadminjson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_safe_admin_fetch_ts",
+      "target": "canvas_safe_admin_fetch_sleep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "canvas_safe_admin_fetch_fetchadminjson",
+      "target": "canvas_safe_admin_fetch_sleep",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "canvas_safe_admin_fetch_fetchadminjson",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "canvas_safe_admin_fetch_fetchadminjson",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/safe-admin-fetch.ts",
+      "source_location": "L17"
+    }
+  ]
+}

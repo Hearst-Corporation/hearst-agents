@@ -15,36 +15,28 @@
 
 :root {
   --bg: #050508;
-  --bg-elev-1: #0a0a0a;
-  --bg-elev-2: #141414;
-  --ink: rgba(255, 255, 255, 0.85);
-  --ink-strong: #ffffff;
-  --ink-mute: rgba(255, 255, 255, 0.55);
-  --ink-faint: rgba(255, 255, 255, 0.35);
-  --ink-inverse: #000000;
-  --surface-glass: rgba(255, 255, 255, 0.05);
-  --surface-glass-hover: rgba(255, 255, 255, 0.08);
-  --surface-glass-active: rgba(255, 255, 255, 0.12);
-  --surface-glass-strong: rgba(20, 20, 20, 0.85);
-  --border: rgba(255, 255, 255, 0.1);
-  --border-soft: rgba(255, 255, 255, 0.05);
-  --border-strong: rgba(255, 255, 255, 0.15);
+  --bg-elev: #0a0a0b;
+  --ink: rgba(255, 255, 255, 0.95);
+  --ink-mute: rgba(255, 255, 255, 0.65);
+  --ink-faint: rgba(255, 255, 255, 0.40);
+  
+  /* Vision Tokens (True Liquid Glass) */
+  --glass-tint: rgba(255, 255, 255, 0.01);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.15);
+  --glass-blur: blur(64px) saturate(160%) brightness(115%);
+  
   --teal: #5ee5c3;
+  --coral: #ff6778;
+  --violet: #bc82f3;
   --gold: #f5c451;
   --danger: #ff4545;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --radius-pill: 9999px;
-  --radius-xl: 20px;
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --glass-blur-heavy: blur(100px) saturate(200%) brightness(105%);
-  --glass-blur-medium: blur(40px) saturate(200%);
-  --glass-blur-light: blur(20px) saturate(200%);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 40px rgba(94, 229, 195, 0.06), 0 30px 60px rgba(0, 0, 0, 0.4);
+  
+  --shadow-vision: 
+    0 30px 70px -10px rgba(0, 0, 0, 0.6),
+    0 15px 30px -5px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 
-  --halo-bg: radial-gradient(ellipse 50% 50% at 50% 40%, rgba(255, 255, 255, 0.05), transparent 80%);
-  --dots-bg: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1.5px);
   --fade-bg: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 25%, rgba(0,0,0,0.92) 60%, var(--bg) 85%);
   --seg-bg: rgba(255, 255, 255, 0.05);
   --appr-bg: rgba(255, 255, 255, 0.04);
@@ -52,41 +44,16 @@
   --dots-hover: rgba(255, 255, 255, 0.3);
   --pulse-sh: rgba(255, 255, 255, 0.08);
   --pal-bg: rgba(0, 0, 0, 0.6);
-
-  /* Spatial tokens - removed for pure 3D */
 }
 
 [data-theme="light"] {
   --bg: #f2f2f7;
-  --bg-elev-1: #ffffff;
-  --bg-elev-2: #ffffff;
   --ink: rgba(0, 0, 0, 0.85);
-  --ink-strong: #000000;
   --ink-mute: rgba(0, 0, 0, 0.55);
   --ink-faint: rgba(0, 0, 0, 0.35);
-  --ink-inverse: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.45);
-  --surface-glass-hover: rgba(255, 255, 255, 0.65);
-  --surface-glass-active: rgba(255, 255, 255, 0.85);
-  --surface-glass-strong: rgba(255, 255, 255, 0.95);
-  --border: rgba(0, 0, 0, 0.05);
-  --border-soft: rgba(0, 0, 0, 0.03);
-  --border-strong: rgba(0, 0, 0, 0.1);
-  --teal: rgba(0, 0, 0, 0.85);
-  --gold: rgba(0, 0, 0, 0.55);
-  --danger: rgba(0, 0, 0, 0.85);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
-  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 20px 40px rgba(0, 0, 0, 0.05);
-
-  --halo-bg: radial-gradient(ellipse 50% 50% at 50% 40%, rgba(255, 255, 255, 1), transparent 80%);
-  --dots-bg: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1.5px);
-  --fade-bg: linear-gradient(to bottom, transparent 0%, rgba(242,242,247,0.45) 25%, rgba(242,242,247,0.92) 60%, var(--bg) 85%);
-  --seg-bg: rgba(0, 0, 0, 0.05);
-  --appr-bg: rgba(0, 0, 0, 0.05);
-  --dots-fill: rgba(0, 0, 0, 0.1);
-  --dots-hover: rgba(0, 0, 0, 0.25);
-  --pulse-sh: rgba(0, 0, 0, 0.05);
-  --pal-bg: rgba(255, 255, 255, 0.6);
+  --glass-tint: rgba(255, 255, 255, 0.45);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.05);
+  --shadow-vision: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
 html, body { height: 100%; background: var(--bg); }
@@ -97,97 +64,134 @@ body {
   overflow: hidden;
 }
 
+/* ============================================================
+   AMBIENT LAYER — Le secret du rendu Glass
+   ============================================================ */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ambient::before, .ambient::after, .ambient > .blob {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px) saturate(180%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.ambient::before {
+  width: 90vw; height: 90vw;
+  top: -30vw; left: -20vw;
+  background: radial-gradient(circle, var(--teal) 0%, transparent 70%);
+  opacity: 0.5;
+  animation: drift1 25s ease-in-out infinite alternate;
+}
+.ambient::after {
+  width: 80vw; height: 80vw;
+  bottom: -20vw; right: -10vw;
+  background: radial-gradient(circle, var(--violet) 0%, transparent 70%);
+  opacity: 0.45;
+  animation: drift2 30s ease-in-out infinite alternate;
+}
+.ambient > .blob {
+  width: 70vw; height: 70vw;
+  top: 15%; left: 25%;
+  background: radial-gradient(circle, var(--coral) 0%, transparent 65%);
+  opacity: 0.35;
+  animation: drift3 28s ease-in-out infinite alternate;
+}
+@keyframes drift1 { to { transform: translate(10vw, 10vh) scale(1.1); } }
+@keyframes drift2 { to { transform: translate(-10vw, -10vh) scale(1.15); } }
+@keyframes drift3 { to { transform: translate(-15vw, 15vh) scale(0.9); } }
+
 /* ===== Noise Overlay (Ghost Pattern) ===== */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 5;
   pointer-events: none;
-  opacity: 0.015;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* ===== visionOS glass (Apple Glass Pipeline) ===== */
+/* ===== visionOS glass (Liquid Pipeline v3) ===== */
 .vision-glass {
   position: relative;
-  background: var(--surface-glass);
+  background: var(--glass-tint);
   border: var(--glass-border);
-  backdrop-filter: var(--glass-blur-heavy);
-  -webkit-backdrop-filter: var(--glass-blur-heavy);
-  box-shadow: var(--glass-shadow);
-  transform: var(--base-tr, translateZ(0));
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-vision);
+  isolation: isolate;
 }
 
-/* Static Subtile Glare */
+/* Specular Rim & Depth (The Apple Secret) */
 .vision-glass::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 100;
+  z-index: 10;
   pointer-events: none;
   border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    transparent 40%
-  );
+  /* Double rim highlight */
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 1px 0 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
 }
-.vision-btn-primary {
-  background: var(--ink); color: var(--bg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-weight: 500; border: none;
-}
-.vision-btn-glass {
-  background: var(--surface-glass);
-  border: var(--glass-border);
-  backdrop-filter: var(--glass-blur-medium);
-  -webkit-backdrop-filter: var(--glass-blur-medium);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  color: var(--ink);
-}
-.vision-btn-glass:hover { background: var(--surface-glass-hover); }
-.vision-segmented-track {
-  background: var(--seg-bg);
-  box-shadow: inset 0 0 0 1px var(--border-strong);
-  border-radius: 9999px;
-}
-.perspective-scene { perspective: 1200px; perspective-origin: 50% 50%; }
-.preserve-3d { transform-style: preserve-3d; }
-.vision-content-depth { transform: translateZ(-15px); }
-.vision-footer-float { --base-tr: translateX(-50%) translateZ(20px); }
 
-/* Helpers placeholder identiques au lab */
-.ph { font-style: italic; opacity: 0.5; }
+.vision-btn-primary {
+  background: #fff; color: #000;
+  font-weight: 700; border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s var(--ease), opacity 0.2s;
+}
+.vision-btn-primary:hover { transform: scale(1.02); opacity: 0.9; }
+
+.vision-btn-glass {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #fff;
+  font-weight: 500;
+}
+.vision-btn-glass:hover { background: rgba(255, 255, 255, 0.15); }
+
+.vision-segmented-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 9999px;
+  padding: 4px;
+}
+
+/* Purge 3D Legacy */
+.perspective-scene { perspective: none; }
+.preserve-3d { transform-style: flat; }
+.vision-content-depth { transform: none; }
+
+/* Helpers placeholder */
+.ph { font-style: italic; opacity: 0.5; color: inherit; }
 .ph::before { content: '['; }
 .ph::after { content: ']'; }
 
 /* ===== Shell layout ===== */
 .scene { position: relative; display: flex; height: 100vh; width: 100vw;
-  background: transparent; color: var(--ink); overflow: hidden; pointer-events: none; isolation: isolate; }
+  background: transparent; color: var(--ink); overflow: hidden; pointer-events: none; isolation: isolate; z-index: 10; }
 .scene > * { pointer-events: auto; }
 
-/* Ambient layers (Option A monochrome teal) */
-.amb-light-top, .amb-light-bottom {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  filter: blur(150px) saturate(180%);
-}
-.amb-light-top { background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(94,229,195,0.28), transparent 80%); }
-.amb-light-bottom { background: radial-gradient(ellipse 70% 50% at 50% 110%, rgba(94,229,195,0.12), transparent 80%); }
-
 /* ===== Left rail 88px ===== */
-.lrail { position: relative; z-index: 20; height: 100%; width: 88px;
-  flex-shrink: 0; }
+.lrail { position: relative; z-index: 20; height: 100%; width: 88px; flex-shrink: 0; }
 .lrail-inner { display: flex; flex-direction: column; align-items: center;
   height: 100%; width: 100%; padding: 32px 0;
-  background: var(--surface-glass);
+  background: var(--glass-tint);
   border-right: var(--glass-border);
-  backdrop-filter: var(--glass-blur-heavy);
-  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: none; }
 .lr-brand { margin-bottom: 16px; width: 56px; height: 56px;
   display: flex; align-items: center; justify-content: center;
@@ -200,12 +204,12 @@ body::after {
   display: flex; align-items: center; justify-content: center;
   color: var(--ink-faint); cursor: pointer;
   transition: all 0.3s var(--ease); background: transparent; border: none; }
-.lr-slot:hover { background: var(--surface-glass-hover); color: var(--ink); }
-.lr-slot.active { color: var(--ink);
-  background: var(--surface-glass);
+.lr-slot:hover { background: rgba(255,255,255,0.06); color: var(--ink); }
+.lr-slot.active { color: #fff;
+  background: rgba(255,255,255,0.1);
   border: var(--glass-border);
-  backdrop-filter: var(--glass-blur-medium);
-  -webkit-backdrop-filter: var(--glass-blur-medium);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: none; }
 .lr-slot:active { transform: scale(0.9); }
 .lr-slot-ph { cursor: default; }
@@ -222,18 +226,17 @@ body::after {
 .lr-ico.tri { width: 0; height: 0; border: none; opacity: .85;
   border-left: 8px solid transparent; border-right: 8px solid transparent;
   border-bottom: 12px solid currentColor; }
-.lr-spacer { flex: 1; }
 .lr-avatar { margin-top: 16px; width: 48px; height: 48px; border-radius: 50%;
-  background: var(--surface-glass-strong); display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: var(--ink); box-shadow: none;
+  background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: #fff; box-shadow: none;
   cursor: pointer; }
 
 /* Tooltip slot */
 .lr-slot[data-tip]:hover::after { content: attr(data-tip);
   position: absolute; left: 70px; top: 50%; transform: translateY(-50%);
   white-space: nowrap; padding: 6px 12px; border-radius: 8px;
-  background: var(--surface-glass-strong); border: var(--glass-border);
-  font-size: 11px; color: var(--ink); z-index: 100;
+  background: rgba(20,20,20,0.9); border: var(--glass-border);
+  font-size: 11px; color: #fff; z-index: 100;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
 
 /* ===== Right area (center + right rail) ===== */
@@ -259,9 +262,9 @@ body::after {
 .rrail { position: relative; z-index: 20; display: flex; width: 320px; flex-shrink: 0;
   flex-direction: column; gap: 8px; padding: 56px 32px;
   border-left: var(--glass-border);
-  background: var(--surface-glass);
-  backdrop-filter: var(--glass-blur-heavy);
-  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  background: var(--glass-tint);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: none; }
 .rrail-h { margin-bottom: 16px; padding-left: 16px; font-size: 13px;
   font-weight: 500; color: var(--ink-faint); }
@@ -272,8 +275,8 @@ body::after {
   background: transparent; border: none; cursor: pointer;
   opacity: 0; transform: translateX(10px); }
 .rritem.vis { opacity: 1; transform: translateX(0); }
-.rritem:hover { background: var(--surface-glass-hover); color: var(--ink); }
-.rritem.hot { background: var(--surface-glass-active); color: var(--ink); }
+.rritem:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.rritem.hot { background: rgba(255,255,255,0.1); color: #fff; }
 .rritem-title { font-size: 15px; line-height: 1.35; font-weight: 500; }
 .rritem-sub { display: block; margin-top: 4px; font-size: 13px;
   color: var(--ink-faint); line-height: 1.45; }
@@ -283,10 +286,11 @@ body::after {
 .footer { position: absolute; bottom: 32px; left: 50%; z-index: 30;
   display: flex; align-items: center; gap: 48px;
   width: max-content; padding: 16px 32px; border-radius: 9999px;
-  backdrop-filter: var(--glass-blur-heavy);
-  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  transform: translateX(-50%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: var(--glass-border);
-  box-shadow: var(--glass-shadow); }
+  box-shadow: var(--shadow-vision); }
 .footer-zone { display: flex; align-items: center; gap: 12px; }
 .footer-status { display: flex; align-items: center; gap: 12px;
   font-size: 15px; font-weight: 500; color: var(--ink-mute); }
@@ -301,40 +305,40 @@ body::after {
   padding: 8px 24px; border-radius: 9999px; font-size: 13px;
   color: var(--ink-faint); border: none; cursor: pointer;
   background: transparent; transition: all 0.18s; white-space: nowrap; }
-.footer-btn:hover { color: var(--ink); }
-.footer-btn.on { color: var(--ink); }
+.footer-btn:hover { color: #fff; }
+.footer-btn.on { color: #fff; }
 .footer-btn.on.glass {
-  background: var(--surface-glass);
-  border: var(--glass-border);
-  backdrop-filter: var(--glass-blur-light);
-  -webkit-backdrop-filter: var(--glass-blur-light);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-.footer-btn.on.primary { background: var(--ink); color: var(--bg);
+.footer-btn.on.primary { background: #fff; color: #000;
   box-shadow: 0 4px 12px rgba(0,0,0,.15);
-  font-weight: 500; }
+  font-weight: 700; }
 .footer-btn .ico { width: 14px; height: 14px; border-radius: 3px;
   border: 1px solid currentColor; opacity: 0.55; flex-shrink: 0; }
 .footer-btn.on .ico { background: currentColor; opacity: 0.8; border: none; }
-.footer-btn.on.primary .ico { background: var(--bg); opacity: 1; }
+.footer-btn.on.primary .ico { background: #000; opacity: 1; }
 
 /* Hint overlay */
 .hint { display: none; position: fixed; top: 24px; right: 24px; max-width: 280px; z-index: 200;
   font-size: 12px; line-height: 1.7; color: var(--ink-faint);
   text-align: right; white-space: pre-line; padding: 10px 14px;
-  border-radius: 12px; background: var(--surface-glass);
-  border: var(--glass-border); backdrop-filter: var(--glass-blur-light); }
+  border-radius: 12px; background: var(--glass-tint);
+  border: var(--glass-border); backdrop-filter: blur(12px); }
 
 /* Dots stepper top center */
 .dots-bar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
   z-index: 200; display: flex; align-items: center; gap: 7px;
   padding: 6px 16px; border-radius: 9999px; max-width: 70vw;
-  background: var(--surface-glass); border: var(--glass-border);
-  backdrop-filter: var(--glass-blur-light); font-size: 11px; color: var(--ink-faint); }
+  background: var(--glass-tint); border: var(--glass-border);
+  backdrop-filter: blur(12px); font-size: 11px; color: var(--ink-faint); }
 .dots-bar .ds { width: 6px; height: 6px; border-radius: 50%;
   background: var(--dots-fill); transition: all 0.3s; cursor: pointer; }
 .dots-bar .ds:hover { background: var(--dots-hover); }
-.dots-bar .ds.on { background: var(--ink); box-shadow: none; }
+.dots-bar .ds.on { background: #fff; box-shadow: none; }
 .dots-bar .lbl { margin-left: 8px; }
 
 /* ============================================================
@@ -344,17 +348,17 @@ body::after {
 /* Greeting (cockpit) */
 .greet { display: flex; flex-direction: column; gap: 16px; }
 .greet .date { font-size: 15px; font-weight: 500; color: var(--ink-mute); }
-.greet .h1 { font-size: 44px; font-weight: 500; letter-spacing: -.03em; line-height: 1.1; }
+.greet .h1 { font-size: 44px; font-weight: 700; letter-spacing: -.03em; line-height: 1.1; color: #fff; }
 .greet .sub { max-width: 640px; font-size: 16px; line-height: 1.5; color: var(--ink-mute); }
 
 /* Hero card (vision-glass) */
 .hero { position: relative; padding: 40px;
   border-radius: 20px; display: flex; flex-direction: column; gap: 24px;
   transition: transform .5s var(--ease); }
-.hero:hover { --base-tr: translateY(-4px); }
+.hero:hover { transform: translateY(-4px); }
 .hero-meta { display: flex; align-items: baseline; justify-content: space-between;
-  font-size: 13px; font-weight: 500; color: var(--ink-faint); }
-.hero h2 { max-width: 600px; font-size: 32px; font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
+  font-size: 13px; font-weight: 600; color: var(--ink-faint); }
+.hero h2 { max-width: 600px; font-size: 32px; font-weight: 700; line-height: 1.2; letter-spacing: -.02em; color: #fff; }
 .hero p { max-width: 580px; font-size: 16px; line-height: 1.6; color: var(--ink-mute); }
 .hero-cta { display: flex; align-items: center; gap: 16px; padding-top: 16px; }
 .btn-pill { padding: 12px 24px; border-radius: 9999px; font-size: 16px;
@@ -363,17 +367,17 @@ body::after {
 
 /* Section avec toggle filtre */
 .section-head { display: flex; align-items: center; justify-content: space-between; padding: 0 8px; }
-.section-head h2 { font-size: 20px; font-weight: 500; letter-spacing: -.01em; }
+.section-head h2 { font-size: 20px; font-weight: 600; letter-spacing: -.01em; color: #fff; }
 .section-toggle { display: flex; gap: 4px; padding: 4px; }
 .tg-btn { padding: 8px 20px; border-radius: 9999px; font-size: 13px;
   color: var(--ink-faint); border: none; cursor: pointer;
   background: transparent; transition: all 0.18s; }
-.tg-btn:hover { color: var(--ink); }
-.tg-btn.on { color: var(--ink); font-weight: 500;
-  background: var(--surface-glass);
-  border: var(--glass-border);
-  backdrop-filter: var(--glass-blur-light);
-  -webkit-backdrop-filter: var(--glass-blur-light);
+.tg-btn:hover { color: #fff; }
+.tg-btn.on { color: #fff; font-weight: 600;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
 
 /* Liste activité (style item-lab) */
@@ -382,11 +386,11 @@ body::after {
   border-radius: 8px; cursor: pointer; transition: background 0.15s;
   opacity: 0; transform: translateY(10px); }
 .act-row.vis { opacity: 1; transform: translateY(0); transition: all 0.4s var(--ease); }
-.act-row:hover { background: var(--surface-glass-hover); }
+.act-row:hover { background: rgba(255,255,255,0.06); }
 .act-row .ico-box { width: 16px; height: 16px; border-radius: 3px;
-  border: 1px solid var(--border-strong); flex-shrink: 0; }
+  border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
 .act-row .body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.act-row .title { font-size: 16px; font-weight: 500; color: var(--ink); }
+.act-row .title { font-size: 16px; font-weight: 600; color: #fff; }
 .act-row .meta { font-size: 13px; color: var(--ink-mute); }
 .act-row .ago { font-size: 13px; color: var(--ink-faint); }
 
@@ -396,23 +400,23 @@ body::after {
 
 /* --- Chat doc-style --- */
 .chat-q { padding: 14px 20px; border-radius: 16px;
-  background: var(--surface-glass); border: var(--glass-border);
+  background: var(--glass-tint); border: var(--glass-border);
   font-size: 14px; color: var(--ink-mute); display: inline-block; }
-.chat-ans { font-size: 17px; line-height: 1.7; color: var(--ink); }
-.cursor { display: inline-block; width: 8px; height: 18px; background: var(--ink);
+.chat-ans { font-size: 17px; line-height: 1.7; color: #fff; }
+.cursor { display: inline-block; width: 8px; height: 18px; background: #fff;
   margin-left: 2px; vertical-align: text-bottom; animation: cur 1s steps(1) infinite; box-shadow: 0 0 10px var(--ink-faint); }
 @keyframes cur { 0%,50%{opacity:1} 51%,100%{opacity:0} }
 .tools { display: flex; flex-direction: column; gap: 8px; }
 .tcard { display: flex; align-items: center; gap: 16px; padding: 16px;
-  border-radius: 12px; background: var(--surface-glass); border: var(--glass-border);
+  border-radius: 12px; background: var(--glass-tint); border: var(--glass-border);
   opacity: 0; transform: translateY(8px); transition: all .35s var(--ease); }
 .tcard.vis { opacity: 1; transform: translateY(0); }
-.tcard.run { border-color: var(--border-active); }
+.tcard.run { border-color: var(--teal); }
 .t-mini { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; letter-spacing: -.02em; }
 .t-body { flex: 1; }
-.t-name { font-size: 14px; font-weight: 500; font-family: ui-monospace, "SF Mono", monospace; margin-bottom: 2px; }
+.t-name { font-size: 14px; font-weight: 600; font-family: ui-monospace, "SF Mono", monospace; margin-bottom: 2px; color: #fff; }
 .t-sub { font-size: 12px; color: var(--ink-faint); }
 .t-state { font-size: 12px; color: var(--ink-faint); }
 .t-state.run { color: var(--gold); }
@@ -425,57 +429,54 @@ body::after {
   transition: all 0.4s var(--ease); }
 .mtl-row.vis { opacity: 1; transform: translateX(0); }
 .mtl-row.done { opacity: 1; }
-.mtl-row.active { background: var(--surface-glass-hover); border: var(--glass-border); opacity: 1; }
+.mtl-row.active { background: rgba(255,255,255,0.06); border: var(--glass-border); opacity: 1; }
 .mtl-row.pend { opacity: 0.35; }
 .mtl-row.approval { background: var(--appr-bg); border: var(--glass-border); }
 .mtl-node { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  border: 2px solid var(--border-strong); font-size: 11px; color: var(--ink-faint);
+  border: 2px solid rgba(255,255,255,0.2); font-size: 11px; color: var(--ink-faint);
   margin-top: 2px; transition: all .3s; }
-.mtl-node.done { background: var(--surface-glass-strong); border-color: var(--border-active); color: var(--ink); }
+.mtl-node.done { background: rgba(255,255,255,0.1); border-color: var(--teal); color: #fff; }
 .mtl-node.active { animation: pulseT 1.6s ease-in-out infinite;
-  background: var(--surface-glass-active); border-color: var(--border-active); color: var(--ink); }
-.mtl-node.gold { background: var(--surface-glass-strong); border-color: var(--border-active); color: var(--ink);
+  background: rgba(255,255,255,0.1); border-color: var(--teal); color: #fff; }
+.mtl-node.gold { background: rgba(255,255,255,0.1); border-color: var(--gold); color: #fff;
   animation: pulseG 1.6s ease-in-out infinite; }
 @keyframes pulseG { 0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)} 50%{box-shadow:0 0 0 8px var(--pulse-sh)} }
 .mtl-c { flex: 1; }
-.mtl-t { font-size: 15px; font-weight: 500; margin-bottom: 3px;
+.mtl-t { font-size: 15px; font-weight: 600; margin-bottom: 3px; color: #fff;
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .mtl-pin { display: inline-flex; align-items: center; gap: 5px;
   font-size: 11px; padding: 2px 8px; border-radius: 9999px;
-  background: var(--surface-glass-hover); border: var(--glass-border); color: var(--ink-mute); }
+  background: rgba(255,255,255,0.08); border: var(--glass-border); color: var(--ink-mute); }
 .mtl-d { font-size: 13px; color: var(--ink-mute); line-height: 1.5; }
 .mtl-time { font-size: 12px; color: var(--ink-faint); margin-top: 3px; align-self: flex-start; }
 .approval-bar { margin-top: 12px; padding: 12px 16px; border-radius: 12px;
-  background: var(--surface-glass); border: var(--glass-border);
+  background: var(--glass-tint); border: var(--glass-border);
   display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.approval-bar-t { flex: 1; font-size: 13px; color: var(--ink); min-width: 200px; }
-.appr-btn { padding: 7px 14px; border-radius: 9999px; font-size: 12px; font-weight: 500;
-  cursor: pointer; border: 1px solid var(--border-strong);
-  background: var(--surface-glass-strong); color: var(--ink); }
-.appr-btn.ghost { background: transparent; border-color: var(--border); color: var(--ink-mute); }
+.approval-bar-t { flex: 1; font-size: 13px; color: #fff; min-width: 200px; }
+.appr-btn { padding: 7px 14px; border-radius: 9999px; font-size: 12px; font-weight: 600;
+  cursor: pointer; border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1); color: #fff; }
+.appr-btn.ghost { background: transparent; border-color: rgba(255,255,255,0.1); color: var(--ink-mute); }
 
 /* Outputs cards */
 .outs-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .out-card { padding: 12px 16px; border-radius: 13px;
-  background: var(--surface-glass); border: var(--glass-border); font-size: 13px;
+  background: var(--glass-tint); border: var(--glass-border); font-size: 13px;
   opacity: 0; transform: translateX(10px); transition: all .3s var(--ease); }
 .out-card.vis { opacity: 1; transform: translateX(0); }
-.out-t { color: var(--ink); font-weight: 500; margin-bottom: 3px; }
+.out-t { color: #fff; font-weight: 600; margin-bottom: 3px; }
 .out-s { color: var(--ink-faint); font-size: 12px; }
 
 /* --- Asset 2x2 grid --- */
 .asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .slot { aspect-ratio: 9/16; max-height: 340px; border-radius: 18px; overflow: hidden;
-  position: relative; background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  position: relative; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.15);
   cursor: pointer; transition: all 0.4s var(--ease); }
-.slot.sel { border-color: rgba(255,255,255,0.5); box-shadow: 0 0 0 2px rgba(255,255,255,0.14); }
+.slot.sel { border-color: rgba(255,255,255,0.6); box-shadow: 0 0 0 2px rgba(255,255,255,0.2); }
 .slot .breath { position: absolute; inset: 0;
-  background: linear-gradient(180deg,rgba(94,229,195,0) 0%,rgba(94,229,195,.10) 50%,rgba(94,229,195,0) 100%);
+  background: linear-gradient(180deg,rgba(94,229,195,0) 0%,rgba(94,229,195,.15) 50%,rgba(94,229,195,0) 100%);
   animation: sweep 2.5s ease-in-out infinite; }
-.slot:nth-child(2) .breath { animation-delay: .6s; }
-.slot:nth-child(3) .breath { animation-delay: 1.2s; }
-.slot:nth-child(4) .breath { animation-delay: 1.8s; }
 @keyframes sweep { 0%{transform:translateY(110%)} 100%{transform:translateY(-110%)} }
 .slot.loaded .breath { display: none; }
 .slot .bg { position: absolute; inset: 0; opacity: 0; transition: filter .6s, opacity .6s; filter: blur(20px); }
@@ -487,37 +488,36 @@ body::after {
 .slot .bg.v2 { background: linear-gradient(135deg,#ffb13a,#ff5b3a 60%,#c43a8a); }
 .slot .bg.v3 { background: linear-gradient(135deg,#34d2be,#2a91ff 60%,#6b53ff); }
 .slot .cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px;
-  background: linear-gradient(0deg,rgba(0,0,0,.65),transparent);
-  font-size: 12px; color: rgba(255,255,255,.85); opacity: 0; transition: opacity .5s; }
+  background: linear-gradient(0deg,rgba(0,0,0,.75),transparent);
+  font-size: 12px; color: #fff; opacity: 0; transition: opacity .5s; }
 .slot.loaded .cap { opacity: 1; }
 .tag { display: inline-block; padding: 3px 9px; border-radius: 9999px;
-  background: rgba(255,255,255,.12); font-size: 10px; font-weight: 600;
-  letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+  background: rgba(255,255,255,.15); font-size: 10px; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; color: #fff; }
 
 @keyframes fu { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
 /* Palette ⌘K */
 .palette { position: fixed; inset: 0; z-index: 300;
-  background: var(--pal-bg); backdrop-filter: var(--glass-blur-light);
+  background: var(--pal-bg); backdrop-filter: blur(16px);
   display: none; align-items: flex-start; justify-content: center;
   padding-top: 14vh; opacity: 0; transition: opacity .2s; }
 .palette.on { display: flex; opacity: 1; }
 .palette-box { width: 580px; border-radius: 20px;
   overflow: hidden;
-  --base-tr: scale(.96); 
   transition: transform .25s var(--ease), box-shadow 0.1s linear; }
-.palette.on .palette-box { --base-tr: scale(1); }
+.palette.on .palette-box { transform: scale(1); }
 .palette-in { padding: 16px 20px; border-bottom: var(--glass-border); }
 .palette-in input { width: 100%; background: transparent; border: none; outline: none;
-  font-size: 15px; color: var(--ink); font-family: inherit; caret-color: var(--ink); }
+  font-size: 15px; color: #fff; font-family: inherit; caret-color: #fff; }
 .palette-list { max-height: 400px; overflow-y: auto; padding: 8px; }
 .pitem { padding: 10px 14px; border-radius: 11px; cursor: pointer;
   display: flex; align-items: center; gap: 12px; transition: background .12s; }
-.pitem:hover, .pitem.foc { background: var(--surface-glass-hover); }
+.pitem:hover, .pitem.foc { background: rgba(255,255,255,0.08); }
 .pitem-i { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;
-  background: var(--surface-glass-strong); color: var(--ink); }
-.pitem-t { flex: 1; font-size: 14px; }
+  background: rgba(255,255,255,0.12); color: #fff; }
+.pitem-t { flex: 1; font-size: 14px; color: #fff; font-weight: 500; }
 .pitem-s { font-size: 11px; color: var(--ink-faint); }
 .pitem-k { font-size: 10px; color: var(--ink-faint); padding: 2px 7px;
   border-radius: 5px; border: var(--glass-border); white-space: nowrap; }
@@ -525,10 +525,14 @@ body::after {
 </head>
 <body>
 
+<!-- Ambient background blobs -->
+<div class="ambient">
+  <div class="blob"></div>
+</div>
+
 <!-- ============ LOGIN (vue separee, plein ecran) ============ -->
-<div id="login-view" class="perspective-scene" style="position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden;">
-  <div class="amb-light-top"></div>
-  <div class="amb-light-bottom"></div>
+<div id="login-view" style="position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden;">
+  <div class="ambient"><div class="blob"></div></div>
   <form id="login-form" class="vision-glass" style="position:relative;z-index:2;width:380px;padding:40px;border-radius:24px;display:flex;flex-direction:column;gap:24px;" onsubmit="event.preventDefault(); document.getElementById('login-view').style.display='none';">
     <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
       <span class="lr-brand-logo" aria-label="Hearst OS" style="width:48px;height:48px;color:var(--teal);">
@@ -537,17 +541,17 @@ body::after {
           <polygon fill="currentColor" points="672.72 466.87 672.72 528.12 644.63 500.93 611.98 500.93 672.72 559.72 672.72 609.73 701.86 609.73 701.86 466.87 672.72 466.87"/>
         </svg>
       </span>
-      <h1 style="font-size:22px;font-weight:500;letter-spacing:-.01em;margin-top:8px;color:var(--ink);"><span class="ph">Titre login</span></h1>
+      <h1 style="font-size:22px;font-weight:700;letter-spacing:-.01em;margin-top:8px;color:#fff;"><span class="ph">Titre login</span></h1>
       <p style="font-size:13px;color:var(--ink-mute);"><span class="ph">Sous-titre</span></p>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;">
       <label style="display:flex;flex-direction:column;gap:6px;">
-        <span style="font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;">Champ 1</span>
-        <input type="text" placeholder="[placeholder]" style="background:var(--surface-glass);border:var(--glass-border);border-radius:10px;padding:12px 14px;color:var(--ink);font-size:14px;outline:none;">
+        <span style="font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;font-weight:600;">Champ 1</span>
+        <input type="text" placeholder="[placeholder]" style="background:rgba(255,255,255,0.08);border:var(--glass-border);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;outline:none;">
       </label>
       <label style="display:flex;flex-direction:column;gap:6px;">
-        <span style="font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;">Champ 2</span>
-        <input type="text" placeholder="[placeholder]" style="background:var(--surface-glass);border:var(--glass-border);border-radius:10px;padding:12px 14px;color:var(--ink);font-size:14px;outline:none;">
+        <span style="font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;font-weight:600;">Champ 2</span>
+        <input type="text" placeholder="[placeholder]" style="background:rgba(255,255,255,0.08);border:var(--glass-border);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;outline:none;">
       </label>
     </div>
     <button type="submit" class="vision-btn-primary" style="padding:12px 20px;border-radius:10px;font-size:14px;cursor:pointer;">CTA principal</button>
@@ -555,8 +559,8 @@ body::after {
       <a href="#" style="color:var(--ink-mute);text-decoration:none;"><span class="ph">Lien 1</span></a>
       <a href="#" style="color:var(--ink-mute);text-decoration:none;"><span class="ph">Lien 2</span></a>
     </div>
-    <div style="height:1px;background:var(--border-strong);"></div>
-    <button type="button" onclick="document.getElementById('login-view').style.display='none';" style="padding:10px 16px;border-radius:9999px;font-size:12px;cursor:pointer;background:var(--surface-glass);border:var(--glass-border);color:var(--ink);letter-spacing:.04em;">⚡ BYPASS DEV</button>
+    <div style="height:1px;background:rgba(255,255,255,0.15);"></div>
+    <button type="button" onclick="document.getElementById('login-view').style.display='none';" style="padding:10px 16px;border-radius:9999px;font-size:12px;cursor:pointer;background:rgba(255,255,255,0.08);border:var(--glass-border);color:#fff;letter-spacing:.04em;font-weight:600;">⚡ BYPASS DEV</button>
   </form>
 </div>
 
@@ -570,11 +574,7 @@ body::after {
 <div class="hint" id="hint">← → · Esc → Cockpit · ⌘K palette
 Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au stage)</div>
 
-<div class="scene perspective-scene">
-
-  <!-- Ambient layers (Global Background for Glass) -->
-  <div class="amb-light-top"></div>
-  <div class="amb-light-bottom"></div>
+<div class="scene">
 
   <!-- ============ LEFT RAIL 88px (vision-glass) ============ -->
   <aside class="lrail">
@@ -605,15 +605,15 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
   </aside>
 
   <!-- ============ AREA (center + right rail) ============ -->
-  <div class="rarea preserve-3d">
+  <div class="rarea">
 
     <!-- ============ MAIN center ============ -->
-    <div class="main preserve-3d">
+    <div class="main">
 
-      <div class="main-scroll vision-content-depth preserve-3d">
+      <div class="main-scroll">
 
         <!-- ===== HOME ===== -->
-        <section class="main-inner pw preserve-3d" id="p-home">
+        <section class="main-inner pw" id="p-home">
           <header class="greet">
             <p class="date"><span class="ph">Date</span></p>
             <h1 class="h1"><span class="ph">Greeting principal</span></h1>
@@ -688,7 +688,7 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
         </section>
 
         <!-- ===== CHAT ===== -->
-        <section class="main-inner pw preserve-3d" id="p-chat">
+        <section class="main-inner pw" id="p-chat">
           <div style="display:flex;flex-direction:column;gap:32px;">
             <div class="chat-q"><span class="ph">Question utilisateur</span></div>
             <div class="chat-ans" id="chat-ans"><span id="ctyped"></span><span class="cursor" id="ccur"></span></div>
@@ -719,16 +719,16 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
               </div>
             </div>
             <div class="chat-ans" id="chat-ans2" style="opacity:0;animation:fu .6s var(--ease) 6s forwards;">
-              <strong style="color:var(--ink);"><span class="ph">Label conclusion</span></strong> <span class="ph">Synthèse — phrase de réponse finale</span>
+              <strong style="color:#fff;"><span class="ph">Label conclusion</span></strong> <span class="ph">Synthèse — phrase de réponse finale</span>
             </div>
           </div>
         </section>
 
         <!-- ===== MISSION ===== -->
-        <section class="main-inner pw preserve-3d" id="p-mission">
+        <section class="main-inner pw" id="p-mission">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
-            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;color:var(--ink);"><span class="ph">Titre mission</span></h1>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);font-weight:600;"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:700;letter-spacing:-.02em;color:#fff;"><span class="ph">Titre mission</span></h1>
             <p style="font-size:14px;color:var(--ink-mute);"><span class="ph">Sous-titre</span></p>
           </header>
 
@@ -781,16 +781,16 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
           </div>
 
           <div>
-            <p class="rp-sec-t" style="color:var(--ink);"><span class="ph">Titre section grille</span></p>
+            <p class="rp-sec-t" style="color:#fff;font-weight:600;margin-bottom:12px;"><span class="ph">Titre section grille</span></p>
             <div class="outs-grid" id="ogrid"></div>
           </div>
         </section>
 
         <!-- ===== ASSET ===== -->
-        <section class="main-inner pw preserve-3d" id="p-asset">
+        <section class="main-inner pw" id="p-asset">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
-            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;color:var(--ink);"><span class="ph">Titre Assets</span></h1>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);font-weight:600;"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:700;letter-spacing:-.02em;color:#fff;"><span class="ph">Titre Assets</span></h1>
             <p style="font-size:14px;color:var(--ink-mute);"><span class="ph">Sous-titre / providers</span></p>
           </header>
           <div class="asset-grid">
@@ -811,53 +811,53 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
         </section>
 
         <!-- ===== BILLING ===== -->
-        <section class="main-inner pw preserve-3d" id="p-billing">
+        <section class="main-inner pw" id="p-billing">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
-            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre billing</span></h1>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);font-weight:600;"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:700;letter-spacing:-.02em;color:#fff;"><span class="ph">Titre billing</span></h1>
           </header>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:24px;">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;">
               <div style="display:flex;flex-direction:column;gap:6px;">
-                <span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);">Label plan</span>
-                <span style="font-size:24px;font-weight:500;"><span class="ph">Nom plan</span></span>
+                <span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);font-weight:600;">Label plan</span>
+                <span style="font-size:24px;font-weight:700;color:#fff;"><span class="ph">Nom plan</span></span>
                 <span style="font-size:13px;color:var(--ink-faint);"><span class="ph">Prix / fréquence / prochaine facture</span></span>
               </div>
               <button class="vision-btn-glass" style="padding:10px 18px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA plan</button>
             </div>
-            <div style="height:1px;background:var(--border-strong);"></div>
+            <div style="height:1px;background:rgba(255,255,255,0.1);"></div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
               <div style="display:flex;flex-direction:column;gap:4px;">
-                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);">Métrique 1</span>
-                <span style="font-size:20px;font-weight:500;"><span class="ph">Valeur</span></span>
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);font-weight:600;">Métrique 1</span>
+                <span style="font-size:20px;font-weight:700;color:#fff;"><span class="ph">Valeur</span></span>
               </div>
               <div style="display:flex;flex-direction:column;gap:4px;">
-                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);">Métrique 2</span>
-                <span style="font-size:14px;"><span class="ph">Valeur</span></span>
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);font-weight:600;">Métrique 2</span>
+                <span style="font-size:14px;color:#fff;"><span class="ph">Valeur</span></span>
               </div>
               <div style="display:flex;flex-direction:column;gap:4px;">
-                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);">Status</span>
-                <span style="font-size:14px;color:var(--teal);">● <span class="ph">État</span></span>
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);font-weight:600;">Status</span>
+                <span style="font-size:14px;color:var(--teal);font-weight:600;">● <span class="ph">État</span></span>
               </div>
             </div>
           </section>
 
           <section style="display:flex;flex-direction:column;gap:12px;">
-            <h2 style="font-size:18px;font-weight:500;color:var(--ink);"><span class="ph">Titre section liste</span></h2>
+            <h2 style="font-size:18px;font-weight:600;color:#fff;"><span class="ph">Titre section liste</span></h2>
             <div class="vision-glass" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:14px;"><span class="ph">Ligne 1 — label</span></span>
+                <span style="font-size:14px;color:#fff;"><span class="ph">Ligne 1 — label</span></span>
                 <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Montant · statut</span></span>
               </div>
-              <div style="height:1px;background:var(--border-strong);"></div>
+              <div style="height:1px;background:rgba(255,255,255,0.1);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:14px;"><span class="ph">Ligne 2 — label</span></span>
+                <span style="font-size:14px;color:#fff;"><span class="ph">Ligne 2 — label</span></span>
                 <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Montant · statut</span></span>
               </div>
-              <div style="height:1px;background:var(--border-strong);"></div>
+              <div style="height:1px;background:rgba(255,255,255,0.1);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:14px;"><span class="ph">Ligne 3 — label</span></span>
+                <span style="font-size:14px;color:#fff;"><span class="ph">Ligne 3 — label</span></span>
                 <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Montant · statut</span></span>
               </div>
             </div>
@@ -865,18 +865,18 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
         </section>
 
         <!-- ===== SETTINGS ===== -->
-        <section class="main-inner pw preserve-3d" id="p-settings">
+        <section class="main-inner pw" id="p-settings">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
-            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre settings</span></h1>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);font-weight:600;"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:700;letter-spacing:-.02em;color:#fff;"><span class="ph">Titre settings</span></h1>
           </header>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
-            <h2 style="font-size:18px;font-weight:500;color:var(--ink);">Section 1 — Profil</h2>
+            <h2 style="font-size:18px;font-weight:600;color:#fff;">Section 1 — Profil</h2>
             <div style="display:flex;align-items:center;gap:20px;">
-              <div style="width:64px;height:64px;border-radius:50%;background:var(--surface-glass);display:flex;align-items:center;justify-content:center;font-size:24px;">?</div>
+              <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;">?</div>
               <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
-                <span style="font-size:16px;font-weight:500;"><span class="ph">Nom utilisateur</span></span>
+                <span style="font-size:16px;font-weight:600;color:#fff;"><span class="ph">Nom utilisateur</span></span>
                 <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Email</span></span>
               </div>
               <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA</button>
@@ -884,52 +884,52 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
           </section>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
-            <h2 style="font-size:18px;font-weight:500;color:var(--ink);">Section 2 — Préférences</h2>
+            <h2 style="font-size:18px;font-weight:600;color:#fff;">Section 2 — Préférences</h2>
             <div style="display:flex;flex-direction:column;gap:16px;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <div style="display:flex;flex-direction:column;gap:2px;">
-                  <span style="font-size:14px;">Réglage 1</span>
+                  <span style="font-size:14px;color:#fff;font-weight:500;">Réglage 1</span>
                   <span style="font-size:12px;color:var(--ink-faint);"><span class="ph">Description réglage</span></span>
                 </div>
                 <div class="vision-segmented-track" style="display:flex;padding:3px;">
-                  <button class="footer-btn on" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:var(--ink);background:var(--surface-glass);">Option A</button>
+                  <button class="footer-btn on" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:#fff;background:rgba(255,255,255,0.15);">Option A</button>
                   <button class="footer-btn" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:var(--ink-mute);background:transparent;">Option B</button>
                 </div>
               </div>
-              <div style="height:1px;background:var(--border-strong);"></div>
+              <div style="height:1px;background:rgba(255,255,255,0.1);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <div style="display:flex;flex-direction:column;gap:2px;">
-                  <span style="font-size:14px;">Réglage 2</span>
+                  <span style="font-size:14px;color:#fff;font-weight:500;">Réglage 2</span>
                   <span style="font-size:12px;color:var(--ink-faint);"><span class="ph">Description réglage</span></span>
                 </div>
                 <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Valeur</span></span>
               </div>
-              <div style="height:1px;background:var(--border-strong);"></div>
+              <div style="height:1px;background:rgba(255,255,255,0.1);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <div style="display:flex;flex-direction:column;gap:2px;">
-                  <span style="font-size:14px;">Réglage 3</span>
+                  <span style="font-size:14px;color:#fff;font-weight:500;">Réglage 3</span>
                   <span style="font-size:12px;color:var(--ink-faint);"><span class="ph">Description réglage</span></span>
                 </div>
-                <span style="font-size:13px;color:var(--teal);">● <span class="ph">État</span></span>
+                <span style="font-size:13px;color:var(--teal);font-weight:600;">● <span class="ph">État</span></span>
               </div>
             </div>
           </section>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
-            <h2 style="font-size:18px;font-weight:500;color:var(--ink);">Section 3 — Sécurité</h2>
+            <h2 style="font-size:18px;font-weight:600;color:#fff;">Section 3 — Sécurité</h2>
             <div style="display:flex;flex-direction:column;gap:16px;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:14px;">Item sécurité 1</span>
+                <span style="font-size:14px;color:#fff;font-weight:500;">Item sécurité 1</span>
                 <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA</button>
               </div>
-              <div style="height:1px;background:var(--border-strong);"></div>
+              <div style="height:1px;background:rgba(255,255,255,0.1);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:14px;">Item sécurité 2</span>
+                <span style="font-size:14px;color:#fff;font-weight:500;">Item sécurité 2</span>
                 <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">État</span></span>
               </div>
-              <div style="height:1px;background:var(--border-strong);"></div>
+              <div style="height:1px;background:rgba(255,255,255,0.1);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:14px;color:var(--danger);">Action destructive</span>
+                <span style="font-size:14px;color:var(--danger);font-weight:600;">Action destructive</span>
                 <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;color:var(--danger);">CTA</button>
               </div>
             </div>
@@ -942,11 +942,11 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
       <div class="main-fade"></div>
 
       <!-- ============ FOOTER FLOATING (3 zones) ============ -->
-      <footer class="footer vision-glass vision-footer-float">
+      <footer class="footer vision-glass">
         <!-- Zone 1: status agent + input prompt -->
         <div class="footer-zone footer-status">
           <div class="ico run" id="footer-ico"></div>
-          <span id="footer-status">[Statut footer]</span>
+          <span id="footer-status" style="color:#fff;font-weight:600;">[Statut footer]</span>
         </div>
 
         <!-- Zone 2: navigation principale Cockpit / Chat / Mission -->
@@ -965,8 +965,8 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
     </div>
 
     <!-- ============ RIGHT RAIL 320px ============ -->
-    <aside class="rrail preserve-3d">
-      <h3 class="rrail-h" id="rrail-h">Aperçu du jour</h3>
+    <aside class="rrail">
+      <h3 class="rrail-h" id="rrail-h" style="font-weight:600;color:var(--ink-mute);">Aperçu du jour</h3>
       <div class="rrail-list" id="rrail-list"></div>
     </aside>
 

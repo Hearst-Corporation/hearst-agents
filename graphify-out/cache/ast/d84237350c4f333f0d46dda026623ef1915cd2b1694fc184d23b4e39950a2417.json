@@ -1,0 +1,52 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_settings_alerting_helpers_ts",
+      "label": "helpers.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/settings/alerting/helpers.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "alerting_helpers_parseemailinput",
+      "label": "parseEmailInput()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/settings/alerting/helpers.ts",
+      "source_location": "L5"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_settings_alerting_helpers_ts",
+      "target": "alerting_helpers_parseemailinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/settings/alerting/helpers.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "alerting_helpers_parseemailinput",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/settings/alerting/helpers.ts",
+      "source_location": "L6"
+    },
+    {
+      "caller_nid": "alerting_helpers_parseemailinput",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/settings/alerting/helpers.ts",
+      "source_location": "L6"
+    },
+    {
+      "caller_nid": "alerting_helpers_parseemailinput",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/settings/alerting/helpers.ts",
+      "source_location": "L6"
+    }
+  ]
+}

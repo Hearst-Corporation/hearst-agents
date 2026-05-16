@@ -1,0 +1,166 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "label": "BriefPanel.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "panels_briefpanel_briefpanelprops",
+      "label": "BriefPanelProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "panels_briefpanel_briefpanel",
+      "label": "BriefPanel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L19"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_focal_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "stores_focal_usefocalstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_navigation_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "stores_navigation_usenavigationstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_bentocard_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "panels_bentocard_bentocard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "panels_briefpanel_briefpanelprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_components_spatial_panels_briefpanel_tsx",
+      "target": "panels_briefpanel_briefpanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "panels_briefpanel_briefpanel",
+      "callee": "useFocalStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "panels_briefpanel_briefpanel",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "panels_briefpanel_briefpanel",
+      "callee": "useNavigationStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "panels_briefpanel_briefpanel",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "panels_briefpanel_briefpanel",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "panels_briefpanel_briefpanel",
+      "callee": "padStart",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "panels_briefpanel_briefpanel",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx",
+      "source_location": "L61"
+    }
+  ]
+}

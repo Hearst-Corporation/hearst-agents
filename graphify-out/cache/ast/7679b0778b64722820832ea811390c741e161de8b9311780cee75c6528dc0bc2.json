@@ -1,0 +1,442 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "label": "mock-supabase.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_mock_supabase_row",
+      "label": "Row",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "runtime_mock_supabase_mocktable",
+      "label": "MockTable",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "runtime_mock_supabase_mocktable_insert",
+      "label": ".insert()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "runtime_mock_supabase_mocktable_select",
+      "label": ".select()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "runtime_mock_supabase_mocktable_update",
+      "label": ".update()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "runtime_mock_supabase_mocktable_getrows",
+      "label": ".getRows()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain",
+      "label": "MockChain",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_select",
+      "label": ".select()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_eq",
+      "label": ".eq()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_gte",
+      "label": ".gte()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_order",
+      "label": ".order()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_limit",
+      "label": ".limit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_single",
+      "label": ".single()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L65"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_then",
+      "label": ".then()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "runtime_mock_supabase_mockchain_applyfilters",
+      "label": ".applyFilters()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L75"
+    },
+    {
+      "id": "runtime_mock_supabase_mockupdatechain",
+      "label": "MockUpdateChain",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L84"
+    },
+    {
+      "id": "runtime_mock_supabase_mockupdatechain_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "runtime_mock_supabase_mockupdatechain_eq",
+      "label": ".eq()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "runtime_mock_supabase_createmocksupabase",
+      "label": "createMockSupabase()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L104"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "target": "runtime_mock_supabase_row",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "target": "runtime_mock_supabase_mocktable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mocktable",
+      "target": "runtime_mock_supabase_mocktable_insert",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mocktable",
+      "target": "runtime_mock_supabase_mocktable_select",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mocktable",
+      "target": "runtime_mock_supabase_mocktable_update",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mocktable",
+      "target": "runtime_mock_supabase_mocktable_getrows",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "target": "runtime_mock_supabase_mockchain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_select",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_eq",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_gte",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_order",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_limit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_single",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_then",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain",
+      "target": "runtime_mock_supabase_mockchain_applyfilters",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "target": "runtime_mock_supabase_mockupdatechain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockupdatechain",
+      "target": "runtime_mock_supabase_mockupdatechain_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockupdatechain",
+      "target": "runtime_mock_supabase_mockupdatechain_eq",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "target": "runtime_mock_supabase_createmocksupabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain_single",
+      "target": "runtime_mock_supabase_mockchain_applyfilters",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_mock_supabase_mockchain_then",
+      "target": "runtime_mock_supabase_mockchain_applyfilters",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_mock_supabase_mocktable_insert",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mocktable_insert",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mocktable_insert",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockchain_eq",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockchain_single",
+      "callee": "resolve",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockchain_then",
+      "callee": "resolve",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockchain_applyfilters",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockupdatechain_eq",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockupdatechain_eq",
+      "callee": "every",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockupdatechain_eq",
+      "callee": "assign",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "runtime_mock_supabase_mockupdatechain_eq",
+      "callee": "resolve",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/mock-supabase.ts",
+      "source_location": "L100"
+    }
+  ]
+}

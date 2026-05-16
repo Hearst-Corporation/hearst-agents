@@ -1,0 +1,967 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "label": "schema.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "spec_schema_report_domains",
+      "label": "REPORT_DOMAINS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "spec_schema_report_personas",
+      "label": "REPORT_PERSONAS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "spec_schema_report_cadences",
+      "label": "REPORT_CADENCES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "spec_schema_report_confidentiality",
+      "label": "REPORT_CONFIDENTIALITY",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "spec_schema_composiosourcespecschema",
+      "label": "composioSourceSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "spec_schema_nativegooglesourcespecschema",
+      "label": "nativeGoogleSourceSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "spec_schema_httpsourcespecschema",
+      "label": "httpSourceSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "spec_schema_assetsourcespecschema",
+      "label": "assetSourceSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L102"
+    },
+    {
+      "id": "spec_schema_sourcerefschema",
+      "label": "sourceRefSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L114"
+    },
+    {
+      "id": "spec_schema_sourceref",
+      "label": "SourceRef",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L144"
+    },
+    {
+      "id": "spec_schema_datasetrefschema",
+      "label": "datasetRefSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L154"
+    },
+    {
+      "id": "spec_schema_filteropschema",
+      "label": "filterOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L159"
+    },
+    {
+      "id": "spec_schema_joinopschema",
+      "label": "joinOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L168"
+    },
+    {
+      "id": "spec_schema_groupbyopschema",
+      "label": "groupByOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L177"
+    },
+    {
+      "id": "spec_schema_windowopschema",
+      "label": "windowOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L195"
+    },
+    {
+      "id": "spec_schema_diffopschema",
+      "label": "diffOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L205"
+    },
+    {
+      "id": "spec_schema_rankopschema",
+      "label": "rankOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L215"
+    },
+    {
+      "id": "spec_schema_deriveopschema",
+      "label": "deriveOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L225"
+    },
+    {
+      "id": "spec_schema_pivotopschema",
+      "label": "pivotOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L244"
+    },
+    {
+      "id": "spec_schema_unionallopschema",
+      "label": "unionAllOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L257"
+    },
+    {
+      "id": "spec_schema_transformopunion",
+      "label": "transformOpUnion",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L263"
+    },
+    {
+      "id": "spec_schema_transformopschema",
+      "label": "transformOpSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L275"
+    },
+    {
+      "id": "spec_schema_transformop",
+      "label": "TransformOp",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L284"
+    },
+    {
+      "id": "spec_schema_primitive_kinds",
+      "label": "PRIMITIVE_KINDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L288"
+    },
+    {
+      "id": "spec_schema_primitivekind",
+      "label": "PrimitiveKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L313"
+    },
+    {
+      "id": "spec_schema_blocklayoutschema",
+      "label": "blockLayoutSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L315"
+    },
+    {
+      "id": "spec_schema_waterfalldatumschema",
+      "label": "waterfallDatumSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L334"
+    },
+    {
+      "id": "spec_schema_waterfallpropsschema",
+      "label": "waterfallPropsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L340"
+    },
+    {
+      "id": "spec_schema_cohortrowschema",
+      "label": "cohortRowSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L347"
+    },
+    {
+      "id": "spec_schema_cohorttrianglepropsschema",
+      "label": "cohortTrianglePropsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L352"
+    },
+    {
+      "id": "spec_schema_heatmappropsschema",
+      "label": "heatmapPropsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L358"
+    },
+    {
+      "id": "spec_schema_sankeynodeschema",
+      "label": "sankeyNodeSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L388"
+    },
+    {
+      "id": "spec_schema_sankeylinkschema",
+      "label": "sankeyLinkSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L397"
+    },
+    {
+      "id": "spec_schema_sankeypropsschema",
+      "label": "sankeyPropsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L403"
+    },
+    {
+      "id": "spec_schema_bulletrangeschema",
+      "label": "bulletRangeSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L449"
+    },
+    {
+      "id": "spec_schema_bulletitemschema",
+      "label": "bulletItemSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L455"
+    },
+    {
+      "id": "spec_schema_bulletpropsschema",
+      "label": "bulletPropsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L462"
+    },
+    {
+      "id": "spec_schema_radarseriesschema",
+      "label": "radarSeriesSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L470"
+    },
+    {
+      "id": "spec_schema_radarpropsschema",
+      "label": "radarPropsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L475"
+    },
+    {
+      "id": "spec_schema_isodateschema",
+      "label": "isoDateSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L497"
+    },
+    {
+      "id": "spec_schema_ganttrangeschema",
+      "label": "ganttRangeSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L504"
+    },
+    {
+      "id": "spec_schema_gantttaskschema",
+      "label": "ganttTaskSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L509"
+    },
+    {
+      "id": "spec_schema_ganttpropsschema",
+      "label": "ganttPropsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L522"
+    },
+    {
+      "id": "spec_schema_kpisubscalarsschema",
+      "label": "kpiSubScalarsSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L599"
+    },
+    {
+      "id": "spec_schema_blockspecschema",
+      "label": "blockSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L611"
+    },
+    {
+      "id": "spec_schema_blockspec",
+      "label": "BlockSpec",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L722"
+    },
+    {
+      "id": "spec_schema_narrationspecschema",
+      "label": "narrationSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L726"
+    },
+    {
+      "id": "spec_schema_narrationspec",
+      "label": "NarrationSpec",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L734"
+    },
+    {
+      "id": "spec_schema_cronexprschema",
+      "label": "cronExprSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L738"
+    },
+    {
+      "id": "spec_schema_refreshspecschema",
+      "label": "refreshSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L742"
+    },
+    {
+      "id": "spec_schema_cachettlschema",
+      "label": "cacheTTLSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L760"
+    },
+    {
+      "id": "spec_schema_reportscopeschema",
+      "label": "reportScopeSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L769"
+    },
+    {
+      "id": "spec_schema_reportmetaschema",
+      "label": "reportMetaSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L777"
+    },
+    {
+      "id": "spec_schema_reportmeta",
+      "label": "ReportMeta",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L785"
+    },
+    {
+      "id": "spec_schema_reportspecschema",
+      "label": "reportSpecSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L793"
+    },
+    {
+      "id": "spec_schema_reportspec",
+      "label": "ReportSpec",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L868"
+    },
+    {
+      "id": "spec_schema_parsereportspec",
+      "label": "parseReportSpec()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L872"
+    },
+    {
+      "id": "spec_schema_safeparsereportspec",
+      "label": "safeParseReportSpec()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L876"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_report_domains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_report_personas",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_report_cadences",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_report_confidentiality",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_composiosourcespecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_nativegooglesourcespecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_httpsourcespecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_assetsourcespecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_sourcerefschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_sourceref",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_datasetrefschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_filteropschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_joinopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_groupbyopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_windowopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L195",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_diffopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L205",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_rankopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_deriveopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L225",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_pivotopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_unionallopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L257",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_transformopunion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L263",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_transformopschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L275",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_transformop",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L284",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_primitive_kinds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L288",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_primitivekind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L313",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_blocklayoutschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L315",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_waterfalldatumschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L334",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_waterfallpropsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L340",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_cohortrowschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_cohorttrianglepropsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L352",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_heatmappropsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L358",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_sankeynodeschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L388",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_sankeylinkschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L397",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_sankeypropsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L403",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_bulletrangeschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L449",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_bulletitemschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L455",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_bulletpropsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L462",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_radarseriesschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L470",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_radarpropsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L475",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_isodateschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L497",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_ganttrangeschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L504",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_gantttaskschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L509",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_ganttpropsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L522",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_kpisubscalarsschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L599",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_blockspecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L611",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_blockspec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L722",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_narrationspecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L726",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_narrationspec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L734",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_cronexprschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L738",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_refreshspecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L742",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_cachettlschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L760",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_reportscopeschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L769",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_reportmetaschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L777",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_reportmeta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L785",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_reportspecschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L793",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L868",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_parsereportspec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L872",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "target": "spec_schema_safeparsereportspec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L876",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spec_schema_parsereportspec",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L873"
+    },
+    {
+      "caller_nid": "spec_schema_safeparsereportspec",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/spec/schema.ts",
+      "source_location": "L879"
+    }
+  ]
+}

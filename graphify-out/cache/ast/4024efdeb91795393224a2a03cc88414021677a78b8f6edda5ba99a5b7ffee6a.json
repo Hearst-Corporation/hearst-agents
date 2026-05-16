@@ -1,0 +1,613 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "label": "supabase.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "storage_supabase_supabasestorageoptions",
+      "label": "SupabaseStorageOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider",
+      "label": "SupabaseStorageProvider",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_upload",
+      "label": ".upload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_download",
+      "label": ".download()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L95"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "label": ".getSignedUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_delete",
+      "label": ".delete()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L149"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_exists",
+      "label": ".exists()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L157"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_list",
+      "label": ".list()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L169"
+    },
+    {
+      "id": "storage_supabase_supabasestorageprovider_health",
+      "label": ".health()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L190"
+    },
+    {
+      "id": "storage_supabase_readallstream",
+      "label": "readAllStream()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L208"
+    },
+    {
+      "id": "storage_supabase_extractfilename",
+      "label": "extractFilename()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L227"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "node_stream",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_types_downloadresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_types_signedurloptions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_types_storageobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_types_storageprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_types_uploadresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_supabase_supabasestorageoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_supabase_supabasestorageprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_upload",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_download",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_delete",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_exists",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_list",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L169",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider",
+      "target": "storage_supabase_supabasestorageprovider_health",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_supabase_readallstream",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_supabase_ts",
+      "target": "storage_supabase_extractfilename",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L227",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider_upload",
+      "target": "storage_supabase_readallstream",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "target": "storage_supabase_extractfilename",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider_exists",
+      "target": "storage_supabase_supabasestorageprovider_list",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L162",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_supabase_supabasestorageprovider_health",
+      "target": "storage_supabase_supabasestorageprovider_list",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L193",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_constructor",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_constructor",
+      "callee": "createClient",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_constructor",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_upload",
+      "callee": "isBuffer",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_upload",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_upload",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_download",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_download",
+      "callee": "stream",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "callee": "createSignedUrl",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "callee": "createSignedUploadUrl",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_getsignedurl",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_delete",
+      "callee": "remove",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_delete",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "lastIndexOf",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "lastIndexOf",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_exists",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_list",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_list",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_list",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L191"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_health",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L195"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L197"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "storage_supabase_supabasestorageprovider_health",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "storage_supabase_readallstream",
+      "callee": "getReader",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L210"
+    },
+    {
+      "caller_nid": "storage_supabase_readallstream",
+      "callee": "read",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L212"
+    },
+    {
+      "caller_nid": "storage_supabase_readallstream",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L214"
+    },
+    {
+      "caller_nid": "storage_supabase_readallstream",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L221"
+    },
+    {
+      "caller_nid": "storage_supabase_extractfilename",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts",
+      "source_location": "L228"
+    }
+  ]
+}

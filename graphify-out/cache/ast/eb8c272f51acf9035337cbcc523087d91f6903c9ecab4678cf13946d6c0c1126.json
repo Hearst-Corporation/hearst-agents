@@ -1,0 +1,289 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "label": "dispatcher-integration.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "notifications_dispatcher_integration_test_report",
+      "label": "REPORT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "notifications_dispatcher_integration_test_makesignal",
+      "label": "makeSignal()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "notifications_dispatcher_integration_test_buildstore",
+      "label": "buildStore()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "notifications_dispatcher_integration_test_noop_prefs",
+      "label": "noop_prefs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "notifications_dispatcher_integration_test_buildmockdb",
+      "label": "buildMockDb()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "notifications_dispatcher_integration_test_spy",
+      "label": "spy",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "notifications_dispatcher_integration_test_db",
+      "label": "db",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L78"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_alert_dispatcher_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_alert_dispatcher_dispatchalerts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_schema_alertingpreferences",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_throttle_throttlestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_signals_extract_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "signals_extract_businesssignal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_report",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_makesignal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_buildstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_noop_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_buildmockdb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_spy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_spy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_spy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_spy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_spy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_dispatcher_integration_test_ts",
+      "target": "notifications_dispatcher_integration_test_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/dispatcher-integration.test.ts",
+      "source_location": "L153",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

@@ -1,0 +1,125 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "label": "preflight.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "control_plane_preflight_preflightconnector",
+      "label": "preflightConnector()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L13"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "multi_tenant_types_tenantscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "unified_reconcile_isproviderconnected",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "control_plane_store_getconnectionbyprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "control_plane_types_connectorpreflightresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_preflight_ts",
+      "target": "control_plane_preflight_preflightconnector",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "control_plane_preflight_preflightconnector",
+      "callee": "isProviderConnected",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "control_plane_preflight_preflightconnector",
+      "callee": "getConnectionByProvider",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/control-plane/preflight.ts",
+      "source_location": "L29"
+    }
+  ]
+}

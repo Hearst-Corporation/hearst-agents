@@ -1,0 +1,447 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "label": "reconcile.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "unified_reconcile_authrecord",
+      "label": "AuthRecord",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "unified_reconcile_getauthrecords",
+      "label": "getAuthRecords()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "unified_reconcile_getunifiedconnectors",
+      "label": "getUnifiedConnectors()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "unified_reconcile_healcontrolplane",
+      "label": "healControlPlane()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L165"
+    },
+    {
+      "id": "unified_reconcile_isproviderconnected",
+      "label": "isProviderConnected()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L187"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_registry_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "providers_registry_getallproviders",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "providers_registry_getconnectableproviders",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "providers_registry_getprovidercapabilitiesfromregistry",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "providers_registry_getproviderlabel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_register_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "control_plane_register_registerproviderusage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "control_plane_store_getconnectionsbyscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "unified_types_unifiedconnectorrecord",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "unified_types_unifiedconnectorstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "unified_reconcile_authrecord",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "unified_reconcile_getauthrecords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "unified_reconcile_getunifiedconnectors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "unified_reconcile_healcontrolplane",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_unified_reconcile_ts",
+      "target": "unified_reconcile_isproviderconnected",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "unified_reconcile_getunifiedconnectors",
+      "target": "unified_reconcile_getauthrecords",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "unified_reconcile_getunifiedconnectors",
+      "target": "unified_reconcile_healcontrolplane",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "unified_reconcile_isproviderconnected",
+      "target": "unified_reconcile_getunifiedconnectors",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L193",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "unified_reconcile_getauthrecords",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "unified_reconcile_getauthrecords",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "unified_reconcile_getauthrecords",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "unified_reconcile_getauthrecords",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "unified_reconcile_getauthrecords",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "resolve",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "getConnectionsByScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "getAllProviders",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "getConnectableProviders",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "getProviderLabel",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "getProviderCapabilitiesFromRegistry",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "unified_reconcile_getunifiedconnectors",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "unified_reconcile_healcontrolplane",
+      "callee": "registerProviderUsage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "unified_reconcile_healcontrolplane",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "unified_reconcile_healcontrolplane",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L180"
+    },
+    {
+      "caller_nid": "unified_reconcile_isproviderconnected",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/unified/reconcile.ts",
+      "source_location": "L199"
+    }
+  ]
+}

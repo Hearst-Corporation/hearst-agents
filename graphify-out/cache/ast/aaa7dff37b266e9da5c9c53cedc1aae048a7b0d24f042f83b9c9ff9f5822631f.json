@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_generationpromptblock_tsx",
+      "label": "GenerationPromptBlock.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "asset_stage_generationpromptblock_generationpromptblockprops",
+      "label": "GenerationPromptBlockProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "asset_stage_generationpromptblock_generationpromptblock",
+      "label": "GenerationPromptBlock()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L21"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_generationpromptblock_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_shared_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_generationpromptblock_tsx",
+      "target": "asset_stage_shared_prompt_truncate_length",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_generationpromptblock_tsx",
+      "target": "asset_stage_generationpromptblock_generationpromptblockprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_generationpromptblock_tsx",
+      "target": "asset_stage_generationpromptblock_generationpromptblock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "asset_stage_generationpromptblock_generationpromptblock",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "asset_stage_generationpromptblock_generationpromptblock",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/GenerationPromptBlock.tsx",
+      "source_location": "L32"
+    }
+  ]
+}

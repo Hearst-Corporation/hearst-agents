@@ -1,0 +1,1011 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "label": "findings.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "2026_05_10_security_findings_audit_id",
+      "label": "audit_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "2026_05_10_security_findings_scope",
+      "label": "scope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "2026_05_10_security_findings_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "2026_05_10_security_findings_started_at",
+      "label": "started_at",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "2026_05_10_security_findings_last_updated",
+      "label": "last_updated",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "2026_05_10_security_findings_orchestrator",
+      "label": "orchestrator",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "2026_05_10_security_findings_sources",
+      "label": "sources",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "2026_05_10_security_findings_summary",
+      "label": "summary",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L44"
+    },
+    {
+      "id": "2026_05_10_security_findings_summary_total_consolidated",
+      "label": "total_consolidated",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L45"
+    },
+    {
+      "id": "2026_05_10_security_findings_summary_by_severity",
+      "label": "by_severity",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L46"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_severity_p0",
+      "label": "P0",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L47"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_severity_p1",
+      "label": "P1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L48"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_severity_p2",
+      "label": "P2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L49"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_severity_wont_fix",
+      "label": "wont_fix",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L50"
+    },
+    {
+      "id": "2026_05_10_security_findings_summary_by_status",
+      "label": "by_status",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_pending",
+      "label": "pending",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L53"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_triaged",
+      "label": "triaged",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L54"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_implementing",
+      "label": "implementing",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L55"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_tested",
+      "label": "tested",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L56"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_reaudited",
+      "label": "reaudited",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L57"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_validated",
+      "label": "validated",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L58"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_closed",
+      "label": "closed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L59"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_status_wont_fix",
+      "label": "wont_fix",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L60"
+    },
+    {
+      "id": "2026_05_10_security_findings_summary_by_convergence",
+      "label": "by_convergence",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L62"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_convergence_convergent",
+      "label": "convergent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L63"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_convergence_exclusive_claude",
+      "label": "exclusive_claude",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L64"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_convergence_exclusive_codex",
+      "label": "exclusive_codex",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L65"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_convergence_exclusive_post_master",
+      "label": "exclusive_post_master",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L66"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_convergence_exclusive_post_master_adv",
+      "label": "exclusive_post_master_adv",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L67"
+    },
+    {
+      "id": "2026_05_10_security_findings_by_convergence_exclusive_runtime",
+      "label": "exclusive_runtime",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L68"
+    },
+    {
+      "id": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "label": "convergences_post_adv_with_existing",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70"
+    },
+    {
+      "id": "2026_05_10_security_findings_categories",
+      "label": "categories",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96"
+    },
+    {
+      "id": "2026_05_10_security_findings_findings",
+      "label": "findings",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L122"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_audit_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_started_at",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_last_updated",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_orchestrator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_sources",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_summary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary",
+      "target": "2026_05_10_security_findings_summary_total_consolidated",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary",
+      "target": "2026_05_10_security_findings_summary_by_severity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_severity",
+      "target": "2026_05_10_security_findings_by_severity_p0",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_severity",
+      "target": "2026_05_10_security_findings_by_severity_p1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_severity",
+      "target": "2026_05_10_security_findings_by_severity_p2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_severity",
+      "target": "2026_05_10_security_findings_by_severity_wont_fix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary",
+      "target": "2026_05_10_security_findings_summary_by_status",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_pending",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_triaged",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_implementing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_tested",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_reaudited",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_validated",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_closed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_status",
+      "target": "2026_05_10_security_findings_by_status_wont_fix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary",
+      "target": "2026_05_10_security_findings_summary_by_convergence",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_convergence",
+      "target": "2026_05_10_security_findings_by_convergence_convergent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_convergence",
+      "target": "2026_05_10_security_findings_by_convergence_exclusive_claude",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_convergence",
+      "target": "2026_05_10_security_findings_by_convergence_exclusive_codex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_convergence",
+      "target": "2026_05_10_security_findings_by_convergence_exclusive_post_master",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_convergence",
+      "target": "2026_05_10_security_findings_by_convergence_exclusive_post_master_adv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_by_convergence",
+      "target": "2026_05_10_security_findings_by_convergence_exclusive_runtime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary",
+      "target": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_crit_04_confirme_f_001_f_002_admin_rbac",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_crit_05_confirme_f_005_browser_sessions_takeover",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_crit_06_confirme_f_049_browser_agent_html_untrusted",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_crit_08_confirme_f_010_tool_approval_hitl",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_crit_09_confirme_f_004_jobs_idor_abort_angle",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_crit_11_confirme_f_045_f_046_rag_kg_poisoning",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_crit_12_confirme_f_013_f_014_rls_placebo",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_dang_03_confirme_f_061_langfuse_pii_brut",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_dang_05_confirme_f_053_hearst_env_bypass",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_dang_06_confirme_f_006_slack_oauth_state",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_dang_09_confirme_f_010_send_email_no_hitl",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_dang_15_confirme_f_008_parse_document_ssrf_file_scheme_nouveau",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_dang_16_confirme_f_048_query_axiom_logs",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_dang_18_confirme_f_002_agents_chat_sans_tenant",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_risk_03_\u00e9tend_f_041_istransienterror_sdk_errors_typ\u00e9s",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_risk_06_confirme_f_053_dev_login_previews",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_risk_07_\u00e9tend_f_009_webhooks_ssrf",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_risk_10_\u00e9tend_f_006_per_chunk_timeout_slowloris",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_risk_11_confirme_f_013_mission_messages_tenant_id_nullable",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_risk_14_\u00e9tend_f_012_f_087_recursive_tool_use_sans_cap",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_sus_01_confirme_f_038_assertlangfuseready",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_sus_09_confirme_m8_sentry_tunnel_proxy",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_summary_convergences_post_adv_with_existing",
+      "target": "ref_sus_11_confirme_f_091_console_court_circuite_redaction",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L70",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_categories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_auth",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_rls",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_idor",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_ssrf",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_prompt_injection",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_tool_execution",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_code_execution",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_secrets",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_reliability",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_observability",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_csrf",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_xss",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_rate_limit",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_ci_build",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_deps",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_perf",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_archi",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_a11y",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_dx",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_tests",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_dead_code",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_billing",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_multi_tenant",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_10_security_findings_categories",
+      "target": "ref_supply_chain",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L96",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_findings_json",
+      "target": "2026_05_10_security_findings_findings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/findings.json",
+      "source_location": "L122",
+      "weight": 1.0
+    }
+  ]
+}

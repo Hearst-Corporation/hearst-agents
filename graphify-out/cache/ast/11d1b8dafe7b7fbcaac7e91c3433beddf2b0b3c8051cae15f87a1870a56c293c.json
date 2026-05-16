@@ -1,0 +1,79 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_user_resolver_ts",
+      "label": "user-resolver.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "auth_user_resolver_resolveorcreateuseruuid",
+      "label": "resolveOrCreateUserUuid()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L23"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_user_resolver_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_user_resolver_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_user_resolver_ts",
+      "target": "auth_user_resolver_resolveorcreateuseruuid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "auth_user_resolver_resolveorcreateuseruuid",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "auth_user_resolver_resolveorcreateuseruuid",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "auth_user_resolver_resolveorcreateuseruuid",
+      "callee": "rpc",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "auth_user_resolver_resolveorcreateuseruuid",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/user-resolver.ts",
+      "source_location": "L39"
+    }
+  ]
+}

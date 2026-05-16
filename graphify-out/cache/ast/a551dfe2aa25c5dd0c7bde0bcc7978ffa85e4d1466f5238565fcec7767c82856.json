@@ -1,0 +1,179 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "label": "use-global-hotkeys.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_use_global_hotkeys_useglobalhotkeys",
+      "label": "useGlobalHotkeys()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L30"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_focus_mode_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "stores_focus_mode_usefocusmode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "stores_stage_stage_hotkeys",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_video_quick_launch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "stores_video_quick_launch_usevideoquicklaunchstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_voice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "stores_voice_usevoicestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_working_document_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "stores_working_document_useworkingdocumentstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_global_hotkeys_ts",
+      "target": "hooks_use_global_hotkeys_useglobalhotkeys",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hooks_use_global_hotkeys_useglobalhotkeys",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "hooks_use_global_hotkeys_useglobalhotkeys",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "hooks_use_global_hotkeys_useglobalhotkeys",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "hooks_use_global_hotkeys_useglobalhotkeys",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-global-hotkeys.ts",
+      "source_location": "L35"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "label": "logger.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "observability_logger_redact_paths",
+      "label": "REDACT_PATHS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "observability_logger_createlogger",
+      "label": "createLogger()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L65"
+    },
+    {
+      "id": "observability_logger_logger",
+      "label": "logger",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "observability_logger_withroute",
+      "label": "withRoute()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L112"
+    },
+    {
+      "id": "observability_logger_redactederror",
+      "label": "redactedError()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L124"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "target": "pino",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "target": "observability_logger_redact_paths",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "target": "observability_logger_createlogger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "target": "observability_logger_logger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "target": "observability_logger_withroute",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "target": "observability_logger_redactederror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L124",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "observability_logger_createlogger",
+      "callee": "pino",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "observability_logger_createlogger",
+      "callee": "pino",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "observability_logger_createlogger",
+      "callee": "pino",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "observability_logger_withroute",
+      "callee": "child",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "observability_logger_redactederror",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts",
+      "source_location": "L138"
+    }
+  ]
+}

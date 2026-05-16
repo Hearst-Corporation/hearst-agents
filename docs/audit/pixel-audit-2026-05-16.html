@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Pixel audit — dashboard-template.html · #home — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Pixel audit — dashboard-template.html · #home</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-16 15:17</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> e0b728cf</span>
+      <span><b>Scope</b> docs/visual/dashboard-template.html (vue #home + styles globaux)</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">43</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">4</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">41</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">38</div><div class="kpi-label">P2 — dette</div></div>
+    
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title">Remplacer les 9 `9999px` par `var(--radius-pill)`</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html">docs/visual/dashboard-template.html</a>
+              <span class="qw-effort">5min</span>
+            </li><li>
+              <span class="qw-title">Harmoniser pulseT/pulseG sur var(--teal/--gold) — supprimer les 2 verts/golds parallèles</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:226,369">docs/visual/dashboard-template.html:226,369</a>
+              <span class="qw-effort">10min</span>
+            </li><li>
+              <span class="qw-title">Convertir `&lt;div class=&quot;main&quot;&gt;` en `&lt;main&gt;`</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:533">docs/visual/dashboard-template.html:533</a>
+              <span class="qw-effort">2min</span>
+            </li><li>
+              <span class="qw-title">Ajouter aria-label sur les 7+ icon-buttons (lr-slot placeholders, footer-btn icons, rritem)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html">docs/visual/dashboard-template.html</a>
+              <span class="qw-effort">15min</span>
+            </li><li>
+              <span class="qw-title">Ajouter @media prefers-reduced-motion pour neutraliser animations infinies</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html">docs/visual/dashboard-template.html</a>
+              <span class="qw-effort">5min</span>
+            </li><li>
+              <span class="qw-title">Retirer uppercase + letter-spacing sur les 4 eyebrows de stage</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:652,714,738,792">docs/visual/dashboard-template.html:652,714,738,792</a>
+              <span class="qw-effort">10min</span>
+            </li><li>
+              <span class="qw-title">Ajouter var(--ease) aux 10 transitions qui l'omettent</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html">docs/visual/dashboard-template.html</a>
+              <span class="qw-effort">10min</span>
+            </li><li>
+              <span class="qw-title">Convertir les 5 `&lt;li onclick&gt;` act-row en `&lt;button&gt;` pour keyboard nav</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:568-600">docs/visual/dashboard-template.html:568-600</a>
+              <span class="qw-effort">10min</span>
+            </li><li>
+              <span class="qw-title">Ajouter `aria-current` sur footer-btn.on et dots-bar .ds.on (update JS)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:1062">docs/visual/dashboard-template.html:1062</a>
+              <span class="qw-effort">15min</span>
+            </li><li>
+              <span class="qw-title">Définir .rp-sec-t en CSS (bug bug latent stage Mission)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:706">docs/visual/dashboard-template.html:706</a>
+              <span class="qw-effort">5min</span>
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Bugs critiques (CSS référencée sans définition)</span>
+        <span class="section-agent">agent-3 · stabilité</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">4</span>
+          
+          
+        </span>
+      </summary>
+      <p class="section-summary">4 références CSS cassées. Détectées via cross-check HTML→CSS et JS→CSS. À fixer en priorité.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">.rp-sec-t utilisée mais aucune règle CSS</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:706">docs/visual/dashboard-template.html:706</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;p class=&quot;rp-sec-t&quot;&gt;&lt;span class=&quot;ph&quot;&gt;Titre section grille&lt;/span&gt;&lt;/p&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter au &lt;style&gt; : .rp-sec-t { font-size: 18px; font-weight: 500; color: rgba(255,255,255,.7); margin-bottom: 12px; }</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Section heading du stage Mission rendu en &lt;p&gt; par défaut, casse la hiérarchie visuelle.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">padding: 80px 64px 256px (.main-scroll)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:174">docs/visual/dashboard-template.html:174</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>padding: 80px 64px 256px</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Mapper en tokens : --space-top:80px / --space-gutter:64px / --space-bottom-fade:256px. Le 256 doit rester sync avec .main-fade height (240px) ligne 177.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeur composée non-standard, à mapper en tokens lors du port React.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">rgba(94, 229, 195) dans pulseT ≠ var(--teal) (#4A8B86)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:226">docs/visual/dashboard-template.html:226</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>@keyframes pulseT { 50% { box-shadow: 0 0 0 8px rgba(94,229,195,.1) } }</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner sur var(--teal) ou créer --teal-glow explicite. 2 verts/teals coexistent dans la palette (à harmoniser).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Signature couleur incohérente : un teal sourd #4A8B86 et un cyan vif #5EE5C3. Source de drift visuel.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">rgba(255, 188, 58) dans pulseG ≠ var(--gold) (#C8A961)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:369">docs/visual/dashboard-template.html:369</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>@keyframes pulseG { 50% { box-shadow: 0 0 0 8px rgba(255,188,58,.08) } } + 6 autres usages inline</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner toutes les occurrences gold sur var(--gold) ou décider d'une seule valeur canonique. Lignes : 359, 367, 369, 379, 383, 384, 487.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>2 golds coexistent : #C8A961 (sobre) et #FFBC3A (saturé). Choisir et propager.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Tokens &amp; magic numbers</span>
+        <span class="section-agent">agent-1 · tokens</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">2</span>
+        </span>
+      </summary>
+      <p class="section-summary">9 occurrences de 9999px en dur alors que --radius-pill existe. 5 répétitions du backdrop-filter intense. 36 variantes de rgba(255,255,255,X).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">9999px en dur (9 occurrences) au lieu de var(--radius-pill)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:86">docs/visual/dashboard-template.html:86</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>border-radius: 9999px</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>border-radius: var(--radius-pill) — lignes 86, 214, 230, 260, 289, 297, 374, 382, 422</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>--radius-pill déclaré ligne 32. Source unique de vérité non respectée.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">backdrop-filter intense (blur 80px) répété 5×</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:62">docs/visual/dashboard-template.html:62</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>backdrop-filter: blur(80px) saturate(180%) brightness(120%)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer token --glass-blur-intense + class .vision-glass-bg. Lignes 62, 118, 192, 215, 436.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Coût GPU x5 + ~60 char duplication x5. Factoriser réduit la dette et facilite le port.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">backdrop-filter light (blur 40px) répété 4×</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:77">docs/visual/dashboard-template.html:77</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>backdrop-filter: blur(40px) saturate(200%) brightness(130%)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Token --glass-blur-light. Lignes 77, 136, 238, 304.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Second pattern glass, à factoriser avec le précédent.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">rgba(74, 139, 134, X) au lieu de var(--teal)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:104">docs/visual/dashboard-template.html:104</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rgba(74, 139, 134, 0.15) ligne 104 + rgba(74, 139, 134, 0.4) ligne 107</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>color-mix(in srgb, var(--teal) 15%, transparent) ou créer --teal-15, --teal-40.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>--teal déclaré ligne 28 (#4A8B86) mais re-décomposé inline.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">--bg-elev-1 et --bg-elev-2 jamais référencés</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:18">docs/visual/dashboard-template.html:18</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>--bg-elev-1: #141414; --bg-elev-2: #1f1f1f;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer ou utiliser (ex: pour les surfaces vision-glass au lieu de rgba(255,255,255,.03)).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dette de token. Conserver ou retirer mais ne pas laisser orphelins.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">4 gradients d'asset slot en hexa brut (.bg.v0/v1/v2/v3)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:414">docs/visual/dashboard-template.html:414</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>linear-gradient(135deg,#6b53ff,#2a6fff 60%,#0fbfd1) et 3 variants</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>OK pour mock visuel, mais à remplacer par vrais assets ou tokens --gradient-v0..v3 si réutilisés.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Acceptable pour template sandbox. Signaler pour ne pas oublier.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Spacing</span>
+        <span class="section-agent">agent-1 · spacing</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">Tous les paddings/gaps tombent sur grille de 4 mais aucun ne passe par --space-N. 15 valeurs distinctes utilisées.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">max-width: 760px et gap: 64px (.main-inner)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:176">docs/visual/dashboard-template.html:176</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>max-width: 760px; gap: 64px</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Mapper --content-max:760px et --space-section:64px.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Largeur de contenu canonique, à tokeniser pour cohérence multi-pages.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">padding: 14px 20px (.chat-q)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:327">docs/visual/dashboard-template.html:327</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>padding: 14px 20px</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Normaliser : 12px ou 16px vertical (multiple de 4).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>14px hors grille de 4. Cas isolé.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Couleurs &amp; palette</span>
+        <span class="section-agent">agent-1 · couleurs</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">36 occurrences de rgba(255,255,255,X) avec 13 alphas distincts. 8 occurrences de rgba(0,0,0,X). Tokens texte (--ink, --fg-dim, --fg-mute, --fg-faint) sous-utilisés.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">--fg-dim/--fg-mute/--fg-faint définis mais inline rgba(255,255,255,X) à la place</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:22">docs/visual/dashboard-template.html:22</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rgba(255,255,255,.65) (15+ instances), .5, .4, .35, .14 répétés inline</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Forcer l'usage : color: var(--fg-dim) | var(--fg-mute) | var(--fg-faint). Créer aussi --fg-soft (0.5) et --fg-tertiary (0.35).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Inconsistance. Le DS définit déjà des tokens texte mais ils ne sont presque pas utilisés.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">rgba(255,255,255,0.02) et 0.03 répétés pour surfaces vision-glass</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:60">docs/visual/dashboard-template.html:60</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>background: rgba(255,255,255,0.03) (lignes 60, 116, 191, 336, 390)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Token --surface-glass: rgba(255,255,255,0.03) + --surface-rail: rgba(255,255,255,0.02).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Surfaces glass sont la signature visuelle. Tokeniser facilite l'ajustement global.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Radius &amp; shadows</span>
+        <span class="section-agent">agent-1 · radius</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">9× 9999px hardcodé (cf section Tokens). 9 valeurs distinctes de border-radius dont 4 hors token set. Shadows composites non tokenisées.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">inset 0 1px 0 rgba(255,255,255,.15) répété 8+ fois (top highlight)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:64">docs/visual/dashboard-template.html:64</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Pattern présent lignes 64, 124, 138, 157, 218, 240, 306, 364</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Token --shadow-glass-inset-top: inset 0 1px 0 rgba(255,255,255,.15).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Signature visuelle Apple Glass dupliquée. Tokeniser = source unique.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">border-radius : 14px (.mtl-row), 13px (.out-card), 18px (.slot), 11px (.pitem)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:352">docs/visual/dashboard-template.html:352</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>14px, 13px, 18px, 11px</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner sur --radius-md(12) ou --radius-lg(16) ou --radius-xl(20). Ou ajouter tokens intermédiaires si volonté design.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Échelle de radius incohérente. 7 valeurs custom hors token set.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Motion &amp; easing</span>
+        <span class="section-agent">agent-1 · motion</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">--ease cubic-bezier OK (déclaré et utilisé). MAIS 10+ transitions sans var(--ease) + 4 durées d'animation hardcodées.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">transition: all 0.3s (sans var(--ease)) — 10 instances</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:144">docs/visual/dashboard-template.html:144</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 144, 230, 264, 290, 299, 311, 363, 432, 446</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter var(--ease) systématiquement : transition: all 0.3s var(--ease)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Token easing existe mais 1 sur 3 transitions l'omet → motion incohérent.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Animations pulseT (1.4s), pulseG (1.6s), cur (1s), sweep (2.5s), fu (.6s/.3s)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:225">docs/visual/dashboard-template.html:225</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>animation: pulseT 1.4s ease-in-out infinite</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Tokens --duration-pulse-slow (1.6s), --duration-pulse (1.4s), --duration-blink (1s) + --ease-io: ease-in-out.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pas de --duration-* dans le DS template. Bloquera le port React où on attendra ces tokens.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Aucun @media (prefers-reduced-motion: reduce) pour les animations infinies</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:226">docs/visual/dashboard-template.html:226</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>pulseT, pulseG, sweep, cur jouent toujours en boucle</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A11y : utilisateurs sensibles au mouvement non respectés.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Voix éditoriale</span>
+        <span class="section-agent">agent-2 · voix</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">8 violations uppercase + letter-spacing : 4 eyebrows de stages + 3 labels métriques billing + 1 label plan + 1 tag asset. Pivot 2026-04-29 demande voix régulière FR.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Eyebrow de stage : text-transform:uppercase + letter-spacing:.08em — 4 occurrences</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:652">docs/visual/dashboard-template.html:652</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 652, 714, 738, 792 (Mission/Asset/Billing/Settings)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Voix régulière FR : font-size:12px; font-weight:500; color:rgba(255,255,255,.4). Pas de uppercase, pas de letter-spacing.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>CLAUDE.md pivot 2026-04-29 : pas de mono caps tracking-section/label en JSX.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Billing 'Label plan' + 3 métriques uppercase + letter-spacing</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:745">docs/visual/dashboard-template.html:745</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 745 (.08em), 754, 758, 762 (.06em)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Title case régulier + font-weight 500 pour hiérarchie.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même règle voix éditoriale.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">.tag asset : text-transform:uppercase + letter-spacing:.04em + font-weight:600</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:422">docs/visual/dashboard-template.html:422</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;span class=&quot;tag&quot;&gt;Tag&lt;/span&gt; sur asset captions</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>À débattre : si vraiment un tag système (catégorie), uppercase OK avec parcimonie. Sinon convertir en voix régulière.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cas limite : tag visuel système ou microcopy ? Décision design.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Bouton dev BYPASS DEV (EN + uppercase + emoji)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:487">docs/visual/dashboard-template.html:487</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>⚡ BYPASS DEV</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>OK contexte dev sandbox. À retirer du port prod.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Affordance dev acceptable mais à flagger.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Primitives DS (duplications)</span>
+        <span class="section-agent">agent-2 · primitives</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          
+        </span>
+      </summary>
+      <p class="section-summary">4 patterns dupliqués majeurs : StageHeader, Divider, VisionCard, ListRow. Forte opportunité de factorisation lors du port React.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Eyebrow + h1(32px) + sub(14px) répété 4× inline (Mission/Asset/Billing/Settings)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:651">docs/visual/dashboard-template.html:651</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 651-655, 713-717, 737-740, 791-794 — styles inline identiques</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer &lt;StageHeader eyebrow title subtitle?/&gt; avec classes .stage-eyebrow / .stage-title / .stage-sub.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Duplication exacte 4×. Maintenance dégradée, drift typo garanti à terme.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">&lt;div style=&quot;height:1px;background:rgba(255,255,255,.06/.08)&quot;&gt; répété 8+ fois</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:486">docs/visual/dashboard-template.html:486</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 486, 751, 775, 780, 821, 829, 847, 852</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Composant &lt;Divider opacity=&quot;6|8&quot;/&gt; ou class .divider-soft / .divider-medium.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern trivial mais dupliqué = bruit visuel dans le code.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">vision-glass + padding:32px + flex-column + gap:20-24px répété 5×</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:742">docs/visual/dashboard-template.html:742</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 742, 770, 796, 808, 840</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>&lt;VisionCard padding=32 gap=20|24&gt; en composant React.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le pattern card est la brique principale du DS. À factoriser absolument.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">États &amp; a11y</span>
+        <span class="section-agent">agent-2 · états</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">2</span>
+        </span>
+      </summary>
+      <p class="section-summary">6 composants sans :focus-visible. Empty/loading/error non géré sur #home act-list. 7+ boutons icon-only sans aria-label. role/aria-current absents.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Aucun :focus-visible sur .lr-slot / .rritem / .act-row / .tg-btn / .footer-btn / .hero</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:128">docs/visual/dashboard-template.html:128</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Hover OK, mais clavier sans feedback visuel.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter pour chaque : &amp;:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; } ou ring via box-shadow.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A11y : navigation clavier impossible à suivre. WCAG 2.4.7 violé.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">7+ boutons sans aria-label (lr-slot placeholders, footer-btn icons, rritem)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:515">docs/visual/dashboard-template.html:515</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Seul data-tip présent (non lu par tous SR).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>aria-label=&quot;Action 1 — placeholder&quot; sur chaque button icon-only.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Screen readers ne lisent pas data-tip ni title de manière fiable.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">footer-btn.on et dots-bar .ds.on sans aria-current</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:876">docs/visual/dashboard-template.html:876</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Classe .on visuelle uniquement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>aria-current=&quot;page&quot; sur footer nav active + aria-current=&quot;step&quot; sur dot actif. À ajouter dans updateUI() ligne 1062 et buildDots() ligne 1002.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>SR ne sait pas quel stage est actif.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Empty/loading/error state act-list non géré</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:567">docs/visual/dashboard-template.html:567</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>5 items hard-codés. Si liste vide → rien.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Prévoir &lt;EmptyState/&gt;, &lt;RowSkeleton count=3/&gt;, &lt;ErrorState retry/&gt;. Primitives canoniques projet Hearst.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Port React aura vraies données + états réels.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">&lt;input id=&quot;pq&quot;&gt; palette ⌘K sans &lt;label&gt; ni aria-label</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:902">docs/visual/dashboard-template.html:902</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Placeholder &quot;Demande, lance, ouvre…&quot; seul</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>aria-label=&quot;Recherche commande&quot; sur input.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Placeholder ≠ label pour SR.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Structure HTML &amp; sémantique</span>
+        <span class="section-agent">agent-3 · structure</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">&lt;main&gt; absent, 6 &lt;h1&gt; coexistants, &lt;footer&gt; en position absolute mal placé, .dots-bar interactif sans rôle tablist, &lt;li&gt; avec onclick au lieu de &lt;button&gt;.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">&lt;div class=&quot;main&quot;&gt; au lieu de &lt;main&gt;</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:533">docs/visual/dashboard-template.html:533</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;div class=&quot;main preserve-3d&quot;&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par &lt;main class=&quot;main preserve-3d&quot;&gt;. Un seul main par page.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>WCAG landmarks. SR n'a pas de repère principal.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">6 &lt;h1&gt; dans le DOM (1 par stage + login)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:541">docs/visual/dashboard-template.html:541</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 468 (login), 541 (home), 653 (mission), 715 (asset), 739 (billing), 793 (settings)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>1 seul &lt;h1&gt; visible. Solutions : (a) descendre stages en &lt;h2&gt;, ou (b) garder dynamique mais conditional render React (1 par route).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A11y outline cassé. Port React doit utiliser pages distinctes ou hiérarchie h2.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">.dots-bar utilisée comme tablist (cliquable) mais &lt;div&gt; + onclick</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:492">docs/visual/dashboard-template.html:492</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;div class=&quot;dots-bar&quot;&gt; + .ds { onclick=&gt;go() }</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>&lt;nav role=&quot;tablist&quot; aria-label=&quot;Stages&quot;&gt; + &lt;button role=&quot;tab&quot; aria-selected aria-controls&gt;.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A11y : pas de keyboard nav, pas de SR announcement.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">&lt;li class=&quot;act-row&quot; onclick=&quot;go(...)&quot;&gt; ×5 (act-list home)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:568">docs/visual/dashboard-template.html:568</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 568, 576, 584, 592, 600</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Convertir en &lt;li&gt;&lt;button class=&quot;act-row&quot; onclick…&gt;...&lt;/button&gt;&lt;/li&gt; ou &lt;li&gt;&lt;a href=&quot;#mission&quot;&gt;.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Keyboard nav cassée (Enter/Space ne déclenche pas onclick sur &lt;li&gt;).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">.lrail et .rrail &lt;aside&gt; sans role/aria-label</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:508">docs/visual/dashboard-template.html:508</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;aside class=&quot;lrail&quot;&gt; et &lt;aside class=&quot;rrail&quot;&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>&lt;aside role=&quot;navigation&quot; aria-label=&quot;Actions principales&quot;&gt; et &lt;aside role=&quot;complementary&quot; aria-label=&quot;Aperçu du jour&quot;&gt;.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Landmarks explicites améliorent l'orientation SR.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Perf &amp; GPU</span>
+        <span class="section-agent">agent-3 · perf</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">9 backdrop-filter simultanés (coût GPU), 6 stages tous montés, 2 webfonts CDN sans preconnect.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">9 backdrop-filter simultanés (blur 80px ×5 + blur 40px ×4 + blur 20px ×3)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:62">docs/visual/dashboard-template.html:62</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>lrail-inner, rrail, footer, vision-glass, palette-box + variants</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit GPU avec Chrome perf tab. Sur Apple Silicon OK. Considérer fallback @media pour Windows/Android low-end.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Coût notable hors Apple Silicon. Mesurer LCP/CLS avant port.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">6 sections .pw siblings (display:none toggle) tous parsés au load</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:538">docs/visual/dashboard-template.html:538</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 538, 613, 650, 712, 736, 790</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Port React : conditional render par route (Next.js dynamic) ou {stage === 'home' &amp;&amp; &lt;HomePage/&gt;}. Évite parse DOM inutile.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Template OK car static. Prod = anti-pattern.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Fontshare (Satoshi) + Google (Geist Mono) sans rel=preconnect ni font-display:swap</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:6">docs/visual/dashboard-template.html:6</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 6-7</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>&lt;link rel=&quot;preconnect&quot; href=&quot;https://api.fontshare.com&quot;&gt; + &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; crossorigin&gt; + &amp;display=swap aux URLs.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>FOIT 300-500ms premier load. En React/Next, utiliser next/font.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Friction port React/Next/Tailwind</span>
+        <span class="section-agent">agent-3 · port</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          
+        </span>
+      </summary>
+      <p class="section-summary">~80 inline styles, 24 onclick inline, location.hash routing, --teal vs --accent-teal (post-pivot). Effort estimé 60-70h.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">--teal/--gold/--danger vs --accent-teal/--accent-gold (pivot 2026-05-09)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:28">docs/visual/dashboard-template.html:28</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>--teal: #4A8B86 (≠ valeur app post-pivot)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Table de correspondance : --teal → --accent-teal, --gold → --accent-gold, --danger → --accent-danger. Aligner sur globals.css projet.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mémoire projet_pivot_visuel_2026_05 : --cykan → --accent-teal acté.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">24 attributs onclick='go(...)' / onclick='setF(this)' inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:553">docs/visual/dashboard-template.html:553</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 553, 554, 568-600 (act-rows ×5), 689-690 (approval), 805, 845, 855</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>React : onClick={handlers} via useCallback + store Zustand. Pas de fonctions globales.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Port = réécriture systématique des handlers.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">location.hash + readHashStage/syncHash/hashchange listener</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:988">docs/visual/dashboard-template.html:988</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 988-996 + 1254-1257</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Next.js router (app router) ou Zustand store synced avec useSearchParams. Preserver deep-link #home/#chat.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Architecture routing à reconcevoir.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">~80 blocs style=&quot;...&quot; inline (login 30+, billing, settings, mission/asset headers)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/docs/visual/dashboard-template.html:460">docs/visual/dashboard-template.html:460</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 460-487 (login), 651-655, 713-717, 737-740, 742-786 (billing), 791-858 (settings)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bulk convert vers Tailwind v4 utilities ou classes CSS dédiées. Codemod possible mais audit manuel requis.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind v4 attendu côté projet. Inline styles = anti-pattern projet.</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>Batch 1 — Quick wins (avant port, ~1h30)</h3>
+              <ul><li>Fix 9× 9999px → var(--radius-pill)</li><li>Fix .rp-sec-t (bug latent — règle CSS manquante)</li><li>Fix transitions sans var(--ease) (10 instances)</li><li>Convert &lt;div class=main&gt; → &lt;main&gt;</li><li>Ajouter aria-label sur 7+ icon buttons</li><li>Ajouter aria-current sur nav active (footer + dots) via JS updateUI</li><li>Retirer uppercase + letter-spacing sur 4 eyebrows de stages</li><li>Ajouter @media (prefers-reduced-motion: reduce)</li><li>Convertir &lt;li onclick&gt; act-row en &lt;button&gt; + keyboard handler</li><li>Harmoniser pulseT/pulseG sur var(--teal/--gold) — palette unique</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 2 — Cohérence DS (avant port, ~3h)</h3>
+              <ul><li>Créer classes .glass-bg-intense / .glass-bg-light pour factoriser 9 backdrop-filter</li><li>Créer tokens --surface-glass / --surface-rail / --surface-hover</li><li>Aligner radius hors set (11, 13, 14, 18) sur xs/sm/md/lg/xl ou ajouter tokens</li><li>Tokeniser durations animations (--duration-pulse, --duration-blink, --duration-sweep)</li><li>Tokeniser shadows composites (--shadow-glass-inset-top, --shadow-glass-drop)</li><li>Tokeniser couleurs gold/teal avec alphas (--gold-5..--gold-50, --teal-15..--teal-glow)</li><li>Supprimer ou utiliser --bg-elev-1/--bg-elev-2 (orphelins)</li><li>Convertir 'BYPASS DEV' bouton en FR ou retirer (sandbox dev OK)</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 3 — Port React (~60-70h)</h3>
+              <ul><li>Découper en 12 composants : Layout, LeftRail, RightRail, MainContent, Footer, Palette, StageHeader, VisionCard, Divider + 6 stages</li><li>Renommer tokens : --teal → --accent-teal, --gold → --accent-gold (post-pivot 2026-05-09)</li><li>Migrer routing location.hash → Next.js router (app router)</li><li>Réécrire 24 onclick inline → onClick handlers + Zustand store</li><li>Convertir ~80 inline styles → Tailwind v4 utilities</li><li>Remplacer classList.add/remove (30+ calls) → state-driven render + Framer Motion</li><li>Implémenter empty/loading/error states sur act-list home + outs-grid mission</li><li>Préload fonts via next/font + retirer CDN externe</li><li>Ajouter :focus-visible cohérent + tests a11y (axe-core)</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Audit ciblé sur docs/visual/dashboard-template.html · vue #home + styles globaux partagés. Template sandbox hors lint visuel projet, mais destiné à servir de base canonique pour le port React. 4 bugs P0 dont 2 incohérences palette (teal/gold dédoublés) à fixer avant port. · Hearst OS · 2026-05-16 15:17
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,439 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "label": "render-battle-plan-html.mjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_render_battle_plan_html_dirname",
+      "label": "__dirname",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L16"
+    },
+    {
+      "id": "scripts_render_battle_plan_html_audits_root",
+      "label": "AUDITS_ROOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L17"
+    },
+    {
+      "id": "scripts_render_battle_plan_html_escapehtml",
+      "label": "escapeHtml()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L19"
+    },
+    {
+      "id": "scripts_render_battle_plan_html_renderbattleplan",
+      "label": "renderBattlePlan()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L29"
+    },
+    {
+      "id": "scripts_render_battle_plan_html_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L538"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "scripts_render_battle_plan_html_dirname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "scripts_render_battle_plan_html_audits_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "scripts_render_battle_plan_html_escapehtml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "scripts_render_battle_plan_html_renderbattleplan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_scripts_render_battle_plan_html_mjs",
+      "target": "scripts_render_battle_plan_html_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L538",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_battle_plan_html_renderbattleplan",
+      "target": "scripts_render_battle_plan_html_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_battle_plan_html_main",
+      "target": "scripts_render_battle_plan_html_renderbattleplan",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L541",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scripts_render_battle_plan_html_escapehtml",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "existsSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "existsSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "flatMap",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L392"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L427"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L427"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L527"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "writeFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L528"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L529"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L530"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_renderbattleplan",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L532"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L539"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "resolve",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L541"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L546"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "existsSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L547"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L548"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L549"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L551"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L551"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L554"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "existsSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L555"
+    },
+    {
+      "caller_nid": "scripts_render_battle_plan_html_main",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/scripts/render-battle-plan-html.mjs",
+      "source_location": "L555"
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "label": "suggestions.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_suggestions_test_suggestion_templates",
+      "label": "SUGGESTION_TEMPLATES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "ui_suggestions_test_fallback_suggestions",
+      "label": "FALLBACK_SUGGESTIONS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "ui_suggestions_test_buildsuggestions",
+      "label": "buildSuggestions()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "ui_suggestions_test_svc",
+      "label": "svc()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "ui_suggestions_test_out",
+      "label": "out",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L72"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "integrations_types_servicewithconnectionstatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_suggestion_templates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_fallback_suggestions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_buildsuggestions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_svc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L150",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_suggestions_test_ts",
+      "target": "ui_suggestions_test_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "ui_suggestions_test_buildsuggestions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "ui_suggestions_test_buildsuggestions",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "ui_suggestions_test_buildsuggestions",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "ui_suggestions_test_buildsuggestions",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/suggestions.test.ts",
+      "source_location": "L51"
+    }
+  ]
+}

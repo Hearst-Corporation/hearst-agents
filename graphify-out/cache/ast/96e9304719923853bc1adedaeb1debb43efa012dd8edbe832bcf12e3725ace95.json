@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_chartsstage_tsx",
+      "label": "ChartsStage.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChartsStage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "stages_chartsstage_chartsstage",
+      "label": "ChartsStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChartsStage.tsx",
+      "source_location": "L3"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_chartsstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChartsStage.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_chartsstage_tsx",
+      "target": "scenes_chartsscene_chartsscene",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChartsStage.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_chartsstage_tsx",
+      "target": "stages_chartsstage_chartsstage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChartsStage.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

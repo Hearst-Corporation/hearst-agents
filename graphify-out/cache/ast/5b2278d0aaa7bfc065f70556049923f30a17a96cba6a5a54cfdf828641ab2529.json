@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "label": "guard.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "capabilities_guard_capabilityguardinput",
+      "label": "CapabilityGuardInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "capabilities_guard_capabilityguardresult",
+      "label": "CapabilityGuardResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "capabilities_guard_capabilityguard",
+      "label": "capabilityGuard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L27"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "capabilities_taxonomy_domain_taxonomy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "capabilities_taxonomy_domain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "capabilities_taxonomy_isagentvalidfordomain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "capabilities_taxonomy_resolvedomain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "capabilities_guard_capabilityguardinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "capabilities_guard_capabilityguardresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "target": "capabilities_guard_capabilityguard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "capabilities_guard_capabilityguard",
+      "callee": "resolveDomain",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "capabilities_guard_capabilityguard",
+      "callee": "isAgentValidForDomain",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "capabilities_guard_capabilityguard",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/guard.ts",
+      "source_location": "L42"
+    }
+  ]
+}

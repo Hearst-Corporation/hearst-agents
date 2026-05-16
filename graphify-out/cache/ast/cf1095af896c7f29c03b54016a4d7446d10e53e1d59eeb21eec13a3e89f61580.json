@@ -1,0 +1,238 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "label": "cleanup-worker.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_cleanup_worker_test_makestorage",
+      "label": "makeStorage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "engine_cleanup_worker_test_makedb",
+      "label": "makeDb()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "engine_cleanup_worker_test_storage",
+      "label": "storage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "engine_cleanup_worker_test_db",
+      "label": "db",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L55"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_worker_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "cleanup_worker_findorphanedfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "storage_types_storageobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "storage_types_storageprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_makestorage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_makedb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_storage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_storage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_storage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_engine_cleanup_worker_test_ts",
+      "target": "engine_cleanup_worker_test_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L9"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L9"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L10"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "engine_cleanup_worker_test_makestorage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/engine/cleanup-worker.test.ts",
+      "source_location": "L23"
+    }
+  ]
+}

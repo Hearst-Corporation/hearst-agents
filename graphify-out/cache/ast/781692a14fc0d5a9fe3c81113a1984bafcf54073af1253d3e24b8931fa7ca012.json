@@ -1,0 +1,226 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "label": "ChatMissionRunInline.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_chatmissionruninline_missionrunrequest",
+      "label": "MissionRunRequest",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "components_chatmissionruninline_selectlatestrunrequest",
+      "label": "selectLatestRunRequest()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "components_chatmissionruninline_match_label",
+      "label": "MATCH_LABEL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "components_chatmissionruninline_chatmissionruninline",
+      "label": "ChatMissionRunInline()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L48"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "link",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_hooks_use_toast_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "hooks_use_toast_toast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "stores_runtime_streamevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "stores_runtime_useruntimestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "components_chatmissionruninline_missionrunrequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "components_chatmissionruninline_selectlatestrunrequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "components_chatmissionruninline_match_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chatmissionruninline_tsx",
+      "target": "components_chatmissionruninline_chatmissionruninline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L48",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_chatmissionruninline_selectlatestrunrequest",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_selectlatestrunrequest",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_selectlatestrunrequest",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_selectlatestrunrequest",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_selectlatestrunrequest",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_chatmissionruninline",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_chatmissionruninline",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_chatmissionruninline",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_chatmissionruninline",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_chatmissionruninline",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "components_chatmissionruninline_chatmissionruninline",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx",
+      "source_location": "L55"
+    }
+  ]
+}

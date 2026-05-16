@@ -1,0 +1,151 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "label": "SpatialStageProvider.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_safe_spatialstageprovider_spatialstagecontextvalue",
+      "label": "SpatialStageContextValue",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "spatial_safe_spatialstageprovider_spatialstagecontext",
+      "label": "SpatialStageContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "spatial_safe_spatialstageprovider_spatialstageprovider",
+      "label": "SpatialStageProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "spatial_safe_spatialstageprovider_usespatialstage",
+      "label": "useSpatialStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L51"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_safe_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "target": "spatial_safe_types_spatialstage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "target": "spatial_safe_spatialstageprovider_spatialstagecontextvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "target": "spatial_safe_spatialstageprovider_spatialstagecontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "target": "spatial_safe_spatialstageprovider_spatialstageprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_providers_spatial_safe_spatialstageprovider_tsx",
+      "target": "spatial_safe_spatialstageprovider_usespatialstage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L51",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_safe_spatialstageprovider_spatialstageprovider",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "spatial_safe_spatialstageprovider_spatialstageprovider",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "spatial_safe_spatialstageprovider_spatialstageprovider",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "spatial_safe_spatialstageprovider_spatialstageprovider",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "spatial_safe_spatialstageprovider_spatialstageprovider",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "spatial_safe_spatialstageprovider_usespatialstage",
+      "callee": "useContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialStageProvider.tsx",
+      "source_location": "L52"
+    }
+  ]
+}

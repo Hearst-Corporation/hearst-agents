@@ -1,0 +1,900 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "label": "api.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "delegate_api_delegate",
+      "label": "delegate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "delegate_api_agents_with_web_search",
+      "label": "AGENTS_WITH_WEB_SEARCH",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L114"
+    },
+    {
+      "id": "delegate_api_fetchproviderdata",
+      "label": "fetchProviderData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "delegate_api_fetchdrivedata",
+      "label": "fetchDriveData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L136"
+    },
+    {
+      "id": "delegate_api_fetchgmaildata",
+      "label": "fetchGmailData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L184"
+    },
+    {
+      "id": "delegate_api_fetchcalendardata",
+      "label": "fetchCalendarData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L221"
+    },
+    {
+      "id": "delegate_api_extractsearchkeywords",
+      "label": "extractSearchKeywords()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L264"
+    },
+    {
+      "id": "delegate_api_executeagentsync",
+      "label": "executeAgentSync()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L323"
+    },
+    {
+      "id": "delegate_api_buildagentprompt",
+      "label": "buildAgentPrompt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L459"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "openai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "capabilities_guard_capabilityguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "capabilities_taxonomy_domain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "google_calendar_getupcomingevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "google_drive_readdrivefilecontent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "google_drive_searchdrivefiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "google_gmail_searchemails",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_tokens_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "auth_tokens_gettokens",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "engine_index_runengine",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "engine_types_stepactor",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_types_delegateinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_types_delegateresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_delegate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_agents_with_web_search",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_fetchproviderdata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_fetchdrivedata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_fetchgmaildata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L184",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_fetchcalendardata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L221",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_extractsearchkeywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L264",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_executeagentsync",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L323",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "target": "delegate_api_buildagentprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L459",
+      "weight": 1.0
+    },
+    {
+      "source": "delegate_api_delegate",
+      "target": "delegate_api_executeagentsync",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "delegate_api_fetchproviderdata",
+      "target": "delegate_api_fetchdrivedata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "delegate_api_fetchproviderdata",
+      "target": "delegate_api_fetchgmaildata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "delegate_api_fetchproviderdata",
+      "target": "delegate_api_fetchcalendardata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "delegate_api_fetchdrivedata",
+      "target": "delegate_api_extractsearchkeywords",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "delegate_api_executeagentsync",
+      "target": "delegate_api_fetchproviderdata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L357",
+      "weight": 1.0
+    },
+    {
+      "source": "delegate_api_executeagentsync",
+      "target": "delegate_api_buildagentprompt",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L367",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "transition",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "capabilityGuard",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "fail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "fail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "delegate_api_delegate",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "searchDriveFiles",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "readDriveFileContent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L155"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L159"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "delegate_api_fetchdrivedata",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "delegate_api_fetchgmaildata",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L191"
+    },
+    {
+      "caller_nid": "delegate_api_fetchgmaildata",
+      "callee": "searchGmail",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "delegate_api_fetchgmaildata",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L199"
+    },
+    {
+      "caller_nid": "delegate_api_fetchgmaildata",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "delegate_api_fetchgmaildata",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "delegate_api_fetchgmaildata",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "delegate_api_fetchcalendardata",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L226"
+    },
+    {
+      "caller_nid": "delegate_api_fetchcalendardata",
+      "callee": "getUpcomingEvents",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "delegate_api_fetchcalendardata",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L236"
+    },
+    {
+      "caller_nid": "delegate_api_fetchcalendardata",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "delegate_api_fetchcalendardata",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L251"
+    },
+    {
+      "caller_nid": "delegate_api_fetchcalendardata",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L259"
+    },
+    {
+      "caller_nid": "delegate_api_extractsearchkeywords",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "delegate_api_extractsearchkeywords",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "delegate_api_extractsearchkeywords",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "delegate_api_extractsearchkeywords",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "delegate_api_extractsearchkeywords",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "delegate_api_extractsearchkeywords",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "delegate_api_extractsearchkeywords",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "getUserId",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L332"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "getTokens",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L337"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "getTokens",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L341"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L343"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "getTokens",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L345"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L347"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L359"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L369"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L369"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L369"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L369"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L382"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L383"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L409"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "track",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L426"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "complete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L433"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L435"
+    },
+    {
+      "caller_nid": "delegate_api_executeagentsync",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L440"
+    },
+    {
+      "caller_nid": "delegate_api_buildagentprompt",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L466"
+    },
+    {
+      "caller_nid": "delegate_api_buildagentprompt",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L469"
+    },
+    {
+      "caller_nid": "delegate_api_buildagentprompt",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L473"
+    },
+    {
+      "caller_nid": "delegate_api_buildagentprompt",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts",
+      "source_location": "L477"
+    }
+  ]
+}

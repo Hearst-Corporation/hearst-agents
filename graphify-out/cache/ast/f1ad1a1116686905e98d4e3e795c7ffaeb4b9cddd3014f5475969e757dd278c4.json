@@ -1,0 +1,381 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "label": "prompt-injection-fence.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_result",
+      "label": "result",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_kinds",
+      "label": "kinds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_r",
+      "label": "r",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_long",
+      "label": "long",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L97"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_fenced",
+      "label": "fenced",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L113"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_firstclose",
+      "label": "firstClose",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_lastclose",
+      "label": "lastClose",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L116"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_header",
+      "label": "header",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L135"
+    },
+    {
+      "id": "security_prompt_injection_fence_test_h",
+      "label": "h",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L145"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "memory_kg_sanitizekglabel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_untrusted_fence_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "memory_untrusted_fence_fenceuntrusted",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "memory_untrusted_fence_getspotlightheader",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "memory_untrusted_fence_sanitizeforfence",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_kinds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_long",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_fenced",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_firstclose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_lastclose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_fenced",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_header",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_h",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_long",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_prompt_injection_fence_test_ts",
+      "target": "security_prompt_injection_fence_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/prompt-injection-fence.test.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

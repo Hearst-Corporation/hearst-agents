@@ -1,0 +1,569 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "label": "resolver.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_resolver_resolvercontext",
+      "label": "ResolverContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "providers_resolver_resolverresult",
+      "label": "ResolverResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "providers_resolver_resolverresultwithfallbacks",
+      "label": "ResolverResultWithFallbacks",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "providers_resolver_fallbackresult",
+      "label": "FallbackResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "providers_resolver_asserttenantscope",
+      "label": "assertTenantScope()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "providers_resolver_computerecencydecay",
+      "label": "computeRecencyDecay()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "providers_resolver_computestickinessbonus",
+      "label": "computeStickinessBonus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L93"
+    },
+    {
+      "id": "providers_resolver_computefailurepenalty",
+      "label": "computeFailurePenalty()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L109"
+    },
+    {
+      "id": "providers_resolver_iscoldstart",
+      "label": "isColdStart()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "providers_resolver_scoreprovider",
+      "label": "scoreProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L122"
+    },
+    {
+      "id": "providers_resolver_resolveprovider",
+      "label": "resolveProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L151"
+    },
+    {
+      "id": "providers_resolver_resolvefallback",
+      "label": "resolveFallback()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L215"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_platform_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "platform_types_connectorcapability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_registry_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_registry_getproviderbyid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_registry_getprovidersbycapability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_state_getusagestate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_state_recordproviderused",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_types_providerdefinition",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_types_providerid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_resolvercontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_resolverresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_resolverresultwithfallbacks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_fallbackresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_asserttenantscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_computerecencydecay",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_computestickinessbonus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_computefailurepenalty",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_iscoldstart",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_scoreprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_resolveprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "target": "providers_resolver_resolvefallback",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_resolver_scoreprovider",
+      "target": "providers_resolver_iscoldstart",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_resolver_scoreprovider",
+      "target": "providers_resolver_computerecencydecay",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_resolver_scoreprovider",
+      "target": "providers_resolver_computestickinessbonus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_resolver_scoreprovider",
+      "target": "providers_resolver_computefailurepenalty",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_resolver_resolveprovider",
+      "target": "providers_resolver_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_resolver_resolveprovider",
+      "target": "providers_resolver_scoreprovider",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_resolver_resolvefallback",
+      "target": "providers_resolver_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L219",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_resolver_computerecencydecay",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "providers_resolver_computerecencydecay",
+      "callee": "exp",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "providers_resolver_computestickinessbonus",
+      "callee": "getUsageState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "providers_resolver_computestickinessbonus",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "providers_resolver_computefailurepenalty",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "providers_resolver_scoreprovider",
+      "callee": "getUsageState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "providers_resolver_scoreprovider",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "providers_resolver_scoreprovider",
+      "callee": "random",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "getProviderById",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "recordProviderUsed",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "getProvidersByCapability",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "getProvidersByCapability",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "recordProviderUsed",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L181"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "recordProviderUsed",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "providers_resolver_resolveprovider",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "providers_resolver_resolvefallback",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "providers_resolver_resolvefallback",
+      "callee": "getProvidersByCapability",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "providers_resolver_resolvefallback",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L233"
+    },
+    {
+      "caller_nid": "providers_resolver_resolvefallback",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L233"
+    },
+    {
+      "caller_nid": "providers_resolver_resolvefallback",
+      "callee": "recordProviderUsed",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/resolver.ts",
+      "source_location": "L241"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_types_ts",
+      "label": "cache-types.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache-types.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_cache_types_reportsourcecacherow",
+      "label": "ReportSourceCacheRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache-types.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "engine_cache_types_reporttransformcacherow",
+      "label": "ReportTransformCacheRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache-types.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "engine_cache_types_reportrendercacherow",
+      "label": "ReportRenderCacheRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache-types.ts",
+      "source_location": "L25"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_types_ts",
+      "target": "engine_cache_types_reportsourcecacherow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache-types.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_types_ts",
+      "target": "engine_cache_types_reporttransformcacherow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache-types.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_types_ts",
+      "target": "engine_cache_types_reportrendercacherow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/cache-types.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

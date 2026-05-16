@@ -1,0 +1,404 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "label": "market-data.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "native_market_data_aitoolmap",
+      "label": "AiToolMap",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "native_market_data_fetchjson",
+      "label": "fetchJson()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "native_market_data_cryptoargs",
+      "label": "CryptoArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "native_market_data_coingeckoentry",
+      "label": "CoinGeckoEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "native_market_data_coingeckoresponse",
+      "label": "CoinGeckoResponse",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "native_market_data_default_coins",
+      "label": "DEFAULT_COINS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "native_market_data_formatcryptoprices",
+      "label": "formatCryptoPrices()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "native_market_data_stockargs",
+      "label": "StockArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "native_market_data_yahoochartresult",
+      "label": "YahooChartResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "native_market_data_quotesnapshot",
+      "label": "QuoteSnapshot",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "native_market_data_fetchyahooquote",
+      "label": "fetchYahooQuote()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "native_market_data_formatstockquotes",
+      "label": "formatStockQuotes()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "native_market_data_buildmarketdatatools",
+      "label": "buildMarketDataTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L138"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_aitoolmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_fetchjson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_cryptoargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_coingeckoentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_coingeckoresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_default_coins",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_formatcryptoprices",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_stockargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_yahoochartresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_quotesnapshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_fetchyahooquote",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_formatstockquotes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "target": "native_market_data_buildmarketdatatools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L138",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "native_market_data_fetchjson",
+      "callee": "setTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "native_market_data_fetchjson",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "native_market_data_fetchjson",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "native_market_data_fetchjson",
+      "callee": "clearTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "native_market_data_formatcryptoprices",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "native_market_data_fetchyahooquote",
+      "callee": "encodeURIComponent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "native_market_data_fetchyahooquote",
+      "callee": "await fetchJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "native_market_data_formatstockquotes",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "native_market_data_formatstockquotes",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "native_market_data_formatstockquotes",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "native_market_data_formatstockquotes",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "native_market_data_formatstockquotes",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "native_market_data_formatstockquotes",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "native_market_data_buildmarketdatatools",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "native_market_data_buildmarketdatatools",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/market-data.ts",
+      "source_location": "L184"
+    }
+  ]
+}

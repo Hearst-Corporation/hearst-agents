@@ -1,0 +1,882 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "label": "runtime-scenarios.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_sb",
+      "label": "sb",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_tracer",
+      "label": "tracer",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_toolaclassification",
+      "label": "toolAClassification",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_traces",
+      "label": "traces",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_tooltraces",
+      "label": "toolTraces",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L83"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_failedtrace",
+      "label": "failedTrace",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_successtrace",
+      "label": "successTrace",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_toolscores",
+      "label": "toolScores",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_selection",
+      "label": "selection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_events",
+      "label": "events",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L144"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_warningevents",
+      "label": "warningEvents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L145"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_err",
+      "label": "err",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L167"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_runclassification",
+      "label": "runClassification",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L174"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_policy",
+      "label": "policy",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L200"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_result",
+      "label": "result",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L208"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_classification",
+      "label": "classification",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L233"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_llmtrace",
+      "label": "llmTrace",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L285"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_scores",
+      "label": "scores",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L299"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_selectiontrace",
+      "label": "selectionTrace",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L400"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_fallbacktrace",
+      "label": "fallbackTrace",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L439"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_kinds",
+      "label": "kinds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L530"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_indexes",
+      "label": "indexes",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L534"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_totals",
+      "label": "totals",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L538"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_runs",
+      "label": "runs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L544"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_classifications",
+      "label": "classifications",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L594"
+    },
+    {
+      "id": "scenarios_runtime_scenarios_test_agg",
+      "label": "agg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L632"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_analytics_failure_classifier_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "analytics_failure_classifier_aggregatefailures",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "analytics_failure_classifier_classifyrunfailure",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "analytics_failure_classifier_classifytracefailure",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_analytics_tool_ranking_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "analytics_tool_ranking_toolscore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "decisions_model_selector_modelscore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "decisions_model_selector_selectmodel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_tool_selector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "decisions_tool_selector_selecttool",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_output_validator_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "runtime_output_validator_validateoutput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_prompt_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "runtime_prompt_guard_agentguardpolicy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "runtime_tracer_runtracer",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_mock_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "runtime_mock_supabase_createmocksupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_toolaclassification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_traces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tooltraces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_failedtrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_successtrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_toolscores",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_selection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_warningevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_err",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_runclassification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L174",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_traces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_policy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_policy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L220",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L224",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_classification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L233",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L250",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L251",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_policy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L253",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_traces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L284",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_llmtrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L285",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_scores",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L299",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_selection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L333",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_scores",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L348",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_selection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L361",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L369",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L370",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_traces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L399",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_selectiontrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L400",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L414",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L415",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_traces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L438",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_fallbacktrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L439",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L454",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L455",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_traces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L527",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_kinds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L530",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_indexes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L534",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_totals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L538",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_runs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L544",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L549",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L550",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_totals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L580",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_classifications",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L594",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_agg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L632",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_sb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L646",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_tracer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L647",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_traces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L669",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_scenarios_runtime_scenarios_test_ts",
+      "target": "scenarios_runtime_scenarios_test_runs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/scenarios/runtime-scenarios.test.ts",
+      "source_location": "L679",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

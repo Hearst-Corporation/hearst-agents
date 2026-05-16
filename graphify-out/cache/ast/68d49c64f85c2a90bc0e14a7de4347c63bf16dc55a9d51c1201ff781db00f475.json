@@ -1,0 +1,64 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_check_ts",
+      "label": "check.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/check.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "inngest_check_isproductionlike",
+      "label": "isProductionLike()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/check.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "inngest_check_assertinngestsigningkey",
+      "label": "assertInngestSigningKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/check.ts",
+      "source_location": "L23"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_check_ts",
+      "target": "inngest_check_isproductionlike",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/check.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_check_ts",
+      "target": "inngest_check_assertinngestsigningkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/check.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "inngest_check_assertinngestsigningkey",
+      "target": "inngest_check_isproductionlike",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/check.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "inngest_check_assertinngestsigningkey",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/check.ts",
+      "source_location": "L29"
+    }
+  ]
+}

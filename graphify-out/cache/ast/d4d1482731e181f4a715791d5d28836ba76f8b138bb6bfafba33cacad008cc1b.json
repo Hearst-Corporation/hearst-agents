@@ -1,0 +1,228 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_llamaparse_ts",
+      "label": "llamaparse.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_llamaparse_parsedocument",
+      "label": "parseDocument()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "providers_llamaparse_parsedocumentbuffer",
+      "label": "parseDocumentBuffer()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L95"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_llamaparse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_llamaparse_ts",
+      "target": "security_ssrf_guard_assertsafeurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_llamaparse_ts",
+      "target": "providers_llamaparse_parsedocument",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_llamaparse_ts",
+      "target": "providers_llamaparse_parsedocumentbuffer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "assertSafeUrl",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "timeout",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "arrayBuffer",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "append",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocument",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "append",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "providers_llamaparse_parsedocumentbuffer",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/llamaparse.ts",
+      "source_location": "L135"
+    }
+  ]
+}

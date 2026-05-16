@@ -1,0 +1,633 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "label": "signed-url.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "sharing_signed_url_signedtokenpayload",
+      "label": "SignedTokenPayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "sharing_signed_url_signtokeninput",
+      "label": "SignTokenInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "sharing_signed_url_signtokenresult",
+      "label": "SignTokenResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "sharing_signed_url_verifytokenresult",
+      "label": "VerifyTokenResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "sharing_signed_url_verifytokenerror",
+      "label": "VerifyTokenError",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "sharing_signed_url_getsharingsecret",
+      "label": "getSharingSecret()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "sharing_signed_url_getsharingsecretsforverify",
+      "label": "getSharingSecretsForVerify()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L103"
+    },
+    {
+      "id": "sharing_signed_url_base64url",
+      "label": "base64url()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "sharing_signed_url_frombase64url",
+      "label": "fromBase64url()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "sharing_signed_url_hashtoken",
+      "label": "hashToken()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L126"
+    },
+    {
+      "id": "sharing_signed_url_signtoken",
+      "label": "signToken()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L132"
+    },
+    {
+      "id": "sharing_signed_url_verifytoken",
+      "label": "verifyToken()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L163"
+    },
+    {
+      "id": "sharing_signed_url_ratestate",
+      "label": "RateState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L230"
+    },
+    {
+      "id": "sharing_signed_url_ratestates",
+      "label": "rateStates",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L235"
+    },
+    {
+      "id": "sharing_signed_url_checkshareratelimit",
+      "label": "checkShareRateLimit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L238"
+    },
+    {
+      "id": "sharing_signed_url_resetshareratelimit",
+      "label": "_resetShareRateLimit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L255"
+    },
+    {
+      "id": "sharing_signed_url_buildshareurl",
+      "label": "buildShareUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L261"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_signedtokenpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_signtokeninput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_signtokenresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_verifytokenresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_verifytokenerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_getsharingsecret",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_getsharingsecretsforverify",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_base64url",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_frombase64url",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_hashtoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_signtoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_verifytoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L163",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_ratestate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L230",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_ratestates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L235",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_checkshareratelimit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L238",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_resetshareratelimit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L255",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "target": "sharing_signed_url_buildshareurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L261",
+      "weight": 1.0
+    },
+    {
+      "source": "sharing_signed_url_getsharingsecretsforverify",
+      "target": "sharing_signed_url_getsharingsecret",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "sharing_signed_url_signtoken",
+      "target": "sharing_signed_url_getsharingsecret",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "sharing_signed_url_signtoken",
+      "target": "sharing_signed_url_base64url",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "sharing_signed_url_signtoken",
+      "target": "sharing_signed_url_hashtoken",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "sharing_signed_url_verifytoken",
+      "target": "sharing_signed_url_getsharingsecretsforverify",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "sharing_signed_url_verifytoken",
+      "target": "sharing_signed_url_frombase64url",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "sharing_signed_url_verifytoken",
+      "target": "sharing_signed_url_hashtoken",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L225",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "sharing_signed_url_getsharingsecret",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "sharing_signed_url_getsharingsecretsforverify",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "sharing_signed_url_base64url",
+      "callee": "isBuffer",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "sharing_signed_url_base64url",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "sharing_signed_url_base64url",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "sharing_signed_url_base64url",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "sharing_signed_url_base64url",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "sharing_signed_url_base64url",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "sharing_signed_url_frombase64url",
+      "callee": "repeat",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "sharing_signed_url_frombase64url",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "sharing_signed_url_frombase64url",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "sharing_signed_url_frombase64url",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "sharing_signed_url_hashtoken",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "sharing_signed_url_hashtoken",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "sharing_signed_url_hashtoken",
+      "callee": "createHash",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "createHmac",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "sharing_signed_url_signtoken",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "createHmac",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "timingSafeEqual",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "sharing_signed_url_verifytoken",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L220"
+    },
+    {
+      "caller_nid": "sharing_signed_url_checkshareratelimit",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L242"
+    },
+    {
+      "caller_nid": "sharing_signed_url_checkshareratelimit",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L244"
+    },
+    {
+      "caller_nid": "sharing_signed_url_resetshareratelimit",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "sharing_signed_url_buildshareurl",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L263"
+    },
+    {
+      "caller_nid": "sharing_signed_url_buildshareurl",
+      "callee": "encodeURIComponent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sharing/signed-url.ts",
+      "source_location": "L264"
+    }
+  ]
+}

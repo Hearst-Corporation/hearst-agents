@@ -1,0 +1,849 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "label": "executor.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "workflows_executor_executeworkflowoptions",
+      "label": "ExecuteWorkflowOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "workflows_executor_workflowexecutionresult",
+      "label": "WorkflowExecutionResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "workflows_executor_executeworkflow",
+      "label": "executeWorkflow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "workflows_executor_contextoutputsarray",
+      "label": "contextOutputsArray()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "workflows_executor_nodeexecresult",
+      "label": "NodeExecResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L196"
+    },
+    {
+      "id": "workflows_executor_executenode",
+      "label": "executeNode()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L203"
+    },
+    {
+      "id": "workflows_executor_selectnextedges",
+      "label": "selectNextEdges()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L276"
+    },
+    {
+      "id": "workflows_executor_resolveargsfromoutputs",
+      "label": "resolveArgsFromOutputs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L322"
+    },
+    {
+      "id": "workflows_executor_resolvevalue",
+      "label": "resolveValue()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L333"
+    },
+    {
+      "id": "workflows_executor_readpath",
+      "label": "readPath()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L352"
+    },
+    {
+      "id": "workflows_executor_evaluatecondition",
+      "label": "evaluateCondition()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L368"
+    },
+    {
+      "id": "workflows_executor_evaluatevalue",
+      "label": "evaluateValue()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L400"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_types_workflowexecutioncallbacks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_types_workflowexecutioncontext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_types_workflowgraph",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_types_workflownode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_validate_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_validate_validategraph",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_executeworkflowoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_workflowexecutionresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_executeworkflow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_contextoutputsarray",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_nodeexecresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L196",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_executenode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L203",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_selectnextedges",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_resolveargsfromoutputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L322",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_resolvevalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L333",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_readpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L352",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_evaluatecondition",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L368",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "target": "workflows_executor_evaluatevalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L400",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_executeworkflow",
+      "target": "workflows_executor_executenode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_executeworkflow",
+      "target": "workflows_executor_contextoutputsarray",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_executeworkflow",
+      "target": "workflows_executor_selectnextedges",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_executenode",
+      "target": "workflows_executor_resolveargsfromoutputs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_executenode",
+      "target": "workflows_executor_evaluatecondition",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_executenode",
+      "target": "workflows_executor_evaluatevalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L246",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_resolveargsfromoutputs",
+      "target": "workflows_executor_resolvevalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L328",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_resolvevalue",
+      "target": "workflows_executor_readpath",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L337",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_resolvevalue",
+      "target": "workflows_executor_resolveargsfromoutputs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_evaluatecondition",
+      "target": "workflows_executor_evaluatevalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L375",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_executor_evaluatevalue",
+      "target": "workflows_executor_readpath",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L422",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "validateGraph",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "shift",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "workflows_executor_executeworkflow",
+      "callee": "emitEvent",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "workflows_executor_contextoutputsarray",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L190"
+    },
+    {
+      "caller_nid": "workflows_executor_contextoutputsarray",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L190"
+    },
+    {
+      "caller_nid": "workflows_executor_contextoutputsarray",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L190"
+    },
+    {
+      "caller_nid": "workflows_executor_executenode",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "workflows_executor_executenode",
+      "callee": "executeTool",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L231"
+    },
+    {
+      "caller_nid": "workflows_executor_executenode",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L239"
+    },
+    {
+      "caller_nid": "workflows_executor_executenode",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L245"
+    },
+    {
+      "caller_nid": "workflows_executor_executenode",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L251"
+    },
+    {
+      "caller_nid": "workflows_executor_executenode",
+      "callee": "onApprovalRequired",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "workflows_executor_selectnextedges",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L292"
+    },
+    {
+      "caller_nid": "workflows_executor_selectnextedges",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L303"
+    },
+    {
+      "caller_nid": "workflows_executor_selectnextedges",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "workflows_executor_selectnextedges",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L308"
+    },
+    {
+      "caller_nid": "workflows_executor_selectnextedges",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L312"
+    },
+    {
+      "caller_nid": "workflows_executor_resolveargsfromoutputs",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "workflows_executor_resolvevalue",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L335"
+    },
+    {
+      "caller_nid": "workflows_executor_resolvevalue",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L340"
+    },
+    {
+      "caller_nid": "workflows_executor_resolvevalue",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L345"
+    },
+    {
+      "caller_nid": "workflows_executor_resolvevalue",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L345"
+    },
+    {
+      "caller_nid": "workflows_executor_readpath",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "workflows_executor_readpath",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "workflows_executor_readpath",
+      "callee": "shift",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L355"
+    },
+    {
+      "caller_nid": "workflows_executor_readpath",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L356"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L369"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L372"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Boolean",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L376"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L389"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L389"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L393"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L393"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L395"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatecondition",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L395"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L401"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L405"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L405"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L408"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L412"
+    },
+    {
+      "caller_nid": "workflows_executor_evaluatevalue",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/executor.ts",
+      "source_location": "L413"
+    }
+  ]
+}

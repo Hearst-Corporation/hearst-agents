@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "webhooks_types_webhook_events",
+      "label": "WEBHOOK_EVENTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "webhooks_types_webhookevent",
+      "label": "WebhookEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "webhooks_types_webhookpayload",
+      "label": "WebhookPayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "webhooks_types_customwebhook",
+      "label": "CustomWebhook",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L33"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "target": "webhooks_types_webhook_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "target": "webhooks_types_webhookevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "target": "webhooks_types_webhookpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "target": "webhooks_types_customwebhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/types.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

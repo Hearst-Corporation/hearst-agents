@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "multi_tenant_types_spaceid",
+      "label": "SpaceId",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "multi_tenant_types_tenantscope",
+      "label": "TenantScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "multi_tenant_types_scopedmetadata",
+      "label": "ScopedMetadata",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "multi_tenant_types_resolvespaceid",
+      "label": "resolveSpaceId()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L56"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "target": "multi_tenant_types_spaceid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "target": "multi_tenant_types_tenantscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "target": "multi_tenant_types_scopedmetadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "target": "multi_tenant_types_resolvespaceid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/multi-tenant/types.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_tenantstable_tsx",
+      "label": "TenantsTable.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_tenantstable_tenantstableprops",
+      "label": "TenantsTableProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "components_tenantstable_tenantstable",
+      "label": "TenantsTable()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "components_tenantstable_th",
+      "label": "Th()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L101"
+    },
+    {
+      "id": "components_tenantstable_td",
+      "label": "Td()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L105"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_tenantstable_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_tenantstable_tsx",
+      "target": "usage_aggregate_tenantusage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_tenantstable_tsx",
+      "target": "components_tenantstable_tenantstableprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_tenantstable_tsx",
+      "target": "components_tenantstable_tenantstable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_tenantstable_tsx",
+      "target": "components_tenantstable_th",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_tenantstable_tsx",
+      "target": "components_tenantstable_td",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L105",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_tenantstable_tenantstable",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/TenantsTable.tsx",
+      "source_location": "L58"
+    }
+  ]
+}

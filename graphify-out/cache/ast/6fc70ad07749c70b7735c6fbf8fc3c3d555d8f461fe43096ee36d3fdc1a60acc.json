@@ -1,0 +1,385 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "label": "structured-messages.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "memory_structured_messages_test_mockbuilder",
+      "label": "MockBuilder",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "memory_structured_messages_test_state",
+      "label": "state",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "memory_structured_messages_test_buildbuilder",
+      "label": "buildBuilder()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "memory_structured_messages_test_scope",
+      "label": "scope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "memory_structured_messages_test_freshstore",
+      "label": "freshStore()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "memory_structured_messages_test_msg",
+      "label": "msg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "memory_structured_messages_test_assistant",
+      "label": "assistant",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L96"
+    },
+    {
+      "id": "memory_structured_messages_test_tool",
+      "label": "tool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L119"
+    },
+    {
+      "id": "memory_structured_messages_test_msgs",
+      "label": "msgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L164"
+    },
+    {
+      "id": "memory_structured_messages_test_scopea",
+      "label": "scopeA",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L205"
+    },
+    {
+      "id": "memory_structured_messages_test_scopeb",
+      "label": "scopeB",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L206"
+    },
+    {
+      "id": "memory_structured_messages_test_dbpayload",
+      "label": "dbPayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L219"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "multi_tenant_types_tenantscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_mockbuilder",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_state",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_buildbuilder",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_freshstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_msg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_assistant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_tool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_msgs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_scopea",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L205",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_scopeb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_structured_messages_test_ts",
+      "target": "memory_structured_messages_test_dbpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L219",
+      "weight": 1.0
+    },
+    {
+      "source": "memory_structured_messages_test_freshstore",
+      "target": "memory_structured_messages_test_buildbuilder",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "memory_structured_messages_test_freshstore",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_store_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockImplementation",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockImplementation",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockReturnValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockReturnValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockReturnValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockReturnValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockReturnValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_buildbuilder",
+      "callee": "mockReturnValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "memory_structured_messages_test_freshstore",
+      "callee": "resetModules",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/structured-messages.test.ts",
+      "source_location": "L68"
+    }
+  ]
+}

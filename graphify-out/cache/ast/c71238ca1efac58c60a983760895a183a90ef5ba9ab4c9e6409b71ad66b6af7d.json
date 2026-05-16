@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "label": "active-space.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stores_active_space_writeactivespacecookie",
+      "label": "writeActiveSpaceCookie()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "stores_active_space_spaceconfig",
+      "label": "SpaceConfig",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "stores_active_space_default_spaces",
+      "label": "DEFAULT_SPACES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "stores_active_space_activespacestate",
+      "label": "ActiveSpaceState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "stores_active_space_useactivespace",
+      "label": "useActiveSpace",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L78"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "target": "zustand",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "target": "middleware",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "target": "stores_active_space_writeactivespacecookie",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "target": "stores_active_space_spaceconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "target": "stores_active_space_default_spaces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "target": "stores_active_space_activespacestate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_stores_active_space_ts",
+      "target": "stores_active_space_useactivespace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stores_active_space_writeactivespacecookie",
+      "callee": "encodeURIComponent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/stores/active-space.ts",
+      "source_location": "L47"
+    }
+  ]
+}

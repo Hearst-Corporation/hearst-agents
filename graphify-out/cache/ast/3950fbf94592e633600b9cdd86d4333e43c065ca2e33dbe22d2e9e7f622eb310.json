@@ -1,0 +1,112 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_sparkline_tsx",
+      "label": "Sparkline.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "blocks_sparkline_sparklineprops",
+      "label": "SparklineProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "blocks_sparkline_tone_colors",
+      "label": "TONE_COLORS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L28"
+    },
+    {
+      "id": "blocks_sparkline_sparkline",
+      "label": "Sparkline()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L35"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_sparkline_tsx",
+      "target": "blocks_sparkline_sparklineprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_sparkline_tsx",
+      "target": "blocks_sparkline_tone_colors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_sparkline_tsx",
+      "target": "blocks_sparkline_sparkline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L35",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "blocks_sparkline_sparkline",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "blocks_sparkline_sparkline",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "blocks_sparkline_sparkline",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "blocks_sparkline_sparkline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "blocks_sparkline_sparkline",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "blocks_sparkline_sparkline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "blocks_sparkline_sparkline",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Sparkline.tsx",
+      "source_location": "L70"
+    }
+  ]
+}

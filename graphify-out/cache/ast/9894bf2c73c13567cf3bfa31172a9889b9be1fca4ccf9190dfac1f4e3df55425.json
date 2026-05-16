@@ -1,0 +1,295 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "label": "quote.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "pdf_blocks_quote_quoteinput",
+      "label": "QuoteInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "pdf_blocks_quote_renderquote",
+      "label": "renderQuote()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_fonts_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "export_pdf_fonts_setfont",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_tokens_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "export_pdf_tokens_colors",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "export_pdf_tokens_font_sizes",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "export_pdf_tokens_page",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "export_pdf_tokens_rules",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "export_pdf_tokens_space",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "pdf_blocks_quote_quoteinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_quote_ts",
+      "target": "pdf_blocks_quote_renderquote",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "save",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "stroke",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "lineTo",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "moveTo",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "strokeColor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "lineWidth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "restore",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "setFont",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "fillColor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "fontSize",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "setFont",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "fillColor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "fontSize",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "save",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "stroke",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "lineTo",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "moveTo",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "strokeColor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "lineWidth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "pdf_blocks_quote_renderquote",
+      "callee": "restore",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/export/pdf-blocks/quote.ts",
+      "source_location": "L67"
+    }
+  ]
+}

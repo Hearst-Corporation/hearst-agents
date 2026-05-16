@@ -1,0 +1,131 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "label": "chat-messages-rendering.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_chat_messages_rendering_test_renderprobe",
+      "label": "RenderProbe",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "ui_chat_messages_rendering_test_deriverender",
+      "label": "deriveRender()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "ui_chat_messages_rendering_test_r",
+      "label": "r",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "ui_chat_messages_rendering_test_empty",
+      "label": "empty",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "ui_chat_messages_rendering_test_filled",
+      "label": "filled",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L62"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_renderprobe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_deriverender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_empty",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_ui_chat_messages_rendering_test_ts",
+      "target": "ui_chat_messages_rendering_test_filled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/ui/chat-messages-rendering.test.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

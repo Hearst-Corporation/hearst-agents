@@ -1,0 +1,411 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "preview_formatters_index_previewformatter",
+      "label": "PreviewFormatter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "preview_formatters_index_registry",
+      "label": "REGISTRY",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "preview_formatters_index_getformatterforaction",
+      "label": "getFormatterForAction()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L104"
+    },
+    {
+      "id": "preview_formatters_index_sameappandverbobject",
+      "label": "sameAppAndVerbObject()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L116"
+    },
+    {
+      "id": "preview_formatters_index_listregisteredactions",
+      "label": "listRegisteredActions()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L131"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_airtable_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_airtable_formatairtablecreaterecord",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_asana_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_asana_formatasanacreatetask",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_gmail_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_gmail_formatgmailreply",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_gmail_formatgmailsendemail",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_googlecalendar_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_googlecalendar_formatcalendarcreateevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_hubspot_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_hubspot_formathubspotcreatecontact",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_hubspot_formathubspotupdatedeal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_linear_formatlinearcreateissue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_notion_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_notion_formatnotioncreatepage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_slack_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_slack_formatslacksendmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_stripe_formatstripecreateinvoice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_stripe_formatstriperefund",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_trello_formattrellocreatecard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_whatsapp_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_whatsapp_formatwhatsappsendmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_index_previewformatter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_index_registry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_index_getformatterforaction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_index_sameappandverbobject",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_index_ts",
+      "target": "preview_formatters_index_listregisteredactions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "preview_formatters_index_getformatterforaction",
+      "target": "preview_formatters_index_sameappandverbobject",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "preview_formatters_index_getformatterforaction",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "preview_formatters_index_getformatterforaction",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "preview_formatters_index_sameappandverbobject",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "preview_formatters_index_sameappandverbobject",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "preview_formatters_index_sameappandverbobject",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "preview_formatters_index_sameappandverbobject",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "preview_formatters_index_sameappandverbobject",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "preview_formatters_index_listregisteredactions",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/index.ts",
+      "source_location": "L132"
+    }
+  ]
+}

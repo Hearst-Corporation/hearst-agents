@@ -1,0 +1,1111 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "label": "tabular.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_tabular_row",
+      "label": "Row",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "engine_tabular_tabular",
+      "label": "Tabular",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "engine_tabular_filter",
+      "label": "filter()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "engine_tabular_joinparams",
+      "label": "JoinParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "engine_tabular_join",
+      "label": "join()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "engine_tabular_compositekey",
+      "label": "compositeKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L81"
+    },
+    {
+      "id": "engine_tabular_measurefn",
+      "label": "MeasureFn",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L93"
+    },
+    {
+      "id": "engine_tabular_measure",
+      "label": "Measure",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L104"
+    },
+    {
+      "id": "engine_tabular_groupbyparams",
+      "label": "GroupByParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L110"
+    },
+    {
+      "id": "engine_tabular_groupby",
+      "label": "groupBy()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "engine_tabular_computemeasure",
+      "label": "computeMeasure()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L146"
+    },
+    {
+      "id": "engine_tabular_percentile",
+      "label": "percentile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L180"
+    },
+    {
+      "id": "engine_tabular_unit_ms",
+      "label": "UNIT_MS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L193"
+    },
+    {
+      "id": "engine_tabular_parserange",
+      "label": "parseRange()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L200"
+    },
+    {
+      "id": "engine_tabular_rowtimestamp",
+      "label": "rowTimestamp()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L208"
+    },
+    {
+      "id": "engine_tabular_windowparams",
+      "label": "WindowParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L219"
+    },
+    {
+      "id": "engine_tabular_windowop",
+      "label": "windowOp()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L226"
+    },
+    {
+      "id": "engine_tabular_diffparams",
+      "label": "DiffParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L239"
+    },
+    {
+      "id": "engine_tabular_diff",
+      "label": "diff()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L254"
+    },
+    {
+      "id": "engine_tabular_rankparams",
+      "label": "RankParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L309"
+    },
+    {
+      "id": "engine_tabular_rank",
+      "label": "rank()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L315"
+    },
+    {
+      "id": "engine_tabular_deriveparams",
+      "label": "DeriveParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L335"
+    },
+    {
+      "id": "engine_tabular_derive",
+      "label": "derive()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L339"
+    },
+    {
+      "id": "engine_tabular_pivotparams",
+      "label": "PivotParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L355"
+    },
+    {
+      "id": "engine_tabular_pivot",
+      "label": "pivot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L365"
+    },
+    {
+      "id": "engine_tabular_aggregate",
+      "label": "aggregate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L409"
+    },
+    {
+      "id": "engine_tabular_unionall",
+      "label": "unionAll()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L421"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_expr_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_expr_compileexpr",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_expr_exprast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_expr_evaluateast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_row",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_tabular",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_filter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_joinparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_join",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_compositekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_measurefn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_measure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_groupbyparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_groupby",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_computemeasure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_percentile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L180",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_unit_ms",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L193",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_parserange",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_rowtimestamp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_windowparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L219",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_windowop",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L226",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_diffparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L239",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_diff",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L254",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_rankparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L309",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_rank",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L315",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_deriveparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L335",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_derive",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L339",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_pivotparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L355",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_pivot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L365",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_aggregate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L409",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "target": "engine_tabular_unionall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L421",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_join",
+      "target": "engine_tabular_compositekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_compositekey",
+      "target": "engine_tabular_join",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_groupby",
+      "target": "engine_tabular_join",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_groupby",
+      "target": "engine_tabular_computemeasure",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_computemeasure",
+      "target": "engine_tabular_filter",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_computemeasure",
+      "target": "engine_tabular_percentile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L174",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_windowop",
+      "target": "engine_tabular_parserange",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L227",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_windowop",
+      "target": "engine_tabular_filter",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L231",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_diff",
+      "target": "engine_tabular_parserange",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L273",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_diff",
+      "target": "engine_tabular_filter",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L277",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_pivot",
+      "target": "engine_tabular_join",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L377",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_tabular_pivot",
+      "target": "engine_tabular_aggregate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L402",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_tabular_filter",
+      "callee": "compileExpr",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "engine_tabular_join",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "engine_tabular_compositekey",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "engine_tabular_compositekey",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "engine_tabular_groupby",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "engine_tabular_groupby",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "engine_tabular_groupby",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "engine_tabular_groupby",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "engine_tabular_groupby",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "engine_tabular_groupby",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "engine_tabular_groupby",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "engine_tabular_computemeasure",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "engine_tabular_computemeasure",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L159"
+    },
+    {
+      "caller_nid": "engine_tabular_computemeasure",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "engine_tabular_computemeasure",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "engine_tabular_computemeasure",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "engine_tabular_computemeasure",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "engine_tabular_percentile",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "engine_tabular_percentile",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L184"
+    },
+    {
+      "caller_nid": "engine_tabular_percentile",
+      "callee": "ceil",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L185"
+    },
+    {
+      "caller_nid": "engine_tabular_parserange",
+      "callee": "exec",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "engine_tabular_parserange",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "engine_tabular_rowtimestamp",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L210"
+    },
+    {
+      "caller_nid": "engine_tabular_rowtimestamp",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L212"
+    },
+    {
+      "caller_nid": "engine_tabular_rowtimestamp",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L213"
+    },
+    {
+      "caller_nid": "engine_tabular_rowtimestamp",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "engine_tabular_windowop",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L229"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L274"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L287"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L288"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "sumField",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L291"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "sumField",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L292"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L293"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L293"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L295"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L295"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "engine_tabular_diff",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "engine_tabular_rank",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L318"
+    },
+    {
+      "caller_nid": "engine_tabular_rank",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L330"
+    },
+    {
+      "caller_nid": "engine_tabular_rank",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L330"
+    },
+    {
+      "caller_nid": "engine_tabular_derive",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L340"
+    },
+    {
+      "caller_nid": "engine_tabular_derive",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L344"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L378"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L381"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L383"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L384"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L387"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L393"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L394"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L394"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L399"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L401"
+    },
+    {
+      "caller_nid": "engine_tabular_pivot",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L404"
+    },
+    {
+      "caller_nid": "engine_tabular_aggregate",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L412"
+    },
+    {
+      "caller_nid": "engine_tabular_aggregate",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L413"
+    },
+    {
+      "caller_nid": "engine_tabular_aggregate",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L414"
+    },
+    {
+      "caller_nid": "engine_tabular_aggregate",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L415"
+    },
+    {
+      "caller_nid": "engine_tabular_unionall",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/tabular.ts",
+      "source_location": "L424"
+    }
+  ]
+}

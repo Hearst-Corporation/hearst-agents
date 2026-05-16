@@ -1,0 +1,575 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "label": "kg-query.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "native_kg_query_aitoolmap",
+      "label": "AiToolMap",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "native_kg_query_querykgargs",
+      "label": "QueryKgArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "native_kg_query_querykgresult",
+      "label": "QueryKgResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "native_kg_query_runkgquery",
+      "label": "runKgQuery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "native_kg_query_formatproperties",
+      "label": "formatProperties()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L154"
+    },
+    {
+      "id": "native_kg_query_buildkgquerytools",
+      "label": "buildKgQueryTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L163"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "editorial_charter_composeeditorialprompt",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "embeddings_store_searchembeddings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "llm_safe_chat_chatwithcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "memory_kg_kgedge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "memory_kg_kgnode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "multi_tenant_types_tenantscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "db_supabase_requireserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "native_kg_query_aitoolmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "native_kg_query_querykgargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "native_kg_query_querykgresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "native_kg_query_runkgquery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "native_kg_query_formatproperties",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "target": "native_kg_query_buildkgquerytools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L163",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "searchEmbeddings",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "requireServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "in",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "in",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "in",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "await chatWithCircuitBreaker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "composeEditorialPrompt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "native_kg_query_runkgquery",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "native_kg_query_formatproperties",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "native_kg_query_formatproperties",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "native_kg_query_formatproperties",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "native_kg_query_formatproperties",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "native_kg_query_formatproperties",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "native_kg_query_buildkgquerytools",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/kg-query.ts",
+      "source_location": "L173"
+    }
+  ]
+}

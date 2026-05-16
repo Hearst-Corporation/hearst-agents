@@ -1,0 +1,86 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_scene_ts",
+      "label": "spatial-scene.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "backup_spatial_rnd_buggy_2026_05_12_spatial_scene_spatialscenestate",
+      "label": "SpatialSceneState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "backup_spatial_rnd_buggy_2026_05_12_spatial_scene_usespatialscenestore",
+      "label": "useSpatialSceneStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_scene_ts",
+      "target": "zustand",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_scene_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_scene_config",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_scene_ts",
+      "target": "spatial_scene_config_scene_rnd_config",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_scene_ts",
+      "target": "spatial_scene_config_sceneconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_scene_ts",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_scene_spatialscenestate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_scene_ts",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_scene_usespatialscenestore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

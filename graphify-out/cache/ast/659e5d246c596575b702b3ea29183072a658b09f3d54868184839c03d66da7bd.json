@@ -1,0 +1,446 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "label": "system-prompt.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_system_prompt_plan_tool",
+      "label": "PLAN_TOOL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "orchestrator_system_prompt_respond_tool",
+      "label": "RESPOND_TOOL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L162"
+    },
+    {
+      "id": "orchestrator_system_prompt_request_connection_tool",
+      "label": "REQUEST_CONNECTION_TOOL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L185"
+    },
+    {
+      "id": "orchestrator_system_prompt_applicablereporthint",
+      "label": "ApplicableReportHint",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L209"
+    },
+    {
+      "id": "orchestrator_system_prompt_agentsystempromptopts",
+      "label": "AgentSystemPromptOpts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L216"
+    },
+    {
+      "id": "orchestrator_system_prompt_buildagentsystemprompt",
+      "label": "buildAgentSystemPrompt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L272"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_agents_connected_apps_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "agents_connected_apps_context_buildslugstrictnessrule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_agents_dual_apps_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "agents_dual_apps_builddualappguidance",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_discovery_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "composio_discovery_discoveredtool",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "editorial_charter_editorial_charter_block",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_untrusted_fence_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "memory_untrusted_fence_getspotlightheader",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_personas_system_prompt_addon_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "personas_system_prompt_addon_buildpersonaaddonornull",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_personas_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "personas_types_persona",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "orchestrator_system_prompt_plan_tool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "orchestrator_system_prompt_respond_tool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L162",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "orchestrator_system_prompt_request_connection_tool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "orchestrator_system_prompt_applicablereporthint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L209",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "orchestrator_system_prompt_agentsystempromptopts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L216",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "target": "orchestrator_system_prompt_buildagentsystemprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L272",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "toLocaleDateString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L285"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L292"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L292"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L296"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "buildDualAppGuidance",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "buildSlugStrictnessRule",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L320"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L321"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L321"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L337"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "buildPersonaAddonOrNull",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L344"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L352"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L360"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L360"
+    },
+    {
+      "caller_nid": "orchestrator_system_prompt_buildagentsystemprompt",
+      "callee": "getSpotlightHeader",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/system-prompt.ts",
+      "source_location": "L385"
+    }
+  ]
+}

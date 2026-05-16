@@ -1,0 +1,559 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "label": "SignalBoardStage.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "stages_signalboardstage_ambientsignal",
+      "label": "AmbientSignal",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "stages_signalboardstage_signalsresponse",
+      "label": "SignalsResponse",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L34"
+    },
+    {
+      "id": "stages_signalboardstage_rangekey",
+      "label": "RangeKey",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "stages_signalboardstage_kindfilter",
+      "label": "KindFilter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L37"
+    },
+    {
+      "id": "stages_signalboardstage_range_options",
+      "label": "RANGE_OPTIONS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L39"
+    },
+    {
+      "id": "stages_signalboardstage_kind_options",
+      "label": "KIND_OPTIONS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L46"
+    },
+    {
+      "id": "stages_signalboardstage_kind_glyph",
+      "label": "KIND_GLYPH",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L55"
+    },
+    {
+      "id": "stages_signalboardstage_kind_label",
+      "label": "KIND_LABEL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L63"
+    },
+    {
+      "id": "stages_signalboardstage_formatrelative",
+      "label": "formatRelative()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L72"
+    },
+    {
+      "id": "stages_signalboardstage_buildinvestigatequery",
+      "label": "buildInvestigateQuery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L88"
+    },
+    {
+      "id": "stages_signalboardstage_signalboardstage",
+      "label": "SignalBoardStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L107"
+    },
+    {
+      "id": "stages_signalboardstage_filterpill",
+      "label": "FilterPill()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L333"
+    },
+    {
+      "id": "stages_signalboardstage_signalcardprops",
+      "label": "SignalCardProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L367"
+    },
+    {
+      "id": "stages_signalboardstage_signalcard",
+      "label": "SignalCard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L374"
+    },
+    {
+      "id": "stages_signalboardstage_signalskeleton",
+      "label": "SignalSkeleton()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L468"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "ui_index_emptystate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_stageactionbar_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_stageactionbar_stageactionbar",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_ambientsignal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_signalsresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_rangekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_kindfilter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_range_options",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_kind_options",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_kind_glyph",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_kind_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_formatrelative",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_buildinvestigatequery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_signalboardstage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_filterpill",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L333",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_signalcardprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L367",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_signalcard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L374",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_signalboardstage_tsx",
+      "target": "stages_signalboardstage_signalskeleton",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L468",
+      "weight": 1.0
+    },
+    {
+      "source": "stages_signalboardstage_signalcard",
+      "target": "stages_signalboardstage_formatrelative",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L415",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stages_signalboardstage_formatrelative",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_formatrelative",
+      "callee": "isNaN",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_formatrelative",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_formatrelative",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_formatrelative",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_formatrelative",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_formatrelative",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_buildinvestigatequery",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_buildinvestigatequery",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_buildinvestigatequery",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_buildinvestigatequery",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_buildinvestigatequery",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L234"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L278"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalboardstage",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalskeleton",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L471"
+    },
+    {
+      "caller_nid": "stages_signalboardstage_signalskeleton",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/SignalBoardStage.tsx",
+      "source_location": "L471"
+    }
+  ]
+}

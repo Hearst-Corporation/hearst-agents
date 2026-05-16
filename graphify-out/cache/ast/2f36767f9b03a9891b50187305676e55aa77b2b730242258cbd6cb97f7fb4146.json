@@ -1,0 +1,136 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "label": "admin-rbac.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_admin_rbac_test_mockresolvescope",
+      "label": "mockResolveScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "security_admin_rbac_test_mockcheckpermission",
+      "label": "mockCheckPermission",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "security_admin_rbac_test_mockgetserversupabase",
+      "label": "mockGetServerSupabase",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "security_admin_rbac_test_mockisdevbypassenabled",
+      "label": "mockIsDevBypassEnabled",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "security_admin_rbac_test_admin_scope",
+      "label": "ADMIN_SCOPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "security_admin_rbac_test_viewer_scope",
+      "label": "VIEWER_SCOPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "security_admin_rbac_test_mockdb",
+      "label": "mockDb",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "security_admin_rbac_test_mockresolvescope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "security_admin_rbac_test_mockcheckpermission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "security_admin_rbac_test_mockgetserversupabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "security_admin_rbac_test_mockisdevbypassenabled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "security_admin_rbac_test_admin_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "security_admin_rbac_test_viewer_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_admin_rbac_test_ts",
+      "target": "security_admin_rbac_test_mockdb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/admin-rbac.test.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

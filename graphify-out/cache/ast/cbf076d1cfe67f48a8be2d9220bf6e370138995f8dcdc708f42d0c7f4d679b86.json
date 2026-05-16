@@ -1,0 +1,332 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "label": "spreadsheet.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "generators_spreadsheet_generatespreadsheetinput",
+      "label": "GenerateSpreadsheetInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "generators_spreadsheet_generatespreadsheetartifact",
+      "label": "generateSpreadsheetArtifact()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "generators_spreadsheet_generatexlsx",
+      "label": "generateXlsx()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "generators_spreadsheet_generatecsvfallback",
+      "label": "generateCsvFallback()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "generators_spreadsheet_collectheaders",
+      "label": "collectHeaders()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L115"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "exceljs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_file_storage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "assets_file_storage_saveassetfile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "assets_types_assetfileinfo",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "generators_spreadsheet_generatespreadsheetinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "generators_spreadsheet_generatespreadsheetartifact",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "generators_spreadsheet_generatexlsx",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "generators_spreadsheet_generatecsvfallback",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "target": "generators_spreadsheet_collectheaders",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "generators_spreadsheet_generatespreadsheetartifact",
+      "target": "generators_spreadsheet_generatexlsx",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "generators_spreadsheet_generatespreadsheetartifact",
+      "target": "generators_spreadsheet_generatecsvfallback",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "generators_spreadsheet_generatexlsx",
+      "target": "generators_spreadsheet_collectheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "generators_spreadsheet_generatecsvfallback",
+      "target": "generators_spreadsheet_collectheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "generators_spreadsheet_generatespreadsheetartifact",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatespreadsheetartifact",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatespreadsheetartifact",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "addWorksheet",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "getRow",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "addRow",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "writeBuffer",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatexlsx",
+      "callee": "saveAssetFile",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatecsvfallback",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatecsvfallback",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatecsvfallback",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatecsvfallback",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatecsvfallback",
+      "callee": "saveAssetFile",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_generatecsvfallback",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_collectheaders",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_collectheaders",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "generators_spreadsheet_collectheaders",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/generators/spreadsheet.ts",
+      "source_location": "L120"
+    }
+  ]
+}

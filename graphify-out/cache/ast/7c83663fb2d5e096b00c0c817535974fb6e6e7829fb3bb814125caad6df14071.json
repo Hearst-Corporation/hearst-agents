@@ -1,0 +1,199 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "label": "NodeDetailPanel.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "canvas_nodedetailpanel_props",
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "canvas_nodedetailpanel_state_color",
+      "label": "STATE_COLOR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "canvas_nodedetailpanel_state_label",
+      "label": "STATE_LABEL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "canvas_nodedetailpanel_kind_label",
+      "label": "KIND_LABEL",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "canvas_nodedetailpanel_statrow",
+      "label": "StatRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "canvas_nodedetailpanel_nodedetailpanel",
+      "label": "NodeDetailPanel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L63"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_store_nodestate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_store_usecanvasstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_topology_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_topology_canvasnode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_topology_nodeid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_nodedetailpanel_props",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_nodedetailpanel_state_color",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_nodedetailpanel_state_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_nodedetailpanel_kind_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_nodedetailpanel_statrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_nodedetailpanel_tsx",
+      "target": "canvas_nodedetailpanel_nodedetailpanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L63",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "canvas_nodedetailpanel_statrow",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "canvas_nodedetailpanel_nodedetailpanel",
+      "callee": "useCanvasStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "canvas_nodedetailpanel_nodedetailpanel",
+      "callee": "useCanvasStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "canvas_nodedetailpanel_nodedetailpanel",
+      "callee": "toLocaleTimeString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/NodeDetailPanel.tsx",
+      "source_location": "L127"
+    }
+  ]
+}

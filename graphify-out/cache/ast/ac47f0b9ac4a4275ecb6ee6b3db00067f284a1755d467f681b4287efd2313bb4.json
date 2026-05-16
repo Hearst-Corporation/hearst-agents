@@ -1,0 +1,696 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "label": "recall-ai.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_recall_ai_recallaiunavailableerror",
+      "label": "RecallAiUnavailableError",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "providers_recall_ai_recallaiunavailableerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "providers_recall_ai_isrecallaiconfigured",
+      "label": "isRecallAiConfigured()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "providers_recall_ai_getapikey",
+      "label": "getApiKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "providers_recall_ai_createmeetingbotparams",
+      "label": "CreateMeetingBotParams",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "providers_recall_ai_createmeetingbotresult",
+      "label": "CreateMeetingBotResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "providers_recall_ai_createmeetingbot",
+      "label": "createMeetingBot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "providers_recall_ai_botstatus",
+      "label": "BotStatus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "providers_recall_ai_getbotstatus",
+      "label": "getBotStatus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L100"
+    },
+    {
+      "id": "providers_recall_ai_transcriptsegment",
+      "label": "TranscriptSegment",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L131"
+    },
+    {
+      "id": "providers_recall_ai_gettranscript",
+      "label": "getTranscript()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L144"
+    },
+    {
+      "id": "providers_recall_ai_stopbot",
+      "label": "stopBot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "providers_recall_ai_deletebot",
+      "label": "deleteBot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L199"
+    },
+    {
+      "id": "providers_recall_ai_webhookverifyreason",
+      "label": "WebhookVerifyReason",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L215"
+    },
+    {
+      "id": "providers_recall_ai_verifywebhooksignature",
+      "label": "verifyWebhookSignature()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L240"
+    },
+    {
+      "id": "providers_recall_ai_detectmeetingprovider",
+      "label": "detectMeetingProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L279"
+    },
+    {
+      "id": "providers_recall_ai_validatemeetingurl",
+      "label": "validateMeetingUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L288"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_recallaiunavailableerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_recallaiunavailableerror",
+      "target": "providers_recall_ai_recallaiunavailableerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_isrecallaiconfigured",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_getapikey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_createmeetingbotparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_createmeetingbotresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_createmeetingbot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_botstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_getbotstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_transcriptsegment",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_gettranscript",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_stopbot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_deletebot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_webhookverifyreason",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_verifywebhooksignature",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_detectmeetingprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L279",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_recall_ai_ts",
+      "target": "providers_recall_ai_validatemeetingurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L288",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_createmeetingbot",
+      "target": "providers_recall_ai_getapikey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_getbotstatus",
+      "target": "providers_recall_ai_getapikey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_gettranscript",
+      "target": "providers_recall_ai_getapikey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_gettranscript",
+      "target": "providers_recall_ai_getbotstatus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_stopbot",
+      "target": "providers_recall_ai_getapikey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_deletebot",
+      "target": "providers_recall_ai_getapikey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_recall_ai_validatemeetingurl",
+      "target": "providers_recall_ai_detectmeetingprovider",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L301",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_recall_ai_recallaiunavailableerror_constructor",
+      "callee": "super",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "providers_recall_ai_isrecallaiconfigured",
+      "callee": "Boolean",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "providers_recall_ai_createmeetingbot",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "providers_recall_ai_createmeetingbot",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "providers_recall_ai_createmeetingbot",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "providers_recall_ai_createmeetingbot",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "providers_recall_ai_createmeetingbot",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "providers_recall_ai_createmeetingbot",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "providers_recall_ai_getbotstatus",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "providers_recall_ai_getbotstatus",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "providers_recall_ai_getbotstatus",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "providers_recall_ai_getbotstatus",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "providers_recall_ai_getbotstatus",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "providers_recall_ai_gettranscript",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "providers_recall_ai_stopbot",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "providers_recall_ai_stopbot",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L194"
+    },
+    {
+      "caller_nid": "providers_recall_ai_stopbot",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L194"
+    },
+    {
+      "caller_nid": "providers_recall_ai_stopbot",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L195"
+    },
+    {
+      "caller_nid": "providers_recall_ai_deletebot",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "providers_recall_ai_deletebot",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L206"
+    },
+    {
+      "caller_nid": "providers_recall_ai_deletebot",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L206"
+    },
+    {
+      "caller_nid": "providers_recall_ai_deletebot",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L255"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "isNaN",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "createHmac",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L269"
+    },
+    {
+      "caller_nid": "providers_recall_ai_verifywebhooksignature",
+      "callee": "timingSafeEqual",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L271"
+    },
+    {
+      "caller_nid": "providers_recall_ai_detectmeetingprovider",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L280"
+    },
+    {
+      "caller_nid": "providers_recall_ai_detectmeetingprovider",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "providers_recall_ai_detectmeetingprovider",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "providers_recall_ai_detectmeetingprovider",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "providers_recall_ai_detectmeetingprovider",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L283"
+    },
+    {
+      "caller_nid": "providers_recall_ai_detectmeetingprovider",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L283"
+    },
+    {
+      "caller_nid": "providers_recall_ai_validatemeetingurl",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L289"
+    },
+    {
+      "caller_nid": "providers_recall_ai_validatemeetingurl",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/recall-ai.ts",
+      "source_location": "L294"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_heatmap_tsx",
+      "label": "Heatmap.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "blocks_heatmap_heatmapprops",
+      "label": "HeatmapProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "blocks_heatmap_heatmap",
+      "label": "Heatmap()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L33"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_heatmap_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_heatmap_tsx",
+      "target": "blocks_format_fmtnumber",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_heatmap_tsx",
+      "target": "blocks_heatmap_heatmapprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_heatmap_tsx",
+      "target": "blocks_heatmap_heatmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L33",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "blocks_heatmap_heatmap",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "blocks_heatmap_heatmap",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "blocks_heatmap_heatmap",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "blocks_heatmap_heatmap",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "blocks_heatmap_heatmap",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/Heatmap.tsx",
+      "source_location": "L109"
+    }
+  ]
+}

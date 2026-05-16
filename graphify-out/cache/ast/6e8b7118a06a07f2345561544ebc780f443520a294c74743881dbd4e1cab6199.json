@@ -1,0 +1,452 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "label": "taxonomy.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "capabilities_taxonomy_domain",
+      "label": "Domain",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "capabilities_taxonomy_capability",
+      "label": "Capability",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "capabilities_taxonomy_retrievalmode",
+      "label": "RetrievalMode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "capabilities_taxonomy_domainentry",
+      "label": "DomainEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "capabilities_taxonomy_domain_taxonomy",
+      "label": "DOMAIN_TAXONOMY",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "capabilities_taxonomy_alldomains",
+      "label": "_allDomains",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L727"
+    },
+    {
+      "id": "capabilities_taxonomy_escaperegex",
+      "label": "escapeRegex()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L732"
+    },
+    {
+      "id": "capabilities_taxonomy_keywordmatches",
+      "label": "keywordMatches()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L745"
+    },
+    {
+      "id": "capabilities_taxonomy_resolvedomain",
+      "label": "resolveDomain()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L764"
+    },
+    {
+      "id": "capabilities_taxonomy_getvalidagentsfordomain",
+      "label": "getValidAgentsForDomain()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L790"
+    },
+    {
+      "id": "capabilities_taxonomy_isagentvalidfordomain",
+      "label": "isAgentValidForDomain()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L797"
+    },
+    {
+      "id": "capabilities_taxonomy_getprovidersfordomain",
+      "label": "getProvidersForDomain()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L805"
+    },
+    {
+      "id": "capabilities_taxonomy_resolveretrievalmode",
+      "label": "resolveRetrievalMode()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L812"
+    },
+    {
+      "id": "capabilities_taxonomy_cal_keywords",
+      "label": "CAL_KEYWORDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L868"
+    },
+    {
+      "id": "capabilities_taxonomy_gmail_keywords",
+      "label": "GMAIL_KEYWORDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L891"
+    },
+    {
+      "id": "capabilities_taxonomy_drive_keywords",
+      "label": "DRIVE_KEYWORDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L904"
+    },
+    {
+      "id": "capabilities_taxonomy_resolvedataintent",
+      "label": "resolveDataIntent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L916"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_platform_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "platform_types_connectorcapability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_domain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_capability",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_retrievalmode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_domainentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_domain_taxonomy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_alldomains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L727",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_escaperegex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L732",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_keywordmatches",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L745",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_resolvedomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L764",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_getvalidagentsfordomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L790",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_isagentvalidfordomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L797",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_getprovidersfordomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L805",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_resolveretrievalmode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L812",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_cal_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L868",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_gmail_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L891",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_drive_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L904",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "target": "capabilities_taxonomy_resolvedataintent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L916",
+      "weight": 1.0
+    },
+    {
+      "source": "capabilities_taxonomy_keywordmatches",
+      "target": "capabilities_taxonomy_escaperegex",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L750",
+      "weight": 1.0
+    },
+    {
+      "source": "capabilities_taxonomy_resolvedomain",
+      "target": "capabilities_taxonomy_keywordmatches",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L775",
+      "weight": 1.0
+    },
+    {
+      "source": "capabilities_taxonomy_resolveretrievalmode",
+      "target": "capabilities_taxonomy_resolvedomain",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L813",
+      "weight": 1.0
+    },
+    {
+      "source": "capabilities_taxonomy_resolvedataintent",
+      "target": "capabilities_taxonomy_resolvedomain",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L921",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "capabilities_taxonomy_escaperegex",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L733"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_keywordmatches",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L746"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_keywordmatches",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L746"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_keywordmatches",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L748"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_keywordmatches",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L750"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_keywordmatches",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L757"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_isagentvalidfordomain",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L799"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_isagentvalidfordomain",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L799"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_resolveretrievalmode",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L820"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_resolveretrievalmode",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L833"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_resolveretrievalmode",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L835"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_resolveretrievalmode",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L860"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_resolvedataintent",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L925"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_resolvedataintent",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L927"
+    },
+    {
+      "caller_nid": "capabilities_taxonomy_resolvedataintent",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts",
+      "source_location": "L928"
+    }
+  ]
+}

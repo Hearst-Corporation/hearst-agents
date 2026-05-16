@@ -1,0 +1,229 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "label": "video-prompt-enricher.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_video_prompt_enricher_videopromptenrichment",
+      "label": "VideoPromptEnrichment",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "providers_video_prompt_enricher_system_prompt",
+      "label": "SYSTEM_PROMPT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "providers_video_prompt_enricher_enrichvideoprompt",
+      "label": "enrichVideoPrompt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "providers_video_prompt_enricher_heuristicfallback",
+      "label": "heuristicFallback()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L111"
+    },
+    {
+      "id": "providers_video_prompt_enricher_computediff",
+      "label": "computeDiff()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L141"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "llm_safe_chat_chatwithcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "providers_video_prompt_enricher_videopromptenrichment",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "providers_video_prompt_enricher_system_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "providers_video_prompt_enricher_enrichvideoprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "providers_video_prompt_enricher_heuristicfallback",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_video_prompt_enricher_ts",
+      "target": "providers_video_prompt_enricher_computediff",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_video_prompt_enricher_enrichvideoprompt",
+      "target": "providers_video_prompt_enricher_heuristicfallback",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_video_prompt_enricher_enrichvideoprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_enrichvideoprompt",
+      "callee": "chatWithCircuitBreaker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_heuristicfallback",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_heuristicfallback",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_heuristicfallback",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_heuristicfallback",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_heuristicfallback",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_computediff",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_computediff",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_computediff",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_computediff",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "providers_video_prompt_enricher_computediff",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/video-prompt-enricher.ts",
+      "source_location": "L148"
+    }
+  ]
+}

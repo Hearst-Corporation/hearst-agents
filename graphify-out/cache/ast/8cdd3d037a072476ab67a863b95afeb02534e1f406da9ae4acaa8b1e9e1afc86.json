@@ -1,0 +1,317 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "label": "BATTLE-PLAN.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_audit_id",
+      "label": "audit_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_objective",
+      "label": "objective",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_created_at",
+      "label": "created_at",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_last_updated",
+      "label": "last_updated",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_orchestrator",
+      "label": "orchestrator",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_estimated_total_effort",
+      "label": "estimated_total_effort",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_principle",
+      "label": "principle",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_rules",
+      "label": "rules",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L10"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_rules_no_self_audit",
+      "label": "no_self_audit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L11"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_rules_validation_per_batch",
+      "label": "validation_per_batch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_rules_blocking_dependencies",
+      "label": "blocking_dependencies",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L13"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_rules_sub_agents",
+      "label": "sub_agents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_sub_agents_llm_auditor",
+      "label": "llm-auditor",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L15"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_sub_agents_route_mapper",
+      "label": "route-mapper",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L16"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_sub_agents_validator",
+      "label": "validator",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_sub_agents_plan",
+      "label": "Plan",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L18"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_sub_agents_explore",
+      "label": "Explore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L19"
+    },
+    {
+      "id": "2026_05_10_security_battle_plan_phases",
+      "label": "phases",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L22"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_audit_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_objective",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_created_at",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_last_updated",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_orchestrator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_estimated_total_effort",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_principle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_rules",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules",
+      "target": "2026_05_10_security_battle_plan_rules_no_self_audit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules",
+      "target": "2026_05_10_security_battle_plan_rules_validation_per_batch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules",
+      "target": "2026_05_10_security_battle_plan_rules_blocking_dependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules",
+      "target": "2026_05_10_security_battle_plan_rules_sub_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules_sub_agents",
+      "target": "2026_05_10_security_battle_plan_sub_agents_llm_auditor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules_sub_agents",
+      "target": "2026_05_10_security_battle_plan_sub_agents_route_mapper",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules_sub_agents",
+      "target": "2026_05_10_security_battle_plan_sub_agents_validator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules_sub_agents",
+      "target": "2026_05_10_security_battle_plan_sub_agents_plan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_10_security_battle_plan_rules_sub_agents",
+      "target": "2026_05_10_security_battle_plan_sub_agents_explore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_10_security_battle_plan_json",
+      "target": "2026_05_10_security_battle_plan_phases",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-10-security/BATTLE-PLAN.json",
+      "source_location": "L22",
+      "weight": 1.0
+    }
+  ]
+}

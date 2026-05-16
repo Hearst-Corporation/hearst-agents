@@ -1,0 +1,92 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialmouse_ts",
+      "label": "useSpatialMouse.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_safe_usespatialmouse_usespatialmouse",
+      "label": "useSpatialMouse()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L11"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialmouse_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialmouse_ts",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialmouse_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_safe_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialmouse_ts",
+      "target": "spatial_safe_utils_normalizemouseposition",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialmouse_ts",
+      "target": "spatial_safe_usespatialmouse_usespatialmouse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_safe_usespatialmouse_usespatialmouse",
+      "callee": "useMotionValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialmouse_usespatialmouse",
+      "callee": "useMotionValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialmouse_usespatialmouse",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialMouse.ts",
+      "source_location": "L15"
+    }
+  ]
+}

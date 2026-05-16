@@ -1,0 +1,171 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "label": "tool-definitions.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "voice_tool_definitions_cacheentry",
+      "label": "CacheEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "voice_tool_definitions_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "voice_tool_definitions_buildvoicetools",
+      "label": "buildVoiceTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "voice_tool_definitions_clearvoicetoolscache",
+      "label": "clearVoiceToolsCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L56"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_composio_bridge_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "voice_composio_bridge_getvoicecomposiotools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_defs_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "voice_tool_defs_voicetooldef",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "voice_tool_defs_voicetooldefs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "voice_tool_definitions_cacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "voice_tool_definitions_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "voice_tool_definitions_buildvoicetools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tool_definitions_ts",
+      "target": "voice_tool_definitions_clearvoicetoolscache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "voice_tool_definitions_buildvoicetools",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "voice_tool_definitions_buildvoicetools",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "voice_tool_definitions_buildvoicetools",
+      "callee": "getVoiceComposioTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "voice_tool_definitions_buildvoicetools",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "voice_tool_definitions_buildvoicetools",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "voice_tool_definitions_clearvoicetoolscache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/voice/tool-definitions.ts",
+      "source_location": "L57"
+    }
+  ]
+}

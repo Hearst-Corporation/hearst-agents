@@ -1,0 +1,190 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "label": "AdminTopbarKpis.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "shell_admintopbarkpis_metrics",
+      "label": "Metrics",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "shell_admintopbarkpis_fmtlatency",
+      "label": "fmtLatency()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "shell_admintopbarkpis_fmterrorrate",
+      "label": "fmtErrorRate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "shell_admintopbarkpis_kpiprops",
+      "label": "KpiProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L26"
+    },
+    {
+      "id": "shell_admintopbarkpis_kpi",
+      "label": "Kpi()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L33"
+    },
+    {
+      "id": "shell_admintopbarkpis_admintopbarkpis",
+      "label": "AdminTopbarKpis()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L44"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "target": "shell_admintopbarkpis_metrics",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "target": "shell_admintopbarkpis_fmtlatency",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "target": "shell_admintopbarkpis_fmterrorrate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "target": "shell_admintopbarkpis_kpiprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "target": "shell_admintopbarkpis_kpi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_admintopbarkpis_tsx",
+      "target": "shell_admintopbarkpis_admintopbarkpis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "shell_admintopbarkpis_admintopbarkpis",
+      "target": "shell_admintopbarkpis_fmtlatency",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "shell_admintopbarkpis_admintopbarkpis",
+      "target": "shell_admintopbarkpis_fmterrorrate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L100",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "shell_admintopbarkpis_fmtlatency",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "shell_admintopbarkpis_fmtlatency",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "shell_admintopbarkpis_fmterrorrate",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "shell_admintopbarkpis_admintopbarkpis",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "shell_admintopbarkpis_admintopbarkpis",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "shell_admintopbarkpis_admintopbarkpis",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "shell_admintopbarkpis_admintopbarkpis",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx",
+      "source_location": "L88"
+    }
+  ]
+}

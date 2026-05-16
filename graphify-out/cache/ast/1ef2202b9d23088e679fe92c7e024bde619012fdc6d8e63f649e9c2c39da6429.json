@@ -1,0 +1,932 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "label": "inbox-brief.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "inbox_inbox_brief_inbox_priority_system_prompt",
+      "label": "INBOX_PRIORITY_SYSTEM_PROMPT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "inbox_inbox_brief_inboxitemkind",
+      "label": "InboxItemKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "inbox_inbox_brief_inboxitempriority",
+      "label": "InboxItemPriority",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "inbox_inbox_brief_inboxactionkind",
+      "label": "InboxActionKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "inbox_inbox_brief_suggestedaction",
+      "label": "SuggestedAction",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "inbox_inbox_brief_inboxitem",
+      "label": "InboxItem",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L65"
+    },
+    {
+      "id": "inbox_inbox_brief_inboxbrief",
+      "label": "InboxBrief",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "inbox_inbox_brief_rawemail",
+      "label": "RawEmail",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "inbox_inbox_brief_rawslackmessage",
+      "label": "RawSlackMessage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "inbox_inbox_brief_rawcalendarevent",
+      "label": "RawCalendarEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L108"
+    },
+    {
+      "id": "inbox_inbox_brief_emailtoitem",
+      "label": "emailToItem()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "inbox_inbox_brief_slacktoitem",
+      "label": "slackToItem()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L151"
+    },
+    {
+      "id": "inbox_inbox_brief_calendartoitem",
+      "label": "calendarToItem()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L169"
+    },
+    {
+      "id": "inbox_inbox_brief_classifieditem",
+      "label": "ClassifiedItem",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L197"
+    },
+    {
+      "id": "inbox_inbox_brief_classifybatch",
+      "label": "classifyBatch()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L203"
+    },
+    {
+      "id": "inbox_inbox_brief_heuristicpriority",
+      "label": "heuristicPriority()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L267"
+    },
+    {
+      "id": "inbox_inbox_brief_fetchgmailunread",
+      "label": "fetchGmailUnread()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L276"
+    },
+    {
+      "id": "inbox_inbox_brief_fetchcalendartoday",
+      "label": "fetchCalendarToday()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L281"
+    },
+    {
+      "id": "inbox_inbox_brief_fetchslackunread",
+      "label": "fetchSlackUnread()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L292"
+    },
+    {
+      "id": "inbox_inbox_brief_generateinboxbriefoptions",
+      "label": "GenerateInboxBriefOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L321"
+    },
+    {
+      "id": "inbox_inbox_brief_generateinboxbrief",
+      "label": "generateInboxBrief()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L326"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "composio_client_executecomposioaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "composio_client_iscomposioconfigured",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "google_calendar_gettodayevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "google_gmail_getrecentemails",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "editorial_charter_composeeditorialprompt",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "llm_safe_chat_chatwithcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "examples_index_formatfewshotblock",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "examples_index_inbox_priority_fewshot",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_inbox_priority_system_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_inboxitemkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_inboxitempriority",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_inboxactionkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_suggestedaction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_inboxitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_inboxbrief",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_rawemail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_rawslackmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_rawcalendarevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_emailtoitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_slacktoitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_calendartoitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L169",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_classifieditem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L197",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_classifybatch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L203",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_heuristicpriority",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_fetchgmailunread",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_fetchcalendartoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L281",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_fetchslackunread",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L292",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_generateinboxbriefoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L321",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "target": "inbox_inbox_brief_generateinboxbrief",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L326",
+      "weight": 1.0
+    },
+    {
+      "source": "inbox_inbox_brief_generateinboxbrief",
+      "target": "inbox_inbox_brief_fetchgmailunread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L335",
+      "weight": 1.0
+    },
+    {
+      "source": "inbox_inbox_brief_generateinboxbrief",
+      "target": "inbox_inbox_brief_fetchslackunread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L336",
+      "weight": 1.0
+    },
+    {
+      "source": "inbox_inbox_brief_generateinboxbrief",
+      "target": "inbox_inbox_brief_fetchcalendartoday",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L337",
+      "weight": 1.0
+    },
+    {
+      "source": "inbox_inbox_brief_generateinboxbrief",
+      "target": "inbox_inbox_brief_classifybatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L368",
+      "weight": 1.0
+    },
+    {
+      "source": "inbox_inbox_brief_generateinboxbrief",
+      "target": "inbox_inbox_brief_heuristicpriority",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L376",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "inbox_inbox_brief_emailtoitem",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_emailtoitem",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_emailtoitem",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_emailtoitem",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_emailtoitem",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_slacktoitem",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_slacktoitem",
+      "callee": "parseFloat",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_slacktoitem",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_slacktoitem",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_calendartoitem",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_calendartoitem",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_calendartoitem",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_calendartoitem",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_calendartoitem",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_classifybatch",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L210"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_classifybatch",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L210"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_classifybatch",
+      "callee": "chatWithCircuitBreaker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_classifybatch",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L229"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_classifybatch",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L231"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_heuristicpriority",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_heuristicpriority",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L269"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_heuristicpriority",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L270"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchgmailunread",
+      "callee": "getRecentEmails",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchgmailunread",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L278"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchcalendartoday",
+      "callee": "getTodayEvents",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchcalendartoday",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L283"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchslackunread",
+      "callee": "isComposioConfigured",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L293"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchslackunread",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchslackunread",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L299"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchslackunread",
+      "callee": "executeComposioAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchslackunread",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L303"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchslackunread",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_fetchslackunread",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "allSettled",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L334"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L344"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L345"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L345"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L347"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L348"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L352"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L355"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L356"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L360"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L361"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L361"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L363"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L364"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L371"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L382"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L388"
+    },
+    {
+      "caller_nid": "inbox_inbox_brief_generateinboxbrief",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/inbox-brief.ts",
+      "source_location": "L392"
+    }
+  ]
+}

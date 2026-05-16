@@ -1,0 +1,421 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "label": "mock-data.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hospitality_mock_data_hospitalityarrival",
+      "label": "HospitalityArrival",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "hospitality_mock_data_hospitalitydeparture",
+      "label": "HospitalityDeparture",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "hospitality_mock_data_hospitalitykpisnapshot",
+      "label": "HospitalityKpiSnapshot",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "hospitality_mock_data_hospitalityservicerequest",
+      "label": "HospitalityServiceRequest",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "hospitality_mock_data_hospitalityrevenuebysource",
+      "label": "HospitalityRevenueBySource",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L46"
+    },
+    {
+      "id": "hospitality_mock_data_hospitalityrevparpoint",
+      "label": "HospitalityRevparPoint",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "hospitality_mock_data_hospitalitysatisfactionrow",
+      "label": "HospitalitySatisfactionRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "hospitality_mock_data_arrivals",
+      "label": "ARRIVALS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L65"
+    },
+    {
+      "id": "hospitality_mock_data_departures",
+      "label": "DEPARTURES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L103"
+    },
+    {
+      "id": "hospitality_mock_data_service_requests",
+      "label": "SERVICE_REQUESTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L110"
+    },
+    {
+      "id": "hospitality_mock_data_revenue_by_source",
+      "label": "REVENUE_BY_SOURCE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L140"
+    },
+    {
+      "id": "hospitality_mock_data_revpar_30d",
+      "label": "REVPAR_30D",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L147"
+    },
+    {
+      "id": "hospitality_mock_data_satisfaction",
+      "label": "SATISFACTION",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L165"
+    },
+    {
+      "id": "hospitality_mock_data_getmockarrivals",
+      "label": "getMockArrivals()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L172"
+    },
+    {
+      "id": "hospitality_mock_data_getmockdepartures",
+      "label": "getMockDepartures()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L176"
+    },
+    {
+      "id": "hospitality_mock_data_getmockservicerequests",
+      "label": "getMockServiceRequests()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L180"
+    },
+    {
+      "id": "hospitality_mock_data_getmockrevenuebysource",
+      "label": "getMockRevenueBySource()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L184"
+    },
+    {
+      "id": "hospitality_mock_data_getmockrevpar30d",
+      "label": "getMockRevpar30d()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L188"
+    },
+    {
+      "id": "hospitality_mock_data_getmocksatisfaction",
+      "label": "getMockSatisfaction()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L192"
+    },
+    {
+      "id": "hospitality_mock_data_getmockkpisnapshot",
+      "label": "getMockKpiSnapshot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L196"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_hospitalityarrival",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_hospitalitydeparture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_hospitalitykpisnapshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_hospitalityservicerequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_hospitalityrevenuebysource",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_hospitalityrevparpoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_hospitalitysatisfactionrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_arrivals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_departures",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_service_requests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_revenue_by_source",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_revpar_30d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_satisfaction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_getmockarrivals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_getmockdepartures",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_getmockservicerequests",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L180",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_getmockrevenuebysource",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L184",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_getmockrevpar30d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L188",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_getmocksatisfaction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "target": "hospitality_mock_data_getmockkpisnapshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L196",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_mock_data_getmockkpisnapshot",
+      "target": "hospitality_mock_data_getmockarrivals",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L197",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_mock_data_getmockkpisnapshot",
+      "target": "hospitality_mock_data_getmockdepartures",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L198",
+      "weight": 1.0
+    },
+    {
+      "source": "hospitality_mock_data_getmockkpisnapshot",
+      "target": "hospitality_mock_data_getmockservicerequests",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L199",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hospitality_mock_data_getmockarrivals",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "hospitality_mock_data_getmockdepartures",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "hospitality_mock_data_getmockservicerequests",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L181"
+    },
+    {
+      "caller_nid": "hospitality_mock_data_getmockrevenuebysource",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L185"
+    },
+    {
+      "caller_nid": "hospitality_mock_data_getmockrevpar30d",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "hospitality_mock_data_getmocksatisfaction",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "hospitality_mock_data_getmockkpisnapshot",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "hospitality_mock_data_getmockkpisnapshot",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/verticals/hospitality/mock-data.ts",
+      "source_location": "L210"
+    }
+  ]
+}

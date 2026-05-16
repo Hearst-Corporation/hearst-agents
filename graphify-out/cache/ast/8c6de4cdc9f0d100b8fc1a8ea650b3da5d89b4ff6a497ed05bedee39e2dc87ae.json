@@ -1,0 +1,1310 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "label": "scheduler.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missions_scheduler_triggeredthisminute",
+      "label": "triggeredThisMinute",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "missions_scheduler_parsedschedule",
+      "label": "ParsedSchedule",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "missions_scheduler_parseschedule",
+      "label": "parseSchedule()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "missions_scheduler_shouldrunnow",
+      "label": "shouldRunNow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "missions_scheduler_runwindowkey",
+      "label": "runWindowKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "missions_scheduler_schedulertriggerfn",
+      "label": "SchedulerTriggerFn",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "missions_scheduler_isleaderfn",
+      "label": "IsLeaderFn",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "missions_scheduler_hydrateifneeded",
+      "label": "hydrateIfNeeded()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L90"
+    },
+    {
+      "id": "missions_scheduler_tick",
+      "label": "tick()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L130"
+    },
+    {
+      "id": "missions_scheduler_startscheduler",
+      "label": "startScheduler()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L348"
+    },
+    {
+      "id": "missions_scheduler_stopscheduler",
+      "label": "stopScheduler()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L371"
+    },
+    {
+      "id": "missions_scheduler_rundrifthook",
+      "label": "runDriftHook()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L389"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "cockpit_drift_detection_analyzemissiondrift",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "cockpit_drift_detection_generatedriftnarration",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_approvals_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_approvals_hasactiveapprovalsession",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_approvals_requestapprovals",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_runtime_hmr_cleanup_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "runtime_hmr_cleanup_registerhmrcleanup",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_instance_id_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "runtime_instance_id_instance_id",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "state_adapter_getscheduledmissions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "state_adapter_updatescheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_budget_getmonthlymissioncost",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_distributed_lease_releasemissionlease",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_distributed_lease_tryacquiremissionlease",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_export_job_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_export_job_buildexportjobpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_export_job_runexportscheduledreportjob",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_lease_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_lease_ismissionrunning",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_lease_markmissioncompleted",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_lease_markmissionrunning",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_normalize_result_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_normalize_result_normalizemissionresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_ops_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_ops_store_clearmissiondrift",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_ops_store_getmissiondrift",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_ops_store_setmissionresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_ops_store_setmissionrunning",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_ops_store_setmissiondrift",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_store_addmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_store_getallmissions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_store_getenabledmissions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_store_updatemissionlastrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_types_scheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_triggeredthisminute",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_parsedschedule",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_parseschedule",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_shouldrunnow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_runwindowkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_schedulertriggerfn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_isleaderfn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_hydrateifneeded",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_tick",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_startscheduler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L348",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_stopscheduler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L371",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_scheduler_ts",
+      "target": "missions_scheduler_rundrifthook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L389",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_shouldrunnow",
+      "target": "missions_scheduler_parseschedule",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_tick",
+      "target": "missions_scheduler_hydrateifneeded",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_tick",
+      "target": "missions_scheduler_shouldrunnow",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L150",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_tick",
+      "target": "missions_scheduler_runwindowkey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L241",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_tick",
+      "target": "missions_scheduler_rundrifthook",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L282",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_tick",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_dispatcher_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L287",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_startscheduler",
+      "target": "missions_scheduler_tick",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L356",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_rundrifthook",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L425",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_scheduler_rundrifthook",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_in_app_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L426",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "missions_scheduler_parseschedule",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "missions_scheduler_parseschedule",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "missions_scheduler_parseschedule",
+      "callee": "parseInt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "missions_scheduler_parseschedule",
+      "callee": "parseInt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "missions_scheduler_parseschedule",
+      "callee": "parseInt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "missions_scheduler_shouldrunnow",
+      "callee": "getUTCMinutes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "missions_scheduler_shouldrunnow",
+      "callee": "getUTCHours",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "missions_scheduler_shouldrunnow",
+      "callee": "getUTCDay",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "missions_scheduler_runwindowkey",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "missions_scheduler_runwindowkey",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "missions_scheduler_hydrateifneeded",
+      "callee": "getAllMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "missions_scheduler_hydrateifneeded",
+      "callee": "getScheduledMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "missions_scheduler_hydrateifneeded",
+      "callee": "addMission",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "missions_scheduler_hydrateifneeded",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "missions_scheduler_hydrateifneeded",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "isLeader",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "getUTCHours",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "getUTCMinutes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "getEnabledMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L155"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "getMonthlyMissionCost",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L162"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "opsResult",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "persistUpdateMission",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "hasActiveApprovalSession",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L194"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L196"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "requestApprovals",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "opsResult",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L212"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "persistUpdateMission",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L218"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L225"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "isMissionRunning",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L235"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L236"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "tryAcquireMissionLease",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L242"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L251"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "markMissionRunning",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L252"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "opsRunning",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L253"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "trigger",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "normalizeMissionResult",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "updateMissionLastRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L260"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "opsResult",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L263"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "persistUpdateMission",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L270"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L271"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L278"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "dispatchWebhookEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L288"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "buildExportJobPayload",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L298"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "runExportScheduledReportJob",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L309"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "normalizeMissionResult",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L314"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "opsResult",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L315"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "persistUpdateMission",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L318"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L319"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "dispatchWebhookEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L336"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "markMissionCompleted",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "missions_scheduler_tick",
+      "callee": "releaseMissionLease",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "missions_scheduler_startscheduler",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L350"
+    },
+    {
+      "caller_nid": "missions_scheduler_startscheduler",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L354"
+    },
+    {
+      "caller_nid": "missions_scheduler_startscheduler",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L356"
+    },
+    {
+      "caller_nid": "missions_scheduler_startscheduler",
+      "callee": "setInterval",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L358"
+    },
+    {
+      "caller_nid": "missions_scheduler_startscheduler",
+      "callee": "registerHMRCleanup",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L363"
+    },
+    {
+      "caller_nid": "missions_scheduler_stopscheduler",
+      "callee": "clearInterval",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L373"
+    },
+    {
+      "caller_nid": "missions_scheduler_stopscheduler",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L375"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "analyzeMissionDrift",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L390"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "clearMissionDrift",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L394"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "getMissionDrift",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L398"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L399"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "generateDriftNarration",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "setMissionDrift",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L411"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L424"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "requireServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L428"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "createNotification",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L429"
+    },
+    {
+      "caller_nid": "missions_scheduler_rundrifthook",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/scheduler.ts",
+      "source_location": "L445"
+    }
+  ]
+}

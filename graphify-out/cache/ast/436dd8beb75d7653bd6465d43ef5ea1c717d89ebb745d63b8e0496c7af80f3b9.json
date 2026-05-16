@@ -1,0 +1,240 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "label": "linear.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "preview_formatters_linear_priority_labels",
+      "label": "PRIORITY_LABELS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "preview_formatters_linear_formatlinearcreateissue",
+      "label": "formatLinearCreateIssue()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L15"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_shared_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "preview_formatters_shared_asarray",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "preview_formatters_shared_footer",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "preview_formatters_shared_header",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "preview_formatters_shared_line",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "preview_formatters_shared_preview",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "preview_formatters_linear_priority_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_linear_ts",
+      "target": "preview_formatters_linear_formatlinearcreateissue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "asArray",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "preview",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "header",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "preview_formatters_linear_formatlinearcreateissue",
+      "callee": "footer",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/linear.ts",
+      "source_location": "L36"
+    }
+  ]
+}

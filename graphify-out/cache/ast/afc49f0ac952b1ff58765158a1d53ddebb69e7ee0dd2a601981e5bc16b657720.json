@@ -1,0 +1,312 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "label": "file-upload-caps.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_file_upload_caps_test_mockrequirescope",
+      "label": "mockRequireScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "security_file_upload_caps_test_mockparsedocumentbuffer",
+      "label": "mockParseDocumentBuffer",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "security_file_upload_caps_test_valid_scope",
+      "label": "VALID_SCOPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "security_file_upload_caps_test_makepdfblob",
+      "label": "makePdfBlob()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "security_file_upload_caps_test_makefakepdfblob",
+      "label": "makeFakePdfBlob()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "security_file_upload_caps_test_makerequest",
+      "label": "makeRequest()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "security_file_upload_caps_test_oversizedblob",
+      "label": "oversizedBlob",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L75"
+    },
+    {
+      "id": "security_file_upload_caps_test_req",
+      "label": "req",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "security_file_upload_caps_test_fakeblob",
+      "label": "fakeBlob",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "security_file_upload_caps_test_blob",
+      "label": "blob",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "security_file_upload_caps_test_validblob",
+      "label": "validBlob",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L103"
+    },
+    {
+      "id": "security_file_upload_caps_test_formdata",
+      "label": "formData",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L113"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_mockrequirescope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_mockparsedocumentbuffer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_documents_upload_route_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "upload_route_post",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_valid_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_makepdfblob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_makefakepdfblob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_makerequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_oversizedblob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_req",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_fakeblob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_req",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_blob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_req",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_validblob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_req",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_formdata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_req",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_validblob",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_file_upload_caps_test_ts",
+      "target": "security_file_upload_caps_test_req",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "security_file_upload_caps_test_makepdfblob",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "security_file_upload_caps_test_makepdfblob",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "security_file_upload_caps_test_makerequest",
+      "callee": "append",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/file-upload-caps.test.ts",
+      "source_location": "L56"
+    }
+  ]
+}

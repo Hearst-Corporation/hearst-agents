@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_chatstage_tsx",
+      "label": "ChatStage.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChatStage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "stages_chatstage_tools",
+      "label": "TOOLS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChatStage.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "stages_chatstage_chatstage",
+      "label": "ChatStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChatStage.tsx",
+      "source_location": "L27"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_chatstage_tsx",
+      "target": "stages_chatstage_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChatStage.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_chatstage_tsx",
+      "target": "stages_chatstage_chatstage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChatStage.tsx",
+      "source_location": "L27",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stages_chatstage_chatstage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/ChatStage.tsx",
+      "source_location": "L55"
+    }
+  ]
+}

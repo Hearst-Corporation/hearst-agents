@@ -1,0 +1,513 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "label": "gmail.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "google_gmail_sendemailinput",
+      "label": "SendEmailInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "google_gmail_sendemailresult",
+      "label": "SendEmailResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "google_gmail_sendemail",
+      "label": "sendEmail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "google_gmail_emailsummary",
+      "label": "EmailSummary",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "google_gmail_gmailheader",
+      "label": "GmailHeader",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "google_gmail_headervalue",
+      "label": "headerValue()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L69"
+    },
+    {
+      "id": "google_gmail_getrecentemails",
+      "label": "getRecentEmails()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L73"
+    },
+    {
+      "id": "google_gmail_emailfull",
+      "label": "EmailFull",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "google_gmail_gmailpart",
+      "label": "GmailPart",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L109"
+    },
+    {
+      "id": "google_gmail_stripemailhtml",
+      "label": "stripEmailHtml()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L121"
+    },
+    {
+      "id": "google_gmail_extractbody",
+      "label": "extractBody()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L142"
+    },
+    {
+      "id": "google_gmail_searchemails",
+      "label": "searchEmails()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L164"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "googleapis",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_auth_getgoogleauth",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_sendemailinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_sendemailresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_sendemail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_emailsummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_gmailheader",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_headervalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_getrecentemails",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_emailfull",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_gmailpart",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_stripemailhtml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_extractbody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "target": "google_gmail_searchemails",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "google_gmail_extractbody",
+      "target": "google_gmail_stripemailhtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "gmail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "google_gmail_sendemail",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "google_gmail_headervalue",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "google_gmail_getrecentemails",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "google_gmail_getrecentemails",
+      "callee": "gmail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "google_gmail_getrecentemails",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "google_gmail_getrecentemails",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "google_gmail_getrecentemails",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "google_gmail_stripemailhtml",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "google_gmail_stripemailhtml",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "google_gmail_stripemailhtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "google_gmail_stripemailhtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "google_gmail_stripemailhtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "google_gmail_stripemailhtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "google_gmail_stripemailhtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L155"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "google_gmail_extractbody",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "google_gmail_searchemails",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "google_gmail_searchemails",
+      "callee": "gmail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "google_gmail_searchemails",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "google_gmail_searchemails",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "google_gmail_searchemails",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/gmail.ts",
+      "source_location": "L183"
+    }
+  ]
+}

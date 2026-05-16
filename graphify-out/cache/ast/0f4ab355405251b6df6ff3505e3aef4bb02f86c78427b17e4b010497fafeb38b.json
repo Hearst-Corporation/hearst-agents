@@ -1,0 +1,619 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "label": "gemini.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_gemini_buildgeminipayload",
+      "label": "buildGeminiPayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "llm_gemini_geminiprovider",
+      "label": "GeminiProvider",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "llm_gemini_geminiprovider_baseurl",
+      "label": ".baseUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "llm_gemini_geminiprovider_generateurl",
+      "label": ".generateUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "llm_gemini_geminiprovider_chat",
+      "label": ".chat()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "llm_gemini_geminiprovider_streamchat",
+      "label": ".streamChat()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L128"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_redact_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "observability_langfuse_redact_redactstring",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_errors_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_errors_sanitizeprovidererror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_pricing_computecostusd",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_timeout_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_timeout_chat_timeout_ms",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_timeout_makeabortsignal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_timeout_stream_timeout_ms",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_types_chatrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_types_chatresponse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_types_llmprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_types_streamchunk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_gemini_buildgeminipayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "target": "llm_gemini_geminiprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider",
+      "target": "llm_gemini_geminiprovider_baseurl",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider",
+      "target": "llm_gemini_geminiprovider_generateurl",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider",
+      "target": "llm_gemini_geminiprovider_chat",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider",
+      "target": "llm_gemini_geminiprovider_streamchat",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider_generateurl",
+      "target": "llm_gemini_geminiprovider_baseurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider_chat",
+      "target": "llm_gemini_geminiprovider_generateurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider_chat",
+      "target": "llm_gemini_buildgeminipayload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider_streamchat",
+      "target": "llm_gemini_geminiprovider_generateurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_gemini_geminiprovider_streamchat",
+      "target": "llm_gemini_buildgeminipayload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_gemini_buildgeminipayload",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "llm_gemini_buildgeminipayload",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "llm_gemini_buildgeminipayload",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_baseurl",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_generateurl",
+      "callee": "encodeURIComponent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "makeAbortSignal",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "redactString",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "sanitizeProviderError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L104"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "computeCostUsd",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_chat",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "makeAbortSignal",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "redactString",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L151"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "sanitizeProviderError",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "getReader",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "read",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "decode",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "pop",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L192"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L192"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "releaseLock",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "llm_gemini_geminiprovider_streamchat",
+      "callee": "computeCostUsd",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/gemini.ts",
+      "source_location": "L203"
+    }
+  ]
+}

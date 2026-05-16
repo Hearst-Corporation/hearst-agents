@@ -1,0 +1,45 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hom_policies_release_policy_json",
+      "label": "release-policy.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/policies/release-policy.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "policies_release_policy_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/policies/release-policy.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "policies_release_policy_gates",
+      "label": "gates",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/policies/release-policy.json",
+      "source_location": "L3"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_policies_release_policy_json",
+      "target": "policies_release_policy_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/policies/release-policy.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_policies_release_policy_json",
+      "target": "policies_release_policy_gates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/policies/release-policy.json",
+      "source_location": "L3",
+      "weight": 1.0
+    }
+  ]
+}

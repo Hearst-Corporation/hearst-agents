@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_analyticskpicard_tsx",
+      "label": "AnalyticsKpiCard.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/AnalyticsKpiCard.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_analyticskpicard_analyticskpicardprops",
+      "label": "AnalyticsKpiCardProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/AnalyticsKpiCard.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "components_analyticskpicard_analyticskpicard",
+      "label": "AnalyticsKpiCard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/AnalyticsKpiCard.tsx",
+      "source_location": "L12"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_analyticskpicard_tsx",
+      "target": "components_analyticskpicard_analyticskpicardprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/AnalyticsKpiCard.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_components_analyticskpicard_tsx",
+      "target": "components_analyticskpicard_analyticskpicard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/AnalyticsKpiCard.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

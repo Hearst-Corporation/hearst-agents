@@ -1,0 +1,100 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_jobs_image_gen_route_test_ts",
+      "label": "image-gen-route.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "jobs_image_gen_route_test_requirescope_storeasset_createvariant_updatevariant_enqueuejob_requirecreditsforjob_settlecredits",
+      "label": "{\n  requireScope,\n  storeAsset,\n  createVariant,\n  updateVariant,\n  enqueueJob,\n  requireCreditsForJob,\n  settleCredits,\n}",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "jobs_image_gen_route_test_makereq",
+      "label": "makeReq()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "jobs_image_gen_route_test_scope",
+      "label": "SCOPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L50"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_jobs_image_gen_route_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_jobs_image_gen_route_test_ts",
+      "target": "jobs_image_gen_route_test_requirescope_storeasset_createvariant_updatevariant_enqueuejob_requirecreditsforjob_settlecredits",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_jobs_image_gen_route_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_jobs_image_gen_route_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_jobs_image_gen_route_test_ts",
+      "target": "image_gen_route_post",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_jobs_image_gen_route_test_ts",
+      "target": "jobs_image_gen_route_test_makereq",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_jobs_image_gen_route_test_ts",
+      "target": "jobs_image_gen_route_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "jobs_image_gen_route_test_makereq",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/jobs/image-gen-route.test.ts",
+      "source_location": "L46"
+    }
+  ]
+}

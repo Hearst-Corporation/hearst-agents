@@ -1,0 +1,188 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "label": "throttle.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "notifications_throttle_throttlestore",
+      "label": "ThrottleStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "notifications_throttle_inmemorythrottlestore",
+      "label": "InMemoryThrottleStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "notifications_throttle_inmemorythrottlestore_getlast",
+      "label": ".getLast()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "notifications_throttle_inmemorythrottlestore_markemitted",
+      "label": ".markEmitted()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "notifications_throttle_inmemorystore",
+      "label": "inMemoryStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "notifications_throttle_buildthrottlekey",
+      "label": "buildThrottleKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "notifications_throttle_shouldthrottle",
+      "label": "shouldThrottle()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L56"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_signals_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "target": "signals_types_businesssignaltype",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "target": "notifications_throttle_throttlestore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "target": "notifications_throttle_inmemorythrottlestore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_throttle_inmemorythrottlestore",
+      "target": "notifications_throttle_inmemorythrottlestore_getlast",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_throttle_inmemorythrottlestore",
+      "target": "notifications_throttle_inmemorythrottlestore_markemitted",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "target": "notifications_throttle_inmemorystore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "target": "notifications_throttle_buildthrottlekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "target": "notifications_throttle_shouldthrottle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_throttle_shouldthrottle",
+      "target": "notifications_throttle_buildthrottlekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_throttle_shouldthrottle",
+      "target": "notifications_throttle_inmemorythrottlestore_getlast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "notifications_throttle_inmemorythrottlestore_getlast",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "notifications_throttle_inmemorythrottlestore_markemitted",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "notifications_throttle_inmemorythrottlestore_markemitted",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/throttle.ts",
+      "source_location": "L41"
+    }
+  ]
+}

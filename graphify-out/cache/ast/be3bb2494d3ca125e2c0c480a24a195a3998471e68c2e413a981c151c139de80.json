@@ -1,0 +1,520 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "label": "state.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_state_providerusagestate",
+      "label": "ProviderUsageState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "providers_state_providerusagestats",
+      "label": "ProviderUsageStats",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "providers_state_providerstatestore",
+      "label": "ProviderStateStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "providers_state_asserttenantscope",
+      "label": "assertTenantScope()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "providers_state_statekey",
+      "label": "stateKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "providers_state_tostats",
+      "label": "toStats()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "providers_state_createempty",
+      "label": "createEmpty()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "providers_state_memorystatestore",
+      "label": "MemoryStateStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L73"
+    },
+    {
+      "id": "providers_state_memorystatestore_get",
+      "label": ".get()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "providers_state_memorystatestore_getall",
+      "label": ".getAll()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L84"
+    },
+    {
+      "id": "providers_state_memorystatestore_update",
+      "label": ".update()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "providers_state_activestore",
+      "label": "activeStore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L103"
+    },
+    {
+      "id": "providers_state_getusagestate",
+      "label": "getUsageState()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L107"
+    },
+    {
+      "id": "providers_state_recordproviderused",
+      "label": "recordProviderUsed()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "providers_state_recordprovidersuccess",
+      "label": "recordProviderSuccess()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L132"
+    },
+    {
+      "id": "providers_state_recordproviderfailure",
+      "label": "recordProviderFailure()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L146"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_types_providerid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_providerusagestate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_providerusagestats",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_providerstatestore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_asserttenantscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_statekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_tostats",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_createempty",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_memorystatestore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore",
+      "target": "providers_state_memorystatestore_get",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore",
+      "target": "providers_state_memorystatestore_getall",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore",
+      "target": "providers_state_memorystatestore_update",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_activestore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_getusagestate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_recordproviderused",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_recordprovidersuccess",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "target": "providers_state_recordproviderfailure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_get",
+      "target": "providers_state_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_get",
+      "target": "providers_state_statekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_get",
+      "target": "providers_state_createempty",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_get",
+      "target": "providers_state_tostats",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_getall",
+      "target": "providers_state_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_getall",
+      "target": "providers_state_tostats",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_update",
+      "target": "providers_state_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_memorystatestore_update",
+      "target": "providers_state_statekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_getusagestate",
+      "target": "providers_state_memorystatestore_get",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordproviderused",
+      "target": "providers_state_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordproviderused",
+      "target": "providers_state_memorystatestore_get",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordproviderused",
+      "target": "providers_state_memorystatestore_update",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordprovidersuccess",
+      "target": "providers_state_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordprovidersuccess",
+      "target": "providers_state_memorystatestore_get",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordprovidersuccess",
+      "target": "providers_state_memorystatestore_update",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordproviderfailure",
+      "target": "providers_state_asserttenantscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordproviderfailure",
+      "target": "providers_state_memorystatestore_get",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_state_recordproviderfailure",
+      "target": "providers_state_memorystatestore_update",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L158",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_state_memorystatestore_get",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "providers_state_memorystatestore_get",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "providers_state_memorystatestore_getall",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "providers_state_memorystatestore_getall",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "providers_state_memorystatestore_update",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "providers_state_recordproviderused",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "providers_state_recordproviderfailure",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/providers/state.ts",
+      "source_location": "L156"
+    }
+  ]
+}

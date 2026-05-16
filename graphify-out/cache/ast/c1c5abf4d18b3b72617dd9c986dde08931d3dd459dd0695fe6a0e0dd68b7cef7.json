@@ -1,0 +1,144 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "label": "domain-routing-contract.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_domain_routing_contract_test_cases",
+      "label": "cases",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "orchestrator_domain_routing_contract_test_r",
+      "label": "r",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L42"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "capabilities_taxonomy_resolveretrievalmode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_research_intent_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "orchestrator_research_intent_isreportintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "orchestrator_research_intent_isresearchintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "orchestrator_domain_routing_contract_test_cases",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "orchestrator_domain_routing_contract_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "orchestrator_domain_routing_contract_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_orchestrator_domain_routing_contract_test_ts",
+      "target": "orchestrator_domain_routing_contract_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/orchestrator/domain-routing-contract.test.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

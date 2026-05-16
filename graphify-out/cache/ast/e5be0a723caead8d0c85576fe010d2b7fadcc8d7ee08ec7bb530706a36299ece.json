@@ -1,0 +1,170 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_content_parser_ts",
+      "label": "content-parser.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "assets_content_parser_isreportpayload",
+      "label": "isReportPayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "assets_content_parser_ishtmlcontent",
+      "label": "isHtmlContent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "assets_content_parser_tryparsereportpayload",
+      "label": "tryParseReportPayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L54"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_content_parser_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_content_parser_ts",
+      "target": "engine_render_blocks_renderpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_content_parser_ts",
+      "target": "assets_content_parser_isreportpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_content_parser_ts",
+      "target": "assets_content_parser_ishtmlcontent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_content_parser_ts",
+      "target": "assets_content_parser_tryparsereportpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "assets_content_parser_tryparsereportpayload",
+      "target": "assets_content_parser_isreportpayload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "assets_content_parser_ishtmlcontent",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "assets_content_parser_ishtmlcontent",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "assets_content_parser_ishtmlcontent",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "assets_content_parser_ishtmlcontent",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "assets_content_parser_ishtmlcontent",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "assets_content_parser_ishtmlcontent",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "assets_content_parser_ishtmlcontent",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "assets_content_parser_tryparsereportpayload",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "assets_content_parser_tryparsereportpayload",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "assets_content_parser_tryparsereportpayload",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "assets_content_parser_tryparsereportpayload",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts",
+      "source_location": "L58"
+    }
+  ]
+}

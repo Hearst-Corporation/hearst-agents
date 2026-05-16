@@ -1,0 +1,93 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_agent_lock_json",
+      "label": "AGENT-LOCK.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_agent_lock_locked",
+      "label": "locked",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "docs_agent_lock_lockedat",
+      "label": "lockedAt",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "docs_agent_lock_lockedby",
+      "label": "lockedBy",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "docs_agent_lock_reason",
+      "label": "reason",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "docs_agent_lock_doc",
+      "label": "_doc",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L6"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_agent_lock_json",
+      "target": "docs_agent_lock_locked",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_agent_lock_json",
+      "target": "docs_agent_lock_lockedat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_agent_lock_json",
+      "target": "docs_agent_lock_lockedby",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_agent_lock_json",
+      "target": "docs_agent_lock_reason",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_agent_lock_json",
+      "target": "docs_agent_lock_doc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/AGENT-LOCK.json",
+      "source_location": "L6",
+      "weight": 1.0
+    }
+  ]
+}

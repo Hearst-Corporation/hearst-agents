@@ -1,0 +1,123 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_lease_ts",
+      "label": "lease.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missions_lease_leaseentry",
+      "label": "LeaseEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "missions_lease_running",
+      "label": "running",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "missions_lease_ismissionrunning",
+      "label": "isMissionRunning()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "missions_lease_markmissionrunning",
+      "label": "markMissionRunning()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "missions_lease_markmissioncompleted",
+      "label": "markMissionCompleted()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L23"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_lease_ts",
+      "target": "missions_lease_leaseentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_lease_ts",
+      "target": "missions_lease_running",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_lease_ts",
+      "target": "missions_lease_ismissionrunning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_lease_ts",
+      "target": "missions_lease_markmissionrunning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_lease_ts",
+      "target": "missions_lease_markmissioncompleted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "missions_lease_ismissionrunning",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "missions_lease_markmissionrunning",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "missions_lease_markmissionrunning",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "missions_lease_markmissioncompleted",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/lease.ts",
+      "source_location": "L24"
+    }
+  ]
+}

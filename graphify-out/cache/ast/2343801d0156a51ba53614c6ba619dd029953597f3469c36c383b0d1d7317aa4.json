@@ -1,0 +1,1181 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "label": "aggregate.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "usage_aggregate_daterange",
+      "label": "DateRange",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "usage_aggregate_granularity",
+      "label": "Granularity",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "usage_aggregate_tenantusage",
+      "label": "TenantUsage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "usage_aggregate_timeseriespoint",
+      "label": "TimeSeriesPoint",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "usage_aggregate_usageoverview",
+      "label": "UsageOverview",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "usage_aggregate_defaultdaterange",
+      "label": "defaultDateRange()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "usage_aggregate_bucketstartiso",
+      "label": "bucketStartIso()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "usage_aggregate_runrow",
+      "label": "RunRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "usage_aggregate_usertenantrow",
+      "label": "UserTenantRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "usage_aggregate_loadusertenantmap",
+      "label": "loadUserTenantMap()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L91"
+    },
+    {
+      "id": "usage_aggregate_loadruns",
+      "label": "loadRuns()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L104"
+    },
+    {
+      "id": "usage_aggregate_missionrow",
+      "label": "MissionRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L121"
+    },
+    {
+      "id": "usage_aggregate_loadmissions",
+      "label": "loadMissions()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L126"
+    },
+    {
+      "id": "usage_aggregate_assetrow",
+      "label": "AssetRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L138"
+    },
+    {
+      "id": "usage_aggregate_loadassets",
+      "label": "loadAssets()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L144"
+    },
+    {
+      "id": "usage_aggregate_tenantof",
+      "label": "tenantOf()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L156"
+    },
+    {
+      "id": "usage_aggregate_tenantofrun",
+      "label": "tenantOfRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L165"
+    },
+    {
+      "id": "usage_aggregate_getcrosstenantoverview",
+      "label": "getCrossTenantOverview()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L171"
+    },
+    {
+      "id": "usage_aggregate_gettoptenants",
+      "label": "getTopTenants()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L209"
+    },
+    {
+      "id": "usage_aggregate_gettenantusage",
+      "label": "getTenantUsage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L276"
+    },
+    {
+      "id": "usage_aggregate_getcrosstenanttimeseries",
+      "label": "getCrossTenantTimeSeries()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L334"
+    },
+    {
+      "id": "usage_aggregate_round4",
+      "label": "round4()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L355"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_daterange",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_granularity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_tenantusage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_timeseriespoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_usageoverview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_defaultdaterange",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_bucketstartiso",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_runrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_usertenantrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_loadusertenantmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_loadruns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_missionrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_loadmissions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_assetrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_loadassets",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_tenantof",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_tenantofrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_getcrosstenantoverview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_gettoptenants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L209",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_gettenantusage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_getcrosstenanttimeseries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L334",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_admin_usage_aggregate_ts",
+      "target": "usage_aggregate_round4",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L355",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_tenantofrun",
+      "target": "usage_aggregate_tenantof",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenantoverview",
+      "target": "usage_aggregate_loadruns",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenantoverview",
+      "target": "usage_aggregate_loadmissions",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenantoverview",
+      "target": "usage_aggregate_loadassets",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenantoverview",
+      "target": "usage_aggregate_loadusertenantmap",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenantoverview",
+      "target": "usage_aggregate_tenantofrun",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenantoverview",
+      "target": "usage_aggregate_round4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettoptenants",
+      "target": "usage_aggregate_loadruns",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettoptenants",
+      "target": "usage_aggregate_loadmissions",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L216",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettoptenants",
+      "target": "usage_aggregate_loadassets",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettoptenants",
+      "target": "usage_aggregate_loadusertenantmap",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettoptenants",
+      "target": "usage_aggregate_tenantofrun",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettoptenants",
+      "target": "usage_aggregate_tenantof",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L254",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettenantusage",
+      "target": "usage_aggregate_loadruns",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L282",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettenantusage",
+      "target": "usage_aggregate_loadmissions",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L283",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettenantusage",
+      "target": "usage_aggregate_loadassets",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L284",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettenantusage",
+      "target": "usage_aggregate_loadusertenantmap",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L285",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettenantusage",
+      "target": "usage_aggregate_tenantofrun",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L301",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettenantusage",
+      "target": "usage_aggregate_tenantof",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L315",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_gettenantusage",
+      "target": "usage_aggregate_round4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L324",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenanttimeseries",
+      "target": "usage_aggregate_loadruns",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L339",
+      "weight": 1.0
+    },
+    {
+      "source": "usage_aggregate_getcrosstenanttimeseries",
+      "target": "usage_aggregate_bucketstartiso",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L343",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "usage_aggregate_defaultdaterange",
+      "callee": "setUTCDate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "usage_aggregate_defaultdaterange",
+      "callee": "getUTCDate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "usage_aggregate_defaultdaterange",
+      "callee": "setUTCHours",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "usage_aggregate_defaultdaterange",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "usage_aggregate_defaultdaterange",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "UTC",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCFullYear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCMonth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCDay",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCDay",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "UTC",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCFullYear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCMonth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCDate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "UTC",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCFullYear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCMonth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "getUTCDate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "usage_aggregate_bucketstartiso",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadusertenantmap",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadusertenantmap",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadusertenantmap",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadusertenantmap",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadruns",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadruns",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadruns",
+      "callee": "gte",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadruns",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadruns",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadruns",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadmissions",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadmissions",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadmissions",
+      "callee": "gte",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadmissions",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadmissions",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadassets",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadassets",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadassets",
+      "callee": "gte",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadassets",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "usage_aggregate_loadassets",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "usage_aggregate_tenantof",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "usage_aggregate_tenantofrun",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenantoverview",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenantoverview",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L190"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenantoverview",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L191"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenantoverview",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L192"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenantoverview",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenantoverview",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L194"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L214"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "ensure",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L245"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L248"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "ensure",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L255"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "ensure",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L260"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L263"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L264"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L272"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettoptenants",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L273"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L303"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L305"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L307"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L309"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "usage_aggregate_gettenantusage",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenanttimeseries",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L344"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenanttimeseries",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L346"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenanttimeseries",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L347"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenanttimeseries",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L350"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenanttimeseries",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L350"
+    },
+    {
+      "caller_nid": "usage_aggregate_getcrosstenanttimeseries",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L350"
+    },
+    {
+      "caller_nid": "usage_aggregate_round4",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/usage/aggregate.ts",
+      "source_location": "L356"
+    }
+  ]
+}

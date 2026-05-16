@@ -1,0 +1,117 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_hooks_usepdfupload_ts",
+      "label": "usePdfUpload.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_usepdfupload_usepdfupload",
+      "label": "usePdfUpload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L12"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_hooks_usepdfupload_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_hooks_usepdfupload_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_hooks_usepdfupload_ts",
+      "target": "chat_input_types_pdfattachment",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_hooks_usepdfupload_ts",
+      "target": "hooks_usepdfupload_usepdfupload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "hooks_usepdfupload_usepdfupload",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts",
+      "source_location": "L61"
+    }
+  ]
+}

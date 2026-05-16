@@ -1,0 +1,600 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "label": "render-report.mjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_render_report_args",
+      "label": "args",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L36"
+    },
+    {
+      "id": "scripts_render_report_html",
+      "label": "html",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L63"
+    },
+    {
+      "id": "scripts_render_report_result",
+      "label": "result",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L70"
+    },
+    {
+      "id": "scripts_render_report_defaultoutpath",
+      "label": "defaultOutPath()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L78"
+    },
+    {
+      "id": "scripts_render_report_gitcontext",
+      "label": "gitContext()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L83"
+    },
+    {
+      "id": "scripts_render_report_escapehtml",
+      "label": "escapeHtml()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L97"
+    },
+    {
+      "id": "scripts_render_report_normalizeseverity",
+      "label": "normalizeSeverity()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L105"
+    },
+    {
+      "id": "scripts_render_report_filelink",
+      "label": "fileLink()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L112"
+    },
+    {
+      "id": "scripts_render_report_renderfinding",
+      "label": "renderFinding()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L120"
+    },
+    {
+      "id": "scripts_render_report_rendersection",
+      "label": "renderSection()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L136"
+    },
+    {
+      "id": "scripts_render_report_renderkpi",
+      "label": "renderKpi()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L163"
+    },
+    {
+      "id": "scripts_render_report_renderquickwins",
+      "label": "renderQuickWins()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L167"
+    },
+    {
+      "id": "scripts_render_report_renderplan",
+      "label": "renderPlan()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L186"
+    },
+    {
+      "id": "scripts_render_report_render",
+      "label": "render()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L204"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_html",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_defaultoutpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_gitcontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_escapehtml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_normalizeseverity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_filelink",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_renderfinding",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_rendersection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_renderkpi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L163",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_renderquickwins",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_renderplan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_render_report_mjs",
+      "target": "scripts_render_report_render",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_filelink",
+      "target": "scripts_render_report_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_renderfinding",
+      "target": "scripts_render_report_normalizeseverity",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_renderfinding",
+      "target": "scripts_render_report_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_renderfinding",
+      "target": "scripts_render_report_filelink",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_rendersection",
+      "target": "scripts_render_report_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_render",
+      "target": "scripts_render_report_gitcontext",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L205",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_render",
+      "target": "scripts_render_report_escapehtml",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L214",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_render",
+      "target": "scripts_render_report_renderkpi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L303",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_render",
+      "target": "scripts_render_report_renderquickwins",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L310",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_render_report_render",
+      "target": "scripts_render_report_renderplan",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L317",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scripts_render_report_defaultoutpath",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "scripts_render_report_defaultoutpath",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "scripts_render_report_defaultoutpath",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "scripts_render_report_gitcontext",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "scripts_render_report_gitcontext",
+      "callee": "execSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "scripts_render_report_gitcontext",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "scripts_render_report_gitcontext",
+      "callee": "execSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "scripts_render_report_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "scripts_render_report_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "scripts_render_report_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "scripts_render_report_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "scripts_render_report_escapehtml",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "scripts_render_report_normalizeseverity",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "scripts_render_report_normalizeseverity",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "scripts_render_report_normalizeseverity",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "scripts_render_report_normalizeseverity",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "scripts_render_report_filelink",
+      "callee": "isAbsolute",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "scripts_render_report_filelink",
+      "callee": "resolve",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "scripts_render_report_renderfinding",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "scripts_render_report_rendersection",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "scripts_render_report_rendersection",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "scripts_render_report_rendersection",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "scripts_render_report_rendersection",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "scripts_render_report_renderquickwins",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "scripts_render_report_renderquickwins",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "scripts_render_report_renderplan",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L192"
+    },
+    {
+      "caller_nid": "scripts_render_report_renderplan",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L192"
+    },
+    {
+      "caller_nid": "scripts_render_report_render",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L206"
+    },
+    {
+      "caller_nid": "scripts_render_report_render",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L206"
+    },
+    {
+      "caller_nid": "scripts_render_report_render",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L206"
+    },
+    {
+      "caller_nid": "scripts_render_report_render",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L208"
+    },
+    {
+      "caller_nid": "scripts_render_report_render",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L314"
+    },
+    {
+      "caller_nid": "scripts_render_report_render",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/render-report.mjs",
+      "source_location": "L314"
+    }
+  ]
+}

@@ -1,0 +1,472 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "label": "artifact-manager.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager",
+      "label": "ArtifactManager",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager_create",
+      "label": ".create()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager_revise",
+      "label": ".revise()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager_load",
+      "label": ".load()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L112"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager_loadmany",
+      "label": ".loadMany()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L121"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager_listrefs",
+      "label": ".listRefs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L127"
+    },
+    {
+      "id": "engine_artifact_manager_artifactmanager_finalize",
+      "label": ".finalize()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L136"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "target": "artifacts_types_artifact",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "target": "artifacts_types_artifactref",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "target": "artifacts_types_createartifactinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "target": "artifacts_types_reviseartifactinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_artifact_manager_ts",
+      "target": "engine_artifact_manager_artifactmanager",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager",
+      "target": "engine_artifact_manager_artifactmanager_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager",
+      "target": "engine_artifact_manager_artifactmanager_create",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager",
+      "target": "engine_artifact_manager_artifactmanager_revise",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager",
+      "target": "engine_artifact_manager_artifactmanager_load",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager",
+      "target": "engine_artifact_manager_artifactmanager_loadmany",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager",
+      "target": "engine_artifact_manager_artifactmanager_listrefs",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager",
+      "target": "engine_artifact_manager_artifactmanager_finalize",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_artifact_manager_artifactmanager_revise",
+      "target": "engine_artifact_manager_artifactmanager_load",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_create",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_create",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_create",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_create",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_create",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_create",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_create",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_revise",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_load",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_load",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_load",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_load",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_loadmany",
+      "callee": "in",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_loadmany",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_loadmany",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_listrefs",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_listrefs",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_listrefs",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_listrefs",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_finalize",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_finalize",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_finalize",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_finalize",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "engine_artifact_manager_artifactmanager_finalize",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/artifact-manager.ts",
+      "source_location": "L143"
+    }
+  ]
+}

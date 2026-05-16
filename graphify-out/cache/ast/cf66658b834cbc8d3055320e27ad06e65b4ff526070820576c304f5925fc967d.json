@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_contextchips_tsx",
+      "label": "ContextChips.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "chat_contextchips_contextchips",
+      "label": "ContextChips()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_contextchips_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_chat_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_contextchips_tsx",
+      "target": "stores_chat_context_usechatcontext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_contextchips_tsx",
+      "target": "chat_contextchips_contextchips",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "chat_contextchips_contextchips",
+      "callee": "useChatContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "chat_contextchips_contextchips",
+      "callee": "useChatContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "chat_contextchips_contextchips",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx",
+      "source_location": "L24"
+    }
+  ]
+}

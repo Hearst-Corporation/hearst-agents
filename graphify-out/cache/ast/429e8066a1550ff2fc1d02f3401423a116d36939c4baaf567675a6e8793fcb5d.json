@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_lead_nurture_ts",
+      "label": "lead-nurture.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/lead-nurture.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "templates_lead_nurture_leadnurturetemplate",
+      "label": "leadNurtureTemplate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/lead-nurture.ts",
+      "source_location": "L8"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_lead_nurture_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/lead-nurture.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_lead_nurture_ts",
+      "target": "workflows_types_workflowgraph",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/lead-nurture.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_lead_nurture_ts",
+      "target": "templates_lead_nurture_leadnurturetemplate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/lead-nurture.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

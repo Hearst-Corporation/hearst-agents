@@ -1,0 +1,129 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_commandbar_tsx",
+      "label": "CommandBar.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_commandbar_cmd_map",
+      "label": "CMD_MAP",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "components_commandbar_commandbar",
+      "label": "CommandBar()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L33"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_commandbar_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_commandbar_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_commandbar_tsx",
+      "target": "stores_stage_stageid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_commandbar_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_commandbar_tsx",
+      "target": "components_commandbar_cmd_map",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_components_commandbar_tsx",
+      "target": "components_commandbar_commandbar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L33",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_commandbar_commandbar",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "components_commandbar_commandbar",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "components_commandbar_commandbar",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "components_commandbar_commandbar",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "components_commandbar_commandbar",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "components_commandbar_commandbar",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/components/CommandBar.tsx",
+      "source_location": "L43"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "label": "conversation-idor.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_conversation_idor_test_scope_a",
+      "label": "SCOPE_A",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "security_conversation_idor_test_scope_b",
+      "label": "SCOPE_B",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "security_conversation_idor_test_chat_messages",
+      "label": "CHAT_MESSAGES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "security_conversation_idor_test_filtered",
+      "label": "filtered",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "security_conversation_idor_test_filteredforb",
+      "label": "filteredForB",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L46"
+    },
+    {
+      "id": "security_conversation_idor_test_all",
+      "label": "all",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "security_conversation_idor_test_structured",
+      "label": "STRUCTURED",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "security_conversation_idor_test_filteredfora",
+      "label": "filteredForA",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L77"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_scope_a",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_scope_b",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_chat_messages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_filtered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_filteredforb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_all",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_structured",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_conversation_idor_test_ts",
+      "target": "security_conversation_idor_test_filteredfora",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/conversation-idor.test.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

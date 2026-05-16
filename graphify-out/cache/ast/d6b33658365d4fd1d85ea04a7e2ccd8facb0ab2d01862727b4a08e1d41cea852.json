@@ -1,0 +1,456 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "label": "apply-transforms.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_apply_transforms_applytransformscontext",
+      "label": "ApplyTransformsContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "engine_apply_transforms_applytransforms",
+      "label": "applyTransforms()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "engine_apply_transforms_toposort",
+      "label": "topoSort()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "engine_apply_transforms_runop",
+      "label": "runOp()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L131"
+    },
+    {
+      "id": "engine_apply_transforms_get",
+      "label": "get()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L164"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "spec_schema_transformop",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_cache_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_cache_gettransformcache",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_cache_hashkey",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_cache_settransformcache",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_derive",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_diff",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_filter",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_groupby",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_join",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_pivot",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_rank",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_tabular",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_unionall",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_tabular_windowop",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_apply_transforms_applytransformscontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_apply_transforms_applytransforms",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_apply_transforms_toposort",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_apply_transforms_runop",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_apply_transforms_ts",
+      "target": "engine_apply_transforms_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_apply_transforms_applytransforms",
+      "target": "engine_apply_transforms_toposort",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_apply_transforms_applytransforms",
+      "target": "engine_apply_transforms_runop",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_apply_transforms_runop",
+      "target": "engine_apply_transforms_get",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L138",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "hashKey",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "hashKey",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "await getTransformCache",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "setTransformCache",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_applytransforms",
+      "callee": "hashKey",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_toposort",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_toposort",
+      "callee": "visit",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "filter",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "groupBy",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "windowOp",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "diff",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "rank",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "derive",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "pivot",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "unionAll",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L160"
+    },
+    {
+      "caller_nid": "engine_apply_transforms_runop",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/engine/apply-transforms.ts",
+      "source_location": "L160"
+    }
+  ]
+}

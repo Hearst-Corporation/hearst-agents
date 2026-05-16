@@ -1,0 +1,177 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_assets_path_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "path_route_base_dir",
+      "label": "BASE_DIR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "path_route_mime_types",
+      "label": "MIME_TYPES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "path_route_get",
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L23"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_assets_path_route_ts",
+      "target": "promises",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_assets_path_route_ts",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_assets_path_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_assets_path_route_ts",
+      "target": "path_route_base_dir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_assets_path_route_ts",
+      "target": "path_route_mime_types",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_assets_path_route_ts",
+      "target": "path_route_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "path_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "extname",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "path_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/assets/[...path]/route.ts",
+      "source_location": "L51"
+    }
+  ]
+}

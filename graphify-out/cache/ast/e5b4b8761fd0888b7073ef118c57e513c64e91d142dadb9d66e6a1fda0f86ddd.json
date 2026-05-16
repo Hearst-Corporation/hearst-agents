@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_sectionheader_tsx",
+      "label": "SectionHeader.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_sectionheader_sectionheaderprops",
+      "label": "SectionHeaderProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "ui_sectionheader_sectionheader",
+      "label": "SectionHeader()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L29"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_sectionheader_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_sectionheader_tsx",
+      "target": "ui_sectionheader_sectionheaderprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_sectionheader_tsx",
+      "target": "ui_sectionheader_sectionheader",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L29",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "ui_sectionheader_sectionheader",
+      "callee": "padStart",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "ui_sectionheader_sectionheader",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/SectionHeader.tsx",
+      "source_location": "L47"
+    }
+  ]
+}

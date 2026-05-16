@@ -1,0 +1,801 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "label": "mission-context.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "memory_mission_context_missionmessage",
+      "label": "MissionMessage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "memory_mission_context_missioncontext",
+      "label": "MissionContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "memory_mission_context_mission_context_system_prompt",
+      "label": "MISSION_CONTEXT_SYSTEM_PROMPT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L73"
+    },
+    {
+      "id": "memory_mission_context_missionmessagerow",
+      "label": "MissionMessageRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "memory_mission_context_rowtomessage",
+      "label": "rowToMessage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L106"
+    },
+    {
+      "id": "memory_mission_context_listmissionmessages",
+      "label": "listMissionMessages()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L126"
+    },
+    {
+      "id": "memory_mission_context_appendmissionmessage",
+      "label": "appendMissionMessage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L200"
+    },
+    {
+      "id": "memory_mission_context_getmissioncontext",
+      "label": "getMissionContext()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L260"
+    },
+    {
+      "id": "memory_mission_context_formatmissioncontextblock",
+      "label": "formatMissionContextBlock()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L330"
+    },
+    {
+      "id": "memory_mission_context_updatesummaryopts",
+      "label": "UpdateSummaryOpts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L358"
+    },
+    {
+      "id": "memory_mission_context_updatemissioncontextsummary",
+      "label": "updateMissionContextSummary()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L376"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "editorial_charter_composeeditorialprompt",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "embeddings_store_searchembeddings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "state_adapter_updatescheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "llm_safe_chat_chatwithcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "examples_index_formatfewshotblock",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "examples_index_mission_context_fewshot_fr",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_kg_context_getkgcontextforuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_retrieval_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_retrieval_context_formatretrieveditems",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_untrusted_fence_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_untrusted_fence_sanitizeforfence",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_missionmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_missioncontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_mission_context_system_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_missionmessagerow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_rowtomessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_listmissionmessages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_appendmissionmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_getmissioncontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L260",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_formatmissioncontextblock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L330",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_updatesummaryopts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L358",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_mission_context_ts",
+      "target": "memory_mission_context_updatemissioncontextsummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L376",
+      "weight": 1.0
+    },
+    {
+      "source": "memory_mission_context_appendmissionmessage",
+      "target": "memory_mission_context_rowtomessage",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L251",
+      "weight": 1.0
+    },
+    {
+      "source": "memory_mission_context_getmissioncontext",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L281",
+      "weight": 1.0
+    },
+    {
+      "source": "memory_mission_context_getmissioncontext",
+      "target": "memory_mission_context_listmissionmessages",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L295",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "memory_mission_context_rowtomessage",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "reverse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "memory_mission_context_listmissionmessages",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L191"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L211"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L244"
+    },
+    {
+      "caller_nid": "memory_mission_context_appendmissionmessage",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L253"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "getScheduledMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L283"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L289"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L294"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L295"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "then",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "searchEmbeddings",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L300"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L308"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "getKgContextForUser",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L308"
+    },
+    {
+      "caller_nid": "memory_mission_context_getmissioncontext",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "memory_mission_context_formatmissioncontextblock",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L333"
+    },
+    {
+      "caller_nid": "memory_mission_context_formatmissioncontextblock",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L334"
+    },
+    {
+      "caller_nid": "memory_mission_context_formatmissioncontextblock",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L334"
+    },
+    {
+      "caller_nid": "memory_mission_context_formatmissioncontextblock",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "memory_mission_context_formatmissioncontextblock",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L348"
+    },
+    {
+      "caller_nid": "memory_mission_context_formatmissioncontextblock",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L348"
+    },
+    {
+      "caller_nid": "memory_mission_context_formatmissioncontextblock",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L379"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L379"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L383"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L384"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L390"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "await chatWithCircuitBreaker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L399"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "updateScheduledMission",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L417"
+    },
+    {
+      "caller_nid": "memory_mission_context_updatemissioncontextsummary",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/memory/mission-context.ts",
+      "source_location": "L419"
+    }
+  ]
+}

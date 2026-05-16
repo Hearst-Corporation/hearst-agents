@@ -1,0 +1,296 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "preview_route_workflownodeschema",
+      "label": "workflowNodeSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "preview_route_workflowedgeschema",
+      "label": "workflowEdgeSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "preview_route_workflowpreviewbodyschema",
+      "label": "workflowPreviewBodySchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "preview_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_scope_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "auth_scope_requirescope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "http_parse_body_parsejsonbody",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_executor_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "workflows_executor_executeworkflow",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "workflows_types_workflowexecutioncontext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "workflows_types_workflowexecutorevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "workflows_types_workflowgraph",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_validate_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "workflows_validate_validategraph",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "preview_route_workflownodeschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "preview_route_workflowedgeschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "preview_route_workflowpreviewbodyschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_workflows_preview_route_ts",
+      "target": "preview_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "requireScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "parseJsonBody",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "validateGraph",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "executeWorkflow",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "preview_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/workflows/preview/route.ts",
+      "source_location": "L110"
+    }
+  ]
+}

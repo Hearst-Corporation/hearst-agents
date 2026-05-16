@@ -1,0 +1,58 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_dev_spatialdevhud_tsx",
+      "label": "SpatialDevHUD.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHUD.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "dev_spatialdevhud_spatialdevhud",
+      "label": "SpatialDevHUD()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHUD.tsx",
+      "source_location": "L5"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_dev_spatialdevhud_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_spatial_scene",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHUD.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_dev_spatialdevhud_tsx",
+      "target": "stores_spatial_scene_usespatialscenestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHUD.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_dev_spatialdevhud_tsx",
+      "target": "dev_spatialdevhud_spatialdevhud",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHUD.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "dev_spatialdevhud_spatialdevhud",
+      "callee": "useSpatialSceneStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHUD.tsx",
+      "source_location": "L6"
+    }
+  ]
+}

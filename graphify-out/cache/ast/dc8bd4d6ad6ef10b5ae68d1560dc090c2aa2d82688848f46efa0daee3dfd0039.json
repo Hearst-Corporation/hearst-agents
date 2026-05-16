@@ -1,0 +1,157 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "label": "write-intent.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_write_intent_write_verbs_fr",
+      "label": "WRITE_VERBS_FR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "orchestrator_write_intent_write_verbs_en",
+      "label": "WRITE_VERBS_EN",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "orchestrator_write_intent_read_hedges_fr",
+      "label": "READ_HEDGES_FR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L125"
+    },
+    {
+      "id": "orchestrator_write_intent_read_hedges_en",
+      "label": "READ_HEDGES_EN",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L152"
+    },
+    {
+      "id": "orchestrator_write_intent_iswriteintent",
+      "label": "isWriteIntent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L166"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "target": "capabilities_taxonomy_escaperegex",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "target": "orchestrator_write_intent_write_verbs_fr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "target": "orchestrator_write_intent_write_verbs_en",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "target": "orchestrator_write_intent_read_hedges_fr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "target": "orchestrator_write_intent_read_hedges_en",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_write_intent_ts",
+      "target": "orchestrator_write_intent_iswriteintent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_write_intent_iswriteintent",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "orchestrator_write_intent_iswriteintent",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "orchestrator_write_intent_iswriteintent",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "orchestrator_write_intent_iswriteintent",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "orchestrator_write_intent_iswriteintent",
+      "callee": "escapeRegex",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L181"
+    },
+    {
+      "caller_nid": "orchestrator_write_intent_iswriteintent",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/write-intent.ts",
+      "source_location": "L182"
+    }
+  ]
+}

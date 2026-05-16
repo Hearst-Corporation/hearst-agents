@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearst OS - Vision Pro Glass Deep</title>
+    <style>
+        :root {
+            --bg-deep: #000000;
+            --glass-base: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-border-highlight: rgba(255, 255, 255, 0.5);
+            --accent-lamp: rgba(255, 255, 255, 0.9);
+            
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.5);
+            
+            --glass-blur: 80px;
+            --card-radius: 32px;
+            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Metal Office Desk Lamp Effect (Top Left) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle at 20% 20%, var(--accent-lamp), transparent 60%);
+            filter: blur(80px);
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            padding: 32px;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        .hero {
+            padding: 20px 60px 60px;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 400px;
+        }
+
+        .container {
+            display: flex;
+            gap: 24px;
+            padding: 0 60px;
+            z-index: 10;
+        }
+
+        /* Glass Card - Deep Glass Effect */
+        .glass-card {
+            position: relative;
+            flex: 1;
+            background: var(--glass-base);
+            backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: var(--transition);
+            overflow: hidden;
+            cursor: pointer;
+            
+            /* Épaisseur et Profondeur (Multi-layer shadows) */
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.3), /* Highlight bord supérieur */
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05), /* Contour interne */
+                0 4px 12px rgba(0, 0, 0, 0.5),             /* Ombre de contact */
+                0 20px 40px rgba(0, 0, 0, 0.8);            /* Ombre portée profonde */
+        }
+
+        /* Effet de biseau / épaisseur du verre */
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: var(--card-radius);
+            padding: 1.5px; /* L'épaisseur du biseau */
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.4) 0%, 
+                rgba(255, 255, 255, 0.05) 20%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Reflet de surface (Specular) */
+        .glass-card::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(255, 255, 255, 0.08) 0%, 
+                transparent 40%);
+            pointer-events: none;
+            transition: transform 0.8s ease-out;
+            z-index: 1;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 
+                inset 0 1px 2px rgba(255, 255, 255, 0.5),
+                0 30px 60px rgba(0, 0, 0, 0.9);
+        }
+
+        .glass-card:hover::after {
+            transform: translate(5%, 5%);
+        }
+
+        .badge {
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        .glass-card h2 {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .glass-card p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .detail {
+            margin-top: auto;
+            font-size: 11px;
+            font-family: ui-monospace, monospace;
+            color: var(--text-secondary);
+            opacity: 0.4;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px 60px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            opacity: 0.3;
+        }
+
+        @media (max-width: 900px) {
+            body { overflow-y: auto; }
+            .container { flex-direction: column; padding: 0 32px 60px; }
+            .hero { padding: 20px 32px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Hearst OS</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Spatial Core</h1>
+            <p>Minimalisme technique et transparence radicale.</p>
+        </section>
+
+        <section class="container">
+            <div class="glass-card">
+                <div class="badge">Module 01</div>
+                <h2>Interface Vision</h2>
+                <p>Une carte flottante pensée pour une expérience immersive et tactile.</p>
+                <div class="detail">DEPTH_LAYER_01</div>
+            </div>
+
+            <div class="glass-card">
+                <div class="badge">Module 02</div>
+                <h2>Verre vivant</h2>
+                <p>Une surface translucide dense, avec reflets doux et contraste maîtrisé.</p>
+                <div class="detail">FROSTED_MATERIAL</div>
+            </div>
+
+            <div class="glass-card">
+                <div class="badge">Module 03</div>
+                <h2>Neural Flow</h2>
+                <p>Des interactions fluides, rapides et élégantes, prêtes pour une app IA.</p>
+                <div class="detail">ASSISTANT_READY</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 HEARST OS &bull; VISION_PRO_SPEC
+    </footer>
+
+</body>
+</html>

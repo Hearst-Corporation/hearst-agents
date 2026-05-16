@@ -1,0 +1,387 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "label": "lint.mjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_lint_dirname",
+      "label": "__dirname",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L5"
+    },
+    {
+      "id": "spatial_lint_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L6"
+    },
+    {
+      "id": "spatial_lint_config",
+      "label": "CONFIG",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L8"
+    },
+    {
+      "id": "spatial_lint_ansi",
+      "label": "ANSI",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L23"
+    },
+    {
+      "id": "spatial_lint_report",
+      "label": "report()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L38"
+    },
+    {
+      "id": "spatial_lint_istypeorconstantfile",
+      "label": "isTypeOrConstantFile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L51"
+    },
+    {
+      "id": "spatial_lint_lintfile",
+      "label": "lintFile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L59"
+    },
+    {
+      "id": "spatial_lint_walk",
+      "label": "walk()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L169"
+    },
+    {
+      "id": "spatial_lint_fullpath",
+      "label": "fullPath",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L188"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_dirname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_config",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_ansi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_report",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_istypeorconstantfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_lintfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_walk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L169",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_lint_mjs",
+      "target": "spatial_lint_fullpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L188",
+      "weight": 1.0
+    },
+    {
+      "source": "spatial_lint_lintfile",
+      "target": "spatial_lint_istypeorconstantfile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "spatial_lint_lintfile",
+      "target": "spatial_lint_report",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "spatial_lint_walk",
+      "target": "spatial_lint_lintfile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L179",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_lint_report",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "spatial_lint_report",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "spatial_lint_istypeorconstantfile",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "readFileSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "forEach",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "spatial_lint_lintfile",
+      "callee": "forEach",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "readdirSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "statSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "isDirectory",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "extname",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "spatial_lint_walk",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/lint.mjs",
+      "source_location": "L178"
+    }
+  ]
+}

@@ -1,0 +1,758 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "variants_route_variantsbodyschema",
+      "label": "variantsBodySchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "variants_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "variants_route_handleaudiovariant",
+      "label": "handleAudioVariant()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "variants_route_handlevideovariant",
+      "label": "handleVideoVariant()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L195"
+    },
+    {
+      "id": "variants_route_cleanupafterenqueuefailure",
+      "label": "cleanupAfterEnqueueFailure()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L341"
+    },
+    {
+      "id": "variants_route_get",
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L396"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "assets_types_loadassetbyid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "assets_variants_createvariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "assets_variants_getvariantsforasset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "assets_variants_updatevariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "providers_elevenlabs_estimatespeechcost",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "credits_client_settlecredits",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "credits_middleware_formatinsufficientcreditsmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "credits_middleware_requirecreditsforjob",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "jobs_queue_enqueuejob",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "jobs_types_audiogeninput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "jobs_types_jobkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "jobs_types_videogeninput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_scope_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "auth_scope_requirescope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "http_parse_body_parsejsonbody",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "variants_route_variantsbodyschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "variants_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "variants_route_handleaudiovariant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "variants_route_handlevideovariant",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L195",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "variants_route_cleanupafterenqueuefailure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L341",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_assets_id_variants_route_ts",
+      "target": "variants_route_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L396",
+      "weight": 1.0
+    },
+    {
+      "source": "variants_route_post",
+      "target": "variants_route_handleaudiovariant",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "variants_route_post",
+      "target": "variants_route_handlevideovariant",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "variants_route_handleaudiovariant",
+      "target": "variants_route_cleanupafterenqueuefailure",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "variants_route_handlevideovariant",
+      "target": "variants_route_cleanupafterenqueuefailure",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L328",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "variants_route_post",
+      "callee": "requireScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "variants_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "variants_route_post",
+      "callee": "parseJsonBody",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "variants_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "variants_route_post",
+      "callee": "loadAssetById",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "variants_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "getVariantsForAsset",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "estimateSpeechCost",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "requireCreditsForJob",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "formatInsufficientCreditsMessage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "createVariant",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "enqueueJob",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "variants_route_handleaudiovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L175"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L218"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L225"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "getVariantsForAsset",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L226"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L228"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L234"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "requireCreditsForJob",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "formatInsufficientCreditsMessage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L260"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "createVariant",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L275"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L307"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "updateVariant",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L307"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "enqueueJob",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L320"
+    },
+    {
+      "caller_nid": "variants_route_handlevideovariant",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L321"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L360"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L362"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L366"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "settleCredits",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L366"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L373"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L381"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "updateVariant",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L381"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L383"
+    },
+    {
+      "caller_nid": "variants_route_cleanupafterenqueuefailure",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L389"
+    },
+    {
+      "caller_nid": "variants_route_get",
+      "callee": "requireScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L399"
+    },
+    {
+      "caller_nid": "variants_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L403"
+    },
+    {
+      "caller_nid": "variants_route_get",
+      "callee": "loadAssetById",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L409"
+    },
+    {
+      "caller_nid": "variants_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L414"
+    },
+    {
+      "caller_nid": "variants_route_get",
+      "callee": "getVariantsForAsset",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L417"
+    },
+    {
+      "caller_nid": "variants_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/[id]/variants/route.ts",
+      "source_location": "L418"
+    }
+  ]
+}

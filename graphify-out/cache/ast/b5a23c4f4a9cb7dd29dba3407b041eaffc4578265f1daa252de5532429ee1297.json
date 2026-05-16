@@ -1,0 +1,512 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "label": "agent-loop.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "browser_agent_loop_test_scriptedtoolcall",
+      "label": "ScriptedToolCall",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "browser_agent_loop_test_makemockclient",
+      "label": "makeMockClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "browser_agent_loop_test_makespypage",
+      "label": "makeSpyPage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "browser_agent_loop_test_client",
+      "label": "client",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "browser_agent_loop_test_page",
+      "label": "page",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "browser_agent_loop_test_infiniteclicks",
+      "label": "infiniteClicks",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L249"
+    },
+    {
+      "id": "browser_agent_loop_test_onstep",
+      "label": "onStep",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L273"
+    },
+    {
+      "id": "browser_agent_loop_test_controller",
+      "label": "controller",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L287"
+    },
+    {
+      "id": "browser_agent_loop_test_failingscript",
+      "label": "failingScript",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L328"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_browser_agent_loop_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_runagentloop",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_browser_playwright_bridge_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_playwright_bridge_playwrightpage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_browser_playwright_bridge_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_playwright_bridge_createfakepage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_scriptedtoolcall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_makemockclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_makespypage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_infiniteclicks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L249",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L253",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L254",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_onstep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L273",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_controller",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L287",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L288",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L313",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_failingscript",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L328",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L332",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L333",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L350",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_client",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L360",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_agent_loop_test_ts",
+      "target": "browser_agent_loop_test_page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L374",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "browser_agent_loop_test_makemockclient",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "createFakePage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "browser_agent_loop_test_makespypage",
+      "callee": "bind",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/agent-loop.test.ts",
+      "source_location": "L88"
+    }
+  ]
+}

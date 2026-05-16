@@ -1,0 +1,201 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "handlers_index_workflow_handlers",
+      "label": "WORKFLOW_HANDLERS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "handlers_index_executeworkflowtool",
+      "label": "executeWorkflowTool()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L29"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_classify_priority_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_ai_classify_priority_aiclassifypriority",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_list_arrivals_today_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_pms_list_arrivals_today_pmslistarrivalstoday",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_update_request_status_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_pms_update_request_status_pmsupdaterequeststatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_slack_send_message_slacksendmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_types_workflowhandler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_types_workflowhandlercontext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_types_workflowhandlerresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_index_workflow_handlers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_index_ts",
+      "target": "handlers_index_executeworkflowtool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "handlers_index_executeworkflowtool",
+      "callee": "handler",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "handlers_index_executeworkflowtool",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/index.ts",
+      "source_location": "L46"
+    }
+  ]
+}

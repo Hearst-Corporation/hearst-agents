@@ -1,0 +1,80 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_cockpit_orbital_orbitalnode_tsx",
+      "label": "OrbitalNode.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "orbital_orbitalnode_servicenode",
+      "label": "ServiceNode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "orbital_orbitalnode_orbitalnodeprops",
+      "label": "OrbitalNodeProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "orbital_orbitalnode_orbitalnode",
+      "label": "OrbitalNode()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L17"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_cockpit_orbital_orbitalnode_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_cockpit_orbital_orbitalnode_tsx",
+      "target": "orbital_orbitalnode_servicenode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_cockpit_orbital_orbitalnode_tsx",
+      "target": "orbital_orbitalnode_orbitalnodeprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_cockpit_orbital_orbitalnode_tsx",
+      "target": "orbital_orbitalnode_orbitalnode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orbital_orbitalnode_orbitalnode",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/OrbitalNode.tsx",
+      "source_location": "L18"
+    }
+  ]
+}

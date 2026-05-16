@@ -1,0 +1,137 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_abort_registry_ts",
+      "label": "abort-registry.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_abort_registry_registry",
+      "label": "registry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "orchestrator_abort_registry_registerrun",
+      "label": "registerRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "orchestrator_abort_registry_unregisterrun",
+      "label": "unregisterRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "orchestrator_abort_registry_abortrun",
+      "label": "abortRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "orchestrator_abort_registry_isrunregistered",
+      "label": "isRunRegistered()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L31"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_abort_registry_ts",
+      "target": "orchestrator_abort_registry_registry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_abort_registry_ts",
+      "target": "orchestrator_abort_registry_registerrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_abort_registry_ts",
+      "target": "orchestrator_abort_registry_unregisterrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_abort_registry_ts",
+      "target": "orchestrator_abort_registry_abortrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_abort_registry_ts",
+      "target": "orchestrator_abort_registry_isrunregistered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_abort_registry_registerrun",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "orchestrator_abort_registry_unregisterrun",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "orchestrator_abort_registry_abortrun",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "orchestrator_abort_registry_abortrun",
+      "callee": "abort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "orchestrator_abort_registry_abortrun",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "orchestrator_abort_registry_isrunregistered",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/abort-registry.ts",
+      "source_location": "L32"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_flowlegend_tsx",
+      "label": "FlowLegend.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "canvas_flowlegend_branchentry",
+      "label": "BranchEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "canvas_flowlegend_branches",
+      "label": "BRANCHES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "canvas_flowlegend_flowlegend",
+      "label": "FlowLegend()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L21"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_flowlegend_tsx",
+      "target": "canvas_flowlegend_branchentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_flowlegend_tsx",
+      "target": "canvas_flowlegend_branches",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_canvas_flowlegend_tsx",
+      "target": "canvas_flowlegend_flowlegend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "canvas_flowlegend_flowlegend",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/FlowLegend.tsx",
+      "source_location": "L27"
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "label": "stagehand-executor.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "browser_stagehand_executor_test_captureevents",
+      "label": "captureEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "browser_stagehand_executor_test_events_unsub",
+      "label": "{ events, unsub }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "browser_stagehand_executor_test_types",
+      "label": "types",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "browser_stagehand_executor_test_nav",
+      "label": "nav",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "browser_stagehand_executor_test_actions",
+      "label": "actions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "browser_stagehand_executor_test_promise",
+      "label": "promise",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "browser_stagehand_executor_test_stopped",
+      "label": "stopped",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L80"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_browser_stagehand_executor_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_clearusercontrolled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_issessionusercontrolled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_markusercontrolled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_requesttakeover",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_runbrowsertask",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_global_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "events_global_bus_globalrunbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "events_types_runevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_captureevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_events_unsub",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_types",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_events_unsub",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_nav",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_events_unsub",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_actions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_events_unsub",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_promise",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_stopped",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_browser_stagehand_executor_test_ts",
+      "target": "browser_stagehand_executor_test_types",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "browser_stagehand_executor_test_captureevents",
+      "callee": "subscribe",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/browser/stagehand-executor.test.ts",
+      "source_location": "L18"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_i18n_fr_ts",
+      "label": "fr.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/i18n/fr.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "i18n_fr_spatial_rnd_messages",
+      "label": "SPATIAL_RND_MESSAGES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/i18n/fr.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "i18n_fr_spatial_rnd_states",
+      "label": "SPATIAL_RND_STATES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/i18n/fr.ts",
+      "source_location": "L7"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_i18n_fr_ts",
+      "target": "i18n_fr_spatial_rnd_messages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/i18n/fr.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_i18n_fr_ts",
+      "target": "i18n_fr_spatial_rnd_states",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/i18n/fr.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

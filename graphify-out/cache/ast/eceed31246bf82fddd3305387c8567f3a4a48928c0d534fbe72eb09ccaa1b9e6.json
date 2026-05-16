@@ -1,0 +1,284 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "label": "send-message.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "handlers_send_message_sendmessageinput",
+      "label": "SendMessageInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "handlers_send_message_deliverystatus",
+      "label": "DeliveryStatus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "handlers_send_message_sendmessageresult",
+      "label": "SendMessageResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "handlers_send_message_sendviaslack",
+      "label": "sendViaSlack()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "handlers_send_message_sendviawhatsapp",
+      "label": "sendViaWhatsApp()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "handlers_send_message_sendviagmail",
+      "label": "sendViaGmail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "handlers_send_message_handlers",
+      "label": "HANDLERS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L128"
+    },
+    {
+      "id": "handlers_send_message_handlesendmessage",
+      "label": "handleSendMessage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L136"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "composio_index_gmailsendemail",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "composio_index_iscomposioconfigured",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "providers_types_providerid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_sendmessageinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_deliverystatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_sendmessageresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_sendviaslack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_sendviawhatsapp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_sendviagmail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_handlers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "target": "handlers_send_message_handlesendmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "handlers_send_message_sendviaslack",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "handlers_send_message_sendviawhatsapp",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "handlers_send_message_sendviagmail",
+      "callee": "isComposioConfigured",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "handlers_send_message_sendviagmail",
+      "callee": "gmailSendEmail",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "handlers_send_message_sendviagmail",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "handlers_send_message_sendviagmail",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "handlers_send_message_sendviagmail",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "handlers_send_message_sendviagmail",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "handlers_send_message_handlesendmessage",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "handlers_send_message_handlesendmessage",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "handlers_send_message_handlesendmessage",
+      "callee": "handler",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "handlers_send_message_handlesendmessage",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "handlers_send_message_handlesendmessage",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/send-message.ts",
+      "source_location": "L163"
+    }
+  ]
+}

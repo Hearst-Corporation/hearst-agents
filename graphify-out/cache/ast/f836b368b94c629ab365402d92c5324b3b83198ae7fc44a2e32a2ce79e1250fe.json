@@ -1,0 +1,124 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_lib_spatial_sse_ts",
+      "label": "sse.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "lib_spatial_sse_sseevent",
+      "label": "SSEEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "lib_spatial_sse_parsessechunk",
+      "label": "parseSSEChunk()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L20"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_lib_spatial_sse_ts",
+      "target": "lib_spatial_sse_sseevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_working_2026_05_12_lib_spatial_sse_ts",
+      "target": "lib_spatial_sse_parsessechunk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "pop",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "lib_spatial_sse_parsessechunk",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts",
+      "source_location": "L38"
+    }
+  ]
+}

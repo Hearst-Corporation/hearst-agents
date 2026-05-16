@@ -1,0 +1,936 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "label": "build-features-manifest.mjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_build_features_manifest_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L24"
+    },
+    {
+      "id": "scripts_build_features_manifest_features_dir",
+      "label": "FEATURES_DIR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L25"
+    },
+    {
+      "id": "scripts_build_features_manifest_tests_dir",
+      "label": "TESTS_DIR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L26"
+    },
+    {
+      "id": "scripts_build_features_manifest_manifest_path",
+      "label": "MANIFEST_PATH",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L27"
+    },
+    {
+      "id": "scripts_build_features_manifest_skip_files",
+      "label": "SKIP_FILES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L29"
+    },
+    {
+      "id": "scripts_build_features_manifest_feature_test_dirs",
+      "label": "FEATURE_TEST_DIRS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L42"
+    },
+    {
+      "id": "scripts_build_features_manifest_getalltestfiles",
+      "label": "getAllTestFiles()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L92"
+    },
+    {
+      "id": "scripts_build_features_manifest_counttestcasesinfile",
+      "label": "countTestCasesInFile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L115"
+    },
+    {
+      "id": "scripts_build_features_manifest_matchtestfilesforfeature",
+      "label": "matchTestFilesForFeature()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L122"
+    },
+    {
+      "id": "scripts_build_features_manifest_cleanvalue",
+      "label": "cleanValue()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L153"
+    },
+    {
+      "id": "scripts_build_features_manifest_normalizestatut",
+      "label": "normalizeStatut()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L161"
+    },
+    {
+      "id": "scripts_build_features_manifest_extractversion",
+      "label": "extractVersion()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L172"
+    },
+    {
+      "id": "scripts_build_features_manifest_splitsections",
+      "label": "splitSections()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L178"
+    },
+    {
+      "id": "scripts_build_features_manifest_parsemetadatatable",
+      "label": "parseMetadataTable()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L194"
+    },
+    {
+      "id": "scripts_build_features_manifest_countsubsections",
+      "label": "countSubsections()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L204"
+    },
+    {
+      "id": "scripts_build_features_manifest_listsubsections",
+      "label": "listSubsections()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L208"
+    },
+    {
+      "id": "scripts_build_features_manifest_countbulletsinsubsection",
+      "label": "countBulletsInSubsection()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L212"
+    },
+    {
+      "id": "scripts_build_features_manifest_parsefeaturefile",
+      "label": "parseFeatureFile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L229"
+    },
+    {
+      "id": "scripts_build_features_manifest_getactualtesttotals",
+      "label": "getActualTestTotals()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L299"
+    },
+    {
+      "id": "scripts_build_features_manifest_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L307"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "promises",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_features_dir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_tests_dir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_manifest_path",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_skip_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_feature_test_dirs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_getalltestfiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_counttestcasesinfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_matchtestfilesforfeature",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_cleanvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L153",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_normalizestatut",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_extractversion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_splitsections",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_parsemetadatatable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L194",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_countsubsections",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_listsubsections",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_countbulletsinsubsection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L212",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_parsefeaturefile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L229",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_getactualtesttotals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L299",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_build_features_manifest_mjs",
+      "target": "scripts_build_features_manifest_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L307",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsemetadatatable",
+      "target": "scripts_build_features_manifest_cleanvalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_splitsections",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_parsemetadatatable",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L235",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_countsubsections",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L238",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_listsubsections",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L239",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_countbulletsinsubsection",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_normalizestatut",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L251",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_matchtestfilesforfeature",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L255",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_counttestcasesinfile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L258",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_parsefeaturefile",
+      "target": "scripts_build_features_manifest_extractversion",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L270",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_getactualtesttotals",
+      "target": "scripts_build_features_manifest_counttestcasesinfile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L301",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_main",
+      "target": "scripts_build_features_manifest_getalltestfiles",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L308",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_main",
+      "target": "scripts_build_features_manifest_getactualtesttotals",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L309",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_build_features_manifest_main",
+      "target": "scripts_build_features_manifest_parsefeaturefile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L318",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scripts_build_features_manifest_getalltestfiles",
+      "callee": "walk",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_counttestcasesinfile",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_counttestcasesinfile",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_counttestcasesinfile",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_matchtestfilesforfeature",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_matchtestfilesforfeature",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_matchtestfilesforfeature",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_matchtestfilesforfeature",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_cleanvalue",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_cleanvalue",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_cleanvalue",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_cleanvalue",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L163"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L168"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_normalizestatut",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_extractversion",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L174"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_splitsections",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_splitsections",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L183"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_splitsections",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsemetadatatable",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L197"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsemetadatatable",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L199"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsemetadatatable",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L199"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_countsubsections",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_listsubsections",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_listsubsections",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_countbulletsinsubsection",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_countbulletsinsubsection",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_countbulletsinsubsection",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_countbulletsinsubsection",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_countbulletsinsubsection",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_countbulletsinsubsection",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L222"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsefeaturefile",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L230"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsefeaturefile",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L231"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsefeaturefile",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsefeaturefile",
+      "callee": "basename",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsefeaturefile",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L273"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsefeaturefile",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L273"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_parsefeaturefile",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L273"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "readdir",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L316"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L318"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L320"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L325"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L329"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L330"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L331"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L332"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L340"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L341"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "writeFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L352"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L352"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L353"
+    },
+    {
+      "caller_nid": "scripts_build_features_manifest_main",
+      "callee": "relative",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/build-features-manifest.mjs",
+      "source_location": "L355"
+    }
+  ]
+}

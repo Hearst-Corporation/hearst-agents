@@ -1,0 +1,268 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "label": "format.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "blocks_format_fmtnumber",
+      "label": "fmtNumber()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "blocks_format_fmtcurrency",
+      "label": "fmtCurrency()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "blocks_format_fmtpercent",
+      "label": "fmtPercent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "blocks_format_fmtcitation",
+      "label": "fmtCitation()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "blocks_format_fmtdelta",
+      "label": "fmtDelta()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L64"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_escape_html_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "target": "utils_escape_html_escapehtml",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "target": "blocks_format_fmtnumber",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "target": "blocks_format_fmtcurrency",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "target": "blocks_format_fmtpercent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "target": "blocks_format_fmtcitation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_blocks_format_ts",
+      "target": "blocks_format_fmtdelta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "blocks_format_fmtdelta",
+      "target": "blocks_format_fmtpercent",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "blocks_format_fmtdelta",
+      "target": "blocks_format_fmtnumber",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "blocks_format_fmtnumber",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L10"
+    },
+    {
+      "caller_nid": "blocks_format_fmtnumber",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L11"
+    },
+    {
+      "caller_nid": "blocks_format_fmtnumber",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "blocks_format_fmtnumber",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcurrency",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcurrency",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcurrency",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcurrency",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcurrency",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "blocks_format_fmtpercent",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "blocks_format_fmtpercent",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "blocks_format_fmtpercent",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcitation",
+      "callee": "escapeHtml",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcitation",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcitation",
+      "callee": "escapeHtml",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "blocks_format_fmtcitation",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "blocks_format_fmtdelta",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "blocks_format_fmtdelta",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "blocks_format_fmtdelta",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/blocks/format.ts",
+      "source_location": "L69"
+    }
+  ]
+}

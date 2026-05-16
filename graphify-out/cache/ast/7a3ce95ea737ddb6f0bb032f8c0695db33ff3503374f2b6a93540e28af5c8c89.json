@@ -1,0 +1,56 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_e2e_watchlist_anomaly_spec_ts",
+      "label": "watchlist-anomaly.spec.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/watchlist-anomaly.spec.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "e2e_watchlist_anomaly_spec_kpilabels",
+      "label": "kpiLabels",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/watchlist-anomaly.spec.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "e2e_watchlist_anomaly_spec_anomalybadge",
+      "label": "anomalyBadge",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/watchlist-anomaly.spec.ts",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_watchlist_anomaly_spec_ts",
+      "target": "test",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/watchlist-anomaly.spec.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_watchlist_anomaly_spec_ts",
+      "target": "e2e_watchlist_anomaly_spec_kpilabels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/watchlist-anomaly.spec.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_watchlist_anomaly_spec_ts",
+      "target": "e2e_watchlist_anomaly_spec_anomalybadge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/watchlist-anomaly.spec.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

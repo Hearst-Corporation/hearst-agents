@@ -1,0 +1,150 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_email_transactional_ts",
+      "label": "transactional.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "email_transactional_transactionalemail",
+      "label": "TransactionalEmail",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "email_transactional_transactionalemailresult",
+      "label": "TransactionalEmailResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "email_transactional_getclient",
+      "label": "getClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "email_transactional_istransactionalemailenabled",
+      "label": "isTransactionalEmailEnabled()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "email_transactional_sendtransactionalemail",
+      "label": "sendTransactionalEmail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L46"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_email_transactional_ts",
+      "target": "resend",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_email_transactional_ts",
+      "target": "email_transactional_transactionalemail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_email_transactional_ts",
+      "target": "email_transactional_transactionalemailresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_email_transactional_ts",
+      "target": "email_transactional_getclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_email_transactional_ts",
+      "target": "email_transactional_istransactionalemailenabled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_email_transactional_ts",
+      "target": "email_transactional_sendtransactionalemail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "email_transactional_sendtransactionalemail",
+      "target": "email_transactional_getclient",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "email_transactional_istransactionalemailenabled",
+      "callee": "Boolean",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "email_transactional_sendtransactionalemail",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "email_transactional_sendtransactionalemail",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "email_transactional_sendtransactionalemail",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "email_transactional_sendtransactionalemail",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/email/transactional.ts",
+      "source_location": "L81"
+    }
+  ]
+}

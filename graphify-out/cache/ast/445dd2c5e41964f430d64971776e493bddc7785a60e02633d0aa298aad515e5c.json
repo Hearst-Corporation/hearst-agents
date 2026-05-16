@@ -1,0 +1,625 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "label": "store.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "webhooks_store_createwebhookschema",
+      "label": "createWebhookSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "webhooks_store_updatewebhookschema",
+      "label": "updateWebhookSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "webhooks_store_createwebhookinput",
+      "label": "CreateWebhookInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L46"
+    },
+    {
+      "id": "webhooks_store_updatewebhookpatch",
+      "label": "UpdateWebhookPatch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "webhooks_store_db",
+      "label": "db()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "webhooks_store_rowtowebhook",
+      "label": "rowToWebhook()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "webhooks_store_createwebhook",
+      "label": "createWebhook()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "webhooks_store_listwebhooks",
+      "label": "listWebhooks()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L106"
+    },
+    {
+      "id": "webhooks_store_getactivewebhooksforevent",
+      "label": "getActiveWebhooksForEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L139"
+    },
+    {
+      "id": "webhooks_store_updatewebhook",
+      "label": "updateWebhook()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L168"
+    },
+    {
+      "id": "webhooks_store_deletewebhook",
+      "label": "deleteWebhook()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L207"
+    },
+    {
+      "id": "webhooks_store_updatewebhookstatus",
+      "label": "updateWebhookStatus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L231"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "security_ssrf_guard_isurlshapeallowed",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_types_customwebhook",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_types_webhook_events",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_types_webhookevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_createwebhookschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_updatewebhookschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_createwebhookinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_updatewebhookpatch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_rowtowebhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_createwebhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_listwebhooks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_getactivewebhooksforevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_updatewebhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_deletewebhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L207",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_webhooks_store_ts",
+      "target": "webhooks_store_updatewebhookstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L231",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_createwebhook",
+      "target": "webhooks_store_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_createwebhook",
+      "target": "webhooks_store_rowtowebhook",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_listwebhooks",
+      "target": "webhooks_store_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_getactivewebhooksforevent",
+      "target": "webhooks_store_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_updatewebhook",
+      "target": "webhooks_store_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_updatewebhook",
+      "target": "webhooks_store_rowtowebhook",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L201",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_deletewebhook",
+      "target": "webhooks_store_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L214",
+      "weight": 1.0
+    },
+    {
+      "source": "webhooks_store_updatewebhookstatus",
+      "target": "webhooks_store_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "webhooks_store_db",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "webhooks_store_createwebhook",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "webhooks_store_createwebhook",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "webhooks_store_createwebhook",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "webhooks_store_createwebhook",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "webhooks_store_createwebhook",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "webhooks_store_listwebhooks",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "webhooks_store_listwebhooks",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "webhooks_store_listwebhooks",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "webhooks_store_listwebhooks",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "webhooks_store_listwebhooks",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "webhooks_store_listwebhooks",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "webhooks_store_listwebhooks",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "webhooks_store_getactivewebhooksforevent",
+      "callee": "contains",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "webhooks_store_getactivewebhooksforevent",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "webhooks_store_getactivewebhooksforevent",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "webhooks_store_getactivewebhooksforevent",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "webhooks_store_getactivewebhooksforevent",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "webhooks_store_getactivewebhooksforevent",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "webhooks_store_getactivewebhooksforevent",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhook",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhook",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhook",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhook",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhook",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhook",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhook",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L189"
+    },
+    {
+      "caller_nid": "webhooks_store_deletewebhook",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "webhooks_store_deletewebhook",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "webhooks_store_deletewebhook",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "webhooks_store_deletewebhook",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhookstatus",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L243"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhookstatus",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L243"
+    },
+    {
+      "caller_nid": "webhooks_store_updatewebhookstatus",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/webhooks/store.ts",
+      "source_location": "L243"
+    }
+  ]
+}

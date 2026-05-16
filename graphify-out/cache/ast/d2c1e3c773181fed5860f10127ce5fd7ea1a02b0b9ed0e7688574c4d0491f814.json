@@ -1,0 +1,195 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "label": "auth.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "google_auth_getgoogleauth",
+      "label": "getGoogleAuth()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L19"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "googleapis",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_tokens_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "auth_tokens_gettokenmeta",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "auth_tokens_istokenexpired",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "auth_tokens_recordauthfailure",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "auth_tokens_resetauthfailures",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "auth_tokens_savetokens",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "auth_tokens_touchlastused",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "target": "google_auth_getgoogleauth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "getTokenMeta",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "setCredentials",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "isTokenExpired",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "refreshAccessToken",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "setCredentials",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "saveTokens",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "resetAuthFailures",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "recordAuthFailure",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "setCredentials",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "google_auth_getgoogleauth",
+      "callee": "touchLastUsed",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/auth.ts",
+      "source_location": "L68"
+    }
+  ]
+}

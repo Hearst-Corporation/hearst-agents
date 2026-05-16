@@ -1,0 +1,158 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_canonical_hash_ts",
+      "label": "canonical-hash.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_canonical_hash_canonicalstringify",
+      "label": "canonicalStringify()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "utils_canonical_hash_canonicalhash",
+      "label": "canonicalHash()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L54"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_canonical_hash_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_canonical_hash_ts",
+      "target": "utils_canonical_hash_canonicalstringify",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_canonical_hash_ts",
+      "target": "utils_canonical_hash_canonicalhash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "utils_canonical_hash_canonicalhash",
+      "target": "utils_canonical_hash_canonicalstringify",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalstringify",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalhash",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalhash",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "utils_canonical_hash_canonicalhash",
+      "callee": "createHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/canonical-hash.ts",
+      "source_location": "L55"
+    }
+  ]
+}

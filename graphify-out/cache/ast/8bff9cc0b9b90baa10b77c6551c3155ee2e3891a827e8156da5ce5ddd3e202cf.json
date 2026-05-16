@@ -1,0 +1,85 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_voicestage_tsx",
+      "label": "VoiceStage.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "stages_voicestage_bars",
+      "label": "BARS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "stages_voicestage_voicestage",
+      "label": "VoiceStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L7"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_voicestage_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_voicestage_tsx",
+      "target": "stages_voicestage_bars",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_stages_voicestage_tsx",
+      "target": "stages_voicestage_voicestage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stages_voicestage_voicestage",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L8"
+    },
+    {
+      "caller_nid": "stages_voicestage_voicestage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L10"
+    },
+    {
+      "caller_nid": "stages_voicestage_voicestage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "stages_voicestage_voicestage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/stages/VoiceStage.tsx",
+      "source_location": "L82"
+    }
+  ]
+}

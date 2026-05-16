@@ -1,0 +1,285 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "label": "system.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "settings_system_getfeatureflag",
+      "label": "getFeatureFlag()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "settings_system_setfeatureflag",
+      "label": "setFeatureFlag()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "settings_system_getthreshold",
+      "label": "getThreshold()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "settings_system_setthreshold",
+      "label": "setThreshold()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "settings_system_getlimit",
+      "label": "getLimit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "settings_system_seeddefaults",
+      "label": "seedDefaults()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L76"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_cache_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_cache_getsettingvalue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_cache_setsettingvalue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_defaults_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_defaults_default_settings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_defaults_getdefaultdefinition",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_types_settingvalue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_system_getfeatureflag",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_system_setfeatureflag",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_system_getthreshold",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_system_setthreshold",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_system_getlimit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_settings_system_ts",
+      "target": "settings_system_seeddefaults",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "settings_system_getfeatureflag",
+      "callee": "getDefaultDefinition",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "settings_system_getfeatureflag",
+      "callee": "getSettingValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "settings_system_setfeatureflag",
+      "callee": "getDefaultDefinition",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "settings_system_setfeatureflag",
+      "callee": "setSettingValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "settings_system_getthreshold",
+      "callee": "getDefaultDefinition",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "settings_system_getthreshold",
+      "callee": "getSettingValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "settings_system_setthreshold",
+      "callee": "getDefaultDefinition",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "settings_system_setthreshold",
+      "callee": "setSettingValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "settings_system_getlimit",
+      "callee": "getDefaultDefinition",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "settings_system_getlimit",
+      "callee": "getSettingValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "settings_system_seeddefaults",
+      "callee": "await getSettingValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "settings_system_seeddefaults",
+      "callee": "setSettingValue",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/settings/system.ts",
+      "source_location": "L85"
+    }
+  ]
+}

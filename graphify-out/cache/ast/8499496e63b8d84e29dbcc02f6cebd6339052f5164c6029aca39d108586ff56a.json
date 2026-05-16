@@ -1,0 +1,168 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "label": "hospitality-daily-brief.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "catalog_hospitality_daily_brief_buildhospitalitydailybrief",
+      "label": "buildHospitalityDailyBrief()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "catalog_hospitality_daily_brief_hospitality_daily_brief_required_apps",
+      "label": "HOSPITALITY_DAILY_BRIEF_REQUIRED_APPS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L163"
+    },
+    {
+      "id": "catalog_hospitality_daily_brief_buildhospitalitydailybriefsampledata",
+      "label": "buildHospitalityDailyBriefSampleData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L169"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "hospitality_mock_data_getmockarrivals",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "hospitality_mock_data_getmockdepartures",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "hospitality_mock_data_getmockkpisnapshot",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "hospitality_mock_data_getmockrevenuebysource",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "catalog_hospitality_daily_brief_buildhospitalitydailybrief",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "catalog_hospitality_daily_brief_hospitality_daily_brief_required_apps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L163",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_daily_brief_ts",
+      "target": "catalog_hospitality_daily_brief_buildhospitalitydailybriefsampledata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L169",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "catalog_hospitality_daily_brief_buildhospitalitydailybrief",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "catalog_hospitality_daily_brief_buildhospitalitydailybriefsampledata",
+      "callee": "getMockArrivals",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "catalog_hospitality_daily_brief_buildhospitalitydailybriefsampledata",
+      "callee": "getMockDepartures",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L172"
+    },
+    {
+      "caller_nid": "catalog_hospitality_daily_brief_buildhospitalitydailybriefsampledata",
+      "callee": "getMockRevenueBySource",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "catalog_hospitality_daily_brief_buildhospitalitydailybriefsampledata",
+      "callee": "getMockKpiSnapshot",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-daily-brief.ts",
+      "source_location": "L174"
+    }
+  ]
+}

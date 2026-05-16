@@ -1,0 +1,445 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "label": "route-handler.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "http_route_handler_test_mockrequirescope",
+      "label": "mockRequireScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "http_route_handler_test_mockrequireadmin",
+      "label": "mockRequireAdmin",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "http_route_handler_test_mockisadminerror",
+      "label": "mockIsAdminError",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "http_route_handler_test_makerequest",
+      "label": "makeRequest()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "http_route_handler_test_valid_scope",
+      "label": "VALID_SCOPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "http_route_handler_test_handler",
+      "label": "handler",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "http_route_handler_test_route",
+      "label": "route",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "http_route_handler_test_body",
+      "label": "body",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "http_route_handler_test_callarg",
+      "label": "callArg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L139"
+    },
+    {
+      "id": "http_route_handler_test_errresp",
+      "label": "errResp",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L183"
+    },
+    {
+      "id": "http_route_handler_test_fakedb",
+      "label": "fakeDb",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L230"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_mockrequirescope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_mockrequireadmin",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_mockisadminerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_makerequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_valid_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_callarg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L153",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L163",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_errresp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L183",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_errresp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L209",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L216",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L225",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_fakedb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L230",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_handler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L236",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_platform_http_route_handler_test_ts",
+      "target": "http_route_handler_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/platform/http/route-handler.test.ts",
+      "source_location": "L253",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

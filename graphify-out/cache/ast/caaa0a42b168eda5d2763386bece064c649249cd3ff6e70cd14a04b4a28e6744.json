@@ -1,0 +1,2090 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "label": "ai-pipeline.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_toolresultschema",
+      "label": "ToolResultSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_aipipelineinput",
+      "label": "AiPipelineInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_kimi",
+      "label": "kimi",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L117"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_kimiwithreasoning",
+      "label": "kimiWithReasoning()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L129"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_buildrequestconnectiontool",
+      "label": "buildRequestConnectionTool()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L142"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_scheduleargs",
+      "label": "ScheduleArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_buildcreatescheduledmissiontool",
+      "label": "buildCreateScheduledMissionTool()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L195"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_createartifactargs",
+      "label": "CreateArtifactArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L303"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_artifact_kind_values",
+      "label": "ARTIFACT_KIND_VALUES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L311"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_buildcreateartifacttool",
+      "label": "buildCreateArtifactTool()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L321"
+    },
+    {
+      "id": "orchestrator_ai_pipeline_runaipipeline",
+      "label": "runAiPipeline()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L435"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "openai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "assets_types_asset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "assets_types_assetkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "assets_types_storeasset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_discovery_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "composio_discovery_gettoolsforuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_to_ai_tools_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "composio_to_ai_tools_toaitools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_write_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "composio_write_guard_filtertoolsbydomain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "composio_write_guard_iswriteaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "embeddings_store_upsertembedding",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "engine_index_runengine",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_create_mission_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "missions_create_mission_createscheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "missions_store_addmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "state_adapter_savescheduledmission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "events_bus_runeventbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "llm_circuit_breaker_defaultcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "llm_metrics_defaultmetrics",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "llm_pricing_computecostusd",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "llm_safe_chat_iscircuitopenfor",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_briefing_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "memory_briefing_generatebriefing",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "memory_kg_context_getkgcontextforuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_ingest_pipeline_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "memory_kg_ingest_pipeline_fireandforgetingestturn",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_retrieval_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "memory_retrieval_context_getretrievedmemoryforuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "memory_store_appendmodelmessages",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "memory_store_getrecentmodelmessages",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_multi_tenant_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "multi_tenant_types_tenantscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_personas_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "personas_store_getdefaultpersona",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "personas_store_getpersonabyid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "personas_store_getpersonaforsurface",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "catalog_index_getapplicablereports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_llm_tool_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "spec_llm_tool_buildproposereportspectool",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_enrich_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_enrich_buildenrichtools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_media_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_extras_media_buildextrasmediatools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_extras_services_buildextrasservicestools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_google_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_google_buildnativegoogletools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_google_native_google_tool_descriptors",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_hearst_actions_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_hearst_actions_buildhearstactiontools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_kg_query_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_kg_query_buildkgquerytools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_market_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_market_data_buildmarketdatatools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_meetings_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_meetings_buildmeetingstools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_missions_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_missions_buildmissiontools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_research_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_research_buildresearchtools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_web_search_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "native_web_search_buildwebsearchtools",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_canonical_hash_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "utils_canonical_hash_canonicalhash",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_redact_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "utils_redact_redactid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_system_prompt_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_system_prompt_buildagentsystemprompt",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_system_prompt_orchestrator_model",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_toolresultschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_aipipelineinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_kimi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_kimiwithreasoning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_buildrequestconnectiontool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_scheduleargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_buildcreatescheduledmissiontool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L195",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_createartifactargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L303",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_artifact_kind_values",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L311",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_buildcreateartifacttool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L321",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "target": "orchestrator_ai_pipeline_runaipipeline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L435",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_ai_pipeline_kimiwithreasoning",
+      "target": "orchestrator_ai_pipeline_kimi",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_ai_pipeline_runaipipeline",
+      "target": "orchestrator_ai_pipeline_buildrequestconnectiontool",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L566",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_ai_pipeline_runaipipeline",
+      "target": "orchestrator_ai_pipeline_buildcreatescheduledmissiontool",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L567",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_ai_pipeline_runaipipeline",
+      "target": "orchestrator_ai_pipeline_buildcreateartifacttool",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L577",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_ai_pipeline_runaipipeline",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L717",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_ai_pipeline_kimiwithreasoning",
+      "callee": "wrapLanguageModel",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_kimiwithreasoning",
+      "callee": "extractReasoningMiddleware",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_buildrequestconnectiontool",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_buildcreatescheduledmissiontool",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_buildcreateartifacttool",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L333"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "redactId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L443"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L444"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "fail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L445"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L459"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L460"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildNativeGoogleTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L460"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L467"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getToolsForUser",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L467"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L473"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "generateBriefing",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L473"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L480"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getKgContextForUser",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L480"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L487"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getRetrievedMemoryForUser",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L487"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "filterToolsByDomain",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L498"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L500"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L501"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildHearstActionTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L517"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildEnrichTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L525"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildWebSearchTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L526"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildMarketDataTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L527"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildExtrasServicesTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L528"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildResearchTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L529"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildExtrasMediaTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L535"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildKgQueryTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L541"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildMissionTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L544"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildMeetingsTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L549"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toAiTools",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L565"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildProposeReportSpecTool",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L585"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L601"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L602"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L627"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L635"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L647"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L650"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L650"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getApplicableReports",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L650"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getPersonaById",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L671"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getPersonaForSurface",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L674"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getDefaultPersona",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L677"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L680"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "buildAgentSystemPrompt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L684"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "getRecentModelMessages",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L703"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L706"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L718"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L719"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L719"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L726"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L729"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L730"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L751"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L754"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L768"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "isCircuitOpenFor",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L807"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L809"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "fail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L810"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "runStream",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L814"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "parseFloat",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L868"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L878"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "ceil",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L878"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L882"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L886"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L894"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L903"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "isWriteAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L909"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "isInternalMetaTool",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L910"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "canonicalHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L915"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L917"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L918"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L921"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L925"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L933"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L936"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "incrementCounter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L941"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L947"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L948"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L951"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L954"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L965"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L969"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L977"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L986"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L987"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L990"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L996"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1001"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1017"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1023"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1031"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1031"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1033"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1043"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1055"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1070"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "computeCostUsd",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1079"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1088"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1089"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1091"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1094"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1099"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1100"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1103"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1106"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1109"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1120"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1124"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1127"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1132"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1136"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "toLocaleString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1139"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "track",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1157"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1173"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1192"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1213"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1214"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1217"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1217"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "appendModelMessages",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1232"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1234"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1241"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "fireAndForgetIngestTurn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1242"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1256"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1257"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "upsertEmbedding",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1257"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1261"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1272"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1273"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "upsertEmbedding",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1273"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1277"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "recordSuccess",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1290"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "complete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1291"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1293"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1294"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "recordFailure",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1295"
+    },
+    {
+      "caller_nid": "orchestrator_ai_pipeline_runaipipeline",
+      "callee": "fail",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/ai-pipeline.ts",
+      "source_location": "L1300"
+    }
+  ]
+}

@@ -1,0 +1,428 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "label": "google.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "sources_google_googleservice",
+      "label": "GoogleService",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "sources_google_fetchgoogleinput",
+      "label": "FetchGoogleInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "sources_google_fetchgoogleresult",
+      "label": "FetchGoogleResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "sources_google_fetchgoogle",
+      "label": "fetchGoogle()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "sources_google_dispatch",
+      "label": "dispatch()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "sources_google_emailtorow",
+      "label": "emailToRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L90"
+    },
+    {
+      "id": "sources_google_eventtorow",
+      "label": "eventToRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "sources_google_filetorow",
+      "label": "fileToRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "sources_google_clampint",
+      "label": "clampInt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L109"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_calendar_calendarevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_calendar_gettodayevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_calendar_getupcomingevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_drive_drivefile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_drive_getrecentfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_drive_searchdrivefiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_gmail_emailsummary",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "google_gmail_getrecentemails",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_tabular_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "engine_tabular_tabular",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_googleservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_fetchgoogleinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_fetchgoogleresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_fetchgoogle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_dispatch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_emailtorow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_eventtorow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_filetorow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sources_google_ts",
+      "target": "sources_google_clampint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "sources_google_fetchgoogle",
+      "target": "sources_google_dispatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "sources_google_dispatch",
+      "target": "sources_google_clampint",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "sources_google_fetchgoogle",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "getRecentEmails",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "getTodayEvents",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "getUpcomingEvents",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "getRecentFiles",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "searchDriveFiles",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "sources_google_dispatch",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "sources_google_clampint",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "sources_google_clampint",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "sources_google_clampint",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "sources_google_clampint",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "sources_google_clampint",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/sources/google.ts",
+      "source_location": "L112"
+    }
+  ]
+}

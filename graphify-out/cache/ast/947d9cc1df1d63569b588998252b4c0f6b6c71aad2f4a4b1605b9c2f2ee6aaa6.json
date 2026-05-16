@@ -1,0 +1,295 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "label": "distributed-lease.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missions_distributed_lease_db",
+      "label": "db()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "missions_distributed_lease_leasekey",
+      "label": "leaseKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "missions_distributed_lease_tryacquiremissionlease",
+      "label": "tryAcquireMissionLease()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "missions_distributed_lease_releasemissionlease",
+      "label": "releaseMissionLease()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L81"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_instance_id_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "runtime_instance_id_instance_id",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "missions_distributed_lease_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "missions_distributed_lease_leasekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "missions_distributed_lease_tryacquiremissionlease",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_distributed_lease_ts",
+      "target": "missions_distributed_lease_releasemissionlease",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_distributed_lease_tryacquiremissionlease",
+      "target": "missions_distributed_lease_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_distributed_lease_tryacquiremissionlease",
+      "target": "missions_distributed_lease_leasekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_distributed_lease_releasemissionlease",
+      "target": "missions_distributed_lease_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_distributed_lease_releasemissionlease",
+      "target": "missions_distributed_lease_leasekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L90",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "missions_distributed_lease_db",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_tryacquiremissionlease",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_releasemissionlease",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_releasemissionlease",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_releasemissionlease",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_releasemissionlease",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "missions_distributed_lease_releasemissionlease",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/distributed-lease.ts",
+      "source_location": "L95"
+    }
+  ]
+}

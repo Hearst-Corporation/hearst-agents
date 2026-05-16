@@ -1,0 +1,495 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "label": "circuit-breaker.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker",
+      "label": "LLMCircuitBreaker",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker_key",
+      "label": ".key()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker_isopen",
+      "label": ".isOpen()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker_recordsuccess",
+      "label": ".recordSuccess()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "label": ".recordFailure()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker_getstate",
+      "label": ".getState()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L131"
+    },
+    {
+      "id": "llm_circuit_breaker_llmcircuitbreaker_getprovidersnapshot",
+      "label": ".getProviderSnapshot()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L146"
+    },
+    {
+      "id": "llm_circuit_breaker_createdefaultstore",
+      "label": "createDefaultStore()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L171"
+    },
+    {
+      "id": "llm_circuit_breaker_defaultcircuitbreaker",
+      "label": "defaultCircuitBreaker",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L189"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "observability_logger_logger",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "redis_client_getredis",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_store_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_circuit_store_types_circuitstate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_circuit_store_types_circuitstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_circuit_store_types_persistedcircuitstate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_redis_circuit_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_redis_circuit_store_inmemorycircuitstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_redis_circuit_store_rediscircuitstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_circuit_breaker_llmcircuitbreaker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_key",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_isopen",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_recordsuccess",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_getstate",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_getprovidersnapshot",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_circuit_breaker_createdefaultstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "target": "llm_circuit_breaker_defaultcircuitbreaker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker_constructor",
+      "target": "llm_circuit_breaker_createdefaultstore",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker_isopen",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_key",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker_recordsuccess",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_key",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_key",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker_getstate",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_key",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker_getprovidersnapshot",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_key",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_circuit_breaker_llmcircuitbreaker_getprovidersnapshot",
+      "target": "llm_circuit_breaker_llmcircuitbreaker_getstate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L157",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_isopen",
+      "callee": "getSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_isopen",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_isopen",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordsuccess",
+      "callee": "getSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordsuccess",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordsuccess",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "incrementFailures",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "getSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_recordfailure",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_getstate",
+      "callee": "getSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_getstate",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_llmcircuitbreaker_getprovidersnapshot",
+      "callee": "getSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_createdefaultstore",
+      "callee": "getRedis",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L177"
+    },
+    {
+      "caller_nid": "llm_circuit_breaker_createdefaultstore",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/circuit-breaker.ts",
+      "source_location": "L182"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "label": ".prettierrc.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "hearst_os_prettierrc_semi",
+      "label": "semi",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "hearst_os_prettierrc_singlequote",
+      "label": "singleQuote",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "hearst_os_prettierrc_trailingcomma",
+      "label": "trailingComma",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "hearst_os_prettierrc_printwidth",
+      "label": "printWidth",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "hearst_os_prettierrc_tabwidth",
+      "label": "tabWidth",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "hearst_os_prettierrc_arrowparens",
+      "label": "arrowParens",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "hearst_os_prettierrc_endofline",
+      "label": "endOfLine",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L8"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "target": "hearst_os_prettierrc_semi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "target": "hearst_os_prettierrc_singlequote",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "target": "hearst_os_prettierrc_trailingcomma",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "target": "hearst_os_prettierrc_printwidth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "target": "hearst_os_prettierrc_tabwidth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "target": "hearst_os_prettierrc_arrowparens",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_prettierrc_json",
+      "target": "hearst_os_prettierrc_endofline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/.prettierrc.json",
+      "source_location": "L8",
+      "weight": 1.0
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "label": "CatalogSection.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "parts_catalogsection_categoriesbar",
+      "label": "CategoriesBar()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "parts_catalogsection_categorychip",
+      "label": "CategoryChip()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L53"
+    },
+    {
+      "id": "parts_catalogsection_wallpaper",
+      "label": "Wallpaper()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L87"
+    },
+    {
+      "id": "parts_catalogsection_wallpapertile",
+      "label": "WallpaperTile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L147"
+    },
+    {
+      "id": "parts_catalogsection_lockbadge",
+      "label": "LockBadge()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L204"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_applogo_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "connections_applogo_applogo",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "connections_types_categories_visible",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "connections_types_composioapp",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "connections_types_stagevariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "parts_catalogsection_categoriesbar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "parts_catalogsection_categorychip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "parts_catalogsection_wallpaper",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "parts_catalogsection_wallpapertile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_connections_parts_catalogsection_tsx",
+      "target": "parts_catalogsection_lockbadge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L204",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "parts_catalogsection_categoriesbar",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "parts_catalogsection_categoriesbar",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "parts_catalogsection_categoriesbar",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "parts_catalogsection_wallpaper",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "parts_catalogsection_wallpapertile",
+      "callee": "stageVariant",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx",
+      "source_location": "L159"
+    }
+  ]
+}

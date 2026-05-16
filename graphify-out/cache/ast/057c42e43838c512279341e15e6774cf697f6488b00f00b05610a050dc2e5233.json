@@ -1,0 +1,185 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "label": "store.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runs_store_runs",
+      "label": "runs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "runs_store_addrun",
+      "label": "addRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "runs_store_getrunbyid",
+      "label": "getRunById()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "runs_store_getallruns",
+      "label": "getAllRuns()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "runs_store_clearallruns",
+      "label": "clearAllRuns()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L32"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "target": "runs_types_runrecord",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "target": "runs_store_runs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "target": "runs_store_addrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "target": "runs_store_getrunbyid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "target": "runs_store_getallruns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_runs_store_ts",
+      "target": "runs_store_clearallruns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runs_store_addrun",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "runs_store_addrun",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "runs_store_addrun",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "runs_store_addrun",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "runs_store_getrunbyid",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "runs_store_getallruns",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "runs_store_getallruns",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "runs_store_getallruns",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "runs_store_getallruns",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "runs_store_clearallruns",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/runs/store.ts",
+      "source_location": "L33"
+    }
+  ]
+}

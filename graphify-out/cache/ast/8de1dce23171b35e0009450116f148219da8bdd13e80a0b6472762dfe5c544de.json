@@ -1,0 +1,884 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "label": "assembler.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "daily_brief_assembler_todayiso",
+      "label": "todayIso()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "daily_brief_assembler_unwraplist",
+      "label": "unwrapList()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "daily_brief_assembler_fetchemails",
+      "label": "fetchEmails()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "daily_brief_assembler_fetchcalendar",
+      "label": "fetchCalendar()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "daily_brief_assembler_rawslackmessage",
+      "label": "RawSlackMessage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L97"
+    },
+    {
+      "id": "daily_brief_assembler_fetchslack",
+      "label": "fetchSlack()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L104"
+    },
+    {
+      "id": "daily_brief_assembler_rawgithubpull",
+      "label": "RawGithubPull",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L130"
+    },
+    {
+      "id": "daily_brief_assembler_fetchgithub",
+      "label": "fetchGithub()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L145"
+    },
+    {
+      "id": "daily_brief_assembler_rawlinearissue",
+      "label": "RawLinearIssue",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L188"
+    },
+    {
+      "id": "daily_brief_assembler_fetchlinear",
+      "label": "fetchLinear()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L199"
+    },
+    {
+      "id": "daily_brief_assembler_fetchextras",
+      "label": "fetchExtras()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L237"
+    },
+    {
+      "id": "daily_brief_assembler_assembledailybriefopts",
+      "label": "AssembleDailyBriefOpts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L271"
+    },
+    {
+      "id": "daily_brief_assembler_assembledailybriefdata",
+      "label": "assembleDailyBriefData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L292"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "composio_client_executecomposioaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_connections_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "composio_connections_listconnections",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "google_calendar_gettodayevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "google_gmail_getrecentemails",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_extras_providers_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_extras_providers_extras_providers",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_extras_providers_extrasource",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_extras_providers_isreservedtoolkit",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_types_dailybriefcalendaritem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_types_dailybriefdata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_types_dailybriefemailitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_types_dailybriefgithubitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_types_dailybrieflinearitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_types_dailybriefslackitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_todayiso",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_unwraplist",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_fetchemails",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_fetchcalendar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_rawslackmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_fetchslack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_rawgithubpull",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_fetchgithub",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_rawlinearissue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L188",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_fetchlinear",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_fetchextras",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L237",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_assembledailybriefopts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L271",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "target": "daily_brief_assembler_assembledailybriefdata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L292",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_fetchslack",
+      "target": "daily_brief_assembler_unwraplist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_fetchgithub",
+      "target": "daily_brief_assembler_unwraplist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_fetchlinear",
+      "target": "daily_brief_assembler_unwraplist",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_assembledailybriefdata",
+      "target": "daily_brief_assembler_fetchemails",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L303",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_assembledailybriefdata",
+      "target": "daily_brief_assembler_fetchcalendar",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L304",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_assembledailybriefdata",
+      "target": "daily_brief_assembler_fetchslack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L305",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_assembledailybriefdata",
+      "target": "daily_brief_assembler_fetchgithub",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L306",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_assembledailybriefdata",
+      "target": "daily_brief_assembler_fetchlinear",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L307",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_assembledailybriefdata",
+      "target": "daily_brief_assembler_fetchextras",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L308",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_assembler_assembledailybriefdata",
+      "target": "daily_brief_assembler_todayiso",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L351",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "daily_brief_assembler_todayiso",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_todayiso",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_unwraplist",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchemails",
+      "callee": "getRecentEmails",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchemails",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchemails",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchemails",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchcalendar",
+      "callee": "getTodayEvents",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchcalendar",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchslack",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchslack",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchslack",
+      "callee": "executeComposioAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchslack",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchslack",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchslack",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchslack",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchgithub",
+      "callee": "executeComposioAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchgithub",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchgithub",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchgithub",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchlinear",
+      "callee": "executeComposioAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchlinear",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L206"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchlinear",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchlinear",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "listConnections",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L238"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L239"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L243"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L243"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "allSettled",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L258"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L264"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_fetchextras",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L264"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "allSettled",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L302"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L314"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L315"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L318"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L320"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L323"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L324"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L331"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L332"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L336"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "daily_brief_assembler_assembledailybriefdata",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/assembler.ts",
+      "source_location": "L350"
+    }
+  ]
+}

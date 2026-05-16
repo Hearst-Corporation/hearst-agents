@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "label": "e2b-no-egress.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_e2b_no_egress_test_mocksandboxcreate",
+      "label": "mockSandboxCreate",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "security_e2b_no_egress_test_mockruncode",
+      "label": "mockRunCode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "security_e2b_no_egress_test_mockkill",
+      "label": "mockKill",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "security_e2b_no_egress_test_default_execution",
+      "label": "DEFAULT_EXECUTION",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "security_e2b_no_egress_test_callargs",
+      "label": "callArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "security_e2b_no_egress_test_mocksandboxcreate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "security_e2b_no_egress_test_mockruncode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "security_e2b_no_egress_test_mockkill",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "security_e2b_no_egress_test_default_execution",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "security_e2b_no_egress_test_callargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "security_e2b_no_egress_test_callargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_e2b_no_egress_test_ts",
+      "target": "security_e2b_no_egress_test_callargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/e2b-no-egress.test.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

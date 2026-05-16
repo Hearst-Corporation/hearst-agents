@@ -1,0 +1,142 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialr3f_ts",
+      "label": "useSpatialR3F.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_safe_usespatialr3f_uselerpedscale",
+      "label": "useLerpedScale()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "spatial_safe_usespatialr3f_useorbitalposition",
+      "label": "useOrbitalPosition()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "spatial_safe_usespatialr3f_useslowrotation",
+      "label": "useSlowRotation()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L57"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialr3f_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialr3f_ts",
+      "target": "fiber",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialr3f_ts",
+      "target": "three",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialr3f_ts",
+      "target": "spatial_safe_usespatialr3f_uselerpedscale",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialr3f_ts",
+      "target": "spatial_safe_usespatialr3f_useorbitalposition",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hooks_spatial_safe_usespatialr3f_ts",
+      "target": "spatial_safe_usespatialr3f_useslowrotation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_safe_usespatialr3f_uselerpedscale",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialr3f_uselerpedscale",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialr3f_uselerpedscale",
+      "callee": "useFrame",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialr3f_useorbitalposition",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialr3f_useorbitalposition",
+      "callee": "useFrame",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialr3f_useslowrotation",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "spatial_safe_usespatialr3f_useslowrotation",
+      "callee": "useFrame",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hooks/spatial-safe/useSpatialR3F.ts",
+      "source_location": "L60"
+    }
+  ]
+}

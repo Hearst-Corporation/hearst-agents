@@ -1,0 +1,146 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "label": "monthly-card-view.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "cockpit_monthly_card_view_monthlycardviewprops",
+      "label": "MonthlyCardViewProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "cockpit_monthly_card_view_formatnumber",
+      "label": "formatNumber()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L37"
+    },
+    {
+      "id": "cockpit_monthly_card_view_monthlycardview",
+      "label": "MonthlyCardView()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L41"
+    },
+    {
+      "id": "cockpit_monthly_card_view_numberedrowprops",
+      "label": "NumberedRowProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L340"
+    },
+    {
+      "id": "cockpit_monthly_card_view_numberedrow",
+      "label": "NumberedRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L347"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "target": "cockpit_monthly_card_monthlycarddata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "target": "cockpit_monthly_card_view_monthlycardviewprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "target": "cockpit_monthly_card_view_formatnumber",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "target": "cockpit_monthly_card_view_monthlycardview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "target": "cockpit_monthly_card_view_numberedrowprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L340",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_view_tsx",
+      "target": "cockpit_monthly_card_view_numberedrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_monthly_card_view_monthlycardview",
+      "target": "cockpit_monthly_card_view_formatnumber",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L243",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "cockpit_monthly_card_view_formatnumber",
+      "callee": "format",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "cockpit_monthly_card_view_monthlycardview",
+      "callee": "wrapper",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "cockpit_monthly_card_view_monthlycardview",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx",
+      "source_location": "L186"
+    }
+  ]
+}

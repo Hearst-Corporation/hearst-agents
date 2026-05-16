@@ -1,0 +1,535 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "label": "AssetCompareStage.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "stages_assetcomparestage_vision_ease",
+      "label": "VISION_EASE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "stages_assetcomparestage_section_variants",
+      "label": "SECTION_VARIANTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "stages_assetcomparestage_viewmode",
+      "label": "ViewMode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "stages_assetcomparestage_assetmeta",
+      "label": "AssetMeta",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L32"
+    },
+    {
+      "id": "stages_assetcomparestage_extractmeta",
+      "label": "extractMeta()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L39"
+    },
+    {
+      "id": "stages_assetcomparestage_formatcreatedat",
+      "label": "formatCreatedAt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L76"
+    },
+    {
+      "id": "stages_assetcomparestage_assetpreview",
+      "label": "AssetPreview()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L90"
+    },
+    {
+      "id": "stages_assetcomparestage_metachip",
+      "label": "MetaChip()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L148"
+    },
+    {
+      "id": "stages_assetcomparestage_assetpane",
+      "label": "AssetPane()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L177"
+    },
+    {
+      "id": "stages_assetcomparestage_overlayslider",
+      "label": "OverlaySlider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L265"
+    },
+    {
+      "id": "stages_assetcomparestage_assetcomparestage",
+      "label": "AssetCompareStage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L461"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "assets_types_asset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stores_stage_data_usestagedata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_types_railitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_vision_ease",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_section_variants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_viewmode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_assetmeta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_extractmeta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_formatcreatedat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_assetpreview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_metachip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_assetpane",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_overlayslider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L265",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_stages_assetcomparestage_tsx",
+      "target": "stages_assetcomparestage_assetcomparestage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L461",
+      "weight": 1.0
+    },
+    {
+      "source": "stages_assetcomparestage_assetpane",
+      "target": "stages_assetcomparestage_extractmeta",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "stages_assetcomparestage_assetpane",
+      "target": "stages_assetcomparestage_formatcreatedat",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L215",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stages_assetcomparestage_extractmeta",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_extractmeta",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_formatcreatedat",
+      "callee": "format",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_formatcreatedat",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetpreview",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetpreview",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetpreview",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetpreview",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L266"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L267"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L270"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L277"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L285"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L289"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L301"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L302"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L304"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_overlayslider",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L305"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L464"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L465"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L472"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L473"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L474"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L475"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L476"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L477"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L483"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L512"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L543"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L643"
+    },
+    {
+      "caller_nid": "stages_assetcomparestage_assetcomparestage",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx",
+      "source_location": "L675"
+    }
+  ]
+}

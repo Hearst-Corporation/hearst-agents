@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Apple Vision Pro Style — Hearst OS</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --glass-radius: 32px;
+  --card-radius: 24px;
+  --sq-radius: 20px;
+  --font-main: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html, body { 
+  height: 100%; 
+  /* Using a high-quality interior background to show off the glass blur perfectly */
+  background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2500&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Optional overlay to make the background slightly darker so the UI pops */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+/* ============================================================
+   VISION PRO GLASS SYSTEM
+   ============================================================ */
+.vision-container {
+  position: relative;
+  width: 1100px;
+  height: 700px;
+  perspective: 1200px;
+  z-index: 10;
+}
+
+.vision-window {
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 240, 245, 0.15); /* Light glass tint */
+  backdrop-filter: blur(50px) saturate(130%);
+  -webkit-backdrop-filter: blur(50px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 40px 80px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  border-radius: var(--glass-radius);
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  position: relative;
+  transition: transform 0.1s ease-out;
+  transform-style: preserve-3d;
+}
+
+/* The "Frozen" Grain Texture overlay for realism */
+.vision-window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.main-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.main-right {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+.row-1 { height: 220px; }
+.row-2 { height: 120px; }
+.row-3 { flex: 1; }
+
+/* ============================================================
+   CARDS (MATERIALS)
+   ============================================================ */
+.card {
+  border-radius: var(--card-radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Light Glass Card (Lamp) */
+.card-light {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+/* Dark Glass Card (Stats, Chart) */
+.card-dark {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Solid Opaque Card (Thermostat, Music, Squares) */
+.card-solid {
+  background: rgba(235, 235, 235, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+  color: #1a1a1a;
+}
+
+/* ============================================================
+   SIDEBAR & BOTTOM PILL
+   ============================================================ */
+.vision-sidebar {
+  position: absolute;
+  left: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: 12px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0.5;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.sidebar-icon:hover { opacity: 0.8; }
+.sidebar-icon.active {
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 1;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.vision-bottom-pill {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(235, 235, 235, 0.85);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: 6px 6px 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 15px 30px rgba(0,0,0,0.15), 
+    inset 0 1px 1px rgba(255,255,255,1);
+}
+
+.pill-item {
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pill-item:hover { color: #000; }
+.pill-item.active {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.pill-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   UI COMPONENTS
+   ============================================================ */
+.toggle {
+  width: 36px;
+  height: 20px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.toggle.on { background: #000; }
+.toggle-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: left 0.2s;
+}
+.toggle.on .toggle-thumb { left: 18px; }
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+.icon-btn.primary {
+  background: #000;
+  color: #fff;
+}
+
+svg { stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+</style>
+</head>
+<body>
+
+<div class="vision-container">
+  
+  <!-- SIDEBAR -->
+  <div class="vision-sidebar">
+    <div class="sidebar-icon active">
+      <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+    </div>
+    <div class="sidebar-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    </div>
+    <div class="sidebar-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    </div>
+    <div class="sidebar-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    </div>
+    <div class="sidebar-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    <!-- User Avatar -->
+    <div style="margin-top: 8px; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(255,255,255,0.5);">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;" alt="User">
+    </div>
+  </div>
+
+  <!-- MAIN WINDOW -->
+  <div class="vision-window">
+    
+    <!-- LEFT COLUMN -->
+    <div class="main-left">
+      <!-- ROW 1 -->
+      <div class="row row-1">
+        <!-- Lamp Card -->
+        <div class="card card-light" style="flex: 5; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between;">
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <svg width="48" height="48" viewBox="0 0 24 24" stroke="currentColor" style="opacity: 0.9;"><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/><circle cx="12" cy="12" r="4"/></svg>
+              <div>
+                <div style="font-size: 12px; opacity: 0.8; margin-bottom: 4px;">Device</div>
+                <div style="font-size: 16px; font-weight: 600;">Metal Office Desk Lamp with LED Bulb</div>
+              </div>
+            </div>
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 1px rgba(255,255,255,0.5);">
+              <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 16px;">
+            <div style="flex: 1; background: rgba(0,0,0,0.15); border-radius: 16px; padding: 16px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+              <div style="font-size: 24px; font-weight: 700;">5H 40M</div>
+              <div style="font-size: 12px; opacity: 0.7; margin-top: 4px;">Time Usage</div>
+            </div>
+            <div style="width: 1px; background: rgba(255,255,255,0.2); margin: 10px 0;"></div>
+            <div style="flex: 1; background: rgba(0,0,0,0.15); border-radius: 16px; padding: 16px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+              <div style="font-size: 24px; font-weight: 700;">65 W</div>
+              <div style="font-size: 12px; opacity: 0.7; margin-top: 4px;">Energy Consumption</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 16px;">
+            <div style="flex: 1; background: rgba(0,0,0,0.15); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1);">
+              <div>
+                <div style="font-size: 10px; opacity: 0.7; margin-bottom: 2px;">On from</div>
+                <div style="font-size: 14px; font-weight: 600;">05:00 PM</div>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+            <div style="flex: 1; background: rgba(0,0,0,0.15); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1);">
+              <div>
+                <div style="font-size: 10px; opacity: 0.7; margin-bottom: 2px;">Off at</div>
+                <div style="font-size: 14px; font-weight: 600;">06:00 AM</div>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Power Chart -->
+        <div class="card card-dark" style="flex: 4; justify-content: space-between;">
+          <div style="font-size: 14px; font-weight: 600;">Power Consumption (kWh)</div>
+          
+          <div style="flex: 1; display: flex; align-items: flex-end; gap: 12px; padding-bottom: 16px; margin-top: 24px; position: relative;">
+            <!-- Y-axis labels -->
+            <div style="position: absolute; left: 0; top: 0; bottom: 16px; display: flex; flex-direction: column; justify-content: space-between; font-size: 10px; opacity: 0.5;">
+              <span>400</span><span>300</span><span>200</span><span>100</span><span>0</span>
+            </div>
+            
+            <div style="margin-left: 24px; flex: 1; display: flex; align-items: flex-end; gap: 12px; height: 100%;">
+              <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 4px; height: 40%;"></div>
+              <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 4px; height: 60%;"></div>
+              <div style="flex: 1; background: #e5c185; border-radius: 4px; height: 90%; position: relative; box-shadow: 0 0 15px rgba(229,193,133,0.3);">
+                <div style="position: absolute; top: -28px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">389kWh</div>
+              </div>
+              <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 4px; height: 50%;"></div>
+              <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 4px; height: 75%;"></div>
+              <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 4px; height: 65%;"></div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; font-size: 10px; opacity: 0.5; margin-left: 24px;">
+            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 2 -->
+      <div class="row row-2">
+        <div class="card card-dark" style="flex: 4; justify-content: center;">
+          <div style="font-size: 13px; opacity: 0.8; margin-bottom: 8px;">Current Consumption</div>
+          <div style="font-size: 32px; font-weight: 700;">1.8 kWh</div>
+        </div>
+        <div class="card card-dark" style="flex: 3; justify-content: center;">
+          <div style="font-size: 13px; opacity: 0.8; margin-bottom: 8px;">Humidity</div>
+          <div style="font-size: 32px; font-weight: 700;">37.5%</div>
+        </div>
+        <div class="card card-dark" style="flex: 4; justify-content: center;">
+          <div style="font-size: 13px; opacity: 0.8; margin-bottom: 8px;">Temperature</div>
+          <div style="font-size: 32px; font-weight: 700;">65° F</div>
+        </div>
+      </div>
+
+      <!-- ROW 3 -->
+      <div class="row row-3">
+        <!-- Square 1 -->
+        <div class="card card-solid" style="flex: 1; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; color: #666;">
+              <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/><circle cx="12" cy="12" r="4"/></svg>
+            </div>
+            <div class="toggle"><div class="toggle-thumb"></div></div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Gaabor</div>
+            <div style="font-size: 16px; font-weight: 700;">Humidifier</div>
+          </div>
+        </div>
+
+        <!-- Square 2 -->
+        <div class="card card-solid" style="flex: 1; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; color: #666;">
+              <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </div>
+            <div class="toggle on"><div class="toggle-thumb"></div></div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Gaabor</div>
+            <div style="font-size: 16px; font-weight: 700;">Speaker</div>
+          </div>
+        </div>
+
+        <!-- Square 3 -->
+        <div class="card card-solid" style="flex: 1; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; color: #666;">
+              <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2v1"/><path d="M12 7v1"/><path d="M12 12v1"/><path d="M12 17v1"/></svg>
+            </div>
+            <div class="toggle on"><div class="toggle-thumb"></div></div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Gaabor</div>
+            <div style="font-size: 16px; font-weight: 700;">Smart Lamps</div>
+          </div>
+        </div>
+
+        <!-- Square 4 -->
+        <div class="card card-solid" style="flex: 1; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; color: #666;">
+              <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+            <div class="toggle on"><div class="toggle-thumb"></div></div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Gaabor</div>
+            <div style="font-size: 16px; font-weight: 700;">Camera</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="main-right">
+      
+      <!-- Thermostat -->
+      <div class="card card-solid" style="flex: 1; align-items: center; padding: 32px 24px;">
+        <div style="font-size: 24px; font-weight: 500; margin-bottom: 24px; color: #666;">08:30 PM</div>
+        
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+          <span style="font-size: 14px; color: #666; font-weight: 500;">Thermostat</span>
+          <div class="toggle on"><div class="toggle-thumb"></div></div>
+        </div>
+        
+        <!-- Circular Dial -->
+        <div style="width: 180px; height: 180px; border-radius: 50%; border: 6px solid rgba(0,0,0,0.04); position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 40px; box-shadow: inset 0 4px 10px rgba(0,0,0,0.02);">
+          <!-- Active track -->
+          <svg style="position: absolute; inset: -6px; width: 180px; height: 180px; transform: rotate(-90deg);">
+            <circle cx="90" cy="90" r="87" fill="none" stroke="#e5c185" stroke-width="6" stroke-dasharray="546" stroke-dashoffset="180" stroke-linecap="round"/>
+          </svg>
+          <div style="text-align: center;">
+            <div style="font-size: 56px; font-weight: 300; line-height: 1; letter-spacing: -0.02em;">60°</div>
+            <div style="font-size: 12px; color: #888; margin-top: 8px;">(Fahrenheit)</div>
+          </div>
+          <!-- Knob -->
+          <div style="position: absolute; top: 12px; left: 16px; width: 18px; height: 18px; background: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"></div>
+          <div style="position: absolute; bottom: 20px; display: flex; gap: 8px;">
+            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #666;">-</div>
+            <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #666;">+</div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div style="display: flex; gap: 12px; width: 100%;">
+          <div style="flex: 1; background: #fff; border-radius: 16px; padding: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" style="margin: 0 auto 6px auto;"><path d="M12 2v20"/><path d="M2 12h20"/><path d="m4.93 4.93 14.14 14.14"/><path d="m19.07 4.93-14.14 14.14"/></svg>
+            <div style="font-size: 11px; font-weight: 600; color: #1a1a1a;">Cold</div>
+          </div>
+          <div style="flex: 1; background: rgba(0,0,0,0.03); border-radius: 16px; padding: 12px; text-align: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" style="margin: 0 auto 6px auto; color: #666;"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <div style="font-size: 11px; font-weight: 600; color: #666;">Hot</div>
+          </div>
+          <div style="flex: 1; background: rgba(0,0,0,0.03); border-radius: 16px; padding: 12px; text-align: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" style="margin: 0 auto 6px auto; color: #666;"><path d="M12 2v20"/><path d="M12 12c2.5 0 4.5-2 4.5-4.5S14.5 3 12 3"/><path d="M12 12c-2.5 0-4.5 2-4.5 4.5S9.5 21 12 21"/></svg>
+            <div style="font-size: 11px; font-weight: 600; color: #666;">Fan</div>
+          </div>
+          <div style="flex: 1; background: rgba(0,0,0,0.03); border-radius: 16px; padding: 12px; text-align: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" style="margin: 0 auto 6px auto; color: #666;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div style="font-size: 11px; font-weight: 600; color: #666;">Eco</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Music Player -->
+      <div class="card card-solid" style="height: 160px; justify-content: center; align-items: center;">
+        <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Ericdoa x Valorant</div>
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">Greater Than One</div>
+        
+        <!-- Progress -->
+        <div style="width: 100%; display: flex; align-items: center; gap: 12px; font-size: 10px; color: #888; margin-bottom: 20px; font-weight: 500;">
+          <span>0:36</span>
+          <div style="flex: 1; height: 4px; background: rgba(0,0,0,0.08); border-radius: 2px; position: relative;">
+            <div style="position: absolute; left: 0; top: 0; height: 100%; width: 30%; background: #1a1a1a; border-radius: 2px;"></div>
+          </div>
+          <span>2:27</span>
+        </div>
+
+        <!-- Controls -->
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+          <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg></button>
+          <button class="icon-btn primary" style="width: 44px; height: 44px;"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+          <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+          <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM PILL -->
+  <div class="vision-bottom-pill">
+    <div class="pill-item active">Drawing Room</div>
+    <div class="pill-item">Kidsroom</div>
+    <div class="pill-item">Kitchen</div>
+    <div class="pill-item">Garage</div>
+    <div class="pill-item">Guest Room</div>
+    <div class="pill-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const windowEl = document.querySelector('.vision-window');
+  const container = document.querySelector('.vision-container');
+
+  // Subtle 3D parallax effect on mouse move
+  document.addEventListener('mousemove', (e) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    
+    // Calculate rotation based on mouse position
+    const xRotation = ((clientY / innerHeight) - 0.5) * -8;
+    const yRotation = ((clientX / innerWidth) - 0.5) * 8;
+    
+    windowEl.style.transform = `rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.01)`;
+  });
+
+  document.addEventListener('mouseleave', () => {
+    windowEl.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+  });
+</script>
+
+</body>
+</html>

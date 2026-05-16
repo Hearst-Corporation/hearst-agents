@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "label": "apollo.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_apollo_apollounavailableerror",
+      "label": "ApolloUnavailableError",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "providers_apollo_apollounavailableerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "providers_apollo_isapolloconfigured",
+      "label": "isApolloConfigured()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "providers_apollo_getapikey",
+      "label": "getApiKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "providers_apollo_apolloperson",
+      "label": "ApolloPerson",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "providers_apollo_personcache",
+      "label": "personCache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "providers_apollo_cachekey",
+      "label": "cacheKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "providers_apollo_enrichperson",
+      "label": "enrichPerson()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "providers_apollo_resetapollocache",
+      "label": "_resetApolloCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L128"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "quick_lru",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_apollounavailableerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_apollo_apollounavailableerror",
+      "target": "providers_apollo_apollounavailableerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_isapolloconfigured",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_getapikey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_apolloperson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_personcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_cachekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_enrichperson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_apollo_ts",
+      "target": "providers_apollo_resetapollocache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_apollo_enrichperson",
+      "target": "providers_apollo_cachekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_apollo_enrichperson",
+      "target": "providers_apollo_getapikey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_apollo_apollounavailableerror_constructor",
+      "callee": "super",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "providers_apollo_isapolloconfigured",
+      "callee": "Boolean",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "providers_apollo_enrichperson",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "providers_apollo_resetapollocache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/apollo.ts",
+      "source_location": "L129"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_meetings_webhook_cache_ts",
+      "label": "webhook-cache.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "meetings_webhook_cache_recallwebhookevent",
+      "label": "RecallWebhookEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "meetings_webhook_cache_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "meetings_webhook_cache_recordwebhookevent",
+      "label": "recordWebhookEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "meetings_webhook_cache_getlatestwebhookevent",
+      "label": "getLatestWebhookEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "meetings_webhook_cache_clearwebhookcache",
+      "label": "clearWebhookCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L33"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_meetings_webhook_cache_ts",
+      "target": "meetings_webhook_cache_recallwebhookevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_meetings_webhook_cache_ts",
+      "target": "meetings_webhook_cache_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_meetings_webhook_cache_ts",
+      "target": "meetings_webhook_cache_recordwebhookevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_meetings_webhook_cache_ts",
+      "target": "meetings_webhook_cache_getlatestwebhookevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_meetings_webhook_cache_ts",
+      "target": "meetings_webhook_cache_clearwebhookcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "meetings_webhook_cache_recordwebhookevent",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "meetings_webhook_cache_recordwebhookevent",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "meetings_webhook_cache_recordwebhookevent",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "meetings_webhook_cache_recordwebhookevent",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "meetings_webhook_cache_getlatestwebhookevent",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "meetings_webhook_cache_clearwebhookcache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/meetings/webhook-cache.ts",
+      "source_location": "L34"
+    }
+  ]
+}

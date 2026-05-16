@@ -1,0 +1,213 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "templates_index_workflowtemplatemeta",
+      "label": "WorkflowTemplateMeta",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "templates_index_workflow_templates",
+      "label": "WORKFLOW_TEMPLATES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "templates_index_gettemplatebyid",
+      "label": "getTemplateById()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "templates_index_gettemplatesbyvertical",
+      "label": "getTemplatesByVertical()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L66"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "workflows_types_workflowgraph",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_daily_standup_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "templates_daily_standup_dailystanduptemplate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_hospitality_guest_arrival_prep_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "hospitality_guest_arrival_prep_guestarrivalpreptemplate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_hospitality_service_request_dispatch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "hospitality_service_request_dispatch_servicerequestdispatchtemplate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_lead_nurture_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "templates_lead_nurture_leadnurturetemplate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_weekly_slack_digest_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "templates_weekly_slack_digest_weeklyslackdigesttemplate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "templates_index_workflowtemplatemeta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "templates_index_workflow_templates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "templates_index_gettemplatebyid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_index_ts",
+      "target": "templates_index_gettemplatesbyvertical",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "templates_index_gettemplatebyid",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "templates_index_gettemplatesbyvertical",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/templates/index.ts",
+      "source_location": "L69"
+    }
+  ]
+}

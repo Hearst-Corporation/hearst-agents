@@ -1,0 +1,973 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "label": "rate-limiter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_rate_limiter_ratelimiteroptions",
+      "label": "RateLimiterOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "llm_rate_limiter_tokenentry",
+      "label": "TokenEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "llm_rate_limiter_userstate",
+      "label": "UserState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "llm_rate_limiter_providerratelimit",
+      "label": "ProviderRateLimit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "llm_rate_limiter_throttledecision",
+      "label": "ThrottleDecision",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "llm_rate_limiter_rpm",
+      "label": "RPM",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "llm_rate_limiter_tph",
+      "label": "TPH",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "llm_rate_limiter_max_users",
+      "label": "MAX_USERS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter",
+      "label": "LLMRateLimiter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_cleanupifneeded",
+      "label": ".cleanupIfNeeded()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_evictlru",
+      "label": ".evictLRU()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_checklimit",
+      "label": ".checkLimit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L104"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_recordcall",
+      "label": ".recordCall()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L151"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_getstats",
+      "label": ".getStats()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_parseduration",
+      "label": ".parseDuration()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L202"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_parseresettimestamp",
+      "label": ".parseResetTimestamp()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L232"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_normalizeheaders",
+      "label": ".normalizeHeaders()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L243"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "label": ".recordHeaders()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L272"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "label": ".shouldThrottle()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L399"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_getnextdelay",
+      "label": ".getNextDelay()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L461"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_getproviderlimit",
+      "label": ".getProviderLimit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L469"
+    },
+    {
+      "id": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "label": ".logThrottle()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L474"
+    },
+    {
+      "id": "llm_rate_limiter_defaultratelimiter",
+      "label": "defaultRateLimiter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L488"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_errors_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_errors_ratelimitexceedederror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_ratelimiteroptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_tokenentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_userstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_providerratelimit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_throttledecision",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_rpm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_tph",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_max_users",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_llmratelimiter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_cleanupifneeded",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_evictlru",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_checklimit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_recordcall",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_getstats",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_parseduration",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_parseresettimestamp",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_normalizeheaders",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L399",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_getnextdelay",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L461",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_getproviderlimit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L469",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter",
+      "target": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L474",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "target": "llm_rate_limiter_defaultratelimiter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L488",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_checklimit",
+      "target": "llm_rate_limiter_llmratelimiter_cleanupifneeded",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_checklimit",
+      "target": "llm_rate_limiter_llmratelimiter_evictlru",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_recordcall",
+      "target": "llm_rate_limiter_llmratelimiter_evictlru",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "target": "llm_rate_limiter_llmratelimiter_normalizeheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L277",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "target": "llm_rate_limiter_llmratelimiter_parseresettimestamp",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L309",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "target": "llm_rate_limiter_llmratelimiter_parseduration",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L342",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "target": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L410",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_rate_limiter_llmratelimiter_getnextdelay",
+      "target": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L462",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_cleanupifneeded",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_cleanupifneeded",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_cleanupifneeded",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_evictlru",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_evictlru",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_evictlru",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_checklimit",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_checklimit",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_checklimit",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_checklimit",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_checklimit",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_checklimit",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L145"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordcall",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordcall",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordcall",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordcall",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordcall",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordcall",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L183"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L208"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "parseFloat",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "exec",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "parseFloat",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L219"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseduration",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L226"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseresettimestamp",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L234"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseresettimestamp",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L234"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_parseresettimestamp",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L235"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_normalizeheaders",
+      "callee": "forEach",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L246"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_normalizeheaders",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L251"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_normalizeheaders",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L253"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_normalizeheaders",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L253"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L283"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L303"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L305"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L306"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L319"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L321"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L322"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L336"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L352"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L354"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L355"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L369"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L369"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L370"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "parseFloat",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L370"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L373"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L374"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_recordheaders",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L384"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L400"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L403"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L424"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L430"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "ceil",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L431"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L431"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L442"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L448"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_shouldthrottle",
+      "callee": "ceil",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L448"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_getproviderlimit",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L470"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L475"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L476"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L478"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L480"
+    },
+    {
+      "caller_nid": "llm_rate_limiter_llmratelimiter_logthrottle",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/rate-limiter.ts",
+      "source_location": "L482"
+    }
+  ]
+}

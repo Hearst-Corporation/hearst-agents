@@ -1,0 +1,366 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "label": "briefing-scheduler.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_briefing_scheduler_briefingkey",
+      "label": "briefingKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "runtime_briefing_scheduler_gettodaybriefingkey",
+      "label": "getTodayBriefingKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "runtime_briefing_scheduler_scheduledailybriefing",
+      "label": "scheduleDailyBriefing()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L21"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "assets_types_asset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "assets_types_storeasset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "assets_variants_createvariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "jobs_queue_enqueuejob",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "jobs_types_audiogeninput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_briefing_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "memory_briefing_generatebriefing",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "redis_client_getredis",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "redis_client_redissetnxex",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "runtime_briefing_scheduler_briefingkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "runtime_briefing_scheduler_gettodaybriefingkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_briefing_scheduler_ts",
+      "target": "runtime_briefing_scheduler_scheduledailybriefing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_briefing_scheduler_gettodaybriefingkey",
+      "target": "runtime_briefing_scheduler_briefingkey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_briefing_scheduler_scheduledailybriefing",
+      "target": "runtime_briefing_scheduler_briefingkey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_briefing_scheduler_briefingkey",
+      "callee": "getFullYear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_briefingkey",
+      "callee": "padStart",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_briefingkey",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_briefingkey",
+      "callee": "getMonth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_briefingkey",
+      "callee": "padStart",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_briefingkey",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_briefingkey",
+      "callee": "getDate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "getRedis",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "randomUUID",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "redisSetNxEx",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "generateBriefing",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "toLocaleDateString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "storeAsset",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "createVariant",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "runtime_briefing_scheduler_scheduledailybriefing",
+      "callee": "enqueueJob",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/briefing-scheduler.ts",
+      "source_location": "L80"
+    }
+  ]
+}

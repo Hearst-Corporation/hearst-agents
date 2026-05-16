@@ -1,0 +1,117 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_ts",
+      "label": "fal.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_fal_falresult",
+      "label": "FalResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "providers_fal_falgenerate",
+      "label": "falGenerate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L9"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_ts",
+      "target": "providers_fal_falresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_fal_ts",
+      "target": "providers_fal_falgenerate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "setTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "providers_fal_falgenerate",
+      "callee": "clearTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/fal.ts",
+      "source_location": "L74"
+    }
+  ]
+}

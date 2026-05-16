@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_simulations_schemas_ts",
+      "label": "schemas.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "simulations_schemas_simulationscenarioschema",
+      "label": "simulationScenarioSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "simulations_schemas_simulationoutputschema",
+      "label": "simulationOutputSchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "simulations_schemas_simulationoutput",
+      "label": "SimulationOutput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L25"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_simulations_schemas_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_simulations_schemas_ts",
+      "target": "simulations_schemas_simulationscenarioschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_simulations_schemas_ts",
+      "target": "simulations_schemas_simulationoutputschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_simulations_schemas_ts",
+      "target": "simulations_schemas_simulationoutput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/simulations/schemas.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

@@ -1,0 +1,118 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "label": "slack-send-message.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "handlers_slack_send_message_stringify",
+      "label": "stringify()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "handlers_slack_send_message_slacksendmessage",
+      "label": "slackSendMessage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L27"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "target": "composio_client_executecomposioaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "target": "handlers_types_workflowhandler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "target": "handlers_slack_send_message_stringify",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_slack_send_message_ts",
+      "target": "handlers_slack_send_message_slacksendmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "handlers_slack_send_message_slacksendmessage",
+      "target": "handlers_slack_send_message_stringify",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "handlers_slack_send_message_stringify",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "handlers_slack_send_message_slacksendmessage",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "handlers_slack_send_message_slacksendmessage",
+      "callee": "executeComposioAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/slack-send-message.ts",
+      "source_location": "L51"
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "label": "config.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_config_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "orchestrator_config_agents",
+      "label": "agents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "orchestrator_config_parallelism",
+      "label": "parallelism",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "orchestrator_config_retries",
+      "label": "retries",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "orchestrator_config_retries_max_attempts",
+      "label": "max_attempts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "orchestrator_config_retries_backoff_seconds",
+      "label": "backoff_seconds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "orchestrator_config_timeouts",
+      "label": "timeouts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "orchestrator_config_timeouts_agent_seconds",
+      "label": "agent_seconds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L10"
+    },
+    {
+      "id": "orchestrator_config_timeouts_run_seconds",
+      "label": "run_seconds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L11"
+    },
+    {
+      "id": "orchestrator_config_thresholds",
+      "label": "thresholds",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L13"
+    },
+    {
+      "id": "orchestrator_config_thresholds_anomaly_quarantine",
+      "label": "anomaly_quarantine",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "orchestrator_config_deps_graph",
+      "label": "deps_graph",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L16"
+    },
+    {
+      "id": "orchestrator_config_deps_graph_architecture",
+      "label": "architecture",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "orchestrator_config_deps_graph_design_system",
+      "label": "design-system",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L18"
+    },
+    {
+      "id": "orchestrator_config_deps_graph_qa",
+      "label": "qa",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L19"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "target": "orchestrator_config_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "target": "orchestrator_config_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_agents",
+      "target": "ref_architecture",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "orchestrator_config_agents",
+      "target": "ref_design_system",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "orchestrator_config_agents",
+      "target": "ref_qa",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "target": "orchestrator_config_parallelism",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "target": "orchestrator_config_retries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_retries",
+      "target": "orchestrator_config_retries_max_attempts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_retries",
+      "target": "orchestrator_config_retries_backoff_seconds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "target": "orchestrator_config_timeouts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_timeouts",
+      "target": "orchestrator_config_timeouts_agent_seconds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_timeouts",
+      "target": "orchestrator_config_timeouts_run_seconds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "target": "orchestrator_config_thresholds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_thresholds",
+      "target": "orchestrator_config_thresholds_anomaly_quarantine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_config_json",
+      "target": "orchestrator_config_deps_graph",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_deps_graph",
+      "target": "orchestrator_config_deps_graph_architecture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_deps_graph",
+      "target": "orchestrator_config_deps_graph_design_system",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_deps_graph",
+      "target": "orchestrator_config_deps_graph_qa",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_config_deps_graph_qa",
+      "target": "ref_architecture",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "orchestrator_config_deps_graph_qa",
+      "target": "ref_design_system",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/config.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "import"
+    }
+  ]
+}

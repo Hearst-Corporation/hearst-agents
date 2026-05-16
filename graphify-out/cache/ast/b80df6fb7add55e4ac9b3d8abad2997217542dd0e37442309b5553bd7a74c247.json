@@ -1,0 +1,98 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_quickmentionrow_tsx",
+      "label": "QuickMentionRow.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "chat_input_quickmentionrow_quickmentionrowprops",
+      "label": "QuickMentionRowProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "chat_input_quickmentionrow_quickmentionrow",
+      "label": "QuickMentionRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L18"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_quickmentionrow_tsx",
+      "target": "navigation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_quickmentionrow_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_quickmentionrow_tsx",
+      "target": "integrations_types_servicedefinition",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_quickmentionrow_tsx",
+      "target": "chat_input_quickmentionrow_quickmentionrowprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_input_quickmentionrow_tsx",
+      "target": "chat_input_quickmentionrow_quickmentionrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "chat_input_quickmentionrow_quickmentionrow",
+      "callee": "useRouter",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "chat_input_quickmentionrow_quickmentionrow",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "chat_input_quickmentionrow_quickmentionrow",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/QuickMentionRow.tsx",
+      "source_location": "L32"
+    }
+  ]
+}

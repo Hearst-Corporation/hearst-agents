@@ -1,0 +1,189 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "examples_index_fewshotexample",
+      "label": "FewShotExample",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "examples_index_briefing_fewshot_fr",
+      "label": "BRIEFING_FEWSHOT_FR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "examples_index_narration_fewshot_fr",
+      "label": "NARRATION_FEWSHOT_FR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "examples_index_conv_summary_fewshot",
+      "label": "CONV_SUMMARY_FEWSHOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L90"
+    },
+    {
+      "id": "examples_index_action_items_fewshot",
+      "label": "ACTION_ITEMS_FEWSHOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L119"
+    },
+    {
+      "id": "examples_index_kg_extraction_fewshot",
+      "label": "KG_EXTRACTION_FEWSHOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L148"
+    },
+    {
+      "id": "examples_index_mission_context_fewshot_fr",
+      "label": "MISSION_CONTEXT_FEWSHOT_FR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L208"
+    },
+    {
+      "id": "examples_index_daily_brief_fewshot_fr",
+      "label": "DAILY_BRIEF_FEWSHOT_FR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L257"
+    },
+    {
+      "id": "examples_index_inbox_priority_fewshot",
+      "label": "INBOX_PRIORITY_FEWSHOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L328"
+    },
+    {
+      "id": "examples_index_formatfewshotblock",
+      "label": "formatFewShotBlock()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L412"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_fewshotexample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_briefing_fewshot_fr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_narration_fewshot_fr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_conv_summary_fewshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_action_items_fewshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_kg_extraction_fewshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_mission_context_fewshot_fr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_daily_brief_fewshot_fr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L257",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_inbox_priority_fewshot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L328",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_prompts_examples_index_ts",
+      "target": "examples_index_formatfewshotblock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L412",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "examples_index_formatfewshotblock",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L417"
+    },
+    {
+      "caller_nid": "examples_index_formatfewshotblock",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/prompts/examples/index.ts",
+      "source_location": "L417"
+    }
+  ]
+}

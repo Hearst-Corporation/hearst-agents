@@ -1,0 +1,93 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_nav_ts",
+      "label": "nav.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "shell_nav_navitem",
+      "label": "NavItem",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "shell_nav_navsection",
+      "label": "NavSection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "shell_nav_nav_sections",
+      "label": "NAV_SECTIONS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "shell_nav_activeitem",
+      "label": "activeItem()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L106"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_nav_ts",
+      "target": "shell_nav_navitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_nav_ts",
+      "target": "shell_nav_navsection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_nav_ts",
+      "target": "shell_nav_nav_sections",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_shell_nav_ts",
+      "target": "shell_nav_activeitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "shell_nav_activeitem",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "shell_nav_activeitem",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/nav.ts",
+      "source_location": "L112"
+    }
+  ]
+}

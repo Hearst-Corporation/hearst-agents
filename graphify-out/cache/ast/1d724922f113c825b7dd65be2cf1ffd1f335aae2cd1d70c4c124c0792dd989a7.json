@@ -1,0 +1,128 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "label": "Shell.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_shell_tabs",
+      "label": "TABS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "components_shell_homshell",
+      "label": "HomShell()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "components_shell_pageheader",
+      "label": "PageHeader()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L50"
+    },
+    {
+      "id": "components_shell_card",
+      "label": "Card()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L59"
+    },
+    {
+      "id": "components_shell_metriccell",
+      "label": "MetricCell()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L75"
+    },
+    {
+      "id": "components_shell_statuspill",
+      "label": "StatusPill()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L102"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "target": "link",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "target": "components_shell_tabs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "target": "components_shell_homshell",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "target": "components_shell_pageheader",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "target": "components_shell_card",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "target": "components_shell_metriccell",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_admin_orchestrator_components_shell_tsx",
+      "target": "components_shell_statuspill",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L102",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_shell_homshell",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/Shell.tsx",
+      "source_location": "L27"
+    }
+  ]
+}

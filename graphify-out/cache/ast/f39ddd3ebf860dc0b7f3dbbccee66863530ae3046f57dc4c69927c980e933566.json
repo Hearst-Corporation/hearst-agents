@@ -1,0 +1,648 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "label": "run-planner-workflow.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_complex_keywords_fr",
+      "label": "COMPLEX_KEYWORDS_FR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_complex_keywords_en",
+      "label": "COMPLEX_KEYWORDS_EN",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_multi_domain_hints",
+      "label": "MULTI_DOMAIN_HINTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_iscomplexintent",
+      "label": "isComplexIntent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_isplannerenabled",
+      "label": "isPlannerEnabled()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_estimateplancost",
+      "label": "estimatePlanCost()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L114"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_extractrequiredapps",
+      "label": "extractRequiredApps()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L127"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_buildpreview",
+      "label": "buildPreview()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L138"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_plannerworkflowinput",
+      "label": "PlannerWorkflowInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L149"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_plannerworkflowresult",
+      "label": "PlannerWorkflowResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L159"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "label": "runPlannerWorkflow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L173"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_estimatestepcost",
+      "label": "estimateStepCost()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L333"
+    },
+    {
+      "id": "orchestrator_run_planner_workflow_dispatchtool",
+      "label": "dispatchTool()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L342"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_platform_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "platform_types_connectorcapability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "planner_index_createplanfromintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_executor_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "planner_executor_executorcallbacks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "planner_executor_executeplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "planner_executor_stepexecutionresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "planner_types_executionplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "planner_types_executionplanstep",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "engine_index_runengine",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "events_bus_runeventbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "providers_resolver_resolveprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "providers_types_providerid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "handlers_send_message_handlesendmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "handlers_web_search_searchweb",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_complex_keywords_fr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_complex_keywords_en",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_multi_domain_hints",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_iscomplexintent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_isplannerenabled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_estimateplancost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_extractrequiredapps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_buildpreview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_plannerworkflowinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_plannerworkflowresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L173",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_estimatestepcost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L333",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_run_planner_workflow_ts",
+      "target": "orchestrator_run_planner_workflow_dispatchtool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L342",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "target": "orchestrator_run_planner_workflow_estimateplancost",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "target": "orchestrator_run_planner_workflow_extractrequiredapps",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L191",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_iscomplexintent",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_iscomplexintent",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_iscomplexintent",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_iscomplexintent",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_estimateplancost",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_estimateplancost",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_extractrequiredapps",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_extractrequiredapps",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_buildpreview",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_buildpreview",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L141"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_buildpreview",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_buildpreview",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_buildpreview",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_buildpreview",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "createPlanFromIntent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L181"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "emit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "executePlan",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L321"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L325"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L325"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_runplannerworkflow",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_dispatchtool",
+      "callee": "handleSendMessage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L350"
+    },
+    {
+      "caller_nid": "orchestrator_run_planner_workflow_dispatchtool",
+      "callee": "searchWeb",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/run-planner-workflow.ts",
+      "source_location": "L371"
+    }
+  ]
+}

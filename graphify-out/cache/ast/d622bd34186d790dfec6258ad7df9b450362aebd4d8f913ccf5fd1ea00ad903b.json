@@ -1,0 +1,207 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "label": "openai-realtime.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_openai_realtime_mintrealtimesessioninput",
+      "label": "MintRealtimeSessionInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "providers_openai_realtime_mintrealtimesession",
+      "label": "mintRealtimeSession()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L40"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_agents_connected_apps_context_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "agents_connected_apps_context_buildconnectedappscontext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "agents_connected_apps_context_buildslugstrictnessrule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_tools_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "voice_tools_voicetooldef",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_voice_voice_mapping_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "voice_voice_mapping_default_realtime_voice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "voice_voice_mapping_realtimevoice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "voice_voice_mapping_resolverealtimevoice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "providers_openai_realtime_mintrealtimesessioninput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_openai_realtime_ts",
+      "target": "providers_openai_realtime_mintrealtimesession",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "resolveRealtimeVoice",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "buildConnectedAppsContext",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "buildSlugStrictnessRule",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "providers_openai_realtime_mintrealtimesession",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/openai-realtime.ts",
+      "source_location": "L95"
+    }
+  ]
+}

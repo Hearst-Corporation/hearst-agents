@@ -1,0 +1,347 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "label": "embed.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "embeddings_embed_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "embeddings_embed_hashtext",
+      "label": "hashText()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "embeddings_embed_embeddingsunavailableerror",
+      "label": "EmbeddingsUnavailableError",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "embeddings_embed_embeddingsunavailableerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "embeddings_embed_getclient",
+      "label": "getClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "embeddings_embed_truncate",
+      "label": "truncate()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "embeddings_embed_touchcache",
+      "label": "touchCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "embeddings_embed_embedtext",
+      "label": "embedText()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L91"
+    },
+    {
+      "id": "embeddings_embed_clearembedcache",
+      "label": "__clearEmbedCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L125"
+    },
+    {
+      "id": "embeddings_embed_isembeddingsavailable",
+      "label": "isEmbeddingsAvailable()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L130"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "openai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_hashtext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_embeddingsunavailableerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "embeddings_embed_embeddingsunavailableerror",
+      "target": "embeddings_embed_embeddingsunavailableerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_getclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_truncate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_touchcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_embedtext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_clearembedcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_embed_ts",
+      "target": "embeddings_embed_isembeddingsavailable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "embeddings_embed_embedtext",
+      "target": "embeddings_embed_truncate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "embeddings_embed_embedtext",
+      "target": "embeddings_embed_hashtext",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "embeddings_embed_embedtext",
+      "target": "embeddings_embed_touchcache",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "embeddings_embed_embedtext",
+      "target": "embeddings_embed_getclient",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "embeddings_embed_hashtext",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "embeddings_embed_hashtext",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "embeddings_embed_hashtext",
+      "callee": "createHash",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "embeddings_embed_embeddingsunavailableerror_constructor",
+      "callee": "super",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "embeddings_embed_getclient",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "embeddings_embed_truncate",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "embeddings_embed_touchcache",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "embeddings_embed_touchcache",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "embeddings_embed_touchcache",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "embeddings_embed_touchcache",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "embeddings_embed_touchcache",
+      "callee": "delete",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "embeddings_embed_embedtext",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "embeddings_embed_embedtext",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "embeddings_embed_embedtext",
+      "callee": "create",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "embeddings_embed_clearembedcache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "embeddings_embed_isembeddingsavailable",
+      "callee": "Boolean",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/embeddings/embed.ts",
+      "source_location": "L131"
+    }
+  ]
+}

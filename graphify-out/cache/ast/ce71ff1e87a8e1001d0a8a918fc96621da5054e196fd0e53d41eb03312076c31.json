@@ -1,0 +1,412 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "label": "extras-services.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "native_extras_services_aitoolmap",
+      "label": "AiToolMap",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "native_extras_services_getresend",
+      "label": "getResend()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "native_extras_services_isresendenabled",
+      "label": "isResendEnabled()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "native_extras_services_sendemail",
+      "label": "sendEmail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "native_extras_services_sendemailargs",
+      "label": "SendEmailArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "native_extras_services_buildsendemailtool",
+      "label": "buildSendEmailTool()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L85"
+    },
+    {
+      "id": "native_extras_services_querysentryissuesargs",
+      "label": "QuerySentryIssuesArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "native_extras_services_querysentryissuestool",
+      "label": "querySentryIssuesTool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L192"
+    },
+    {
+      "id": "native_extras_services_queryaxiomlogsargs",
+      "label": "QueryAxiomLogsArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L244"
+    },
+    {
+      "id": "native_extras_services_queryaxiomlogstool",
+      "label": "queryAxiomLogsTool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L251"
+    },
+    {
+      "id": "native_extras_services_inngest_event_whitelist",
+      "label": "INNGEST_EVENT_WHITELIST",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L310"
+    },
+    {
+      "id": "native_extras_services_scheduleinngestjobargs",
+      "label": "ScheduleInngestJobArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L316"
+    },
+    {
+      "id": "native_extras_services_scheduleinngestjobtool",
+      "label": "scheduleInngestJobTool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L322"
+    },
+    {
+      "id": "native_extras_services_querylangfusetracesargs",
+      "label": "QueryLangfuseTracesArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L374"
+    },
+    {
+      "id": "native_extras_services_querylangfusetracestool",
+      "label": "queryLangfuseTracesTool",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L379"
+    },
+    {
+      "id": "native_extras_services_buildextrasservicestools",
+      "label": "buildExtrasServicesTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L430"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "ai",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "resend",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "inngest_client_inngest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "inngest_client_isinngestenabled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_hitl_confirmation_token_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "hitl_confirmation_token_hashtoolargs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "hitl_confirmation_token_issueconfirmationtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "hitl_confirmation_token_verifyconfirmationtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_aitoolmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_getresend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_isresendenabled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_sendemail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_sendemailargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_buildsendemailtool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_querysentryissuesargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_querysentryissuestool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_queryaxiomlogsargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_queryaxiomlogstool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L251",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_inngest_event_whitelist",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L310",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_scheduleinngestjobargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L316",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_scheduleinngestjobtool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L322",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_querylangfusetracesargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L374",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_querylangfusetracestool",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L379",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "target": "native_extras_services_buildextrasservicestools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L430",
+      "weight": 1.0
+    },
+    {
+      "source": "native_extras_services_sendemail",
+      "target": "native_extras_services_getresend",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "native_extras_services_buildextrasservicestools",
+      "target": "native_extras_services_buildsendemailtool",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L432",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "native_extras_services_isresendenabled",
+      "callee": "Boolean",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "native_extras_services_sendemail",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "native_extras_services_buildsendemailtool",
+      "callee": "jsonSchema",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/native/extras-services.ts",
+      "source_location": "L92"
+    }
+  ]
+}

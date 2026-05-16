@@ -1,0 +1,205 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "label": "contracts.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hom_contracts_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "hom_contracts_loadcontract",
+      "label": "loadContract()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "hom_contracts_loadallcontracts",
+      "label": "loadAllContracts()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L27"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_fs_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_fs_utils_readjson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_paths_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_paths_hom",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_types_agentcontract",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_types_agentid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_types_all_agents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_contracts_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_contracts_loadcontract",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_contracts_ts",
+      "target": "hom_contracts_loadallcontracts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_contracts_loadallcontracts",
+      "target": "hom_contracts_loadcontract",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hom_contracts_loadcontract",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "hom_contracts_loadcontract",
+      "callee": "await readJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "hom_contracts_loadcontract",
+      "callee": "agentContract",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "hom_contracts_loadcontract",
+      "callee": "agentContract",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "hom_contracts_loadcontract",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "hom_contracts_loadallcontracts",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/contracts.ts",
+      "source_location": "L30"
+    }
+  ]
+}

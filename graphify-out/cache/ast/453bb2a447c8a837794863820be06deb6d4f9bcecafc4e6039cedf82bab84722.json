@@ -1,0 +1,1015 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "label": "findings.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_audit_id",
+      "label": "audit_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_date",
+      "label": "date",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_context",
+      "label": "context",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_risk_level",
+      "label": "risk_level",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_baseline",
+      "label": "baseline",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_baseline_validate_initial",
+      "label": "validate_initial",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_baseline_typecheck_errors_initial",
+      "label": "typecheck_errors_initial",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_baseline_tests_initial",
+      "label": "tests_initial",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_baseline_circular_deps",
+      "label": "circular_deps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L10"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_baseline_deps_audit",
+      "label": "deps_audit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L11"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_findings",
+      "label": "findings",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L13"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_phase_verdicts",
+      "label": "phase_verdicts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L290"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_phase_verdicts_p1_auth_rbac_rls",
+      "label": "P1_auth_rbac_rls",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L291"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_phase_verdicts_p3_tool_hitl",
+      "label": "P3_tool_hitl",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L292"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_phase_verdicts_p5_rate_limit",
+      "label": "P5_rate_limit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L293"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_phase_verdicts_p6_prompt_injection",
+      "label": "P6_prompt_injection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L294"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_phase_verdicts_p8_headers_csrf",
+      "label": "P8_headers_csrf",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L295"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_vagues",
+      "label": "vagues",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L297"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_vagues_v1",
+      "label": "V1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L298"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v1_date",
+      "label": "date",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L299"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v1_agents",
+      "label": "agents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L300"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v1_findings_closed",
+      "label": "findings_closed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L301"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v1_phases_re_audited",
+      "label": "phases_re_audited",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L302"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_vagues_v2",
+      "label": "V2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L304"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v2_date",
+      "label": "date",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L305"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v2_agents",
+      "label": "agents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L306"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "label": "findings_closed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_vagues_v3",
+      "label": "V3",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L319"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v3_date",
+      "label": "date",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L320"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v3_agents",
+      "label": "agents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L321"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v3_findings_closed",
+      "label": "findings_closed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L322"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v3_approach",
+      "label": "approach",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L327"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_vagues_v4",
+      "label": "V4",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L329"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v4_date",
+      "label": "date",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L330"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v4_agents",
+      "label": "agents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L331"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v4_findings_closed",
+      "label": "findings_closed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L332"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_v4_commit",
+      "label": "commit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L338"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats",
+      "label": "stats",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L341"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_total_findings",
+      "label": "total_findings",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L342"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_closed",
+      "label": "closed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L343"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_open",
+      "label": "open",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L344"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_remaining_open",
+      "label": "remaining_open",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L345"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_p0",
+      "label": "p0",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L346"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_p1",
+      "label": "p1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L347"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_p2",
+      "label": "p2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L348"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_p3",
+      "label": "p3",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L349"
+    },
+    {
+      "id": "2026_05_16_stabilization_findings_stats_all_blocking_multi_user_public_closed",
+      "label": "all_blocking_multi_user_public_closed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L350"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_audit_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_date",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_context",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_risk_level",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_baseline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_baseline",
+      "target": "2026_05_16_stabilization_findings_baseline_validate_initial",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_baseline",
+      "target": "2026_05_16_stabilization_findings_baseline_typecheck_errors_initial",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_baseline",
+      "target": "2026_05_16_stabilization_findings_baseline_tests_initial",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_baseline",
+      "target": "2026_05_16_stabilization_findings_baseline_circular_deps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_baseline",
+      "target": "2026_05_16_stabilization_findings_baseline_deps_audit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_findings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_phase_verdicts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L290",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_phase_verdicts",
+      "target": "2026_05_16_stabilization_findings_phase_verdicts_p1_auth_rbac_rls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L291",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_phase_verdicts",
+      "target": "2026_05_16_stabilization_findings_phase_verdicts_p3_tool_hitl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L292",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_phase_verdicts",
+      "target": "2026_05_16_stabilization_findings_phase_verdicts_p5_rate_limit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L293",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_phase_verdicts",
+      "target": "2026_05_16_stabilization_findings_phase_verdicts_p6_prompt_injection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L294",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_phase_verdicts",
+      "target": "2026_05_16_stabilization_findings_phase_verdicts_p8_headers_csrf",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L295",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_vagues",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L297",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues",
+      "target": "2026_05_16_stabilization_findings_vagues_v1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L298",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v1",
+      "target": "2026_05_16_stabilization_findings_v1_date",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L299",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v1",
+      "target": "2026_05_16_stabilization_findings_v1_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L300",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v1",
+      "target": "2026_05_16_stabilization_findings_v1_findings_closed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L301",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_findings_closed",
+      "target": "ref_f001",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L301",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_findings_closed",
+      "target": "ref_f003",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L301",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_findings_closed",
+      "target": "ref_f004",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L301",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v1",
+      "target": "2026_05_16_stabilization_findings_v1_phases_re_audited",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L302",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_phases_re_audited",
+      "target": "ref_p1",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L302",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_phases_re_audited",
+      "target": "ref_p3",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L302",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_phases_re_audited",
+      "target": "ref_p5",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L302",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_phases_re_audited",
+      "target": "ref_p6",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L302",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v1_phases_re_audited",
+      "target": "ref_p8",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L302",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues",
+      "target": "2026_05_16_stabilization_findings_vagues_v2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L304",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v2",
+      "target": "2026_05_16_stabilization_findings_v2_date",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L305",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v2",
+      "target": "2026_05_16_stabilization_findings_v2_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L306",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v2",
+      "target": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_f_new_p8_01",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_f_new_p8_02",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_f_new_p8_03",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_f_098_residual",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_f_101_residual",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_f_115_residual",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_nf_001",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_f_new_p1_01",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v2_findings_closed",
+      "target": "ref_secrets_rotation_runbook",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L307",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues",
+      "target": "2026_05_16_stabilization_findings_vagues_v3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L319",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v3",
+      "target": "2026_05_16_stabilization_findings_v3_date",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L320",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v3",
+      "target": "2026_05_16_stabilization_findings_v3_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L321",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v3",
+      "target": "2026_05_16_stabilization_findings_v3_findings_closed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L322",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v3_findings_closed",
+      "target": "ref_f002_20_fichiers_kimi",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L322",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v3_findings_closed",
+      "target": "ref_f_new_p5_01",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L322",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v3_findings_closed",
+      "target": "ref_bug_anthropic_api_key_in_kg_ts",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L322",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v3",
+      "target": "2026_05_16_stabilization_findings_v3_approach",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L327",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues",
+      "target": "2026_05_16_stabilization_findings_vagues_v4",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L329",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v4",
+      "target": "2026_05_16_stabilization_findings_v4_date",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L330",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v4",
+      "target": "2026_05_16_stabilization_findings_v4_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L331",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v4",
+      "target": "2026_05_16_stabilization_findings_v4_findings_closed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L332",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v4_findings_closed",
+      "target": "ref_f_079_residual",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L332",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v4_findings_closed",
+      "target": "ref_f_127_residual",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L332",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v4_findings_closed",
+      "target": "ref_f_missing_metrics_persist",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L332",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_v4_findings_closed",
+      "target": "ref_f002_stagehand",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L332",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_vagues_v4",
+      "target": "2026_05_16_stabilization_findings_v4_commit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L338",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_2026_05_16_stabilization_findings_json",
+      "target": "2026_05_16_stabilization_findings_stats",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L341",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_total_findings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L342",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_closed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L343",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_open",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L344",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_remaining_open",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L345",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats_remaining_open",
+      "target": "ref_f_104_residual_p2_non_bloquant",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L345",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_p0",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L346",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_p1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_p2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L348",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_p3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L349",
+      "weight": 1.0
+    },
+    {
+      "source": "2026_05_16_stabilization_findings_stats",
+      "target": "2026_05_16_stabilization_findings_stats_all_blocking_multi_user_public_closed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/2026-05-16-stabilization/findings.json",
+      "source_location": "L350",
+      "weight": 1.0
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_dev_bypass_ts",
+      "label": "dev-bypass.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "auth_dev_bypass_readbypassraw",
+      "label": "readBypassRaw()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "auth_dev_bypass_isproductionenv",
+      "label": "isProductionEnv()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "auth_dev_bypass_assertdevbypassnotinproduction",
+      "label": "assertDevBypassNotInProduction()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "auth_dev_bypass_isdevbypassenabled",
+      "label": "isDevBypassEnabled()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_dev_bypass_ts",
+      "target": "auth_dev_bypass_readbypassraw",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_dev_bypass_ts",
+      "target": "auth_dev_bypass_isproductionenv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_dev_bypass_ts",
+      "target": "auth_dev_bypass_assertdevbypassnotinproduction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_dev_bypass_ts",
+      "target": "auth_dev_bypass_isdevbypassenabled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "auth_dev_bypass_assertdevbypassnotinproduction",
+      "target": "auth_dev_bypass_readbypassraw",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "auth_dev_bypass_assertdevbypassnotinproduction",
+      "target": "auth_dev_bypass_isproductionenv",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "auth_dev_bypass_isdevbypassenabled",
+      "target": "auth_dev_bypass_assertdevbypassnotinproduction",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "auth_dev_bypass_isdevbypassenabled",
+      "target": "auth_dev_bypass_readbypassraw",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "auth_dev_bypass_isdevbypassenabled",
+      "target": "auth_dev_bypass_isproductionenv",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "auth_dev_bypass_isproductionenv",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/dev-bypass.ts",
+      "source_location": "L24"
+    }
+  ]
+}

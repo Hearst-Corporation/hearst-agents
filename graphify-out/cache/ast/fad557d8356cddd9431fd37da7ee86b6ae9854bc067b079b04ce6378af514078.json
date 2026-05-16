@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_list_arrivals_today_ts",
+      "label": "pms-list-arrivals-today.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "handlers_pms_list_arrivals_today_pmslistarrivalstoday",
+      "label": "pmsListArrivalsToday()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L13"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_list_arrivals_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_list_arrivals_today_ts",
+      "target": "hospitality_mock_data_getmockarrivals",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_list_arrivals_today_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_list_arrivals_today_ts",
+      "target": "handlers_types_workflowhandler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_pms_list_arrivals_today_ts",
+      "target": "handlers_pms_list_arrivals_today_pmslistarrivalstoday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "handlers_pms_list_arrivals_today_pmslistarrivalstoday",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "handlers_pms_list_arrivals_today_pmslistarrivalstoday",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "handlers_pms_list_arrivals_today_pmslistarrivalstoday",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "handlers_pms_list_arrivals_today_pmslistarrivalstoday",
+      "callee": "getMockArrivals",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/pms-list-arrivals-today.ts",
+      "source_location": "L20"
+    }
+  ]
+}

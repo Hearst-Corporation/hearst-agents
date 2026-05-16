@@ -1,0 +1,180 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "label": "send-email-hitl.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_send_email_hitl_test_mocksend",
+      "label": "mockSend",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "security_send_email_hitl_test_resend",
+      "label": "Resend",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "security_send_email_hitl_test_gettools",
+      "label": "getTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "security_send_email_hitl_test_gettokenhelpers",
+      "label": "getTokenHelpers()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "security_send_email_hitl_test_scope",
+      "label": "SCOPE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "security_send_email_hitl_test_email_args",
+      "label": "EMAIL_ARGS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "security_send_email_hitl_test_token",
+      "label": "token",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L76"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_mocksend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_resend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_gettools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_gettokenhelpers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_email_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_send_email_hitl_test_ts",
+      "target": "security_send_email_hitl_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "security_send_email_hitl_test_gettools",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_native_extras_services_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "security_send_email_hitl_test_gettokenhelpers",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_hitl_confirmation_token_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "security_send_email_hitl_test_gettools",
+      "callee": "buildExtrasServicesTools",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/send-email-hitl.test.ts",
+      "source_location": "L37"
+    }
+  ]
+}

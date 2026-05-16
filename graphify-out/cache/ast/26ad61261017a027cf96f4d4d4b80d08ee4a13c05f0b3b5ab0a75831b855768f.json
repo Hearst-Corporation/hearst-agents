@@ -1,0 +1,181 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "label": "boot.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "cleanup_boot_isstarted",
+      "label": "isStarted()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "cleanup_boot_markstarted",
+      "label": "markStarted()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "cleanup_boot_ensurecleanupschedulerstarted",
+      "label": "ensureCleanupSchedulerStarted()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L26"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "target": "storage_index_getglobalstorage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_scheduler_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "target": "cleanup_scheduler_cleanupscheduler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "target": "cleanup_boot_isstarted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "target": "cleanup_boot_markstarted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_cleanup_boot_ts",
+      "target": "cleanup_boot_ensurecleanupschedulerstarted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "cleanup_boot_ensurecleanupschedulerstarted",
+      "target": "cleanup_boot_isstarted",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "cleanup_boot_ensurecleanupschedulerstarted",
+      "target": "cleanup_boot_markstarted",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "cleanup_boot_ensurecleanupschedulerstarted",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "cleanup_boot_ensurecleanupschedulerstarted",
+      "callee": "parseInt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "cleanup_boot_ensurecleanupschedulerstarted",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "cleanup_boot_ensurecleanupschedulerstarted",
+      "callee": "requireServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "cleanup_boot_ensurecleanupschedulerstarted",
+      "callee": "getGlobalStorage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "cleanup_boot_ensurecleanupschedulerstarted",
+      "callee": "start",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "cleanup_boot_ensurecleanupschedulerstarted",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "cleanup_boot_ensurecleanupschedulerstarted",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/cleanup/boot.ts",
+      "source_location": "L60"
+    }
+  ]
+}

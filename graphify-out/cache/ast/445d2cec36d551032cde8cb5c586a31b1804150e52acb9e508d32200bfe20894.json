@@ -1,0 +1,184 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_events_singleton_ts",
+      "label": "queue-events-singleton.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "jobs_queue_events_singleton_queueeventsbyname",
+      "label": "queueEventsByName",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "jobs_queue_events_singleton_getqueueevents",
+      "label": "getQueueEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "jobs_queue_events_singleton_closeallqueueevents",
+      "label": "closeAllQueueEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L50"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_events_singleton_ts",
+      "target": "bullmq",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_events_singleton_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_connection_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_events_singleton_ts",
+      "target": "jobs_connection_getbullconnection",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_events_singleton_ts",
+      "target": "jobs_queue_events_singleton_queueeventsbyname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_events_singleton_ts",
+      "target": "jobs_queue_events_singleton_getqueueevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_events_singleton_ts",
+      "target": "jobs_queue_events_singleton_closeallqueueevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "getBullConnection",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "duplicate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "once",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "once",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "once",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_getqueueevents",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_closeallqueueevents",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_closeallqueueevents",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_closeallqueueevents",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_closeallqueueevents",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "jobs_queue_events_singleton_closeallqueueevents",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue-events-singleton.ts",
+      "source_location": "L53"
+    }
+  ]
+}

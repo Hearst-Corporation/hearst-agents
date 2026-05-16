@@ -1,0 +1,362 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "label": "briefing-injection.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "memory_briefing_injection_test_gettoolsforuser_toaitools_buildagentsystempromptmock_streamtext_createanthropic_generatebriefing",
+      "label": "{\n  getToolsForUser,\n  toAiTools,\n  buildAgentSystemPromptMock,\n  streamText,\n  createAnthropic,\n  generateBriefing,\n}",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "memory_briefing_injection_test_actual",
+      "label": "actual",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "memory_briefing_injection_test_makeengine",
+      "label": "makeEngine()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "memory_briefing_injection_test_makebus",
+      "label": "makeBus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L73"
+    },
+    {
+      "id": "memory_briefing_injection_test_makestreamresult",
+      "label": "makeStreamResult()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "memory_briefing_injection_test_args",
+      "label": "args",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L112"
+    },
+    {
+      "id": "memory_briefing_injection_test_engine",
+      "label": "engine",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L137"
+    },
+    {
+      "id": "memory_briefing_injection_test_prompt",
+      "label": "prompt",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L159"
+    },
+    {
+      "id": "memory_briefing_injection_test_long",
+      "label": "long",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L191"
+    },
+    {
+      "id": "memory_briefing_injection_test_match",
+      "label": "match",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L196"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_gettoolsforuser_toaitools_buildagentsystempromptmock_streamtext_createanthropic_generatebriefing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_actual",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_actual",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_ai_pipeline_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "orchestrator_ai_pipeline_runaipipeline",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "engine_index_runengine",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_bus_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "events_bus_runeventbus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_makeengine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_makebus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_makestreamresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_engine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L183",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_long",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_briefing_injection_test_ts",
+      "target": "memory_briefing_injection_test_match",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L196",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "memory_briefing_injection_test_makeengine",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makeengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makeengine",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makeengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makeengine",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makeengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makebus",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makestreamresult",
+      "callee": "(async function* () {})",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "memory_briefing_injection_test_makestreamresult",
+      "callee": "resolve",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/briefing-injection.test.ts",
+      "source_location": "L80"
+    }
+  ]
+}

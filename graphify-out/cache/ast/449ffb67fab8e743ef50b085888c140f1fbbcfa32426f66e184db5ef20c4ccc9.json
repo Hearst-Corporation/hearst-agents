@@ -1,0 +1,160 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "label": "kg-invariants.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "memory_kg_invariants_test_extractentities_upsertnode_upsertembedding_getserversupabase_requireserversupabase",
+      "label": "{ extractEntities, upsertNode, upsertEmbedding, getServerSupabase, requireServerSupabase }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "memory_kg_invariants_test_actual",
+      "label": "actual",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "memory_kg_invariants_test_upsertnode_realupsertnode",
+      "label": "{ upsertNode: realUpsertNode }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L161"
+    },
+    {
+      "id": "memory_kg_invariants_test_upsertcapture",
+      "label": "upsertCapture",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L166"
+    },
+    {
+      "id": "memory_kg_invariants_test_mocksbfornode",
+      "label": "mockSbForNode",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L172"
+    },
+    {
+      "id": "memory_kg_invariants_test_data_opts",
+      "label": "[_data, opts]",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L189"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "memory_kg_invariants_test_extractentities_upsertnode_upsertembedding_getserversupabase_requireserversupabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "memory_kg_invariants_test_actual",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_embeddings_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "embeddings_store_searchembeddings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_memory_kg_ingest_pipeline_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "memory_kg_ingest_pipeline_ingestconversationturn",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "memory_kg_invariants_test_upsertnode_realupsertnode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "memory_kg_invariants_test_upsertcapture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "memory_kg_invariants_test_mocksbfornode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_memory_kg_invariants_test_ts",
+      "target": "memory_kg_invariants_test_data_opts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/memory/kg-invariants.test.ts",
+      "source_location": "L189",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

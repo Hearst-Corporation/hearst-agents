@@ -1,0 +1,310 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "label": "calendar.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "google_calendar_calendarevent",
+      "label": "CalendarEvent",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "google_calendar_listevents",
+      "label": "listEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "google_calendar_gettodayevents",
+      "label": "getTodayEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "google_calendar_getupcomingevents",
+      "label": "getUpcomingEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "google_calendar_createcalendareventinput",
+      "label": "CreateCalendarEventInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "google_calendar_createcalendareventresult",
+      "label": "CreateCalendarEventResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "google_calendar_createcalendarevent",
+      "label": "createCalendarEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L88"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "googleapis",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_auth_getgoogleauth",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_calendar_calendarevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_calendar_listevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_calendar_gettodayevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_calendar_getupcomingevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_calendar_createcalendareventinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_calendar_createcalendareventresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "target": "google_calendar_createcalendarevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "google_calendar_gettodayevents",
+      "target": "google_calendar_listevents",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "google_calendar_getupcomingevents",
+      "target": "google_calendar_listevents",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "google_calendar_listevents",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "google_calendar_listevents",
+      "callee": "calendar",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "google_calendar_listevents",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "google_calendar_listevents",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "getFullYear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "getMonth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "getDate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "getFullYear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "getMonth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "getDate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "google_calendar_gettodayevents",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "google_calendar_getupcomingevents",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "google_calendar_getupcomingevents",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "google_calendar_getupcomingevents",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "google_calendar_createcalendarevent",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "google_calendar_createcalendarevent",
+      "callee": "calendar",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "google_calendar_createcalendarevent",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "google_calendar_createcalendarevent",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/calendar.ts",
+      "source_location": "L103"
+    }
+  ]
+}

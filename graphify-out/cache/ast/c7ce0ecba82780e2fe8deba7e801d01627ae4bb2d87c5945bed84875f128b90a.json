@@ -1,0 +1,332 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "label": "client.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "redis_client_redisclient",
+      "label": "RedisClient",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "redis_client_redissetnxex",
+      "label": "redisSetNxEx()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "redis_client_upstashadapter",
+      "label": "UpstashAdapter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "redis_client_upstashadapter_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "redis_client_upstashadapter_get",
+      "label": ".get()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "redis_client_upstashadapter_set",
+      "label": ".set()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "redis_client_upstashadapter_acquirelock",
+      "label": ".acquireLock()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "redis_client_upstashadapter_setex",
+      "label": ".setex()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L84"
+    },
+    {
+      "id": "redis_client_upstashadapter_del",
+      "label": ".del()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "redis_client_upstashadapter_lpush",
+      "label": ".lpush()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "redis_client_upstashadapter_incr",
+      "label": ".incr()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L96"
+    },
+    {
+      "id": "redis_client_upstashadapter_expire",
+      "label": ".expire()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "redis_client_getredis",
+      "label": "getRedis()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L110"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "target": "redis",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "target": "ioredis",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "target": "redis_client_redisclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "target": "redis_client_redissetnxex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "target": "redis_client_upstashadapter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_get",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_set",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_acquirelock",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_setex",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_del",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_lpush",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_incr",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter",
+      "target": "redis_client_upstashadapter_expire",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "target": "redis_client_getredis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_redissetnxex",
+      "target": "redis_client_upstashadapter_acquirelock",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_redissetnxex",
+      "target": "redis_client_upstashadapter_set",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter_acquirelock",
+      "target": "redis_client_upstashadapter_set",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "redis_client_upstashadapter_setex",
+      "target": "redis_client_upstashadapter_set",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L85",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "redis_client_upstashadapter_get",
+      "callee": "await this.client.get",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "redis_client_upstashadapter_incr",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "redis_client_upstashadapter_expire",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "redis_client_getredis",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "redis_client_getredis",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "redis_client_getredis",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "redis_client_getredis",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts",
+      "source_location": "L153"
+    }
+  ]
+}

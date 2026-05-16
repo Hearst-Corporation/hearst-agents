@@ -1,0 +1,381 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_registry_json",
+      "label": "REGISTRY.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "audits_registry_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "audits_registry_description",
+      "label": "description",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "audits_registry_last_updated",
+      "label": "last_updated",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "audits_registry_audits",
+      "label": "audits",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "audits_registry_convention",
+      "label": "convention",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L30"
+    },
+    {
+      "id": "audits_registry_convention_naming",
+      "label": "naming",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L31"
+    },
+    {
+      "id": "audits_registry_convention_examples",
+      "label": "examples",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L32"
+    },
+    {
+      "id": "audits_registry_convention_statuses",
+      "label": "statuses",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L38"
+    },
+    {
+      "id": "audits_registry_convention_finding_statuses",
+      "label": "finding_statuses",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39"
+    },
+    {
+      "id": "audits_registry_workflow",
+      "label": "workflow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L50"
+    },
+    {
+      "id": "audits_registry_workflow_lifecycle",
+      "label": "lifecycle",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L51"
+    },
+    {
+      "id": "audits_registry_workflow_rule_no_self_audit",
+      "label": "rule_no_self_audit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L52"
+    },
+    {
+      "id": "audits_registry_workflow_render_command",
+      "label": "render_command",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L53"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_registry_json",
+      "target": "audits_registry_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_registry_json",
+      "target": "audits_registry_description",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_registry_json",
+      "target": "audits_registry_last_updated",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_registry_json",
+      "target": "audits_registry_audits",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_registry_json",
+      "target": "audits_registry_convention",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_convention",
+      "target": "audits_registry_convention_naming",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_convention",
+      "target": "audits_registry_convention_examples",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_convention_examples",
+      "target": "ref_2026_05_10_security",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_examples",
+      "target": "ref_2026_05_15_llm_runtime",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_examples",
+      "target": "ref_2026_05_20_perf",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_examples",
+      "target": "ref_2026_05_25_agents_multi",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention",
+      "target": "audits_registry_convention_statuses",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_convention_statuses",
+      "target": "ref_active",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_statuses",
+      "target": "ref_implementing",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_statuses",
+      "target": "ref_closed",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_statuses",
+      "target": "ref_superseded",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention",
+      "target": "audits_registry_convention_finding_statuses",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_pending",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_triaged",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_implementing",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_tested",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_reaudited",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_validated",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_closed",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "audits_registry_convention_finding_statuses",
+      "target": "ref_wont_fix",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_audits_registry_json",
+      "target": "audits_registry_workflow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_workflow",
+      "target": "audits_registry_workflow_lifecycle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_workflow",
+      "target": "audits_registry_workflow_rule_no_self_audit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "audits_registry_workflow",
+      "target": "audits_registry_workflow_render_command",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/audits/REGISTRY.json",
+      "source_location": "L53",
+      "weight": 1.0
+    }
+  ]
+}

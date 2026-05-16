@@ -1,0 +1,521 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "label": "alert-dispatcher.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_critical",
+      "label": "critical()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_warning",
+      "label": "warning()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_buildstore",
+      "label": "buildStore()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_report",
+      "label": "REPORT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_fetchmock",
+      "label": "fetchMock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_prefs",
+      "label": "prefs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_store",
+      "label": "store",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L102"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_calls",
+      "label": "calls",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L220"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_emailsendmock",
+      "label": "emailSendMock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L249"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_body",
+      "label": "body",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L303"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_webhook",
+      "label": "webhook",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L391"
+    },
+    {
+      "id": "notifications_alert_dispatcher_test_slack",
+      "label": "slack",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L392"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_alert_dispatcher_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_dispatchalerts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_schema_alertingpreferences",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_throttle_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_throttle_throttlestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_signals_extract_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "signals_extract_businesssignal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_critical",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_warning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_buildstore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_report",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_store",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_store",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_store",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L169",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L201",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_calls",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L220",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L225",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L226",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L248",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_emailsendmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L249",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L250",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L279",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L284",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L303",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L324",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L329",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L348",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L349",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L370",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_prefs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L377",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_webhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L391",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_slack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L392",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_notifications_alert_dispatcher_test_ts",
+      "target": "notifications_alert_dispatcher_test_fetchmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/notifications/alert-dispatcher.test.ts",
+      "source_location": "L403",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

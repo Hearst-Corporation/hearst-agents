@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "label": "hospitality-revpar.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "catalog_hospitality_revpar_buildhospitalityrevpar",
+      "label": "buildHospitalityRevpar()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "catalog_hospitality_revpar_hospitality_revpar_required_apps",
+      "label": "HOSPITALITY_REVPAR_REQUIRED_APPS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "catalog_hospitality_revpar_buildhospitalityrevparsampledata",
+      "label": "buildHospitalityRevparSampleData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L122"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "hospitality_mock_data_getmockrevenuebysource",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "hospitality_mock_data_getmockrevpar30d",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "catalog_hospitality_revpar_buildhospitalityrevpar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "catalog_hospitality_revpar_hospitality_revpar_required_apps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_revpar_ts",
+      "target": "catalog_hospitality_revpar_buildhospitalityrevparsampledata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "catalog_hospitality_revpar_buildhospitalityrevpar",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "catalog_hospitality_revpar_buildhospitalityrevparsampledata",
+      "callee": "getMockRevpar30d",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "catalog_hospitality_revpar_buildhospitalityrevparsampledata",
+      "callee": "getMockRevenueBySource",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-revpar.ts",
+      "source_location": "L125"
+    }
+  ]
+}

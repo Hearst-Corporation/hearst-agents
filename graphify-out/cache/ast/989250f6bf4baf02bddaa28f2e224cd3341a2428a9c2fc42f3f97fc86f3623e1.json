@@ -1,0 +1,163 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "label": "cost-sentinel.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_cost_sentinel_costbudget",
+      "label": "CostBudget",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "runtime_cost_sentinel_default_cost_budget",
+      "label": "DEFAULT_COST_BUDGET",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "runtime_cost_sentinel_costcheckresult",
+      "label": "CostCheckResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "runtime_cost_sentinel_checkcostbudget",
+      "label": "checkCostBudget()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "runtime_cost_sentinel_enforcecostbudget",
+      "label": "enforceCostBudget()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_lifecycle_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "runtime_lifecycle_runeventkind",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "runtime_lifecycle_runtimeerror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "runtime_cost_sentinel_costbudget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "runtime_cost_sentinel_default_cost_budget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "runtime_cost_sentinel_costcheckresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "runtime_cost_sentinel_checkcostbudget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_cost_sentinel_ts",
+      "target": "runtime_cost_sentinel_enforcecostbudget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_cost_sentinel_enforcecostbudget",
+      "target": "runtime_cost_sentinel_checkcostbudget",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_cost_sentinel_checkcostbudget",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "runtime_cost_sentinel_enforcecostbudget",
+      "callee": "emitEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "runtime_cost_sentinel_enforcecostbudget",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "runtime_cost_sentinel_enforcecostbudget",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/cost-sentinel.ts",
+      "source_location": "L70"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_fde2960e_intake_json",
+      "label": "intake.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "r_fde2960e_intake_run_id",
+      "label": "run_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "r_fde2960e_intake_scope",
+      "label": "scope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "r_fde2960e_intake_blocking",
+      "label": "blocking",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "r_fde2960e_intake_triggered_by",
+      "label": "triggered_by",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "r_fde2960e_intake_trigger_kind",
+      "label": "trigger_kind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L10"
+    },
+    {
+      "id": "r_fde2960e_intake_created_at",
+      "label": "created_at",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L11"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_fde2960e_intake_json",
+      "target": "r_fde2960e_intake_run_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_fde2960e_intake_json",
+      "target": "r_fde2960e_intake_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "r_fde2960e_intake_scope",
+      "target": "ref_architecture",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_fde2960e_intake_scope",
+      "target": "ref_design_system",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_fde2960e_intake_scope",
+      "target": "ref_qa",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_fde2960e_intake_json",
+      "target": "r_fde2960e_intake_blocking",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_fde2960e_intake_json",
+      "target": "r_fde2960e_intake_triggered_by",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_fde2960e_intake_json",
+      "target": "r_fde2960e_intake_trigger_kind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_fde2960e_intake_json",
+      "target": "r_fde2960e_intake_created_at",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-fde2960e/intake.json",
+      "source_location": "L11",
+      "weight": 1.0
+    }
+  ]
+}

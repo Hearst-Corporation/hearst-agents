@@ -1,0 +1,401 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "label": "budget.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "missions_budget_cacheentry",
+      "label": "CacheEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "missions_budget_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "missions_budget_db",
+      "label": "db()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "missions_budget_currentyearmonth",
+      "label": "currentYearMonth()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "missions_budget_monthbounds",
+      "label": "monthBounds()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "missions_budget_getmonthlymissioncost",
+      "label": "getMonthlyMissionCost()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "missions_budget_missionbudgetstate",
+      "label": "MissionBudgetState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L96"
+    },
+    {
+      "id": "missions_budget_getmissionbudgetstate",
+      "label": "getMissionBudgetState()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L107"
+    },
+    {
+      "id": "missions_budget_resetbudgetcache",
+      "label": "_resetBudgetCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L131"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_cacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_currentyearmonth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_monthbounds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_getmonthlymissioncost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_missionbudgetstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_getmissionbudgetstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_budget_ts",
+      "target": "missions_budget_resetbudgetcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_budget_getmonthlymissioncost",
+      "target": "missions_budget_db",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_budget_getmonthlymissioncost",
+      "target": "missions_budget_monthbounds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "missions_budget_getmissionbudgetstate",
+      "target": "missions_budget_getmonthlymissioncost",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "missions_budget_db",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "missions_budget_currentyearmonth",
+      "callee": "getUTCFullYear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "missions_budget_currentyearmonth",
+      "callee": "padStart",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "missions_budget_currentyearmonth",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "missions_budget_currentyearmonth",
+      "callee": "getUTCMonth",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "missions_budget_monthbounds",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "missions_budget_monthbounds",
+      "callee": "parseInt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "missions_budget_monthbounds",
+      "callee": "parseInt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "missions_budget_monthbounds",
+      "callee": "UTC",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "missions_budget_monthbounds",
+      "callee": "UTC",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "missions_budget_monthbounds",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "missions_budget_monthbounds",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "lt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "gte",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "missions_budget_getmonthlymissioncost",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "missions_budget_getmissionbudgetstate",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "missions_budget_resetbudgetcache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/budget.ts",
+      "source_location": "L132"
+    }
+  ]
+}

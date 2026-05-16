@@ -1,0 +1,174 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "artifacts_types_artifacttype",
+      "label": "ArtifactType",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "artifacts_types_artifactstatus",
+      "label": "ArtifactStatus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "artifacts_types_artifactformat",
+      "label": "ArtifactFormat",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "artifacts_types_artifactsection",
+      "label": "ArtifactSection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "artifacts_types_artifactsourceref",
+      "label": "ArtifactSourceRef",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "artifacts_types_artifact",
+      "label": "Artifact",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "artifacts_types_artifactmetadata",
+      "label": "ArtifactMetadata",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "artifacts_types_artifactref",
+      "label": "ArtifactRef",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "artifacts_types_createartifactinput",
+      "label": "CreateArtifactInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L68"
+    },
+    {
+      "id": "artifacts_types_reviseartifactinput",
+      "label": "ReviseArtifactInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L81"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifacttype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifactstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifactformat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifactsection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifactsourceref",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifact",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifactmetadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_artifactref",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_createartifactinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_artifacts_types_ts",
+      "target": "artifacts_types_reviseartifactinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/artifacts/types.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

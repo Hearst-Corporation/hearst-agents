@@ -1,0 +1,690 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "label": "pdf.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "daily_brief_pdf_dailybriefpdfinput",
+      "label": "DailyBriefPdfInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "daily_brief_pdf_dailybriefpdfresult",
+      "label": "DailyBriefPdfResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "daily_brief_pdf_bufferfromdoc",
+      "label": "bufferFromDoc()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "daily_brief_pdf_fmtdatefile",
+      "label": "fmtDateFile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "daily_brief_pdf_clip",
+      "label": "clip()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "daily_brief_pdf_renderdailybriefpdf",
+      "label": "renderDailyBriefPdf()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L60"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "pdfkit",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_prose_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "pdf_blocks_prose_renderprose",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_blocks_table_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "pdf_blocks_table_rendertable",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_cover_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_cover_rendercover",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_fonts_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_fonts_registerfonts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_fonts_setfont",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_section_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_section_renderpagechrome",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_section_rendersectionheader",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_pdf_tokens_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_tokens_brand",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_tokens_colors",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_tokens_font_sizes",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_tokens_page",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "export_pdf_tokens_space",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_types_dailybriefdata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_types_dailybriefnarration",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_pdf_dailybriefpdfinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_pdf_dailybriefpdfresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_pdf_bufferfromdoc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_pdf_fmtdatefile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_pdf_clip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "target": "daily_brief_pdf_renderdailybriefpdf",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_pdf_renderdailybriefpdf",
+      "target": "daily_brief_pdf_fmtdatefile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_pdf_renderdailybriefpdf",
+      "target": "daily_brief_pdf_bufferfromdoc",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "daily_brief_pdf_renderdailybriefpdf",
+      "target": "daily_brief_pdf_clip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "daily_brief_pdf_fmtdatefile",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_fmtdatefile",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_clip",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "registerFonts",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "addPage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderCover",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "addPage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L107"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderPageChrome",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L108"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderSectionHeader",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "setFont",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "fillColor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "fontSize",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L135"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderProse",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "addPage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderPageChrome",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderSectionHeader",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "setFont",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "fillColor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "fontSize",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderTable",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L181"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "addPage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L187"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderPageChrome",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderSectionHeader",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L196"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "setFont",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "fillColor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "fontSize",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L209"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderTable",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L214"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderSectionHeader",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L220"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L225"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L225"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderTable",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L231"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderSectionHeader",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L236"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L241"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L241"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "renderTable",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L256"
+    },
+    {
+      "caller_nid": "daily_brief_pdf_renderdailybriefpdf",
+      "callee": "end",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/daily-brief/pdf.ts",
+      "source_location": "L259"
+    }
+  ]
+}

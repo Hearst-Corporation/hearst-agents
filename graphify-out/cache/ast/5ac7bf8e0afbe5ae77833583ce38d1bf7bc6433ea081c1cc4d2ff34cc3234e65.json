@@ -1,0 +1,988 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "label": "audit-pipeline.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_audit_pipeline_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "scripts_audit_pipeline_write_report",
+      "label": "WRITE_REPORT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "scripts_audit_pipeline_read",
+      "label": "read()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "scripts_audit_pipeline_walk",
+      "label": "walk()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "scripts_audit_pipeline_toolsurface",
+      "label": "ToolSurface",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "scripts_audit_pipeline_inspecttools",
+      "label": "inspectTools()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L69"
+    },
+    {
+      "id": "scripts_audit_pipeline_promptsurvey",
+      "label": "PromptSurvey",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L173"
+    },
+    {
+      "id": "scripts_audit_pipeline_inspectprompts",
+      "label": "inspectPrompts()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L178"
+    },
+    {
+      "id": "scripts_audit_pipeline_eventsurvey",
+      "label": "EventSurvey",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L212"
+    },
+    {
+      "id": "scripts_audit_pipeline_inspectevents",
+      "label": "inspectEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L218"
+    },
+    {
+      "id": "scripts_audit_pipeline_inspecttodos",
+      "label": "inspectTodos()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L301"
+    },
+    {
+      "id": "scripts_audit_pipeline_colors",
+      "label": "COLORS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L327"
+    },
+    {
+      "id": "scripts_audit_pipeline_section",
+      "label": "section()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L338"
+    },
+    {
+      "id": "scripts_audit_pipeline_ok",
+      "label": "ok()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L343"
+    },
+    {
+      "id": "scripts_audit_pipeline_fail",
+      "label": "fail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L346"
+    },
+    {
+      "id": "scripts_audit_pipeline_warn",
+      "label": "warn()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L349"
+    },
+    {
+      "id": "scripts_audit_pipeline_tools",
+      "label": "tools",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L359"
+    },
+    {
+      "id": "scripts_audit_pipeline_prompts",
+      "label": "prompts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L360"
+    },
+    {
+      "id": "scripts_audit_pipeline_events",
+      "label": "events",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L361"
+    },
+    {
+      "id": "scripts_audit_pipeline_todos",
+      "label": "todos",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L362"
+    },
+    {
+      "id": "scripts_audit_pipeline_date",
+      "label": "date",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L449"
+    },
+    {
+      "id": "scripts_audit_pipeline_md",
+      "label": "md",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L451"
+    },
+    {
+      "id": "scripts_audit_pipeline_rendermarkdown",
+      "label": "renderMarkdown()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L460"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_write_report",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_read",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_walk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_toolsurface",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_inspecttools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_promptsurvey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L173",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_inspectprompts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_eventsurvey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L212",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_inspectevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_inspecttodos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L301",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_colors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L327",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_section",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L338",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_ok",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L343",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_fail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L346",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_warn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L349",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_tools",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L359",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_prompts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L360",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L361",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_todos",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L362",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_date",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L449",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_md",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L451",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_audit_pipeline_ts",
+      "target": "scripts_audit_pipeline_rendermarkdown",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L460",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_audit_pipeline_inspecttools",
+      "target": "scripts_audit_pipeline_read",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_audit_pipeline_inspecttools",
+      "target": "scripts_audit_pipeline_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_audit_pipeline_inspectprompts",
+      "target": "scripts_audit_pipeline_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_audit_pipeline_inspectevents",
+      "target": "scripts_audit_pipeline_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L222",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_audit_pipeline_inspectevents",
+      "target": "scripts_audit_pipeline_read",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L239",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_audit_pipeline_inspecttodos",
+      "target": "scripts_audit_pipeline_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L304",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scripts_audit_pipeline_read",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_read",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_walk",
+      "callee": "rec",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_walk",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L109"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttools",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L166"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L194"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L196"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L196"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L198"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L199"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "relative",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L204"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectprompts",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L224"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L225"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L228"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L231"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L232"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L233"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L240"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L241"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L244"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L245"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspectevents",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L294"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L306"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L307"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L308"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "relative",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L312"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L312"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L314"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L315"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L316"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L318"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_inspecttodos",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L322"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_section",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_section",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L340"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L477"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L477"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L480"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L480"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L485"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L485"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L488"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L488"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L496"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L496"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L500"
+    },
+    {
+      "caller_nid": "scripts_audit_pipeline_rendermarkdown",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/audit-pipeline.ts",
+      "source_location": "L500"
+    }
+  ]
+}

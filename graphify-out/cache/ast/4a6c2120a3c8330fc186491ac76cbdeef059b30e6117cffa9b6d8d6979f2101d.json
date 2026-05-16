@@ -1,0 +1,491 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "label": "web-search.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "handlers_web_search_websearchresult",
+      "label": "WebSearchResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "handlers_web_search_factual_keywords",
+      "label": "FACTUAL_KEYWORDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "handlers_web_search_research_keywords",
+      "label": "RESEARCH_KEYWORDS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "handlers_web_search_isresearchquery",
+      "label": "isResearchQuery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "handlers_web_search_isfactualquery",
+      "label": "isFactualQuery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "handlers_web_search_hashquery",
+      "label": "hashQuery()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "handlers_web_search_runexa",
+      "label": "runExa()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "handlers_web_search_runtavily",
+      "label": "runTavily()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "handlers_web_search_runperplexity",
+      "label": "runPerplexity()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L96"
+    },
+    {
+      "id": "handlers_web_search_searchweb",
+      "label": "searchWeb()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L109"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_exa_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "providers_exa_exasearch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_perplexity_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "providers_perplexity_perplexitysearch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_tavily_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "providers_tavily_tavilysearch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_redis_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "redis_client_getredis",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_websearchresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_factual_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_research_keywords",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_isresearchquery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_isfactualquery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_hashquery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_runexa",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_runtavily",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_runperplexity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "target": "handlers_web_search_searchweb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "handlers_web_search_searchweb",
+      "target": "handlers_web_search_hashquery",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "handlers_web_search_searchweb",
+      "target": "handlers_web_search_isresearchquery",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "handlers_web_search_searchweb",
+      "target": "handlers_web_search_isfactualquery",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "handlers_web_search_isresearchquery",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "handlers_web_search_isresearchquery",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "handlers_web_search_isresearchquery",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "handlers_web_search_isresearchquery",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "handlers_web_search_isfactualquery",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "handlers_web_search_isfactualquery",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "handlers_web_search_isfactualquery",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "handlers_web_search_hashquery",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "handlers_web_search_hashquery",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "handlers_web_search_hashquery",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "handlers_web_search_hashquery",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "handlers_web_search_hashquery",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "handlers_web_search_hashquery",
+      "callee": "createHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "handlers_web_search_runexa",
+      "callee": "exaSearch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "handlers_web_search_runexa",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "handlers_web_search_runtavily",
+      "callee": "tavilySearch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "handlers_web_search_runtavily",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "handlers_web_search_runperplexity",
+      "callee": "perplexitySearch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "handlers_web_search_runperplexity",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "handlers_web_search_runperplexity",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "getRedis",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L119"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "run",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L154"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L157"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "setex",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "handlers_web_search_searchweb",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/tools/handlers/web-search.ts",
+      "source_location": "L179"
+    }
+  ]
+}

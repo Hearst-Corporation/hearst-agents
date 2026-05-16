@@ -1,0 +1,459 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "label": "list-api-routes.mjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_list_api_routes_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L18"
+    },
+    {
+      "id": "scripts_list_api_routes_api_dir",
+      "label": "API_DIR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L19"
+    },
+    {
+      "id": "scripts_list_api_routes_http_methods",
+      "label": "HTTP_METHODS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L21"
+    },
+    {
+      "id": "scripts_list_api_routes_method_re",
+      "label": "METHOD_RE",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L22"
+    },
+    {
+      "id": "scripts_list_api_routes_skip_dirs",
+      "label": "SKIP_DIRS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L28"
+    },
+    {
+      "id": "scripts_list_api_routes_full",
+      "label": "full",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L38"
+    },
+    {
+      "id": "scripts_list_api_routes_diskpathtoroute",
+      "label": "diskPathToRoute()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L58"
+    },
+    {
+      "id": "scripts_list_api_routes_detectmethods",
+      "label": "detectMethods()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L79"
+    },
+    {
+      "id": "scripts_list_api_routes_routes",
+      "label": "routes",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L93"
+    },
+    {
+      "id": "scripts_list_api_routes_route",
+      "label": "route",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L95"
+    },
+    {
+      "id": "scripts_list_api_routes_methods",
+      "label": "methods",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L96"
+    },
+    {
+      "id": "scripts_list_api_routes_relfile",
+      "label": "relFile",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L97"
+    },
+    {
+      "id": "scripts_list_api_routes_out",
+      "label": "out",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L103"
+    },
+    {
+      "id": "scripts_list_api_routes_groups",
+      "label": "groups",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L119"
+    },
+    {
+      "id": "scripts_list_api_routes_parts",
+      "label": "parts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L121"
+    },
+    {
+      "id": "scripts_list_api_routes_groupkeys",
+      "label": "groupKeys",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L127"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_api_dir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_http_methods",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_method_re",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_skip_dirs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_full",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_diskpathtoroute",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_detectmethods",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_routes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_route",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_methods",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_relfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_groups",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_parts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_list_api_routes_mjs",
+      "target": "scripts_list_api_routes_groupkeys",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L127",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "relative",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_diskpathtoroute",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_detectmethods",
+      "callee": "readFileSync",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_detectmethods",
+      "callee": "matchAll",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L87"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_detectmethods",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "scripts_list_api_routes_detectmethods",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/list-api-routes.mjs",
+      "source_location": "L90"
+    }
+  ]
+}

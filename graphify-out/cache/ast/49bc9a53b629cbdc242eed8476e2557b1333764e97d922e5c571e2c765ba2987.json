@@ -1,0 +1,391 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "label": "r2.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "storage_r2_r2storageoptions",
+      "label": "R2StorageOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "storage_r2_r2storageprovider",
+      "label": "R2StorageProvider",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_upload",
+      "label": ".upload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_download",
+      "label": ".download()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L98"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_getsignedurl",
+      "label": ".getSignedUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L134"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_delete",
+      "label": ".delete()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L159"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_exists",
+      "label": ".exists()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L170"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_list",
+      "label": ".list()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L185"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_health",
+      "label": ".health()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L214"
+    },
+    {
+      "id": "storage_r2_r2storageprovider_getpublicurl",
+      "label": ".getPublicUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L233"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "client_s3",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "lib_storage",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "s3_request_presigner",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "storage_types_downloadresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "storage_types_signedurloptions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "storage_types_storageobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "storage_types_storageprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "storage_types_uploadresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "storage_r2_r2storageoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_storage_r2_ts",
+      "target": "storage_r2_r2storageprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_upload",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_download",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_getsignedurl",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_delete",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_exists",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_list",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L185",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_health",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L214",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider",
+      "target": "storage_r2_r2storageprovider_getpublicurl",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L233",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider_upload",
+      "target": "storage_r2_r2storageprovider_getpublicurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_r2_r2storageprovider_download",
+      "target": "stream",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "storage_r2_r2storageprovider_constructor",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_upload",
+      "callee": "done",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_upload",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_download",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_delete",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_exists",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L178"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_list",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_list",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_list",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L215"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_health",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L222"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L223"
+    },
+    {
+      "caller_nid": "storage_r2_r2storageprovider_health",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts",
+      "source_location": "L227"
+    }
+  ]
+}

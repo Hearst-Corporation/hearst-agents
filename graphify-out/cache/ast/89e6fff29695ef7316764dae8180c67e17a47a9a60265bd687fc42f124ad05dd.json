@@ -1,0 +1,421 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "label": "quarantine.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hom_quarantine_quarantinestate",
+      "label": "QuarantineState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "hom_quarantine_loadquarantine",
+      "label": "loadQuarantine()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "hom_quarantine_recordanomaly",
+      "label": "recordAnomaly()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "hom_quarantine_computeanomaly",
+      "label": "computeAnomaly()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "hom_quarantine_anomalysignal",
+      "label": "anomalySignal()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "hom_quarantine_isagentavailable",
+      "label": "isAgentAvailable()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L96"
+    },
+    {
+      "id": "hom_quarantine_listquarantined",
+      "label": "listQuarantined()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "hom_quarantine_restoreagent",
+      "label": "restoreAgent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L108"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_fs_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_fs_utils_nowiso",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_fs_utils_readjson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_fs_utils_writejson",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_paths_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_paths_hom",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_types_agentid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_types_agentrunresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_types_quarantineentry",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_types_all_agents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_quarantinestate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_loadquarantine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_recordanomaly",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_computeanomaly",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_anomalysignal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_isagentavailable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_listquarantined",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_quarantine_ts",
+      "target": "hom_quarantine_restoreagent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_quarantine_recordanomaly",
+      "target": "hom_quarantine_loadquarantine",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_quarantine_recordanomaly",
+      "target": "hom_quarantine_computeanomaly",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_quarantine_recordanomaly",
+      "target": "hom_quarantine_anomalysignal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_quarantine_isagentavailable",
+      "target": "hom_quarantine_loadquarantine",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_quarantine_listquarantined",
+      "target": "hom_quarantine_loadquarantine",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_quarantine_restoreagent",
+      "target": "hom_quarantine_loadquarantine",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hom_quarantine_loadquarantine",
+      "callee": "await readJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "hom_quarantine_loadquarantine",
+      "callee": "writeJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "hom_quarantine_recordanomaly",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "hom_quarantine_recordanomaly",
+      "callee": "nowIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "hom_quarantine_recordanomaly",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "hom_quarantine_recordanomaly",
+      "callee": "nowIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "hom_quarantine_recordanomaly",
+      "callee": "writeJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "hom_quarantine_computeanomaly",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "hom_quarantine_anomalysignal",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "hom_quarantine_listquarantined",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "hom_quarantine_listquarantined",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "hom_quarantine_restoreagent",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "hom_quarantine_restoreagent",
+      "callee": "nowIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "hom_quarantine_restoreagent",
+      "callee": "writeJson",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/quarantine.ts",
+      "source_location": "L121"
+    }
+  ]
+}

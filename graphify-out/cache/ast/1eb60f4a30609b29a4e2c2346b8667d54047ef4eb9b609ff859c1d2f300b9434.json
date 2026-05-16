@@ -1,0 +1,459 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "label": "chat-regression.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "chat_chat_regression_test_makestartedevent",
+      "label": "makeStartedEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "chat_chat_regression_test_makecompletedevent",
+      "label": "makeCompletedEvent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "chat_chat_regression_test_events",
+      "label": "events",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "chat_chat_regression_test_writes",
+      "label": "writes",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "chat_chat_regression_test_mixedevents",
+      "label": "mixedEvents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "chat_chat_regression_test_entries",
+      "label": "entries",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L110"
+    },
+    {
+      "id": "chat_chat_regression_test_simplemessage",
+      "label": "SimpleMessage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L170"
+    },
+    {
+      "id": "chat_chat_regression_test_buildhistory",
+      "label": "buildHistory()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L172"
+    },
+    {
+      "id": "chat_chat_regression_test_cliphistory",
+      "label": "clipHistory()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L181"
+    },
+    {
+      "id": "chat_chat_regression_test_msgs",
+      "label": "msgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L189"
+    },
+    {
+      "id": "chat_chat_regression_test_clipped",
+      "label": "clipped",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L190"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_tool_stream_reducer_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "components_chat_tool_stream_reducer_reducetoolevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "components_chat_tool_stream_reducer_selectcompletedwrites",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "stores_runtime_streamevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_makestartedevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_makecompletedevent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_writes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_writes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_writes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_mixedevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_writes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_entries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_entries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_entries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_entries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_events",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_entries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_simplemessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_buildhistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_cliphistory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_msgs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_clipped",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_msgs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L198",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_clipped",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_msgs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_clipped",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L205",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_msgs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L210",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_clipped",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L216",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_msgs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L223",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_chat_chat_regression_test_ts",
+      "target": "chat_chat_regression_test_clipped",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L227",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "chat_chat_regression_test_buildhistory",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "chat_chat_regression_test_cliphistory",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "chat_chat_regression_test_cliphistory",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "chat_chat_regression_test_cliphistory",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/chat/chat-regression.test.ts",
+      "source_location": "L182"
+    }
+  ]
+}

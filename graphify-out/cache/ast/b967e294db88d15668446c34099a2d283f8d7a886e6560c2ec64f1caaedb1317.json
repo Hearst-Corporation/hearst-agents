@@ -1,0 +1,255 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "label": "langfuse.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "observability_langfuse_logbootstatus",
+      "label": "logBootStatus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "observability_langfuse_getclient",
+      "label": "getClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "observability_langfuse_getlangfuseclient",
+      "label": "getLangfuseClient()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L73"
+    },
+    {
+      "id": "observability_langfuse_starttrace",
+      "label": "startTrace()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "observability_langfuse_assertlangfuseready",
+      "label": "assertLangfuseReady()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "observability_langfuse_flushlangfuse",
+      "label": "flushLangfuse()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L112"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "target": "langfuse",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "target": "observability_langfuse_logbootstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "target": "observability_langfuse_getclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "target": "observability_langfuse_getlangfuseclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "target": "observability_langfuse_starttrace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "target": "observability_langfuse_assertlangfuseready",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_langfuse_ts",
+      "target": "observability_langfuse_flushlangfuse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "observability_langfuse_getclient",
+      "target": "observability_langfuse_logbootstatus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "observability_langfuse_getlangfuseclient",
+      "target": "observability_langfuse_getclient",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "observability_langfuse_starttrace",
+      "target": "observability_langfuse_getclient",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "observability_langfuse_assertlangfuseready",
+      "target": "observability_langfuse_getclient",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "observability_langfuse_flushlangfuse",
+      "target": "observability_langfuse_getclient",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "observability_langfuse_logbootstatus",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "observability_langfuse_logbootstatus",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "observability_langfuse_logbootstatus",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "observability_langfuse_getclient",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "observability_langfuse_getclient",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "observability_langfuse_starttrace",
+      "callee": "trace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "observability_langfuse_flushlangfuse",
+      "callee": "then",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "observability_langfuse_flushlangfuse",
+      "callee": "flushAsync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "observability_langfuse_flushlangfuse",
+      "callee": "race",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "observability_langfuse_flushlangfuse",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "observability_langfuse_flushlangfuse",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "observability_langfuse_flushlangfuse",
+      "callee": "clearTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts",
+      "source_location": "L129"
+    }
+  ]
+}

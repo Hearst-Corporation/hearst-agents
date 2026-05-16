@@ -1,0 +1,1020 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "label": "ambient-signals.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "cockpit_ambient_signals_ambientsignalkind",
+      "label": "AmbientSignalKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "cockpit_ambient_signals_ambientsignalseverity",
+      "label": "AmbientSignalSeverity",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "cockpit_ambient_signals_ambientsignal",
+      "label": "AmbientSignal",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "cockpit_ambient_signals_ambientsignalsscope",
+      "label": "AmbientSignalsScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "cockpit_ambient_signals_ambientsignalsrange",
+      "label": "AmbientSignalsRange",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L64"
+    },
+    {
+      "id": "cockpit_ambient_signals_range_to_ms",
+      "label": "RANGE_TO_MS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "cockpit_ambient_signals_cachedentry",
+      "label": "CachedEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "cockpit_ambient_signals_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "cockpit_ambient_signals_cachekey",
+      "label": "cacheKey()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L81"
+    },
+    {
+      "id": "cockpit_ambient_signals_clampnarration",
+      "label": "clampNarration()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "cockpit_ambient_signals_safesource",
+      "label": "safeSource()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "cockpit_ambient_signals_rawdb",
+      "label": "rawDb()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "cockpit_ambient_signals_detectmissionfailed",
+      "label": "detectMissionFailed()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L112"
+    },
+    {
+      "id": "cockpit_ambient_signals_provider_labels",
+      "label": "PROVIDER_LABELS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L176"
+    },
+    {
+      "id": "cockpit_ambient_signals_providerlabel",
+      "label": "providerLabel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "cockpit_ambient_signals_detectoauthexpired",
+      "label": "detectOauthExpired()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L191"
+    },
+    {
+      "id": "cockpit_ambient_signals_detectbriefstale",
+      "label": "detectBriefStale()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L217"
+    },
+    {
+      "id": "cockpit_ambient_signals_varianttimeoutrow",
+      "label": "VariantTimeoutRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L240"
+    },
+    {
+      "id": "cockpit_ambient_signals_assettitlerow",
+      "label": "AssetTitleRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L248"
+    },
+    {
+      "id": "cockpit_ambient_signals_detectvarianttimeout",
+      "label": "detectVariantTimeout()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L255"
+    },
+    {
+      "id": "cockpit_ambient_signals_detectmissionsilent",
+      "label": "detectMissionSilent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L325"
+    },
+    {
+      "id": "cockpit_ambient_signals_getambientsignals",
+      "label": "getAmbientSignals()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L380"
+    },
+    {
+      "id": "cockpit_ambient_signals_resetambientsignalscache",
+      "label": "_resetAmbientSignalsCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L424"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "control_plane_store_getconnectionsbyscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_ops_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "missions_ops_store_getallmissionops",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_missions_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "missions_store_getallmissions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_state_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "state_adapter_getscheduledmissions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "inbox_store_loadlatestinboxbrief",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_ambientsignalkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_ambientsignalseverity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_ambientsignal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_ambientsignalsscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_ambientsignalsrange",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_range_to_ms",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_cachedentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_cachekey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_clampnarration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_safesource",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_rawdb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_detectmissionfailed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_provider_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_providerlabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_detectoauthexpired",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_detectbriefstale",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_varianttimeoutrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_assettitlerow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L248",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_detectvarianttimeout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L255",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_detectmissionsilent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L325",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_getambientsignals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L380",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_ambient_signals_ts",
+      "target": "cockpit_ambient_signals_resetambientsignalscache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L424",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_detectmissionfailed",
+      "target": "cockpit_ambient_signals_clampnarration",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L162",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_detectoauthexpired",
+      "target": "cockpit_ambient_signals_clampnarration",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_detectoauthexpired",
+      "target": "cockpit_ambient_signals_providerlabel",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L206",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_detectvarianttimeout",
+      "target": "cockpit_ambient_signals_rawdb",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L260",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_detectvarianttimeout",
+      "target": "cockpit_ambient_signals_clampnarration",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L314",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_detectmissionsilent",
+      "target": "cockpit_ambient_signals_clampnarration",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L366",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_getambientsignals",
+      "target": "cockpit_ambient_signals_cachekey",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L387",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_ambient_signals_getambientsignals",
+      "target": "cockpit_ambient_signals_safesource",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L397",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "cockpit_ambient_signals_clampnarration",
+      "callee": "trimEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_clampnarration",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_safesource",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_safesource",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "getAllMissionOps",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "getScheduledMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "getMemoryMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L159"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionfailed",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_providerlabel",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_providerlabel",
+      "callee": "charAt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_providerlabel",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectoauthexpired",
+      "callee": "getConnectionsByScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectoauthexpired",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L199"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectoauthexpired",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectoauthexpired",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectbriefstale",
+      "callee": "loadLatestInboxBrief",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L218"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectbriefstale",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L221"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectbriefstale",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L231"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L259"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L263"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L263"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "gte",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L265"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L275"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "in",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L288"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L291"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L294"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L315"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectvarianttimeout",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L315"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionsilent",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionsilent",
+      "callee": "getScheduledMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionsilent",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L334"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionsilent",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L334"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionsilent",
+      "callee": "getMemoryMissions",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L334"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionsilent",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L363"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_detectmissionsilent",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L370"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L388"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L404"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L409"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L410"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L411"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L417"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_getambientsignals",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L419"
+    },
+    {
+      "caller_nid": "cockpit_ambient_signals_resetambientsignalscache",
+      "callee": "clear",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/ambient-signals.ts",
+      "source_location": "L425"
+    }
+  ]
+}

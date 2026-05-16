@@ -1,0 +1,322 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_cost_tracker_ts",
+      "label": "cost-tracker.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "engine_cost_tracker_empty_cost",
+      "label": "EMPTY_COST",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "engine_cost_tracker_costtracker",
+      "label": "CostTracker",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "engine_cost_tracker_costtracker_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "engine_cost_tracker_costtracker_track",
+      "label": ".track()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "engine_cost_tracker_costtracker_tracktoolcall",
+      "label": ".trackToolCall()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "engine_cost_tracker_costtracker_getcurrent",
+      "label": ".getCurrent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "engine_cost_tracker_costtracker_flush",
+      "label": ".flush()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "label": ".aggregateTenantUsage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L74"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_cost_tracker_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_cost_tracker_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_cost_tracker_ts",
+      "target": "engine_types_runcost",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_cost_tracker_ts",
+      "target": "engine_types_usagemetrics",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_cost_tracker_ts",
+      "target": "engine_cost_tracker_empty_cost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_engine_cost_tracker_ts",
+      "target": "engine_cost_tracker_costtracker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker",
+      "target": "engine_cost_tracker_costtracker_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker",
+      "target": "engine_cost_tracker_costtracker_track",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker",
+      "target": "engine_cost_tracker_costtracker_tracktoolcall",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker",
+      "target": "engine_cost_tracker_costtracker_getcurrent",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker",
+      "target": "engine_cost_tracker_costtracker_flush",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker",
+      "target": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker_track",
+      "target": "engine_cost_tracker_costtracker_flush",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker_track",
+      "target": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker_tracktoolcall",
+      "target": "engine_cost_tracker_costtracker_flush",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_usage_tracker_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_pricing_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_track",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_flush",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_flush",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_flush",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_flush",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_flush",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "callee": "then",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "engine_cost_tracker_costtracker_aggregatetenantusage",
+      "callee": "all",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/engine/cost-tracker.ts",
+      "source_location": "L94"
+    }
+  ]
+}

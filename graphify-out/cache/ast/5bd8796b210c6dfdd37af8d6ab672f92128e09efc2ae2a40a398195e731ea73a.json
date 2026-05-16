@@ -1,0 +1,466 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "label": "main.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "electron_main_gotlock",
+      "label": "gotLock",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "electron_main_deeplink",
+      "label": "deeplink",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "electron_main_handledeeplink",
+      "label": "handleDeeplink()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "electron_main_findfreeport",
+      "label": "findFreePort()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "electron_main_waitforserver",
+      "label": "waitForServer()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L91"
+    },
+    {
+      "id": "electron_main_startnextserver",
+      "label": "startNextServer()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L125"
+    },
+    {
+      "id": "electron_main_buildmenu",
+      "label": "buildMenu()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L155"
+    },
+    {
+      "id": "electron_main_createtray",
+      "label": "createTray()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L276"
+    },
+    {
+      "id": "electron_main_registeripchandlers",
+      "label": "registerIpcHandlers()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L311"
+    },
+    {
+      "id": "electron_main_createwindow",
+      "label": "createWindow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L381"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "node_http",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "node_net",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_gotlock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_deeplink",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_handledeeplink",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_findfreeport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_waitforserver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_startnextserver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_buildmenu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_createtray",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_registeripchandlers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L311",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_electron_main_ts",
+      "target": "electron_main_createwindow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L381",
+      "weight": 1.0
+    },
+    {
+      "source": "electron_main_startnextserver",
+      "target": "electron_main_findfreeport",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "electron_main_handledeeplink",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "electron_main_handledeeplink",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "electron_main_handledeeplink",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "electron_main_startnextserver",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "electron_main_startnextserver",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "electron_main_startnextserver",
+      "callee": "spawn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "electron_main_startnextserver",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "electron_main_startnextserver",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "electron_main_startnextserver",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "electron_main_startnextserver",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "electron_main_buildmenu",
+      "callee": "buildFromTemplate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L270"
+    },
+    {
+      "caller_nid": "electron_main_buildmenu",
+      "callee": "setApplicationMenu",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L271"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L278"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "createFromPath",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "isEmpty",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "createEmpty",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "createEmpty",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L284"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "setToolTip",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L288"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "buildFromTemplate",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L290"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "setContextMenu",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L302"
+    },
+    {
+      "caller_nid": "electron_main_createtray",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L303"
+    },
+    {
+      "caller_nid": "electron_main_registeripchandlers",
+      "callee": "handle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L313"
+    },
+    {
+      "caller_nid": "electron_main_registeripchandlers",
+      "callee": "handle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L316"
+    },
+    {
+      "caller_nid": "electron_main_registeripchandlers",
+      "callee": "handle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L319"
+    },
+    {
+      "caller_nid": "electron_main_registeripchandlers",
+      "callee": "handle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L326"
+    },
+    {
+      "caller_nid": "electron_main_registeripchandlers",
+      "callee": "handle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "electron_main_registeripchandlers",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L343"
+    },
+    {
+      "caller_nid": "electron_main_registeripchandlers",
+      "callee": "handle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L349"
+    },
+    {
+      "caller_nid": "electron_main_createwindow",
+      "callee": "join",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L394"
+    },
+    {
+      "caller_nid": "electron_main_createwindow",
+      "callee": "loadURL",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L404"
+    },
+    {
+      "caller_nid": "electron_main_createwindow",
+      "callee": "once",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L406"
+    },
+    {
+      "caller_nid": "electron_main_createwindow",
+      "callee": "setWindowOpenHandler",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L411"
+    },
+    {
+      "caller_nid": "electron_main_createwindow",
+      "callee": "on",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/electron/main.ts",
+      "source_location": "L419"
+    }
+  ]
+}

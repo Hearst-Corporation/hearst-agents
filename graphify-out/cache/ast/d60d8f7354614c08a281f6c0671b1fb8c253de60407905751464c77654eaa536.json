@@ -1,0 +1,337 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "label": "tool-hitl-confirmation.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_getmodule",
+      "label": "getModule()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_args",
+      "label": "args",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_argshash",
+      "label": "argsHash",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_token",
+      "label": "token",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_result",
+      "label": "result",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_originalargs",
+      "label": "originalArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_tamperedargs",
+      "label": "tamperedArgs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L106"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_h1",
+      "label": "h1",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L144"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_h2",
+      "label": "h2",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L145"
+    },
+    {
+      "id": "security_tool_hitl_confirmation_test_h3",
+      "label": "h3",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L146"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_getmodule",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_argshash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_argshash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_argshash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_originalargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_tamperedargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_argshash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_h1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_h2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_h3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_argshash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_tool_hitl_confirmation_test_ts",
+      "target": "security_tool_hitl_confirmation_test_result",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    },
+    {
+      "source": "security_tool_hitl_confirmation_test_getmodule",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_hitl_confirmation_token_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/tool-hitl-confirmation.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

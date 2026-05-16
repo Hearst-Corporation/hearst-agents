@@ -1,0 +1,390 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "label": "apps.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "composio_apps_composioapp",
+      "label": "ComposioApp",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "composio_apps_rawapiitem",
+      "label": "RawApiItem",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "composio_apps_rawapipage",
+      "label": "RawApiPage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "composio_apps_rawhttpclient",
+      "label": "RawHttpClient",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "composio_apps_resetappscache",
+      "label": "resetAppsCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "composio_apps_categoriesof",
+      "label": "categoriesOf()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L75"
+    },
+    {
+      "id": "composio_apps_normalize",
+      "label": "normalize()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "composio_apps_rawauthconfig",
+      "label": "RawAuthConfig",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L106"
+    },
+    {
+      "id": "composio_apps_rawauthconfigpage",
+      "label": "RawAuthConfigPage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L110"
+    },
+    {
+      "id": "composio_apps_composioauthconfigsmodule",
+      "label": "ComposioAuthConfigsModule",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L114"
+    },
+    {
+      "id": "composio_apps_fetchconfiguredtoolkitslugs",
+      "label": "fetchConfiguredToolkitSlugs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "composio_apps_listavailableapps",
+      "label": "listAvailableApps()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L145"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_client_getcomposio",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_client_iscomposioconfigured",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_composioapp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_rawapiitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_rawapipage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_rawhttpclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_resetappscache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_categoriesof",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_normalize",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_rawauthconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_rawauthconfigpage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_composioauthconfigsmodule",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_fetchconfiguredtoolkitslugs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_apps_ts",
+      "target": "composio_apps_listavailableapps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "composio_apps_normalize",
+      "target": "composio_apps_categoriesof",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "composio_apps_listavailableapps",
+      "target": "composio_apps_fetchconfiguredtoolkitslugs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L180",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "composio_apps_categoriesof",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "composio_apps_categoriesof",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "composio_apps_categoriesof",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "composio_apps_normalize",
+      "callee": "Boolean",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "composio_apps_normalize",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "composio_apps_fetchconfiguredtoolkitslugs",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L129"
+    },
+    {
+      "caller_nid": "composio_apps_fetchconfiguredtoolkitslugs",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "composio_apps_fetchconfiguredtoolkitslugs",
+      "callee": "add",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "composio_apps_fetchconfiguredtoolkitslugs",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L136"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "isComposioConfigured",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L148"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "getComposio",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "composio_apps_listavailableapps",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/apps.ts",
+      "source_location": "L196"
+    }
+  ]
+}

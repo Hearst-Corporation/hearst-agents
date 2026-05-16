@@ -1,0 +1,214 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "label": "ProviderChip.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_providerchip_providerstatus",
+      "label": "ProviderStatus",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "components_providerchip_providerchipprops",
+      "label": "ProviderChipProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "components_providerchip_glyphfor",
+      "label": "glyphFor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L31"
+    },
+    {
+      "id": "components_providerchip_formatlatency",
+      "label": "formatLatency()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L87"
+    },
+    {
+      "id": "components_providerchip_formatcost",
+      "label": "formatCost()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L93"
+    },
+    {
+      "id": "components_providerchip_providerchip",
+      "label": "ProviderChip()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L99"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "target": "components_providerchip_providerstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "target": "components_providerchip_providerchipprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "target": "components_providerchip_glyphfor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "target": "components_providerchip_formatlatency",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "target": "components_providerchip_formatcost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_providerchip_tsx",
+      "target": "components_providerchip_providerchip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "components_providerchip_providerchip",
+      "target": "components_providerchip_glyphfor",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "components_providerchip_providerchip",
+      "target": "components_providerchip_formatlatency",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "components_providerchip_providerchip",
+      "target": "components_providerchip_formatcost",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L155",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_providerchip_glyphfor",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "components_providerchip_glyphfor",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "components_providerchip_glyphfor",
+      "callee": "charAt",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "components_providerchip_formatlatency",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "components_providerchip_formatlatency",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "components_providerchip_formatlatency",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "components_providerchip_formatcost",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "components_providerchip_formatcost",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "components_providerchip_providerchip",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ProviderChip.tsx",
+      "source_location": "L106"
+    }
+  ]
+}

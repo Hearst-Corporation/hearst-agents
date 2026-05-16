@@ -1,0 +1,214 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_webhooks_stripe_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "stripe_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L22"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_webhooks_stripe_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_webhooks_stripe_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_stripe_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_webhooks_stripe_route_ts",
+      "target": "credits_stripe_verifystripewebhook",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_webhooks_stripe_route_ts",
+      "target": "stripe_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "stripe_route_post",
+      "target": "stripe",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "stripe_route_post",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "stripe_route_post",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_grant_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "verifyStripeWebhook",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "grantCredits",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "stripe_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/webhooks/stripe/route.ts",
+      "source_location": "L78"
+    }
+  ]
+}

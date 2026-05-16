@@ -1,0 +1,472 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "generate_route_dailybriefbodyschema",
+      "label": "dailyBriefBodySchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "generate_route_todayiso",
+      "label": "todayIso()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "generate_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L38"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_daily_caps_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "credits_daily_caps_checkdailycap",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "daily_brief_store_loaddailybrieffordate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_queue_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "jobs_queue_enqueuejob",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_auth_scope_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "auth_scope_requirescope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "generate_route_dailybriefbodyschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "generate_route_todayiso",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_daily_brief_generate_route_ts",
+      "target": "generate_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "generate_route_post",
+      "target": "generate_route_todayiso",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "generate_route_post",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_assembler_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "generate_route_post",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_generate_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "generate_route_post",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_daily_brief_pdf_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "generate_route_post",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_export_store_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "generate_route_post",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "generate_route_post",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "generate_route_todayiso",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "generate_route_todayiso",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "requireScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "flatten",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "checkDailyCap",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "loadDailyBriefForDate",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "enqueueJob",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L104"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "assembleDailyBriefData",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "generateDailyBriefNarration",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "renderDailyBriefPdf",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "randomUUID",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "persistExport",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "getExportSignedUrl",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "toLocaleDateString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "storeAsset",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L173"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L212"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L213"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L216"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L223"
+    },
+    {
+      "caller_nid": "generate_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/daily-brief/generate/route.ts",
+      "source_location": "L224"
+    }
+  ]
+}

@@ -1,0 +1,1972 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "label": "health-check.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_health_check_checkresult",
+      "label": "CheckResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "scripts_health_check_timed",
+      "label": "timed()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "scripts_health_check_head",
+      "label": "head()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "scripts_health_check_skip",
+      "label": "skip()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "scripts_health_check_ok",
+      "label": "ok()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "scripts_health_check_fail",
+      "label": "fail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "scripts_health_check_warn",
+      "label": "warn()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "scripts_health_check_checkanthropic",
+      "label": "checkAnthropic()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "scripts_health_check_checkopenai",
+      "label": "checkOpenAI()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "scripts_health_check_checkdeepseek",
+      "label": "checkDeepseek()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L105"
+    },
+    {
+      "id": "scripts_health_check_checkexa",
+      "label": "checkExa()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L116"
+    },
+    {
+      "id": "scripts_health_check_checktavily",
+      "label": "checkTavily()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L132"
+    },
+    {
+      "id": "scripts_health_check_checkperplexity",
+      "label": "checkPerplexity()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L148"
+    },
+    {
+      "id": "scripts_health_check_checkfal",
+      "label": "checkFAL()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L163"
+    },
+    {
+      "id": "scripts_health_check_checkelevenlabs",
+      "label": "checkElevenLabs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L177"
+    },
+    {
+      "id": "scripts_health_check_checkheygen",
+      "label": "checkHeyGen()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L190"
+    },
+    {
+      "id": "scripts_health_check_checkrunway",
+      "label": "checkRunway()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L204"
+    },
+    {
+      "id": "scripts_health_check_checkllamaparse",
+      "label": "checkLlamaParse()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L222"
+    },
+    {
+      "id": "scripts_health_check_checke2b",
+      "label": "checkE2B()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L239"
+    },
+    {
+      "id": "scripts_health_check_checkbrowserbase",
+      "label": "checkBrowserbase()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L252"
+    },
+    {
+      "id": "scripts_health_check_checkrecall",
+      "label": "checkRecall()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L267"
+    },
+    {
+      "id": "scripts_health_check_checkdeepgram",
+      "label": "checkDeepgram()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L281"
+    },
+    {
+      "id": "scripts_health_check_checkapollo",
+      "label": "checkApollo()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L292"
+    },
+    {
+      "id": "scripts_health_check_checkpdl",
+      "label": "checkPDL()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L308"
+    },
+    {
+      "id": "scripts_health_check_checkcomposio",
+      "label": "checkComposio()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L326"
+    },
+    {
+      "id": "scripts_health_check_checksupabase",
+      "label": "checkSupabase()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L343"
+    },
+    {
+      "id": "scripts_health_check_checksupabasestorage",
+      "label": "checkSupabaseStorage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L357"
+    },
+    {
+      "id": "scripts_health_check_checkupstashrest",
+      "label": "checkUpstashREST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L376"
+    },
+    {
+      "id": "scripts_health_check_checkupstashtcp",
+      "label": "checkUpstashTCP()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L394"
+    },
+    {
+      "id": "scripts_health_check_checkinngest",
+      "label": "checkInngest()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L404"
+    },
+    {
+      "id": "scripts_health_check_checkresend",
+      "label": "checkResend()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L416"
+    },
+    {
+      "id": "scripts_health_check_checksentry",
+      "label": "checkSentry()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L427"
+    },
+    {
+      "id": "scripts_health_check_checklangfuse",
+      "label": "checkLangfuse()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L442"
+    },
+    {
+      "id": "scripts_health_check_checkaxiom",
+      "label": "checkAxiom()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L456"
+    },
+    {
+      "id": "scripts_health_check_checkarcjet",
+      "label": "checkArcjet()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L467"
+    },
+    {
+      "id": "scripts_health_check_checkr2",
+      "label": "checkR2()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L477"
+    },
+    {
+      "id": "scripts_health_check_checks",
+      "label": "checks",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L486"
+    },
+    {
+      "id": "scripts_health_check_colors",
+      "label": "COLORS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L518"
+    },
+    {
+      "id": "scripts_health_check_formatstatus",
+      "label": "formatStatus()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L529"
+    },
+    {
+      "id": "scripts_health_check_pad",
+      "label": "pad()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L542"
+    },
+    {
+      "id": "scripts_health_check_stripansi",
+      "label": "stripAnsi()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L547"
+    },
+    {
+      "id": "scripts_health_check_cols",
+      "label": "cols",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L559"
+    },
+    {
+      "id": "scripts_health_check_status",
+      "label": "status",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L577"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_scripts_lib_load_env_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "lib_load_env_loadenv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_timed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_head",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_skip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_ok",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_fail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_warn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkanthropic",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkopenai",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkdeepseek",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkexa",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checktavily",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkperplexity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkfal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L163",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkelevenlabs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkheygen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkrunway",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkllamaparse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L222",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checke2b",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L239",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkbrowserbase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L252",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkrecall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkdeepgram",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L281",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkapollo",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L292",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkpdl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L308",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkcomposio",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L326",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checksupabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L343",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checksupabasestorage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L357",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkupstashrest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L376",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkupstashtcp",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L394",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkinngest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L404",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkresend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L416",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checksentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L427",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checklangfuse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L442",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkaxiom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L456",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkarcjet",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L467",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checkr2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L477",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_checks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L486",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_colors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L518",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_formatstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L529",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_pad",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L542",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_stripansi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L547",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_cols",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L559",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_health_check_ts",
+      "target": "scripts_health_check_status",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L577",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkanthropic",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkanthropic",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkanthropic",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkanthropic",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkopenai",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkopenai",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkopenai",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkopenai",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepseek",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepseek",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepseek",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepseek",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkexa",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkexa",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkexa",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkexa",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checktavily",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checktavily",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checktavily",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checktavily",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkperplexity",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkperplexity",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L153",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkperplexity",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkperplexity",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkfal",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkfal",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkfal",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkfal",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L173",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkelevenlabs",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L180",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkelevenlabs",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkelevenlabs",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L184",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkelevenlabs",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkheygen",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L193",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkheygen",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L195",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkheygen",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L198",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkheygen",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L200",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrunway",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L207",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrunway",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrunway",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrunway",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L219",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkllamaparse",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L225",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkllamaparse",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L226",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkllamaparse",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L233",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkllamaparse",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L235",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checke2b",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checke2b",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checke2b",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L246",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checke2b",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L248",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkbrowserbase",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L256",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkbrowserbase",
+      "target": "scripts_health_check_warn",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L257",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkbrowserbase",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L258",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkbrowserbase",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L261",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkbrowserbase",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L263",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrecall",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L270",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrecall",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrecall",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L275",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkrecall",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L277",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepgram",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L284",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepgram",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L285",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepgram",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L288",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkdeepgram",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L289",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkapollo",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L295",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkapollo",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L296",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkapollo",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L302",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkapollo",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L304",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkpdl",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L311",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkpdl",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L313",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkpdl",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L320",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkpdl",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L322",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkcomposio",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L329",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkcomposio",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L330",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkcomposio",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L337",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkcomposio",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L339",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabase",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabase",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L348",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabase",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L351",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabase",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L353",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabasestorage",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L361",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabasestorage",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L363",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabasestorage",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L370",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksupabasestorage",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L372",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkupstashrest",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L380",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkupstashrest",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L381",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkupstashrest",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L388",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkupstashrest",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L390",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkupstashtcp",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L397",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkupstashtcp",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L400",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkupstashtcp",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L401",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkinngest",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L408",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkinngest",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L409",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkinngest",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L410",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkinngest",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L412",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkresend",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L419",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkresend",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L420",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkresend",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L423",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkresend",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L424",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksentry",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L430",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksentry",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L433",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksentry",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L435",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checksentry",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L438",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checklangfuse",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L446",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checklangfuse",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L449",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checklangfuse",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L452",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checklangfuse",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L453",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkaxiom",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L459",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkaxiom",
+      "target": "scripts_health_check_timed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L460",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkaxiom",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L463",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkaxiom",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L464",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkarcjet",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L470",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkarcjet",
+      "target": "scripts_health_check_fail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L473",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkarcjet",
+      "target": "scripts_health_check_ok",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L474",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkr2",
+      "target": "scripts_health_check_skip",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L480",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_health_check_checkr2",
+      "target": "scripts_health_check_warn",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L481",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scripts_health_check_timed",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "scripts_health_check_timed",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "scripts_health_check_timed",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "scripts_health_check_timed",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "scripts_health_check_timed",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "scripts_health_check_head",
+      "callee": "setTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "scripts_health_check_head",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "scripts_health_check_head",
+      "callee": "clearTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "scripts_health_check_checkperplexity",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "scripts_health_check_checkupstashrest",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "scripts_health_check_checkupstashtcp",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L400"
+    },
+    {
+      "caller_nid": "scripts_health_check_checksentry",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L432"
+    },
+    {
+      "caller_nid": "scripts_health_check_checklangfuse",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L448"
+    },
+    {
+      "caller_nid": "scripts_health_check_checklangfuse",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L448"
+    },
+    {
+      "caller_nid": "scripts_health_check_checkarcjet",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L472"
+    },
+    {
+      "caller_nid": "scripts_health_check_pad",
+      "callee": "repeat",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L544"
+    },
+    {
+      "caller_nid": "scripts_health_check_stripansi",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/health-check.ts",
+      "source_location": "L548"
+    }
+  ]
+}

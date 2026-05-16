@@ -1,0 +1,547 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "label": "telemetry.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hom_telemetry_spanrecorder",
+      "label": "SpanRecorder",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "hom_telemetry_spanopts",
+      "label": "SpanOpts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "hom_telemetry_startspan",
+      "label": "startSpan()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "hom_telemetry_makerecorder",
+      "label": "makeRecorder()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "hom_telemetry_persistspan",
+      "label": "persistSpan()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L93"
+    },
+    {
+      "id": "hom_telemetry_writelog",
+      "label": "writeLog()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L100"
+    },
+    {
+      "id": "hom_telemetry_ensuretelemetrydirs",
+      "label": "ensureTelemetryDirs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L112"
+    },
+    {
+      "id": "hom_telemetry_readrunspans",
+      "label": "readRunSpans()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "hom_telemetry_readdaylogs",
+      "label": "readDayLogs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L135"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_fs_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_fs_utils_appendjsonl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_fs_utils_appendtext",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_fs_utils_ensuredir",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_fs_utils_nowiso",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_fs_utils_shortid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_paths_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_paths_hom",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_paths_todayutc",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_types_agentid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_types_logevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_types_runphase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_types_span",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_spanrecorder",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_spanopts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_startspan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_makerecorder",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_persistspan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_writelog",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_ensuretelemetrydirs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_readrunspans",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_hom_telemetry_ts",
+      "target": "hom_telemetry_readdaylogs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_telemetry_startspan",
+      "target": "hom_telemetry_makerecorder",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_telemetry_readrunspans",
+      "target": "promises",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "hom_telemetry_readdaylogs",
+      "target": "promises",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "hom_telemetry_startspan",
+      "callee": "shortId",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "hom_telemetry_startspan",
+      "callee": "nowIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "hom_telemetry_persistspan",
+      "callee": "todayUtc",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "hom_telemetry_persistspan",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "hom_telemetry_persistspan",
+      "callee": "appendJsonl",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "hom_telemetry_persistspan",
+      "callee": "appendJsonl",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "hom_telemetry_persistspan",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "hom_telemetry_writelog",
+      "callee": "todayUtc",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "hom_telemetry_writelog",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "hom_telemetry_writelog",
+      "callee": "appendJsonl",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "hom_telemetry_writelog",
+      "callee": "appendText",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L105"
+    },
+    {
+      "caller_nid": "hom_telemetry_writelog",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "hom_telemetry_ensuretelemetrydirs",
+      "callee": "todayUtc",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L113"
+    },
+    {
+      "caller_nid": "hom_telemetry_ensuretelemetrydirs",
+      "callee": "ensureDir",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "hom_telemetry_ensuretelemetrydirs",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "hom_telemetry_ensuretelemetrydirs",
+      "callee": "ensureDir",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "hom_telemetry_ensuretelemetrydirs",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "hom_telemetry_ensuretelemetrydirs",
+      "callee": "ensureDir",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "hom_telemetry_readrunspans",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "hom_telemetry_readrunspans",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "hom_telemetry_readrunspans",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "hom_telemetry_readrunspans",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "hom_telemetry_readrunspans",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "hom_telemetry_readrunspans",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "hom_telemetry_readdaylogs",
+      "callee": "readFile",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "hom_telemetry_readdaylogs",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "hom_telemetry_readdaylogs",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "hom_telemetry_readdaylogs",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "hom_telemetry_readdaylogs",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L139"
+    },
+    {
+      "caller_nid": "hom_telemetry_readdaylogs",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/hom/telemetry.ts",
+      "source_location": "L139"
+    }
+  ]
+}

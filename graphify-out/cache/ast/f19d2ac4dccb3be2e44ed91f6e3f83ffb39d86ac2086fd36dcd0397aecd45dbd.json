@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "label": "KPIBento.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "panels_kpibento_kpibentoprops",
+      "label": "KPIBentoProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "panels_kpibento_kpi",
+      "label": "KPI",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "panels_kpibento_kpibento",
+      "label": "KPIBento()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L23"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_bentocard_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "target": "panels_bentocard_bentocard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_today_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "target": "cockpit_today_cockpittodaypayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "target": "panels_kpibento_kpibentoprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "target": "panels_kpibento_kpi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_panels_kpibento_tsx",
+      "target": "panels_kpibento_kpibento",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "panels_kpibento_kpibento",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/panels/KPIBento.tsx",
+      "source_location": "L33"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "label": "types.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "right_panel_types_rightpanelcurrentrun",
+      "label": "RightPanelCurrentRun",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "right_panel_types_rightpanelrun",
+      "label": "RightPanelRun",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "right_panel_types_rightpanelasset",
+      "label": "RightPanelAsset",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "right_panel_types_rightpanelreportsuggestion",
+      "label": "RightPanelReportSuggestion",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "right_panel_types_rightpanelmission",
+      "label": "RightPanelMission",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "right_panel_types_rightpanelschedulersummary",
+      "label": "RightPanelSchedulerSummary",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "right_panel_types_rightpanelmissionopssummary",
+      "label": "RightPanelMissionOpsSummary",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "right_panel_types_rightpanelconnectorhealth",
+      "label": "RightPanelConnectorHealth",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "right_panel_types_rightpaneldata",
+      "label": "RightPanelData",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "right_panel_types_focalobjectview",
+      "label": "FocalObjectView",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L105"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelcurrentrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelasset",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelreportsuggestion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelmission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelschedulersummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelmissionopssummary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpanelconnectorhealth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_rightpaneldata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_types_ts",
+      "target": "right_panel_types_focalobjectview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/types.ts",
+      "source_location": "L105",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": []
+}

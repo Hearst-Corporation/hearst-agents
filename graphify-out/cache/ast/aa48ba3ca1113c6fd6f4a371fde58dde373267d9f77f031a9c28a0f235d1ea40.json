@@ -1,0 +1,224 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "label": "trello.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "preview_formatters_trello_formattrellocreatecard",
+      "label": "formatTrelloCreateCard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L7"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_shared_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "target": "preview_formatters_shared_asarray",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "target": "preview_formatters_shared_footer",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "target": "preview_formatters_shared_header",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "target": "preview_formatters_shared_line",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "target": "preview_formatters_shared_preview",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_trello_ts",
+      "target": "preview_formatters_trello_formattrellocreatecard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L8"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "asArray",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "asArray",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "preview",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "header",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "preview_formatters_trello_formattrellocreatecard",
+      "callee": "footer",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/trello.ts",
+      "source_location": "L24"
+    }
+  ]
+}

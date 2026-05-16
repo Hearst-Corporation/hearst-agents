@@ -1,0 +1,109 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_approvalalert_tsx",
+      "label": "ApprovalAlert.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "overlays_approvalalert_approvalalert",
+      "label": "ApprovalAlert()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L13"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_approvalalert_tsx",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_approvalalert_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_approvalalert_tsx",
+      "target": "stores_runtime_useruntimestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_approvalalert_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_spatial_safe_constants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_approvalalert_tsx",
+      "target": "spatial_safe_constants_spatial_z_layers",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_overlays_approvalalert_tsx",
+      "target": "overlays_approvalalert_approvalalert",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "overlays_approvalalert_approvalalert",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "overlays_approvalalert_approvalalert",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "overlays_approvalalert_approvalalert",
+      "callee": "useRuntimeStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "overlays_approvalalert_approvalalert",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/overlays/ApprovalAlert.tsx",
+      "source_location": "L18"
+    }
+  ]
+}

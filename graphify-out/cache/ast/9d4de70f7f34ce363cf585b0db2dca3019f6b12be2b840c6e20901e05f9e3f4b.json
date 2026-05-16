@@ -1,0 +1,286 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "label": "ghost-icons.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_ghost_icons_svgbox",
+      "label": "SvgBox()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "components_ghost_icons_ghosticonx",
+      "label": "GhostIconX()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L28"
+    },
+    {
+      "id": "components_ghost_icons_ghosticonchevronright",
+      "label": "GhostIconChevronRight()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "components_ghost_icons_ghosticonplay",
+      "label": "GhostIconPlay()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L44"
+    },
+    {
+      "id": "components_ghost_icons_ghosticonpencil",
+      "label": "GhostIconPencil()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L52"
+    },
+    {
+      "id": "components_ghost_icons_ghosticontrash",
+      "label": "GhostIconTrash()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L60"
+    },
+    {
+      "id": "components_ghost_icons_ghosticonalert",
+      "label": "GhostIconAlert()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L68"
+    },
+    {
+      "id": "components_ghost_icons_ghosticoncheck",
+      "label": "GhostIconCheck()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L76"
+    },
+    {
+      "id": "components_ghost_icons_ghosticonmenu",
+      "label": "GhostIconMenu()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L84"
+    },
+    {
+      "id": "components_ghost_icons_ghosticoninfo",
+      "label": "GhostIconInfo()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L92"
+    },
+    {
+      "id": "components_ghost_icons_ghosticoncamera",
+      "label": "GhostIconCamera()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L102"
+    },
+    {
+      "id": "components_ghost_icons_ghosticontarget",
+      "label": "GhostIconTarget()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L111"
+    },
+    {
+      "id": "components_ghost_icons_ghosticonwave",
+      "label": "GhostIconWave()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L122"
+    },
+    {
+      "id": "components_ghost_icons_ghosticoncard",
+      "label": "GhostIconCard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L131"
+    },
+    {
+      "id": "components_ghost_icons_serviceidglyph",
+      "label": "ServiceIdGlyph()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L141"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_svgbox",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticonx",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticonchevronright",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticonplay",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticonpencil",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticontrash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticonalert",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticoncheck",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticonmenu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticoninfo",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticoncamera",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticontarget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticonwave",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_ghosticoncard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ghost_icons_tsx",
+      "target": "components_ghost_icons_serviceidglyph",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L141",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_ghost_icons_serviceidglyph",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "components_ghost_icons_serviceidglyph",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "components_ghost_icons_serviceidglyph",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx",
+      "source_location": "L170"
+    }
+  ]
+}

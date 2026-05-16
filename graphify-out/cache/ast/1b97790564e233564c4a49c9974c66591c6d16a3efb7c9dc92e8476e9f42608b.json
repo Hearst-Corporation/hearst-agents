@@ -1,0 +1,174 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "label": "parse-body.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "http_parse_body_parsebodyresult",
+      "label": "ParseBodyResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "http_parse_body_parsejsonbodyoptions",
+      "label": "ParseJsonBodyOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "http_parse_body_parsejsonbody",
+      "label": "parseJsonBody()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L40"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "target": "http_parse_body_parsebodyresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "target": "http_parse_body_parsejsonbodyoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_http_parse_body_ts",
+      "target": "http_parse_body_parsejsonbody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L47"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "http_parse_body_parsejsonbody",
+      "callee": "flatten",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/http/parse-body.ts",
+      "source_location": "L75"
+    }
+  ]
+}

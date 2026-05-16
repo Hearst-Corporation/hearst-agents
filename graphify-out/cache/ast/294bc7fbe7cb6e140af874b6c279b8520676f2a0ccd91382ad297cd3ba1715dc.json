@@ -1,0 +1,143 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "label": "store.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "inbox_store_assetrow",
+      "label": "AssetRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "inbox_store_loadlatestinboxbrief",
+      "label": "loadLatestInboxBrief()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L26"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_inbox_brief_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "target": "inbox_inbox_brief_inboxbrief",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "target": "inbox_store_assetrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_inbox_store_ts",
+      "target": "inbox_store_loadlatestinboxbrief",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "inbox_store_loadlatestinboxbrief",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/inbox/store.ts",
+      "source_location": "L53"
+    }
+  ]
+}

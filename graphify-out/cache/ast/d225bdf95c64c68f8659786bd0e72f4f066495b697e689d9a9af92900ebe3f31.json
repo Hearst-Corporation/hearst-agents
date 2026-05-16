@@ -1,0 +1,117 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "label": "hospitality-guest-satisfaction.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "catalog_hospitality_guest_satisfaction_buildhospitalityguestsatisfaction",
+      "label": "buildHospitalityGuestSatisfaction()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "catalog_hospitality_guest_satisfaction_hospitality_guest_satisfaction_required_apps",
+      "label": "HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L122"
+    },
+    {
+      "id": "catalog_hospitality_guest_satisfaction_buildhospitalityguestsatisfactionsampledata",
+      "label": "buildHospitalityGuestSatisfactionSampleData()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L124"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_spec_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "target": "spec_schema_reportspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_verticals_hospitality_mock_data_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "target": "hospitality_mock_data_getmocksatisfaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "target": "catalog_hospitality_guest_satisfaction_buildhospitalityguestsatisfaction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "target": "catalog_hospitality_guest_satisfaction_hospitality_guest_satisfaction_required_apps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_catalog_hospitality_guest_satisfaction_ts",
+      "target": "catalog_hospitality_guest_satisfaction_buildhospitalityguestsatisfactionsampledata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L124",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "catalog_hospitality_guest_satisfaction_buildhospitalityguestsatisfaction",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "catalog_hospitality_guest_satisfaction_buildhospitalityguestsatisfactionsampledata",
+      "callee": "getMockSatisfaction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/hospitality-guest-satisfaction.ts",
+      "source_location": "L126"
+    }
+  ]
+}

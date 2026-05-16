@@ -1,0 +1,135 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mobilebottomnav_tsx",
+      "label": "MobileBottomNav.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_mobilebottomnav_navitem",
+      "label": "NavItem",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "components_mobilebottomnav_items",
+      "label": "ITEMS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "components_mobilebottomnav_mobilebottomnav",
+      "label": "MobileBottomNav()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L37"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mobilebottomnav_tsx",
+      "target": "navigation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mobilebottomnav_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mobilebottomnav_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mobilebottomnav_tsx",
+      "target": "components_mobilebottomnav_navitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mobilebottomnav_tsx",
+      "target": "components_mobilebottomnav_items",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_mobilebottomnav_tsx",
+      "target": "components_mobilebottomnav_mobilebottomnav",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_mobilebottomnav_mobilebottomnav",
+      "callee": "useRouter",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "components_mobilebottomnav_mobilebottomnav",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "components_mobilebottomnav_mobilebottomnav",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "components_mobilebottomnav_mobilebottomnav",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "components_mobilebottomnav_mobilebottomnav",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "components_mobilebottomnav_mobilebottomnav",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MobileBottomNav.tsx",
+      "source_location": "L86"
+    }
+  ]
+}

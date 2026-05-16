@@ -1,0 +1,150 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "label": "CockpitScene.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "scenes_cockpitscene_rail_items",
+      "label": "RAIL_ITEMS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "scenes_cockpitscene_missions",
+      "label": "MISSIONS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L34"
+    },
+    {
+      "id": "scenes_cockpitscene_settings",
+      "label": "SETTINGS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L40"
+    },
+    {
+      "id": "scenes_cockpitscene_status_color",
+      "label": "STATUS_COLOR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L47"
+    },
+    {
+      "id": "scenes_cockpitscene_cockpitscene",
+      "label": "CockpitScene()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L53"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "target": "scenes_cockpitscene_rail_items",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "target": "scenes_cockpitscene_missions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "target": "scenes_cockpitscene_settings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "target": "scenes_cockpitscene_status_color",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_cockpitscene_tsx",
+      "target": "scenes_cockpitscene_cockpitscene",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L53",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scenes_cockpitscene_cockpitscene",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "scenes_cockpitscene_cockpitscene",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "scenes_cockpitscene_cockpitscene",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L237"
+    },
+    {
+      "caller_nid": "scenes_cockpitscene_cockpitscene",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L269"
+    },
+    {
+      "caller_nid": "scenes_cockpitscene_cockpitscene",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/CockpitScene.tsx",
+      "source_location": "L350"
+    }
+  ]
+}

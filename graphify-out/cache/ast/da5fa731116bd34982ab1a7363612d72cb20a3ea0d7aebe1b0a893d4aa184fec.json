@@ -1,0 +1,491 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "label": "model-selector.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "decisions_model_selector_db",
+      "label": "DB",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "decisions_model_selector_modelgoal",
+      "label": "ModelGoal",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "decisions_model_selector_modelscore",
+      "label": "ModelScore",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "decisions_model_selector_modelselection",
+      "label": "ModelSelection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "decisions_model_selector_weights",
+      "label": "WEIGHTS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "decisions_model_selector_scoremodels",
+      "label": "scoreModels()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "decisions_model_selector_selectmodel",
+      "label": "selectModel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L154"
+    },
+    {
+      "id": "decisions_model_selector_sortbygoal",
+      "label": "sortByGoal()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L176"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_database_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "lib_database_types_database",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_modelgoal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_modelscore",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_modelselection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_weights",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_scoremodels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_selectmodel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "target": "decisions_model_selector_sortbygoal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "decisions_model_selector_selectmodel",
+      "target": "decisions_model_selector_sortbygoal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "gte",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L110"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L116"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L118"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "round",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "decisions_model_selector_scoremodels",
+      "callee": "forEach",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L147"
+    },
+    {
+      "caller_nid": "decisions_model_selector_selectmodel",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L155"
+    },
+    {
+      "caller_nid": "decisions_model_selector_selectmodel",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L167"
+    },
+    {
+      "caller_nid": "decisions_model_selector_sortbygoal",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "decisions_model_selector_sortbygoal",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L186"
+    },
+    {
+      "caller_nid": "decisions_model_selector_sortbygoal",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "decisions_model_selector_sortbygoal",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/decisions/model-selector.ts",
+      "source_location": "L199"
+    }
+  ]
+}

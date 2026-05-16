@@ -1,0 +1,127 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "label": "ssrf-guard.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_ssrf_guard_test_mocklookup",
+      "label": "mockLookup",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "security_ssrf_guard_test_mockpublicdns",
+      "label": "mockPublicDns()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "security_ssrf_guard_test_mockprivatedns",
+      "label": "mockPrivateDns()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L25"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "security_ssrf_guard_assertsafeurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "security_ssrf_guard_isurlshapeallowed",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "security_ssrf_guard_ssrfblockederror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "security_ssrf_guard_test_mocklookup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "security_ssrf_guard_test_mockpublicdns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_security_ssrf_guard_test_ts",
+      "target": "security_ssrf_guard_test_mockprivatedns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "security_ssrf_guard_test_mockpublicdns",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_test_mockprivatedns",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/security/ssrf-guard.test.ts",
+      "source_location": "L26"
+    }
+  ]
+}

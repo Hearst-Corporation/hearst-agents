@@ -1,0 +1,137 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_grant_ts",
+      "label": "grant.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "credits_grant_grantcreditsmeta",
+      "label": "GrantCreditsMeta",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "credits_grant_grantcredits",
+      "label": "grantCredits()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L28"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_grant_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_grant_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_grant_ts",
+      "target": "credits_grant_grantcreditsmeta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_grant_ts",
+      "target": "credits_grant_grantcredits",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "rpc",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "upsert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "credits_grant_grantcredits",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/grant.ts",
+      "source_location": "L69"
+    }
+  ]
+}

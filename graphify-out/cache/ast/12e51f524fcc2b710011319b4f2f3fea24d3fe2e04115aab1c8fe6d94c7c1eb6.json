@@ -1,0 +1,289 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "label": "ChartsScene.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "scenes_chartsscene_formatcurrency",
+      "label": "formatCurrency()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "scenes_chartsscene_nodes",
+      "label": "NODES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "scenes_chartsscene_networkallocation",
+      "label": "NetworkAllocation()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L41"
+    },
+    {
+      "id": "scenes_chartsscene_area_data",
+      "label": "AREA_DATA",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L275"
+    },
+    {
+      "id": "scenes_chartsscene_tacticaltrend",
+      "label": "TacticalTrend()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L280"
+    },
+    {
+      "id": "scenes_chartsscene_hudgauge",
+      "label": "HudGauge()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L467"
+    },
+    {
+      "id": "scenes_chartsscene_hudcard",
+      "label": "HudCard()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L492"
+    },
+    {
+      "id": "scenes_chartsscene_chartsscene",
+      "label": "ChartsScene()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L520"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_formatcurrency",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_nodes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_networkallocation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_area_data",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L275",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_tacticaltrend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L280",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_hudgauge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L467",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_hudcard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L492",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lab_cli_os_src_scenes_chartsscene_tsx",
+      "target": "scenes_chartsscene_chartsscene",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L520",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "scenes_chartsscene_formatcurrency",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_networkallocation",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_networkallocation",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_networkallocation",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_networkallocation",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L229"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L283"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L285"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L296"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "reduce",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L302"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L363"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L363"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L375"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_tacticaltrend",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L375"
+    },
+    {
+      "caller_nid": "scenes_chartsscene_chartsscene",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lab/cli-os/src/scenes/ChartsScene.tsx",
+      "source_location": "L649"
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "label": "http-adapter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "integrations_http_adapter_http_fetch_action",
+      "label": "HTTP_FETCH_ACTION",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "integrations_http_adapter_httpadapter",
+      "label": "HttpAdapter",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "integrations_http_adapter_httpadapter_execute",
+      "label": ".execute()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "integrations_http_adapter_httpadapter_healthcheck",
+      "label": ".healthCheck()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L183"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "security_ssrf_guard_assertsafeurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "security_ssrf_guard_ssrfblockederror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_adapter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "integrations_adapter_adapteraction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "integrations_adapter_adapterresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "integrations_adapter_integrationadapter",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "integrations_adapter_integrationcredentials",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "integrations_http_adapter_http_fetch_action",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_integrations_http_adapter_ts",
+      "target": "integrations_http_adapter_httpadapter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_http_adapter_httpadapter",
+      "target": "integrations_http_adapter_httpadapter_execute",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "integrations_http_adapter_httpadapter",
+      "target": "integrations_http_adapter_httpadapter_healthcheck",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L183",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "assertSafeUrl",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "setTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "toString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L128"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L133"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L137"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L144"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L150"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L152"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L159"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L169"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L170"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L176"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_execute",
+      "callee": "clearTimeout",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_healthcheck",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_healthcheck",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L195"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_healthcheck",
+      "callee": "timeout",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L198"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_healthcheck",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L201"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_healthcheck",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "integrations_http_adapter_httpadapter_healthcheck",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/integrations/http-adapter.ts",
+      "source_location": "L206"
+    }
+  ]
+}

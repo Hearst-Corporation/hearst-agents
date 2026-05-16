@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "label": "provider-requirements.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "orchestrator_provider_requirements_providerrequirementresult",
+      "label": "ProviderRequirementResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "label": "getRequiredProvidersForInput()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "orchestrator_provider_requirements_getblockedreasonforproviders",
+      "label": "getBlockedReasonForProviders()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L47"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "capabilities_taxonomy_keywordmatches",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_registry_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "providers_registry_getallproviders",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "providers_registry_getproviderlabel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "orchestrator_provider_requirements_providerrequirementresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "target": "orchestrator_provider_requirements_getblockedreasonforproviders",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "callee": "getAllProviders",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "orchestrator_provider_requirements_getblockedreasonforproviders",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "orchestrator_provider_requirements_getblockedreasonforproviders",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/orchestrator/provider-requirements.ts",
+      "source_location": "L52"
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "token_route_routecontext",
+      "label": "RouteContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "token_route_noindexheaders",
+      "label": "noIndexHeaders()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "token_route_get",
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L42"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_signed_url_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "sharing_signed_url_hashtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "sharing_signed_url_verifytoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_sharing_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "sharing_store_findsharebytokenhash",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "sharing_store_incrementshareviewcount",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "token_route_routecontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "token_route_noindexheaders",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_public_reports_token_route_ts",
+      "target": "token_route_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "token_route_get",
+      "target": "token_route_noindexheaders",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "verifyToken",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "hashToken",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "findShareByTokenHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "incrementShareViewCount",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "token_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/public/reports/[token]/route.ts",
+      "source_location": "L114"
+    }
+  ]
+}

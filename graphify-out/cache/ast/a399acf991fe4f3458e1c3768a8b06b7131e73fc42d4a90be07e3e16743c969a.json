@@ -1,0 +1,336 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "label": "stripe.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "preview_formatters_stripe_formatamount",
+      "label": "formatAmount()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "preview_formatters_stripe_formatstripecreateinvoice",
+      "label": "formatStripeCreateInvoice()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "preview_formatters_stripe_formatstriperefund",
+      "label": "formatStripeRefund()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L37"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_shared_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "preview_formatters_shared_footer",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "preview_formatters_shared_header",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "preview_formatters_shared_line",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "preview_formatters_shared_preview",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "preview_formatters_stripe_formatamount",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "preview_formatters_stripe_formatstripecreateinvoice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_preview_formatters_stripe_ts",
+      "target": "preview_formatters_stripe_formatstriperefund",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "preview_formatters_stripe_formatstripecreateinvoice",
+      "target": "preview_formatters_stripe_formatamount",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "preview_formatters_stripe_formatstriperefund",
+      "target": "preview_formatters_stripe_formatamount",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "preview_formatters_stripe_formatamount",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L10"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatamount",
+      "callee": "isNaN",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L11"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatamount",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L11"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatamount",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatamount",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatamount",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "preview",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "header",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstripecreateinvoice",
+      "callee": "footer",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "line",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "header",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "preview_formatters_stripe_formatstriperefund",
+      "callee": "footer",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio/preview-formatters/stripe.ts",
+      "source_location": "L49"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "label": "charter.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "editorial_charter_preferred_vocabulary",
+      "label": "PREFERRED_VOCABULARY",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "editorial_charter_banned_formulas",
+      "label": "BANNED_FORMULAS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "editorial_charter_banned_fillers",
+      "label": "BANNED_FILLERS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "editorial_charter_editorial_charter_block",
+      "label": "EDITORIAL_CHARTER_BLOCK",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L99"
+    },
+    {
+      "id": "editorial_charter_composeeditorialprompt",
+      "label": "composeEditorialPrompt()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L115"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "target": "editorial_charter_preferred_vocabulary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "target": "editorial_charter_banned_formulas",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "target": "editorial_charter_banned_fillers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "target": "editorial_charter_editorial_charter_block",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "target": "editorial_charter_composeeditorialprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "editorial_charter_composeeditorialprompt",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/editorial/charter.ts",
+      "source_location": "L116"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "label": "use-image-variant-poll.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "asset_stage_use_image_variant_poll_useimagevariantpollresult",
+      "label": "UseImageVariantPollResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "asset_stage_use_image_variant_poll_useimagevariantpoll",
+      "label": "useImageVariantPoll()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L25"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_asset_id_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "target": "ui_asset_id_isplaceholderassetid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_shared_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "target": "asset_stage_shared_imagestatus",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "target": "asset_stage_use_image_variant_poll_useimagevariantpollresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_asset_stage_use_image_variant_poll_ts",
+      "target": "asset_stage_use_image_variant_poll_useimagevariantpoll",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "asset_stage_use_image_variant_poll_useimagevariantpoll",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "asset_stage_use_image_variant_poll_useimagevariantpoll",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "asset_stage_use_image_variant_poll_useimagevariantpoll",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/use-image-variant-poll.ts",
+      "source_location": "L29"
+    }
+  ]
+}

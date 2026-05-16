@@ -1,0 +1,377 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "label": "weekly-digest.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "functions_weekly_digest_weeklydigesteventdata",
+      "label": "WeeklyDigestEventData",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "functions_weekly_digest_activeuserscope",
+      "label": "ActiveUserScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "functions_weekly_digest_reporterror",
+      "label": "reportError()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "functions_weekly_digest_loadactiveuserswithslack",
+      "label": "loadActiveUsersWithSlack()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "functions_weekly_digest_weeklydigestcronfunction",
+      "label": "weeklyDigestCronFunction",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L110"
+    },
+    {
+      "id": "functions_weekly_digest_weeklydigestperuserfunction",
+      "label": "weeklyDigestPerUserFunction",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L143"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_weekly_digest_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "cockpit_weekly_digest_buildweeklydigest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "cockpit_weekly_digest_weeklydigestpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_composio_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "composio_client_executecomposioaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_control_plane_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "control_plane_store_getconnectionsbyscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "inngest_client_inngest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_redact_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "utils_redact_redactid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_templates_weekly_slack_digest_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "templates_weekly_slack_digest_formatweeklydigestblocks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "templates_weekly_slack_digest_weekly_digest_default_channel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "templates_weekly_slack_digest_weekly_digest_default_tz",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "functions_weekly_digest_weeklydigesteventdata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "functions_weekly_digest_activeuserscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "functions_weekly_digest_reporterror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "functions_weekly_digest_loadactiveuserswithslack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "functions_weekly_digest_weeklydigestcronfunction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_weekly_digest_ts",
+      "target": "functions_weekly_digest_weeklydigestperuserfunction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "functions_weekly_digest_reporterror",
+      "target": "nextjs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "functions_weekly_digest_loadactiveuserswithslack",
+      "target": "functions_weekly_digest_reporterror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "functions_weekly_digest_reporterror",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_reporterror",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L49"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_reporterror",
+      "callee": "captureException",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "getConnectionsByScope",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "functions_weekly_digest_loadactiveuserswithslack",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/weekly-digest.ts",
+      "source_location": "L98"
+    }
+  ]
+}

@@ -1,0 +1,566 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "label": "channels.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "notifications_channels_alertcontext",
+      "label": "AlertContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "notifications_channels_alertwebhookpayload",
+      "label": "AlertWebhookPayload",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "notifications_channels_channelkind",
+      "label": "ChannelKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "notifications_channels_channelresult",
+      "label": "ChannelResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "notifications_channels_matchessignalfilter",
+      "label": "matchesSignalFilter()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "notifications_channels_buildwebhookpayload",
+      "label": "buildWebhookPayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "notifications_channels_postjson",
+      "label": "postJson()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "notifications_channels_dispatchwebhook",
+      "label": "dispatchWebhook()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L117"
+    },
+    {
+      "id": "notifications_channels_severityemoji",
+      "label": "severityEmoji()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L143"
+    },
+    {
+      "id": "notifications_channels_buildslackpayload",
+      "label": "buildSlackPayload()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L154"
+    },
+    {
+      "id": "notifications_channels_dispatchslack",
+      "label": "dispatchSlack()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L179"
+    },
+    {
+      "id": "notifications_channels_emailmessage",
+      "label": "EmailMessage",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L210"
+    },
+    {
+      "id": "notifications_channels_emailsender",
+      "label": "EmailSender",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L217"
+    },
+    {
+      "id": "notifications_channels_stubemailsender",
+      "label": "stubEmailSender",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L227"
+    },
+    {
+      "id": "notifications_channels_setemailsender",
+      "label": "setEmailSender()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L239"
+    },
+    {
+      "id": "notifications_channels_getemailsender",
+      "label": "getEmailSender()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L243"
+    },
+    {
+      "id": "notifications_channels_buildemailmessage",
+      "label": "buildEmailMessage()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L247"
+    },
+    {
+      "id": "notifications_channels_dispatchemail",
+      "label": "dispatchEmail()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L259"
+    },
+    {
+      "id": "notifications_channels_truncateurl",
+      "label": "truncateUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L290"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_signals_extract_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "signals_extract_businesssignal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_schema_emailchannelconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_schema_slackchannelconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_schema_webhookchannelconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_alertcontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_alertwebhookpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_channelkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_channelresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_matchessignalfilter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_buildwebhookpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_postjson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_dispatchwebhook",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_severityemoji",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_buildslackpayload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_dispatchslack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_emailmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L210",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_emailsender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_stubemailsender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L227",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_setemailsender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L239",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_getemailsender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_buildemailmessage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L247",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_dispatchemail",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L259",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_notifications_channels_ts",
+      "target": "notifications_channels_truncateurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L290",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchwebhook",
+      "target": "notifications_channels_matchessignalfilter",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchwebhook",
+      "target": "notifications_channels_buildwebhookpayload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchwebhook",
+      "target": "notifications_channels_postjson",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchwebhook",
+      "target": "notifications_channels_truncateurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_buildslackpayload",
+      "target": "notifications_channels_severityemoji",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchslack",
+      "target": "notifications_channels_matchessignalfilter",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L184",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchslack",
+      "target": "notifications_channels_buildslackpayload",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L188",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchslack",
+      "target": "notifications_channels_postjson",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchslack",
+      "target": "notifications_channels_truncateurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L199",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchemail",
+      "target": "notifications_channels_matchessignalfilter",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L264",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_channels_dispatchemail",
+      "target": "notifications_channels_buildemailmessage",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L269",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "notifications_channels_matchessignalfilter",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "notifications_channels_matchessignalfilter",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "notifications_channels_postjson",
+      "callee": "attempt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "notifications_channels_postjson",
+      "callee": "attempt",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "notifications_channels_buildemailmessage",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L248"
+    },
+    {
+      "caller_nid": "notifications_channels_buildemailmessage",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "notifications_channels_buildemailmessage",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L254"
+    },
+    {
+      "caller_nid": "notifications_channels_dispatchemail",
+      "callee": "send",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L271"
+    },
+    {
+      "caller_nid": "notifications_channels_dispatchemail",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L282"
+    },
+    {
+      "caller_nid": "notifications_channels_truncateurl",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L292"
+    },
+    {
+      "caller_nid": "notifications_channels_truncateurl",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/notifications/channels.ts",
+      "source_location": "L292"
+    }
+  ]
+}

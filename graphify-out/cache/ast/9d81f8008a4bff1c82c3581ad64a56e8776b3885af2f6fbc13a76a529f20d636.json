@@ -1,0 +1,258 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "label": "fixtures.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "notifications_fixtures_notificationkind",
+      "label": "NotificationKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "notifications_fixtures_notificationseverity",
+      "label": "NotificationSeverity",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "notifications_fixtures_mocknotificationinput",
+      "label": "MockNotificationInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "notifications_fixtures_mocknotification",
+      "label": "mockNotification()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "notifications_fixtures_mockemptynotifications",
+      "label": "mockEmptyNotifications()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "notifications_fixtures_mocknotificationswithunread",
+      "label": "mockNotificationsWithUnread()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L61"
+    },
+    {
+      "id": "notifications_fixtures_mountsession",
+      "label": "mountSession()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L98"
+    },
+    {
+      "id": "notifications_fixtures_interceptnotificationapi",
+      "label": "interceptNotificationAPI()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "notifications_fixtures_interceptmarkreadapi",
+      "label": "interceptMarkReadAPI()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L133"
+    },
+    {
+      "id": "notifications_fixtures_interceptalertingapi",
+      "label": "interceptAlertingAPI()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L154"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "test",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_notificationkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_notificationseverity",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_mocknotificationinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_mocknotification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_mockemptynotifications",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_mocknotificationswithunread",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_mountsession",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_interceptnotificationapi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_interceptmarkreadapi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_e2e_notifications_fixtures_ts",
+      "target": "notifications_fixtures_interceptalertingapi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "notifications_fixtures_mocknotificationswithunread",
+      "target": "notifications_fixtures_mocknotification",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "notifications_fixtures_mocknotification",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "notifications_fixtures_mocknotification",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "notifications_fixtures_mocknotificationswithunread",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "notifications_fixtures_mountsession",
+      "callee": "route",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "notifications_fixtures_interceptnotificationapi",
+      "callee": "route",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "notifications_fixtures_interceptmarkreadapi",
+      "callee": "route",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "notifications_fixtures_interceptmarkreadapi",
+      "callee": "route",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L142"
+    },
+    {
+      "caller_nid": "notifications_fixtures_interceptalertingapi",
+      "callee": "route",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "notifications_fixtures_interceptalertingapi",
+      "callee": "route",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/e2e/notifications/fixtures.ts",
+      "source_location": "L181"
+    }
+  ]
+}

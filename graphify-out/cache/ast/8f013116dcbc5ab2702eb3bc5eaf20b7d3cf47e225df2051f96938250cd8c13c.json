@@ -1,0 +1,374 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "label": "VersionHistoryPanel.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "report_layout_versionhistorypanel_versionhistorypanelprops",
+      "label": "VersionHistoryPanelProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "report_layout_versionhistorypanel_versionhistorypanel",
+      "label": "VersionHistoryPanel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "report_layout_versionhistorypanel_versionrowprops",
+      "label": "VersionRowProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L194"
+    },
+    {
+      "id": "report_layout_versionhistorypanel_versionrow",
+      "label": "VersionRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L203"
+    },
+    {
+      "id": "report_layout_versionhistorypanel_comparesectionprops",
+      "label": "CompareSectionProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L277"
+    },
+    {
+      "id": "report_layout_versionhistorypanel_comparesection",
+      "label": "CompareSection()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L285"
+    },
+    {
+      "id": "report_layout_versionhistorypanel_diffrow",
+      "label": "DiffRow()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L327"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_engine_render_blocks_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "engine_render_blocks_renderpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_versions_diff_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "versions_diff_versiondiff",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_reports_versions_store_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "versions_store_versionsummary",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_utils_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_utils_fmtiso",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_utils_kindlabel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_versionhistorypanel_versionhistorypanelprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_versionhistorypanel_versionhistorypanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_versionhistorypanel_versionrowprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L194",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_versionhistorypanel_versionrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L203",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_versionhistorypanel_comparesectionprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L277",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_versionhistorypanel_comparesection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L285",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_report_layout_versionhistorypanel_tsx",
+      "target": "report_layout_versionhistorypanel_diffrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L327",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L31"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionhistorypanel",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L156"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_versionrow",
+      "callee": "fmtIso",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L234"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_comparesection",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_comparesection",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L311"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_comparesection",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L319"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_diffrow",
+      "callee": "kindLabel",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L349"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_diffrow",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L354"
+    },
+    {
+      "caller_nid": "report_layout_versionhistorypanel_diffrow",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx",
+      "source_location": "L354"
+    }
+  ]
+}

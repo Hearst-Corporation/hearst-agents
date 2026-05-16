@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_slugify_ts",
+      "label": "slugify.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "domain_slugify_slugify",
+      "label": "slugify()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_slugify_ts",
+      "target": "domain_slugify_slugify",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "domain_slugify_slugify",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L2"
+    },
+    {
+      "caller_nid": "domain_slugify_slugify",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L2"
+    },
+    {
+      "caller_nid": "domain_slugify_slugify",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L2"
+    },
+    {
+      "caller_nid": "domain_slugify_slugify",
+      "callee": "normalize",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L2"
+    },
+    {
+      "caller_nid": "domain_slugify_slugify",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/slugify.ts",
+      "source_location": "L2"
+    }
+  ]
+}

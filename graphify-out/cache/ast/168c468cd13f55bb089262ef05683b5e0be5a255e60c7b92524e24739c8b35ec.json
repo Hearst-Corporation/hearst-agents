@@ -1,0 +1,189 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "label": "snapshot.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "r_453e2a08_snapshot_run_id",
+      "label": "run_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "r_453e2a08_snapshot_taken_at",
+      "label": "taken_at",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "r_453e2a08_snapshot_git",
+      "label": "git",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "r_453e2a08_snapshot_git_branch",
+      "label": "branch",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "r_453e2a08_snapshot_git_commit",
+      "label": "commit",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "r_453e2a08_snapshot_git_dirty",
+      "label": "dirty",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "r_453e2a08_snapshot_policies_hash",
+      "label": "policies_hash",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "r_453e2a08_snapshot_contracts_hash",
+      "label": "contracts_hash",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L10"
+    },
+    {
+      "id": "r_453e2a08_snapshot_prompts_hash",
+      "label": "prompts_hash",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L11"
+    },
+    {
+      "id": "r_453e2a08_snapshot_node_version",
+      "label": "node_version",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "r_453e2a08_snapshot_package_lock_hash",
+      "label": "package_lock_hash",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L13"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_run_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_taken_at",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_git",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "r_453e2a08_snapshot_git",
+      "target": "r_453e2a08_snapshot_git_branch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "r_453e2a08_snapshot_git",
+      "target": "r_453e2a08_snapshot_git_commit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "r_453e2a08_snapshot_git",
+      "target": "r_453e2a08_snapshot_git_dirty",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_policies_hash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_contracts_hash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_prompts_hash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_node_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_453e2a08_snapshot_json",
+      "target": "r_453e2a08_snapshot_package_lock_hash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-453e2a08/snapshot.json",
+      "source_location": "L13",
+      "weight": 1.0
+    }
+  ]
+}

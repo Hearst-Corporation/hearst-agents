@@ -1,0 +1,461 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "label": "agents.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "cockpit_agents_agent_roles",
+      "label": "AGENT_ROLES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "cockpit_agents_agentroleid",
+      "label": "AgentRoleId",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "cockpit_agents_agentmeta",
+      "label": "AgentMeta",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "cockpit_agents_agent_metadata",
+      "label": "AGENT_METADATA",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "cockpit_agents_service_aliases",
+      "label": "SERVICE_ALIASES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "cockpit_agents_maptooltoservice",
+      "label": "mapToolToService()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L80"
+    },
+    {
+      "id": "cockpit_agents_write_action_tokens",
+      "label": "WRITE_ACTION_TOKENS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L91"
+    },
+    {
+      "id": "cockpit_agents_read_action_tokens",
+      "label": "READ_ACTION_TOKENS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L108"
+    },
+    {
+      "id": "cockpit_agents_toolkind",
+      "label": "ToolKind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L120"
+    },
+    {
+      "id": "cockpit_agents_classifytoolaction",
+      "label": "classifyToolAction()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L122"
+    },
+    {
+      "id": "cockpit_agents_mapeventtorole",
+      "label": "mapEventToRole()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L137"
+    },
+    {
+      "id": "cockpit_agents_activerole",
+      "label": "ActiveRole",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L221"
+    },
+    {
+      "id": "cockpit_agents_deriveactiverolesfromevents",
+      "label": "deriveActiveRolesFromEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L238"
+    },
+    {
+      "id": "cockpit_agents_derivecoactivepairs",
+      "label": "deriveCoActivePairs()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L265"
+    },
+    {
+      "id": "cockpit_agents_activeservice",
+      "label": "ActiveService",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L282"
+    },
+    {
+      "id": "cockpit_agents_deriveactiveservicesfromevents",
+      "label": "deriveActiveServicesFromEvents()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L296"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_runtime_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "stores_runtime_streamevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_agent_roles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_agentroleid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_agentmeta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_agent_metadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_service_aliases",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_maptooltoservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_write_action_tokens",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_read_action_tokens",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_toolkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_classifytoolaction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_mapeventtorole",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_activerole",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L221",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_deriveactiverolesfromevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L238",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_derivecoactivepairs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L265",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_activeservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L282",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_agents_ts",
+      "target": "cockpit_agents_deriveactiveservicesfromevents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L296",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_agents_mapeventtorole",
+      "target": "cockpit_agents_classifytoolaction",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_agents_deriveactiverolesfromevents",
+      "target": "cockpit_agents_mapeventtorole",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L245",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_agents_deriveactiveservicesfromevents",
+      "target": "cockpit_agents_maptooltoservice",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L307",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "cockpit_agents_maptooltoservice",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "cockpit_agents_maptooltoservice",
+      "callee": "indexOf",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "cockpit_agents_maptooltoservice",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "cockpit_agents_maptooltoservice",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "cockpit_agents_classifytoolaction",
+      "callee": "toUpperCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L124"
+    },
+    {
+      "caller_nid": "cockpit_agents_classifytoolaction",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "cockpit_agents_classifytoolaction",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "cockpit_agents_mapeventtorole",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiverolesfromevents",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L247"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiverolesfromevents",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L248"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiverolesfromevents",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L255"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiverolesfromevents",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L255"
+    },
+    {
+      "caller_nid": "cockpit_agents_derivecoactivepairs",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L272"
+    },
+    {
+      "caller_nid": "cockpit_agents_derivecoactivepairs",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L274"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiveservicesfromevents",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L309"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiveservicesfromevents",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L310"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiveservicesfromevents",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L313"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiveservicesfromevents",
+      "callee": "sort",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L313"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiveservicesfromevents",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L313"
+    },
+    {
+      "caller_nid": "cockpit_agents_deriveactiveservicesfromevents",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/agents.ts",
+      "source_location": "L313"
+    }
+  ]
+}

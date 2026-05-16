@@ -1,0 +1,1238 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "label": "router.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "llm_router_providers",
+      "label": "providers",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "llm_router_resetllmprovidercache",
+      "label": "resetLlmProviderCache()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "llm_router_getprovider",
+      "label": "getProvider()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "llm_router_computecost",
+      "label": "computeCost()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L65"
+    },
+    {
+      "id": "llm_router_istransienterror",
+      "label": "isTransientError()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "llm_router_retrywithbackoff",
+      "label": "retryWithBackoff()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "llm_router_resolvemodelprofile",
+      "label": "resolveModelProfile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L94"
+    },
+    {
+      "id": "llm_router_loadfallbackchain",
+      "label": "loadFallbackChain()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L110"
+    },
+    {
+      "id": "llm_router_chatwithprofile",
+      "label": "chatWithProfile()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L130"
+    },
+    {
+      "id": "llm_router_provider",
+      "label": "provider",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L293"
+    },
+    {
+      "id": "llm_router_modeldecision",
+      "label": "ModelDecision",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L347"
+    },
+    {
+      "id": "llm_router_smartchatoptions",
+      "label": "SmartChatOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L362"
+    },
+    {
+      "id": "llm_router_smartchat",
+      "label": "smartChat()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L378"
+    },
+    {
+      "id": "llm_router_selection",
+      "label": "selection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L521"
+    },
+    {
+      "id": "llm_router_decision",
+      "label": "decision",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L523"
+    },
+    {
+      "id": "llm_router_chain",
+      "label": "chain",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L540"
+    },
+    {
+      "id": "llm_router_builddecision",
+      "label": "buildDecision()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L613"
+    },
+    {
+      "id": "llm_router_buildsmartchain",
+      "label": "buildSmartChain()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L646"
+    },
+    {
+      "id": "llm_router_tracedecision",
+      "label": "traceDecision()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L666"
+    },
+    {
+      "id": "llm_router_tracefallback",
+      "label": "traceFallback()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L689"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_observability_logger_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "observability_logger_logger",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_database_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "lib_database_types_database",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "lib_database_types_json",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_decisions_model_selector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "decisions_model_selector_modelgoal",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "decisions_model_selector_modelscore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "decisions_model_selector_modelselection",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "decisions_model_selector_scoremodels",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "decisions_model_selector_selectmodel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_tracer_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "runtime_tracer_runtracer",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_anthropic_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_anthropic_anthropicprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_circuit_breaker_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_circuit_breaker_defaultcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_composer_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_composer_composerprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_errors_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_errors_costlimitexceedederror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_errors_ratelimitexceedederror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_gemini_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_gemini_geminiprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_kimi_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_kimi_kimiprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_metrics_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_metrics_defaultmetrics",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_openai_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_openai_openaiprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_persist_run_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_persist_run_persistrun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_rate_limiter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_rate_limiter_defaultratelimiter",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_types_chatrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_types_chatresponse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_types_llmprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_types_modelprofileconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_types_streamchunk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_providers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_resetllmprovidercache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_getprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_computecost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_istransienterror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_retrywithbackoff",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_resolvemodelprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_loadfallbackchain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_chatwithprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_provider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L293",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_modeldecision",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_smartchatoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L362",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_smartchat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L378",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_selection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L521",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_decision",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L523",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_chain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L540",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_provider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L553",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_builddecision",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L613",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_buildsmartchain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L646",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_tracedecision",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L666",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_router_ts",
+      "target": "llm_router_tracefallback",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L689",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_retrywithbackoff",
+      "target": "llm_router_istransienterror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_loadfallbackchain",
+      "target": "llm_router_resolvemodelprofile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_chatwithprofile",
+      "target": "llm_router_loadfallbackchain",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_chatwithprofile",
+      "target": "llm_router_getprovider",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L164",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_chatwithprofile",
+      "target": "llm_router_retrywithbackoff",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L165",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_chatwithprofile",
+      "target": "llm_router_computecost",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_smartchat",
+      "target": "llm_router_builddecision",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L386",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_smartchat",
+      "target": "llm_router_tracedecision",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L389",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_smartchat",
+      "target": "llm_router_buildsmartchain",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L403",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_smartchat",
+      "target": "llm_router_getprovider",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L416",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_smartchat",
+      "target": "llm_router_retrywithbackoff",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L417",
+      "weight": 1.0
+    },
+    {
+      "source": "llm_router_smartchat",
+      "target": "llm_router_tracefallback",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L466",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "llm_router_resetllmprovidercache",
+      "callee": "keys",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L34"
+    },
+    {
+      "caller_nid": "llm_router_getprovider",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "llm_router_istransienterror",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "llm_router_retrywithbackoff",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "llm_router_retrywithbackoff",
+      "callee": "random",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "llm_router_resolvemodelprofile",
+      "callee": "single",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "llm_router_resolvemodelprofile",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "llm_router_resolvemodelprofile",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "llm_router_resolvemodelprofile",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "llm_router_loadfallbackchain",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "checkLimit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L146"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "incrementCounter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L149"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "isOpen",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L158"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "debug",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L159"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "recordCall",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "recordSuccess",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L195"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "recordCall",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L196"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "persistRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L207"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L221"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "getState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L224"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "recordFailure",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L225"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "getState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L228"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "incrementCounter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L230"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "recordError",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L234"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "persistRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L236"
+    },
+    {
+      "caller_nid": "llm_router_chatwithprofile",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "scoreModels",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L383"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "selectModel",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L384"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "checkLimit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L394"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "incrementCounter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L397"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "isOpen",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L409"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "debug",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L410"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "recordCall",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L438"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "recordSuccess",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L440"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "recordCall",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L441"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "persistRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L452"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L471"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "getState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L474"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "recordFailure",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L475"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "getState",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L478"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "incrementCounter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L480"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "recordError",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L484"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "persistRun",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L486"
+    },
+    {
+      "caller_nid": "llm_router_smartchat",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L499"
+    },
+    {
+      "caller_nid": "llm_router_builddecision",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L632"
+    },
+    {
+      "caller_nid": "llm_router_builddecision",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L641"
+    },
+    {
+      "caller_nid": "llm_router_buildsmartchain",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L649"
+    },
+    {
+      "caller_nid": "llm_router_buildsmartchain",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L654"
+    },
+    {
+      "caller_nid": "llm_router_buildsmartchain",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L659"
+    },
+    {
+      "caller_nid": "llm_router_buildsmartchain",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L660"
+    },
+    {
+      "caller_nid": "llm_router_tracedecision",
+      "callee": "trace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L667"
+    },
+    {
+      "caller_nid": "llm_router_tracefallback",
+      "callee": "trace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/router.ts",
+      "source_location": "L696"
+    }
+  ]
+}

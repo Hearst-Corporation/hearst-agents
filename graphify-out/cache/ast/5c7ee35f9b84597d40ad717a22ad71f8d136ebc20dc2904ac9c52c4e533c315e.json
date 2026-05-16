@@ -1,0 +1,132 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "label": "AssetCompareModal.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_assetcomparemodal_assetcomparemodalprops",
+      "label": "AssetCompareModalProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "components_assetcomparemodal_assetcomparemodal",
+      "label": "AssetCompareModal()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L26"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_hooks_usemodala11y_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "target": "hooks_usemodala11y_usemodala11y",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_ui_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "target": "ui_index_action",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "target": "components_assetcomparemodal_assetcomparemodalprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_assetcomparemodal_tsx",
+      "target": "components_assetcomparemodal_assetcomparemodal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L26",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_assetcomparemodal_assetcomparemodal",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "components_assetcomparemodal_assetcomparemodal",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "components_assetcomparemodal_assetcomparemodal",
+      "callee": "useModalA11y",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "components_assetcomparemodal_assetcomparemodal",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "components_assetcomparemodal_assetcomparemodal",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/AssetCompareModal.tsx",
+      "source_location": "L49"
+    }
+  ]
+}

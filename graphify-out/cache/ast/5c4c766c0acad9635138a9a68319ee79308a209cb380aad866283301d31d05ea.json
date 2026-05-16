@@ -1,0 +1,328 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "label": "ssrf-guard.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "security_ssrf_guard_private_ipv4_ranges",
+      "label": "PRIVATE_IPV4_RANGES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "security_ssrf_guard_private_ipv6_patterns",
+      "label": "PRIVATE_IPV6_PATTERNS",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "security_ssrf_guard_blocked_hostnames",
+      "label": "BLOCKED_HOSTNAMES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "security_ssrf_guard_ssrfblockederror",
+      "label": "SsrfBlockedError",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "security_ssrf_guard_ssrfblockederror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "security_ssrf_guard_isprivateipv4",
+      "label": "isPrivateIpv4()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "security_ssrf_guard_isprivateipv6",
+      "label": "isPrivateIpv6()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "security_ssrf_guard_assertsafeurl",
+      "label": "assertSafeUrl()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "security_ssrf_guard_isurlshapeallowed",
+      "label": "isUrlShapeAllowed()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L121"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "promises",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_private_ipv4_ranges",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_private_ipv6_patterns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_blocked_hostnames",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_ssrfblockederror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "security_ssrf_guard_ssrfblockederror",
+      "target": "security_ssrf_guard_ssrfblockederror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_isprivateipv4",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_isprivateipv6",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_assertsafeurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_security_ssrf_guard_ts",
+      "target": "security_ssrf_guard_isurlshapeallowed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "security_ssrf_guard_assertsafeurl",
+      "target": "security_ssrf_guard_isprivateipv4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "security_ssrf_guard_assertsafeurl",
+      "target": "security_ssrf_guard_isprivateipv6",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "security_ssrf_guard_isurlshapeallowed",
+      "target": "security_ssrf_guard_isprivateipv4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "security_ssrf_guard_isurlshapeallowed",
+      "target": "security_ssrf_guard_isprivateipv6",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "security_ssrf_guard_ssrfblockederror_constructor",
+      "callee": "super",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isprivateipv4",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isprivateipv6",
+      "callee": "some",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L50"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_assertsafeurl",
+      "callee": "lookup",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isurlshapeallowed",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isurlshapeallowed",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isurlshapeallowed",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isurlshapeallowed",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isurlshapeallowed",
+      "callee": "endsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "security_ssrf_guard_isurlshapeallowed",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/security/ssrf-guard.ts",
+      "source_location": "L130"
+    }
+  ]
+}

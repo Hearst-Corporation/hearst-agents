@@ -1,0 +1,906 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "label": "pipeline.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "planner_pipeline_pipelinecontext",
+      "label": "PipelineContext",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L45"
+    },
+    {
+      "id": "planner_pipeline_pipelineresult",
+      "label": "PipelineResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "planner_pipeline_pipelineeventtype",
+      "label": "PipelineEventType",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "planner_pipeline_pipelinelistener",
+      "label": "PipelineListener",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "planner_pipeline_executeintent",
+      "label": "executeIntent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L75"
+    },
+    {
+      "id": "planner_pipeline_approveandresume",
+      "label": "approveAndResume()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L234"
+    },
+    {
+      "id": "planner_pipeline_executetoolcall",
+      "label": "executeToolCall()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L267"
+    },
+    {
+      "id": "planner_pipeline_createassetfromoutput",
+      "label": "createAssetFromOutput()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L444"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "assets_types_asset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "assets_types_storeaction",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "assets_types_storeasset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_calendar_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "google_calendar_getupcomingevents",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "google_drive_getrecentfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_gmail_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "google_gmail_getrecentemails",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_platform_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "platform_types_connectorcapability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_pdf_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "generators_pdf_generatepdfartifact",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_assets_generators_spreadsheet_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "generators_spreadsheet_generatespreadsheetartifact",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_formatting_pipeline_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "formatting_pipeline_detectoutputtier",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "formatting_pipeline_formatoutput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_resolver_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "providers_resolver_resolvefallback",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "providers_resolver_resolveprovider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_state_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "providers_state_recordproviderfailure",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "providers_state_recordprovidersuccess",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_providers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "providers_types_providerid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_send_message_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "handlers_send_message_handlesendmessage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_tools_handlers_web_search_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "handlers_web_search_searchweb",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_manifestation_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "right_panel_manifestation_manifestasset",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "right_panel_manifestation_manifestplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_ui_right_panel_objects_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "right_panel_objects_focalobject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_debug_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_debug_logplanevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_executor_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_executor_executorcallbacks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_executor_stepexecutionresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_executor_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_executor_executeplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_index_approveplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_index_createplanfromintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_types_executionplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_pipelinecontext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_pipelineresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_pipelineeventtype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_pipelinelistener",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_executeintent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_approveandresume",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L234",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_executetoolcall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_planner_pipeline_ts",
+      "target": "planner_pipeline_createassetfromoutput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L444",
+      "weight": 1.0
+    },
+    {
+      "source": "planner_pipeline_approveandresume",
+      "target": "planner_pipeline_executeintent",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L262",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "createPlanFromIntent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "listener",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "executePlan",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "detectOutputTier",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L202"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "next",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "values",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "formatOutput",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L205"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "manifestAsset",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L206"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "manifestPlan",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L211"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "storeAction",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L217"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L218"
+    },
+    {
+      "caller_nid": "planner_pipeline_executeintent",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L223"
+    },
+    {
+      "caller_nid": "planner_pipeline_approveandresume",
+      "callee": "approvePlan",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L239"
+    },
+    {
+      "caller_nid": "planner_pipeline_approveandresume",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L253"
+    },
+    {
+      "caller_nid": "planner_pipeline_approveandresume",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L254"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "handleSendMessage",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L276"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "getRecentEmails",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L296"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L297"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L297"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "logPlanEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L305"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "getUpcomingEvents",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L316"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "logPlanEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "getRecentFiles",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L338"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L339"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "logPlanEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L347"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L358"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "generatePdfArtifact",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L361"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "logPlanEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L378"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L385"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "generateSpreadsheetArtifact",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L391"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "logPlanEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L408"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "searchWeb",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L416"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "logPlanEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L427"
+    },
+    {
+      "caller_nid": "planner_pipeline_executetoolcall",
+      "callee": "logPlanEvent",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L433"
+    },
+    {
+      "caller_nid": "planner_pipeline_createassetfromoutput",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L459"
+    },
+    {
+      "caller_nid": "planner_pipeline_createassetfromoutput",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/planner/pipeline.ts",
+      "source_location": "L473"
+    }
+  ]
+}

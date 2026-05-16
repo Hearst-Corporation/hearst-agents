@@ -1,0 +1,302 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "label": "client.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "credits_client_getbalance",
+      "label": "getBalance()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "credits_client_reservecreditsatomic",
+      "label": "reserveCreditsAtomic()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L54"
+    },
+    {
+      "id": "credits_client_settlecredits",
+      "label": "settleCredits()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L92"
+    },
+    {
+      "id": "credits_client_guardandreservecredits",
+      "label": "guardAndReserveCredits()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L125"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_types_creditbalance",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_types_creditguardresult",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_types_reservecreditsargs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_types_settlecreditsargs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_client_getbalance",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_client_reservecreditsatomic",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_client_settlecredits",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_credits_client_ts",
+      "target": "credits_client_guardandreservecredits",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "credits_client_guardandreservecredits",
+      "target": "credits_client_getbalance",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "credits_client_guardandreservecredits",
+      "target": "credits_client_reservecreditsatomic",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L147",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L22"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "maybeSingle",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "Number",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "credits_client_getbalance",
+      "callee": "getTime",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "credits_client_reservecreditsatomic",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "credits_client_reservecreditsatomic",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "credits_client_reservecreditsatomic",
+      "callee": "rpc",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "credits_client_reservecreditsatomic",
+      "callee": "toLowerCase",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "credits_client_reservecreditsatomic",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "credits_client_reservecreditsatomic",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "credits_client_reservecreditsatomic",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "credits_client_settlecredits",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "credits_client_settlecredits",
+      "callee": "rpc",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L96"
+    },
+    {
+      "caller_nid": "credits_client_settlecredits",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/credits/client.ts",
+      "source_location": "L107"
+    }
+  ]
+}

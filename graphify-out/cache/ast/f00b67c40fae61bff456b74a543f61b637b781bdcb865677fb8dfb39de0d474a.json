@@ -1,0 +1,377 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "label": "monthly-card.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "functions_monthly_card_monthlycardeventdata",
+      "label": "MonthlyCardEventData",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "functions_monthly_card_activeuserscope",
+      "label": "ActiveUserScope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "functions_monthly_card_reporterror",
+      "label": "reportError()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "functions_monthly_card_loadactiveusers",
+      "label": "loadActiveUsers()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "functions_monthly_card_pushreadynotification",
+      "label": "pushReadyNotification()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L80"
+    },
+    {
+      "id": "functions_monthly_card_monthlycardcronfunction",
+      "label": "monthlyCardCronFunction",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L114"
+    },
+    {
+      "id": "functions_monthly_card_monthlycardperuserfunction",
+      "label": "monthlyCardPerUserFunction",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L155"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "cockpit_monthly_card_buildmonthlycarddata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "cockpit_monthly_card_monthlycarddata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "cockpit_monthly_card_previousyearmonth",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_monthly_card_token_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "cockpit_monthly_card_token_buildpubliccardurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "cockpit_monthly_card_token_signcardtoken",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_client_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "inngest_client_inngest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_redact_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "utils_redact_redactid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "functions_monthly_card_monthlycardeventdata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "functions_monthly_card_activeuserscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "functions_monthly_card_reporterror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "functions_monthly_card_loadactiveusers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "functions_monthly_card_pushreadynotification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "functions_monthly_card_monthlycardcronfunction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_jobs_inngest_functions_monthly_card_ts",
+      "target": "functions_monthly_card_monthlycardperuserfunction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "functions_monthly_card_reporterror",
+      "target": "nextjs",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "functions_monthly_card_loadactiveusers",
+      "target": "functions_monthly_card_reporterror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "functions_monthly_card_pushreadynotification",
+      "target": "functions_monthly_card_reporterror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L107",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "functions_monthly_card_reporterror",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "functions_monthly_card_reporterror",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "functions_monthly_card_reporterror",
+      "callee": "captureException",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "functions_monthly_card_loadactiveusers",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "functions_monthly_card_loadactiveusers",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "functions_monthly_card_loadactiveusers",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "functions_monthly_card_loadactiveusers",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "functions_monthly_card_loadactiveusers",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "functions_monthly_card_pushreadynotification",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "functions_monthly_card_pushreadynotification",
+      "callee": "insert",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "functions_monthly_card_pushreadynotification",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "functions_monthly_card_pushreadynotification",
+      "callee": "toISOString",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L101"
+    },
+    {
+      "caller_nid": "functions_monthly_card_pushreadynotification",
+      "callee": "warn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/inngest/functions/monthly-card.ts",
+      "source_location": "L104"
+    }
+  ]
+}

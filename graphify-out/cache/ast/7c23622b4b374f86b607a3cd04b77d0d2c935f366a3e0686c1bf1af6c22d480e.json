@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_kill_node_zombies_sh",
+      "label": "kill-node-zombies.sh",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/kill-node-zombies.sh",
+      "source_location": "L1"
+    }
+  ],
+  "edges": []
+}

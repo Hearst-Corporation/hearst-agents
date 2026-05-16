@@ -1,0 +1,266 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "label": "VideoPlayer.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_videoplayer_videoplayerprops",
+      "label": "VideoPlayerProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "components_videoplayer_formatduration",
+      "label": "formatDuration()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "components_videoplayer_formatelapsed",
+      "label": "formatElapsed()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "components_videoplayer_animateddots",
+      "label": "AnimatedDots()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "components_videoplayer_pipicon",
+      "label": "PiPIcon()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "components_videoplayer_videoplayer",
+      "label": "VideoPlayer()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L72"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_assets_variants_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "assets_variants_assetvariant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "components_videoplayer_videoplayerprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "components_videoplayer_formatduration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "components_videoplayer_formatelapsed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "components_videoplayer_animateddots",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "components_videoplayer_pipicon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_videoplayer_tsx",
+      "target": "components_videoplayer_videoplayer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "components_videoplayer_videoplayer",
+      "target": "components_videoplayer_formatduration",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L153",
+      "weight": 1.0
+    },
+    {
+      "source": "components_videoplayer_videoplayer",
+      "target": "components_videoplayer_formatelapsed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L188",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_videoplayer_formatduration",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "components_videoplayer_formatduration",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "components_videoplayer_formatduration",
+      "callee": "padStart",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "components_videoplayer_formatduration",
+      "callee": "String",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "components_videoplayer_formatelapsed",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "components_videoplayer_formatelapsed",
+      "callee": "floor",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "components_videoplayer_animateddots",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "components_videoplayer_animateddots",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "components_videoplayer_animateddots",
+      "callee": "repeat",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "components_videoplayer_videoplayer",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "components_videoplayer_videoplayer",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "components_videoplayer_videoplayer",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "components_videoplayer_videoplayer",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "components_videoplayer_videoplayer",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L92"
+    },
+    {
+      "caller_nid": "components_videoplayer_videoplayer",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VideoPlayer.tsx",
+      "source_location": "L96"
+    }
+  ]
+}

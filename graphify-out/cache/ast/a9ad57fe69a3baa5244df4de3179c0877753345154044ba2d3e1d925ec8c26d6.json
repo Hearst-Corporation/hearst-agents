@@ -1,0 +1,64 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_artifact_asset_test_ts",
+      "label": "artifact-asset.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/artifact-asset.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_artifact_asset_test_storeassetmock_createvariantmock_enqueuejobmock_requirecreditsmock",
+      "label": "{ storeAssetMock, createVariantMock, enqueueJobMock, requireCreditsMock }",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/artifact-asset.test.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "runtime_artifact_asset_test_makereq",
+      "label": "makeReq()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/artifact-asset.test.ts",
+      "source_location": "L63"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_artifact_asset_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/artifact-asset.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_artifact_asset_test_ts",
+      "target": "runtime_artifact_asset_test_storeassetmock_createvariantmock_enqueuejobmock_requirecreditsmock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/artifact-asset.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_artifact_asset_test_ts",
+      "target": "runtime_artifact_asset_test_makereq",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/artifact-asset.test.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_artifact_asset_test_makereq",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/artifact-asset.test.ts",
+      "source_location": "L67"
+    }
+  ]
+}

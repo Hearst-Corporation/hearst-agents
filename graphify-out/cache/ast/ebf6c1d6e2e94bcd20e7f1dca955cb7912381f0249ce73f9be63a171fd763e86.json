@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_escape_html_ts",
+      "label": "escape-html.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/escape-html.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "utils_escape_html_html_escapes",
+      "label": "HTML_ESCAPES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/escape-html.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "utils_escape_html_escapehtml",
+      "label": "escapeHtml()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/escape-html.ts",
+      "source_location": "L26"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_escape_html_ts",
+      "target": "utils_escape_html_html_escapes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/escape-html.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_utils_escape_html_ts",
+      "target": "utils_escape_html_escapehtml",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/escape-html.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "utils_escape_html_escapehtml",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/utils/escape-html.ts",
+      "source_location": "L27"
+    }
+  ]
+}

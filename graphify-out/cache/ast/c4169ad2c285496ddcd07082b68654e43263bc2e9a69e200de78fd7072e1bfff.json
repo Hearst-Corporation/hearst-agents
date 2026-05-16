@@ -1,0 +1,691 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "label": "decision.json",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "r_0128a3c9_decision_run_id",
+      "label": "run_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "r_0128a3c9_decision_started_at",
+      "label": "started_at",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "r_0128a3c9_decision_ended_at",
+      "label": "ended_at",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "r_0128a3c9_decision_intake",
+      "label": "intake",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "r_0128a3c9_decision_intake_run_id",
+      "label": "run_id",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "r_0128a3c9_decision_intake_scope",
+      "label": "scope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "r_0128a3c9_decision_intake_blocking",
+      "label": "blocking",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "r_0128a3c9_decision_intake_triggered_by",
+      "label": "triggered_by",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L13"
+    },
+    {
+      "id": "r_0128a3c9_decision_intake_trigger_kind",
+      "label": "trigger_kind",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "r_0128a3c9_decision_intake_created_at",
+      "label": "created_at",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L15"
+    },
+    {
+      "id": "r_0128a3c9_decision_agents",
+      "label": "agents",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "r_0128a3c9_decision_severity_stack",
+      "label": "severity_stack",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L76"
+    },
+    {
+      "id": "r_0128a3c9_decision_severity_stack_critical",
+      "label": "critical",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L77"
+    },
+    {
+      "id": "r_0128a3c9_decision_severity_stack_high",
+      "label": "high",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L78"
+    },
+    {
+      "id": "r_0128a3c9_decision_severity_stack_medium",
+      "label": "medium",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L79"
+    },
+    {
+      "id": "r_0128a3c9_decision_severity_stack_low",
+      "label": "low",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L80"
+    },
+    {
+      "id": "r_0128a3c9_decision_severity_stack_info",
+      "label": "info",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L81"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before",
+      "label": "trust_before",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L83"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before_architecture",
+      "label": "architecture",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L84"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before_design",
+      "label": "design",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L85"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before_qa",
+      "label": "qa",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L86"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before_runtime",
+      "label": "runtime",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L87"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before_release",
+      "label": "release",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L88"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before_orchestration",
+      "label": "orchestration",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L89"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_before_product_experience",
+      "label": "product_experience",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L90"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after",
+      "label": "trust_after",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L92"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after_architecture",
+      "label": "architecture",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L93"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after_design",
+      "label": "design",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L94"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after_qa",
+      "label": "qa",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L95"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after_runtime",
+      "label": "runtime",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L96"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after_release",
+      "label": "release",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L97"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after_orchestration",
+      "label": "orchestration",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L98"
+    },
+    {
+      "id": "r_0128a3c9_decision_trust_after_product_experience",
+      "label": "product_experience",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L99"
+    },
+    {
+      "id": "r_0128a3c9_decision_drift_findings",
+      "label": "drift_findings",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L101"
+    },
+    {
+      "id": "r_0128a3c9_decision_decision",
+      "label": "decision",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L102"
+    },
+    {
+      "id": "r_0128a3c9_decision_blockers",
+      "label": "blockers",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L103"
+    },
+    {
+      "id": "r_0128a3c9_decision_signed_by",
+      "label": "signed_by",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L109"
+    },
+    {
+      "id": "r_0128a3c9_decision_hash",
+      "label": "hash",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L110"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_run_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_started_at",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_ended_at",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_intake",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_intake",
+      "target": "r_0128a3c9_decision_intake_run_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_intake",
+      "target": "r_0128a3c9_decision_intake_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_intake_scope",
+      "target": "ref_architecture",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_0128a3c9_decision_intake_scope",
+      "target": "ref_design_system",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_0128a3c9_decision_intake_scope",
+      "target": "ref_qa",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_0128a3c9_decision_intake",
+      "target": "r_0128a3c9_decision_intake_blocking",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_intake",
+      "target": "r_0128a3c9_decision_intake_triggered_by",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_intake",
+      "target": "r_0128a3c9_decision_intake_trigger_kind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_intake",
+      "target": "r_0128a3c9_decision_intake_created_at",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_agents",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_severity_stack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_severity_stack",
+      "target": "r_0128a3c9_decision_severity_stack_critical",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_severity_stack",
+      "target": "r_0128a3c9_decision_severity_stack_high",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_severity_stack",
+      "target": "r_0128a3c9_decision_severity_stack_medium",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_severity_stack",
+      "target": "r_0128a3c9_decision_severity_stack_low",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_severity_stack",
+      "target": "r_0128a3c9_decision_severity_stack_info",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_trust_before",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_before",
+      "target": "r_0128a3c9_decision_trust_before_architecture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_before",
+      "target": "r_0128a3c9_decision_trust_before_design",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_before",
+      "target": "r_0128a3c9_decision_trust_before_qa",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_before",
+      "target": "r_0128a3c9_decision_trust_before_runtime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_before",
+      "target": "r_0128a3c9_decision_trust_before_release",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_before",
+      "target": "r_0128a3c9_decision_trust_before_orchestration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_before",
+      "target": "r_0128a3c9_decision_trust_before_product_experience",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_trust_after",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_after",
+      "target": "r_0128a3c9_decision_trust_after_architecture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_after",
+      "target": "r_0128a3c9_decision_trust_after_design",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_after",
+      "target": "r_0128a3c9_decision_trust_after_qa",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_after",
+      "target": "r_0128a3c9_decision_trust_after_runtime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_after",
+      "target": "r_0128a3c9_decision_trust_after_release",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_after",
+      "target": "r_0128a3c9_decision_trust_after_orchestration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_trust_after",
+      "target": "r_0128a3c9_decision_trust_after_product_experience",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_drift_findings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_decision",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_blockers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "r_0128a3c9_decision_blockers",
+      "target": "ref_release_trust_90_0",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_0128a3c9_decision_blockers",
+      "target": "ref_architecture_trust_75",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_0128a3c9_decision_blockers",
+      "target": "ref_design_trust_75",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "r_0128a3c9_decision_blockers",
+      "target": "ref_qa_trust_85",
+      "relation": "extends",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "import"
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_signed_by",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_hom_orchestrator_runs_r_0128a3c9_decision_json",
+      "target": "r_0128a3c9_decision_hash",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/hom/orchestrator/runs/r-0128a3c9/decision.json",
+      "source_location": "L110",
+      "weight": 1.0
+    }
+  ]
+}

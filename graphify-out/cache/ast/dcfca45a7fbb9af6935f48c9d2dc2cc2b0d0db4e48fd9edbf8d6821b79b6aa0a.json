@@ -1,0 +1,161 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_api_helpers_ts",
+      "label": "api-helpers.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "domain_api_helpers_ok",
+      "label": "ok()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "domain_api_helpers_err",
+      "label": "err()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "domain_api_helpers_parsebody",
+      "label": "parseBody()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "domain_api_helpers_dberr",
+      "label": "dbErr()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L29"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_api_helpers_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_api_helpers_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_api_helpers_ts",
+      "target": "domain_api_helpers_ok",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_api_helpers_ts",
+      "target": "domain_api_helpers_err",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_api_helpers_ts",
+      "target": "domain_api_helpers_parsebody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_domain_api_helpers_ts",
+      "target": "domain_api_helpers_dberr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "domain_api_helpers_parsebody",
+      "target": "domain_api_helpers_err",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "domain_api_helpers_dberr",
+      "target": "domain_api_helpers_err",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "domain_api_helpers_ok",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L5"
+    },
+    {
+      "caller_nid": "domain_api_helpers_err",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L9"
+    },
+    {
+      "caller_nid": "domain_api_helpers_parsebody",
+      "callee": "safeParse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "domain_api_helpers_parsebody",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "domain_api_helpers_parsebody",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "domain_api_helpers_dberr",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/domain/api-helpers.ts",
+      "source_location": "L30"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "label": "drive.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "google_drive_drivefile",
+      "label": "DriveFile",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "google_drive_searchdrivefiles",
+      "label": "searchDriveFiles()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "google_drive_readdrivefilecontent",
+      "label": "readDriveFileContent()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "google_drive_getrecentfiles",
+      "label": "getRecentFiles()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L44"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "target": "googleapis",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_auth_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "target": "google_auth_getgoogleauth",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "target": "google_drive_drivefile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "target": "google_drive_searchdrivefiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "target": "google_drive_readdrivefilecontent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_connectors_google_drive_ts",
+      "target": "google_drive_getrecentfiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "google_drive_searchdrivefiles",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "google_drive_searchdrivefiles",
+      "callee": "drive",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L19"
+    },
+    {
+      "caller_nid": "google_drive_searchdrivefiles",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "google_drive_searchdrivefiles",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "google_drive_searchdrivefiles",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "google_drive_readdrivefilecontent",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "google_drive_readdrivefilecontent",
+      "callee": "drive",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "google_drive_readdrivefilecontent",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "google_drive_readdrivefilecontent",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "google_drive_getrecentfiles",
+      "callee": "getGoogleAuth",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "google_drive_getrecentfiles",
+      "callee": "drive",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L46"
+    },
+    {
+      "caller_nid": "google_drive_getrecentfiles",
+      "callee": "list",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "google_drive_getrecentfiles",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/google/drive.ts",
+      "source_location": "L55"
+    }
+  ]
+}

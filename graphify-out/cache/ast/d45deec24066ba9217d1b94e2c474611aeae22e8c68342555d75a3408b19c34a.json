@@ -1,0 +1,537 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "label": "VideoQuickLaunchPanel.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "label": "VideoQuickLaunchPanel()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L52"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_hooks_usemodala11y_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "hooks_usemodala11y_usemodala11y",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_stage_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "stores_stage_usestagestore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_stores_video_quick_launch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "stores_video_quick_launch_usevideoquicklaunchstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_parts_footeractions_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "parts_footeractions_footeractions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_parts_modetoggle_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "parts_modetoggle_modetoggle",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_parts_panelbody_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "parts_panelbody_panelbody",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_parts_panelheader_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "parts_panelheader_panelheader",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_hooks_usebatchsubmit_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "hooks_usebatchsubmit_usebatchsubmit",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_hooks_usesinglesubmit_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "hooks_usesinglesubmit_usesinglesubmit",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_hooks_usevideobatchsse_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "hooks_usevideobatchsse_usevideobatchsse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_hooks_usevideosse_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "hooks_usevideosse_usevideosse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_types_batchvariantform",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_types_durationoption",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_types_max_batch_variants",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_types_makebatchform",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_types_provider",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_types_progresslabel",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_types_ratiooption",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_video_quick_launch_videoquicklaunchpanel_tsx",
+      "target": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L52",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useVideoQuickLaunchStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useVideoQuickLaunchStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L54"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useStageStore",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L64"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L65"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useVideoSSE",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useVideoBatchSSE",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useModalA11y",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L102"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useSingleSubmit",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L114"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L134"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L138"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useBatchSubmit",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useMemo",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L183"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L192"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L194"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L200"
+    },
+    {
+      "caller_nid": "video_quick_launch_videoquicklaunchpanel_videoquicklaunchpanel",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoQuickLaunchPanel.tsx",
+      "source_location": "L280"
+    }
+  ]
+}

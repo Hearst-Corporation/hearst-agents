@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_core_spatiallogointeraction_tsx",
+      "label": "SpatialLogoInteraction.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "core_spatiallogointeraction_spatiallogointeractionprops",
+      "label": "SpatialLogoInteractionProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "core_spatiallogointeraction_spatiallogointeraction",
+      "label": "SpatialLogoInteraction()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L15"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_core_spatiallogointeraction_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_core_spatiallogointeraction_tsx",
+      "target": "core_spatiallogointeraction_spatiallogointeractionprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_components_spatial_safe_core_spatiallogointeraction_tsx",
+      "target": "core_spatiallogointeraction_spatiallogointeraction",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "core_spatiallogointeraction_spatiallogointeraction",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "core_spatiallogointeraction_spatiallogointeraction",
+      "callee": "useRef",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L17"
+    },
+    {
+      "caller_nid": "core_spatiallogointeraction_spatiallogointeraction",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/core/SpatialLogoInteraction.tsx",
+      "source_location": "L19"
+    }
+  ]
+}

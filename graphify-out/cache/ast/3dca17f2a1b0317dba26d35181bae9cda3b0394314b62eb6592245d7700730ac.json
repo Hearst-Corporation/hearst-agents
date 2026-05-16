@@ -1,0 +1,620 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "label": "Block.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "chat_block_detectblocktype",
+      "label": "detectBlockType()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L32"
+    },
+    {
+      "id": "chat_block_renderinline",
+      "label": "renderInline()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L56"
+    },
+    {
+      "id": "chat_block_headingprimary",
+      "label": "HeadingPrimary()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L116"
+    },
+    {
+      "id": "chat_block_headingsecondary",
+      "label": "HeadingSecondary()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L127"
+    },
+    {
+      "id": "chat_block_paragraphview",
+      "label": "ParagraphView()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L138"
+    },
+    {
+      "id": "chat_block_listview",
+      "label": "ListView()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L152"
+    },
+    {
+      "id": "chat_block_actionitemsview",
+      "label": "ActionItemsView()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L175"
+    },
+    {
+      "id": "chat_block_insightview",
+      "label": "InsightView()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L220"
+    },
+    {
+      "id": "chat_block_blockview",
+      "label": "BlockView()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L244"
+    },
+    {
+      "id": "chat_block_block",
+      "label": "Block()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L267"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_blockactions_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_blockactions_blockactions",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_blockeditor_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_blockeditor_blockeditor",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_blocktypes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_blocktypes_blockactionid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_blocktypes_blockprops",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_blocktypes_blocktype",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_detectblocktype",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_renderinline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_headingprimary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_headingsecondary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_paragraphview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_listview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_actionitemsview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L175",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_insightview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L220",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_blockview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_chat_block_tsx",
+      "target": "chat_block_block",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "chat_block_headingprimary",
+      "target": "chat_block_renderinline",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "chat_block_headingsecondary",
+      "target": "chat_block_renderinline",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "chat_block_insightview",
+      "target": "chat_block_renderinline",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L234",
+      "weight": 1.0
+    },
+    {
+      "source": "chat_block_block",
+      "target": "chat_block_detectblocktype",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L293",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L36"
+    },
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L37"
+    },
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "test",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "every",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "chat_block_detectblocktype",
+      "callee": "every",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "exec",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L72"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L95"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "startsWith",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L97"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L100"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L104"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L106"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "chat_block_renderinline",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "chat_block_paragraphview",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "chat_block_paragraphview",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L140"
+    },
+    {
+      "caller_nid": "chat_block_paragraphview",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L143"
+    },
+    {
+      "caller_nid": "chat_block_listview",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "chat_block_listview",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "chat_block_listview",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L153"
+    },
+    {
+      "caller_nid": "chat_block_listview",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L159"
+    },
+    {
+      "caller_nid": "chat_block_actionitemsview",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "chat_block_actionitemsview",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "chat_block_actionitemsview",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L182"
+    },
+    {
+      "caller_nid": "chat_block_actionitemsview",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L193"
+    },
+    {
+      "caller_nid": "chat_block_insightview",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L222"
+    },
+    {
+      "caller_nid": "chat_block_insightview",
+      "callee": "match",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L223"
+    },
+    {
+      "caller_nid": "chat_block_blockview",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L245"
+    },
+    {
+      "caller_nid": "chat_block_blockview",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L249"
+    },
+    {
+      "caller_nid": "chat_block_blockview",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L251"
+    },
+    {
+      "caller_nid": "chat_block_block",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "chat_block_block",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L270"
+    },
+    {
+      "caller_nid": "chat_block_block",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L281"
+    },
+    {
+      "caller_nid": "chat_block_block",
+      "callee": "useCallback",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/Block.tsx",
+      "source_location": "L289"
+    }
+  ]
+}

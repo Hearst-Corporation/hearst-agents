@@ -1,0 +1,756 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "label": "drift-detection.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "cockpit_drift_detection_driftanalysis",
+      "label": "DriftAnalysis",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "cockpit_drift_detection_analyzedriftoptions",
+      "label": "AnalyzeDriftOptions",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "cockpit_drift_detection_runrow",
+      "label": "RunRow",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "cockpit_drift_detection_analyzemissiondrift",
+      "label": "analyzeMissionDrift()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L62"
+    },
+    {
+      "id": "cockpit_drift_detection_narrationcacheentry",
+      "label": "NarrationCacheEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L146"
+    },
+    {
+      "id": "cockpit_drift_detection_narrationcache",
+      "label": "narrationCache",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L151"
+    },
+    {
+      "id": "cockpit_drift_detection_generatedriftnarration",
+      "label": "generateDriftNarration()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L157"
+    },
+    {
+      "id": "cockpit_drift_detection_leaf",
+      "label": "Leaf",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L209"
+    },
+    {
+      "id": "cockpit_drift_detection_computedelta",
+      "label": "computeDelta()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L217"
+    },
+    {
+      "id": "cockpit_drift_detection_flatten",
+      "label": "flatten()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L246"
+    },
+    {
+      "id": "cockpit_drift_detection_leafdelta",
+      "label": "leafDelta()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L264"
+    },
+    {
+      "id": "cockpit_drift_detection_scalarsequal",
+      "label": "scalarsEqual()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L276"
+    },
+    {
+      "id": "cockpit_drift_detection_hashstable",
+      "label": "hashStable()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L284"
+    },
+    {
+      "id": "cockpit_drift_detection_clampthreshold",
+      "label": "clampThreshold()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L294"
+    },
+    {
+      "id": "cockpit_drift_detection_defaultdriftline",
+      "label": "defaultDriftLine()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L301"
+    },
+    {
+      "id": "cockpit_drift_detection_clipfr",
+      "label": "clipFr()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L305"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "llm_safe_chat_chatwithcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_platform_db_supabase_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "db_supabase_getserversupabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_driftanalysis",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_analyzedriftoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_runrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_analyzemissiondrift",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_narrationcacheentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_narrationcache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_generatedriftnarration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_leaf",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L209",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_computedelta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L217",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_flatten",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L246",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_leafdelta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L264",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_scalarsequal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_hashstable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L284",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_clampthreshold",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L294",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_defaultdriftline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L301",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_cockpit_drift_detection_ts",
+      "target": "cockpit_drift_detection_clipfr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L305",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_analyzemissiondrift",
+      "target": "cockpit_drift_detection_clampthreshold",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_analyzemissiondrift",
+      "target": "cockpit_drift_detection_computedelta",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_analyzemissiondrift",
+      "target": "cockpit_drift_detection_defaultdriftline",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L136",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_generatedriftnarration",
+      "target": "cockpit_drift_detection_clipfr",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_computedelta",
+      "target": "cockpit_drift_detection_scalarsequal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L220",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_computedelta",
+      "target": "cockpit_drift_detection_flatten",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L223",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_computedelta",
+      "target": "cockpit_drift_detection_leafdelta",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L234",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_flatten",
+      "target": "cockpit_drift_detection_hashstable",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L253",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_leafdelta",
+      "target": "cockpit_drift_detection_scalarsequal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L266",
+      "weight": 1.0
+    },
+    {
+      "source": "cockpit_drift_detection_defaultdriftline",
+      "target": "cockpit_drift_detection_clipfr",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L302",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "getServerSupabase",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L77"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "limit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "order",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "eq",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "select",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L80"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L91"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_analyzemissiondrift",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L161"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L164"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L165"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "await chatWithCircuitBreaker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L171"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L179"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L188"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "set",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_generatedriftnarration",
+      "callee": "now",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L203"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_computedelta",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L227"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_computedelta",
+      "callee": "has",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L232"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_computedelta",
+      "callee": "get",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L234"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_computedelta",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L240"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_flatten",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L250"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_flatten",
+      "callee": "entries",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L257"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_flatten",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L259"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_leafdelta",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L266"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_leafdelta",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L266"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_leafdelta",
+      "callee": "max",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L267"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_leafdelta",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L267"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_leafdelta",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L267"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_leafdelta",
+      "callee": "min",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_leafdelta",
+      "callee": "abs",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L268"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_scalarsequal",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L279"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_scalarsequal",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L279"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_hashstable",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_hashstable",
+      "callee": "digest",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_hashstable",
+      "callee": "update",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_hashstable",
+      "callee": "createHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_hashstable",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L286"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_clampthreshold",
+      "callee": "isFinite",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L295"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_clipfr",
+      "callee": "replace",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L306"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_clipfr",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L306"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_clipfr",
+      "callee": "trimEnd",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L308"
+    },
+    {
+      "caller_nid": "cockpit_drift_detection_clipfr",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/drift-detection.ts",
+      "source_location": "L308"
+    }
+  ]
+}

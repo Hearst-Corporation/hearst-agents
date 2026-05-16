@@ -1,0 +1,140 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_runtime_hmr_cleanup_ts",
+      "label": "hmr-cleanup.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_hmr_cleanup_cleanupfn",
+      "label": "CleanupFn",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "runtime_hmr_cleanup_cleanupregistry",
+      "label": "cleanupRegistry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "runtime_hmr_cleanup_registerhmrcleanup",
+      "label": "registerHMRCleanup()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "runtime_hmr_cleanup_runallcleanups",
+      "label": "runAllCleanups()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "runtime_hmr_cleanup_cleanup",
+      "label": "cleanup()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L62"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_runtime_hmr_cleanup_ts",
+      "target": "runtime_hmr_cleanup_cleanupfn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_runtime_hmr_cleanup_ts",
+      "target": "runtime_hmr_cleanup_cleanupregistry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_runtime_hmr_cleanup_ts",
+      "target": "runtime_hmr_cleanup_registerhmrcleanup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_runtime_hmr_cleanup_ts",
+      "target": "runtime_hmr_cleanup_runallcleanups",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_runtime_hmr_cleanup_ts",
+      "target": "runtime_hmr_cleanup_cleanup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "runtime_hmr_cleanup_cleanup",
+      "target": "runtime_hmr_cleanup_runallcleanups",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_hmr_cleanup_registerhmrcleanup",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "runtime_hmr_cleanup_runallcleanups",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "runtime_hmr_cleanup_runallcleanups",
+      "callee": "fn",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "runtime_hmr_cleanup_runallcleanups",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "runtime_hmr_cleanup_cleanup",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/runtime/hmr-cleanup.ts",
+      "source_location": "L64"
+    }
+  ]
+}

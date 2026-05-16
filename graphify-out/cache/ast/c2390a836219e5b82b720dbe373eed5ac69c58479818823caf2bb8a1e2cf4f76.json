@@ -1,0 +1,222 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "label": "ai-draft-welcome-notes.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "handlers_ai_draft_welcome_notes_arrivallite",
+      "label": "ArrivalLite",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "handlers_ai_draft_welcome_notes_system_prompt",
+      "label": "SYSTEM_PROMPT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "handlers_ai_draft_welcome_notes_fallbacknote",
+      "label": "fallbackNote()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L51"
+    },
+    {
+      "id": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "label": "aiDraftWelcomeNotes()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L55"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_editorial_charter_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "editorial_charter_composeeditorialprompt",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_models_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "llm_models_kimi_models",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_llm_safe_chat_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "llm_safe_chat_chatwithcircuitbreaker",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "handlers_types_workflowhandler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "handlers_ai_draft_welcome_notes_arrivallite",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "handlers_ai_draft_welcome_notes_system_prompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "handlers_ai_draft_welcome_notes_fallbacknote",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_workflows_handlers_ai_draft_welcome_notes_ts",
+      "target": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_fallbacknote",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "isArray",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "handlers_ai_draft_welcome_notes_aidraftwelcomenotes",
+      "callee": "await chatWithCircuitBreaker",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/workflows/handlers/ai-draft-welcome-notes.ts",
+      "source_location": "L106"
+    }
+  ]
+}

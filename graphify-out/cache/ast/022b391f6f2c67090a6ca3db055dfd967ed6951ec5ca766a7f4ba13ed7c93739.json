@@ -1,0 +1,339 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "label": "graph.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "architecture_map_graph_baseentry",
+      "label": "BaseEntry",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "architecture_map_graph_tonodes",
+      "label": "toNodes()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "architecture_map_graph_toedges",
+      "label": "toEdges()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "architecture_map_graph_flowedges",
+      "label": "flowEdges()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "architecture_map_graph_getarchitecturegraph",
+      "label": "getArchitectureGraph()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "architecture_map_graph_getarchitectureedges",
+      "label": "getArchitectureEdges()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "architecture_map_graph_getreversedependencies",
+      "label": "getReverseDependencies()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L86"
+    },
+    {
+      "id": "architecture_map_graph_getdownstreamdependencies",
+      "label": "getDownstreamDependencies()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L91"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_load_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_load_loadarchitecturemap",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_types_archedge",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_types_architecturemap",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_types_archnode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_types_flowentry",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_types_nodecategory",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_baseentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_tonodes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_toedges",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_flowedges",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_getarchitecturegraph",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_getarchitectureedges",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_getreversedependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_architecture_map_graph_ts",
+      "target": "architecture_map_graph_getdownstreamdependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_map_graph_getarchitecturegraph",
+      "target": "architecture_map_graph_tonodes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_map_graph_getarchitecturegraph",
+      "target": "architecture_map_graph_toedges",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_map_graph_getarchitecturegraph",
+      "target": "architecture_map_graph_flowedges",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_map_graph_getarchitectureedges",
+      "target": "architecture_map_graph_getarchitecturegraph",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_map_graph_getreversedependencies",
+      "target": "architecture_map_graph_getarchitectureedges",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_map_graph_getdownstreamdependencies",
+      "target": "architecture_map_graph_getarchitectureedges",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L92",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "architecture_map_graph_tonodes",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L21"
+    },
+    {
+      "caller_nid": "architecture_map_graph_toedges",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L43"
+    },
+    {
+      "caller_nid": "architecture_map_graph_flowedges",
+      "callee": "push",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "architecture_map_graph_getarchitecturegraph",
+      "callee": "loadArchitectureMap",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "architecture_map_graph_getreversedependencies",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "architecture_map_graph_getreversedependencies",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "architecture_map_graph_getdownstreamdependencies",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "architecture_map_graph_getdownstreamdependencies",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/architecture-map/graph.ts",
+      "source_location": "L93"
+    }
+  ]
+}

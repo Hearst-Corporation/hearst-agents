@@ -1,0 +1,232 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "label": "elevenlabs.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "providers_elevenlabs_synthesizespeechinput",
+      "label": "SynthesizeSpeechInput",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "providers_elevenlabs_synthesizespeechresult",
+      "label": "SynthesizeSpeechResult",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "providers_elevenlabs_pricefor",
+      "label": "priceFor()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L60"
+    },
+    {
+      "id": "providers_elevenlabs_synthesizespeech",
+      "label": "synthesizeSpeech()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "providers_elevenlabs_estimatespeechcost",
+      "label": "estimateSpeechCost()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L130"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "node_buffer",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_voices_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "providers_elevenlabs_voices_resolvevoiceprofile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "providers_elevenlabs_voices_voiceprofile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "providers_elevenlabs_synthesizespeechinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "providers_elevenlabs_synthesizespeechresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "providers_elevenlabs_pricefor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "providers_elevenlabs_synthesizespeech",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_providers_elevenlabs_ts",
+      "target": "providers_elevenlabs_estimatespeechcost",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_elevenlabs_synthesizespeech",
+      "target": "providers_elevenlabs_pricefor",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "providers_elevenlabs_estimatespeechcost",
+      "target": "providers_elevenlabs_pricefor",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L131",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "providers_elevenlabs_pricefor",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L61"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_pricefor",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L62"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "trim",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "resolveVoiceProfile",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "fetch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "stringify",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "text",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "slice",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "from",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "providers_elevenlabs_synthesizespeech",
+      "callee": "arrayBuffer",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs.ts",
+      "source_location": "L115"
+    }
+  ]
+}

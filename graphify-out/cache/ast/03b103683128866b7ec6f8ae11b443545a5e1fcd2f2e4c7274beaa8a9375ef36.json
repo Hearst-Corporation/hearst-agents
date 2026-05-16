@@ -1,0 +1,246 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "vote_route_votebodyschema",
+      "label": "voteBodySchema",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "vote_route_post",
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "vote_route_get",
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L70"
+    },
+    {
+      "id": "vote_route_triggermissionrun",
+      "label": "triggerMissionRun()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L114"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "server",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_approvals_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "missions_approvals_getapprovalstate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "missions_approvals_recordvote",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "vote_route_votebodyschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "vote_route_post",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "vote_route_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_api_v2_approvals_token_vote_route_ts",
+      "target": "vote_route_triggermissionrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "vote_route_post",
+      "target": "vote_route_triggermissionrun",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "vote_route_get",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_missions_approvals_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "vote_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L29"
+    },
+    {
+      "caller_nid": "vote_route_post",
+      "callee": "parse",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L30"
+    },
+    {
+      "caller_nid": "vote_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "vote_route_post",
+      "callee": "recordVote",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "vote_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L48"
+    },
+    {
+      "caller_nid": "vote_route_post",
+      "callee": "catch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "vote_route_post",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L58"
+    },
+    {
+      "caller_nid": "vote_route_get",
+      "callee": "verifyApprovalToken",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "vote_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L76"
+    },
+    {
+      "caller_nid": "vote_route_get",
+      "callee": "getApprovalByTokenHash",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "vote_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "vote_route_get",
+      "callee": "getApprovalState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L84"
+    },
+    {
+      "caller_nid": "vote_route_get",
+      "callee": "json",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "vote_route_triggermissionrun",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/approvals/[token]/vote/route.ts",
+      "source_location": "L119"
+    }
+  ]
+}

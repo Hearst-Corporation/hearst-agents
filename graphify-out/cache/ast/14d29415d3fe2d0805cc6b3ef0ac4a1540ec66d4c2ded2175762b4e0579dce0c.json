@@ -1,0 +1,125 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_cockpithero_tsx",
+      "label": "CockpitHero.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "stages_cockpithero_cockpitheroprops",
+      "label": "CockpitHeroProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "stages_cockpithero_date_formatter",
+      "label": "DATE_FORMATTER",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "stages_cockpithero_cockpithero",
+      "label": "CockpitHero()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L39"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_cockpithero_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_cockpithero_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_cockpithero_tsx",
+      "target": "stages_cockpithero_cockpitheroprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_cockpithero_tsx",
+      "target": "stages_cockpithero_date_formatter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_stages_cockpithero_tsx",
+      "target": "stages_cockpithero_cockpithero",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L39",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "stages_cockpithero_cockpithero",
+      "callee": "useSession",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "stages_cockpithero_cockpithero",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L41"
+    },
+    {
+      "caller_nid": "stages_cockpithero_cockpithero",
+      "callee": "useState",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L42"
+    },
+    {
+      "caller_nid": "stages_cockpithero_cockpithero",
+      "callee": "useEffect",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L44"
+    },
+    {
+      "caller_nid": "stages_cockpithero_cockpithero",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L57"
+    },
+    {
+      "caller_nid": "stages_cockpithero_cockpithero",
+      "callee": "(() => {\n          const stripMarker = (s: string) => s.replace(/\\s*\\[R\u00e9sum\u00e9 pr\u00e9c\u00e9dent\\]\\s*/g, \"\").trim();\n          const headline = stripMarker(briefing.headline);\n          const body = briefing.body ? stripMarker(briefing.body) : null;\n          if (!headline && !body) return null;\n          return (\n            <div style={{ marginTop: \"var(--space-8)\", maxWidth: \"var(--width-actions)\" }}>\n              {headline && (\n                <p\n                  className=\"t-15\"\n                  style={{\n                    fontWeight: \"var(--weight-regular)\",\n                    lineHeight: \"var(--leading-tight)\",\n                    color: \"var(--text-l1)\",\n                  }}\n                >\n                  {headline}\n                </p>\n              )}\n              {body && (\n                <p\n                  className=\"t-13\"\n                  style={{\n                    lineHeight: \"var(--leading-tight)\",\n                    color: \"var(--text-l2)\",\n                    marginTop: \"var(--space-3)\",\n                    whiteSpace: \"pre-wrap\",\n                  }}\n                >\n                  {body}\n                </p>\n              )}\n            </div>\n          );\n        })",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/CockpitHero.tsx",
+      "source_location": "L94"
+    }
+  ]
+}

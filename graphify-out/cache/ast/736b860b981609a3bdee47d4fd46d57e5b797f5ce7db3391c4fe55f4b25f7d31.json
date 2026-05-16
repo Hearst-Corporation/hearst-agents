@@ -1,0 +1,652 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "label": "audit-visual.mjs",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "spatial_audit_visual_dirname",
+      "label": "__dirname",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L8"
+    },
+    {
+      "id": "spatial_audit_visual_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L9"
+    },
+    {
+      "id": "spatial_audit_visual_snapshots_dir",
+      "label": "SNAPSHOTS_DIR",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L10"
+    },
+    {
+      "id": "spatial_audit_visual_default_config",
+      "label": "DEFAULT_CONFIG",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L13"
+    },
+    {
+      "id": "spatial_audit_visual_args",
+      "label": "args",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L21"
+    },
+    {
+      "id": "spatial_audit_visual_updatereference",
+      "label": "updateReference",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L22"
+    },
+    {
+      "id": "spatial_audit_visual_getargvalue",
+      "label": "getArgValue()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L24"
+    },
+    {
+      "id": "spatial_audit_visual_urlarg",
+      "label": "urlArg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L32"
+    },
+    {
+      "id": "spatial_audit_visual_thresholdarg",
+      "label": "thresholdArg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L33"
+    },
+    {
+      "id": "spatial_audit_visual_config",
+      "label": "config",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L35"
+    },
+    {
+      "id": "spatial_audit_visual_ansi",
+      "label": "ANSI",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L41"
+    },
+    {
+      "id": "spatial_audit_visual_runaudit",
+      "label": "runAudit()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L50"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "pixelmatch",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "playwright",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "pngjs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_dirname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_snapshots_dir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_default_config",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_updatereference",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_getargvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_urlarg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_thresholdarg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_config",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_ansi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_scripts_spatial_audit_visual_mjs",
+      "target": "spatial_audit_visual_runaudit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L50",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "spatial_audit_visual_getargvalue",
+      "callee": "find",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_getargvalue",
+      "callee": "split",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_getargvalue",
+      "callee": "indexOf",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L51"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L52"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L53"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "existsSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "mkdirSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L56"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "launch",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L59"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "newContext",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L60"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "newPage",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L63"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L66"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "goto",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L67"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "status",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L69"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L70"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "status",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L71"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L73"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "close",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L74"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L75"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L78"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "waitForTimeout",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L79"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L82"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "join",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L83"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "screenshot",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L85"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L86"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "existsSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L88"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "copyFileSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L89"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L90"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "close",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L93"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L94"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "read",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "readFileSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L98"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "read",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "readFileSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L99"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "pixelmatch",
+      "is_member_call": false,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L103"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "writeFileSync",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "write",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L111"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L112"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L115"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L117"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L120"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "toFixed",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L121"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "close",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L122"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L123"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "log",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L125"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "close",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L126"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L127"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L130"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "error",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L131"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "close",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L132"
+    },
+    {
+      "caller_nid": "spatial_audit_visual_runaudit",
+      "callee": "exit",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/scripts/spatial/audit-visual.mjs",
+      "source_location": "L133"
+    }
+  ]
+}

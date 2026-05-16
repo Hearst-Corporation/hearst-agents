@@ -1,0 +1,129 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_selection_ts",
+      "label": "spatial-selection.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_spatialentityid",
+      "label": "SpatialEntityId",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_focuseddepth",
+      "label": "FocusedDepth",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_spatialselectionstate",
+      "label": "SpatialSelectionState",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialselection",
+      "label": "useSpatialSelection",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialentitystate",
+      "label": "useSpatialEntityState()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L75"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_selection_ts",
+      "target": "zustand",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_selection_ts",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_spatialentityid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_selection_ts",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_focuseddepth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_selection_ts",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_spatialselectionstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_selection_ts",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialselection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_docs_spatial_backup_spatial_rnd_buggy_2026_05_12_spatial_selection_ts",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialentitystate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialentitystate",
+      "target": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialselection",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialentitystate",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L81"
+    },
+    {
+      "caller_nid": "backup_spatial_rnd_buggy_2026_05_12_spatial_selection_usespatialentitystate",
+      "callee": "includes",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts",
+      "source_location": "L82"
+    }
+  ]
+}

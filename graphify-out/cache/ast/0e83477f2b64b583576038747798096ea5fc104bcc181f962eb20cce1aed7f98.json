@@ -1,0 +1,87 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_breadcrumb_tsx",
+      "label": "Breadcrumb.tsx",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_breadcrumb_crumb",
+      "label": "Crumb",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "components_breadcrumb_breadcrumbprops",
+      "label": "BreadcrumbProps",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "components_breadcrumb_breadcrumb",
+      "label": "Breadcrumb()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L16"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_breadcrumb_tsx",
+      "target": "link",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_breadcrumb_tsx",
+      "target": "components_breadcrumb_crumb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_breadcrumb_tsx",
+      "target": "components_breadcrumb_breadcrumbprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_app_user_components_breadcrumb_tsx",
+      "target": "components_breadcrumb_breadcrumb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "components_breadcrumb_breadcrumb",
+      "callee": "filter",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "components_breadcrumb_breadcrumb",
+      "callee": "map",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Breadcrumb.tsx",
+      "source_location": "L29"
+    }
+  ]
+}

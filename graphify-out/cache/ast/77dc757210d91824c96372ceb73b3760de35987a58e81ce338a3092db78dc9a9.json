@@ -1,0 +1,797 @@
+{
+  "nodes": [
+    {
+      "id": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "label": "capability-runtime-integration.test.ts",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_hoisted",
+      "label": "hoisted",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_domain_surfaces",
+      "label": "DOMAIN_SURFACES",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_domains",
+      "label": "domains",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_scope",
+      "label": "scope",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L77"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_d",
+      "label": "d",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_specialized",
+      "label": "SPECIALIZED",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L134"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_generic",
+      "label": "GENERIC",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L141"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_r",
+      "label": "r",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L154"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_expectedallowed",
+      "label": "expectedAllowed",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L155"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_mockdb",
+      "label": "mockDb",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L186"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_mockengine",
+      "label": "mockEngine",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L187"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_steps",
+      "label": "[, , steps]",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L250"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_createmockengine",
+      "label": "createMockEngine()",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L309"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_engine",
+      "label": "engine",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L354"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_types",
+      "label": "types",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L366"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_msg",
+      "label": "msg",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L396"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_required",
+      "label": "required",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L422"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_first",
+      "label": "first",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L447"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_kwtodomains",
+      "label": "kwToDomains",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L463"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_key",
+      "label": "key",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L467"
+    },
+    {
+      "id": "runtime_capability_runtime_integration_test_violations",
+      "label": "violations",
+      "file_type": "code",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L472"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "supabase_js",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_guard_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_guard_capabilityguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_router_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_router_resolvecapabilityscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_router_resolveexecutionmode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_router_scoperequiresproviders",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_capabilities_taxonomy_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_taxonomy_domain_taxonomy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_taxonomy_domain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_taxonomy_getvalidagentsfordomain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "capabilities_taxonomy_isagentvalidfordomain",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_provider_requirements_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "orchestrator_provider_requirements_getblockedreasonforproviders",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "orchestrator_provider_requirements_getrequiredprovidersforinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_research_intent_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "orchestrator_research_intent_isreportintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "orchestrator_research_intent_isresearchintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_events_types_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "events_types_runevent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_hoisted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_orchestrator_planner_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "orchestrator_planner_planfromintent",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "users_adrienbeyondcrypto_dev_hearst_os_lib_engine_runtime_delegate_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "delegate_api_delegate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_domain_surfaces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_domains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_specialized",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_generic",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_domains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L154",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_expectedallowed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L155",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_domains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L174",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_mockdb",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L186",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_mockengine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_steps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L250",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_steps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L290",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_createmockengine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L309",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_engine",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L354",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_types",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L366",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L376",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L382",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_msg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L396",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_required",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L422",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_first",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L447",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_domains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L462",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_kwtodomains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L463",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_key",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L467",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_violations",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L472",
+      "weight": 1.0
+    },
+    {
+      "source": "users_adrienbeyondcrypto_dev_hearst_os_tests_runtime_capability_runtime_integration_test_ts",
+      "target": "runtime_capability_runtime_integration_test_r",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L480",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L317"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L323"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L327"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L328"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L329"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L329"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "mockResolvedValue",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L332"
+    },
+    {
+      "caller_nid": "runtime_capability_runtime_integration_test_createmockengine",
+      "callee": "fn",
+      "is_member_call": true,
+      "source_file": "/Users/adrienbeyondcrypto/Dev/hearst-os/__tests__/runtime/capability-runtime-integration.test.ts",
+      "source_location": "L332"
+    }
+  ]
+}
