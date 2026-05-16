@@ -3,14 +3,20 @@
 /**
  * AssetStage — consumer data-bound du run de génération média.
  *
- * Pattern pilote ChatStage : fetch `/api/v2/assets?limit=4`, expose un
- * `AssetItem` typé (video / image), pousse les slots dans `useStageData
- * .shellData` pour alimenter le ContextRail. États couverts : loading,
- * error, empty, populated. Voix FR régulière, pas de mockup fallback.
+ * Deux modes d'affichage selon `useStageStore.current` :
+ *   - `mode === "asset" && assetId`   → fetch `/api/v2/assets/{id}` et
+ *      affiche l'asset focal seul (cas Cmd+K → asset, lien chat, etc.)
+ *   - sinon (mode "asset" sans id, ou mode parent) → fallback gallery
+ *      `/api/v2/assets?limit=4` (anciens runs récents)
+ *
+ * Pousse les slots dans `useStageData.shellData` pour alimenter le
+ * ContextRail. États couverts : loading, error, empty, populated. Voix
+ * FR régulière, pas de mockup fallback.
  */
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
 
@@ -270,22 +276,38 @@ export function AssetStage({ mode }: { mode: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch initial — `/api/v2/assets?limit=4`
+  // Lit l'asset focal demandé (Cmd+K, lien chat, etc.). Si présent →
+  // single-asset fetch ; sinon → gallery des 4 plus récents.
+  const focalAssetId = useStageStore((s) =>
+    s.current.mode === "asset" ? s.current.assetId : null,
+  );
+
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
 
-    fetch("/api/v2/assets?limit=4", { credentials: "include" })
+    const url = focalAssetId
+      ? `/api/v2/assets/${encodeURIComponent(focalAssetId)}`
+      : "/api/v2/assets?limit=4";
+
+    fetch(url, { credentials: "include" })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }
-        return res.json() as Promise<Partial<ApiAssetsResponse>>;
+        return res.json() as Promise<Partial<ApiAssetsResponse> & Partial<ApiAsset>>;
       })
       .then((data) => {
         if (cancelled) return;
-        const list = Array.isArray(data.assets) ? data.assets : [];
+        // Single-asset endpoint retourne directement l'objet, pas {assets: [...]}
+        const list: ApiAsset[] = focalAssetId
+          ? data && (data as ApiAsset).id
+            ? [data as ApiAsset]
+            : []
+          : Array.isArray((data as ApiAssetsResponse).assets)
+            ? (data as ApiAssetsResponse).assets
+            : [];
         setAssets(list.slice(0, 4).map((a, i) => apiToAsset(a, i)));
         setLoading(false);
       })
@@ -299,7 +321,7 @@ export function AssetStage({ mode }: { mode: string }) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [focalAssetId]);
 
   // Pousse les slots dans shellData → miroir ContextRail
   useEffect(() => {

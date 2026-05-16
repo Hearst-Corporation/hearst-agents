@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useNavigationStore } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
 import { CockpitHero } from "./stages/CockpitHero";
@@ -14,9 +13,9 @@ import { CockpitHero } from "./stages/CockpitHero";
  * on garde le greeting éditorial pour ne pas atterrir sur un écran vide.
  */
 export function WelcomePanel() {
-  const router = useRouter();
   const addThread = useNavigationStore((s) => s.addThread);
   const setStageMode = useStageStore((s) => s.setMode);
+  const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
   const activeThreadId = useNavigationStore((s) => s.activeThreadId);
 
   const newBrief = () => {
@@ -29,10 +28,17 @@ export function WelcomePanel() {
     ta?.focus();
   };
 
+  // Les artefacts vivent dans le ChatStage (modes asset/artifact), pas
+  // sur une route dédiée. On ouvre le Commandeur (Cmd+K) pour les chercher
+  // sans envoyer l'utilisateur sur une 404.
+  const openCommandeurArtefacts = () => {
+    setCommandeurOpen(true, { prefilledQuery: "artefact " });
+  };
+
   const QUICK_ACTIONS = [
     { label: "Brief du jour", action: newBrief },
     { label: "Lancer une recherche", action: focusInput },
-    { label: "Mes artefacts", action: () => router.push("/assets") },
+    { label: "Trouver un artefact", action: openCommandeurArtefacts },
   ];
 
   return (

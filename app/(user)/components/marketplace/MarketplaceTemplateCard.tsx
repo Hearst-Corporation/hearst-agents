@@ -1,13 +1,16 @@
 "use client";
 
 /**
- * MarketplaceTemplateCard — card cliquable pour un template de la marketplace.
+ * MarketplaceTemplateCard — card descriptive d'un template marketplace.
  *
  * Affiche : kind glyph, title, description courte, auteur, tags chips,
  * rating stars, clone count. Tokens uniquement (CLAUDE.md §1).
+ *
+ * Note : la page détail `/marketplace/[id]` n'est pas encore livrée. La
+ * card reste donc non-cliquable pour éviter une 404 ; le rendu visuel
+ * conserve son rôle informatif.
  */
 
-import Link from "next/link";
 import type { MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
 interface MarketplaceTemplateCardProps {
@@ -38,10 +41,9 @@ export function MarketplaceTemplateCard({
   const author = template.authorDisplayName?.trim() || "Anonyme";
 
   return (
-    <Link
-      href={`/marketplace/${template.id}`}
+    <article
       data-testid={`marketplace-card-${template.id}`}
-      className="flex flex-col transition-colors"
+      className="flex flex-col"
       style={{
         gap: "var(--space-3)",
         padding: "var(--space-4)",
@@ -112,7 +114,7 @@ export function MarketplaceTemplateCard({
           {template.cloneCount} clone{template.cloneCount === 1 ? "" : "s"}
         </span>
       </footer>
-    </Link>
+    </article>
   );
 }
 

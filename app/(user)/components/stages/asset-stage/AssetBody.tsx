@@ -7,6 +7,12 @@ import { ResearchReportArticle } from "../../reports/ResearchReportArticle";
 interface AssetBodyProps {
   contentRef?: string;
   title: string;
+  /**
+   * ID de l'asset porteur. Quand fourni, les actions Exporter / Partager /
+   * Commenter apparaissent dans le header de ReportLayout (cf. ReportLayout
+   * props.assetId). Optionnel pour conserver la compat des autres callers.
+   */
+  assetId?: string;
 }
 
 /**
@@ -17,7 +23,7 @@ interface AssetBodyProps {
  *   2. HTML → <iframe sandbox> (rapports HTML générés)
  *   3. Plain text / markdown → <ResearchReportArticle> (briefs free-form)
  */
-export function AssetBody({ contentRef, title }: AssetBodyProps) {
+export function AssetBody({ contentRef, title, assetId }: AssetBodyProps) {
   if (!contentRef) {
     return (
       <p className="t-13 font-light text-text-muted">Aucun contenu disponible pour cet asset.</p>
@@ -26,7 +32,7 @@ export function AssetBody({ contentRef, title }: AssetBodyProps) {
 
   const reportPayload = tryParseReportPayload(contentRef);
   if (reportPayload) {
-    return <ReportLayout payload={reportPayload} />;
+    return <ReportLayout payload={reportPayload} assetId={assetId} assetTitle={title} />;
   }
 
   if (isHtmlContent(contentRef)) {

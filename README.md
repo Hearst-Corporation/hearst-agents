@@ -586,14 +586,15 @@ npm run dev
 
 ## 🌐 Pages UI Accessibles
 
-| Page         | URL          | Description                         |
-| ------------ | ------------ | ----------------------------------- |
-| **Home**     | `/`          | Chat principal avec orchestration   |
-| **Apps**     | `/apps`      | Connecteurs OAuth (1500+ services)  |
-| **Missions** | `/missions`  | Missions planifiées et récurrentes  |
-| **Assets**   | `/assets`    | Fichiers générés (PDF, Excel)       |
-| **Admin**    | `/admin`     | Settings, health, audit, connectors |
-| **Runs**     | `/runs/[id]` | Timeline des exécutions             |
+| Page            | URL            | Description                                                                |
+| --------------- | -------------- | -------------------------------------------------------------------------- |
+| **Home**        | `/`            | Cockpit polymorphe (11 modes Stage : cockpit, chat, asset, mission, …)     |
+| **Connections** | `/connections` | Hub des services connectés (Composio + OAuth natifs)                       |
+| **Admin**       | `/admin`       | Settings, health, audit, connectors                                        |
+
+Les missions, assets, runs et autres entités vivent **dans le cockpit**
+via les modes Stage correspondants (commutation via Cmd+K, Cmd+1..9 ou
+agent orchestrateur). Pas de route dédiée — le shell change de Stage.
 
 ## 📁 Scripts Utilitaires
 

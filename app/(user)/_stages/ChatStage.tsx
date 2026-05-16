@@ -242,6 +242,42 @@ function ToolCallList({ toolCalls }: { toolCalls: readonly ToolCall[] }) {
   );
 }
 
+function StreamingPlaceholder() {
+  // Visible quand runState === "streaming" sans message/delta/tool encore
+  // rendu — confirme à l'utilisateur que l'agent a démarré sa réflexion.
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: VISION_EASE }}
+      role="status"
+      aria-live="polite"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        padding: "12px 16px",
+        borderRadius: "12px",
+        background: "rgba(94,229,195,0.06)",
+        borderLeft: "2px solid rgba(94,229,195,0.45)",
+        color: "rgba(255,255,255,0.7)",
+        fontSize: "13px",
+        lineHeight: 1.55,
+        maxWidth: "fit-content",
+      }}
+    >
+      <span
+        aria-hidden="true"
+        className="animate-pulse"
+        style={{ color: "rgba(94,229,195,0.85)", fontSize: "14px" }}
+      >
+        ●
+      </span>
+      <span>L'agent prépare sa réponse</span>
+    </motion.div>
+  );
+}
+
 function ErrorBanner({ error }: { error: string }) {
   return (
     <motion.div
@@ -301,6 +337,13 @@ export function ChatStage({ mode }: { mode: string }) {
     [messages.length, toolCalls.length, runState],
   );
 
+  // Run lancé mais rien encore rendu (pas de delta, pas de toolCall). On
+  // veut une affordance visible plutôt qu'un écran qui semble figé.
+  const isStreamingSilent = useMemo(
+    () => runState === "streaming" && messages.length === 0 && toolCalls.length === 0,
+    [runState, messages.length, toolCalls.length],
+  );
+
   return (
     <motion.section
       key={mode}
@@ -315,6 +358,8 @@ export function ChatStage({ mode }: { mode: string }) {
         {!isEmpty && messages.map((msg, idx) => <ChatBubble key={msg.id} msg={msg} index={idx} />)}
 
         {toolCalls.length > 0 && <ToolCallList toolCalls={toolCalls} />}
+
+        {isStreamingSilent && <StreamingPlaceholder />}
 
         {runState === "error" && runError && <ErrorBanner error={runError} />}
 

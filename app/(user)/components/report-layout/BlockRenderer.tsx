@@ -196,7 +196,7 @@ export function BlockRenderer({ block }: { block: RenderedBlock }): JSX.Element 
       );
 
     default:
-      // Primitives V2/V3 pas encore implémentées — placeholder respectant la grille.
+      // Primitives non câblées — placeholder respectant la grille du layout.
       return (
         <div
           className="flex items-center justify-center"
@@ -206,8 +206,11 @@ export function BlockRenderer({ block }: { block: RenderedBlock }): JSX.Element 
             border: "1px dashed var(--card-flat-border)",
             minHeight: "var(--space-12)",
           }}
+          aria-label={`Bloc ${block.type} non disponible`}
         >
-          <span className="t-11 font-light text-text-faint">{block.type}_pending</span>
+          <span className="t-11 font-light text-text-faint">
+            Bloc « {block.type} » non disponible
+          </span>
         </div>
       );
   }

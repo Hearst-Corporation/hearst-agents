@@ -64,9 +64,12 @@ describe("MarketplaceTemplateCard", () => {
     expect(screen.getByText("1 clone")).toBeTruthy();
   });
 
-  it("link href pointe vers le détail", () => {
+  it("ne rend pas de lien tant que la page détail n'existe pas", () => {
+    // La route `/marketplace/[id]` n'est pas livrée. La card reste donc
+    // descriptive plutôt que de mener à une 404 ; le testid suffit aux
+    // futurs câblages.
     const { container } = render(<MarketplaceTemplateCard template={fixture()} />);
-    const link = container.querySelector("a");
-    expect(link?.getAttribute("href")).toBe("/marketplace/tpl-1");
+    expect(container.querySelector("a")).toBeNull();
+    expect(container.querySelector('[data-testid="marketplace-card-tpl-1"]')).toBeTruthy();
   });
 });

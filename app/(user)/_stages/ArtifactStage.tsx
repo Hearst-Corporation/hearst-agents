@@ -7,7 +7,7 @@
  * fetche le contenu + metadata via `/api/v2/assets/{id}` + `/variants`,
  * et pousse les rail items vers `useStageData.shellData` → ContextRail.
  *
- * Layout split : éditeur code read-only (gauche) + preview E2B mock (droite).
+ * Layout split : éditeur code read-only (gauche) + preview du runtime (droite).
  * Footer tabs : "Aperçu" / "Code" / "Versions".
  * États : loading, empty, error.
  */

@@ -4,8 +4,14 @@
  * MissionStage — consumer data-bound de la mission active.
  *
  * Lit `missionId` depuis `useStageStore`, fetche `/api/v2/missions/[id]`,
- * et pousse les 5 premières steps vers `useStageData.shellData` pour
+ * et pousse les jalons de synthèse vers `useStageData.shellData` pour
  * alimenter le ContextRail.
+ *
+ * Ce que la vue affiche aujourd'hui :
+ *   "Synthèse mission" = 3 jalons dérivés de l'état mission
+ *   (création, dernière exécution, prochaine exécution selon schedule).
+ *   Ce ne sont PAS les vraies steps d'exécution agent — celles-ci
+ *   viendront du run output quand l'API exposera `runSteps`.
  *
  * Pas de mockup : si pas de missionId → empty state explicite.
  * Source de vérité : store stage + API.
@@ -502,19 +508,31 @@ export function MissionStage({ mode }: { mode: string }) {
         <>
           <MissionHeader mission={mission} />
 
-          {/* Timeline */}
-          <div className="mtl">
-            <AnimatePresence initial={false}>
-              {steps.map((step, idx) => (
-                <StepRow
-                  key={step.id}
-                  step={step}
-                  index={idx}
-                  missionId={mission.id}
-                  onApproved={handleApproved}
-                />
-              ))}
-            </AnimatePresence>
+          {/* Synthèse mission (jalons dérivés du statut — pas les vraies steps
+              d'exécution agent ; celles-ci viendront du run output) */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <p
+              className="t-11"
+              style={{
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.04em",
+              }}
+            >
+              Synthèse mission
+            </p>
+            <div className="mtl">
+              <AnimatePresence initial={false}>
+                {steps.map((step, idx) => (
+                  <StepRow
+                    key={step.id}
+                    step={step}
+                    index={idx}
+                    missionId={mission.id}
+                    onApproved={handleApproved}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
           </div>
         </>
       )}

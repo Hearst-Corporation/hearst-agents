@@ -1,14 +1,17 @@
 "use client";
 
 /**
- * StageFooter — pill flottante glass affichant le contexte du stage actif :
- * status • 2 actions • toggle binaire de mode.
+ * StageFooter — pill flottante glass affichant le **contexte** du stage actif.
  *
  * Composition portée depuis `lab/cli-os/src/components/Footer.tsx` mais adaptée
  * à la voix éditoriale Hearst (FR régulier, palette teal, classes DS).
  *
- * Le composant est **autonome** : pas de translateX(-50%) en interne, c'est
- * au parent (ChatDock) de le centrer via flex.
+ * Les éléments rendus sont **purement informatifs** : statut courant + chips
+ * de contexte non cliquables. Les actions réelles sont déclenchées par le
+ * Commandeur (Cmd+K) ou les hotkeys spécifiques au stage — on évite ainsi
+ * d'exposer des contrôles qui ressemblent à des actions actives mais ne sont
+ * pas câblés. Le layout est conservé pour préserver la composition avec
+ * ChatDock.
  *
  * Retourne `null` si le stage actif n'a pas d'entrée dans STAGE_FOOTER_DATA
  * (avec console.warn en dev pour signaler l'oubli).
@@ -19,71 +22,23 @@ import type { StageKey } from "../../_stages/types";
 
 type FooterContent = {
   status: string;
-  actions: readonly [string, string];
-  modes: readonly [string, string];
+  /** Chips de contexte (non cliquables) — décrivent l'état, pas des actions. */
+  contextChips: readonly string[];
 };
 
 const STAGE_FOOTER_DATA: Record<StageKey, FooterContent> = {
-  cockpit: {
-    status: "Nominal",
-    actions: ["Briefing", "Missions"],
-    modes: ["Tout", "Runs"],
-  },
-  chat: {
-    status: "Connecté",
-    actions: ["Envoyer", "Contexte"],
-    modes: ["Auto", "Manuel"],
-  },
-  mission: {
-    status: "En cours",
-    actions: ["Approuver", "Pause"],
-    modes: ["Auto", "Pas-à-pas"],
-  },
-  asset: {
-    status: "Chargé",
-    actions: ["Ouvrir", "Comparer"],
-    modes: ["Vue", "Édition"],
-  },
-  asset_compare: {
-    status: "Comparaison",
-    actions: ["Synchroniser", "Diff"],
-    modes: ["Côte à côte", "Superposé"],
-  },
-  browser: {
-    status: "Live",
-    actions: ["Piloter", "Capturer"],
-    modes: ["Auto", "Manuel"],
-  },
-  voice: {
-    status: "Écoute active",
-    actions: ["Muet", "Transférer"],
-    modes: ["Continu", "Push-to-talk"],
-  },
-  meeting: {
-    status: "En réunion",
-    actions: ["Notes", "Actions"],
-    modes: ["Live", "Récap"],
-  },
-  artifact: {
-    status: "Runtime prêt",
-    actions: ["Exécuter", "Exporter"],
-    modes: ["Python", "Node"],
-  },
-  kg: {
-    status: "Indexé",
-    actions: ["Explorer", "Ajouter"],
-    modes: ["Graphe", "Liste"],
-  },
-  simulation: {
-    status: "Scénario prêt",
-    actions: ["Lancer", "Réinitialiser"],
-    modes: ["Auto", "Manuel"],
-  },
-  signal: {
-    status: "Surveillance",
-    actions: ["Voir", "Acquitter"],
-    modes: ["Temps réel", "Historique"],
-  },
+  cockpit: { status: "Nominal", contextChips: ["Cockpit"] },
+  chat: { status: "Connecté", contextChips: ["Conversation"] },
+  mission: { status: "En cours", contextChips: ["Mission"] },
+  asset: { status: "Chargé", contextChips: ["Asset"] },
+  asset_compare: { status: "Comparaison", contextChips: ["Comparaison"] },
+  browser: { status: "Live", contextChips: ["Browser"] },
+  voice: { status: "Écoute active", contextChips: ["Voice"] },
+  meeting: { status: "En réunion", contextChips: ["Meeting"] },
+  artifact: { status: "Runtime prêt", contextChips: ["Artifact"] },
+  kg: { status: "Indexé", contextChips: ["Knowledge"] },
+  simulation: { status: "Scénario prêt", contextChips: ["Simulation"] },
+  signal: { status: "Surveillance", contextChips: ["Signal"] },
 };
 
 export function StageFooter() {
@@ -104,7 +59,8 @@ export function StageFooter() {
         borderRadius: "var(--radius-pill)",
         transform: "translateZ(20px)",
       }}
-      aria-label="Actions du stage actif"
+      role="status"
+      aria-label="Contexte du stage actif"
     >
       <div className="flex items-center" style={{ gap: "var(--space-2-5)" }}>
         <span
@@ -128,60 +84,21 @@ export function StageFooter() {
       </div>
 
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-        <button
-          type="button"
-          className="vision-btn-primary t-12"
-          style={{
-            padding: "var(--space-1-5) var(--space-4)",
-            borderRadius: "var(--radius-pill)",
-            border: "none",
-            fontWeight: 500,
-          }}
-        >
-          {data.actions[0]}
-        </button>
-        <button
-          type="button"
-          className="vision-btn-glass t-12"
-          style={{
-            padding: "var(--space-1-5) var(--space-4)",
-            borderRadius: "var(--radius-pill)",
-            fontWeight: 500,
-          }}
-        >
-          {data.actions[1]}
-        </button>
-      </div>
-
-      <div
-        className="vision-segmented-track flex items-center"
-        style={{ padding: "var(--space-0-5)", borderRadius: "var(--radius-pill)" }}
-        role="tablist"
-        aria-label="Mode du stage"
-      >
-        {data.modes.map((label, i) => {
-          const isActive = i === 0;
-          return (
-            <button
-              key={label}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              className="t-11"
-              style={{
-                padding: "var(--space-1) var(--space-3-5)",
-                borderRadius: "var(--radius-pill)",
-                fontWeight: 500,
-                background: isActive ? "var(--border-default)" : "transparent",
-                color: isActive ? "var(--text-l1)" : "var(--text-l2)",
-                border: "none",
-                transition: "all var(--duration-base) var(--ease-standard)",
-              }}
-            >
-              {label}
-            </button>
-          );
-        })}
+        {data.contextChips.map((chip) => (
+          <span
+            key={chip}
+            className="t-11 font-medium"
+            style={{
+              padding: "var(--space-1) var(--space-3-5)",
+              borderRadius: "var(--radius-pill)",
+              background: "color-mix(in srgb, var(--accent-teal) 10%, transparent)",
+              border: "1px solid color-mix(in srgb, var(--accent-teal) 25%, transparent)",
+              color: "var(--text-l1)",
+            }}
+          >
+            {chip}
+          </span>
+        ))}
       </div>
     </div>
   );

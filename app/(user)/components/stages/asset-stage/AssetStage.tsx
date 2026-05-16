@@ -201,9 +201,11 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
               />
 
               {/* Body texte : seulement si contentRef non vide. Les assets
-                  image-only (placeholder vide) sautent ce bloc. */}
+                  image-only (placeholder vide) sautent ce bloc. `assetId`
+                  est propagé pour activer les actions Exporter / Partager
+                  dans le header ReportLayout quand le contenu est un rapport. */}
               {asset.contentRef && asset.contentRef.length > 0 ? (
-                <AssetBody contentRef={asset.contentRef} title={asset.title} />
+                <AssetBody contentRef={asset.contentRef} title={asset.title} assetId={asset.id} />
               ) : null}
 
               {/* Bloc prompt pour mode image-only : affiché sous l'image quand

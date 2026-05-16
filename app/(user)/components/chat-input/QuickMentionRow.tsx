@@ -13,7 +13,7 @@ interface QuickMentionRowProps {
 /**
  * Rangée de logos d'apps connectées sous le composer.
  * Click logo → insertion `@<service.id>` dans le textarea via `onMention`.
- * Bouton "+" → redirige vers `/apps` pour connecter une nouvelle app.
+ * Bouton "+" → redirige vers `/connections` pour connecter une nouvelle app.
  */
 export function QuickMentionRow({ connectedServices, onMention }: QuickMentionRowProps) {
   const router = useRouter();
@@ -63,7 +63,7 @@ export function QuickMentionRow({ connectedServices, onMention }: QuickMentionRo
       </div>
       <button
         type="button"
-        onClick={() => router.push("/apps")}
+        onClick={() => router.push("/connections")}
         title="Connecter une nouvelle app"
         aria-label="Connecter une nouvelle app"
         className="inline-flex items-center justify-center shrink-0 transition-colors text-text-faint hover:text-(--accent-teal)"
