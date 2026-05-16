@@ -104,7 +104,7 @@ async function safe<T>(label: string, fn: () => Promise<T> | T, fallback: T): Pr
  * éviter les ambiguïtés DST. La logique reste suffisamment fiable pour
  * un digest hebdo (tolérance ±1h).
  */
-export function buildWeeklyWindow(now: Date = new Date()): WeeklyDigestWindow {
+function buildWeeklyWindow(now: Date = new Date()): WeeklyDigestWindow {
   const ref = new Date(now.getTime());
   // 0 = dimanche, 1 = lundi … 6 = samedi
   const dow = ref.getDay();

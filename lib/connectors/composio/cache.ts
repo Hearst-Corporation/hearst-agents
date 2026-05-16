@@ -39,5 +39,3 @@ export function getCacheEntry(key: string): unknown[] | null {
 export function setCacheEntry(key: string, tools: unknown[]): void {
   cache.set(key, { tools, expiresAt: Date.now() + TTL_MS });
 }
-
-export const DISCOVERY_CACHE_TTL_MS = TTL_MS;

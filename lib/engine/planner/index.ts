@@ -23,7 +23,6 @@ import type {
   PlanStepKind,
   StepRisk,
 } from "./types";
-import { getReadySteps } from "./types";
 
 // ── Intent classification ───────────────────────────────────
 
@@ -241,40 +240,6 @@ export function createPlanFromIntent(input: PlanIntent): ExecutionPlan {
 
 // ── Plan updates ────────────────────────────────────────────
 
-export function updatePlanFromClarification(
-  planId: string,
-  clarifications: Record<string, string>,
-): ExecutionPlan | null {
-  const plan = getPlan(planId);
-  if (!plan) return null;
-
-  // Apply clarifications — e.g. specifying a target, schedule, or output kind
-  if (clarifications.schedule && plan.type === "mission") {
-    const scheduleStep = plan.steps.find((s) => s.kind === "schedule");
-    if (scheduleStep) {
-      scheduleStep.expectedOutput = clarifications.schedule;
-    }
-  }
-
-  plan.updatedAt = Date.now();
-  savePlan(plan);
-  logPlanEvent("plan_clarified", { planId, clarifications });
-
-  return plan;
-}
-
-export function markPlanAwaitingApproval(planId: string): ExecutionPlan | null {
-  const plan = getPlan(planId);
-  if (!plan) return null;
-
-  plan.status = "awaiting_approval";
-  plan.updatedAt = Date.now();
-  savePlan(plan);
-  logPlanEvent("plan_awaiting_approval", { planId });
-
-  return plan;
-}
-
 export function approvePlan(planId: string): ExecutionPlan | null {
   const plan = getPlan(planId);
   if (!plan || plan.status !== "awaiting_approval") return null;
@@ -294,9 +259,3 @@ export function approvePlan(planId: string): ExecutionPlan | null {
 }
 
 // ── Step resolution ─────────────────────────────────────────
-
-export function resolveNextExecutableSteps(planId: string): ExecutionPlanStep[] {
-  const plan = getPlan(planId);
-  if (!plan || plan.status === "completed" || plan.status === "failed") return [];
-  return getReadySteps(plan);
-}

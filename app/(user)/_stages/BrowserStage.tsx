@@ -428,7 +428,7 @@ export function BrowserStage({ mode }: { mode: string }) {
   const [fetchState, setFetchState] = useState<FetchState>("idle");
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [steps, setSteps] = useState<BrowserStep[]>([]);
+  const [steps] = useState<BrowserStep[]>([]);
   const [currentUrl, setCurrentUrl] = useState<string>("");
   const [autoMode, setAutoMode] = useState(true);
   const [captureTs, setCaptureTs] = useState<string | null>(null);

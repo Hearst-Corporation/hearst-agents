@@ -11,7 +11,7 @@ import type { BusinessSignal } from "@/lib/reports/signals/extract";
 import type { EmailChannelConfig, SlackChannelConfig, WebhookChannelConfig } from "./schema";
 
 /** Timeout HTTP fixe pour les canaux externes (webhook, Slack). */
-export const CHANNEL_HTTP_TIMEOUT_MS = 5_000;
+const CHANNEL_HTTP_TIMEOUT_MS = 5_000;
 /** 1 retry max avec backoff court (constant). */
 const CHANNEL_RETRY_BACKOFF_MS = 500;
 

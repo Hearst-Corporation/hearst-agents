@@ -365,7 +365,7 @@ function readPath(path: string, context: WorkflowExecutionContext): unknown {
 
 const COMPARISON_RE = /^(.+?)\s*(==|!=|<=|>=|<|>)\s*(.+)$/;
 
-export function evaluateCondition(expression: string, context: WorkflowExecutionContext): boolean {
+function evaluateCondition(expression: string, context: WorkflowExecutionContext): boolean {
   const trimmed = expression.trim();
   if (!trimmed) return false;
 
@@ -397,7 +397,7 @@ export function evaluateCondition(expression: string, context: WorkflowExecution
   return false;
 }
 
-export function evaluateValue(raw: string, context: WorkflowExecutionContext): unknown {
+function evaluateValue(raw: string, context: WorkflowExecutionContext): unknown {
   const trimmed = raw.trim();
 
   // String literal

@@ -72,7 +72,7 @@ export type PipelineListener = (event: PipelineEventType, data: Record<string, u
 
 // ── Pipeline entry point ────────────────────────────────────
 
-export async function executeIntent(
+async function executeIntent(
   intent: string,
   ctx: PipelineContext,
   listener?: PipelineListener,

@@ -75,7 +75,7 @@ export type VerifyTokenError =
 
 let _warned = false;
 
-export function getSharingSecret(): string | null {
+function getSharingSecret(): string | null {
   const secret = process.env.REPORT_SHARING_SECRET ?? "";
   if (secret.length < SECRET_MIN_LENGTH) {
     if (!_warned) {
@@ -100,7 +100,7 @@ export function getSharingSecret(): string | null {
  *
  * Ordre du retour : primaire d'abord (chemin chaud), puis fallbacks.
  */
-export function getSharingSecretsForVerify(): string[] {
+function getSharingSecretsForVerify(): string[] {
   const primary = getSharingSecret();
   const secrets: string[] = primary ? [primary] : [];
   const previous = process.env.REPORT_SHARING_SECRET_PREVIOUS ?? "";

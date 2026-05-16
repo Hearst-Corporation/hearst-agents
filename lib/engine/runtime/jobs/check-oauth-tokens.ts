@@ -25,7 +25,7 @@ import type { WebhookEvent } from "@/lib/webhooks/types";
 
 // ── Schéma payload du job ────────────────────────────────────
 
-export const checkOAuthTokensPayloadSchema = z.object({
+const checkOAuthTokensPayloadSchema = z.object({
   /** L'identifiant Supabase du user dont on vérifie les tokens. */
   userId: z.string().uuid("userId doit être un UUID"),
   /** Le tenant concerné. */

@@ -9,7 +9,6 @@
  * du JSON. Le snooze remet à jour l'asset (re-store avec items modifiés).
  */
 
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { InboxBrief } from "./inbox-brief";
 

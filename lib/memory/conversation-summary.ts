@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { getProvider } from "@/lib/llm/router";
@@ -9,18 +8,6 @@ import { fenceUntrusted } from "./untrusted-fence";
 const SUMMARY_TTL = 60 * 60 * 24 * 30; // 30 jours
 const MAX_BUFFER = 20;
 const key = (userId: string) => `memory:summary:${userId}`;
-
-/**
- * Schéma de validation pour un résumé structuré.
- * Bornes strictes pour empêcher les injections longues ou les champs
- * exploitables comme vecteur de prompt injection lors de la réinjection.
- */
-export const SummarySchema = z.object({
-  topic: z.string().max(200),
-  key_facts: z.array(z.string().max(300)).max(10),
-  decisions: z.array(z.string().max(300)).max(5),
-  next_steps: z.array(z.string().max(300)).max(5),
-});
 
 type MessageEntry = { role: "user" | "assistant"; content: string };
 

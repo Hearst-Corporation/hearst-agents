@@ -15,7 +15,7 @@
  */
 
 import { logger } from "@/lib/observability/logger";
-import type { CircuitState, CircuitStore, PersistedCircuitState } from "./circuit-breaker";
+import type { CircuitState, CircuitStore, PersistedCircuitState } from "./circuit-store-types";
 
 // ---------------------------------------------------------------------------
 // InMemoryCircuitStore — fallback / implémentation de test

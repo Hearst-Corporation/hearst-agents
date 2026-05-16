@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-import { useChatStageStore } from "@/stores/chat-stage";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { Shell } from "../_shell/Shell";
@@ -54,7 +53,6 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
 
   // Sources de vérité chat — alimentées par ChatStage (shellData) et ChatDock (runState).
   const shellData = useStageData((s) => s.shellData);
-  const chatRunState = useChatStageStore((s) => s.runState);
 
   const [data, setData] = useState<CockpitTodayPayload | null>(initialCockpitData);
 

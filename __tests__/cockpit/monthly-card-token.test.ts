@@ -96,12 +96,11 @@ describe("signCardToken / verifyCardToken", () => {
       mode: "public",
     });
     expect(signed).not.toBeNull();
-    // Tamper : flip le dernier caractère de la signature.
+    // Tamper : remplacer la signature entière par une signature garantie invalide.
+    // Plus fiable qu'un flip de caractère (peut tomber sur un caractère identique).
     const parts = signed!.token.split(".");
     expect(parts.length).toBe(2);
-    const lastChar = parts[1].slice(-1);
-    const altered = parts[1].slice(0, -1) + (lastChar === "A" ? "B" : "A");
-    const tampered = `${parts[0]}.${altered}`;
+    const tampered = `${parts[0]}.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`;
 
     const result = verifyCardToken(tampered);
     expect(result.ok).toBe(false);

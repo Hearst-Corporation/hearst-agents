@@ -22,7 +22,7 @@ import { resolveVoiceProfile, type VoiceProfile } from "./elevenlabs-voices";
 const ELEVEN_API_BASE = "https://api.elevenlabs.io/v1";
 
 // Voix par défaut publique ElevenLabs (Pre-made voices, pas besoin de clone)
-export const ELEVEN_DEFAULT_MODEL_ID = "eleven_multilingual_v2";
+const ELEVEN_DEFAULT_MODEL_ID = "eleven_multilingual_v2";
 
 export interface SynthesizeSpeechInput {
   text: string;

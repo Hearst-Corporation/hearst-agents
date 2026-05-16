@@ -8,7 +8,6 @@
  * Le service_role bypass RLS pour ces appels (writes côté serveur).
  */
 
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type {
   CreditBalance,
@@ -46,29 +45,6 @@ async function getBalance(userId: string, tenantId: string): Promise<CreditBalan
 }
 
 // ── Reserve / Settle (atomiques via RPC) ────────────────────
-
-async function reserveCredits(args: ReserveCreditsArgs): Promise<boolean> {
-  const sb = getServerSupabase();
-  if (!sb) {
-    console.warn("[Credits] No DB — reserve bypassed (dev mode)");
-    return true;
-  }
-
-  const { data, error } = await sb.rpc("reserve_credits", {
-    p_user_id: args.userId,
-    p_tenant_id: args.tenantId,
-    p_amount_usd: args.amountUsd,
-    p_job_id: args.jobId,
-    p_job_kind: args.jobKind,
-  });
-
-  if (error) {
-    console.error("[Credits] reserve_credits RPC failed:", error.message);
-    return false;
-  }
-
-  return data === true;
-}
 
 /**
  * Réserve des crédits via la fonction atomique avec idempotency key.

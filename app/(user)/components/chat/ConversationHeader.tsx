@@ -15,7 +15,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useNavigationStore } from "@/stores/navigation";
-import { useRightPanelData } from "../right-panel/useRightPanelData";
+import { useRightPanelData } from "./useRightPanelData";
 
 export function ConversationHeader() {
   const activeThreadId = useNavigationStore((s) => s.activeThreadId);

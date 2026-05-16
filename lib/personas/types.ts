@@ -58,11 +58,3 @@ export interface PersonaUpdate {
   surface?: string | null;
   isDefault?: boolean;
 }
-
-export const PERSONA_TONES: PersonaTone[] = [
-  "formal",
-  "casual",
-  "analytical",
-  "creative",
-  "direct",
-];

@@ -97,15 +97,3 @@ export async function incrementShareViewCount(
     .update({ view_count: (data.view_count ?? 0) + 1 })
     .eq("id", shareId);
 }
-
-export async function revokeShare(shareId: string, client?: SupabaseClient): Promise<boolean> {
-  const sb = client ?? getServerSupabase();
-  if (!sb) return false;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { error } = await (sb as any)
-    .from("report_shares")
-    .update({ revoked_at: new Date().toISOString() })
-    .eq("id", shareId);
-  return !error;
-}

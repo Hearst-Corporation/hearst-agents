@@ -5,7 +5,7 @@
  * L'intégration route HTTP est testée séparément en e2e (requiert auth admin).
  */
 
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 let savedEnv: Record<string, string | undefined>;
 

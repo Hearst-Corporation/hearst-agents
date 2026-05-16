@@ -16,7 +16,7 @@
 
 import type { CreativePromptPayload, MarketplaceTemplate } from "@/lib/marketplace/types";
 
-export const BUILTIN_CREATIVE_PACK_ID_PREFIX = "builtin:creative-pack:";
+const BUILTIN_CREATIVE_PACK_ID_PREFIX = "builtin:creative-pack:";
 
 const NOW = "1970-01-01T00:00:00.000Z";
 const AUTHOR_TENANT = "builtin";

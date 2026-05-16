@@ -36,7 +36,6 @@ import { reportSpecSchema } from "@/lib/reports/spec/schema";
 const exportFormatSchema = z.enum(["pdf", "xlsx", "csv"]);
 
 /** Limite générique liste templates (cap raisonnable client-side). */
-const TEMPLATE_LIST_LIMIT_MAX = 200;
 const VERSION_LIST_LIMIT_DEFAULT = 50;
 const VERSION_LIST_LIMIT_MAX = 200;
 
@@ -224,6 +223,3 @@ export const reportIdParamSchema = z.object({
 });
 
 export type ReportIdParam = z.infer<typeof reportIdParamSchema>;
-
-/** Cap public pour `listTemplates` (utilisé en interne, exporté pour tests). */
-export const REPORT_TEMPLATE_LIST_LIMIT_MAX = TEMPLATE_LIST_LIMIT_MAX;

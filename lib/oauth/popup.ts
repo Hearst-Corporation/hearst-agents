@@ -43,10 +43,6 @@ let _driver: PopupDriver = {
   },
 };
 
-export function setPopupDriver(driver: PopupDriver): void {
-  _driver = driver;
-}
-
 export function openOAuthPopup(): PopupHandle | null {
   return _driver.open();
 }

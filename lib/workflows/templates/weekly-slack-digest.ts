@@ -21,7 +21,7 @@ import type { WorkflowGraph } from "../types";
 export const WEEKLY_DIGEST_DEFAULT_CHANNEL = "#hearst-digest";
 export const WEEKLY_DIGEST_DEFAULT_TZ = "Europe/Paris";
 /** Cron Inngest — vendredi 17h Europe/Paris. */
-export const WEEKLY_DIGEST_CRON = "0 17 * * 5";
+const WEEKLY_DIGEST_CRON = "0 17 * * 5";
 
 export interface WeeklyDigestTemplateOptions {
   channel?: string;

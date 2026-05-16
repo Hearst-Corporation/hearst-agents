@@ -29,19 +29,6 @@ export const updateAgentSchema = createAgentSchema
 
 // ── Skills ──────────────────────────────────────────────
 
-export const createSkillSchema = z.object({
-  name: z.string().min(1).max(200),
-  slug: z
-    .string()
-    .regex(/^[a-z0-9-]+$/)
-    .optional(),
-  category: z.string().max(100).default("general"),
-  description: z.string().max(2000).optional(),
-  prompt_template: z.string().default(""),
-  input_schema: jsonField,
-  output_schema: jsonField,
-});
-
 // ── Tools ───────────────────────────────────────────────
 
 export const createToolSchema = z.object({
@@ -81,26 +68,4 @@ export const createMemorySchema = z.object({
 
 // ── Workflows ───────────────────────────────────────────
 
-export const createWorkflowSchema = z.object({
-  name: z.string().min(1).max(200),
-  description: z.string().max(2000).optional(),
-  trigger_type: z.enum(["manual", "schedule", "webhook"]).default("manual"),
-  status: z.enum(["draft", "active", "archived"]).default("draft"),
-});
-
 // ── Model Profiles ──────────────────────────────────────
-
-export const createModelProfileSchema = z.object({
-  name: z.string().min(1).max(200),
-  provider: z.string().min(1),
-  model: z.string().min(1),
-  temperature: z.number().min(0).max(2).default(0.7),
-  max_tokens: z.number().int().min(1).default(4096),
-  top_p: z.number().min(0).max(1).default(1.0),
-  fallback_profile_id: z.string().uuid().optional(),
-  cost_per_1k_in: z.number().min(0).default(0),
-  cost_per_1k_out: z.number().min(0).default(0),
-  max_cost_per_run: z.number().min(0).optional(),
-  is_default: z.boolean().default(false),
-  metadata: jsonField,
-});

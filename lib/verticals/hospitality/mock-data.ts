@@ -177,7 +177,7 @@ export function getMockDepartures(): HospitalityDeparture[] {
   return DEPARTURES.slice();
 }
 
-export function getMockServiceRequests(): HospitalityServiceRequest[] {
+function getMockServiceRequests(): HospitalityServiceRequest[] {
   return SERVICE_REQUESTS.slice();
 }
 

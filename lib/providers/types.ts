@@ -56,30 +56,4 @@ export interface ProviderDefinition {
   priority: number;
 }
 
-/**
- * Checks if a string is a valid ProviderId.
- * Use at runtime boundaries (API inputs, DB reads) where types can't guarantee safety.
- */
-export function isProviderId(value: string): value is ProviderId {
-  return PROVIDER_ID_SET.has(value);
-}
-
 /** Built from the registry constant — no manual sync needed. */
-// We can't import PROVIDER_IDS at value level here due to circular ref,
-// so we maintain a mirror set. The type derivation above ensures compile-time safety.
-const PROVIDER_ID_SET = new Set<string>([
-  "google",
-  "slack",
-  "whatsapp",
-  "web",
-  "anthropic_managed",
-  "notion",
-  "github",
-  "stripe",
-  "jira",
-  "hubspot",
-  "airtable",
-  "figma",
-  "zapier",
-  "system",
-]);

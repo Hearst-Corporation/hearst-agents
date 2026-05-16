@@ -122,22 +122,3 @@ export type WorkflowExecutorEvent =
   | { type: "workflow_failed"; error: string };
 
 // ── Helpers ─────────────────────────────────────────────────
-
-/** Crée un graphe vide minimal — un seul node trigger manuel. */
-export function createEmptyGraph(): WorkflowGraph {
-  const triggerId = `trigger_${Date.now()}`;
-  return {
-    nodes: [
-      {
-        id: triggerId,
-        kind: "trigger",
-        label: "Déclencheur manuel",
-        config: { mode: "manual" },
-        position: { x: 80, y: 200 },
-      },
-    ],
-    edges: [],
-    startNodeId: triggerId,
-    version: 1,
-  };
-}

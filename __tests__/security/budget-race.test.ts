@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { guardAndReserveCredits, settleCredits } from "@/lib/credits/client";
+import { guardAndReserveCredits } from "@/lib/credits/client";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 /**

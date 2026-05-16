@@ -17,14 +17,14 @@
  *   // À utiliser dans des helpers de validation côté tests / lint visuel.
  */
 
-export const PREFERRED_VOCABULARY = {
+const PREFERRED_VOCABULARY = {
   movement: ["signal", "levier", "friction", "tension", "momentum", "fenêtre", "bascule"],
   action: ["recentrer", "trancher", "nommer", "arbitrer", "anticiper", "concentrer"],
   state: ["marqué", "attendu", "bruit", "stable", "à creuser", "en suspens"],
   measure: ["sur 7 jours", "vs baseline", "en variation", "cap", "plafond", "plancher"],
 } as const;
 
-export const BANNED_FORMULAS = [
+const BANNED_FORMULAS = [
   "voici",
   "n'hésite pas",
   "j'espère",
@@ -38,7 +38,7 @@ export const BANNED_FORMULAS = [
   "la conversation portait sur",
 ] as const;
 
-export const BANNED_FILLERS = [
+const BANNED_FILLERS = [
   "remarquable",
   "exceptionnel",
   "incroyable",

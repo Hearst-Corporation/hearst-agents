@@ -90,7 +90,6 @@ describe("RedisCircuitStore", () => {
 
     // Instance 2 : nouveau breaker, même backing Redis (simule cold start Vercel)
     const circuitStore2 = new RedisCircuitStore(redis);
-    const breaker2 = new LLMCircuitBreaker(circuitStore2);
 
     // À la 1re lecture sync, le cache est vide → CLOSED par défaut (avant hydration)
     // Mais après hydration async, le circuit doit être OPEN

@@ -7,7 +7,6 @@
  * aujourd'hui par défaut).
  */
 
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getExportSignedUrl } from "@/lib/reports/export/store";
 import type { DailyBriefAssetMeta, DailyBriefNarration } from "./types";

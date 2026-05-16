@@ -145,7 +145,6 @@ export interface Action {
 
 // ── Persistent store (Supabase DB + in-memory cache) ────────
 
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 const assetCache = new Map<string, Asset[]>();

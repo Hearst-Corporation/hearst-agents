@@ -117,18 +117,6 @@ const kimi = createOpenAI({
   baseURL: process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
 });
 
-// Fallback OpenAI — utilisé si Kimi est indisponible (rate limit, downtime).
-// Nécessite OPENAI_API_KEY configuré dans .env.local.
-const openaiFallback = createOpenAI({
-  apiKey: process.env.OPENAI_API_KEY ?? "",
-});
-
-const openaiWithReasoning = (modelId: string) =>
-  wrapLanguageModel({
-    model: openaiFallback(modelId),
-    middleware: extractReasoningMiddleware({ tagName: "think" }),
-  });
-
 // Kimi K2.5/K2.6 via Hyperbolic streament leur chain-of-thought dans
 // `delta.content` entouré de balises `<think>...</think>` avant le vrai
 // contenu de la réponse. Sans middleware, le SDK Vercel AI consomme tout

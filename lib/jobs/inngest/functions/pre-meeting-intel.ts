@@ -213,6 +213,6 @@ export const preMeetingIntelFunction = inngest.createFunction(
 );
 
 /** Test-only : vide le memo de dédup. */
-export function __clearPreMeetingIntelMemo(): void {
+function __clearPreMeetingIntelMemo(): void {
   sentMemo.clear();
 }

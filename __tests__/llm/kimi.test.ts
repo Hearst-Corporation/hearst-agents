@@ -11,10 +11,6 @@ import { getProvider, resetLlmProviderCache } from "../../lib/llm/router";
 // Helpers mock
 // ---------------------------------------------------------------------------
 
-function makeHeadersMock(headers: Record<string, string> = {}): Headers {
-  return new Headers(headers);
-}
-
 function makeFetchMock(body: unknown, headers: Record<string, string> = {}) {
   return vi.fn().mockResolvedValue(
     new Response(JSON.stringify(body), {

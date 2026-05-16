@@ -63,7 +63,7 @@ export function computeCostUsd(
  * narration courte doivent rester largement sous ce seuil.
  */
 export const REPORT_BUDGET_USD = 0.2;
-export const REPORT_BUDGET_WARN_RATIO = 0.8;
+const REPORT_BUDGET_WARN_RATIO = 0.8;
 
 export interface CostCheck {
   usd: number;

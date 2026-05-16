@@ -35,7 +35,6 @@ print("hello hearst")
 `;
 
 const DEFAULT_NODE_CODE = `// Tape ton code Node ici. ⌘Enter pour exécuter.
-console.log("hello hearst");
 `;
 
 interface ArtifactStageProps {

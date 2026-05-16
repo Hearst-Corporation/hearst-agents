@@ -127,7 +127,6 @@ describe("Arcjet userId bucket — extractUserIdFromRequest", () => {
 
   it("fallback IP-only quand userId absent (anonymous request)", () => {
     const userId: string | undefined = undefined;
-    const ip = "1.2.3.4";
 
     // Sans userId, le bucket est ip-only (logique dans applyArcjet via props)
     const props = { requested: 1, ...(userId ? { userId } : {}) };

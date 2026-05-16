@@ -18,7 +18,6 @@
  * les routes auth-required.
  */
 
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 export async function resolveOrCreateUserUuid(email: string): Promise<string | null> {

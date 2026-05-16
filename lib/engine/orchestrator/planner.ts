@@ -19,13 +19,7 @@ import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics } from "@/lib/llm/metrics";
 import { getProvider } from "@/lib/llm/router";
 import type { ChatMessage } from "@/lib/llm/types";
-import {
-  ORCHESTRATOR_MODEL,
-  ORCHESTRATOR_SYSTEM_PROMPT,
-  PLAN_TOOL,
-  REQUEST_CONNECTION_TOOL,
-  RESPOND_TOOL,
-} from "./system-prompt";
+import { ORCHESTRATOR_MODEL, ORCHESTRATOR_SYSTEM_PROMPT } from "./system-prompt";
 
 export type PlanningResult =
   | { kind: "plan"; plan: Plan }

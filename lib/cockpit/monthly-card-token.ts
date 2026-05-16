@@ -18,9 +18,9 @@
 import crypto from "node:crypto";
 
 export const TTL_DEFAULT_HOURS = 24 * 365; // 1 an — partage long sur les réseaux
-export const TTL_MAX_HOURS = 24 * 365 * 2; // 2 ans hard-cap
-export const TTL_MIN_HOURS = 1;
-export const SECRET_MIN_LENGTH = 32;
+const TTL_MAX_HOURS = 24 * 365 * 2; // 2 ans hard-cap
+const TTL_MIN_HOURS = 1;
+const SECRET_MIN_LENGTH = 32;
 
 const HMAC_ALG = "sha256";
 const TOKEN_SEPARATOR = ".";

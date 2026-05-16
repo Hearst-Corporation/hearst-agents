@@ -18,10 +18,10 @@ export interface UseRunReportSuggestion {
  * du focal sur l'asset.
  *
  * Câblage :
- * - L’API ne persiste l’asset que si `threadId` est fourni → sans thread
- *   actif, on crée un thread « Rapports » (même principe qu’un premier envoi
- *   chat) pour obtenir un `assetId` et l’enregistrer côté `storeAsset`.
- * - Le focal (préview report) n’est rendu que dans `ChatStage` → depuis le
+ * - L'API ne persiste l'asset que si `threadId` est fourni → sans thread
+ *   actif, on crée un thread « Rapports » (même principe qu'un premier envoi
+ *   chat) pour obtenir un `assetId` et l'enregistrer côté `storeAsset`.
+ * - Le focal (préview report) n'est rendu que dans `ChatStage` → depuis le
  *   mode `cockpit`, on bascule vers `chat` avec ce thread pour afficher le
  *   rapport sans changer le comportement quand on est déjà en conversation.
  */

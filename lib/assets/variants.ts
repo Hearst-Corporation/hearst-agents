@@ -7,7 +7,6 @@
  * `getVariantsForAsset()`.
  */
 
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 export type AssetVariantKind = "text" | "audio" | "video" | "slides" | "site" | "image" | "code";

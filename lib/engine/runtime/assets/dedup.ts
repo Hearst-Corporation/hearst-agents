@@ -1,5 +1,4 @@
 import crypto from "node:crypto";
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 /** Hash déterministe des paramètres de génération. */

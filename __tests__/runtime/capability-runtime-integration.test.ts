@@ -27,19 +27,15 @@ import { isReportIntent, isResearchIntent } from "@/lib/engine/orchestrator/rese
 import type { RunEvent } from "@/lib/events/types";
 
 const hoisted = vi.hoisted(() => ({
-  messagesCreate: vi.fn(),
+  chatMock: vi.fn(),
   getTokensMock: vi.fn(),
   createPlanSpy: vi.fn(),
 }));
 
-vi.mock("openai", () => ({
-  default: class MockOpenAI {
-    chat = {
-      completions: {
-        create: hoisted.messagesCreate,
-      },
-    };
-  },
+vi.mock("@/lib/llm/router", () => ({
+  getProvider: (name: string) => ({
+    chat: hoisted.chatMock,
+  }),
 }));
 
 vi.mock("@/lib/platform/auth/tokens", () => ({
@@ -195,7 +191,7 @@ describe("C — Planner validation (remapping agents)", () => {
   } as unknown as import("@/lib/engine/runtime/engine").RunEngine;
 
   beforeEach(() => {
-    hoisted.messagesCreate.mockReset();
+    hoisted.chatMock.mockReset();
     hoisted.createPlanSpy.mockReset();
     hoisted.createPlanSpy.mockResolvedValue({
       id: "plan-1",
@@ -219,33 +215,33 @@ describe("C — Planner validation (remapping agents)", () => {
   });
 
   it("remappe un agent invalide pour le domaine vers le premier agent valide", async () => {
-    hoisted.messagesCreate.mockResolvedValue({
-      choices: [
-        {
-          message: {
-            tool_calls: [
-              {
-                id: "tu1",
-                function: {
-                  name: "create_plan",
-                  arguments: JSON.stringify({
-                    reasoning: "r",
-                    steps: [
-                      {
-                        intent: "Lire emails",
-                        agent: "FinanceAgent",
-                        task_description: "t",
-                        expected_output: "summary",
-                      },
-                    ],
-                  }),
-                },
-              },
-            ],
+    hoisted.chatMock.mockResolvedValue({
+      content: JSON.stringify({
+        tool_calls: [
+          {
+            function: {
+              name: "create_plan",
+              arguments: JSON.stringify({
+                reasoning: "r",
+                steps: [
+                  {
+                    intent: "Lire emails",
+                    agent: "FinanceAgent",
+                    task_description: "t",
+                    expected_output: "summary",
+                  },
+                ],
+              }),
+            },
           },
-        },
-      ],
-      usage: { prompt_tokens: 10, completion_tokens: 5 },
+        ],
+      }),
+      model: "kimi-3.5b",
+      provider: "kimi",
+      tokens_in: 10,
+      tokens_out: 5,
+      cost_usd: 0.0001,
+      latency_ms: 100,
     });
 
     await planFromIntent(mockDb, mockEngine, "emails", [], undefined, "communication");
@@ -260,33 +256,33 @@ describe("C — Planner validation (remapping agents)", () => {
   });
 
   it("ne remappe pas si l’agent est valide pour le domaine", async () => {
-    hoisted.messagesCreate.mockResolvedValue({
-      choices: [
-        {
-          message: {
-            tool_calls: [
-              {
-                id: "tu1",
-                function: {
-                  name: "create_plan",
-                  arguments: JSON.stringify({
-                    reasoning: "r",
-                    steps: [
-                      {
-                        intent: "Synthèse",
-                        agent: "Analyst",
-                        task_description: "t",
-                        expected_output: "report",
-                      },
-                    ],
-                  }),
-                },
-              },
-            ],
+    hoisted.chatMock.mockResolvedValue({
+      content: JSON.stringify({
+        tool_calls: [
+          {
+            function: {
+              name: "create_plan",
+              arguments: JSON.stringify({
+                reasoning: "r",
+                steps: [
+                  {
+                    intent: "Synthèse",
+                    agent: "Analyst",
+                    task_description: "t",
+                    expected_output: "report",
+                  },
+                ],
+              }),
+            },
           },
-        },
-      ],
-      usage: { prompt_tokens: 10, completion_tokens: 5 },
+        ],
+      }),
+      model: "kimi-3.5b",
+      provider: "kimi",
+      tokens_in: 10,
+      tokens_out: 5,
+      cost_usd: 0.0001,
+      latency_ms: 100,
     });
 
     await planFromIntent(mockDb, mockEngine, "stripe", [], undefined, "finance");
@@ -340,12 +336,17 @@ function createMockEngine(runId = "run-delegate-test") {
 
 describe("D — Delegate routing", () => {
   beforeEach(() => {
-    hoisted.messagesCreate.mockReset();
+    hoisted.chatMock.mockReset();
     hoisted.getTokensMock.mockReset();
     hoisted.getTokensMock.mockResolvedValue(null);
-    hoisted.messagesCreate.mockResolvedValue({
-      choices: [{ message: { content: "Réponse mock" } }],
-      usage: { prompt_tokens: 1, completion_tokens: 2 },
+    hoisted.chatMock.mockResolvedValue({
+      content: "Réponse mock",
+      model: "kimi-3.5b",
+      provider: "kimi",
+      tokens_in: 1,
+      tokens_out: 2,
+      cost_usd: 0.00001,
+      latency_ms: 50,
     });
   });
 

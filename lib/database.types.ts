@@ -1924,6 +1924,76 @@ export type Database = {
           },
         ];
       };
+      llm_runs: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          user_id: string | null;
+          conversation_id: string | null;
+          run_id: string | null;
+          provider: string;
+          model: string;
+          input_tokens: number;
+          output_tokens: number;
+          total_tokens: number;
+          cost_usd: number | null;
+          latency_ms: number | null;
+          status: string;
+          error_code: string | null;
+          provider_request_id: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          user_id?: string | null;
+          conversation_id?: string | null;
+          run_id?: string | null;
+          provider: string;
+          model: string;
+          input_tokens?: number;
+          output_tokens?: number;
+          cost_usd?: number | null;
+          latency_ms?: number | null;
+          status: string;
+          error_code?: string | null;
+          provider_request_id?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          user_id?: string | null;
+          conversation_id?: string | null;
+          run_id?: string | null;
+          provider?: string;
+          model?: string;
+          input_tokens?: number;
+          output_tokens?: number;
+          cost_usd?: number | null;
+          latency_ms?: number | null;
+          status?: string;
+          error_code?: string | null;
+          provider_request_id?: string | null;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "llm_runs_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "llm_runs_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       marketplace_ratings: {
         Row: {
           comment: string | null;

@@ -8,7 +8,8 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import type { ToastType } from "@/app/components/Toast";
+
+export type ToastType = "info" | "success" | "error" | "warning";
 
 interface ToastItem {
   id: string;
