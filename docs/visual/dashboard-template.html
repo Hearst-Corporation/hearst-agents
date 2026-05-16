@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Dashboard Template — base /setup</title>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400,200&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+
 <style>
 /* ============================================================
    Template cockpit statique (shell lab-like) + stages montés.
@@ -15,7 +15,6 @@
 
 :root {
   --bg: #050508;
-  --bg-elev: #0a0a0b;
   --ink: rgba(255, 255, 255, 0.95);
   --ink-mute: rgba(255, 255, 255, 0.65);
   --ink-faint: rgba(255, 255, 255, 0.40);
@@ -38,7 +37,6 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 
   --fade-bg: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 25%, rgba(0,0,0,0.92) 60%, var(--bg) 85%);
-  --seg-bg: rgba(255, 255, 255, 0.05);
   --appr-bg: rgba(255, 255, 255, 0.04);
   --dots-fill: rgba(255, 255, 255, 0.15);
   --dots-hover: rgba(255, 255, 255, 0.3);
@@ -168,11 +166,6 @@ body::after {
   border-radius: 9999px;
   padding: 4px;
 }
-
-/* Purge 3D Legacy */
-.perspective-scene { perspective: none; }
-.preserve-3d { transform-style: flat; }
-.vision-content-depth { transform: none; }
 
 /* Helpers placeholder */
 .ph { font-style: italic; opacity: 0.5; color: inherit; }
@@ -429,7 +422,6 @@ body::after {
   transition: all 0.4s var(--ease); }
 .mtl-row.vis { opacity: 1; transform: translateX(0); }
 .mtl-row.done { opacity: 1; }
-.mtl-row.active { background: rgba(255,255,255,0.06); border: var(--glass-border); opacity: 1; }
 .mtl-row.pend { opacity: 0.35; }
 .mtl-row.approval { background: var(--appr-bg); border: var(--glass-border); }
 .mtl-node { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
@@ -437,8 +429,6 @@ body::after {
   border: 2px solid rgba(255,255,255,0.2); font-size: 11px; color: var(--ink-faint);
   margin-top: 2px; transition: all .3s; }
 .mtl-node.done { background: rgba(255,255,255,0.1); border-color: var(--teal); color: #fff; }
-.mtl-node.active { animation: pulseT 1.6s ease-in-out infinite;
-  background: rgba(255,255,255,0.1); border-color: var(--teal); color: #fff; }
 .mtl-node.gold { background: rgba(255,255,255,0.1); border-color: var(--gold); color: #fff;
   animation: pulseG 1.6s ease-in-out infinite; }
 @keyframes pulseG { 0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)} 50%{box-shadow:0 0 0 8px var(--pulse-sh)} }
@@ -781,7 +771,7 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
           </div>
 
           <div>
-            <p class="rp-sec-t" style="color:#fff;font-weight:600;margin-bottom:12px;"><span class="ph">Titre section grille</span></p>
+            <p style="color:#fff;font-weight:600;margin-bottom:12px;"><span class="ph">Titre section grille</span></p>
             <div class="outs-grid" id="ogrid"></div>
           </div>
         </section>
