@@ -255,6 +255,67 @@ A10 a confirmé 5 angles morts P1 importants :
 
 ---
 
+## Vague 3 — F002 monstre TERMINÉE (2026-05-16)
+
+### Stratégie : 1 séquentiel + 5 parallèles sur zones disjointes
+
+**V3.1 (séquentiel, bloquant)** — `llm-auditor` :
+- Créé `lib/llm/kimi.ts` (KimiProvider OpenAI-compatible)
+- Ajouté case `"kimi"` dans `lib/llm/router.ts:getProvider()`
+- 6/6 tests `__tests__/llm/kimi.test.ts`
+
+**V3.2 (5 agents parallèles sur zones disjointes)** :
+
+| Zone | Fichiers | Tests | Status |
+|------|---------|-------|--------|
+| Z1 — Orchestrator | 3 (ai-pipeline partiel, planner, run-research-report) | 214/214 | ✅ |
+| Z2 — Memory PII | 4 (kg, mission-context, briefing, conversation-summary) | 98/98 | ✅ |
+| Z3 — Cockpit/Inbox/Brief/Meetings | 5 (drift, pre-meeting, inbox-brief, generate, debrief) | 41/41 | ✅ |
+| Z4 — Workflows/Tools/Capabilities | 5 (classify, welcome-notes, kg-query, deepgram, video) | 59/59 | ✅ |
+| Z5 — Routes API + budget tenant | 2 (assets/diff, personas/ab-test) | 12/12 | ✅ |
+| **Total V3.2** | **19 fichiers** | **424 tests pass** | ✅ |
+
+### Bonus pendant la Vague 3
+
+1. **Bug latent `kg.ts` fixé (V3.2-Z2)** : `process.env.ANTHROPIC_API_KEY` utilisé comme clé Kimi → supprimé via migration router
+2. **F-NEW-P5-01 fermé (V3.2-Z5)** : `guardAndReserveCredits` appelé AVANT chaque call Kimi (0.05 USD / 0.10 USD pour ab-test × 2)
+3. **Fallback `circuit_open` graceful (V3.2-Z4)** : workflows handlers retournent heuristique au lieu de crasher
+4. **Fallback `naiveDiff` intact** dans `assets/diff` quand breaker open
+5. **Multi-tenant `pA/pB` préservé** dans `personas/ab-test` (régression V1-A2 zéro)
+6. **Tests mocks adaptés** dans toutes les zones (mock `@/lib/llm/router` + `@/lib/llm/circuit-breaker` au lieu de mock OpenAI SDK direct)
+
+### État final F002
+
+| Fichier scope F002 | Avant | Après V3 |
+|--------------------|-------|----------|
+| 19 fichiers F002 | `new OpenAI(hypercli)` direct, hors router | ✅ Via `getProvider("kimi")` + circuit breaker + tenantId |
+| `lib/engine/orchestrator/ai-pipeline.ts` | `createOpenAI(hypercli hardcoded)` | ✅ Migration partielle : env var `KIMI_BASE_URL` + hooks circuit breaker (Vercel AI SDK conservé — refactor SDK = B11.2 hors scope) |
+| `lib/admin/health.ts` | hardcode hypercli pour health check | ⚠️ Légitime (health check `/v1/models`) — non scopé |
+| `lib/browser/stagehand-executor.ts:479` | `new OpenAI(hypercli)` | ⚠️ **Hors scope V3** (commit Adrien `feb6e442`) — reste 1 fichier |
+| `lib/engine/runtime/delegate/api.ts` | hypercli ref | ⚠️ **Hors scope V3** (commit Adrien `feb6e442`) |
+
+### Validation finale Vague 3
+
+```
+npm run typecheck          → 0 erreur ✅
+__tests__/llm/             → kimi.test.ts 6/6 ✅
+__tests__/security/        → 320 tests ✅ (315 pass, 5 skipped, 0 fail)
+__tests__/memory/          → 98/98 ✅
+__tests__/orchestrator/    → 214/214 ✅
+__tests__/cockpit/         → 41/41 ✅
+__tests__/workflows/       → 59/59 ✅
+__tests__/api/             → 12/12 (assets-diff + personas-ab-test) ✅
+
+new OpenAI(hypercli) restants → 1 (stagehand-executor, hors V3)
+ANTHROPIC_API_KEY restants    → 3 (tous légitimes : 1 regex redaction + 2 vrais Anthropic)
+```
+
+### F002 — Status final
+
+**18 / 19 fichiers fermés** par Vague 3 + 1 fermé partiellement (ai-pipeline avec migration partielle conforme plan). Le 19e (`stagehand-executor`) reste OPEN car non scopé (commit `feb6e442` par Adrien). À fermer manuellement ou dans une mini-vague de cleanup.
+
+---
+
 ## Prochaines vagues recommandées
 
 ### Vague 2 — Quick wins P1 (~3h, à valider avant lancement)
