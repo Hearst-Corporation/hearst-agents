@@ -1173,6 +1173,8 @@ export async function runAiPipeline(
         input_tokens: totalInputTokens,
         output_tokens: totalOutputTokens,
         cost_usd: runCostUsd,
+        provider: "kimi",
+        model: ORCHESTRATOR_MODEL,
       });
     }
 

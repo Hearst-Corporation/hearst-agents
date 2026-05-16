@@ -280,6 +280,8 @@ export interface RunCostEvent extends BaseEvent {
   input_tokens: number;
   output_tokens: number;
   cost_usd: number;
+  provider?: string;
+  model?: string;
 }
 
 // ── Inline app connect ───────────────────────────────────
