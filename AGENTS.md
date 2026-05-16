@@ -38,6 +38,11 @@ Or the shorthand: `pnpm validate` (typecheck + lint + test).
 
 **Visual regression**: `pnpm test:visual` compares cockpit Stage snapshots. Requires dev server running. Baselines in `e2e/visual/__screenshots__/`. Tag `@skip-ci` on tests that need a live dev server.
 
+### Test naming convention
+
+- `*.test.ts`: classic functional tests (behavior, edge cases, integration).
+- `*.contract.test.ts`: **contract tests** — pin the public surface of a god node (signature, return shape, literal error codes, exhaustive type union, named exports). Designed to break early if someone modifies the contract without noticing. Covers *surface*, not *behavior* (which lives in `*.test.ts`).
+
 ## 🎨 Design system — Tailwind v4
 
 - **No `tailwind.config.ts`** — tokens live in `app/globals.css` via `@theme inline`.

@@ -15,9 +15,10 @@
 
 import { beforeEach, describe, expect, it } from "vitest";
 import type { StagePayload } from "@/stores/stage";
-import { useStageStore } from "@/stores/stage";
-
-const TOOL_OVERRIDE_GUARD_MS = 10_000;
+// TOOL_OVERRIDE_GUARD_MS importé depuis stores/stage (source unique de vérité —
+// cf. P3-7 review it2) plutôt que redéclaré localement. Garantit que ce test
+// suit automatiquement toute modification de la garde.
+import { TOOL_OVERRIDE_GUARD_MS, useStageStore } from "@/stores/stage";
 
 function resetStore(overrides?: Partial<Parameters<typeof useStageStore.setState>[0]>) {
   useStageStore.setState({

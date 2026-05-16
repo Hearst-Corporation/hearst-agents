@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T21:46:43.251Z",
+  "generatedAt": "2026-05-16T22:05:06.254Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1751,
+    "testsExistants": 1798,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 330,
-    "cases": 2983,
+    "files": 332,
+    "cases": 3030,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -142,9 +142,9 @@
         "I-9. Variables d'env critiques",
         "I-10. `registerProviderUsage()` au signIn"
       ],
-      "testsExistantsCount": 75,
-      "testsOnDisk": 75,
-      "testFilesOnDisk": 11,
+      "testsExistantsCount": 103,
+      "testsOnDisk": 103,
+      "testFilesOnDisk": 12,
       "testsDocExistants": 3,
       "testsManquantsCount": 16,
       "testGap": "moyen",
@@ -1686,9 +1686,9 @@
         "I-14. Pas d'animation wrappers",
         "I-15. Cytoscape `ssr: false`"
       ],
-      "testsExistantsCount": 15,
-      "testsOnDisk": 15,
-      "testFilesOnDisk": 2,
+      "testsExistantsCount": 34,
+      "testsOnDisk": 34,
+      "testFilesOnDisk": 3,
       "testsDocExistants": 2,
       "testsManquantsCount": 26,
       "testGap": "moyen",

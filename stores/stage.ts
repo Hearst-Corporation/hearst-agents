@@ -95,7 +95,12 @@ interface StageState {
   consumeCommandeurPrefilledQuery: () => string | null;
 }
 
-const TOOL_OVERRIDE_GUARD_MS = 10_000;
+/**
+ * Délai de garde (ms) pendant lequel `setModeFromTool` est no-op après un
+ * `setMode` manuel — empêche un tool de téléporter l'utilisateur qui vient
+ * d'agir. Exporté pour pin dans `stage.contract.test.ts` (invariant sémantique).
+ */
+export const TOOL_OVERRIDE_GUARD_MS = 10_000;
 
 export const useStageStore = create<StageState>((set, get) => ({
   current: { mode: "cockpit" },
