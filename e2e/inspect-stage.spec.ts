@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 
 test("Inspect Stage container properties", async ({ page }) => {
-  await page.goto("http://localhost:9000", { waitUntil: "domcontentloaded" });
+  await page.goto("http://localhost:4102", { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(2500);
 
   // Sélectionne le Stage container

@@ -23,12 +23,25 @@ export const GET = withScope<{ id: string }>(
   async (_req, { scope, params }) => {
     const { id } = params;
 
+    // Verify ownership (user + tenant) — cohérent avec PATCH/DELETE pour
+    // éviter une asymétrie sécurité (GET ne doit pas être plus permissif).
+    if (!(await verifyMissionOwnership(id, scope.userId, scope.tenantId))) {
+      logger.warn(
+        {
+          event: "idor_attempt",
+          action: "read",
+          missionId: id,
+          userId: redactId(scope.userId),
+          tenantId: redactId(scope.tenantId),
+        },
+        "Mission IDOR attempt blocked (GET)",
+      );
+      return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
+    }
+
     // In-memory first (hot path)
     const memMission = getMission(id);
     if (memMission) {
-      if (memMission.userId && memMission.userId !== scope.userId) {
-        return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
-      }
       return NextResponse.json({ mission: memMission });
     }
 

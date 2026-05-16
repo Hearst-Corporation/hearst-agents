@@ -4,7 +4,7 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 **UI — Ghost Protocol (26/04/2026)** : surface cockpit sombre (`app/globals.css` tokens), typographie Satoshi + Geist Mono, séparateurs `var(--line)`, glyphes SVG filaires (`app/(user)/components/ghost-icons.tsx`), intégrations affichées en `ServiceIdGlyph` (plus d’emojis dans l’UI). Classes utilitaires Ghost (`.ghost-meta-label`, `.ghost-btn-solid`, modales, skeleton scanline) et `.status-dot*` (`box-shadow: none`) sont définies dans `app/globals.css` et couvertes par `__tests__/ui/design-tokens.test.ts`. La landing admin (`app/admin/page.tsx`) est l’**accueil** (raccourcis) ; le graphe live est sur **`/admin/pipeline`** (`CanvasShell` / `FlowCanvas`, `data-pipeline-visual="orbit"`). La colonne droite du canvas (`w-[var(--width-context)]`) empile **fiche stage** (`NodeDetailPanel`) et **derniers runs** (`RunRail`). **Pas de route canvas en double** : un seul canvas sur `/admin/pipeline` ; `/admin/audit` reste le journal. La liste Skills pointe vers `/admin/skills/[id]` (`app/admin/skills/[id]/page.tsx`).
 
-> 🚀 **Quick Start** : `npm run dev` = hearst-os seul sur `:9001`. `npm run launch` = stack complète. `npm run dev:electron` = Next dev + fenêtre Electron.
+> 🚀 **Quick Start** : `npm run dev` = hearst-os seul sur `:4102`. `npm run launch` = stack complète. `npm run dev:electron` = Next dev + fenêtre Electron.
 
 **Cockpit (home)** : le RSC pré-charge `getCockpitToday` pour le LCP ; `CockpitStage` synchronise `/api/v2/cockpit/today` au mount. Zone hero centrale **`HaloAgentCore`** : constellation 3D (`@react-three/fiber`), agents chargés en **GLB** depuis `public/models/{agent-id}.glb` ; régénérer les placeholders procéduraux : `npm run models:halo-glb` (`scripts/generate-halo-agent-glbs.mjs`). Matériaux DS (cykan/gold), bloom, `Environment`. Labels agents en voix régulière (pas de mono caps).
 
@@ -86,10 +86,13 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 ## Architecture UX
 
-- **Chat-first shell** (`ChatInput` + `ChatMessages`) — Input fixe en bas, conversation thread-scopée. Chat toujours visible, focal toggleable au-dessus.
-- **Surface centrale principale** (`FocalStage` dans `app/(user)/page.tsx`) — Quand un objet focal existe, il devient la **surface de lecture principale** au centre. Chat contextuel en bas.
-- **Rail droit compact** (`RightPanel`) — Surface de confiance scannable. Architecture v2 (avril 2026) : 4 strates empilées + navigation tuiles. Voir section RightPanel Structure ci-dessous.
-- **Navigation gauche** (`LeftPanel`) — Mémoire des threads uniquement. Navigation chat-first.
+**Pivot 2026-04-29 — Cockpit polymorphe.** L'app n'est plus chat-first à plat : c'est un cockpit dont la surface centrale (Stage) commute entre 11 modes (`stores/stage.ts`). L'agent orchestrateur reste le point d'entrée — l'utilisateur parle, l'agent ouvre/ferme les Stages dynamiquement. Pas de navigation GUI sur la première page.
+
+- **Shell 3 colonnes** — `LeftRail` (mémoire / threads) / `Stage` central polymorphe / `RightRail` (ContextRail dont les sections changent **par Stage actif**, pas universelles).
+- **Stage central** (`stores/stage.ts`, `StageMode`) — 11 modes : `cockpit` (briefing du jour, agenda, missions, KPIs), `chat`, `asset` / `asset_compare`, `mission`, `browser` (session Browserbase live), `meeting` (bot + transcript), `kg` (Knowledge Graph), `voice` (overlay WebRTC), `simulation` (DeepSeek), `artifact` (code/E2B), `signal` (Signal Board ambient).
+- **Commutation Stage** — Cmd+K (Commandeur), hotkeys Cmd+1..9 (mapping dans `stores/stage.ts`), ou via l'agent qui pousse un payload Stage en réponse à l'intention utilisateur.
+- **RightRail / ContextRail** (`RightPanel`) — Structure fixe **par Stage**, pas universelle. Architecture v2 : 4 strates empilées + navigation tuiles. Voir section RightPanel Structure ci-dessous.
+- **LeftPanel** — Mémoire des threads uniquement (style ChatGPT, retour 2026-05-10 après abandon de la TimelineRail multi-objet).
 
 ### RightPanel — structure fixe (avril 2026)
 
@@ -187,14 +190,14 @@ Next 16 + Turbopack peuvent garder en cache l'ancien contenu de `app/globals.css
 Toujours faire après une édition de tokens :
 
 ```bash
-npm run dev:fresh   # kill port 9001 + rm -rf .next + npm run dev
+npm run dev:fresh   # kill port 4102 + rm -rf .next + npm run dev
 ```
 
 Vérification rapide depuis un terminal :
 
 ```bash
-CSS=$(curl -s http://localhost:9001/login | grep -oE '/_next/static[^"]+\.css' | head -1)
-curl -s "http://localhost:9001${CSS}" | grep -oE '\-\-(surface|background|rail|cyan-accent):[^;}]+' | sort -u
+CSS=$(curl -s http://localhost:4102/login | grep -oE '/_next/static[^"]+\.css' | head -1)
+curl -s "http://localhost:4102${CSS}" | grep -oE '\-\-(surface|background|rail|cyan-accent):[^;}]+' | sort -u
 ```
 
 Les valeurs retournées doivent matcher exactement la table ci-dessus.
@@ -596,9 +599,9 @@ npm run dev
 
 | Script                              | Usage                                                          |
 | ----------------------------------- | -------------------------------------------------------------- |
-| `npm run dev`                       | Démarre le serveur Next (:9001)                                |
-| `npm run dev:fresh`                 | Idem, après `kill :9001` + `rm -rf .next`                      |
-| `npm run dev:electron`              | Démarre Next (:9001) + ouvre la fenêtre Electron une fois prêt |
+| `npm run dev`                       | Démarre le serveur Next (:4102)                                |
+| `npm run dev:fresh`                 | Idem, après `kill :4102` + `rm -rf .next`                      |
+| `npm run dev:electron`              | Démarre Next (:4102) + ouvre la fenêtre Electron une fois prêt |
 | `npm run electron:compile`          | Compile `electron/main.ts` + `preload.ts` → `dist/electron/`   |
 | `npm run electron:build`            | `next build` + recompile Electron (avant packaging)            |
 | `npm run electron:dist`             | Build + génère les artefacts `electron-builder` (DMG / NSIS)   |
@@ -618,7 +621,7 @@ npm test # Vitest (LLM, momentum, design tokens, …)
 
 | Service | Port | Description |
 |---------|------|-------------|
-| **hearst-os** | `9001` | Frontend principal + orchestration v2 (`next dev -p 9001`) |
+| **hearst-os** | `4102` | Frontend principal + orchestration v2 (`next dev -p 4102`) |
 | **hearst-connect** | `8100` | Backend de connexion |
 | **Hearst-app** | `3000` | Landing page |
 
@@ -628,10 +631,10 @@ npm test # Vitest (LLM, momentum, design tokens, …)
 
 | Cible | Démarrage | URL / fenêtre | Notes |
 |-------|-----------|---------------|-------|
-| **Web (dev solo)** | `npm run dev` | `http://localhost:9001` | Mode chat-first principal en développement |
-| **Web (stack)** | `npm run launch` | hearst-os :9001 + connect :8100 + app :3000 | Ouvre Chrome sur les 3 ports |
-| **Electron (dev)** | `npm run dev:electron` | Fenêtre native (charge `localhost:9001` après wait-on) | Passe par `/api/auth/dev-login` quand `HEARST_DEV_AUTH_BYPASS=1` |
-| **Electron (prod)** | `npm run electron:dist` | DMG / installer | Lance Next en standalone interne, `findFreePort` à partir de 9001 |
+| **Web (dev solo)** | `npm run dev` | `http://localhost:4102` | Cockpit polymorphe (11 modes Stage) en développement |
+| **Web (stack)** | `npm run launch` | hearst-os :4102 + connect :8100 + app :3000 | Ouvre Chrome sur les 3 ports |
+| **Electron (dev)** | `npm run dev:electron` | Fenêtre native (charge `localhost:4102` après wait-on) | Passe par `/api/auth/dev-login` quand `HEARST_DEV_AUTH_BYPASS=1` |
+| **Electron (prod)** | `npm run electron:dist` | DMG / installer | Lance Next en standalone interne, `findFreePort` à partir de 4102 |
 
 Code Electron : [electron/main.ts](electron/main.ts) (process principal, ESM via `esbuild` → `dist/electron/main.js`), [electron/preload.ts](electron/preload.ts) (CJS), config packaging [electron-builder.yml](electron-builder.yml).
 

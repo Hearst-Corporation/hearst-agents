@@ -10,6 +10,12 @@ export interface ParseJsonBodyOptions {
   /**
    * Max allowed body size in bytes. Requests with `Content-Length` exceeding
    * this value short-circuit with a 413 response. Defaults to 64KB.
+   *
+   * Limitation : la garde s'applique uniquement quand l'en-tête
+   * `Content-Length` est présent. Un client envoyant
+   * `Transfer-Encoding: chunked` sans `Content-Length` contournerait la
+   * vérification — la dernière barrière reste alors la limite imposée par le
+   * runtime (Next.js / edge / node) à `req.json()`.
    */
   maxBytes?: number;
 }
@@ -22,9 +28,11 @@ export interface ParseJsonBodyOptions {
  * uniform error shape `{ error: "invalid_body", issues: <flatten> }`.
  *
  * Guards (returned as `{ ok: false, response }`):
- *  - 415 `unsupported_media_type` if Content-Type is not `application/json`
- *  - 413 `payload_too_large` if Content-Length exceeds `options.maxBytes`
- *    (default 64KB)
+ *  - 415 `unsupported_media_type` if Content-Type media-type is not
+ *    `application/json` (comparaison case-insensitive — RFC 7231 §3.1.1.1)
+ *  - 413 `payload_too_large` if `Content-Length` is present and exceeds
+ *    `options.maxBytes` (default 64KB). Voir `ParseJsonBodyOptions.maxBytes`
+ *    pour le caveat sur les requêtes `Transfer-Encoding: chunked`.
  *
  * Replaces the ~7-line repeated pattern across 31 routes (see AUDIT-2 DUP13).
  * Uniformizes error code: `"invalid_body"` (was 5 different codes).
@@ -35,7 +43,8 @@ export async function parseJsonBody<T>(
   options?: ParseJsonBodyOptions,
 ): Promise<ParseBodyResult<T>> {
   const contentType = req.headers.get("content-type") ?? "";
-  if (!contentType.startsWith("application/json")) {
+  // RFC 7231 §3.1.1.1 — media type tokens are case-insensitive.
+  if (!contentType.toLowerCase().startsWith("application/json")) {
     return {
       ok: false,
       response: NextResponse.json(

@@ -17,7 +17,7 @@
  *
  * Génération initiale des baselines
  * ---------------------------------
- *   1. `npm run dev` (port 9001)
+ *   1. `npm run dev` (port 4102)
  *   2. `npm run test:visual:update`  ← écrit les baselines dans
  *      `e2e/visual/__screenshots__/`
  *   3. Vérifier les screenshots, commit

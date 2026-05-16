@@ -6,7 +6,7 @@
  *   - Le composant AlertingSettings.tsx fetch GET /api/settings/alerting au montage
  *   - Les actions (ajout webhook, test, toggle email) sont testées en isolation
  *
- * Prérequis : serveur Next.js actif (localhost:9000 ou E2E_BASE_URL).
+ * Prérequis : serveur Next.js actif (localhost:4102 ou E2E_BASE_URL).
  * Les tests sont skippés si le serveur ne répond pas.
  */
 

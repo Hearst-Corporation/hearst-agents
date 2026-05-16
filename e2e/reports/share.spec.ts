@@ -25,7 +25,7 @@ async function requireServer(request: APIRequestContext) {
 }
 
 const MOCK_SHARE_ID = "share-00000000-0000-4000-8000-000000000001";
-const MOCK_SHARE_URL = `http://localhost:9000/public/reports/${MOCK_SHARE_ID}?token=mockedtoken123`;
+const MOCK_SHARE_URL = `http://localhost:4102/public/reports/${MOCK_SHARE_ID}?token=mockedtoken123`;
 const MOCK_EXPIRES_AT = new Date(Date.now() + 24 * 3600_000).toISOString();
 
 /** Monte le mock de l'endpoint share. */

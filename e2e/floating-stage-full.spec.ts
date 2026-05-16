@@ -2,7 +2,7 @@ import { test } from "@playwright/test";
 
 test("Floating Stage Light full page screenshot", async ({ page }) => {
   // Attend que le serveur soit prêt
-  await page.goto("http://localhost:9000", { waitUntil: "domcontentloaded" });
+  await page.goto("http://localhost:4102", { waitUntil: "domcontentloaded" });
 
   // Attendre un peu pour que les styles se chargent
   await page.waitForTimeout(2500);

@@ -141,6 +141,19 @@ describe("parseJsonBody", () => {
       }
     });
 
+    it("Content-Type APPLICATION/JSON (uppercase) → OK (case-insensitive RFC 7231)", async () => {
+      const req = new Request("http://test.local/api", {
+        method: "POST",
+        headers: { "content-type": "APPLICATION/JSON" },
+        body: JSON.stringify({ name: "x", count: 1 }),
+      });
+      const r = await parseJsonBody(req, schema);
+      expect(r.ok).toBe(true);
+      if (r.ok) {
+        expect(r.data).toEqual({ name: "x", count: 1 });
+      }
+    });
+
     it("Content-Type absent → ok=false + 415", async () => {
       const req = new Request("http://test.local/api", {
         method: "POST",

@@ -7,7 +7,7 @@
  *   - Pas d'appels Supabase réels
  *   - Le store Zustand (useNotificationsStore) se nourrit du mock GET /api/notifications
  *
- * Prérequis : serveur Next.js actif (localhost:9000 ou E2E_BASE_URL).
+ * Prérequis : serveur Next.js actif (localhost:4102 ou E2E_BASE_URL).
  * Les tests sont skippés si le serveur ne répond pas.
  */
 

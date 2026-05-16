@@ -6,8 +6,11 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { logger, redactedError } from "@/lib/observability/logger";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { PersistedRunRecord, PersistedScheduledMission } from "./types";
+
+const log = logger.child({ module: "runtime/state/adapter" });
 
 /**
  * Supabase client typé — partagé via le singleton canonique
@@ -30,7 +33,10 @@ const STATUS_MAP: Record<string, string> = {
 export async function saveRun(run: PersistedRunRecord): Promise<boolean> {
   const sb = db();
   if (!sb) {
-    console.warn("[RuntimeState] No Supabase client — run not persisted:", run.id);
+    log.warn(
+      { op: "saveRun", runId: run.id },
+      "[RuntimeState] No Supabase client — run not persisted",
+    );
     return false;
   }
 
@@ -60,12 +66,18 @@ export async function saveRun(run: PersistedRunRecord): Promise<boolean> {
     });
 
     if (error) {
-      console.error("[RuntimeState] saveRun error:", error.message);
+      log.error(
+        { op: "saveRun", runId: run.id, err: error.message },
+        "[RuntimeState] saveRun error",
+      );
       return false;
     }
     return true;
   } catch (err) {
-    console.error("[RuntimeState] saveRun exception:", err);
+    log.error(
+      { op: "saveRun", runId: run.id, err: redactedError(err) },
+      "[RuntimeState] saveRun exception",
+    );
     return false;
   }
 }
@@ -106,12 +118,15 @@ export async function updateRun(
 
     const { error } = await sb.from("runs").update(update).eq("id", runId);
     if (error) {
-      console.error("[RuntimeState] updateRun error:", error.message);
+      log.error({ op: "updateRun", runId, err: error.message }, "[RuntimeState] updateRun error");
       return false;
     }
     return true;
   } catch (err) {
-    console.error("[RuntimeState] updateRun exception:", err);
+    log.error(
+      { op: "updateRun", runId, err: redactedError(err) },
+      "[RuntimeState] updateRun exception",
+    );
     return false;
   }
 }
@@ -144,13 +159,13 @@ export async function getRuns(params?: {
 
     const { data, error } = await query;
     if (error) {
-      console.error("[RuntimeState] getRuns error:", error.message);
+      log.error({ op: "getRuns", err: error.message }, "[RuntimeState] getRuns error");
       return [];
     }
 
     return (data ?? []).map(toRunRecord);
   } catch (err) {
-    console.error("[RuntimeState] getRuns exception:", err);
+    log.error({ op: "getRuns", err: redactedError(err) }, "[RuntimeState] getRuns exception");
     return [];
   }
 }
@@ -219,7 +234,10 @@ function mapDbStatus(s: string): PersistedRunRecord["status"] {
 export async function saveScheduledMission(mission: PersistedScheduledMission): Promise<boolean> {
   const sb = db();
   if (!sb) {
-    console.warn("[RuntimeState] No Supabase client — mission not persisted:", mission.id);
+    log.warn(
+      { op: "saveScheduledMission", missionId: mission.id },
+      "[RuntimeState] No Supabase client — mission not persisted",
+    );
     return false;
   }
 
@@ -247,12 +265,18 @@ export async function saveScheduledMission(mission: PersistedScheduledMission): 
     });
 
     if (error) {
-      console.error("[RuntimeState] saveScheduledMission error:", error.message);
+      log.error(
+        { op: "saveScheduledMission", missionId: mission.id, err: error.message },
+        "[RuntimeState] saveScheduledMission error",
+      );
       return false;
     }
     return true;
   } catch (err) {
-    console.error("[RuntimeState] saveScheduledMission exception:", err);
+    log.error(
+      { op: "saveScheduledMission", missionId: mission.id, err: redactedError(err) },
+      "[RuntimeState] saveScheduledMission exception",
+    );
     return false;
   }
 }
@@ -313,12 +337,18 @@ export async function updateScheduledMission(
     if (userId) updateQuery = updateQuery.eq("user_id", userId);
     const { error } = await updateQuery;
     if (error) {
-      console.error("[RuntimeState] updateScheduledMission error:", error.message);
+      log.error(
+        { op: "updateScheduledMission", missionId, err: error.message },
+        "[RuntimeState] updateScheduledMission error",
+      );
       return false;
     }
     return true;
   } catch (err) {
-    console.error("[RuntimeState] updateScheduledMission exception:", err);
+    log.error(
+      { op: "updateScheduledMission", missionId, err: redactedError(err) },
+      "[RuntimeState] updateScheduledMission exception",
+    );
     return false;
   }
 }
@@ -347,13 +377,19 @@ export async function deleteScheduledMission(
       .eq("id", missionId)
       .eq("user_id", userId);
     if (error) {
-      console.error("[RuntimeState] deleteScheduledMission error:", error.message);
+      log.error(
+        { op: "deleteScheduledMission", missionId, userId, err: error.message },
+        "[RuntimeState] deleteScheduledMission error",
+      );
       return { ok: false, deletedCount: 0, error: error.message };
     }
     return { ok: true, deletedCount: count ?? 0 };
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    console.error("[RuntimeState] deleteScheduledMission exception:", msg);
+    log.error(
+      { op: "deleteScheduledMission", missionId, userId, err: redactedError(err) },
+      "[RuntimeState] deleteScheduledMission exception",
+    );
     return { ok: false, deletedCount: 0, error: msg };
   }
 }
@@ -381,7 +417,10 @@ export async function getScheduledMissions(params?: {
     const { data, error } = await query;
 
     if (error) {
-      console.error("[RuntimeState] getScheduledMissions error:", error.message);
+      log.error(
+        { op: "getScheduledMissions", err: error.message },
+        "[RuntimeState] getScheduledMissions error",
+      );
       return [];
     }
 
@@ -404,7 +443,10 @@ export async function getScheduledMissions(params?: {
 
     return missions;
   } catch (err) {
-    console.error("[RuntimeState] getScheduledMissions exception:", err);
+    log.error(
+      { op: "getScheduledMissions", err: redactedError(err) },
+      "[RuntimeState] getScheduledMissions exception",
+    );
     return [];
   }
 }

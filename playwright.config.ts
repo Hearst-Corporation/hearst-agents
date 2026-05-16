@@ -31,7 +31,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "list",
   use: {
-    baseURL: process.env.E2E_BASE_URL || "http://localhost:9000",
+    baseURL: process.env.E2E_BASE_URL || "http://localhost:4102",
     trace: "on-first-retry",
   },
   projects: [
@@ -57,7 +57,7 @@ export default defineConfig({
      * Visual regression — captures snapshot par mode Stage cockpit.
      *
      * Lancé uniquement en local via `npm run test:visual` :
-     *   1. `npm run dev` (port 9001)
+     *   1. `npm run dev` (port 4102)
      *   2. `npm run test:visual:update` UNE FOIS pour générer baselines
      *   3. `npm run test:visual` ensuite pour détecter les régressions
      *
