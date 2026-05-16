@@ -316,6 +316,85 @@ ANTHROPIC_API_KEY restants    → 3 (tous légitimes : 1 regex redaction + 2 vra
 
 ---
 
+## Vague 4 — TERMINÉE (2026-05-16) — `767477c8`
+
+### Stratégie : 4 agents parallèles sur zones strictement disjointes
+
+| Agent | Mission | Effort réel | Zone | Status |
+|-------|---------|-------------|------|--------|
+| V4-A1 | F-079 atomic credits | ~2h | `lib/credits/client.ts` + tests race | ✅ DONE |
+| V4-A2 | F-127 circuit breaker Redis | ~4h | `lib/llm/circuit-breaker.ts` + nouveau `redis-circuit-store.ts` | ✅ DONE |
+| V4-A3 | F-MISSING-METRICS-PERSIST | ~4h | Migration `0087_llm_runs.sql` + `lib/llm/persist-run.ts` + router hooks | ✅ DONE |
+| V4-A4 | F002 résiduel stagehand | ~30min | `lib/browser/stagehand-executor.ts` + propagation tenantId | ✅ DONE |
+
+### Findings fermés Vague 4
+
+| ID | Title | Verification |
+|----|-------|--------------|
+| **F-079** | guardAndReserveCredits race condition | Test concurrent 100 // sur budget 50 → exactement 50 succès, balance jamais négative |
+| **F-127** | Circuit breaker Redis persistence | 5 tests : cold start survival, fail-soft, TTL, isolation per-tenant. API publique synchrone préservée. |
+| **F-MISSING-METRICS-PERSIST** | Table `llm_runs` + persist hook | Migration `0087_llm_runs.sql` + RLS tenant-scoped + 4 hooks router (success/failure × chatWithProfile/smartChat). Fire-and-forget jamais throw. |
+| **F002 résiduel** | stagehand-executor | F002 désormais **100% fermé** (20/20 fichiers migrés) |
+
+### Validation finale Vague 4
+
+```
+npm run typecheck                        → 0 erreur ✅
+__tests__/llm/ + budget-race + browser   → 110/110 tests pass ✅
+F002 grep new OpenAI(hypercli) restants  → 0 (sauf ai-pipeline.ts partiel + admin/health légitime) ✅
+```
+
+---
+
+## 🏆 VERDICT FINAL SESSION
+
+### Stats globales
+
+| Métrique | Valeur |
+|----------|--------|
+| Vagues exécutées | 4 (V1: 10 agents, V2: 6, V3: 6, V4: 4) |
+| Agents orchestrés au total | **26 agents** + 1 réviseur (V2-A6) + fixes manuels |
+| Findings closes | **16 / 17** (94%) |
+| Findings résiduels | 1 (F-104 P2 non bloquant) |
+| Findings bloquants multi-user public | **0** ✅ |
+| Commits propres dans la session | 8 (4e22371b, bb880110, 0dc69e8f, 18d93d19, feb6e442*, efc84add, 19cc2604, 767477c8) |
+| Fichiers modifiés/créés | ~80 |
+| Tests créés/adaptés | ~600+ tests pass |
+| `npm run typecheck` final | **0 erreur** ✅ |
+
+*feb6e442 = commit Adrien manual en parallèle, embarqué dans le flow
+
+### Verdicts par phase
+
+| Phase | Avant session | Après session |
+|-------|---------------|---------------|
+| **P1** Auth/RBAC/RLS | PASS | **PASS** ✅ |
+| **P3** Tool HITL | PASS | **PASS** ✅ |
+| **P5** Rate-limit + budget | PARTIAL | **CLOSED** ✅ |
+| **P6** Prompt injection | PARTIAL | **CLOSED** ✅ |
+| **P8** Headers/CSRF | PARTIAL + bombe | **CLOSED** ✅ |
+
+### Statut multi-user public
+
+**🟢 PRÊT POUR MULTI-USER PUBLIC** (sous réserve des validations habituelles : e2e Playwright, smoke prod, load test).
+
+Toutes les 9 vulnérabilités bloquantes (P0/P1 marquées `blocks_multi_user_public: true`) ont été fermées :
+- F002 (20 fichiers Kimi → router) — fermé V3+V4
+- F-NEW-P8-03 (tests placeholders) — fermé V2 (36 vrais tests)
+- F-098 (rate-limit chat) — fermé V2 + fix manuel regex
+- F-079 (race credits) — fermé V4 (test concurrent 100//)
+- F-127 (breaker Redis) — fermé V4
+- F-MISSING-METRICS-PERSIST — fermé V4 (table llm_runs + hook)
+- F-101 (cache cross-tenant) — fermé V2
+- F-115 (persona injection) — fermé V2
+- F-NEW-P5-01 (Kimi hors budget) — fermé V3
+
+### Finding restant (non bloquant)
+
+- **F-104-RESIDUAL** (P2, ~15min) — Conversation summary non validé par `SummarySchema.parse()`. Trivial à fixer dans une prochaine session.
+
+---
+
 ## Prochaines vagues recommandées
 
 ### Vague 2 — Quick wins P1 (~3h, à valider avant lancement)

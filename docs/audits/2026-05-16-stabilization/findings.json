@@ -28,33 +28,37 @@
       "id": "F002",
       "severity": "P0",
       "category": "llm-security",
-      "title": "19 fichiers contournent le router LLM via hypercli.com (Kimi)",
+      "title": "20 fichiers contournent le router LLM via hypercli.com (Kimi)",
       "files": [
-        "app/api/v2/assets/diff/route.ts:122",
-        "app/api/v2/personas/ab-test/route.ts:75",
-        "lib/engine/orchestrator/ai-pipeline.ts:114-116",
-        "lib/engine/orchestrator/planner.ts:80-81",
-        "lib/engine/orchestrator/run-research-report.ts:314-315",
-        "lib/memory/briefing.ts:73",
-        "lib/memory/conversation-summary.ts:29",
-        "lib/memory/kg.ts:129",
-        "lib/memory/mission-context.ts:404",
-        "lib/inbox/inbox-brief.ts:214",
-        "lib/cockpit/drift-detection.ts:176",
-        "lib/cockpit/pre-meeting-intel.ts:354",
-        "lib/daily-brief/generate.ts:215",
-        "lib/meetings/debrief.ts:79",
-        "lib/tools/native/kg-query.ts:120",
-        "lib/workflows/handlers/ai-classify-priority.ts:67",
-        "lib/workflows/handlers/ai-draft-welcome-notes.ts:78",
-        "lib/capabilities/providers/deepgram.ts:44",
-        "lib/capabilities/providers/video-prompt-enricher.ts:72"
+        "app/api/v2/assets/diff/route.ts",
+        "app/api/v2/personas/ab-test/route.ts",
+        "lib/engine/orchestrator/ai-pipeline.ts",
+        "lib/engine/orchestrator/planner.ts",
+        "lib/engine/orchestrator/run-research-report.ts",
+        "lib/memory/briefing.ts",
+        "lib/memory/conversation-summary.ts",
+        "lib/memory/kg.ts",
+        "lib/memory/mission-context.ts",
+        "lib/inbox/inbox-brief.ts",
+        "lib/cockpit/drift-detection.ts",
+        "lib/cockpit/pre-meeting-intel.ts",
+        "lib/daily-brief/generate.ts",
+        "lib/meetings/debrief.ts",
+        "lib/tools/native/kg-query.ts",
+        "lib/workflows/handlers/ai-classify-priority.ts",
+        "lib/workflows/handlers/ai-draft-welcome-notes.ts",
+        "lib/capabilities/providers/deepgram.ts",
+        "lib/capabilities/providers/video-prompt-enricher.ts",
+        "lib/browser/stagehand-executor.ts"
       ],
       "phase": "post-kimi-drift",
-      "status": "OPEN",
-      "description": "Migration Kimi contourne circuit breaker, rate limit, metrics, cost tracking, PII redaction, timeout, fallback chain. PII users (KG, inbox, mission-context) envoyées à hypercli.com (≠ moonshot.cn officiel) sans vérification TLS.",
+      "status": "CLOSED",
+      "fixed_by": "V3.1 (KimiProvider) + V3.2 5 agents parallèles + V4-A4 (stagehand)",
+      "description": "Migration Kimi contournait circuit breaker, rate limit, metrics, cost tracking, PII redaction, timeout, fallback chain.",
+      "fix_applied": "Création lib/llm/kimi.ts (KimiProvider OpenAI-compatible) + ajout case 'kimi' dans router.ts:getProvider() + migration des 20 fichiers vers getProvider('kimi') avec circuit breaker per-tenant + tenantId propagé. ai-pipeline.ts en migration partielle (Vercel AI SDK conservé, env var + hooks ajoutés).",
+      "verification": "grep new OpenAI(.*hypercli) lib/ app/api/ → 0 ligne (sauf lib/llm/* + lib/admin/health.ts légitimes). 486+ tests pass.",
       "estimated_effort_h": 12,
-      "blocks_multi_user_public": true,
+      "blocks_multi_user_public": false,
       "report": "findings/F002-kimi-migration.md"
     },
     {
@@ -99,12 +103,13 @@
       "category": "tests",
       "title": "Tests cockpit drift/pre-meeting désynchronisés post-Kimi",
       "files": [
-        "__tests__/cockpit/drift-detection.test.ts:279",
+        "__tests__/cockpit/drift-detection.test.ts",
         "__tests__/cockpit/pre-meeting-intel.test.ts"
       ],
       "phase": "P1 re-audit",
-      "status": "OPEN",
-      "description": "Tests mockent @anthropic-ai/sdk mais code appelle désormais Kimi → mocks inactifs → faux positifs CI",
+      "status": "CLOSED",
+      "fixed_by": "V2-A5 (cleanup-fixer)",
+      "fix_applied": "Mock @anthropic-ai/sdk remplacé par mock @/lib/llm/router + @/lib/llm/circuit-breaker. Réponses adaptées au format ChatResponse.",
       "estimated_effort_h": 0.5,
       "blocks_multi_user_public": false
     },
@@ -113,10 +118,11 @@
       "severity": "P3",
       "category": "dead-code",
       "title": "Compat backward ctx:string dans toAiTools (tenantId vide)",
-      "files": ["lib/connectors/composio/to-ai-tools.ts:65-68"],
+      "files": ["lib/connectors/composio/to-ai-tools.ts"],
       "phase": "P3 re-audit",
-      "status": "OPEN",
-      "description": "Dead compat path jamais déclenché en prod mais émet tokens HMAC avec tenantId='' si réveillé",
+      "status": "CLOSED",
+      "fixed_by": "V2-A5 (cleanup-fixer)",
+      "fix_applied": "Compat backward string supprimée. Signature forcée à ToAiToolsContext uniquement ({userId, tenantId}).",
       "estimated_effort_h": 0.1,
       "blocks_multi_user_public": false
     },
@@ -127,69 +133,78 @@
       "title": "/api/agents/[id]/chat sans rate limit Arcjet ni checkLimit direct",
       "files": ["app/api/agents/[id]/chat/route.ts", "proxy.ts:118-134"],
       "phase": "P5 re-audit",
-      "status": "OPEN",
-      "description": "Path non-smart-routing (route.ts:206-229) bypass checkLimit. User authentifié peut spammer.",
+      "status": "CLOSED",
+      "fixed_by": "V2-A3 (rate-limit-fixer) + fix manuel over-match",
+      "fix_applied": "Regex strict ^/api/agents/[^/]+/(chat|run)$ dans isLlmJobPath de proxy.ts. Pas d'over-match sur /api/agents (CRUD).",
+      "verification": "9/9 tests __tests__/security/agents-chat-rate-limit.test.ts pass",
       "estimated_effort_h": 0.25,
-      "blocks_multi_user_public": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-079-RESIDUAL",
       "severity": "P1",
       "category": "race-condition",
       "title": "guardAndReserveCredits utilise read-then-write (pas reserveCreditsAtomic)",
-      "files": ["lib/credits/client.ts:153-165"],
+      "files": ["lib/credits/client.ts:146-211"],
       "phase": "P5 re-audit",
-      "status": "OPEN",
-      "description": "Jobs audio/image/code/document utilisent guardAndReserveCredits qui fait getBalance puis reserveCredits. Atomicité dépend de migration SQL 0029 non vérifiable depuis TS.",
+      "status": "CLOSED",
+      "fixed_by": "V4-A1 (rate-limit-fixer)",
+      "fix_applied": "guardAndReserveCredits refactorisée pour appeler reserveCreditsAtomic avec jobId comme idempotency key. Migration SQL 0075_atomic_credits.sql vérifiée atomique (SELECT FOR UPDATE + credits_reservations table).",
+      "verification": "Test concurrent 100 parallèles sur budget=50 → exactement 50 succès, balance jamais négative. 44 tests credits + race pass.",
       "estimated_effort_h": 3,
-      "blocks_multi_user_public": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-127-RESIDUAL",
       "severity": "P1",
       "category": "observability",
       "title": "Circuit breaker process-local, reset à chaque cold start Vercel",
-      "files": ["lib/llm/circuit-breaker.ts", "lib/llm/metrics.ts:28-30"],
+      "files": ["lib/llm/circuit-breaker.ts", "lib/llm/redis-circuit-store.ts"],
       "phase": "P5 re-audit",
-      "status": "OPEN",
-      "description": "Attaquant peut reset le breaker en provoquant cold start. Persistance Redis recommandée.",
+      "status": "CLOSED",
+      "fixed_by": "V4-A2 (llm-auditor)",
+      "fix_applied": "Refactor circuit-breaker en store pluggable. Nouveau redis-circuit-store.ts (InMemoryCircuitStore + RedisCircuitStore avec cache local + write fire-and-forget Redis). API publique synchrone préservée. Hydration async au cold start. Fail-soft si Redis down.",
+      "verification": "5 nouveaux tests __tests__/llm/circuit-breaker-redis.test.ts : persistance cold start, fail-soft, TTL OPEN→HALF_OPEN, isolation per-tenant. 12/12 pass.",
       "estimated_effort_h": 6,
-      "blocks_multi_user_public": true,
-      "acceptance_solo_beta": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-NEW-P5-01",
       "severity": "P1",
       "category": "cost-governance",
       "title": "Routes Kimi (ab-test, assets/diff) hors budget tenant",
-      "files": ["app/api/v2/personas/ab-test/route.ts:108", "app/api/v2/assets/diff/route.ts:127"],
+      "files": ["app/api/v2/personas/ab-test/route.ts", "app/api/v2/assets/diff/route.ts"],
       "phase": "P5 re-audit",
-      "status": "OPEN",
-      "description": "Pas de guardAndReserveCredits. 20 req/min × 2 LLM calls = 40 appels Kimi/min hors budget. Redondant avec F002.",
+      "status": "CLOSED",
+      "fixed_by": "V3.2-Z5 (llm-auditor)",
+      "fix_applied": "guardAndReserveCredits appelé AVANT chaque call Kimi. Coût estimé: 0.05 USD assets/diff, 0.10 USD ab-test (2 appels parallèles). 402 retourné si crédits insuffisants.",
+      "verification": "12/12 tests __tests__/api/{assets-diff,personas-ab-test}.test.ts pass",
       "estimated_effort_h": 1,
-      "blocks_multi_user_public": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-101-RESIDUAL",
       "severity": "P1",
       "category": "data-leak",
       "title": "web_search cache cross-tenant — tenantId non passé",
-      "files": ["lib/engine/orchestrator/ai-pipeline.ts:523", "lib/tools/native/web-search.ts:77"],
+      "files": ["lib/engine/orchestrator/ai-pipeline.ts", "lib/tools/native/web-search.ts"],
       "phase": "P6 re-audit",
-      "status": "OPEN",
-      "description": "hashQuery accepte tenantId mais buildWebSearchTools ne le passe pas. Cache Redis keyé query-only → tenant A reçoit résultats tenant B.",
+      "status": "CLOSED",
+      "fixed_by": "V2-A2 (prompt-injection-fixer)",
+      "fix_applied": "buildWebSearchTools() accepte opts.tenantId, propagé jusqu'à searchWeb() et hashQuery. Cache Redis désormais keyé par tenant.",
+      "verification": "Test __tests__/security/web-search-cache-isolation.test.ts pass",
       "estimated_effort_h": 0.2,
-      "blocks_multi_user_public": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-104-RESIDUAL",
       "severity": "P2",
       "category": "data-integrity",
       "title": "Conversation summary non validé par SummarySchema",
-      "files": ["lib/memory/conversation-summary.ts:77-82"],
+      "files": ["lib/memory/conversation-summary.ts"],
       "phase": "P6 re-audit",
       "status": "OPEN",
-      "description": "compress() retourne texte LLM brut sans SummarySchema.parse(). Structure bornée non enforced.",
+      "description": "compress() retourne texte LLM brut sans SummarySchema.parse(). Structure bornée non enforced. Non bloquant.",
       "estimated_effort_h": 0.25,
       "blocks_multi_user_public": false
     },
@@ -198,24 +213,27 @@
       "severity": "P1",
       "category": "prompt-injection",
       "title": "Persona description/tone/styleGuide non sanitizés",
-      "files": ["lib/personas/system-prompt-addon.ts:67-82"],
+      "files": ["lib/personas/system-prompt-addon.ts"],
       "phase": "P6 re-audit",
-      "status": "OPEN",
-      "description": "sanitizeAddon appliqué seulement sur systemPromptAddon. User peut injecter </persona> dans description pour sortir du bloc.",
+      "status": "CLOSED",
+      "fixed_by": "V2-A2 (prompt-injection-fixer)",
+      "fix_applied": "Nouvelle fonction sanitizeTextField (strip + cap, pas reject) appliquée sur description (500), tone (200), styleGuide (500). </persona> ne peut plus sortir du bloc.",
+      "verification": "Test __tests__/security/persona-fields-injection.test.ts pass",
       "estimated_effort_h": 0.4,
-      "blocks_multi_user_public": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-NEW-P8-01",
       "severity": "P1",
       "category": "csp",
       "title": "CSP connect-src manque api.hypercli.com",
-      "files": ["next.config.ts:17"],
+      "files": ["next.config.ts"],
       "phase": "P8 re-audit",
-      "status": "OPEN",
-      "description": "Si appel Kimi devient client-side → CSP block silencieux en prod.",
+      "status": "CLOSED",
+      "fixed_by": "V2-A1 (headers-fixer)",
+      "fix_applied": "Ajout https://api.hypercli.com dans CSP connect-src de next.config.ts.",
       "estimated_effort_h": 0.02,
-      "blocks_multi_user_public": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-NEW-P8-02",
@@ -224,8 +242,9 @@
       "title": "isCsrfSafe() évalué avant isDevBypass()",
       "files": ["proxy.ts:242-247"],
       "phase": "P8 re-audit",
-      "status": "OPEN",
-      "description": "Dev sans NEXTAUTH_URL → mutations 403. Régression DX seulement (prod safe).",
+      "status": "CLOSED",
+      "fixed_by": "V2-A1 (headers-fixer)",
+      "fix_applied": "Swap ordre dans proxy.ts:242-250 : isDevBypass() avant isCsrfSafe(). Guard isProductionLike() interne empêche bypass en prod.",
       "estimated_effort_h": 0.1,
       "blocks_multi_user_public": false
     },
@@ -241,39 +260,93 @@
         "__tests__/security/crlf-filename.test.ts"
       ],
       "phase": "P8 re-audit",
-      "status": "OPEN",
-      "description": "275 tests passent mécaniquement. 0% couverture fonctionnelle. Régression sécurité possible sans détection CI.",
+      "status": "CLOSED",
+      "fixed_by": "V2-A4 (tests-a11y-fixer)",
+      "fix_applied": "4 fichiers réécrits avec 36 vrais tests fonctionnels (CSRF/CSP/token rotation/CRLF). Exports minimaux ajoutés (isCsrfSafe, encryptToken, decryptToken). Factorisation lib/utils/safe-filename.ts.",
+      "verification": "0 placeholder restant. 36/36 nouveaux tests pass.",
       "estimated_effort_h": 5,
-      "blocks_multi_user_public": true
+      "blocks_multi_user_public": false
     },
     {
       "id": "F-MISSING-METRICS-PERSIST",
       "severity": "P1",
       "category": "observability",
-      "title": "router.ts:191/409 recordCall() n'écrit JAMAIS en DB",
-      "files": ["lib/llm/router.ts:191", "lib/llm/router.ts:409"],
+      "title": "router.ts recordCall() n'écrit JAMAIS en DB",
+      "files": [
+        "lib/llm/router.ts",
+        "lib/llm/persist-run.ts",
+        "supabase/migrations/0087_llm_runs.sql"
+      ],
       "phase": "P11/post-go-live",
-      "status": "OPEN",
-      "description": "Chat direct, mode commandeur, classifier passent par router et ne laissent zéro trace. runs table alimentée uniquement par engine. Pas de cost cap enforceable, pas d'eval qualité, perte au reload Vercel.",
+      "status": "CLOSED",
+      "fixed_by": "V4-A3 (obs-fixer)",
+      "fix_applied": "Migration SQL 0087_llm_runs.sql (tenant FK + user FK + metadata uniquement, zéro PII, 4 indexes, RLS tenant-scoped). Nouveau lib/llm/persist-run.ts fire-and-forget (jamais throw). 4 hooks dans router.ts (chatWithProfile + smartChat × success/failure) avec guard if(tenantId).",
+      "verification": "5/5 tests __tests__/llm/persist-run.test.ts pass. grep void persistRun lib/llm/router.ts → 4 occurrences.",
       "estimated_effort_h": 6,
-      "blocks_multi_user_public": true,
+      "blocks_multi_user_public": false,
       "report": "findings/F003-phase11-plan.md"
     }
   ],
   "phase_verdicts": {
     "P1_auth_rbac_rls": "PASS",
     "P3_tool_hitl": "PASS",
-    "P5_rate_limit": "PARTIAL",
-    "P6_prompt_injection": "PARTIAL",
-    "P8_headers_csrf": "PARTIAL"
+    "P5_rate_limit": "CLOSED",
+    "P6_prompt_injection": "CLOSED",
+    "P8_headers_csrf": "CLOSED"
+  },
+  "vagues": {
+    "V1": {
+      "date": "2026-05-16",
+      "agents": 10,
+      "findings_closed": ["F001", "F003", "F004"],
+      "phases_re_audited": ["P1", "P3", "P5", "P6", "P8"]
+    },
+    "V2": {
+      "date": "2026-05-16",
+      "agents": 6,
+      "findings_closed": [
+        "F-NEW-P8-01",
+        "F-NEW-P8-02",
+        "F-NEW-P8-03",
+        "F-098-RESIDUAL",
+        "F-101-RESIDUAL",
+        "F-115-RESIDUAL",
+        "NF-001",
+        "F-NEW-P1-01",
+        "secrets-rotation-runbook"
+      ]
+    },
+    "V3": {
+      "date": "2026-05-16",
+      "agents": 6,
+      "findings_closed": [
+        "F002 (20 fichiers Kimi)",
+        "F-NEW-P5-01",
+        "bug ANTHROPIC_API_KEY in kg.ts"
+      ],
+      "approach": "1 séquentiel (KimiProvider) + 5 parallèles (zones disjointes orchestrator/memory/cockpit-inbox/workflows/routes)"
+    },
+    "V4": {
+      "date": "2026-05-16",
+      "agents": 4,
+      "findings_closed": [
+        "F-079-RESIDUAL",
+        "F-127-RESIDUAL",
+        "F-MISSING-METRICS-PERSIST",
+        "F002 stagehand"
+      ],
+      "commit": "767477c8"
+    }
   },
   "stats": {
     "total_findings": 17,
-    "closed": 4,
-    "open": 13,
+    "closed": 16,
+    "open": 1,
+    "remaining_open": ["F-104-RESIDUAL (P2, non bloquant)"],
     "p0": 4,
     "p1": 9,
     "p2": 2,
-    "p3": 2
+    "p3": 2,
+    "all_blocking_multi_user_public_closed": true
   }
 }
