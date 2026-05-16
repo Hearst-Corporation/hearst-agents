@@ -6,33 +6,93 @@
  */
 
 import { describe, expect, it } from "vitest";
+import nextConfig from "@/next.config";
 
 describe("CSP & Security Headers (F-078)", () => {
-  it("should have Content-Security-Policy header configured", () => {
+  it("should have Content-Security-Policy header configured", async () => {
     // Import next.config.ts et vérifier que headers() retourne CSP.
-    // Ce test est un smoke test — la validation complète se fait via lighthouse
-    // ou curl -I https://hearst-os.vercel.app
-    expect(true).toBe(true); // Placeholder : full test en intégration E2E
+    const config = nextConfig as any;
+    if (typeof config.headers === "function") {
+      const headersResult = await config.headers();
+      const cspHeader = headersResult[0]?.headers?.find(
+        (h: any) => h.key === "Content-Security-Policy",
+      );
+      expect(cspHeader).toBeDefined();
+      expect(cspHeader?.value).toContain("default-src 'self'");
+    }
   });
 
-  it("should prohibit frame embedding (X-Frame-Options: DENY)", () => {
+  it("should prohibit frame embedding (X-Frame-Options: DENY)", async () => {
     // X-Frame-Options: DENY bloque l'inclusion en iframe
-    expect(true).toBe(true);
+    const config = nextConfig as any;
+    if (typeof config.headers === "function") {
+      const headersResult = await config.headers();
+      const xFrameHeader = headersResult[0]?.headers?.find((h: any) => h.key === "X-Frame-Options");
+      expect(xFrameHeader?.value).toBe("DENY");
+    }
   });
 
-  it("should enforce HSTS (Strict-Transport-Security)", () => {
+  it("should enforce HSTS (Strict-Transport-Security)", async () => {
     // max-age >= 2 ans (63072000 secondes)
-    expect(true).toBe(true);
+    const config = nextConfig as any;
+    if (typeof config.headers === "function") {
+      const headersResult = await config.headers();
+      const hstsHeader = headersResult[0]?.headers?.find(
+        (h: any) => h.key === "Strict-Transport-Security",
+      );
+      expect(hstsHeader?.value).toContain("max-age=63072000");
+      expect(hstsHeader?.value).toContain("includeSubDomains");
+    }
   });
 
-  it("should set Referrer-Policy to strict-origin-when-cross-origin", () => {
+  it("should set Referrer-Policy to strict-origin-when-cross-origin", async () => {
     // Pas de referer leak cross-origin
-    expect(true).toBe(true);
+    const config = nextConfig as any;
+    if (typeof config.headers === "function") {
+      const headersResult = await config.headers();
+      const referrerHeader = headersResult[0]?.headers?.find(
+        (h: any) => h.key === "Referrer-Policy",
+      );
+      expect(referrerHeader?.value).toBe("strict-origin-when-cross-origin");
+    }
   });
 
-  it("should disable FLoC and respect privacy (Permissions-Policy)", () => {
+  it("should disable FLoC and respect privacy (Permissions-Policy)", async () => {
     // interest-cohort=() bloque FLoC
     // microphone=(self) permet micro seulement en iframe propre
-    expect(true).toBe(true);
+    const config = nextConfig as any;
+    if (typeof config.headers === "function") {
+      const headersResult = await config.headers();
+      const permissionsHeader = headersResult[0]?.headers?.find(
+        (h: any) => h.key === "Permissions-Policy",
+      );
+      expect(permissionsHeader?.value).toContain("interest-cohort=()");
+      expect(permissionsHeader?.value).toContain("camera=()");
+      expect(permissionsHeader?.value).toContain("geolocation=()");
+    }
+  });
+
+  it("should set X-Content-Type-Options to nosniff", async () => {
+    // Prévient MIME sniffing attacks
+    const config = nextConfig as any;
+    if (typeof config.headers === "function") {
+      const headersResult = await config.headers();
+      const xContentTypeHeader = headersResult[0]?.headers?.find(
+        (h: any) => h.key === "X-Content-Type-Options",
+      );
+      expect(xContentTypeHeader?.value).toBe("nosniff");
+    }
+  });
+
+  it("should include api.hypercli.com in connect-src for Kimi orchestrator", async () => {
+    // Post Vague 2 fix headers-fixer — allow Kimi API calls
+    const config = nextConfig as any;
+    if (typeof config.headers === "function") {
+      const headersResult = await config.headers();
+      const cspHeader = headersResult[0]?.headers?.find(
+        (h: any) => h.key === "Content-Security-Policy",
+      );
+      expect(cspHeader?.value).toContain("api.hypercli.com");
+    }
   });
 });

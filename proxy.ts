@@ -36,7 +36,7 @@ const STATIC_RE = /^\/(?:_next|public)\/|^\/favicon\.ico$/;
 /* ── F-052: CSRF Origin check sur mutations (POST/PUT/DELETE/PATCH) ── */
 const STATE_CHANGING_METHODS = new Set(["POST", "PUT", "DELETE", "PATCH"]);
 
-function isCsrfSafe(req: NextRequest): boolean {
+export function isCsrfSafe(req: NextRequest): boolean {
   // Requêtes GET, HEAD, OPTIONS : toujours safe (idempotentes)
   if (!STATE_CHANGING_METHODS.has(req.method)) return true;
 

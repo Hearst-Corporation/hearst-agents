@@ -87,7 +87,7 @@ const IV_LENGTH = 12; // GCM standard : 12 bytes (96 bits)
  * Chiffre un token avec la clé active et l'enveloppe avec son keyId.
  * Format : `keyId.iv.tag.ciphertext` (tous en base64url pour pas de ':' collision)
  */
-function encrypt(plaintext: string): string {
+export function encryptToken(plaintext: string): string {
   const keyId = ACTIVE_KEY_ID;
   const keyFn = KEY_PROVIDERS[keyId];
   if (!keyFn) {
@@ -117,7 +117,7 @@ function encrypt(plaintext: string): string {
  * Parse le format enveloppe `keyId.iv.tag.ciphertext`, sélectionne la clé
  * correspondante, puis déchiffre.
  */
-function decrypt(ciphertext: string): string {
+export function decryptToken(ciphertext: string): string {
   const parts = ciphertext.split(".");
   const legacyParts = ciphertext.split(":");
 
@@ -238,8 +238,8 @@ export async function getTokenMeta(userId: string, provider = "google"): Promise
 
     return {
       tokens: {
-        accessToken: data.access_token_enc ? decrypt(data.access_token_enc) : null,
-        refreshToken: data.refresh_token_enc ? decrypt(data.refresh_token_enc) : null,
+        accessToken: data.access_token_enc ? decryptToken(data.access_token_enc) : null,
+        refreshToken: data.refresh_token_enc ? decryptToken(data.refresh_token_enc) : null,
         expiresAt: data.expires_at ?? 0,
       },
       revoked,
@@ -286,10 +286,10 @@ export async function saveTokens(
     }
 
     if (tokens.accessToken !== undefined) {
-      row.access_token_enc = tokens.accessToken ? encrypt(tokens.accessToken) : null;
+      row.access_token_enc = tokens.accessToken ? encryptToken(tokens.accessToken) : null;
     }
     if (tokens.refreshToken !== undefined) {
-      row.refresh_token_enc = tokens.refreshToken ? encrypt(tokens.refreshToken) : null;
+      row.refresh_token_enc = tokens.refreshToken ? encryptToken(tokens.refreshToken) : null;
       row.refresh_rotated_at = new Date().toISOString();
     }
     if (tokens.expiresAt !== undefined) {
