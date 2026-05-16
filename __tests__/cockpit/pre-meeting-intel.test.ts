@@ -30,10 +30,10 @@ vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: mocks.requireServerSupabase,
 }));
 
-vi.mock("@anthropic-ai/sdk", () => {
+vi.mock("openai", () => {
   return {
-    default: class FakeAnthropic {
-      messages = { create: mocks.anthropicCreate };
+    default: class FakeOpenAI {
+      chat = { completions: { create: mocks.anthropicCreate } };
     },
   };
 });
@@ -73,7 +73,7 @@ function buildFakeSupabase(opts: {
 describe("getPreMeetingIntel", () => {
   beforeEach(() => {
     Object.values(mocks).forEach((m) => m.mockReset());
-    process.env.ANTHROPIC_API_KEY = "fake-key";
+    process.env.KIMI_API_KEY = "fake-key";
     __clearPreMeetingIntelCache();
   });
 
@@ -105,7 +105,7 @@ describe("getPreMeetingIntel", () => {
     );
 
     mocks.anthropicCreate.mockResolvedValue({
-      content: [{ type: "text", text: "Valider roadmap · Aligner équipes · Décider next call" }],
+      choices: [{ message: { content: "Valider roadmap · Aligner équipes · Décider next call" } }],
     });
 
     const intel = await getPreMeetingIntel(SCOPE, "evt-1");
@@ -144,7 +144,7 @@ describe("getPreMeetingIntel", () => {
     );
 
     mocks.anthropicCreate.mockResolvedValue({
-      content: [{ type: "text", text: "Tour de table · Définir prochaines étapes" }],
+      choices: [{ message: { content: "Tour de table · Définir prochaines étapes" } }],
     });
 
     const intel = await getPreMeetingIntel(SCOPE, "evt-2");
@@ -182,7 +182,7 @@ describe("getPreMeetingIntel", () => {
     });
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
-      content: [{ type: "text", text: "" }],
+      choices: [{ message: { content: "" } }],
     });
 
     await getPreMeetingIntel(SCOPE, "evt-cache");
@@ -207,7 +207,7 @@ describe("getPreMeetingIntel", () => {
     });
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
-      content: [{ type: "text", text: "" }],
+      choices: [{ message: { content: "" } }],
     });
 
     await getPreMeetingIntel(SCOPE, "evt-x");
@@ -234,7 +234,7 @@ describe("getPreMeetingIntel", () => {
     ]);
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
-      content: [{ type: "text", text: "Sync rapide" }],
+      choices: [{ message: { content: "Sync rapide" } }],
     });
 
     const intel = await getPreMeetingIntel(SCOPE, "evt-native");

@@ -63,7 +63,7 @@ describe("toAiTools — write-guard integration", () => {
 
   describe("write tool — preview mode (default)", () => {
     it("does NOT call executeComposioAction when _preview is undefined", async () => {
-      const tools = toAiTools([writeTool], "user-1");
+      const tools = toAiTools([writeTool], { userId: "user-1", tenantId: "tenant-1" });
       const result = await callExecute(tools.SLACK_SEND_MESSAGE, {
         channel: "#dev",
         text: "hello",
@@ -79,7 +79,7 @@ describe("toAiTools — write-guard integration", () => {
     });
 
     it("does NOT call executeComposioAction when _preview is explicitly true", async () => {
-      const tools = toAiTools([writeTool], "user-1");
+      const tools = toAiTools([writeTool], { userId: "user-1", tenantId: "tenant-1" });
       const result = await callExecute(tools.SLACK_SEND_MESSAGE, {
         channel: "#dev",
         text: "hello",
@@ -121,7 +121,7 @@ describe("toAiTools — write-guard integration", () => {
 
   describe("read tool — bypass", () => {
     it("calls executeComposioAction directly even with _preview present (gate ignored)", async () => {
-      const tools = toAiTools([readTool], "user-1");
+      const tools = toAiTools([readTool], { userId: "user-1", tenantId: "tenant-1" });
       await callExecute(tools.GMAIL_LIST_MESSAGES, {
         _preview: true,
         query: "label:inbox",
@@ -134,7 +134,7 @@ describe("toAiTools — write-guard integration", () => {
     });
 
     it("calls executeComposioAction directly when no _preview is given", async () => {
-      const tools = toAiTools([readTool], "user-1");
+      const tools = toAiTools([readTool], { userId: "user-1", tenantId: "tenant-1" });
       await callExecute(tools.GMAIL_LIST_MESSAGES, {});
       expect(executeComposioAction).toHaveBeenCalledTimes(1);
     });
@@ -142,7 +142,7 @@ describe("toAiTools — write-guard integration", () => {
 
   describe("schema injection", () => {
     it("write tool schema contains _preview as an optional boolean", () => {
-      const tools = toAiTools([writeTool], "user-1");
+      const tools = toAiTools([writeTool], { userId: "user-1", tenantId: "tenant-1" });
       // Vercel AI SDK normalizes the schema; we read jsonSchema property
       const schema = tools.SLACK_SEND_MESSAGE.inputSchema as unknown as {
         jsonSchema: { properties: Record<string, unknown> };
@@ -155,7 +155,7 @@ describe("toAiTools — write-guard integration", () => {
     });
 
     it("read tool schema does NOT contain _preview", () => {
-      const tools = toAiTools([readTool], "user-1");
+      const tools = toAiTools([readTool], { userId: "user-1", tenantId: "tenant-1" });
       const schema = tools.GMAIL_LIST_MESSAGES.inputSchema as unknown as {
         jsonSchema: { properties?: Record<string, unknown> };
       };

@@ -104,19 +104,20 @@ vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: supabaseMocks.getServerSupabase,
 }));
 
-// ── Mock Anthropic SDK ─────────────────────────────────────────────────────
+// ── Mock OpenAI SDK (Kimi via hypercli) ───────────────────────────────────
 
-const anthropicMocks = vi.hoisted(() => ({
-  messagesCreate: vi.fn(),
+const openaiMocks = vi.hoisted(() => ({
+  completionsCreate: vi.fn(),
 }));
 
-vi.mock("@anthropic-ai/sdk", () => {
-  // Le module utilise `new Anthropic(...)` — il faut une vraie classe pour
-  // que `new` fonctionne (vi.fn() simple n'est pas constructible).
-  class MockAnthropic {
-    messages = { create: anthropicMocks.messagesCreate };
+vi.mock("openai", () => {
+  // lib/memory/briefing.ts et conversation-summary.ts utilisent :
+  // const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" })
+  // puis client.chat.completions.create({ ... })
+  class MockOpenAI {
+    chat = { completions: { create: openaiMocks.completionsCreate } };
   }
-  return { default: MockAnthropic };
+  return { default: MockOpenAI };
 });
 
 // ── Imports du module testé (après mocks) ──────────────────────────────────
@@ -147,7 +148,7 @@ beforeEach(() => {
   supabaseMocks.getServerSupabase.mockReturnValue({
     from: () => new RunsBuilder(),
   });
-  anthropicMocks.messagesCreate.mockReset();
+  openaiMocks.completionsCreate.mockReset();
 });
 
 // ── Tests : analyzeMissionDrift — séquences stables ────────────────────────
@@ -255,8 +256,8 @@ describe("analyzeMissionDrift — fail-soft", () => {
 // ── Tests : generateDriftNarration ─────────────────────────────────────────
 
 describe("generateDriftNarration", () => {
-  it("retourne fallback FR ≤140ch quand ANTHROPIC_API_KEY absente", async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it("retourne fallback FR ≤140ch quand KIMI_API_KEY absente", async () => {
+    delete process.env.KIMI_API_KEY;
     // Titre unique pour éviter un cache hit d'un test précédent.
     const text = await generateDriftNarration("Mission unique fallback A", 4);
     expect(text.length).toBeGreaterThan(0);
@@ -265,57 +266,61 @@ describe("generateDriftNarration", () => {
     expect(text).toContain("4");
   });
 
-  it("appelle Claude Haiku quand ANTHROPIC_API_KEY présente, output trimé ≤140ch FR", async () => {
-    process.env.ANTHROPIC_API_KEY = "sk-test";
-    anthropicMocks.messagesCreate.mockResolvedValue({
-      content: [
+  it("appelle Kimi quand env var KIMI_API_KEY présente, output trimé ≤140ch FR", async () => {
+    // generateDriftNarration délègue à lib/memory/briefing.ts qui utilise
+    // KIMI_API_KEY ou fallback. On simule la présence d'une clé.
+    process.env.KIMI_API_KEY = "sk-test-kimi";
+    openaiMocks.completionsCreate.mockResolvedValue({
+      choices: [
         {
-          type: "text",
-          text: "Veille concurrence semble figée depuis 5 runs — peut-être à re-évaluer ou à enrichir avec un nouveau signal pertinent.",
+          message: {
+            content:
+              "Veille concurrence semble figée depuis 5 runs — peut-être à re-évaluer ou à enrichir avec un nouveau signal pertinent.",
+          },
         },
       ],
     });
     const text = await generateDriftNarration("Veille concurrence", 5);
-    expect(anthropicMocks.messagesCreate).toHaveBeenCalledTimes(1);
+    expect(openaiMocks.completionsCreate).toHaveBeenCalledTimes(1);
     expect(text.length).toBeLessThanOrEqual(140);
     expect(text).not.toContain('"'); // pas de guillemets
     expect(text).not.toContain("!"); // pas de point d'exclamation
   });
 
-  it("clip à 140 chars si Haiku renvoie un texte trop long", async () => {
-    process.env.ANTHROPIC_API_KEY = "sk-test";
+  it("clip à 140 chars si Kimi renvoie un texte trop long", async () => {
+    process.env.KIMI_API_KEY = "sk-test-kimi";
     const longText = "A".repeat(300);
-    anthropicMocks.messagesCreate.mockResolvedValue({
-      content: [{ type: "text", text: longText }],
+    openaiMocks.completionsCreate.mockResolvedValue({
+      choices: [{ message: { content: longText } }],
     });
     const text = await generateDriftNarration("Mission longue X", 3);
     expect(text.length).toBeLessThanOrEqual(140);
   });
 
-  it("cache 1h : 2e call avec mêmes args ne re-call pas Haiku", async () => {
-    process.env.ANTHROPIC_API_KEY = "sk-test";
-    anthropicMocks.messagesCreate.mockResolvedValue({
-      content: [{ type: "text", text: "Mission cachée semble stagner." }],
+  it("cache 1h : 2e call avec mêmes args ne re-call pas Kimi", async () => {
+    process.env.KIMI_API_KEY = "sk-test-kimi";
+    openaiMocks.completionsCreate.mockResolvedValue({
+      choices: [{ message: { content: "Mission cachée semble stagner." } }],
     });
     const t1 = await generateDriftNarration("Mission cache key Z", 3);
     const t2 = await generateDriftNarration("Mission cache key Z", 3);
     expect(t1).toBe(t2);
-    expect(anthropicMocks.messagesCreate).toHaveBeenCalledTimes(1);
+    expect(openaiMocks.completionsCreate).toHaveBeenCalledTimes(1);
   });
 
-  it("fallback si Haiku throw", async () => {
-    process.env.ANTHROPIC_API_KEY = "sk-test";
-    anthropicMocks.messagesCreate.mockRejectedValue(new Error("rate limit"));
+  it("fallback si Kimi throw", async () => {
+    process.env.KIMI_API_KEY = "sk-test-kimi";
+    openaiMocks.completionsCreate.mockRejectedValue(new Error("rate limit"));
     const text = await generateDriftNarration("Mission rate-limit-test Y", 6);
     expect(text.length).toBeGreaterThan(0);
     expect(text.length).toBeLessThanOrEqual(140);
     expect(text).toContain("Mission rate-limit-test Y");
   });
 
-  it("fallback si Haiku renvoie un block vide", async () => {
-    process.env.ANTHROPIC_API_KEY = "sk-test";
-    anthropicMocks.messagesCreate.mockResolvedValue({
-      content: [{ type: "text", text: "   " }],
+  it("fallback si Kimi renvoie un block vide", async () => {
+    process.env.KIMI_API_KEY = "sk-test-kimi";
+    openaiMocks.completionsCreate.mockResolvedValue({
+      choices: [{ message: { content: "   " } }],
     });
     const text = await generateDriftNarration("Mission empty-block-test W", 3);
     expect(text.length).toBeGreaterThan(0);

@@ -62,10 +62,16 @@ export interface ToAiToolsContext {
   tenantId: string;
 }
 
-export function toAiTools(tools: DiscoveredTool[], ctx: ToAiToolsContext | string): AiToolMap {
-  // Compat: ancien appelant passait userId (string) directement.
-  const userId = typeof ctx === "string" ? ctx : ctx.userId;
-  const tenantId = typeof ctx === "string" ? "" : ctx.tenantId;
+/**
+ * Convertit les outils Composio en outils SDK v6.
+ *
+ * Le contexte doit toujours être { userId, tenantId } :
+ * les anciens appelants passant un string ont été migrés.
+ * Si un caller passe un string, TS erreur (good).
+ */
+export function toAiTools(tools: DiscoveredTool[], ctx: ToAiToolsContext): AiToolMap {
+  const userId = ctx.userId;
+  const tenantId = ctx.tenantId;
 
   return Object.fromEntries(
     tools.map((t): [string, Tool<unknown, unknown>] => {
