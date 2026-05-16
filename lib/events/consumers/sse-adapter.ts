@@ -18,6 +18,95 @@ function stripEmoji(s: string): string {
   return s.replace(EMOJI_RE, "").replace(/[ \t]{2,}/g, " ");
 }
 
+// State machine per-stream : Kimi K2.5/K2.6 (via Hyperbolic) émet sa
+// chain-of-thought dans `delta.content` entre balises `<think>...</think>`
+// AVANT le vrai contenu de la réponse. Le middleware Vercel AI fonctionne en
+// test isolé mais ne couvre pas tous les code paths (planner direct_response,
+// run-research-report, recovery flows). Ce stripper agit comme last line of
+// defense au niveau du SSE adapter : tout token de raisonnement est filtré
+// avant d'atteindre le client, quel que soit le path amont.
+//
+// Robuste au split : si `<think>` ou `</think>` arrive sur 2 chunks, on
+// bufferise le tail ambigu jusqu'au prochain delta.
+interface ThinkStripState {
+  inside: boolean; // true = on est entre <think> et </think>
+  pending: string; // tail buffer pour matcher tags split sur 2 chunks
+}
+
+const OPEN_TAG = "<think>";
+const CLOSE_TAG = "</think>";
+
+/**
+ * Retourne la longueur du tail de `buf` qui pourrait être le préfixe de `tag`.
+ * Ex: tag="<think>", buf="hello <t" → 2 (préfixe "<t" du tag).
+ * Ex: tag="</think>", buf="abc</thin" → 5 (préfixe "</thin").
+ * Ex: buf="hello" → 0 (rien à garder en buffer).
+ *
+ * Permet de bufferiser uniquement le tail ambigu (qui pourrait compléter un
+ * tag au prochain chunk), pas systématiquement N-1 caractères.
+ */
+function ambiguousTailLength(buf: string, tag: string): number {
+  const max = Math.min(buf.length, tag.length - 1);
+  for (let n = max; n > 0; n--) {
+    if (tag.startsWith(buf.slice(buf.length - n))) return n;
+  }
+  return 0;
+}
+
+function stripThinkTags(delta: string, state: ThinkStripState): string {
+  let buf = state.pending + delta;
+  state.pending = "";
+  let out = "";
+
+  while (buf.length > 0) {
+    if (state.inside) {
+      const closeIdx = buf.indexOf(CLOSE_TAG);
+      if (closeIdx === -1) {
+        // Pas de `</think>` complet vu → tout est reasoning, on drop. Garde
+        // uniquement le tail qui pourrait être un préfixe de `</think>`.
+        const tail = ambiguousTailLength(buf, CLOSE_TAG);
+        state.pending = tail > 0 ? buf.slice(-tail) : "";
+        return out;
+      }
+      buf = buf.slice(closeIdx + CLOSE_TAG.length);
+      state.inside = false;
+    } else {
+      const openIdx = buf.indexOf(OPEN_TAG);
+      if (openIdx === -1) {
+        // Pas de `<think>` complet → tout est contenu visible. Garde tail
+        // uniquement si fin du buf ressemble au début de `<think>`.
+        const tail = ambiguousTailLength(buf, OPEN_TAG);
+        if (tail > 0) {
+          out += buf.slice(0, buf.length - tail);
+          state.pending = buf.slice(-tail);
+        } else {
+          out += buf;
+        }
+        return out;
+      }
+      out += buf.slice(0, openIdx);
+      buf = buf.slice(openIdx + OPEN_TAG.length);
+      state.inside = true;
+    }
+  }
+  return out;
+}
+
+/**
+ * Flush du buffer pending en fin de stream. Appelé sur run_completed pour
+ * récupérer tout résidu non-tag (qu'on garderait sinon comme pending hanté).
+ * Si on est encore "inside" (= reasoning non terminé), on drop par sécurité.
+ */
+function flushThinkBuffer(state: ThinkStripState): string {
+  if (state.inside) {
+    state.pending = "";
+    return "";
+  }
+  const out = state.pending;
+  state.pending = "";
+  return out;
+}
+
 // ── Provider derivation ─────────────────────────────────
 // Composio tool names sont préfixés par le toolkit slug en MAJUSCULES :
 // GMAIL_SEND_EMAIL, SLACK_POST_MESSAGE, NOTION_CREATE_PAGE, etc. On extrait
@@ -128,6 +217,9 @@ export class SSEAdapter {
   private cleanup: (() => void) | null = null;
   private encoder = new TextEncoder();
   private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
+  // State per-stream pour filter les balises <think>...</think> de Kimi.
+  // Une instance d'adapter = un run = un état isolé.
+  private thinkState: ThinkStripState = { inside: false, pending: "" };
 
   constructor(bus: RunEventBus) {
     this.cleanup = bus.on((event) => this.handleEvent(event));
@@ -185,6 +277,19 @@ export class SSEAdapter {
   }
 
   private handleEvent(event: RunEvent): void {
+    // Flush du buffer think-strip avant la fin du run : si du contenu restait
+    // bufferisé (tail ambigu type "<" non suivi de tag), on l'émet en dernier
+    // text_delta. Sinon il serait perdu (state.pending = "" au prochain run).
+    if (
+      event.type === "run_completed" ||
+      event.type === "run_failed" ||
+      event.type === "run_aborted"
+    ) {
+      const tail = flushThinkBuffer(this.thinkState);
+      if (tail) {
+        this.send({ type: "text_delta", delta: tail });
+      }
+    }
     const sse = this.toSSE(event);
     if (sse) this.send(sse);
   }
@@ -316,12 +421,15 @@ export class SSEAdapter {
         };
 
       // ── Text streaming ───────────────────────────────────
-      // Strip emoji glyphs server-side before forwarding to the UI.
-      // Rule 7 of the system prompt forbids them, but the model occasionally
-      // slips (and synthetic retrieval / research paths bypass it entirely).
-      // Doing the strip here covers every text_delta exit point.
+      // 1. Strip emoji glyphs (rule 7 system prompt, modèle slip parfois).
+      // 2. Strip <think>...</think> de Kimi K2.5/K2.6 (reasoning leak
+      //    via Hyperbolic CLI). Stateful per-stream — robuste au split sur
+      //    plusieurs deltas. Last line of defense, couvre tous les paths
+      //    (ai-pipeline, planner, recovery) qui produisent des text_delta.
       case "text_delta": {
-        const cleaned = stripEmoji(event.delta);
+        const unthought = stripThinkTags(event.delta, this.thinkState);
+        if (!unthought) return null;
+        const cleaned = stripEmoji(unthought);
         if (!cleaned) return null;
         return { type: "text_delta", delta: cleaned };
       }

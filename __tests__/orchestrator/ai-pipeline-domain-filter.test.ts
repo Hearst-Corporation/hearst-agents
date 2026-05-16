@@ -36,6 +36,7 @@ vi.mock("@/lib/connectors/composio/to-ai-tools", () => ({
 
 vi.mock("@/lib/engine/orchestrator/system-prompt", () => ({
   buildAgentSystemPrompt,
+  ORCHESTRATOR_MODEL: "kimi-k2.5",
 }));
 
 vi.mock("@ai-sdk/anthropic", () => ({

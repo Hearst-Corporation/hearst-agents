@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { BRIEFING_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import { getSummary } from "./conversation-summary";
@@ -67,17 +67,17 @@ export async function generateBriefing(params: {
 
   if (!summary) return GENERIC_BRIEFING;
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) return GENERIC_BRIEFING;
 
-  const anthropic = new Anthropic({ apiKey });
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
 
   try {
-    const res = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
+    const res = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 500,
-      system: BRIEFING_SYSTEM_PROMPT,
       messages: [
+        { role: "system", content: BRIEFING_SYSTEM_PROMPT },
         {
           role: "user",
           content: [
@@ -92,8 +92,7 @@ export async function generateBriefing(params: {
       ],
     });
 
-    const block = res.content[0];
-    const text = block.type === "text" ? block.text : "";
+    const text = res.choices[0]?.message?.content ?? "";
     if (!text) return GENERIC_BRIEFING;
 
     return {

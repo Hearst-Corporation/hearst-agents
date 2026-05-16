@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { z } from "zod";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { getRedis } from "@/lib/platform/redis/client";
@@ -23,10 +23,10 @@ export const SummarySchema = z.object({
 
 type MessageEntry = { role: "user" | "assistant"; content: string };
 
-function client(): Anthropic | null {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+function client(): OpenAI | null {
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) return null;
-  return new Anthropic({ apiKey });
+  return new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
 }
 
 /**
@@ -59,11 +59,11 @@ async function compress(messages: MessageEntry[]): Promise<string> {
   if (!anthropic) return conversationText;
 
   try {
-    const res = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
+    const res = await anthropic.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 250,
-      system: CONV_SUMMARY_SYSTEM_PROMPT,
       messages: [
+        { role: "system", content: CONV_SUMMARY_SYSTEM_PROMPT },
         {
           role: "user",
           content: [
@@ -75,8 +75,7 @@ async function compress(messages: MessageEntry[]): Promise<string> {
         },
       ],
     });
-    const block = res.content[0];
-    return block.type === "text" ? block.text : conversationText;
+    return res.choices[0]?.message?.content ?? conversationText;
   } catch (err) {
     console.warn("[memory/summary] compression LLM échouée:", err);
     return conversationText;

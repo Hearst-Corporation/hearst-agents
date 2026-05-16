@@ -23,6 +23,7 @@ import type { RunEventBus } from "@/lib/events/bus";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 import { searchWeb, type WebSearchResult } from "@/lib/tools/handlers/web-search";
 import { extractResearchQuery, isReportIntent } from "./research-intent";
+import { ORCHESTRATOR_MODEL } from "./system-prompt";
 
 /**
  * System prompt pour synthesizeReport — appelé uniquement si le summary
@@ -237,7 +238,7 @@ export async function runResearchReport(input: ResearchReportInput): Promise<voi
         runArtifact: true,
         reportMeta: { signals: [], severity: "info" },
         runId: engine.id,
-        modelUsed: "claude-sonnet-4-6",
+        modelUsed: "kimi-k2.5",
         latencyMs: Date.now() - runStartedAt,
         sourceUrls: searchResult.results.slice(0, 12).map((r) => ({
           url: r.url,
@@ -320,7 +321,7 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     .join("\n\n");
 
   const response = await client.chat.completions.create({
-    model: "kimi-k2-5",
+    model: ORCHESTRATOR_MODEL,
     max_tokens: 4096,
     messages: [
       { role: "system", content: RESEARCH_REPORT_SYSTEM_PROMPT },

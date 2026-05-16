@@ -32,13 +32,10 @@ const hoisted = vi.hoisted(() => ({
   createPlanSpy: vi.fn(),
 }));
 
-vi.mock("@anthropic-ai/sdk", () => ({
-  default: class MockAnthropic {
-    messages = {
-      create: hoisted.messagesCreate,
-    };
-    beta = {
-      messages: {
+vi.mock("openai", () => ({
+  default: class MockOpenAI {
+    chat = {
+      completions: {
         create: hoisted.messagesCreate,
       },
     };
@@ -223,25 +220,32 @@ describe("C — Planner validation (remapping agents)", () => {
 
   it("remappe un agent invalide pour le domaine vers le premier agent valide", async () => {
     hoisted.messagesCreate.mockResolvedValue({
-      content: [
+      choices: [
         {
-          type: "tool_use",
-          id: "tu1",
-          name: "create_plan",
-          input: {
-            reasoning: "r",
-            steps: [
+          message: {
+            tool_calls: [
               {
-                intent: "Lire emails",
-                agent: "FinanceAgent",
-                task_description: "t",
-                expected_output: "summary",
+                id: "tu1",
+                function: {
+                  name: "create_plan",
+                  arguments: JSON.stringify({
+                    reasoning: "r",
+                    steps: [
+                      {
+                        intent: "Lire emails",
+                        agent: "FinanceAgent",
+                        task_description: "t",
+                        expected_output: "summary",
+                      },
+                    ],
+                  }),
+                },
               },
             ],
           },
         },
       ],
-      usage: { input_tokens: 10, output_tokens: 5 },
+      usage: { prompt_tokens: 10, completion_tokens: 5 },
     });
 
     await planFromIntent(mockDb, mockEngine, "emails", [], undefined, "communication");
@@ -257,25 +261,32 @@ describe("C — Planner validation (remapping agents)", () => {
 
   it("ne remappe pas si l’agent est valide pour le domaine", async () => {
     hoisted.messagesCreate.mockResolvedValue({
-      content: [
+      choices: [
         {
-          type: "tool_use",
-          id: "tu1",
-          name: "create_plan",
-          input: {
-            reasoning: "r",
-            steps: [
+          message: {
+            tool_calls: [
               {
-                intent: "Synthèse",
-                agent: "Analyst",
-                task_description: "t",
-                expected_output: "report",
+                id: "tu1",
+                function: {
+                  name: "create_plan",
+                  arguments: JSON.stringify({
+                    reasoning: "r",
+                    steps: [
+                      {
+                        intent: "Synthèse",
+                        agent: "Analyst",
+                        task_description: "t",
+                        expected_output: "report",
+                      },
+                    ],
+                  }),
+                },
               },
             ],
           },
         },
       ],
-      usage: { input_tokens: 10, output_tokens: 5 },
+      usage: { prompt_tokens: 10, completion_tokens: 5 },
     });
 
     await planFromIntent(mockDb, mockEngine, "stripe", [], undefined, "finance");
@@ -333,8 +344,8 @@ describe("D — Delegate routing", () => {
     hoisted.getTokensMock.mockReset();
     hoisted.getTokensMock.mockResolvedValue(null);
     hoisted.messagesCreate.mockResolvedValue({
-      content: [{ type: "text", text: "Réponse mock" }],
-      usage: { input_tokens: 1, output_tokens: 2 },
+      choices: [{ message: { content: "Réponse mock" } }],
+      usage: { prompt_tokens: 1, completion_tokens: 2 },
     });
   });
 

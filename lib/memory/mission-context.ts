@@ -22,7 +22,7 @@
  * tourner sans mémoire.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { searchEmbeddings } from "@/lib/embeddings/store";
 import { updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
@@ -401,15 +401,16 @@ export async function updateMissionContextSummary(opts: UpdateSummaryOpts): Prom
 
   let nextSummary: string | null = null;
   try {
-    const anthropic = new Anthropic({ apiKey });
-    const res = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
+    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+    const res = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 600,
-      system: MISSION_CONTEXT_SYSTEM_PROMPT,
-      messages: [{ role: "user", content: userMsg }],
+      messages: [
+        { role: "system", content: MISSION_CONTEXT_SYSTEM_PROMPT },
+        { role: "user", content: userMsg },
+      ],
     });
-    const block = res.content[0];
-    nextSummary = block?.type === "text" ? block.text.trim() : null;
+    nextSummary = res.choices[0]?.message?.content?.trim() ?? null;
   } catch (err) {
     console.warn("[mission-context] updateMissionContextSummary LLM échouée:", err);
     return;

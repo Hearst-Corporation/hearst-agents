@@ -9,7 +9,7 @@
  * `kg_*_user_isolation`).
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import type { Database } from "@/lib/database.types";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { formatFewShotBlock, KG_EXTRACTION_FEWSHOT } from "@/lib/prompts/examples";
@@ -77,7 +77,7 @@ const ENTITY_TYPES: ReadonlyArray<KgNodeType> = [
   "topic",
 ];
 
-const EXTRACTION_MODEL = "claude-haiku-4-5-20251001";
+const EXTRACTION_MODEL = "kimi-k2.5";
 const EXTRACTION_MAX_TOKENS = 2048;
 
 // NOTE charte : prompt d'EXTRACTION structurée (entities/relations JSON),
@@ -122,22 +122,23 @@ export async function extractEntities(text: string): Promise<ExtractionResult> {
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    console.warn("[kg] ANTHROPIC_API_KEY manquant — extraction skip");
+    console.warn("[kg] KIMI_API_KEY manquant — extraction skip");
     return { entities: [], relations: [] };
   }
 
-  const anthropic = new Anthropic({ apiKey });
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
 
   let raw: string;
   try {
-    const res = await anthropic.messages.create({
+    const res = await client.chat.completions.create({
       model: EXTRACTION_MODEL,
       max_tokens: EXTRACTION_MAX_TOKENS,
-      system: EXTRACTION_PROMPT,
-      messages: [{ role: "user", content: trimmed }],
+      messages: [
+        { role: "system", content: EXTRACTION_PROMPT },
+        { role: "user", content: trimmed },
+      ],
     });
-    const block = res.content[0];
-    raw = block?.type === "text" ? block.text : "";
+    raw = res.choices[0]?.message?.content ?? "";
   } catch (err) {
     console.warn("[kg] extraction échouée:", err);
     return { entities: [], relations: [] };

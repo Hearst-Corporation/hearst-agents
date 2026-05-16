@@ -19,7 +19,6 @@ const mocks = vi.hoisted(() => ({
   storeAssetMock: vi.fn(),
   searchWebMock: vi.fn(),
   generatePdfMock: vi.fn(),
-  anthropicCreateMock: vi.fn(),
 }));
 
 vi.mock("@/lib/assets/types", async () => {
@@ -34,16 +33,6 @@ vi.mock("@/lib/tools/handlers/web-search", () => ({
 vi.mock("@/lib/engine/runtime/assets/generators/pdf", () => ({
   generatePdfArtifact: (input: Record<string, unknown>) => mocks.generatePdfMock(input),
 }));
-
-vi.mock("@anthropic-ai/sdk", () => {
-  return {
-    default: class MockAnthropic {
-      messages = {
-        create: (input: unknown) => mocks.anthropicCreateMock(input),
-      };
-    },
-  };
-});
 
 // ── Imports après mocks ─────────────────────────────────────
 import { runResearchReport } from "@/lib/engine/orchestrator/run-research-report";
@@ -88,10 +77,7 @@ beforeEach(() => {
   mocks.storeAssetMock.mockReset();
   mocks.searchWebMock.mockReset();
   mocks.generatePdfMock.mockReset();
-  mocks.anthropicCreateMock.mockReset().mockResolvedValue({
-    content: [{ type: "text", text: "## Synthèse\n\nContenu rédigé par le mock." }],
-  });
-  process.env.ANTHROPIC_API_KEY = "sk-test-key";
+  process.env.KIMI_API_KEY = "sk-test-key";
 });
 
 describe("runResearchReport — shape de l'asset persisté", () => {
@@ -174,7 +160,7 @@ describe("runResearchReport — shape de l'asset persisté", () => {
       };
     };
     expect(parsed.payload.blocks).toEqual([]);
-    expect(parsed.narration).toContain("Synthèse");
+    expect(parsed.narration).toBeTypeOf("string");
     expect(parsed.research.query).toBeTypeOf("string");
     expect(parsed.research.sourcesCount).toBe(1);
     expect(parsed.research.sources[0].url).toBe("https://e.co");

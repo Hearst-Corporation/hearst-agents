@@ -5,9 +5,13 @@ const { messagesCreate, createPlanSpy } = vi.hoisted(() => ({
   createPlanSpy: vi.fn(),
 }));
 
-vi.mock("@anthropic-ai/sdk", () => ({
-  default: class MockAnthropic {
-    messages = { create: messagesCreate };
+vi.mock("openai", () => ({
+  default: class MockOpenAI {
+    chat = {
+      completions: {
+        create: messagesCreate,
+      },
+    };
   },
 }));
 
@@ -29,21 +33,28 @@ function fakeEngine() {
 
 function okResponse(text = "ok") {
   return {
-    content: [
+    choices: [
       {
-        type: "tool_use",
-        id: "t1",
-        name: "text_response",
-        input: { text },
+        message: {
+          tool_calls: [
+            {
+              id: "t1",
+              function: {
+                name: "text_response",
+                arguments: JSON.stringify({ text }),
+              },
+            },
+          ],
+        },
       },
     ],
-    usage: { input_tokens: 1, output_tokens: 1 },
+    usage: { prompt_tokens: 1, completion_tokens: 1 },
   };
 }
 
 describe("planFromIntent — system prompt blocks", () => {
   beforeEach(() => {
-    process.env.ANTHROPIC_API_KEY = "sk-test";
+    process.env.KIMI_API_KEY = "sk-test";
     messagesCreate.mockReset();
   });
 
@@ -51,11 +62,9 @@ describe("planFromIntent — system prompt blocks", () => {
     messagesCreate.mockResolvedValueOnce(okResponse());
     await planFromIntent({} as never, fakeEngine() as never, "hello", [], { surface: "home" });
     const params = messagesCreate.mock.calls[0][0];
-    expect(Array.isArray(params.system)).toBe(true);
-    expect(params.system).toHaveLength(2);
-    expect(params.system[0].cache_control).toEqual({ type: "ephemeral" });
-    expect(params.system[1].cache_control).toBeUndefined();
-    expect(params.system[1].text).toMatch(/INLINE CONNECT/);
+    const systemMessages = params.messages.filter((m: { role: string }) => m.role === "system");
+    expect(systemMessages).toHaveLength(2);
+    expect(systemMessages[1].content).toMatch(/INLINE CONNECT/);
   });
 
   it("appends a SECOND uncached block listing per-user actions when provided", async () => {
@@ -64,12 +73,10 @@ describe("planFromIntent — system prompt blocks", () => {
       discoveredActions: ["GMAIL_SEND_EMAIL", "SLACKBOT_SEND_MESSAGE"],
     });
     const params = messagesCreate.mock.calls[0][0];
-    expect(params.system).toHaveLength(2);
-    // Static block keeps its cache_control; the dynamic suffix MUST NOT cache.
-    expect(params.system[0].cache_control).toEqual({ type: "ephemeral" });
-    expect(params.system[1].cache_control).toBeUndefined();
-    expect(params.system[1].text).toContain("GMAIL_SEND_EMAIL");
-    expect(params.system[1].text).toContain("SLACKBOT_SEND_MESSAGE");
+    const systemMessages = params.messages.filter((m: { role: string }) => m.role === "system");
+    expect(systemMessages).toHaveLength(2);
+    expect(systemMessages[1].content).toContain("GMAIL_SEND_EMAIL");
+    expect(systemMessages[1].content).toContain("SLACKBOT_SEND_MESSAGE");
   });
 
   it("includes the draft-first write rule when discoveredActions contains a write op", async () => {
@@ -77,7 +84,9 @@ describe("planFromIntent — system prompt blocks", () => {
     await planFromIntent({} as never, fakeEngine() as never, "hi", [], {
       discoveredActions: ["GMAIL_SEND_EMAIL"],
     });
-    const text = messagesCreate.mock.calls[0][0].system[1].text as string;
+    const params = messagesCreate.mock.calls[0][0];
+    const systemMessages = params.messages.filter((m: { role: string }) => m.role === "system");
+    const text = systemMessages[1].content as string;
     expect(text).toMatch(/WRITE ACTIONS DETECTED/);
     expect(text).toMatch(/Confirmer l'envoi/);
     expect(text).toMatch(/non-negotiable/);
@@ -88,7 +97,9 @@ describe("planFromIntent — system prompt blocks", () => {
     await planFromIntent({} as never, fakeEngine() as never, "hi", [], {
       discoveredActions: ["GMAIL_FETCH_EMAILS", "GMAIL_LIST_THREADS"],
     });
-    const text = messagesCreate.mock.calls[0][0].system[1].text as string;
+    const params = messagesCreate.mock.calls[0][0];
+    const systemMessages = params.messages.filter((m: { role: string }) => m.role === "system");
+    const text = systemMessages[1].content as string;
     expect(text).not.toMatch(/WRITE ACTIONS DETECTED/);
   });
 
@@ -98,7 +109,9 @@ describe("planFromIntent — system prompt blocks", () => {
     await planFromIntent({} as never, fakeEngine() as never, "hi", [], {
       discoveredActions: lots,
     });
-    const text = messagesCreate.mock.calls[0][0].system[1].text as string;
+    const params = messagesCreate.mock.calls[0][0];
+    const systemMessages = params.messages.filter((m: { role: string }) => m.role === "system");
+    const text = systemMessages[1].content as string;
     expect(text).toContain("APP_ACTION_0");
     expect(text).toContain("APP_ACTION_79");
     expect(text).not.toContain("APP_ACTION_80");
@@ -109,21 +122,28 @@ describe("planFromIntent — system prompt blocks", () => {
     messagesCreate.mockResolvedValueOnce(okResponse());
     await planFromIntent({} as never, fakeEngine() as never, "hi", [], "inbox", "communication");
     const params = messagesCreate.mock.calls[0][0];
-    // 2 blocks now: cached static + dynamic (inline-connect guidance always present)
-    expect(params.system).toHaveLength(2);
+    const systemMessages = params.messages.filter((m: { role: string }) => m.role === "system");
+    expect(systemMessages).toHaveLength(2);
   });
 
   it("handles request_connection tool_use in the LLM response", async () => {
     messagesCreate.mockResolvedValueOnce({
-      content: [
+      choices: [
         {
-          type: "tool_use",
-          id: "tc1",
-          name: "request_connection",
-          input: { app: "Slack", reason: "Pour envoyer ce message." },
+          message: {
+            tool_calls: [
+              {
+                id: "tc1",
+                function: {
+                  name: "request_connection",
+                  arguments: JSON.stringify({ app: "Slack", reason: "Pour envoyer ce message." }),
+                },
+              },
+            ],
+          },
         },
       ],
-      usage: { input_tokens: 1, output_tokens: 1 },
+      usage: { prompt_tokens: 1, completion_tokens: 1 },
     });
     const { planFromIntent: pf } = await import("@/lib/engine/orchestrator/planner");
     const r = await pf({} as never, fakeEngine() as never, "envoie un slack", [], {
