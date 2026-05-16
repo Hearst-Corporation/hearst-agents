@@ -1,5 +1,6 @@
-import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { ACTION_ITEMS_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
 
 /**
@@ -28,7 +29,10 @@ export const ACTION_ITEMS_SYSTEM_PROMPT = composeEditorialPrompt(
   ].join("\n"),
 );
 
-export async function extractActionItems(transcript: string): Promise<
+export async function extractActionItems(
+  transcript: string,
+  tenantId?: string,
+): Promise<
   Array<{
     action: string;
     owner?: string;
@@ -37,12 +41,13 @@ export async function extractActionItems(transcript: string): Promise<
 > {
   if (!transcript.trim()) return [];
 
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) return [];
+  if (!process.env.KIMI_API_KEY) return [];
+
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) return [];
 
   try {
-    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
-    const msg = await client.chat.completions.create({
+    const provider = getProvider("kimi");
+    const res = await provider.chat({
       model: "kimi-k2.5",
       max_tokens: 1024,
       messages: [
@@ -53,8 +58,9 @@ export async function extractActionItems(transcript: string): Promise<
         },
       ],
     });
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
 
-    const text = msg.choices[0]?.message?.content?.trim() ?? "";
+    const text = res.content.trim();
 
     const jsonMatch = text.match(/\[[\s\S]*\]/);
     if (!jsonMatch) return [];
@@ -70,7 +76,12 @@ export async function extractActionItems(transcript: string): Promise<
       ...(item.owner ? { owner: item.owner } : {}),
       ...(item.deadline ? { deadline: item.deadline } : {}),
     }));
-  } catch {
+  } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     return [];
   }
 }

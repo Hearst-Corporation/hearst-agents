@@ -6,12 +6,15 @@
  * comparer la voix produite. Pas d'historique, pas d'outils — la valeur
  * comparée est la voix sur un message simple.
  *
- * Fail-soft : si Anthropic n'est pas configuré, on renvoie 503.
+ * Fail-soft : si Kimi n'est pas configuré, on renvoie 503.
  */
 
 import { type NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
 import { abTestPersonaSchema } from "@/lib/contracts/personas";
+import { guardAndReserveCredits } from "@/lib/credits/client";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
+import type { LLMProvider } from "@/lib/llm/types";
 import { getPersonaById } from "@/lib/personas/store";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import { requireScope } from "@/lib/platform/auth/scope";
@@ -22,12 +25,12 @@ const MODEL = "kimi-k2.5";
 const MAX_TOKENS = 800;
 
 async function runOne(opts: {
-  client: OpenAI;
+  provider: LLMProvider;
   systemPrompt: string;
   message: string;
 }): Promise<{ text: string; latencyMs: number }> {
   const t0 = Date.now();
-  const res = await opts.client.chat.completions.create({
+  const res = await opts.provider.chat({
     model: MODEL,
     max_tokens: MAX_TOKENS,
     messages: [
@@ -35,7 +38,7 @@ async function runOne(opts: {
       { role: "user", content: opts.message },
     ],
   });
-  const text = (res.choices[0]?.message?.content || "").trim();
+  const text = (res.content || "").trim();
   return { text, latencyMs: Date.now() - t0 };
 }
 
@@ -66,12 +69,12 @@ export async function POST(req: NextRequest) {
 
   const [pA, pB] = await Promise.all([
     getPersonaById(personaIdA, {
-      userId: scope.userId,
-      tenantId: scope.tenantId,
+      userId: scope!.userId,
+      tenantId: scope!.tenantId,
     }),
     getPersonaById(personaIdB, {
-      userId: scope.userId,
-      tenantId: scope.tenantId,
+      userId: scope!.userId,
+      tenantId: scope!.tenantId,
     }),
   ]);
 
@@ -95,20 +98,50 @@ export async function POST(req: NextRequest) {
   const sysA = addonA ? `${baseSystem}\n\n${addonA}` : baseSystem;
   const sysB = addonB ? `${baseSystem}\n\n${addonB}` : baseSystem;
 
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) {
+  if (!process.env.KIMI_API_KEY) {
     return NextResponse.json(
       { error: "llm_unavailable", message: "KIMI_API_KEY non configuré." },
       { status: 503 },
     );
   }
 
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+  // Budget tenant — 2 appels parallèles → coût × 2, fail-closed avant LLM
+  const jobId = `ab-test-${personaIdA}-${personaIdB}-${Date.now()}`;
+  const creditGuard = await guardAndReserveCredits({
+    userId: scope!.userId,
+    tenantId: scope!.tenantId,
+    estimatedCostUsd: 0.1, // 2 × 0.05 upper bound
+    jobId,
+    jobKind: "simulation",
+  });
+  if (!creditGuard.allowed) {
+    return NextResponse.json(
+      {
+        error: "insufficient_credits",
+        reason: creditGuard.reason,
+        availableUsd: creditGuard.availableUsd,
+      },
+      { status: 402 },
+    );
+  }
+
+  // Circuit breaker — fail-fast si provider dégradé
+  if (defaultCircuitBreaker.isOpen("kimi", scope!.tenantId)) {
+    return NextResponse.json(
+      { error: "llm_unavailable", message: "Circuit breaker ouvert pour kimi." },
+      { status: 503 },
+    );
+  }
+
+  const provider = getProvider("kimi");
+
   try {
     const [resA, resB] = await Promise.all([
-      runOne({ client, systemPrompt: sysA, message }),
-      runOne({ client, systemPrompt: sysB, message }),
+      runOne({ provider, systemPrompt: sysA, message }),
+      runOne({ provider, systemPrompt: sysB, message }),
     ]);
+
+    defaultCircuitBreaker.recordSuccess("kimi", scope!.tenantId);
 
     return NextResponse.json({
       message,
@@ -116,6 +149,11 @@ export async function POST(req: NextRequest) {
       b: { persona: pB, response: resB.text, latencyMs: resB.latencyMs },
     });
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      scope!.tenantId,
+    );
     const msg = err instanceof Error ? err.message : "ab_test_failed";
     console.warn("[ab-test] failed:", msg);
     return NextResponse.json({ error: msg }, { status: 502 });

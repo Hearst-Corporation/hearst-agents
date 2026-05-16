@@ -16,9 +16,10 @@
  * payload partiel (`participants: []`, `suggestedAgenda: ""`).
  */
 
-import OpenAI from "openai";
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import type { KgNode } from "@/lib/memory/kg";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -330,9 +331,9 @@ const AGENDA_PROMPT = [
 async function generateSuggestedAgenda(
   eventTitle: string,
   participants: PreMeetingParticipant[],
+  tenantId: string,
 ): Promise<string> {
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) return "";
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) return "";
 
   // Compose un input compact pour Haiku.
   const participantSnippets = participants
@@ -351,9 +352,9 @@ async function generateSuggestedAgenda(
     participantSnippets || "(aucun participant identifié)",
   ].join("\n");
 
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
   try {
-    const res = await client.chat.completions.create({
+    const provider = getProvider("kimi");
+    const res = await provider.chat({
       model: HAIKU_MODEL,
       max_tokens: 200,
       messages: [
@@ -361,9 +362,14 @@ async function generateSuggestedAgenda(
         { role: "user", content: userMessage },
       ],
     });
-    const raw = res.choices[0]?.message?.content ?? "";
-    return raw.trim().replace(/\s+/g, " ").slice(0, SUGGESTED_AGENDA_MAX);
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
+    return res.content.trim().replace(/\s+/g, " ").slice(0, SUGGESTED_AGENDA_MAX);
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn("[pre-meeting-intel] Haiku agenda échoué :", err);
     return "";
   }
@@ -426,7 +432,7 @@ export async function getPreMeetingIntel(
     }),
   );
 
-  const suggestedAgenda = await generateSuggestedAgenda(event.title, participants);
+  const suggestedAgenda = await generateSuggestedAgenda(event.title, participants, scope.tenantId);
 
   const intel: PreMeetingIntel = {
     eventId: event.id,

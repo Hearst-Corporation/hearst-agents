@@ -3,10 +3,27 @@
  * fallback déterministe.
  */
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { DAILY_BRIEF_SYSTEM_PROMPT, generateDailyBriefNarration } from "@/lib/daily-brief/generate";
 import type { DailyBriefData } from "@/lib/daily-brief/types";
 import { DAILY_BRIEF_FEWSHOT_FR } from "@/lib/prompts/examples";
+
+vi.mock("@/lib/llm/router", () => ({
+  getProvider: vi.fn(() => ({
+    name: "kimi",
+    chat: vi.fn().mockRejectedValue(new Error("KIMI_API_KEY is not set")),
+    streamChat: vi.fn(),
+  })),
+  resetLlmProviderCache: vi.fn(),
+}));
+
+vi.mock("@/lib/llm/circuit-breaker", () => ({
+  defaultCircuitBreaker: {
+    isOpen: vi.fn(() => false),
+    recordSuccess: vi.fn(),
+    recordFailure: vi.fn(),
+  },
+}));
 
 const EMPTY_DATA: DailyBriefData = {
   emails: [],
@@ -59,10 +76,7 @@ describe("DAILY_BRIEF_FEWSHOT_FR", () => {
 });
 
 describe("generateDailyBriefNarration (fallback déterministe)", () => {
-  it("retourne fallback approprié quand ANTHROPIC_API_KEY absent (data vide)", async () => {
-    const original = process.env.ANTHROPIC_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
-
+  it("retourne fallback approprié quand provider throw (data vide)", async () => {
     try {
       const result = await generateDailyBriefNarration(EMPTY_DATA);
       expect(result.lead).toContain("Aucun signal");
@@ -72,14 +86,10 @@ describe("generateDailyBriefNarration (fallback déterministe)", () => {
       expect(result.action).toBeTruthy();
       expect(result.costUsd).toBe(0);
     } finally {
-      if (original) process.env.ANTHROPIC_API_KEY = original;
     }
   });
 
-  it("retourne fallback dégradé avec stats quand data non-vide mais sans API key", async () => {
-    const original = process.env.ANTHROPIC_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
-
+  it("retourne fallback dégradé avec stats quand data non-vide mais provider throw", async () => {
     try {
       const result = await generateDailyBriefNarration({
         ...EMPTY_DATA,
@@ -100,7 +110,6 @@ describe("generateDailyBriefNarration (fallback déterministe)", () => {
       expect(result.lead.toLowerCase()).toContain("dégradé");
       expect(result.signals).toContain("slack:error");
     } finally {
-      if (original) process.env.ANTHROPIC_API_KEY = original;
     }
   });
 });

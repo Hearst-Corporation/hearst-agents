@@ -24,6 +24,23 @@ vi.mock("@/lib/connectors/composio/client", () => ({
   isComposioConfigured: mocks.isComposioConfigured,
 }));
 
+vi.mock("@/lib/llm/router", () => ({
+  getProvider: vi.fn(() => ({
+    name: "kimi",
+    chat: vi.fn().mockRejectedValue(new Error("KIMI_API_KEY is not set")),
+    streamChat: vi.fn(),
+  })),
+  resetLlmProviderCache: vi.fn(),
+}));
+
+vi.mock("@/lib/llm/circuit-breaker", () => ({
+  defaultCircuitBreaker: {
+    isOpen: vi.fn(() => false),
+    recordSuccess: vi.fn(),
+    recordFailure: vi.fn(),
+  },
+}));
+
 import { generateInboxBrief } from "@/lib/inbox/inbox-brief";
 
 describe("generateInboxBrief", () => {

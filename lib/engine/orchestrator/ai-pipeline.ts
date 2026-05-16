@@ -32,6 +32,7 @@ import { createScheduledMission } from "@/lib/engine/runtime/missions/create-mis
 import { addMission } from "@/lib/engine/runtime/missions/store";
 import { saveScheduledMission as persistMission } from "@/lib/engine/runtime/state/adapter";
 import type { RunEventBus } from "@/lib/events/bus";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
 import { computeCostUsd } from "@/lib/llm/pricing";
 import { generateBriefing } from "@/lib/memory/briefing";
@@ -113,7 +114,7 @@ export interface AiPipelineInput {
 
 const kimi = createOpenAI({
   apiKey: process.env.KIMI_API_KEY ?? "",
-  baseURL: "https://api.hypercli.com/v1",
+  baseURL: process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
 });
 
 // Fallback OpenAI — utilisé si Kimi est indisponible (rate limit, downtime).
@@ -808,6 +809,15 @@ export async function runAiPipeline(
         : {}),
     });
 
+  // F002 — Circuit breaker guard avant le stream.
+  // Si le breaker est ouvert pour ce tenant, on coupe immédiatement.
+  if (defaultCircuitBreaker.isOpen("kimi", resolvedTenantId)) {
+    const msg = "[AiPipeline] Circuit breaker OPEN pour kimi — requête annulée";
+    console.error(msg);
+    await engine.fail(msg);
+    return;
+  }
+
   const result = runStream();
 
   try {
@@ -1284,10 +1294,16 @@ export async function runAiPipeline(
       }
     }
 
+    defaultCircuitBreaker.recordSuccess("kimi", resolvedTenantId);
     await engine.complete();
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error("[AiPipeline] streamText failed:", msg);
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(msg),
+      resolvedTenantId,
+    );
     await engine.fail(msg);
   }
 }

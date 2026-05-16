@@ -16,11 +16,12 @@
  * Calendar : tool natif Google.
  */
 
-import OpenAI from "openai";
 import { executeComposioAction, isComposioConfigured } from "@/lib/connectors/composio/client";
 import { getTodayEvents } from "@/lib/connectors/google/calendar";
 import { getRecentEmails } from "@/lib/connectors/google/gmail";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { formatFewShotBlock, INBOX_PRIORITY_FEWSHOT } from "@/lib/prompts/examples";
 
 /**
@@ -199,9 +200,12 @@ interface ClassifiedItem {
   summary: string;
 }
 
-async function classifyBatch(items: InboxItem[]): Promise<Map<string, ClassifiedItem>> {
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey || items.length === 0) return new Map();
+async function classifyBatch(
+  items: InboxItem[],
+  tenantId: string,
+): Promise<Map<string, ClassifiedItem>> {
+  if (items.length === 0) return new Map();
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) return new Map();
 
   // Construit un payload compact : id + kind + title + extrait
   const compact = items.slice(0, 30).map((it) => ({
@@ -211,9 +215,9 @@ async function classifyBatch(items: InboxItem[]): Promise<Map<string, Classified
     excerpt: it.summary.slice(0, 200),
   }));
 
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
   try {
-    const res = await client.chat.completions.create({
+    const provider = getProvider("kimi");
+    const res = await provider.chat({
       model: HAIKU_MODEL,
       max_tokens: 1500,
       messages: [
@@ -230,7 +234,8 @@ async function classifyBatch(items: InboxItem[]): Promise<Map<string, Classified
       ],
     });
 
-    const text = res.choices[0]?.message?.content ?? "";
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
+    const text = res.content;
     const match = text.match(/\[[\s\S]*\]/);
     if (!match) return new Map();
 
@@ -250,6 +255,11 @@ async function classifyBatch(items: InboxItem[]): Promise<Map<string, Classified
     }
     return out;
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn("[inbox-brief] Haiku classify failed, fallback heuristic:", err);
     return new Map();
   }
@@ -317,7 +327,7 @@ export interface GenerateInboxBriefOptions {
 
 export async function generateInboxBrief(
   userId: string,
-  _tenantId: string,
+  tenantId: string,
   opts: GenerateInboxBriefOptions = {},
 ): Promise<InboxBrief> {
   const gmailLimit = opts.gmailLimit ?? 20;
@@ -357,7 +367,7 @@ export async function generateInboxBrief(
   }
 
   // Classify via Haiku (1 batch)
-  const classified = await classifyBatch(items);
+  const classified = await classifyBatch(items, tenantId);
 
   for (const item of items) {
     const c = classified.get(item.id);

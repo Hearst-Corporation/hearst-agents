@@ -7,7 +7,6 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import OpenAI from "openai";
 import {
   type Domain,
   getValidAgentsForDomain,
@@ -16,6 +15,10 @@ import {
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import { PlanStore } from "@/lib/engine/runtime/plans/store";
 import type { Plan, PlanStep } from "@/lib/engine/runtime/plans/types";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { defaultMetrics } from "@/lib/llm/metrics";
+import { getProvider } from "@/lib/llm/router";
+import type { ChatMessage } from "@/lib/llm/types";
 import {
   ORCHESTRATOR_MODEL,
   ORCHESTRATOR_SYSTEM_PROMPT,
@@ -57,6 +60,10 @@ export interface PlanFromIntentOptions {
    * (small relative cost, full per-user awareness).
    */
   discoveredActions?: string[];
+  /** Tenant identifier — propagé au circuit breaker (clé per-tenant Phase 5). */
+  tenantId?: string;
+  /** User identifier — pour les métriques et le rate limiter. */
+  userId?: string;
 }
 
 export async function planFromIntent(
@@ -76,12 +83,14 @@ export async function planFromIntent(
 
   const { surface, capabilityDomain, discoveredActions } = opts;
 
-  const client = new OpenAI({
-    apiKey: process.env.KIMI_API_KEY!,
-    baseURL: "https://api.hypercli.com/v1",
-  });
+  // F002 — Circuit breaker guard.
+  if (defaultCircuitBreaker.isOpen("kimi", opts.tenantId)) {
+    const msg = "[Planner] Circuit breaker OPEN pour kimi — requête annulée";
+    console.error(msg);
+    return { kind: "error", error: msg };
+  }
 
-  const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+  const chatMessages: ChatMessage[] = [
     { role: "system", content: ORCHESTRATOR_SYSTEM_PROMPT },
     ...conversationHistory.map((m) => ({
       role: m.role as "user" | "assistant",
@@ -95,50 +104,80 @@ export async function planFromIntent(
 
   const dynamicSuffix = buildDynamicSystemSuffix(discoveredActions ?? []);
   if (dynamicSuffix) {
-    messages.push({ role: "system", content: dynamicSuffix });
+    chatMessages.push({ role: "system", content: dynamicSuffix });
   }
 
   // Convert Anthropic-style tools (input_schema) to OpenAI function tools
-  const tools: OpenAI.Chat.ChatCompletionTool[] = [
-    PLAN_TOOL,
-    RESPOND_TOOL,
-    REQUEST_CONNECTION_TOOL,
-  ].map((tool) => ({
-    type: "function",
-    function: {
-      name: tool.name,
-      description: tool.description,
-      parameters: tool.input_schema,
-    },
-  }));
-
-  let response: OpenAI.Chat.Completions.ChatCompletion;
+  // KimiProvider.chat() utilise messages sans tool_calls — on passe les outils
+  // via le prompt system (suffix) plutôt que via un paramètre tools dédié.
+  // Pour conserver la compatibilité du parsing de réponse, on utilise un appel
+  // direct au provider via getProvider("kimi").chat().
+  //
+  // Note: ChatRequest ne supporte pas nativement tool_choice/tools —
+  // le modèle Kimi produit du JSON structuré à partir du system prompt.
+  let llmResponse: { content: string; tokens_in: number; tokens_out: number; latency_ms: number };
   try {
-    response = await client.chat.completions.create({
+    llmResponse = await getProvider("kimi").chat({
       model: ORCHESTRATOR_MODEL,
+      messages: chatMessages,
       max_tokens: 4096,
-      messages,
-      tools,
-      tool_choice: "auto",
+      temperature: 0,
+    });
+    defaultCircuitBreaker.recordSuccess("kimi", opts.tenantId);
+    defaultMetrics.recordCall({
+      provider: "kimi",
+      model: ORCHESTRATOR_MODEL,
+      latencyMs: llmResponse.latency_ms,
+      tokensIn: llmResponse.tokens_in,
+      tokensOut: llmResponse.tokens_out,
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Unknown LLM error";
     console.error("[Orchestrator/Planner] LLM error:", msg);
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(msg),
+      opts.tenantId,
+    );
+    defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
     return { kind: "error", error: msg };
   }
 
-  const usage = response.usage;
   await engine.cost.track({
-    input_tokens: usage?.prompt_tokens ?? 0,
-    output_tokens: usage?.completion_tokens ?? 0,
+    input_tokens: llmResponse.tokens_in,
+    output_tokens: llmResponse.tokens_out,
     tool_calls: 0,
-    latency_ms: 0,
+    latency_ms: llmResponse.latency_ms,
   });
 
-  const message = response.choices[0]?.message;
-  const toolCall = message?.tool_calls?.[0] as
-    | { function: { name: string; arguments: string } }
-    | undefined;
+  // Planner uses the model's text response to extract tool call JSON.
+  // The KimiProvider returns content as plain text; we parse tool_calls
+  // from a structured JSON block the model emits inside the response.
+  const responseContent = llmResponse.content;
+
+  // Attempt to parse as JSON tool call block produced by Kimi with system prompt guidance.
+  let toolCall: { function: { name: string; arguments: string } } | undefined;
+  let rawContent: string | undefined;
+  try {
+    // Kimi (via hypercli) returns structured JSON for tool calls in the content
+    // field when system-prompted with tool schemas, formatted as:
+    // { "tool_calls": [{ "function": { "name": "...", "arguments": "..." } }] }
+    // or as a raw text_response when no tool is needed.
+    const parsed = JSON.parse(responseContent) as {
+      tool_calls?: Array<{ function: { name: string; arguments: string } }>;
+      content?: string;
+    };
+    toolCall = parsed.tool_calls?.[0];
+    rawContent = parsed.content;
+  } catch {
+    // Not JSON — treat as a direct text response.
+    rawContent = responseContent;
+  }
+
+  const message = {
+    content: rawContent,
+    tool_calls: toolCall ? [{ function: toolCall.function }] : undefined,
+  };
 
   if (!toolCall) {
     return { kind: "direct_response", text: message?.content || "OK" };

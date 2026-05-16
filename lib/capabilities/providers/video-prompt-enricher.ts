@@ -20,7 +20,8 @@
  * génération vidéo.
  */
 
-import OpenAI from "openai";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 
 export interface VideoPromptEnrichment {
   /** Prompt enrichi prêt à envoyer à Runway. */
@@ -56,21 +57,29 @@ const HEURISTIC_SUFFIX =
  * Provider-agnostique : le module ne dépend pas de Runway directement, on
  * pourra le réutiliser pour HeyGen / Veo si besoin (mêmes principes
  * cinématographiques s'appliquent).
+ *
+ * @param tenantId - Optionnel. Propagé au circuit breaker pour isolation per-tenant.
  */
-export async function enrichVideoPrompt(rawPrompt: string): Promise<VideoPromptEnrichment> {
+export async function enrichVideoPrompt(
+  rawPrompt: string,
+  tenantId?: string,
+): Promise<VideoPromptEnrichment> {
   const trimmed = rawPrompt.trim();
   if (!trimmed) {
     throw new Error("[video-prompt-enricher] rawPrompt is empty");
   }
 
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) {
+  if (!process.env.KIMI_API_KEY) {
+    return heuristicFallback(trimmed);
+  }
+
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
     return heuristicFallback(trimmed);
   }
 
   try {
-    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
-    const res = await client.chat.completions.create({
+    const provider = getProvider("kimi");
+    const res = await provider.chat({
       model: HAIKU_MODEL,
       max_tokens: 200,
       messages: [
@@ -81,8 +90,9 @@ export async function enrichVideoPrompt(rawPrompt: string): Promise<VideoPromptE
         },
       ],
     });
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
 
-    const enriched = res.choices[0]?.message?.content?.trim() ?? "";
+    const enriched = res.content.trim();
     if (!enriched || enriched.length < trimmed.length / 2) {
       // Réponse vide ou suspicieusement courte → fallback.
       return heuristicFallback(trimmed);
@@ -93,6 +103,11 @@ export async function enrichVideoPrompt(rawPrompt: string): Promise<VideoPromptE
       diff: computeDiff(trimmed, enriched),
     };
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn(
       "[video-prompt-enricher] Kimi enrichment failed, using heuristic:",
       err instanceof Error ? err.message : err,

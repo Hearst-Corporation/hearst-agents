@@ -14,6 +14,7 @@ import { defaultCircuitBreaker } from "./circuit-breaker";
 import { ComposerProvider } from "./composer";
 import { CostLimitExceededError, RateLimitExceededError } from "./errors";
 import { GeminiProvider } from "./gemini";
+import { KimiProvider } from "./kimi";
 import { defaultMetrics } from "./metrics";
 import { OpenAIProvider } from "./openai";
 import { defaultRateLimiter } from "./rate-limiter";
@@ -49,6 +50,9 @@ export function getProvider(providerName: string): LLMProvider {
         break;
       case "gemini":
         providers[key] = new GeminiProvider();
+        break;
+      case "kimi":
+        providers[key] = new KimiProvider();
         break;
       default:
         throw new Error(`Unknown LLM provider: ${providerName}`);

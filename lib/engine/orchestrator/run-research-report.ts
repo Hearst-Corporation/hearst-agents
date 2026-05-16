@@ -13,13 +13,15 @@
  */
 
 import { randomUUID } from "node:crypto";
-import OpenAI from "openai";
 import { type Asset, storeAsset } from "@/lib/assets/types";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { generatePdfArtifact } from "@/lib/engine/runtime/assets/generators/pdf";
 import type { AssetFileInfo } from "@/lib/engine/runtime/assets/types";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { defaultMetrics } from "@/lib/llm/metrics";
+import { getProvider } from "@/lib/llm/router";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 import { searchWeb, type WebSearchResult } from "@/lib/tools/handlers/web-search";
 import { extractResearchQuery, isReportIntent } from "./research-intent";
@@ -238,7 +240,7 @@ export async function runResearchReport(input: ResearchReportInput): Promise<voi
         runArtifact: true,
         reportMeta: { signals: [], severity: "info" },
         runId: engine.id,
-        modelUsed: "kimi-k2.5",
+        modelUsed: ORCHESTRATOR_MODEL,
         latencyMs: Date.now() - runStartedAt,
         sourceUrls: searchResult.results.slice(0, 12).map((r) => ({
           url: r.url,
@@ -310,29 +312,47 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     return search.summary;
   }
 
-  const client = new OpenAI({
-    apiKey: process.env.KIMI_API_KEY!,
-    baseURL: "https://api.hypercli.com/v1",
-  });
+  // F002 — Circuit breaker guard pour synthesizeReport.
+  if (defaultCircuitBreaker.isOpen("kimi")) {
+    throw new Error("[ResearchReport] Circuit breaker OPEN pour kimi — synthesis annulée");
+  }
 
   const sourcesContext = search.results
     .slice(0, 8)
     .map((r, i) => `[${i + 1}] ${r.title}\n${r.url}\n${r.snippet}`)
     .join("\n\n");
 
-  const response = await client.chat.completions.create({
-    model: ORCHESTRATOR_MODEL,
-    max_tokens: 4096,
-    messages: [
-      { role: "system", content: RESEARCH_REPORT_SYSTEM_PROMPT },
-      {
-        role: "user",
-        content: `Rédige le rapport sur : "${query}"\n\nSources disponibles (cite par leur numéro quand factuel) :\n${sourcesContext}`,
-      },
-    ],
-  });
+  let llmResponse: { content: string; tokens_in: number; tokens_out: number; latency_ms: number };
+  try {
+    llmResponse = await getProvider("kimi").chat({
+      model: ORCHESTRATOR_MODEL,
+      max_tokens: 4096,
+      messages: [
+        { role: "system", content: RESEARCH_REPORT_SYSTEM_PROMPT },
+        {
+          role: "user",
+          content: `Rédige le rapport sur : "${query}"\n\nSources disponibles (cite par leur numéro quand factuel) :\n${sourcesContext}`,
+        },
+      ],
+    });
+    defaultCircuitBreaker.recordSuccess("kimi");
+    defaultMetrics.recordCall({
+      provider: "kimi",
+      model: ORCHESTRATOR_MODEL,
+      latencyMs: llmResponse.latency_ms,
+      tokensIn: llmResponse.tokens_in,
+      tokensOut: llmResponse.tokens_out,
+    });
+  } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+    );
+    defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
+    throw err;
+  }
 
-  return response.choices[0]?.message?.content ?? "";
+  return llmResponse.content;
 }
 
 /**

@@ -1,6 +1,7 @@
-import OpenAI from "openai";
 import { z } from "zod";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { getRedis } from "@/lib/platform/redis/client";
 import { CONV_SUMMARY_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
 import { fenceUntrusted } from "./untrusted-fence";
@@ -23,12 +24,6 @@ export const SummarySchema = z.object({
 
 type MessageEntry = { role: "user" | "assistant"; content: string };
 
-function client(): OpenAI | null {
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) return null;
-  return new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
-}
-
 /**
  * Prompt compression conversation — éditeur d'archives.
  *
@@ -50,16 +45,20 @@ export const CONV_SUMMARY_SYSTEM_PROMPT = composeEditorialPrompt(
   ].join("\n"),
 );
 
-async function compress(messages: MessageEntry[]): Promise<string> {
-  const anthropic = client();
+async function compress(messages: MessageEntry[], tenantId?: string): Promise<string> {
   const conversationText = messages
     .map((m) => `${m.role === "user" ? "Utilisateur" : "Assistant"}: ${m.content}`)
     .join("\n\n");
 
-  if (!anthropic) return conversationText;
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
+    console.warn("[memory/summary] circuit breaker kimi open — compression skip");
+    return conversationText;
+  }
+
+  const provider = getProvider("kimi");
 
   try {
-    const res = await anthropic.chat.completions.create({
+    const res = await provider.chat({
       model: "kimi-k2.5",
       max_tokens: 250,
       messages: [
@@ -75,8 +74,15 @@ async function compress(messages: MessageEntry[]): Promise<string> {
         },
       ],
     });
-    return res.choices[0]?.message?.content ?? conversationText;
+    const summary = res.content ?? conversationText;
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
+    return summary;
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn("[memory/summary] compression LLM échouée:", err);
     return conversationText;
   }
@@ -86,6 +92,7 @@ export async function appendToSummary(params: {
   userId: string;
   role: "user" | "assistant";
   content: string;
+  tenantId?: string;
 }): Promise<void> {
   const redis = getRedis();
   if (!redis) {
@@ -114,7 +121,7 @@ export async function appendToSummary(params: {
     messages.push({ role: params.role, content: params.content });
 
     if (messages.length >= MAX_BUFFER) {
-      const summary = await compress(messages);
+      const summary = await compress(messages, params.tenantId);
       await redis.set(redisKey, JSON.stringify(summary), "EX", SUMMARY_TTL);
     } else {
       await redis.set(redisKey, JSON.stringify(messages), "EX", SUMMARY_TTL);

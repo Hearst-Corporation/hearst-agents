@@ -30,13 +30,23 @@ vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: mocks.requireServerSupabase,
 }));
 
-vi.mock("openai", () => {
-  return {
-    default: class FakeOpenAI {
-      chat = { completions: { create: mocks.anthropicCreate } };
-    },
-  };
-});
+vi.mock("@/lib/llm/router", () => ({
+  getProvider: vi.fn(() => ({
+    name: "kimi",
+    chat: mocks.anthropicCreate,
+    streamChat: vi.fn(),
+  })),
+  resetLlmProviderCache: vi.fn(),
+}));
+
+vi.mock("@/lib/llm/circuit-breaker", () => ({
+  defaultCircuitBreaker: {
+    isOpen: vi.fn(() => false),
+    recordSuccess: vi.fn(),
+    recordFailure: vi.fn(),
+    getState: vi.fn(() => "CLOSED"),
+  },
+}));
 
 import { __clearPreMeetingIntelCache, getPreMeetingIntel } from "@/lib/cockpit/pre-meeting-intel";
 
@@ -105,7 +115,13 @@ describe("getPreMeetingIntel", () => {
     );
 
     mocks.anthropicCreate.mockResolvedValue({
-      choices: [{ message: { content: "Valider roadmap · Aligner équipes · Décider next call" } }],
+      content: "Valider roadmap · Aligner équipes · Décider next call",
+      model: "kimi-k2.5",
+      provider: "kimi",
+      tokens_in: 0,
+      tokens_out: 0,
+      cost_usd: 0,
+      latency_ms: 0,
     });
 
     const intel = await getPreMeetingIntel(SCOPE, "evt-1");
@@ -144,7 +160,13 @@ describe("getPreMeetingIntel", () => {
     );
 
     mocks.anthropicCreate.mockResolvedValue({
-      choices: [{ message: { content: "Tour de table · Définir prochaines étapes" } }],
+      content: "Tour de table · Définir prochaines étapes",
+      model: "kimi-k2.5",
+      provider: "kimi",
+      tokens_in: 0,
+      tokens_out: 0,
+      cost_usd: 0,
+      latency_ms: 0,
     });
 
     const intel = await getPreMeetingIntel(SCOPE, "evt-2");
@@ -182,7 +204,13 @@ describe("getPreMeetingIntel", () => {
     });
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
-      choices: [{ message: { content: "" } }],
+      content: "",
+      model: "kimi-k2.5",
+      provider: "kimi",
+      tokens_in: 0,
+      tokens_out: 0,
+      cost_usd: 0,
+      latency_ms: 0,
     });
 
     await getPreMeetingIntel(SCOPE, "evt-cache");
@@ -207,7 +235,13 @@ describe("getPreMeetingIntel", () => {
     });
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
-      choices: [{ message: { content: "" } }],
+      content: "",
+      model: "kimi-k2.5",
+      provider: "kimi",
+      tokens_in: 0,
+      tokens_out: 0,
+      cost_usd: 0,
+      latency_ms: 0,
     });
 
     await getPreMeetingIntel(SCOPE, "evt-x");
@@ -234,7 +268,13 @@ describe("getPreMeetingIntel", () => {
     ]);
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
-      choices: [{ message: { content: "Sync rapide" } }],
+      content: "Sync rapide",
+      model: "kimi-k2.5",
+      provider: "kimi",
+      tokens_in: 0,
+      tokens_out: 0,
+      cost_usd: 0,
+      latency_ms: 0,
     });
 
     const intel = await getPreMeetingIntel(SCOPE, "evt-native");

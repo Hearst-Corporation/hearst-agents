@@ -17,7 +17,7 @@ const CTX = {
   runId: "run-1",
 };
 
-const ORIGINAL_ANTHROPIC = process.env.ANTHROPIC_API_KEY;
+const ORIGINAL_KIMI = process.env.KIMI_API_KEY;
 
 describe("workflow handlers registry", () => {
   beforeEach(() => {
@@ -25,8 +25,8 @@ describe("workflow handlers registry", () => {
   });
 
   afterEach(() => {
-    if (ORIGINAL_ANTHROPIC === undefined) delete process.env.ANTHROPIC_API_KEY;
-    else process.env.ANTHROPIC_API_KEY = ORIGINAL_ANTHROPIC;
+    if (ORIGINAL_KIMI === undefined) delete process.env.KIMI_API_KEY;
+    else process.env.KIMI_API_KEY = ORIGINAL_KIMI;
   });
 
   it("expose les 5 handlers attendus", () => {
@@ -128,8 +128,8 @@ describe("workflow handlers registry", () => {
     expect(res.error).toContain("auth required");
   });
 
-  it("ai_draft_welcome_notes sans clé Anthropic → degraded fallback", async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it("ai_draft_welcome_notes sans clé Kimi → degraded fallback", async () => {
+    delete process.env.KIMI_API_KEY;
     const res = await executeWorkflowTool(
       "ai_draft_welcome_notes",
       {
@@ -154,8 +154,8 @@ describe("workflow handlers registry", () => {
     expect((res.output as { notes: unknown[] }).notes).toHaveLength(0);
   });
 
-  it("ai_classify_priority sans clé → priority normal degraded", async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it("ai_classify_priority sans clé Kimi → priority normal degraded", async () => {
+    delete process.env.KIMI_API_KEY;
     const res = await executeWorkflowTool(
       "ai_classify_priority",
       { text: "Pas d'eau chaude depuis 1h" },

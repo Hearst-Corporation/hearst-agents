@@ -1,20 +1,22 @@
 /**
  * POST /api/v2/assets/diff
  *
- * Compare 2 assets et retourne un diff sémantique synthétisé via Claude.
+ * Compare 2 assets et retourne un diff sémantique synthétisé via Kimi.
  * Body : { assetIdA, assetIdB }
  * Return : { summary, differences: Array<{ kind, description }> }
  *
- * Fail-soft : si Anthropic n'est pas configuré ou crash, on retombe sur
+ * Fail-soft : si Kimi n'est pas configuré ou crash, on retombe sur
  * un diff naïf (titres + tailles contentRef) plutôt que de renvoyer une
  * 500.
  */
 
 import { type NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
 import { z } from "zod";
 import { type Asset, loadAssetById } from "@/lib/assets/types";
+import { guardAndReserveCredits } from "@/lib/credits/client";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
@@ -75,17 +77,48 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Fallback déterministe si pas de clé Anthropic
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) {
+  // Fallback déterministe si pas de clé Kimi
+  if (!process.env.KIMI_API_KEY) {
+    return NextResponse.json(naiveDiff(a, b));
+  }
+
+  // Budget tenant — fail-closed avant appel LLM
+  const jobId = `diff-${assetIdA}-${assetIdB}-${Date.now()}`;
+  const creditGuard = await guardAndReserveCredits({
+    userId: scope.userId,
+    tenantId: scope.tenantId,
+    estimatedCostUsd: 0.05,
+    jobId,
+    jobKind: "simulation",
+  });
+  if (!creditGuard.allowed) {
+    return NextResponse.json(
+      {
+        error: "insufficient_credits",
+        reason: creditGuard.reason,
+        availableUsd: creditGuard.availableUsd,
+      },
+      { status: 402 },
+    );
+  }
+
+  // Circuit breaker — fail-fast si provider dégradé
+  if (defaultCircuitBreaker.isOpen("kimi", scope.tenantId)) {
+    console.warn("[POST /api/v2/assets/diff] circuit breaker open, fallback naiveDiff");
     return NextResponse.json(naiveDiff(a, b));
   }
 
   try {
-    const result = await llmDiff(a, b, apiKey);
+    const result = await llmDiff(a, b, scope.tenantId);
+    defaultCircuitBreaker.recordSuccess("kimi", scope.tenantId);
     return NextResponse.json(result);
   } catch (err) {
     console.error("[POST /api/v2/assets/diff] llm error:", err);
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      scope.tenantId,
+    );
     return NextResponse.json(naiveDiff(a, b));
   }
 }
@@ -118,13 +151,13 @@ function naiveDiff(a: Asset, b: Asset): DiffResult {
   };
 }
 
-async function llmDiff(a: Asset, b: Asset, apiKey: string): Promise<DiffResult> {
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+async function llmDiff(a: Asset, b: Asset, tenantId: string): Promise<DiffResult> {
+  const provider = getProvider("kimi");
 
   const contentA = (a.contentRef ?? a.summary ?? "").slice(0, 6000);
   const contentB = (b.contentRef ?? b.summary ?? "").slice(0, 6000);
 
-  const response = await client.chat.completions.create({
+  const response = await provider.chat({
     model: "kimi-k2.5",
     max_tokens: 1024,
     messages: [
@@ -155,20 +188,20 @@ CONTRAINTES SPÉCIFIQUES :
     ],
   });
 
-  const text = (response.choices[0]?.message?.content || "").trim();
+  const text = (response.content || "").trim();
 
-  // Extrait le premier JSON object — Claude peut wrap en ```json ... ```
+  // Extrait le premier JSON object
   const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
     throw new Error("LLM did not return JSON");
   }
-  const parsed = JSON.parse(jsonMatch[0]) as Partial<DiffResult>;
-  if (!parsed.summary || !Array.isArray(parsed.differences)) {
+  const parsedResult = JSON.parse(jsonMatch[0]) as Partial<DiffResult>;
+  if (!parsedResult.summary || !Array.isArray(parsedResult.differences)) {
     throw new Error("LLM JSON missing required fields");
   }
   return {
-    summary: String(parsed.summary),
-    differences: parsed.differences
+    summary: String(parsedResult.summary),
+    differences: parsedResult.differences
       .filter(
         (d): d is DiffEntry =>
           Boolean(d) && typeof d.kind === "string" && typeof d.description === "string",

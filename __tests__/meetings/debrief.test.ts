@@ -4,8 +4,25 @@
  * surtout les chemins de garde (transcript vide, pas de clé).
  */
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { DEBRIEF_SYSTEM_PROMPT, generateMeetingDebrief } from "@/lib/meetings/debrief";
+
+vi.mock("@/lib/llm/router", () => ({
+  getProvider: vi.fn(() => ({
+    name: "kimi",
+    chat: vi.fn().mockRejectedValue(new Error("KIMI_API_KEY is not set")),
+    streamChat: vi.fn(),
+  })),
+  resetLlmProviderCache: vi.fn(),
+}));
+
+vi.mock("@/lib/llm/circuit-breaker", () => ({
+  defaultCircuitBreaker: {
+    isOpen: vi.fn(() => false),
+    recordSuccess: vi.fn(),
+    recordFailure: vi.fn(),
+  },
+}));
 
 describe("DEBRIEF_SYSTEM_PROMPT", () => {
   it("contient les 4 sections canoniques", () => {
@@ -49,17 +66,11 @@ describe("generateMeetingDebrief (gardes)", () => {
     expect(result).toBeNull();
   });
 
-  it("retourne null sans ANTHROPIC_API_KEY", async () => {
-    const original = process.env.ANTHROPIC_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
-    try {
-      const result = await generateMeetingDebrief({
-        transcript: "Adrien : Bonjour Marc, comment ça va ? Marc : Bien.",
-        actionItems: [],
-      });
-      expect(result).toBeNull();
-    } finally {
-      if (original) process.env.ANTHROPIC_API_KEY = original;
-    }
+  it("retourne null quand provider throw (kimi indisponible)", async () => {
+    const result = await generateMeetingDebrief({
+      transcript: "Adrien : Bonjour Marc, comment ça va ? Marc : Bien.",
+      actionItems: [],
+    });
+    expect(result).toBeNull();
   });
 });

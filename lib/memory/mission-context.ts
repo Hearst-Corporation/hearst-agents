@@ -22,10 +22,11 @@
  * tourner sans mémoire.
  */
 
-import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { searchEmbeddings } from "@/lib/embeddings/store";
 import { updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { formatFewShotBlock, MISSION_CONTEXT_FEWSHOT_FR } from "@/lib/prompts/examples";
 import { getKgContextForUser } from "./kg-context";
@@ -373,9 +374,10 @@ interface UpdateSummaryOpts {
 }
 
 export async function updateMissionContextSummary(opts: UpdateSummaryOpts): Promise<void> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    console.warn("[mission-context] ANTHROPIC_API_KEY absent — summary non régénéré");
+  const { tenantId } = opts;
+
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
+    console.warn("[mission-context] circuit breaker kimi open — summary non régénéré");
     return;
   }
 
@@ -399,10 +401,10 @@ export async function updateMissionContextSummary(opts: UpdateSummaryOpts): Prom
     .filter((l) => l !== "")
     .join("\n");
 
+  const provider = getProvider("kimi");
   let nextSummary: string | null = null;
   try {
-    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
-    const res = await client.chat.completions.create({
+    const res = await provider.chat({
       model: "kimi-k2.5",
       max_tokens: 600,
       messages: [
@@ -410,8 +412,14 @@ export async function updateMissionContextSummary(opts: UpdateSummaryOpts): Prom
         { role: "user", content: userMsg },
       ],
     });
-    nextSummary = res.choices[0]?.message?.content?.trim() ?? null;
+    nextSummary = res.content?.trim() ?? null;
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn("[mission-context] updateMissionContextSummary LLM échouée:", err);
     return;
   }

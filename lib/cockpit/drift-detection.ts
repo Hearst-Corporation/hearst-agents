@@ -19,7 +19,8 @@
  */
 
 import { createHash } from "node:crypto";
-import OpenAI from "openai";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 // ── Types ──────────────────────────────────────────────────
@@ -163,8 +164,7 @@ export async function generateDriftNarration(
   const cached = narrationCache.get(cacheKey);
   if (cached && cached.expiresAt > Date.now()) return cached.text;
 
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) {
+  if (defaultCircuitBreaker.isOpen("kimi")) {
     const fallback = clipFr(
       `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
     );
@@ -173,8 +173,8 @@ export async function generateDriftNarration(
   }
 
   try {
-    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
-    const res = await client.chat.completions.create({
+    const provider = getProvider("kimi");
+    const res = await provider.chat({
       model: HAIKU_MODEL,
       max_tokens: 120,
       messages: [
@@ -198,7 +198,8 @@ export async function generateDriftNarration(
       ],
     });
 
-    const text = res.choices[0]?.message?.content ?? "";
+    defaultCircuitBreaker.recordSuccess("kimi");
+    const text = res.content;
     const cleaned = clipFr(text);
     if (cleaned.length === 0) {
       const fallback = clipFr(
@@ -210,6 +211,10 @@ export async function generateDriftNarration(
     narrationCache.set(cacheKey, { text: cleaned, expiresAt: Date.now() + NARRATION_TTL_MS });
     return cleaned;
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+    );
     console.warn("[drift-detection] Haiku narration failed:", err);
     const fallback = clipFr(
       `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,

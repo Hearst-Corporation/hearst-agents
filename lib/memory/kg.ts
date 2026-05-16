@@ -9,8 +9,9 @@
  * `kg_*_user_isolation`).
  */
 
-import OpenAI from "openai";
 import type { Database } from "@/lib/database.types";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { formatFewShotBlock, KG_EXTRACTION_FEWSHOT } from "@/lib/prompts/examples";
 
@@ -116,21 +117,20 @@ export const EXTRACTION_PROMPT = [
   formatFewShotBlock(KG_EXTRACTION_FEWSHOT),
 ].join("\n");
 
-export async function extractEntities(text: string): Promise<ExtractionResult> {
+export async function extractEntities(text: string, tenantId?: string): Promise<ExtractionResult> {
   const trimmed = text.trim();
   if (!trimmed) return { entities: [], relations: [] };
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    console.warn("[kg] KIMI_API_KEY manquant — extraction skip");
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
+    console.warn("[kg] circuit breaker kimi open — extraction skip");
     return { entities: [], relations: [] };
   }
 
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+  const provider = getProvider("kimi");
 
   let raw: string;
   try {
-    const res = await client.chat.completions.create({
+    const res = await provider.chat({
       model: EXTRACTION_MODEL,
       max_tokens: EXTRACTION_MAX_TOKENS,
       messages: [
@@ -138,8 +138,14 @@ export async function extractEntities(text: string): Promise<ExtractionResult> {
         { role: "user", content: trimmed },
       ],
     });
-    raw = res.choices[0]?.message?.content ?? "";
+    raw = res.content ?? "";
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn("[kg] extraction échouée:", err);
     return { entities: [], relations: [] };
   }

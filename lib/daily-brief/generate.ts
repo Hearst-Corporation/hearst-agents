@@ -10,8 +10,9 @@
  * être passé tel quel au PDF renderer (4 sections numérotées).
  */
 
-import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { DAILY_BRIEF_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import type { DailyBriefData, DailyBriefNarration } from "./types";
 
@@ -206,16 +207,15 @@ function fallbackNarration(d: DailyBriefData): Omit<DailyBriefNarration, "costUs
 
 export async function generateDailyBriefNarration(
   data: DailyBriefData,
+  tenantId?: string,
 ): Promise<DailyBriefNarration> {
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) {
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
     return { ...fallbackNarration(data), costUsd: 0 };
   }
 
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
-
   try {
-    const res = await client.chat.completions.create({
+    const provider = getProvider("kimi");
+    const res = await provider.chat({
       model: "kimi-k2.5",
       max_tokens: 1200,
       messages: [
@@ -224,21 +224,21 @@ export async function generateDailyBriefNarration(
       ],
     });
 
-    const text = res.choices[0]?.message?.content ?? "";
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
+    const text = res.content;
     const parsed = safeParseNarration(text);
     if (!parsed) {
       console.warn("[daily-brief/generate] narration JSON invalide — fallback déterministe");
       return { ...fallbackNarration(data), costUsd: 0 };
     }
 
-    // Coût estimé (kimi-k2.5 : ~3$/M input, 15$/M output)
-    const usage = res.usage ?? { prompt_tokens: 0, completion_tokens: 0 };
-    const inputCost = (usage.prompt_tokens * 3) / 1_000_000;
-    const outputCost = (usage.completion_tokens * 15) / 1_000_000;
-    const costUsd = inputCost + outputCost;
-
-    return { ...parsed, costUsd };
+    return { ...parsed, costUsd: res.cost_usd };
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn("[daily-brief/generate] LLM échouée, fallback déterministe :", err);
     return { ...fallbackNarration(data), costUsd: 0 };
   }

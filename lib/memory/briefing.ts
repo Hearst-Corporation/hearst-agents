@@ -1,5 +1,6 @@
-import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { BRIEFING_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import { getSummary } from "./conversation-summary";
 
@@ -60,6 +61,7 @@ export const BRIEFING_SYSTEM_PROMPT = composeEditorialPrompt(
 
 export async function generateBriefing(params: {
   userId: string;
+  tenantId?: string;
   date?: Date;
 }): Promise<{ text: string; audioScript: string }> {
   const date = params.date ?? new Date();
@@ -67,13 +69,17 @@ export async function generateBriefing(params: {
 
   if (!summary) return GENERIC_BRIEFING;
 
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) return GENERIC_BRIEFING;
+  const { tenantId } = params;
 
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
+    console.warn("[memory/briefing] circuit breaker kimi open — briefing skip");
+    return GENERIC_BRIEFING;
+  }
+
+  const provider = getProvider("kimi");
 
   try {
-    const res = await client.chat.completions.create({
+    const res = await provider.chat({
       model: "kimi-k2.5",
       max_tokens: 500,
       messages: [
@@ -92,14 +98,20 @@ export async function generateBriefing(params: {
       ],
     });
 
-    const text = res.choices[0]?.message?.content ?? "";
+    const text = res.content ?? "";
     if (!text) return GENERIC_BRIEFING;
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
 
     return {
       text,
       audioScript: stripMarkdown(text),
     };
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     console.warn("[memory/briefing] generateBriefing échouée:", err);
     return GENERIC_BRIEFING;
   }

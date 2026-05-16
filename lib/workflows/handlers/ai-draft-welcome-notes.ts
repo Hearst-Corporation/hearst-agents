@@ -15,8 +15,9 @@
  * clairement marqué `degraded: true`.
  */
 
-import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import type { WorkflowHandler } from "./types";
 
 interface ArrivalLite {
@@ -51,11 +52,12 @@ function fallbackNote(a: ArrivalLite): string {
   return `Bienvenue ${a.guestName}. Votre chambre ${a.room ?? ""} est prête. La conciergerie reste à votre disposition.`.trim();
 }
 
-export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
+export const aiDraftWelcomeNotes: WorkflowHandler = async (args, ctx) => {
   const arrivalsRaw = Array.isArray(args.arrivals) ? args.arrivals : [];
   const arrivals: ArrivalLite[] = arrivalsRaw
     .map((a) => (typeof a === "object" && a ? (a as ArrivalLite) : null))
     .filter((a): a is ArrivalLite => a !== null && typeof a.guestName === "string");
+  const tenantId = ctx.tenantId;
 
   if (arrivals.length === 0) {
     return { success: true, output: { notes: [], degraded: false } };
@@ -64,8 +66,7 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
   const tone = typeof args.tone === "string" ? args.tone : "warm-professional";
   const includeRoom = args.includeRoomNumber !== false;
 
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) {
+  if (!process.env.KIMI_API_KEY) {
     const notes = arrivals.map((a) => ({
       guestName: a.guestName,
       room: a.room ?? "",
@@ -74,8 +75,17 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
     return { success: true, output: { notes, degraded: true, reason: "no_kimi_key" } };
   }
 
+  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
+    const notes = arrivals.map((a) => ({
+      guestName: a.guestName,
+      room: a.room ?? "",
+      note: fallbackNote(a),
+    }));
+    return { success: true, output: { notes, degraded: true, reason: "circuit_open" } };
+  }
+
   try {
-    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+    const provider = getProvider("kimi");
     const userPrompt = [
       `Tone : ${tone}.`,
       includeRoom ? "Inclus le numéro de chambre dans la note." : "Pas de numéro de chambre.",
@@ -84,7 +94,7 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
       JSON.stringify(arrivals, null, 2),
     ].join("\n");
 
-    const msg = await client.chat.completions.create({
+    const res = await provider.chat({
       model: "kimi-k2.5",
       max_tokens: 1500,
       messages: [
@@ -92,8 +102,9 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
         { role: "user", content: userPrompt },
       ],
     });
+    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
 
-    const text = msg.choices[0]?.message?.content?.trim() ?? "";
+    const text = res.content.trim();
     const m = text.match(/\[[\s\S]*\]/);
     if (!m) {
       const notes = arrivals.map((a) => ({
@@ -118,6 +129,11 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
 
     return { success: true, output: { notes, degraded: false } };
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      tenantId,
+    );
     const reason = err instanceof Error ? err.message : String(err);
     const notes = arrivals.map((a) => ({
       guestName: a.guestName,

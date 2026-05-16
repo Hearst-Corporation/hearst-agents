@@ -13,8 +13,9 @@
  * du contentRef tel quel).
  */
 
-import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 
 export interface MeetingActionItem {
   action: string;
@@ -31,6 +32,8 @@ export interface GenerateMeetingDebriefInput {
   title?: string;
   /** Optionnel : participants identifiés (noms ou emails). */
   participants?: string[];
+  /** Optionnel : tenant scope pour le circuit breaker. */
+  tenantId?: string;
 }
 
 const DEBRIEF_SYSTEM_PROMPT = composeEditorialPrompt(`
@@ -65,7 +68,7 @@ const TRANSCRIPT_CAP = 30_000;
  *
  * Retourne `null` si :
  *   - transcript vide
- *   - KIMI_API_KEY absent
+ *   - provider kimi indisponible (circuit ouvert ou erreur)
  *   - erreur LLM (logged warn)
  *
  * Le caller décide quoi faire avec null (afficher transcript brut, retry, etc.).
@@ -74,12 +77,8 @@ export async function generateMeetingDebrief(
   input: GenerateMeetingDebriefInput,
 ): Promise<string | null> {
   if (!input.transcript.trim()) return null;
-  if (!process.env.KIMI_API_KEY) return null;
+  if (defaultCircuitBreaker.isOpen("kimi", input.tenantId)) return null;
 
-  const client = new OpenAI({
-    apiKey: process.env.KIMI_API_KEY,
-    baseURL: "https://api.hypercli.com/v1",
-  });
   const userPromptLines: string[] = [];
 
   if (input.title) {
@@ -105,7 +104,8 @@ export async function generateMeetingDebrief(
   );
 
   try {
-    const msg = await client.chat.completions.create({
+    const provider = getProvider("kimi");
+    const msg = await provider.chat({
       model: "kimi-k2.5",
       max_tokens: 1500,
       messages: [
@@ -113,9 +113,15 @@ export async function generateMeetingDebrief(
         { role: "user", content: userPromptLines.join("\n") },
       ],
     });
-    const text = msg.choices[0]?.message?.content?.trim() ?? "";
+    defaultCircuitBreaker.recordSuccess("kimi", input.tenantId);
+    const text = msg.content.trim();
     return text.length > 0 ? text : null;
   } catch (err) {
+    defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      input.tenantId,
+    );
     console.warn(
       "[meetings/debrief] generateMeetingDebrief failed :",
       err instanceof Error ? err.message : err,
