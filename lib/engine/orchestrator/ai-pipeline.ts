@@ -116,6 +116,18 @@ const kimi = createOpenAI({
   baseURL: "https://api.hypercli.com/v1",
 });
 
+// Fallback OpenAI — utilisé si Kimi est indisponible (rate limit, downtime).
+// Nécessite OPENAI_API_KEY configuré dans .env.local.
+const openaiFallback = createOpenAI({
+  apiKey: process.env.OPENAI_API_KEY ?? "",
+});
+
+const openaiWithReasoning = (modelId: string) =>
+  wrapLanguageModel({
+    model: openaiFallback(modelId),
+    middleware: extractReasoningMiddleware({ tagName: "think" }),
+  });
+
 // Kimi K2.5/K2.6 via Hyperbolic streament leur chain-of-thought dans
 // `delta.content` entouré de balises `<think>...</think>` avant le vrai
 // contenu de la réponse. Sans middleware, le SDK Vercel AI consomme tout
@@ -777,31 +789,28 @@ export async function runAiPipeline(
       ),
   );
   const forceScheduleTool = (input.scheduleDirective ?? false) && !priorHasScheduleToolCall;
-  try {
-    const result = streamText({
+
+  // P0 — Retry + fallback : maxRetries=3 côté provider, fallback OpenAI
+  // si l'erreur survient en amont (création du stream impossible).
+  const runStream = () =>
+    streamText({
       model: kimiWithReasoning(ORCHESTRATOR_MODEL),
-      // Kimi (Moonshot AI) n'a pas de cacheControl équivalent à Anthropic.
-      // Le system prompt est passé directement sans option provider spécifique.
       system: systemPrompt,
       messages,
       tools: aiTools,
-      // Allow up to 10 tool-call → result cycles before forcing a stop
       stopWhen: stepCountIs(10),
       temperature: 0.3,
-      // Cost guard. Chat replies and drafts fit comfortably in 8k tokens.
-      // Long-form reports go through the deterministic research path with
-      // its own budget — they don't hit this code path.
       maxOutputTokens: 8000,
-      // B2 abort : POST /api/orchestrate/abort/[runId] déclenche ce signal,
-      // streamText coupe la stream Anthropic immédiatement → coût LLM stoppé.
       abortSignal: input.abortSignal,
-      // Force `create_scheduled_mission` quand la directive est active et
-      // qu'aucun appel précédent n'a été fait dans le thread.
+      maxRetries: 3,
       ...(forceScheduleTool
         ? { toolChoice: { type: "tool" as const, toolName: "create_scheduled_mission" } }
         : {}),
     });
 
+  const result = runStream();
+
+  try {
     // Track active tool calls for event emission pairing.
     // We also skip event emission for preview-mode write calls so that the
     // receipts UI doesn't show a fake "Sent" badge for an action that never
