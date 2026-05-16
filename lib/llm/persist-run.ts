@@ -1,5 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
 import { logger } from "@/lib/observability/logger";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 export interface PersistRunOptions {
   tenantId: string;
@@ -47,18 +47,11 @@ interface LlmRunInsert {
  */
 export async function persistRun(opts: PersistRunOptions): Promise<void> {
   try {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (!url || !key) {
+    const sb = getServerSupabase();
+    if (!sb) {
       logger.warn({}, "[persistRun] missing Supabase env vars — skipping");
       return;
     }
-
-    // Client sans générique Database : évite l'erreur TS sur une table pas encore
-    // dans database.types.ts. Régénérer les types après apply_migration 0087.
-    const sb = createClient(url, key, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
 
     const row: LlmRunInsert = {
       tenant_id: opts.tenantId,

@@ -12,6 +12,7 @@ import type { Domain } from "@/lib/capabilities/taxonomy";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import { readDriveFileContent, searchDriveFiles } from "@/lib/connectors/google/drive";
 import { searchEmails as searchGmail } from "@/lib/connectors/google/gmail";
+import { KIMI_MODELS } from "@/lib/llm/models";
 import { getTokens } from "@/lib/platform/auth/tokens";
 import type { RunEngine } from "../engine";
 import type { StepActor } from "../engine/types";
@@ -388,7 +389,7 @@ async function executeAgentSync(
 
   if (useWebSearch) {
     const response = await client.chat.completions.create({
-      model: "kimi-k2.5",
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 4096,
       messages: [
         { role: "system", content: systemPrompt },
@@ -406,7 +407,7 @@ async function executeAgentSync(
     };
   } else {
     const response = await client.chat.completions.create({
-      model: "kimi-k2.5",
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 4096,
       messages: [
         { role: "system", content: systemPrompt },

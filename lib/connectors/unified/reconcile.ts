@@ -11,7 +11,7 @@
  * - neither → disconnected (if connectable) or coming_soon
  */
 
-import { createClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import {
   getAllProviders,
   getConnectableProviders,
@@ -28,13 +28,8 @@ interface AuthRecord {
 }
 
 async function getAuthRecords(userId: string): Promise<AuthRecord[]> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return [];
-
-  const sb = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  const sb = getServerSupabase();
+  if (!sb) return [];
 
   try {
     const { data, error } = await sb

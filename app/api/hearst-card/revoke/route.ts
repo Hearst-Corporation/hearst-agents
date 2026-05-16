@@ -10,26 +10,25 @@
 
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 export const runtime = "nodejs";
+
+const revokeBodySchema = z.object({
+  token: z.string().min(1),
+});
 
 export async function POST(req: Request) {
   const { scope, error } = await requireScope({ context: "POST /api/hearst-card/revoke" });
   if (error) return NextResponse.json({ error: error.message }, { status: error.status });
 
-  let token: string;
-  try {
-    const body = (await req.json()) as { token?: unknown };
-    if (!body.token || typeof body.token !== "string") {
-      return NextResponse.json({ error: "token_required" }, { status: 400 });
-    }
-    token = body.token;
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
+  const parsedBody = await parseJsonBody(req, revokeBodySchema);
+  if (!parsedBody.ok) return parsedBody.response;
+  const { token } = parsedBody.data;
 
   // Vérifier que le token est valide et appartient à l'appelant
   const verify = verifyCardToken(token);

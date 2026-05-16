@@ -18,8 +18,8 @@
 import { randomUUID } from "node:crypto";
 import { globalRunBus } from "@/lib/events/global-bus";
 import type { BrowserAction, BrowserActionType } from "@/lib/events/types";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getBrowserContext, type PlaywrightBridge } from "./playwright-bridge";
 
 // ── Types ────────────────────────────────────────────────
@@ -469,16 +469,6 @@ async function extractStructured(opts: {
   schema?: Record<string, unknown>;
   tenantId?: string;
 }): Promise<unknown> {
-  // Vérifier que le circuit breaker pour Kimi n'est pas ouvert
-  const isCircuitOpen = await defaultCircuitBreaker.isOpen("kimi", opts.tenantId);
-  if (isCircuitOpen) {
-    return {
-      instruction: opts.instruction,
-      schema: opts.schema ?? null,
-      error: "kimi_circuit_breaker_open",
-    };
-  }
-
   const html = await opts.page.content().catch(() => "");
   const cleaned = cleanHtml(html);
 
@@ -501,41 +491,37 @@ async function extractStructured(opts: {
     cleaned,
   ].join("\n");
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
-      model: "kimi-k2.5",
+  const fallback = {
+    instruction: opts.instruction,
+    schema: opts.schema ?? null,
+    error: "kimi_circuit_breaker_open_or_failed",
+  };
+
+  return chatWithCircuitBreaker<unknown>({
+    tenantId: opts.tenantId,
+    context: "browser/stagehand-extract",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 2000,
       messages: [
         { role: "system", content: system },
         { role: "user", content: user },
       ],
-    });
-
-    await defaultCircuitBreaker.recordSuccess("kimi", opts.tenantId);
-
-    const text = res.content.trim();
-    const m = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
-    if (!m) {
-      return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
-    }
-    try {
-      return JSON.parse(m[0]);
-    } catch {
-      return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
-    }
-  } catch (err) {
-    await defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      opts.tenantId,
-    );
-    return {
-      instruction: opts.instruction,
-      schema: opts.schema ?? null,
-      error: err instanceof Error ? err.message : String(err),
-    };
-  }
+    },
+    fallback,
+    parse: (res) => {
+      const text = res.content.trim();
+      const m = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+      if (!m) {
+        return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
+      }
+      try {
+        return JSON.parse(m[0]);
+      } catch {
+        return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
+      }
+    },
+  });
 }
 
 // ── Public API ───────────────────────────────────────────

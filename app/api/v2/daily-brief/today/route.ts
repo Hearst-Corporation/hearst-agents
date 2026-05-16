@@ -10,24 +10,14 @@
  * par POST /generate.
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { loadDailyBriefForDate } from "@/lib/daily-brief/store";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export async function GET(req: NextRequest) {
-  const { scope, error } = await requireScope({
-    context: "GET /api/v2/daily-brief/today",
-  });
-  if (error || !scope) {
-    return NextResponse.json(
-      { error: error?.message ?? "not_authenticated" },
-      { status: error?.status ?? 401 },
-    );
-  }
-
+export const GET = withScope("GET /api/v2/daily-brief/today", async (req, { scope }) => {
   const url = new URL(req.url);
   const dateParam = url.searchParams.get("date");
   const targetDate = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : undefined;
@@ -38,4 +28,4 @@ export async function GET(req: NextRequest) {
   });
 
   return NextResponse.json({ brief });
-}
+});

@@ -15,6 +15,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { appendTranscriptEntry, type VoiceTranscriptEntry } from "@/lib/voice/transcript-store";
 
 const transcriptEntrySchema = z.object({
@@ -53,14 +54,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsed = transcriptsAppendBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, transcriptsAppendBodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const { sessionId, threadId, entry } = parsed.data;
 

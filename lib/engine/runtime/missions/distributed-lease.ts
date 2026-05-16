@@ -10,22 +10,14 @@
  * Falls back gracefully if DB is unavailable (allows execution).
  */
 
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { INSTANCE_ID } from "../instance-id";
 
 const DEFAULT_TTL_S = 300; // 5 min — generous for long-running missions
 
-let _db: SupabaseClient | null = null;
-
 function db(): SupabaseClient | null {
-  if (_db) return _db;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  _db = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  return _db;
+  return getServerSupabase();
 }
 
 function leaseKey(missionId: string, runWindowKey: string): string {

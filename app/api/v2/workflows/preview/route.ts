@@ -12,6 +12,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { executeWorkflow } from "@/lib/workflows/executor";
 import type {
   WorkflowExecutionContext,
@@ -56,14 +57,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsed = workflowPreviewBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, workflowPreviewBodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const body: { graph: WorkflowGraph } = parsed.data;
   const validation = validateGraph(body.graph);

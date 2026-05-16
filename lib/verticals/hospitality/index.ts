@@ -49,6 +49,15 @@ export const HOSPITALITY_KPIS = [
 
 let _client: SupabaseClient | null = null;
 
+/**
+ * Singleton local pour la lecture/écriture de `tenant_settings`. On utilise
+ * createClient direct (et non getServerSupabase) car ce module est chargé
+ * très tôt dans le bootstrap (init persona system prompt addon, orchestrator,
+ * briefing) et veut un client mémoizé localement sans toucher au singleton
+ * platform partagé (Database-typed). Le client renvoyé est un `SupabaseClient`
+ * non typé, suffisant pour `tenant_settings` qui n'est pas dans le schema
+ * `Database` généré.
+ */
 function db(): SupabaseClient | null {
   if (_client) return _client;
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

@@ -6,27 +6,25 @@
  */
 
 import { NextResponse } from "next/server";
+import { withAdmin } from "@/lib/platform/http/route-handler";
 import { listWebhooks } from "@/lib/webhooks/store";
-import { isError, requireAdmin } from "../_helpers";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  const guard = await requireAdmin("GET /api/admin/webhooks-status", {
-    resource: "settings",
-    action: "read",
-  });
-  if (isError(guard)) return guard;
+export const GET = withAdmin(
+  "GET /api/admin/webhooks-status",
+  { resource: "settings", action: "read" },
+  async (_req, { scope }) => {
+    try {
+      const webhooks = await listWebhooks({
+        tenantId: scope.tenantId,
+        activeOnly: false,
+      });
 
-  try {
-    const webhooks = await listWebhooks({
-      tenantId: guard.scope.tenantId,
-      activeOnly: false,
-    });
-
-    return NextResponse.json({ webhooks }, { status: 200 });
-  } catch (e) {
-    console.error("[Admin API] GET /webhooks-status error:", e);
-    return NextResponse.json({ error: "internal_error" }, { status: 500 });
-  }
-}
+      return NextResponse.json({ webhooks }, { status: 200 });
+    } catch (e) {
+      console.error("[Admin API] GET /webhooks-status error:", e);
+      return NextResponse.json({ error: "internal_error" }, { status: 500 });
+    }
+  },
+);

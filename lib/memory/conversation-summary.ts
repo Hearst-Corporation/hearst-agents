@@ -1,6 +1,8 @@
+import { z } from "zod";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
+import { logger } from "@/lib/observability/logger";
 import { getRedis } from "@/lib/platform/redis/client";
 import { CONV_SUMMARY_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
 import { fenceUntrusted } from "./untrusted-fence";
@@ -32,21 +34,32 @@ export const CONV_SUMMARY_SYSTEM_PROMPT = composeEditorialPrompt(
   ].join("\n"),
 );
 
+/**
+ * F-104 — Schéma de validation runtime du résumé LLM.
+ *
+ * Contrat strict : le LLM doit retourner une string non vide cap à 1 200 chars
+ * (les 2-3 phrases denses ciblées). On filtre aussi les outputs visiblement
+ * dégénérés (markdown fences, JSON, tags HTML/XML inattendus).
+ */
+const SUMMARY_MAX_CHARS = 1_200;
+export const SummarySchema = z
+  .string()
+  .trim()
+  .min(1, "summary_empty")
+  .max(SUMMARY_MAX_CHARS, "summary_too_long")
+  .refine((s) => !/^```/.test(s), "summary_markdown_fence")
+  .refine((s) => !/^[<{[]/.test(s), "summary_unexpected_structure");
+
 async function compress(messages: MessageEntry[], tenantId?: string): Promise<string> {
   const conversationText = messages
     .map((m) => `${m.role === "user" ? "Utilisateur" : "Assistant"}: ${m.content}`)
     .join("\n\n");
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    console.warn("[memory/summary] circuit breaker kimi open — compression skip");
-    return conversationText;
-  }
-
-  const provider = getProvider("kimi");
-
-  try {
-    const res = await provider.chat({
-      model: "kimi-k2.5",
+  return chatWithCircuitBreaker<string>({
+    tenantId,
+    context: "memory/summary",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 250,
       messages: [
         { role: "system", content: CONV_SUMMARY_SYSTEM_PROMPT },
@@ -60,19 +73,25 @@ async function compress(messages: MessageEntry[], tenantId?: string): Promise<st
           ].join("\n"),
         },
       ],
-    });
-    const summary = res.content ?? conversationText;
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-    return summary;
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn("[memory/summary] compression LLM échouée:", err);
-    return conversationText;
-  }
+    },
+    fallback: conversationText,
+    parse: (res) => {
+      const raw = (res.content ?? "").trim();
+      if (!raw) return conversationText;
+      const parsed = SummarySchema.safeParse(raw);
+      if (!parsed.success) {
+        logger.warn(
+          {
+            ctx: "memory/summary",
+            issues: parsed.error.issues.map((i) => i.message),
+          },
+          "[memory/summary] LLM output rejected by SummarySchema — fallback",
+        );
+        return conversationText;
+      }
+      return parsed.data;
+    },
+  });
 }
 
 export async function appendToSummary(params: {

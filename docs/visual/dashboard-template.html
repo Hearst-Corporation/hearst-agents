@@ -14,25 +14,79 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #000000;
-  --bg-elev-1: #141414;
-  --bg-elev-2: #1f1f1f;
-  --ink: rgba(255, 255, 255, 0.95);
+  --bg: #050508;
+  --bg-elev-1: #0a0a0a;
+  --bg-elev-2: #141414;
+  --ink: rgba(255, 255, 255, 0.85);
   --ink-strong: #ffffff;
-  --fg-dim: rgba(255, 255, 255, 0.65);
-  --fg-mute: rgba(255, 255, 255, 0.42);
-  --fg-faint: rgba(255, 255, 255, 0.14);
-  --border: rgba(255, 255, 255, 0.03);
-  --border-soft: rgba(255, 255, 255, 0.02);
-  --border-strong: rgba(255, 255, 255, 0.08);
-  --teal: #4A8B86;
-  --gold: #C8A961;
-  --danger: #FF3333;
+  --ink-mute: rgba(255, 255, 255, 0.55);
+  --ink-faint: rgba(255, 255, 255, 0.35);
+  --ink-inverse: #000000;
+  --surface-glass: rgba(255, 255, 255, 0.05);
+  --surface-glass-hover: rgba(255, 255, 255, 0.08);
+  --surface-glass-active: rgba(255, 255, 255, 0.12);
+  --surface-glass-strong: rgba(20, 20, 20, 0.85);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-soft: rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --teal: #5ee5c3;
+  --gold: #f5c451;
+  --danger: #ff4545;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --radius-pill: 9999px;
   --radius-xl: 20px;
   --radius-lg: 16px;
   --radius-md: 12px;
+  --glass-blur-heavy: blur(100px) saturate(200%) brightness(105%);
+  --glass-blur-medium: blur(40px) saturate(200%);
+  --glass-blur-light: blur(20px) saturate(200%);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 40px rgba(94, 229, 195, 0.06), 0 30px 60px rgba(0, 0, 0, 0.4);
+
+  --halo-bg: radial-gradient(ellipse 50% 50% at 50% 40%, rgba(255, 255, 255, 0.05), transparent 80%);
+  --dots-bg: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1.5px);
+  --fade-bg: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 25%, rgba(0,0,0,0.92) 60%, var(--bg) 85%);
+  --seg-bg: rgba(255, 255, 255, 0.05);
+  --appr-bg: rgba(255, 255, 255, 0.04);
+  --dots-fill: rgba(255, 255, 255, 0.15);
+  --dots-hover: rgba(255, 255, 255, 0.3);
+  --pulse-sh: rgba(255, 255, 255, 0.08);
+  --pal-bg: rgba(0, 0, 0, 0.6);
+
+  /* Spatial tokens - removed for pure 3D */
+}
+
+[data-theme="light"] {
+  --bg: #f2f2f7;
+  --bg-elev-1: #ffffff;
+  --bg-elev-2: #ffffff;
+  --ink: rgba(0, 0, 0, 0.85);
+  --ink-strong: #000000;
+  --ink-mute: rgba(0, 0, 0, 0.55);
+  --ink-faint: rgba(0, 0, 0, 0.35);
+  --ink-inverse: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.45);
+  --surface-glass-hover: rgba(255, 255, 255, 0.65);
+  --surface-glass-active: rgba(255, 255, 255, 0.85);
+  --surface-glass-strong: rgba(255, 255, 255, 0.95);
+  --border: rgba(0, 0, 0, 0.05);
+  --border-soft: rgba(0, 0, 0, 0.03);
+  --border-strong: rgba(0, 0, 0, 0.1);
+  --teal: rgba(0, 0, 0, 0.85);
+  --gold: rgba(0, 0, 0, 0.55);
+  --danger: rgba(0, 0, 0, 0.85);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 20px 40px rgba(0, 0, 0, 0.05);
+
+  --halo-bg: radial-gradient(ellipse 50% 50% at 50% 40%, rgba(255, 255, 255, 1), transparent 80%);
+  --dots-bg: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1.5px);
+  --fade-bg: linear-gradient(to bottom, transparent 0%, rgba(242,242,247,0.45) 25%, rgba(242,242,247,0.92) 60%, var(--bg) 85%);
+  --seg-bg: rgba(0, 0, 0, 0.05);
+  --appr-bg: rgba(0, 0, 0, 0.05);
+  --dots-fill: rgba(0, 0, 0, 0.1);
+  --dots-hover: rgba(0, 0, 0, 0.25);
+  --pulse-sh: rgba(0, 0, 0, 0.05);
+  --pal-bg: rgba(255, 255, 255, 0.6);
 }
 
 html, body { height: 100%; background: var(--bg); }
@@ -48,7 +102,7 @@ body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: -1;
   pointer-events: none;
   opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -57,38 +111,51 @@ body::after {
 /* ===== visionOS glass (Apple Glass Pipeline) ===== */
 .vision-glass {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15), /* Top Highlight */
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3),       /* Bottom Shadow */
-    0 20px 60px -20px rgba(0, 0, 0, 0.8);
+  background: var(--surface-glass);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  box-shadow: var(--glass-shadow);
+  transform: var(--base-tr, translateZ(0));
+}
+
+/* Static Subtile Glare */
+.vision-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 40%
+  );
 }
 .vision-btn-primary {
-  background: #ffffff; color: #000;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--ink); color: var(--bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-weight: 500; border: none;
 }
 .vision-btn-glass {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(40px) saturate(200%) brightness(130%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(130%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.4);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--surface-glass);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur-medium);
+  -webkit-backdrop-filter: var(--glass-blur-medium);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  color: var(--ink);
 }
-.vision-btn-glass:hover { background: rgba(255, 255, 255, 0.08); }
+.vision-btn-glass:hover { background: var(--surface-glass-hover); }
 .vision-segmented-track {
-  background: rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: var(--seg-bg);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
   border-radius: 9999px;
 }
 .perspective-scene { perspective: 1200px; perspective-origin: 50% 50%; }
 .preserve-3d { transform-style: preserve-3d; }
 .vision-content-depth { transform: translateZ(-15px); }
-.vision-footer-float { transform: translateX(-50%) translateZ(20px); }
+.vision-footer-float { --base-tr: translateX(-50%) translateZ(20px); }
 
 /* Helpers placeholder identiques au lab */
 .ph { font-style: italic; opacity: 0.5; }
@@ -97,48 +164,52 @@ body::after {
 
 /* ===== Shell layout ===== */
 .scene { position: relative; display: flex; height: 100vh; width: 100vw;
-  background: var(--bg); color: white; overflow: hidden; }
+  background: transparent; color: var(--ink); overflow: hidden; pointer-events: none; isolation: isolate; }
+.scene > * { pointer-events: auto; }
 
-/* Ambient layers (halo blanc + dots teal blurré) */
-.amb-halo { position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(ellipse 50% 50% at 50% 40%, rgba(74, 139, 134, 0.15), transparent 80%);
-  filter: blur(100px); }
-.amb-dots { position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(74, 139, 134, 0.4) 1px, transparent 1.5px);
-  background-size: 40px 40px; opacity: 0.4;
-  mask-image: radial-gradient(circle at 50% 50%, black, transparent 90%); }
+/* Ambient layers (Option A monochrome teal) */
+.amb-light-top, .amb-light-bottom {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(150px) saturate(180%);
+}
+.amb-light-top { background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(94,229,195,0.28), transparent 80%); }
+.amb-light-bottom { background: radial-gradient(ellipse 70% 50% at 50% 110%, rgba(94,229,195,0.12), transparent 80%); }
 
 /* ===== Left rail 88px ===== */
 .lrail { position: relative; z-index: 20; height: 100%; width: 88px;
   flex-shrink: 0; }
 .lrail-inner { display: flex; flex-direction: column; align-items: center;
   height: 100%; width: 100%; padding: 32px 0;
-  background: rgba(255, 255, 255, 0.02);
-  border-right: 1px solid var(--border);
-  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
-.lr-brand { margin-bottom: 16px; width: 48px; height: 48px; border-radius: 12px;
+  background: var(--surface-glass);
+  border-right: var(--glass-border);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  box-shadow: none; }
+.lr-brand { margin-bottom: 16px; width: 56px; height: 56px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+  background: none; box-shadow: none; border: none;
   cursor: pointer; }
 .lr-group { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
-.lr-brand-dot { width: 22px; height: 22px; border-radius: 50%; background: white; }
+.lr-brand-logo { width: 36px; height: 36px; color: var(--teal); display: block; }
+.lr-brand-logo svg { width: 100%; height: 100%; display: block; }
 .lr-slot { position: relative; width: 56px; height: 56px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.5); cursor: pointer;
+  color: var(--ink-faint); cursor: pointer;
   transition: all 0.3s var(--ease); background: transparent; border: none; }
-.lr-slot:hover { background: rgba(255,255,255,0.06); color: white; }
-.lr-slot.active { color: white;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(40px) saturate(200%) brightness(130%);
-  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(130%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.4); }
+.lr-slot:hover { background: var(--surface-glass-hover); color: var(--ink); }
+.lr-slot.active { color: var(--ink);
+  background: var(--surface-glass);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur-medium);
+  -webkit-backdrop-filter: var(--glass-blur-medium);
+  box-shadow: none; }
 .lr-slot:active { transform: scale(0.9); }
 .lr-slot-ph { cursor: default; }
-.lr-slot-ph:hover { background: transparent; color: rgba(255,255,255,0.5); }
+.lr-slot-ph:hover { background: transparent; color: var(--ink-faint); }
 .lr-slot-ph:active { transform: none; }
 .lr-ico { width: 16px; height: 16px; border-radius: 3px;
   border: 1px solid currentColor; opacity: 0.4; flex-shrink: 0; transition: all 0.3s; }
@@ -153,17 +224,17 @@ body::after {
   border-bottom: 12px solid currentColor; }
 .lr-spacer { flex: 1; }
 .lr-avatar { margin-top: 16px; width: 48px; height: 48px; border-radius: 50%;
-  background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: white; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  background: var(--surface-glass-strong); display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--ink); box-shadow: none;
   cursor: pointer; }
 
 /* Tooltip slot */
 .lr-slot[data-tip]:hover::after { content: attr(data-tip);
   position: absolute; left: 70px; top: 50%; transform: translateY(-50%);
   white-space: nowrap; padding: 6px 12px; border-radius: 8px;
-  background: rgba(20,20,20,.95); border: 1px solid var(--border-strong);
+  background: var(--surface-glass-strong); border: var(--glass-border);
   font-size: 11px; color: var(--ink); z-index: 100;
-  box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
 
 /* ===== Right area (center + right rail) ===== */
 .rarea { position: relative; z-index: 10; display: flex; flex: 1; overflow: hidden; }
@@ -175,7 +246,7 @@ body::after {
 .main-scroll::-webkit-scrollbar { display: none; }
 .main-inner { grid-area: 1 / 1 / 2 / 2; width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 64px; }
 .main-fade { pointer-events: none; position: absolute; bottom: 0; left: 0; right: 0; z-index: 20; height: 240px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 25%, rgba(0,0,0,0.92) 60%, #000000 85%); }
+  background: var(--fade-bg); }
 
 /* Stage panels */
 .pw { display: none; flex-direction: column; gap: 64px;
@@ -187,83 +258,83 @@ body::after {
 /* Right rail 320px (Apple Glass Pipeline) */
 .rrail { position: relative; z-index: 20; display: flex; width: 320px; flex-shrink: 0;
   flex-direction: column; gap: 8px; padding: 56px 32px;
-  border-left: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.05); }
+  border-left: var(--glass-border);
+  background: var(--surface-glass);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  box-shadow: none; }
 .rrail-h { margin-bottom: 16px; padding-left: 16px; font-size: 13px;
-  font-weight: 500; color: rgba(255, 255, 255, 0.5); }
+  font-weight: 500; color: var(--ink-faint); }
 .rrail-list { display: flex; flex-direction: column; gap: 8px; }
 .rritem { display: flex; align-items: flex-start; gap: 16px;
   padding: 16px; border-radius: 8px; text-align: left;
-  color: rgba(255,255,255,0.6); transition: all 0.25s var(--ease);
+  color: var(--ink-mute); transition: all 0.25s var(--ease);
   background: transparent; border: none; cursor: pointer;
   opacity: 0; transform: translateX(10px); }
 .rritem.vis { opacity: 1; transform: translateX(0); }
-.rritem:hover { background: rgba(255,255,255,0.04); color: white; }
-.rritem.hot { background: rgba(255,255,255,0.08); color: white; }
+.rritem:hover { background: var(--surface-glass-hover); color: var(--ink); }
+.rritem.hot { background: var(--surface-glass-active); color: var(--ink); }
 .rritem-title { font-size: 15px; line-height: 1.35; font-weight: 500; }
 .rritem-sub { display: block; margin-top: 4px; font-size: 13px;
-  color: rgba(255, 255, 255, 0.4); line-height: 1.45; }
-.rritem.hot .rritem-sub { color: rgba(255,255,255,0.7); }
+  color: var(--ink-faint); line-height: 1.45; }
+.rritem.hot .rritem-sub { color: var(--ink-mute); }
 
 /* Footer pill flottant */
 .footer { position: absolute; bottom: 32px; left: 50%; z-index: 30;
   display: flex; align-items: center; gap: 48px;
   width: max-content; padding: 16px 32px; border-radius: 9999px;
-  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 20px 40px rgba(0,0,0,0.6); }
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow); }
 .footer-zone { display: flex; align-items: center; gap: 12px; }
 .footer-status { display: flex; align-items: center; gap: 12px;
-  font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.7); }
+  font-size: 15px; font-weight: 500; color: var(--ink-mute); }
 .footer-status .ico { width: 16px; height: 16px; border-radius: 3px;
   border: 1px solid currentColor; opacity: 0.55; }
 .footer-status .ico.run { background: currentColor; opacity: 0.8; border: none;
   animation: pulseT 1.4s ease-in-out infinite; }
-@keyframes pulseT { 0%,100%{box-shadow:0 0 0 0 rgba(94,229,195,0)} 50%{box-shadow:0 0 0 8px rgba(94,229,195,.1)} }
+@keyframes pulseT { 0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)} 50%{box-shadow:0 0 0 8px var(--pulse-sh)} }
 
 .footer-seg { display: flex; align-items: center; gap: 4px; padding: 6px; }
 .footer-btn { display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 24px; border-radius: 9999px; font-size: 13px;
-  color: rgba(255, 255, 255, 0.5); border: none; cursor: pointer;
+  color: var(--ink-faint); border: none; cursor: pointer;
   background: transparent; transition: all 0.18s; white-space: nowrap; }
-.footer-btn:hover { color: white; }
-.footer-btn.on { color: white; }
+.footer-btn:hover { color: var(--ink); }
+.footer-btn.on { color: var(--ink); }
 .footer-btn.on.glass {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px) saturate(200%) brightness(130%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(130%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: var(--surface-glass);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-.footer-btn.on.primary { background: #fff; color: #000;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 4px 12px rgba(0,0,0,.15);
+.footer-btn.on.primary { background: var(--ink); color: var(--bg);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
   font-weight: 500; }
 .footer-btn .ico { width: 14px; height: 14px; border-radius: 3px;
   border: 1px solid currentColor; opacity: 0.55; flex-shrink: 0; }
 .footer-btn.on .ico { background: currentColor; opacity: 0.8; border: none; }
-.footer-btn.on.primary .ico { background: #000; opacity: 1; }
+.footer-btn.on.primary .ico { background: var(--bg); opacity: 1; }
 
 /* Hint overlay */
-.hint { position: fixed; top: 24px; right: 24px; max-width: 280px; z-index: 200;
-  font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.4);
+.hint { display: none; position: fixed; top: 24px; right: 24px; max-width: 280px; z-index: 200;
+  font-size: 12px; line-height: 1.7; color: var(--ink-faint);
   text-align: right; white-space: pre-line; padding: 10px 14px;
-  border-radius: 12px; background: rgba(20,20,20,0.65);
-  border: 1px solid var(--border); backdrop-filter: blur(20px); }
+  border-radius: 12px; background: var(--surface-glass);
+  border: var(--glass-border); backdrop-filter: var(--glass-blur-light); }
 
 /* Dots stepper top center */
 .dots-bar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
   z-index: 200; display: flex; align-items: center; gap: 7px;
   padding: 6px 16px; border-radius: 9999px; max-width: 70vw;
-  background: rgba(20,20,20,0.65); border: 1px solid var(--border);
-  backdrop-filter: blur(20px); font-size: 11px; color: rgba(255,255,255,0.5); }
+  background: var(--surface-glass); border: var(--glass-border);
+  backdrop-filter: var(--glass-blur-light); font-size: 11px; color: var(--ink-faint); }
 .dots-bar .ds { width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(255,255,255,0.18); transition: all 0.3s; cursor: pointer; }
-.dots-bar .ds:hover { background: rgba(255,255,255,0.4); }
-.dots-bar .ds.on { background: white; box-shadow: 0 0 8px rgba(255,255,255,0.4); }
+  background: var(--dots-fill); transition: all 0.3s; cursor: pointer; }
+.dots-bar .ds:hover { background: var(--dots-hover); }
+.dots-bar .ds.on { background: var(--ink); box-shadow: none; }
 .dots-bar .lbl { margin-left: 8px; }
 
 /* ============================================================
@@ -272,19 +343,19 @@ body::after {
 
 /* Greeting (cockpit) */
 .greet { display: flex; flex-direction: column; gap: 16px; }
-.greet .date { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.6); mix-blend-mode: plus-lighter; }
-.greet .h1 { font-size: 44px; font-weight: 500; letter-spacing: -.03em; line-height: 1.1; mix-blend-mode: plus-lighter; }
-.greet .sub { max-width: 640px; font-size: 16px; line-height: 1.5; color: var(--fg-dim); }
+.greet .date { font-size: 15px; font-weight: 500; color: var(--ink-mute); }
+.greet .h1 { font-size: 44px; font-weight: 500; letter-spacing: -.03em; line-height: 1.1; }
+.greet .sub { max-width: 640px; font-size: 16px; line-height: 1.5; color: var(--ink-mute); }
 
 /* Hero card (vision-glass) */
 .hero { position: relative; padding: 40px;
   border-radius: 20px; display: flex; flex-direction: column; gap: 24px;
   transition: transform .5s var(--ease); }
-.hero:hover { transform: translateY(-4px); }
+.hero:hover { --base-tr: translateY(-4px); }
 .hero-meta { display: flex; align-items: baseline; justify-content: space-between;
-  font-size: 13px; font-weight: 500; color: var(--fg-mute); }
-.hero h2 { max-width: 600px; font-size: 32px; font-weight: 500; line-height: 1.2; letter-spacing: -.02em; mix-blend-mode: plus-lighter; }
-.hero p { max-width: 580px; font-size: 16px; line-height: 1.6; color: var(--fg-dim); }
+  font-size: 13px; font-weight: 500; color: var(--ink-faint); }
+.hero h2 { max-width: 600px; font-size: 32px; font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
+.hero p { max-width: 580px; font-size: 16px; line-height: 1.6; color: var(--ink-mute); }
 .hero-cta { display: flex; align-items: center; gap: 16px; padding-top: 16px; }
 .btn-pill { padding: 12px 24px; border-radius: 9999px; font-size: 16px;
   cursor: pointer; transition: opacity 0.18s; }
@@ -295,15 +366,15 @@ body::after {
 .section-head h2 { font-size: 20px; font-weight: 500; letter-spacing: -.01em; }
 .section-toggle { display: flex; gap: 4px; padding: 4px; }
 .tg-btn { padding: 8px 20px; border-radius: 9999px; font-size: 13px;
-  color: rgba(255,255,255,0.5); border: none; cursor: pointer;
+  color: var(--ink-faint); border: none; cursor: pointer;
   background: transparent; transition: all 0.18s; }
-.tg-btn:hover { color: white; }
-.tg-btn.on { color: white; font-weight: 500;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px) saturate(200%) brightness(130%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(130%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2); }
+.tg-btn:hover { color: var(--ink); }
+.tg-btn.on { color: var(--ink); font-weight: 500;
+  background: var(--surface-glass);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
 
 /* Liste activité (style item-lab) */
 .act-list { display: flex; flex-direction: column; gap: 8px; }
@@ -311,13 +382,13 @@ body::after {
   border-radius: 8px; cursor: pointer; transition: background 0.15s;
   opacity: 0; transform: translateY(10px); }
 .act-row.vis { opacity: 1; transform: translateY(0); transition: all 0.4s var(--ease); }
-.act-row:hover { background: rgba(255,255,255,0.04); }
+.act-row:hover { background: var(--surface-glass-hover); }
 .act-row .ico-box { width: 16px; height: 16px; border-radius: 3px;
-  border: 1px solid rgba(255,255,255,0.4); flex-shrink: 0; }
+  border: 1px solid var(--border-strong); flex-shrink: 0; }
 .act-row .body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.act-row .title { font-size: 16px; font-weight: 500; color: white; }
-.act-row .meta { font-size: 13px; color: rgba(255,255,255,0.5); }
-.act-row .ago { font-size: 13px; color: rgba(255,255,255,0.4); }
+.act-row .title { font-size: 16px; font-weight: 500; color: var(--ink); }
+.act-row .meta { font-size: 13px; color: var(--ink-mute); }
+.act-row .ago { font-size: 13px; color: var(--ink-faint); }
 
 /* ============================================================
    STAGES SPÉCIFIQUES (reuse primitives + variants spécifiques)
@@ -325,25 +396,25 @@ body::after {
 
 /* --- Chat doc-style --- */
 .chat-q { padding: 14px 20px; border-radius: 16px;
-  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-  font-size: 14px; color: var(--fg-dim); display: inline-block; }
-.chat-ans { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.95); mix-blend-mode: plus-lighter; }
-.cursor { display: inline-block; width: 8px; height: 18px; background: white;
-  margin-left: 2px; vertical-align: text-bottom; animation: cur 1s steps(1) infinite; box-shadow: 0 0 10px white; }
+  background: var(--surface-glass); border: var(--glass-border);
+  font-size: 14px; color: var(--ink-mute); display: inline-block; }
+.chat-ans { font-size: 17px; line-height: 1.7; color: var(--ink); }
+.cursor { display: inline-block; width: 8px; height: 18px; background: var(--ink);
+  margin-left: 2px; vertical-align: text-bottom; animation: cur 1s steps(1) infinite; box-shadow: 0 0 10px var(--ink-faint); }
 @keyframes cur { 0%,50%{opacity:1} 51%,100%{opacity:0} }
 .tools { display: flex; flex-direction: column; gap: 8px; }
 .tcard { display: flex; align-items: center; gap: 16px; padding: 16px;
-  border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 12px; background: var(--surface-glass); border: var(--glass-border);
   opacity: 0; transform: translateY(8px); transition: all .35s var(--ease); }
 .tcard.vis { opacity: 1; transform: translateY(0); }
-.tcard.run { border-color: rgba(255,255,255,0.18); }
+.tcard.run { border-color: var(--border-active); }
 .t-mini { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; letter-spacing: -.02em; }
 .t-body { flex: 1; }
 .t-name { font-size: 14px; font-weight: 500; font-family: ui-monospace, "SF Mono", monospace; margin-bottom: 2px; }
-.t-sub { font-size: 12px; color: rgba(255,255,255,0.4); }
-.t-state { font-size: 12px; color: rgba(255,255,255,0.4); }
+.t-sub { font-size: 12px; color: var(--ink-faint); }
+.t-state { font-size: 12px; color: var(--ink-faint); }
 .t-state.run { color: var(--gold); }
 .t-state.done { color: var(--teal); }
 
@@ -354,44 +425,44 @@ body::after {
   transition: all 0.4s var(--ease); }
 .mtl-row.vis { opacity: 1; transform: translateX(0); }
 .mtl-row.done { opacity: 1; }
-.mtl-row.active { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); opacity: 1; }
+.mtl-row.active { background: var(--surface-glass-hover); border: var(--glass-border); opacity: 1; }
 .mtl-row.pend { opacity: 0.35; }
-.mtl-row.approval { background: rgba(255, 188, 58, .05); border: 1px solid rgba(255,188,58,.18); }
+.mtl-row.approval { background: var(--appr-bg); border: var(--glass-border); }
 .mtl-node { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  border: 2px solid rgba(255,255,255,0.14); font-size: 11px; color: rgba(255,255,255,0.4);
+  border: 2px solid var(--border-strong); font-size: 11px; color: var(--ink-faint);
   margin-top: 2px; transition: all .3s; }
-.mtl-node.done { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); color: white; }
+.mtl-node.done { background: var(--surface-glass-strong); border-color: var(--border-active); color: var(--ink); }
 .mtl-node.active { animation: pulseT 1.6s ease-in-out infinite;
-  background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); color: white; }
-.mtl-node.gold { background: rgba(255,188,58,.15); border-color: rgba(255,188,58,.5); color: var(--gold);
+  background: var(--surface-glass-active); border-color: var(--border-active); color: var(--ink); }
+.mtl-node.gold { background: var(--surface-glass-strong); border-color: var(--border-active); color: var(--ink);
   animation: pulseG 1.6s ease-in-out infinite; }
-@keyframes pulseG { 0%,100%{box-shadow:0 0 0 0 rgba(255,188,58,0)} 50%{box-shadow:0 0 0 8px rgba(255,188,58,.08)} }
+@keyframes pulseG { 0%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)} 50%{box-shadow:0 0 0 8px var(--pulse-sh)} }
 .mtl-c { flex: 1; }
 .mtl-t { font-size: 15px; font-weight: 500; margin-bottom: 3px;
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .mtl-pin { display: inline-flex; align-items: center; gap: 5px;
   font-size: 11px; padding: 2px 8px; border-radius: 9999px;
-  background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: rgba(255,255,255,0.5); }
-.mtl-d { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
-.mtl-time { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 3px; align-self: flex-start; }
+  background: var(--surface-glass-hover); border: var(--glass-border); color: var(--ink-mute); }
+.mtl-d { font-size: 13px; color: var(--ink-mute); line-height: 1.5; }
+.mtl-time { font-size: 12px; color: var(--ink-faint); margin-top: 3px; align-self: flex-start; }
 .approval-bar { margin-top: 12px; padding: 12px 16px; border-radius: 12px;
-  background: rgba(255,188,58,.08); border: 1px solid rgba(255,188,58,.22);
+  background: var(--surface-glass); border: var(--glass-border);
   display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .approval-bar-t { flex: 1; font-size: 13px; color: var(--ink); min-width: 200px; }
 .appr-btn { padding: 7px 14px; border-radius: 9999px; font-size: 12px; font-weight: 500;
-  cursor: pointer; border: 1px solid rgba(255,188,58,.4);
-  background: rgba(255,188,58,.15); color: var(--gold); }
-.appr-btn.ghost { background: transparent; border-color: var(--border); color: rgba(255,255,255,0.5); }
+  cursor: pointer; border: 1px solid var(--border-strong);
+  background: var(--surface-glass-strong); color: var(--ink); }
+.appr-btn.ghost { background: transparent; border-color: var(--border); color: var(--ink-mute); }
 
 /* Outputs cards */
 .outs-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .out-card { padding: 12px 16px; border-radius: 13px;
-  background: rgba(255,255,255,0.03); border: 1px solid var(--border); font-size: 13px;
+  background: var(--surface-glass); border: var(--glass-border); font-size: 13px;
   opacity: 0; transform: translateX(10px); transition: all .3s var(--ease); }
 .out-card.vis { opacity: 1; transform: translateX(0); }
-.out-t { color: white; font-weight: 500; margin-bottom: 3px; }
-.out-s { color: rgba(255,255,255,0.4); font-size: 12px; }
+.out-t { color: var(--ink); font-weight: 500; margin-bottom: 3px; }
+.out-s { color: var(--ink-faint); font-size: 12px; }
 
 /* --- Asset 2x2 grid --- */
 .asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -427,64 +498,65 @@ body::after {
 
 /* Palette ⌘K */
 .palette { position: fixed; inset: 0; z-index: 300;
-  background: rgba(0,0,0,.6); backdrop-filter: blur(20px);
+  background: var(--pal-bg); backdrop-filter: var(--glass-blur-light);
   display: none; align-items: flex-start; justify-content: center;
   padding-top: 14vh; opacity: 0; transition: opacity .2s; }
 .palette.on { display: flex; opacity: 1; }
 .palette-box { width: 580px; border-radius: 20px;
-  background: rgba(20,20,20,.85); border: 1px solid var(--border-strong);
-  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
-  box-shadow: 0 40px 100px rgba(0,0,0,.7); overflow: hidden;
-  transform: scale(.96); transition: transform .25s var(--ease); }
-.palette.on .palette-box { transform: scale(1); }
-.palette-in { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  overflow: hidden;
+  --base-tr: scale(.96); 
+  transition: transform .25s var(--ease), box-shadow 0.1s linear; }
+.palette.on .palette-box { --base-tr: scale(1); }
+.palette-in { padding: 16px 20px; border-bottom: var(--glass-border); }
 .palette-in input { width: 100%; background: transparent; border: none; outline: none;
-  font-size: 15px; color: white; font-family: inherit; caret-color: white; }
+  font-size: 15px; color: var(--ink); font-family: inherit; caret-color: var(--ink); }
 .palette-list { max-height: 400px; overflow-y: auto; padding: 8px; }
 .pitem { padding: 10px 14px; border-radius: 11px; cursor: pointer;
   display: flex; align-items: center; gap: 12px; transition: background .12s; }
-.pitem:hover, .pitem.foc { background: rgba(255,255,255,.06); }
+.pitem:hover, .pitem.foc { background: var(--surface-glass-hover); }
 .pitem-i { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;
-  background: rgba(255,255,255,.08); color: white; }
+  background: var(--surface-glass-strong); color: var(--ink); }
 .pitem-t { flex: 1; font-size: 14px; }
-.pitem-s { font-size: 11px; color: rgba(255,255,255,.4); }
-.pitem-k { font-size: 10px; color: rgba(255,255,255,.4); padding: 2px 7px;
-  border-radius: 5px; border: 1px solid var(--border); white-space: nowrap; }
+.pitem-s { font-size: 11px; color: var(--ink-faint); }
+.pitem-k { font-size: 10px; color: var(--ink-faint); padding: 2px 7px;
+  border-radius: 5px; border: var(--glass-border); white-space: nowrap; }
 </style>
 </head>
 <body>
 
 <!-- ============ LOGIN (vue separee, plein ecran) ============ -->
 <div id="login-view" class="perspective-scene" style="position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden;">
-  <div class="amb-halo"></div>
-  <div class="amb-dots"></div>
+  <div class="amb-light-top"></div>
+  <div class="amb-light-bottom"></div>
   <form id="login-form" class="vision-glass" style="position:relative;z-index:2;width:380px;padding:40px;border-radius:24px;display:flex;flex-direction:column;gap:24px;" onsubmit="event.preventDefault(); document.getElementById('login-view').style.display='none';">
     <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
-      <div style="width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 16px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.3);">
-        <div style="width:22px;height:22px;border-radius:50%;background:white;"></div>
-      </div>
-      <h1 style="font-size:22px;font-weight:500;letter-spacing:-.01em;margin-top:8px;"><span class="ph">Titre login</span></h1>
-      <p style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Sous-titre</span></p>
+      <span class="lr-brand-logo" aria-label="Hearst OS" style="width:48px;height:48px;color:var(--teal);">
+        <svg viewBox="560 455 155 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polygon fill="currentColor" points="601.74 466.87 572.6 466.87 572.6 609.73 601.74 609.73 601.74 549.07 633.11 579.43 665.76 579.43 601.74 517.46 601.74 466.87"/>
+          <polygon fill="currentColor" points="672.72 466.87 672.72 528.12 644.63 500.93 611.98 500.93 672.72 559.72 672.72 609.73 701.86 609.73 701.86 466.87 672.72 466.87"/>
+        </svg>
+      </span>
+      <h1 style="font-size:22px;font-weight:500;letter-spacing:-.01em;margin-top:8px;color:var(--ink);"><span class="ph">Titre login</span></h1>
+      <p style="font-size:13px;color:var(--ink-mute);"><span class="ph">Sous-titre</span></p>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;">
       <label style="display:flex;flex-direction:column;gap:6px;">
-        <span style="font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;">Champ 1</span>
-        <input type="text" placeholder="[placeholder]" style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;outline:none;">
+        <span style="font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;">Champ 1</span>
+        <input type="text" placeholder="[placeholder]" style="background:var(--surface-glass);border:var(--glass-border);border-radius:10px;padding:12px 14px;color:var(--ink);font-size:14px;outline:none;">
       </label>
       <label style="display:flex;flex-direction:column;gap:6px;">
-        <span style="font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;">Champ 2</span>
-        <input type="text" placeholder="[placeholder]" style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;outline:none;">
+        <span style="font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;">Champ 2</span>
+        <input type="text" placeholder="[placeholder]" style="background:var(--surface-glass);border:var(--glass-border);border-radius:10px;padding:12px 14px;color:var(--ink);font-size:14px;outline:none;">
       </label>
     </div>
     <button type="submit" class="vision-btn-primary" style="padding:12px 20px;border-radius:10px;font-size:14px;cursor:pointer;">CTA principal</button>
-    <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.5);">
-      <a href="#" style="color:rgba(255,255,255,.6);text-decoration:none;"><span class="ph">Lien 1</span></a>
-      <a href="#" style="color:rgba(255,255,255,.6);text-decoration:none;"><span class="ph">Lien 2</span></a>
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+      <a href="#" style="color:var(--ink-mute);text-decoration:none;"><span class="ph">Lien 1</span></a>
+      <a href="#" style="color:var(--ink-mute);text-decoration:none;"><span class="ph">Lien 2</span></a>
     </div>
-    <div style="height:1px;background:rgba(255,255,255,.06);"></div>
-    <button type="button" onclick="document.getElementById('login-view').style.display='none';" style="padding:10px 16px;border-radius:9999px;font-size:12px;cursor:pointer;background:rgba(255,188,58,.12);border:1px solid rgba(255,188,58,.4);color:var(--gold);letter-spacing:.04em;">⚡ BYPASS DEV</button>
+    <div style="height:1px;background:var(--border-strong);"></div>
+    <button type="button" onclick="document.getElementById('login-view').style.display='none';" style="padding:10px 16px;border-radius:9999px;font-size:12px;cursor:pointer;background:var(--surface-glass);border:var(--glass-border);color:var(--ink);letter-spacing:.04em;">⚡ BYPASS DEV</button>
   </form>
 </div>
 
@@ -501,14 +573,19 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
 <div class="scene perspective-scene">
 
   <!-- Ambient layers (Global Background for Glass) -->
-  <div class="amb-halo"></div>
-  <div class="amb-dots"></div>
+  <div class="amb-light-top"></div>
+  <div class="amb-light-bottom"></div>
 
   <!-- ============ LEFT RAIL 88px (vision-glass) ============ -->
   <aside class="lrail">
     <div class="lrail-inner">
       <div class="lr-brand" title="Hearst OS">
-        <div class="lr-brand-dot"></div>
+        <span class="lr-brand-logo" aria-label="Hearst OS">
+          <svg viewBox="560 455 155 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon fill="currentColor" points="601.74 466.87 572.6 466.87 572.6 609.73 601.74 609.73 601.74 549.07 633.11 579.43 665.76 579.43 601.74 517.46 601.74 466.87"/>
+            <polygon fill="currentColor" points="672.72 466.87 672.72 528.12 644.63 500.93 611.98 500.93 672.72 559.72 672.72 609.73 701.86 609.73 701.86 466.87 672.72 466.87"/>
+          </svg>
+        </span>
       </div>
       
       <div class="lr-group">
@@ -519,6 +596,7 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
       </div>
 
       <div style="display:flex; flex-direction:column; gap:12px; align-items:center; margin-top:16px;">
+        <button type="button" class="lr-slot" id="theme-toggle" data-tip="Light/Dark Mode"><div class="lr-ico" style="border-radius:50%; border:2px solid currentColor; display:flex; align-items:center; justify-content:center; width:16px; height:16px;">◑</div></button>
         <button type="button" class="lr-slot" data-stage="billing" data-tip="Raccourci — ouvre Billing"><div class="lr-ico bill"></div></button>
         <button type="button" class="lr-slot" data-stage="settings" data-tip="Raccourci — ouvre Settings"><div class="lr-ico gear"></div></button>
         <div class="lr-avatar" style="margin-top:0;" title="Adrien">A</div>
@@ -641,7 +719,7 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
               </div>
             </div>
             <div class="chat-ans" id="chat-ans2" style="opacity:0;animation:fu .6s var(--ease) 6s forwards;">
-              <strong style="color:white;"><span class="ph">Label conclusion</span></strong> <span class="ph">Synthèse — phrase de réponse finale</span>
+              <strong style="color:var(--ink);"><span class="ph">Label conclusion</span></strong> <span class="ph">Synthèse — phrase de réponse finale</span>
             </div>
           </div>
         </section>
@@ -649,9 +727,9 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
         <!-- ===== MISSION ===== -->
         <section class="main-inner pw preserve-3d" id="p-mission">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
-            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre mission</span></h1>
-            <p style="font-size:14px;color:rgba(255,255,255,.5);"><span class="ph">Sous-titre</span></p>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;color:var(--ink);"><span class="ph">Titre mission</span></h1>
+            <p style="font-size:14px;color:var(--ink-mute);"><span class="ph">Sous-titre</span></p>
           </header>
 
           <div class="mtl">
@@ -703,7 +781,7 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
           </div>
 
           <div>
-            <p class="rp-sec-t"><span class="ph">Titre section grille</span></p>
+            <p class="rp-sec-t" style="color:var(--ink);"><span class="ph">Titre section grille</span></p>
             <div class="outs-grid" id="ogrid"></div>
           </div>
         </section>
@@ -711,9 +789,9 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
         <!-- ===== ASSET ===== -->
         <section class="main-inner pw preserve-3d" id="p-asset">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
-            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre Assets</span></h1>
-            <p style="font-size:14px;color:rgba(255,255,255,.5);"><span class="ph">Sous-titre / providers</span></p>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;color:var(--ink);"><span class="ph">Titre Assets</span></h1>
+            <p style="font-size:14px;color:var(--ink-mute);"><span class="ph">Sous-titre / providers</span></p>
           </header>
           <div class="asset-grid">
             <div class="slot" id="sl0"><div class="breath"></div><div class="bg v0"></div>
@@ -729,58 +807,58 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
               <div class="cap"><span class="tag">Tag</span><div><span class="ph">Caption variant 4</span></div></div>
             </div>
           </div>
-          <p style="text-align:center;font-size:13px;color:rgba(255,255,255,.4);" id="ast"><span class="ph">Statut génération</span></p>
+          <p style="text-align:center;font-size:13px;color:var(--ink-mute);" id="ast"><span class="ph">Statut génération</span></p>
         </section>
 
         <!-- ===== BILLING ===== -->
         <section class="main-inner pw preserve-3d" id="p-billing">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
             <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre billing</span></h1>
           </header>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:24px;">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;">
               <div style="display:flex;flex-direction:column;gap:6px;">
-                <span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);">Label plan</span>
+                <span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);">Label plan</span>
                 <span style="font-size:24px;font-weight:500;"><span class="ph">Nom plan</span></span>
-                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Prix / fréquence / prochaine facture</span></span>
+                <span style="font-size:13px;color:var(--ink-faint);"><span class="ph">Prix / fréquence / prochaine facture</span></span>
               </div>
               <button class="vision-btn-glass" style="padding:10px 18px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA plan</button>
             </div>
-            <div style="height:1px;background:rgba(255,255,255,.08);"></div>
+            <div style="height:1px;background:var(--border-strong);"></div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
               <div style="display:flex;flex-direction:column;gap:4px;">
-                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">Métrique 1</span>
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);">Métrique 1</span>
                 <span style="font-size:20px;font-weight:500;"><span class="ph">Valeur</span></span>
               </div>
               <div style="display:flex;flex-direction:column;gap:4px;">
-                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">Métrique 2</span>
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);">Métrique 2</span>
                 <span style="font-size:14px;"><span class="ph">Valeur</span></span>
               </div>
               <div style="display:flex;flex-direction:column;gap:4px;">
-                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">Status</span>
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);">Status</span>
                 <span style="font-size:14px;color:var(--teal);">● <span class="ph">État</span></span>
               </div>
             </div>
           </section>
 
           <section style="display:flex;flex-direction:column;gap:12px;">
-            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);"><span class="ph">Titre section liste</span></h2>
+            <h2 style="font-size:18px;font-weight:500;color:var(--ink);"><span class="ph">Titre section liste</span></h2>
             <div class="vision-glass" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <span style="font-size:14px;"><span class="ph">Ligne 1 — label</span></span>
-                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Montant · statut</span></span>
+                <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Montant · statut</span></span>
               </div>
-              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="height:1px;background:var(--border-strong);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <span style="font-size:14px;"><span class="ph">Ligne 2 — label</span></span>
-                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Montant · statut</span></span>
+                <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Montant · statut</span></span>
               </div>
-              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="height:1px;background:var(--border-strong);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <span style="font-size:14px;"><span class="ph">Ligne 3 — label</span></span>
-                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Montant · statut</span></span>
+                <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Montant · statut</span></span>
               </div>
             </div>
           </section>
@@ -789,48 +867,48 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
         <!-- ===== SETTINGS ===== -->
         <section class="main-inner pw preserve-3d" id="p-settings">
           <header style="display:flex;flex-direction:column;gap:8px;">
-            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);"><span class="ph">Eyebrow</span></p>
             <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre settings</span></h1>
           </header>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
-            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);">Section 1 — Profil</h2>
+            <h2 style="font-size:18px;font-weight:500;color:var(--ink);">Section 1 — Profil</h2>
             <div style="display:flex;align-items:center;gap:20px;">
-              <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:24px;">?</div>
+              <div style="width:64px;height:64px;border-radius:50%;background:var(--surface-glass);display:flex;align-items:center;justify-content:center;font-size:24px;">?</div>
               <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
                 <span style="font-size:16px;font-weight:500;"><span class="ph">Nom utilisateur</span></span>
-                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Email</span></span>
+                <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Email</span></span>
               </div>
               <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA</button>
             </div>
           </section>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
-            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);">Section 2 — Préférences</h2>
+            <h2 style="font-size:18px;font-weight:500;color:var(--ink);">Section 2 — Préférences</h2>
             <div style="display:flex;flex-direction:column;gap:16px;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <div style="display:flex;flex-direction:column;gap:2px;">
                   <span style="font-size:14px;">Réglage 1</span>
-                  <span style="font-size:12px;color:rgba(255,255,255,.4);"><span class="ph">Description réglage</span></span>
+                  <span style="font-size:12px;color:var(--ink-faint);"><span class="ph">Description réglage</span></span>
                 </div>
                 <div class="vision-segmented-track" style="display:flex;padding:3px;">
-                  <button class="footer-btn on" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:#fff;background:rgba(255,255,255,.1);">Option A</button>
-                  <button class="footer-btn" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:rgba(255,255,255,.5);background:transparent;">Option B</button>
+                  <button class="footer-btn on" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:var(--ink);background:var(--surface-glass);">Option A</button>
+                  <button class="footer-btn" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:var(--ink-mute);background:transparent;">Option B</button>
                 </div>
               </div>
-              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="height:1px;background:var(--border-strong);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <div style="display:flex;flex-direction:column;gap:2px;">
                   <span style="font-size:14px;">Réglage 2</span>
-                  <span style="font-size:12px;color:rgba(255,255,255,.4);"><span class="ph">Description réglage</span></span>
+                  <span style="font-size:12px;color:var(--ink-faint);"><span class="ph">Description réglage</span></span>
                 </div>
-                <span style="font-size:13px;color:rgba(255,255,255,.6);"><span class="ph">Valeur</span></span>
+                <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">Valeur</span></span>
               </div>
-              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="height:1px;background:var(--border-strong);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <div style="display:flex;flex-direction:column;gap:2px;">
                   <span style="font-size:14px;">Réglage 3</span>
-                  <span style="font-size:12px;color:rgba(255,255,255,.4);"><span class="ph">Description réglage</span></span>
+                  <span style="font-size:12px;color:var(--ink-faint);"><span class="ph">Description réglage</span></span>
                 </div>
                 <span style="font-size:13px;color:var(--teal);">● <span class="ph">État</span></span>
               </div>
@@ -838,18 +916,18 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
           </section>
 
           <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
-            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);">Section 3 — Sécurité</h2>
+            <h2 style="font-size:18px;font-weight:500;color:var(--ink);">Section 3 — Sécurité</h2>
             <div style="display:flex;flex-direction:column;gap:16px;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <span style="font-size:14px;">Item sécurité 1</span>
                 <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA</button>
               </div>
-              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="height:1px;background:var(--border-strong);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <span style="font-size:14px;">Item sécurité 2</span>
-                <span style="font-size:13px;color:rgba(255,255,255,.4);"><span class="ph">État</span></span>
+                <span style="font-size:13px;color:var(--ink-mute);"><span class="ph">État</span></span>
               </div>
-              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="height:1px;background:var(--border-strong);"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <span style="font-size:14px;color:var(--danger);">Action destructive</span>
                 <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;color:var(--danger);">CTA</button>
@@ -897,7 +975,7 @@ Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au
 
 <!-- Palette ⌘K -->
 <div class="palette" id="palette">
-  <div class="palette-box">
+  <div class="palette-box vision-glass">
     <div class="palette-in">
       <input id="pq" placeholder="Demande, lance, ouvre…" autocomplete="off"/>
     </div>
@@ -1197,6 +1275,21 @@ function initAsset() {
 // ========= Left rail : raccourcis optionnels (data-stage → go) ; placeholders = .lr-slot-ph sans data-stage =========
 document.querySelectorAll('.lr-slot[data-stage]').forEach(b => {
   b.onclick = () => go(b.dataset.stage);
+});
+
+// ========= Theme Toggle =========
+const themeToggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+
+// Set initial theme
+const savedTheme = localStorage.getItem('theme') || 'dark';
+root.setAttribute('data-theme', savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const currentTheme = root.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
 });
 
 // ========= Toggle home filter =========

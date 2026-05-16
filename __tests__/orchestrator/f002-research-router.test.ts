@@ -122,7 +122,9 @@ describe("F002 — run-research-report getProvider wiring", () => {
       scope: { tenantId: "t1", workspaceId: "w1", userId: "u1" },
     });
 
-    expect(mocks.recordSuccess).toHaveBeenCalledWith("kimi");
+    // Helper chatWithCircuitBreaker passe (provider, tenantId) — tenantId undefined
+    // ici car synthesizeReport ne propage pas le scope.tenantId au breaker (legacy).
+    expect(mocks.recordSuccess).toHaveBeenCalledWith("kimi", undefined);
   });
 
   it("lève une erreur si le breaker est ouvert (synthesis annulée)", async () => {
@@ -157,6 +159,6 @@ describe("F002 — run-research-report getProvider wiring", () => {
       scope: { tenantId: "t2", workspaceId: "w1", userId: "u1" },
     });
 
-    expect(mocks.recordFailure).toHaveBeenCalledWith("kimi", expect.any(Error));
+    expect(mocks.recordFailure).toHaveBeenCalledWith("kimi", expect.any(Error), undefined);
   });
 });

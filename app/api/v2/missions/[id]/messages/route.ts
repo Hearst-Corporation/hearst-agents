@@ -19,6 +19,7 @@ import { getMission } from "@/lib/engine/runtime/missions/store";
 import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { appendMissionMessage, listMissionMessages } from "@/lib/memory/mission-context";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 const missionMessageBodySchema = z
   .object({
@@ -87,14 +88,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "mission_not_found" }, { status: ownership.status });
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsed = missionMessageBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, missionMessageBodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const { content } = parsed.data;
   const role = parsed.data.role === "assistant" ? "user" : parsed.data.role;

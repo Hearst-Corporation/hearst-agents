@@ -21,6 +21,7 @@ import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
 import { inngest } from "@/lib/jobs/inngest/client";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { redactId } from "@/lib/utils/redact";
 import {
   formatWeeklyDigestBlocks,
   WEEKLY_DIGEST_DEFAULT_CHANNEL,
@@ -173,7 +174,7 @@ export const weeklyDigestPerUserFunction = inngest.createFunction(
     });
 
     if (!slackConnected) {
-      console.log(`[WeeklyDigest/user=${data.userId.slice(0, 8)}] Slack déconnecté — skip.`);
+      console.log(`[WeeklyDigest/user=${redactId(data.userId)}] Slack déconnecté — skip.`);
       return { skipped: true, reason: "slack_disconnected" };
     }
 
@@ -217,7 +218,7 @@ export const weeklyDigestPerUserFunction = inngest.createFunction(
     });
 
     console.log(
-      `[WeeklyDigest/user=${data.userId.slice(0, 8)}] sent channel=${channel} window=${payload.window.label} runs=${payload.totalRuns}`,
+      `[WeeklyDigest/user=${redactId(data.userId)}] sent channel=${channel} window=${payload.window.label} runs=${payload.totalRuns}`,
     );
 
     return {

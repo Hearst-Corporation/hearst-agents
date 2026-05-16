@@ -29,10 +29,6 @@ const KIND_GLYPHS: Record<string, string> = {
   creative_prompt: "✦",
 };
 
-function escapeHtml(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
 export function MarketplaceTemplateCard({
   template,
   recommended = false,
@@ -79,12 +75,12 @@ export function MarketplaceTemplateCard({
       </header>
 
       <h3 className="t-15 font-medium text-text" style={{ lineHeight: "var(--leading-snug)" }}>
-        {escapeHtml(template.title)}
+        {template.title}
       </h3>
 
       {template.description && (
         <p className="t-11 text-text-muted" style={{ lineHeight: "var(--leading-normal)" }}>
-          {escapeHtml(template.description.slice(0, 160))}
+          {template.description.slice(0, 160)}
           {template.description.length > 160 ? "…" : ""}
         </p>
       )}
@@ -101,7 +97,7 @@ export function MarketplaceTemplateCard({
                 borderRadius: "var(--radius-pill)",
               }}
             >
-              {escapeHtml(tag)}
+              {tag}
             </span>
           ))}
         </div>
@@ -111,7 +107,7 @@ export function MarketplaceTemplateCard({
         className="flex items-center justify-between"
         style={{ gap: "var(--space-2)", marginTop: "var(--space-1)" }}
       >
-        <span className="t-11 font-light text-text-faint">{escapeHtml(author)}</span>
+        <span className="t-11 font-light text-text-faint">{author}</span>
         <span className="t-9 font-mono text-text-faint">
           {template.cloneCount} clone{template.cloneCount === 1 ? "" : "s"}
         </span>

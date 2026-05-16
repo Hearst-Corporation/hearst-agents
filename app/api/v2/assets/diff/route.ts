@@ -15,8 +15,8 @@ import { z } from "zod";
 import { type Asset, loadAssetById } from "@/lib/assets/types";
 import { guardAndReserveCredits } from "@/lib/credits/client";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
@@ -102,25 +102,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Circuit breaker — fail-fast si provider dégradé
-  if (defaultCircuitBreaker.isOpen("kimi", scope.tenantId)) {
-    console.warn("[POST /api/v2/assets/diff] circuit breaker open, fallback naiveDiff");
+  const result = await llmDiff(a, b, scope.tenantId);
+  if (!result) {
+    console.warn("[POST /api/v2/assets/diff] kimi indisponible, fallback naiveDiff");
     return NextResponse.json(naiveDiff(a, b));
   }
-
-  try {
-    const result = await llmDiff(a, b, scope.tenantId);
-    defaultCircuitBreaker.recordSuccess("kimi", scope.tenantId);
-    return NextResponse.json(result);
-  } catch (err) {
-    console.error("[POST /api/v2/assets/diff] llm error:", err);
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      scope.tenantId,
-    );
-    return NextResponse.json(naiveDiff(a, b));
-  }
+  return NextResponse.json(result);
 }
 
 function naiveDiff(a: Asset, b: Asset): DiffResult {
@@ -151,20 +138,21 @@ function naiveDiff(a: Asset, b: Asset): DiffResult {
   };
 }
 
-async function llmDiff(a: Asset, b: Asset, tenantId: string): Promise<DiffResult> {
-  const provider = getProvider("kimi");
-
+async function llmDiff(a: Asset, b: Asset, tenantId: string): Promise<DiffResult | null> {
   const contentA = (a.contentRef ?? a.summary ?? "").slice(0, 6000);
   const contentB = (b.contentRef ?? b.summary ?? "").slice(0, 6000);
 
-  const response = await provider.chat({
-    model: "kimi-k2.5",
-    max_tokens: 1024,
-    messages: [
-      {
-        role: "system",
-        content: composeEditorialPrompt(
-          `
+  return chatWithCircuitBreaker<DiffResult | null>({
+    tenantId,
+    context: "assets/diff",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
+      max_tokens: 1024,
+      messages: [
+        {
+          role: "system",
+          content: composeEditorialPrompt(
+            `
 Tu es l'analyste qui compare deux assets Hearst OS et produit un diff sémantique structuré.
 
 FORMAT STRICT (JSON valide uniquement, pas de markdown fence) :
@@ -177,35 +165,38 @@ CONTRAINTES SPÉCIFIQUES :
 - description : nomme le delta (« A → B » ou « ajouté X » ou « retiré Y »).
 - Pas d'inférence si le contenu ne le supporte pas — dis « différence non détectable » plutôt qu'inventer.
     `.trim(),
-        ),
-      },
-      {
-        role: "user",
-        content:
-          `Asset A — Titre: ${a.title}\nKind: ${a.kind}\nContenu (tronqué):\n${contentA}\n\n` +
-          `Asset B — Titre: ${b.title}\nKind: ${b.kind}\nContenu (tronqué):\n${contentB}`,
-      },
-    ],
+          ),
+        },
+        {
+          role: "user",
+          content:
+            `Asset A — Titre: ${a.title}\nKind: ${a.kind}\nContenu (tronqué):\n${contentA}\n\n` +
+            `Asset B — Titre: ${b.title}\nKind: ${b.kind}\nContenu (tronqué):\n${contentB}`,
+        },
+      ],
+    },
+    fallback: null,
+    parse: (response) => {
+      const text = (response.content || "").trim();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) return null;
+      try {
+        const parsedResult = JSON.parse(jsonMatch[0]) as Partial<DiffResult>;
+        if (!parsedResult.summary || !Array.isArray(parsedResult.differences)) {
+          return null;
+        }
+        return {
+          summary: String(parsedResult.summary),
+          differences: parsedResult.differences
+            .filter(
+              (d): d is DiffEntry =>
+                Boolean(d) && typeof d.kind === "string" && typeof d.description === "string",
+            )
+            .slice(0, 8),
+        };
+      } catch {
+        return null;
+      }
+    },
   });
-
-  const text = (response.content || "").trim();
-
-  // Extrait le premier JSON object
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error("LLM did not return JSON");
-  }
-  const parsedResult = JSON.parse(jsonMatch[0]) as Partial<DiffResult>;
-  if (!parsedResult.summary || !Array.isArray(parsedResult.differences)) {
-    throw new Error("LLM JSON missing required fields");
-  }
-  return {
-    summary: String(parsedResult.summary),
-    differences: parsedResult.differences
-      .filter(
-        (d): d is DiffEntry =>
-          Boolean(d) && typeof d.kind === "string" && typeof d.description === "string",
-      )
-      .slice(0, 8),
-  };
 }

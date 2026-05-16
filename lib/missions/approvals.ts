@@ -21,9 +21,10 @@
 
 import crypto, { randomUUID } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { createClient } from "@supabase/supabase-js";
 import { isTransactionalEmailEnabled, sendTransactionalEmail } from "@/lib/email/transactional";
 import type { ApprovalMode } from "@/lib/engine/runtime/missions/types";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { escapeHtml } from "@/lib/utils/escape-html";
 
 // ── Constantes ───────────────────────────────────────────────
 
@@ -152,17 +153,8 @@ function getApprovalSecret(): string | null {
 
 // ── DB client (service role — bypass RLS pour vote public) ──
 
-let _db: SupabaseClient | null = null;
-
 function db(): SupabaseClient | null {
-  if (_db) return _db;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  _db = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  return _db;
+  return getServerSupabase();
 }
 
 // ── Encoding helpers ─────────────────────────────────────────
@@ -388,15 +380,6 @@ function renderApprovalEmail(input: {
   ].join("\n");
 
   return { subject, html, text };
-}
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }
 
 // ── Public API ───────────────────────────────────────────────

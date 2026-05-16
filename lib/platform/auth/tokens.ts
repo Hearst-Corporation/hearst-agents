@@ -6,20 +6,18 @@
  */
 
 import crypto from "node:crypto";
-import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/lib/database.types";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
-/* ─── Supabase client (untyped, user_tokens isn't in generated types) ─── */
+type UserTokenInsert = Database["public"]["Tables"]["user_tokens"]["Insert"];
+
+/* ─── Supabase client (canonique via getServerSupabase) ─── */
 
 const USE_MEMORY_STORE =
   !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 function getSupabase() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) throw new Error("Missing Supabase credentials");
-  return createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  return requireServerSupabase();
 }
 
 /* ─── In-memory fallback for dev without Supabase ─── */
@@ -273,7 +271,7 @@ export async function saveTokens(
   }
   try {
     const sb = getSupabase();
-    const row: Record<string, unknown> = {
+    const row: UserTokenInsert = {
       user_id: userId,
       provider,
       updated_at: new Date().toISOString(),

@@ -7,6 +7,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { getCategorySettings, getFeatureFlag, setFeatureFlag } from "@/lib/platform/settings";
 
 const flagsBodySchema = z
@@ -39,14 +40,8 @@ export async function POST(req: NextRequest) {
   const db = requireServerSupabase();
 
   try {
-    const raw = await req.json().catch(() => null);
-    const parsed = flagsBodySchema.safeParse(raw);
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: "invalid_body", details: parsed.error.flatten() },
-        { status: 400 },
-      );
-    }
+    const parsed = await parseJsonBody(req, flagsBodySchema);
+    if (!parsed.ok) return parsed.response;
 
     const { key, enabled } = parsed.data;
     await setFeatureFlag(db, key, enabled, scope.userId);

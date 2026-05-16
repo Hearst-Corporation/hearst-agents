@@ -5,10 +5,10 @@
  * UI : KnowledgeStage.tsx — highlight des hits sur le graphe Cytoscape.
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 import { searchNodes } from "@/lib/memory/kg";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,17 +18,7 @@ const querySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).optional(),
 });
 
-export async function GET(req: NextRequest) {
-  const { scope, error: scopeError } = await requireScope({
-    context: "GET /api/v2/kg/search",
-  });
-  if (scopeError || !scope) {
-    return NextResponse.json(
-      { error: scopeError?.message ?? "not_authenticated" },
-      { status: scopeError?.status ?? 401 },
-    );
-  }
-
+export const GET = withScope("GET /api/v2/kg/search", async (req, { scope }) => {
   const { searchParams } = new URL(req.url);
   const parsed = querySchema.safeParse({
     q: searchParams.get("q"),
@@ -53,4 +43,4 @@ export async function GET(req: NextRequest) {
     console.error("[kg/search] failed:", message);
     return NextResponse.json({ error: "search_failed", message }, { status: 500 });
   }
-}
+});

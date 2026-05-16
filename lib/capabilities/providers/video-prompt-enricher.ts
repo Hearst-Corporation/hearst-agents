@@ -20,8 +20,8 @@
  * génération vidéo.
  */
 
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 
 export interface VideoPromptEnrichment {
   /** Prompt enrichi prêt à envoyer à Runway. */
@@ -31,7 +31,7 @@ export interface VideoPromptEnrichment {
   diff: string[];
 }
 
-const HAIKU_MODEL = "kimi-k2.5";
+const HAIKU_MODEL = KIMI_MODELS.HAIKU;
 
 const SYSTEM_PROMPT = [
   "Tu es un directeur photo qui réécrit des prompts vidéo pour le modèle Runway Gen-3.",
@@ -73,13 +73,12 @@ export async function enrichVideoPrompt(
     return heuristicFallback(trimmed);
   }
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    return heuristicFallback(trimmed);
-  }
+  const fallback = heuristicFallback(trimmed);
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
+  return chatWithCircuitBreaker<VideoPromptEnrichment>({
+    tenantId,
+    context: "video-prompt-enricher",
+    chatRequest: {
       model: HAIKU_MODEL,
       max_tokens: 200,
       messages: [
@@ -89,31 +88,19 @@ export async function enrichVideoPrompt(
           content: `Prompt brut : "${trimmed}"\n\nRéécris-le en direction cinématographique pour Runway.`,
         },
       ],
-    });
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-
-    const enriched = res.content.trim();
-    if (!enriched || enriched.length < trimmed.length / 2) {
-      // Réponse vide ou suspicieusement courte → fallback.
-      return heuristicFallback(trimmed);
-    }
-
-    return {
-      enriched,
-      diff: computeDiff(trimmed, enriched),
-    };
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn(
-      "[video-prompt-enricher] Kimi enrichment failed, using heuristic:",
-      err instanceof Error ? err.message : err,
-    );
-    return heuristicFallback(trimmed);
-  }
+    },
+    fallback,
+    parse: (res) => {
+      const enriched = res.content.trim();
+      if (!enriched || enriched.length < trimmed.length / 2) {
+        return fallback;
+      }
+      return {
+        enriched,
+        diff: computeDiff(trimmed, enriched),
+      };
+    },
+  });
 }
 
 /**

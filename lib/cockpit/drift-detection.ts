@@ -19,8 +19,8 @@
  */
 
 import { createHash } from "node:crypto";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 // ── Types ──────────────────────────────────────────────────
@@ -139,7 +139,7 @@ export async function analyzeMissionDrift(
 
 // ── Narration Haiku ────────────────────────────────────────
 
-const HAIKU_MODEL = "kimi-k2.5";
+const HAIKU_MODEL = KIMI_MODELS.HAIKU;
 const NARRATION_TTL_MS = 60 * 60_000; // 1 h
 const MAX_LEN = 140;
 
@@ -164,17 +164,13 @@ export async function generateDriftNarration(
   const cached = narrationCache.get(cacheKey);
   if (cached && cached.expiresAt > Date.now()) return cached.text;
 
-  if (defaultCircuitBreaker.isOpen("kimi")) {
-    const fallback = clipFr(
-      `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
-    );
-    narrationCache.set(cacheKey, { text: fallback, expiresAt: Date.now() + NARRATION_TTL_MS });
-    return fallback;
-  }
+  const fallback = clipFr(
+    `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
+  );
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
+  const text = await chatWithCircuitBreaker<string>({
+    context: "drift-detection/narration",
+    chatRequest: {
       model: HAIKU_MODEL,
       max_tokens: 120,
       messages: [
@@ -196,32 +192,16 @@ export async function generateDriftNarration(
           ].join("\n"),
         },
       ],
-    });
+    },
+    fallback,
+    parse: (res) => {
+      const cleaned = clipFr(res.content);
+      return cleaned.length === 0 ? fallback : cleaned;
+    },
+  });
 
-    defaultCircuitBreaker.recordSuccess("kimi");
-    const text = res.content;
-    const cleaned = clipFr(text);
-    if (cleaned.length === 0) {
-      const fallback = clipFr(
-        `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
-      );
-      narrationCache.set(cacheKey, { text: fallback, expiresAt: Date.now() + NARRATION_TTL_MS });
-      return fallback;
-    }
-    narrationCache.set(cacheKey, { text: cleaned, expiresAt: Date.now() + NARRATION_TTL_MS });
-    return cleaned;
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-    );
-    console.warn("[drift-detection] Haiku narration failed:", err);
-    const fallback = clipFr(
-      `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
-    );
-    narrationCache.set(cacheKey, { text: fallback, expiresAt: Date.now() + NARRATION_TTL_MS });
-    return fallback;
-  }
+  narrationCache.set(cacheKey, { text, expiresAt: Date.now() + NARRATION_TTL_MS });
+  return text;
 }
 
 // ── Comparaison structurelle ───────────────────────────────

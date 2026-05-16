@@ -16,8 +16,8 @@
  */
 
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { WorkflowHandler } from "./types";
 
 interface ArrivalLite {
@@ -75,71 +75,70 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args, ctx) => {
     return { success: true, output: { notes, degraded: true, reason: "no_kimi_key" } };
   }
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    const notes = arrivals.map((a) => ({
-      guestName: a.guestName,
-      room: a.room ?? "",
-      note: fallbackNote(a),
-    }));
-    return { success: true, output: { notes, degraded: true, reason: "circuit_open" } };
-  }
+  const fallbackNotes = arrivals.map((a) => ({
+    guestName: a.guestName,
+    room: a.room ?? "",
+    note: fallbackNote(a),
+  }));
 
-  try {
-    const provider = getProvider("kimi");
-    const userPrompt = [
-      `Tone : ${tone}.`,
-      includeRoom ? "Inclus le numéro de chambre dans la note." : "Pas de numéro de chambre.",
-      "",
-      "Arrivals (JSON) :",
-      JSON.stringify(arrivals, null, 2),
-    ].join("\n");
+  const userPrompt = [
+    `Tone : ${tone}.`,
+    includeRoom ? "Inclus le numéro de chambre dans la note." : "Pas de numéro de chambre.",
+    "",
+    "Arrivals (JSON) :",
+    JSON.stringify(arrivals, null, 2),
+  ].join("\n");
 
-    const res = await provider.chat({
-      model: "kimi-k2.5",
+  type WelcomeOutput =
+    | { notes: Array<{ guestName: string; room: string; note: string }>; degraded: false }
+    | {
+        notes: Array<{ guestName: string; room: string; note: string }>;
+        degraded: true;
+        reason: string;
+      };
+
+  const fallback: WelcomeOutput = {
+    notes: fallbackNotes,
+    degraded: true,
+    reason: "circuit_open_or_failed",
+  };
+
+  const output = await chatWithCircuitBreaker<WelcomeOutput>({
+    tenantId,
+    context: "workflows/ai-draft-welcome-notes",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 1500,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: userPrompt },
       ],
-    });
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
+    },
+    fallback,
+    parse: (res) => {
+      const text = res.content.trim();
+      const m = text.match(/\[[\s\S]*\]/);
+      if (!m) {
+        return { notes: fallbackNotes, degraded: true, reason: "no_json_in_response" };
+      }
+      try {
+        const parsed = JSON.parse(m[0]) as Array<{
+          guestName: string;
+          room?: string;
+          note: string;
+        }>;
+        const notes = parsed.map((n) => ({
+          guestName: String(n.guestName ?? ""),
+          room: String(n.room ?? ""),
+          note: String(n.note ?? ""),
+        }));
+        return { notes, degraded: false };
+      } catch (err) {
+        const reason = err instanceof Error ? err.message : String(err);
+        return { notes: fallbackNotes, degraded: true, reason };
+      }
+    },
+  });
 
-    const text = res.content.trim();
-    const m = text.match(/\[[\s\S]*\]/);
-    if (!m) {
-      const notes = arrivals.map((a) => ({
-        guestName: a.guestName,
-        room: a.room ?? "",
-        note: fallbackNote(a),
-      }));
-      return { success: true, output: { notes, degraded: true, reason: "no_json_in_response" } };
-    }
-
-    const parsed = JSON.parse(m[0]) as Array<{
-      guestName: string;
-      room?: string;
-      note: string;
-    }>;
-
-    const notes = parsed.map((n) => ({
-      guestName: String(n.guestName ?? ""),
-      room: String(n.room ?? ""),
-      note: String(n.note ?? ""),
-    }));
-
-    return { success: true, output: { notes, degraded: false } };
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    const reason = err instanceof Error ? err.message : String(err);
-    const notes = arrivals.map((a) => ({
-      guestName: a.guestName,
-      room: a.room ?? "",
-      note: fallbackNote(a),
-    }));
-    return { success: true, output: { notes, degraded: true, reason } };
-  }
+  return { success: true, output };
 };

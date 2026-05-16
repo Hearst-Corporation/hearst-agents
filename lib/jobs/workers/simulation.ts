@@ -20,6 +20,7 @@ import type { JobResult, SimulationInput } from "@/lib/jobs/types";
 import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { type SimulationOutput, simulationOutputSchema } from "@/lib/simulations/schemas";
+import { redactId } from "@/lib/utils/redact";
 
 const SIMULATION_PROMPT = [
   "Tu es un analyste business expert. L'utilisateur soumet un scénario, tu retournes 3 à 5 scénarios contrastés.",
@@ -141,7 +142,7 @@ async function processSimulation(payload: SimulationInput): Promise<JobResult> {
     .eq("id", payload.simulationId);
 
   console.log(
-    `[Simulation/Worker] user=${payload.userId.slice(0, 8)} sim=${payload.simulationId.slice(0, 8)} scenarios=${parsed.scenarios.length}`,
+    `[Simulation/Worker] user=${redactId(payload.userId)} sim=${redactId(payload.simulationId)} scenarios=${parsed.scenarios.length}`,
   );
 
   return {

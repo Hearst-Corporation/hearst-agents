@@ -24,6 +24,7 @@ import { enqueueJob } from "@/lib/jobs/queue";
 import type { ImageGenInput } from "@/lib/jobs/types";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { protectLlmJob } from "@/lib/security/arcjet";
 
 export const dynamic = "force-dynamic";
@@ -60,22 +61,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let raw: unknown;
-  try {
-    raw = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
+  const parsedBody = await parseJsonBody(req, imageGenSchema);
+  if (!parsedBody.ok) return parsedBody.response;
 
-  const parsed = imageGenSchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "validation_error", details: parsed.error.format() },
-      { status: 400 },
-    );
-  }
-
-  const { prompt, threadId, count, style } = parsed.data;
+  const { prompt, threadId, count, style } = parsedBody.data;
   const numImages = count ?? 1;
   const estimatedCostUsd = ESTIMATED_COST_USD_PER_IMAGE * numImages;
   const placeholderJobId = `pending-image-${Date.now()}-${randomUUID().slice(0, 8)}`;

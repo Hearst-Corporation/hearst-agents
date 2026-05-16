@@ -27,6 +27,7 @@ import {
 import { inngest } from "@/lib/jobs/inngest/client";
 import { createNotification } from "@/lib/notifications/in-app";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { redactId } from "@/lib/utils/redact";
 
 // ── Constantes ────────────────────────────────────────────────────
 
@@ -202,7 +203,7 @@ export const preMeetingIntelFunction = inngest.createFunction(
           }
         }
       } catch (err) {
-        console.warn(`[pre-meeting-intel] échec user=${user.userId.slice(0, 8)} :`, err);
+        console.warn(`[pre-meeting-intel] échec user=${redactId(user.userId)} :`, err);
       }
     }
 
@@ -211,8 +212,3 @@ export const preMeetingIntelFunction = inngest.createFunction(
     return { processed: users.length, notified };
   },
 );
-
-/** Test-only : vide le memo de dédup. */
-function __clearPreMeetingIntelMemo(): void {
-  sentMemo.clear();
-}

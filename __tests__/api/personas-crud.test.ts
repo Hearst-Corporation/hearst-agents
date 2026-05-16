@@ -29,7 +29,8 @@ describe("GET /api/v2/personas", () => {
 
   it("renvoie la liste des personas (fallback builtins)", async () => {
     const { GET } = await import("@/app/api/v2/personas/route");
-    const res = await GET();
+    const req = new Request("http://localhost/api/v2/personas") as never;
+    const res = await GET(req);
     expect(res.status).toBe(200);
     const body = (await res.json()) as { personas: Array<{ id: string }> };
     expect(Array.isArray(body.personas)).toBe(true);

@@ -16,8 +16,12 @@ import {
   getMissionContext,
   updateMissionContextSummary,
 } from "@/lib/memory/mission-context";
+import { verifyMissionOwnership } from "@/lib/missions/ownership";
+import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
+import { redactId } from "@/lib/utils/redact";
 import { executeWorkflow } from "@/lib/workflows/executor";
 import { executeWorkflowTool } from "@/lib/workflows/handlers";
 import type { WorkflowGraph } from "@/lib/workflows/types";
@@ -37,20 +41,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   // refuse les bodies mal formés (clés inattendues incluses, schema strict).
   const contentLength = req.headers.get("content-length");
   if (contentLength && contentLength !== "0") {
-    let rawBody: unknown = {};
-    try {
-      const text = await req.text();
-      rawBody = text.length > 0 ? JSON.parse(text) : {};
-    } catch {
-      return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-    }
-    const parsed = runMissionSchema.safeParse(rawBody);
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: "invalid_payload", issues: parsed.error.flatten() },
-        { status: 400 },
-      );
-    }
+    const parsed = await parseJsonBody(req, runMissionSchema);
+    if (!parsed.ok) return parsed.response;
   }
 
   const { id } = await params;
@@ -64,9 +56,19 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
   const memMission = getMission(id);
   if (memMission) {
-    // Verify ownership
-    if (memMission.userId && memMission.userId !== scope.userId) {
-      console.warn(`[MissionRunNow] Access denied — user mismatch for mission ${id}`);
+    // Verify ownership via canonical guard (fail-closed cross-tenant IDOR)
+    const owns = await verifyMissionOwnership(id, scope.userId, scope.tenantId);
+    if (!owns) {
+      logger.warn(
+        {
+          event: "idor_attempt",
+          action: "run",
+          missionId: id,
+          userId: redactId(scope.userId),
+          tenantId: redactId(scope.tenantId),
+        },
+        "Mission run blocked — ownership mismatch",
+      );
       return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
     }
     missionInput = memMission.input;
@@ -94,7 +96,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   }
 
   console.log(
-    `[MissionRunNow] Triggering "${missionName}" (${id}) for user ${scope.userId.slice(0, 8)}`,
+    `[MissionRunNow] Triggering "${missionName}" (${id}) for user ${redactId(scope.userId)}`,
   );
 
   // Branch C3 : si la mission a un workflowGraph, on exécute via le workflow
@@ -176,7 +178,15 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     preloadedSummary,
     preloadedSummaryUpdatedAt,
   }).catch((err) => {
-    console.warn(`[MissionRunNow] getMissionContext failed for ${id}:`, err);
+    logger.warn(
+      {
+        event: "mission_context_load_failed",
+        missionId: id,
+        userId: redactId(scope.userId),
+        err: err instanceof Error ? err.message : String(err),
+      },
+      "MissionRunNow: getMissionContext failed",
+    );
     return null;
   });
   const missionContextBlock = missionCtx ? formatMissionContextBlock(missionCtx) : "";
@@ -273,7 +283,15 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
         finalText: finalText || null,
       },
     }).catch((err) => {
-      console.warn(`[MissionRunNow] updateMissionContextSummary failed for ${id}:`, err);
+      logger.warn(
+        {
+          event: "mission_summary_update_failed",
+          missionId: id,
+          userId: redactId(scope.userId),
+          err: err instanceof Error ? err.message : String(err),
+        },
+        "MissionRunNow: updateMissionContextSummary failed",
+      );
     });
   }
 

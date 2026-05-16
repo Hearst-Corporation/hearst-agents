@@ -17,9 +17,10 @@
  *    the original tool-call args available when the user types "confirmer".
  */
 
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ModelMessage } from "ai";
 import type { TenantScope } from "@/lib/multi-tenant/types";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getRedis } from "@/lib/platform/redis/client";
 import type { ChatMessageMemory, ConversationMemory } from "./types";
 
@@ -50,17 +51,8 @@ function touchBuffer(key: string, conv: ConversationMemory): void {
 }
 
 // ── Supabase client (service role — server only) ─────────────
-let _sb: SupabaseClient | null = null;
-
 function db(): SupabaseClient | null {
-  if (_sb) return _sb;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  _sb = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  return _sb;
+  return getServerSupabase();
 }
 
 // ── Helpers ──────────────────────────────────────────────────

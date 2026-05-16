@@ -6,10 +6,10 @@
  * sidebar history.
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -54,17 +54,7 @@ function extractContentRefMeta(contentRef: string | null): {
   }
 }
 
-export async function GET(req: NextRequest) {
-  const { scope, error: scopeError } = await requireScope({
-    context: "GET /api/v2/daily-brief/history",
-  });
-  if (scopeError || !scope) {
-    return NextResponse.json(
-      { error: scopeError?.message ?? "not_authenticated" },
-      { status: scopeError?.status ?? 401 },
-    );
-  }
-
+export const GET = withScope("GET /api/v2/daily-brief/history", async (req, { scope }) => {
   const { searchParams } = new URL(req.url);
   const parsed = querySchema.safeParse({
     limit: searchParams.get("limit") ?? undefined,
@@ -107,4 +97,4 @@ export async function GET(req: NextRequest) {
     console.error("[daily-brief/history] failed:", message);
     return NextResponse.json({ error: "history_failed", message }, { status: 500 });
   }
-}
+});

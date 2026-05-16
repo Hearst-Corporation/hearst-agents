@@ -19,6 +19,7 @@ import { checkRateLimit } from "@/lib/marketplace/rate-limit";
 import { listTemplates, publishTemplate } from "@/lib/marketplace/store";
 import { MARKETPLACE_KINDS, tagsSchema } from "@/lib/marketplace/types";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -90,20 +91,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
-  let body: unknown;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const parsed = publishSchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_input", details: parsed.error.issues },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, publishSchema);
+  if (!parsed.ok) return parsed.response;
 
   const display = parsed.data.anonymizeAuthor
     ? null

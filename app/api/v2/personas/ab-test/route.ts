@@ -12,34 +12,51 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { abTestPersonaSchema } from "@/lib/contracts/personas";
 import { guardAndReserveCredits } from "@/lib/credits/client";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
-import type { LLMProvider } from "@/lib/llm/types";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getPersonaById } from "@/lib/personas/store";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 export const dynamic = "force-dynamic";
 
-const MODEL = "kimi-k2.5";
+const MODEL = KIMI_MODELS.HAIKU;
 const MAX_TOKENS = 800;
 
+interface RunOk {
+  ok: true;
+  text: string;
+  latencyMs: number;
+}
+interface RunFail {
+  ok: false;
+}
+
 async function runOne(opts: {
-  provider: LLMProvider;
   systemPrompt: string;
   message: string;
-}): Promise<{ text: string; latencyMs: number }> {
+  tenantId: string;
+}): Promise<RunOk | RunFail> {
   const t0 = Date.now();
-  const res = await opts.provider.chat({
-    model: MODEL,
-    max_tokens: MAX_TOKENS,
-    messages: [
-      { role: "system", content: opts.systemPrompt },
-      { role: "user", content: opts.message },
-    ],
+  return chatWithCircuitBreaker<RunOk | RunFail>({
+    tenantId: opts.tenantId,
+    context: "personas/ab-test",
+    chatRequest: {
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
+      messages: [
+        { role: "system", content: opts.systemPrompt },
+        { role: "user", content: opts.message },
+      ],
+    },
+    fallback: { ok: false },
+    parse: (res) => ({
+      ok: true as const,
+      text: (res.content || "").trim(),
+      latencyMs: Date.now() - t0,
+    }),
   });
-  const text = (res.content || "").trim();
-  return { text, latencyMs: Date.now() - t0 };
 }
 
 export async function POST(req: NextRequest) {
@@ -50,20 +67,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let raw: unknown;
-  try {
-    raw = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const parsed = abTestPersonaSchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_payload", issues: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, abTestPersonaSchema);
+  if (!parsed.ok) return parsed.response;
   const message = parsed.data.message.trim();
   const { personaIdA, personaIdB } = parsed.data;
 
@@ -125,37 +130,24 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Circuit breaker — fail-fast si provider dégradé
-  if (defaultCircuitBreaker.isOpen("kimi", scope!.tenantId)) {
+  const [resA, resB] = await Promise.all([
+    runOne({ systemPrompt: sysA, message, tenantId: scope!.tenantId }),
+    runOne({ systemPrompt: sysB, message, tenantId: scope!.tenantId }),
+  ]);
+
+  if (!resA.ok || !resB.ok) {
     return NextResponse.json(
-      { error: "llm_unavailable", message: "Circuit breaker ouvert pour kimi." },
+      {
+        error: "llm_unavailable",
+        message: "Kimi indisponible (circuit ouvert ou erreur LLM) pour au moins une persona.",
+      },
       { status: 503 },
     );
   }
 
-  const provider = getProvider("kimi");
-
-  try {
-    const [resA, resB] = await Promise.all([
-      runOne({ provider, systemPrompt: sysA, message }),
-      runOne({ provider, systemPrompt: sysB, message }),
-    ]);
-
-    defaultCircuitBreaker.recordSuccess("kimi", scope!.tenantId);
-
-    return NextResponse.json({
-      message,
-      a: { persona: pA, response: resA.text, latencyMs: resA.latencyMs },
-      b: { persona: pB, response: resB.text, latencyMs: resB.latencyMs },
-    });
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      scope!.tenantId,
-    );
-    const msg = err instanceof Error ? err.message : "ab_test_failed";
-    console.warn("[ab-test] failed:", msg);
-    return NextResponse.json({ error: msg }, { status: 502 });
-  }
+  return NextResponse.json({
+    message,
+    a: { persona: pA, response: resA.text, latencyMs: resA.latencyMs },
+    b: { persona: pB, response: resB.text, latencyMs: resB.latencyMs },
+  });
 }

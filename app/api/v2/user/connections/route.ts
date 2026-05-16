@@ -17,6 +17,7 @@ import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/se
 import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getApplicableReports } from "@/lib/reports/catalog";
+import { redactId } from "@/lib/utils/redact";
 
 export const dynamic = "force-dynamic";
 
@@ -231,7 +232,7 @@ export async function GET(_req: NextRequest) {
     // Log for debugging
     const connectedCount = services.filter((s) => s.connectionStatus === "connected").length;
     console.log(
-      `[UserConnections] User ${scope.userId.slice(0, 8)}: ${connectedCount}/${services.length} connected`,
+      `[UserConnections] User ${redactId(scope.userId)}: ${connectedCount}/${services.length} connected`,
     );
 
     // Reports applicables au user vu ses connexions (ready/partial seulement).

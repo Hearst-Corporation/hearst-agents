@@ -5,6 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
 import { saveTokens } from "@/lib/platform/auth/tokens";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { redactId } from "@/lib/utils/redact";
 import { resolveOrCreateUserUuid } from "./user-resolver";
 
 const DEV_BYPASS = process.env.HEARST_DEV_AUTH_BYPASS === "1";
@@ -126,10 +127,10 @@ export const authOptions: AuthOptions = {
             token.tenantId = data.primary_tenant_id ?? undefined;
             token.workspaceId = data.primary_workspace_id ?? undefined;
             console.log(
-              `[Auth] Dev-bypass JWT created — user: ${user.id.slice(0, 8)}, tenant: ${data.primary_tenant_id?.slice(0, 8) ?? "null"}`,
+              `[Auth] Dev-bypass JWT created — user: ${redactId(user.id)}, tenant: ${redactId(data.primary_tenant_id)}`,
             );
           } else {
-            console.warn(`[Auth] Dev-bypass JWT — no tenant found for user ${user.id.slice(0, 8)}`);
+            console.warn(`[Auth] Dev-bypass JWT — no tenant found for user ${redactId(user.id)}`);
           }
         }
         return token;
@@ -179,7 +180,7 @@ export const authOptions: AuthOptions = {
               primaryWorkspaceId = data.primary_workspace_id ?? undefined;
             } else if (error) {
               console.error(
-                `[Auth] Failed to load tenant for user ${uuid.slice(0, 8)}: ${error.message}`,
+                `[Auth] Failed to load tenant for user ${redactId(uuid)}: ${error.message}`,
               );
             }
           }
@@ -209,7 +210,7 @@ export const authOptions: AuthOptions = {
           const workspaceId = primaryWorkspaceId;
           if (!tenantId || !workspaceId) {
             console.error(
-              `[Auth] No primary_tenant for user ${uuid.slice(0, 8)} — registerProviderUsage skipped`,
+              `[Auth] No primary_tenant for user ${redactId(uuid)} — registerProviderUsage skipped`,
             );
           } else {
             void registerProviderUsage({

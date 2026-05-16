@@ -11,6 +11,7 @@
 import { NextResponse } from "next/server";
 import { getCockpitToday } from "@/lib/cockpit/today";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { redactId } from "@/lib/utils/redact";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -36,7 +37,7 @@ export async function GET() {
     // ce que reçoit Chrome user vs Playwright et identifier la divergence.
     // À retirer après résolution.
     console.log(
-      `[diag/cockpit-today] scope=user:${scope.userId.slice(0, 8)} tenant:${scope.tenantId} workspace:${scope.workspaceId} → missionsRunning=${payload.missionsRunning?.length ?? 0}`,
+      `[diag/cockpit-today] scope=user:${redactId(scope.userId)} tenant:${scope.tenantId} workspace:${scope.workspaceId} → missionsRunning=${payload.missionsRunning?.length ?? 0}`,
     );
 
     return NextResponse.json({

@@ -10,8 +10,8 @@
  */
 
 import type { Database } from "@/lib/database.types";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { formatFewShotBlock, KG_EXTRACTION_FEWSHOT } from "@/lib/prompts/examples";
 
@@ -78,7 +78,7 @@ const ENTITY_TYPES: ReadonlyArray<KgNodeType> = [
   "topic",
 ];
 
-const EXTRACTION_MODEL = "kimi-k2.5";
+const EXTRACTION_MODEL = KIMI_MODELS.HAIKU;
 const EXTRACTION_MAX_TOKENS = 2048;
 
 // NOTE charte : prompt d'EXTRACTION structurée (entities/relations JSON),
@@ -121,34 +121,22 @@ export async function extractEntities(text: string, tenantId?: string): Promise<
   const trimmed = text.trim();
   if (!trimmed) return { entities: [], relations: [] };
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    console.warn("[kg] circuit breaker kimi open — extraction skip");
-    return { entities: [], relations: [] };
-  }
-
-  const provider = getProvider("kimi");
-
-  let raw: string;
-  try {
-    const res = await provider.chat({
+  const raw = await chatWithCircuitBreaker<string>({
+    tenantId,
+    context: "kg/extraction",
+    chatRequest: {
       model: EXTRACTION_MODEL,
       max_tokens: EXTRACTION_MAX_TOKENS,
       messages: [
         { role: "system", content: EXTRACTION_PROMPT },
         { role: "user", content: trimmed },
       ],
-    });
-    raw = res.content ?? "";
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn("[kg] extraction échouée:", err);
-    return { entities: [], relations: [] };
-  }
+    },
+    fallback: "",
+    parse: (res) => res.content ?? "",
+  });
+
+  if (!raw) return { entities: [], relations: [] };
 
   const jsonMatch = raw.match(/\{[\s\S]*\}/);
   if (!jsonMatch) return { entities: [], relations: [] };

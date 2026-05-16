@@ -11,8 +11,8 @@
  */
 
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { DAILY_BRIEF_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import type { DailyBriefData, DailyBriefNarration } from "./types";
 
@@ -209,37 +209,27 @@ export async function generateDailyBriefNarration(
   data: DailyBriefData,
   tenantId?: string,
 ): Promise<DailyBriefNarration> {
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    return { ...fallbackNarration(data), costUsd: 0 };
-  }
+  const fb: DailyBriefNarration = { ...fallbackNarration(data), costUsd: 0 };
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
-      model: "kimi-k2.5",
+  return chatWithCircuitBreaker<DailyBriefNarration>({
+    tenantId,
+    context: "daily-brief/narration",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 1200,
       messages: [
         { role: "system", content: DAILY_BRIEF_SYSTEM_PROMPT },
         { role: "user", content: buildUserMessage(data) },
       ],
-    });
-
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-    const text = res.content;
-    const parsed = safeParseNarration(text);
-    if (!parsed) {
-      console.warn("[daily-brief/generate] narration JSON invalide — fallback déterministe");
-      return { ...fallbackNarration(data), costUsd: 0 };
-    }
-
-    return { ...parsed, costUsd: res.cost_usd };
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn("[daily-brief/generate] LLM échouée, fallback déterministe :", err);
-    return { ...fallbackNarration(data), costUsd: 0 };
-  }
+    },
+    fallback: fb,
+    parse: (res) => {
+      const parsed = safeParseNarration(res.content);
+      if (!parsed) {
+        console.warn("[daily-brief/generate] narration JSON invalide — fallback déterministe");
+        return fb;
+      }
+      return { ...parsed, costUsd: res.cost_usd };
+    },
+  });
 }

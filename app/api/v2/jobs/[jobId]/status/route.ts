@@ -12,11 +12,11 @@
  *                | "paused" | "stuck" | "unknown"
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getJobState } from "@/lib/jobs/queue";
 import type { JobKind } from "@/lib/jobs/types";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -37,56 +37,46 @@ const querySchema = z.object({
   kind: z.enum(KNOWN_KINDS),
 });
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ jobId: string }> }) {
-  const { jobId } = await params;
+export const GET = withScope<{ jobId: string }>(
+  "GET /api/v2/jobs/[jobId]/status",
+  async (req, { scope, params }) => {
+    const { jobId } = params;
+    const url = new URL(req.url);
+    const parsed = querySchema.safeParse({ kind: url.searchParams.get("kind") });
+    if (!parsed.success) {
+      return NextResponse.json(
+        {
+          error: "validation_error",
+          message: "Query param `kind` requis (image-gen, audio-gen, …).",
+        },
+        { status: 400 },
+      );
+    }
 
-  const { scope, error: scopeError } = await requireScope({
-    context: `GET /api/v2/jobs/${jobId}/status`,
-  });
-  if (scopeError || !scope) {
-    return NextResponse.json(
-      { error: scopeError?.message ?? "not_authenticated" },
-      { status: scopeError?.status ?? 401 },
-    );
-  }
+    const state = await getJobState(parsed.data.kind, jobId);
+    if (!state) {
+      return NextResponse.json(
+        { error: "job_not_found", jobId, kind: parsed.data.kind },
+        { status: 404 },
+      );
+    }
 
-  const url = new URL(req.url);
-  const parsed = querySchema.safeParse({ kind: url.searchParams.get("kind") });
-  if (!parsed.success) {
-    return NextResponse.json(
-      {
-        error: "validation_error",
-        message: "Query param `kind` requis (image-gen, audio-gen, …).",
-      },
-      { status: 400 },
-    );
-  }
+    // Ownership check : un user ne peut pas lire les jobs d'un autre (F-004)
+    const jobUserId = (state.data as { userId?: string } | undefined)?.userId;
+    if (!jobUserId || jobUserId !== scope.userId) {
+      return NextResponse.json(
+        { error: "job_not_found", jobId, kind: parsed.data.kind },
+        { status: 404 },
+      );
+    }
 
-  const state = await getJobState(parsed.data.kind, jobId);
-  if (!state) {
-    return NextResponse.json(
-      { error: "job_not_found", jobId, kind: parsed.data.kind },
-      { status: 404 },
-    );
-  }
-
-  // Ownership check : un user ne peut pas lire les jobs d'un autre (F-004)
-  // On retourne 404 (pas 403) pour éviter l'info disclosure sur l'existence du job.
-  // F-004 PARTIAL fix : !jobUserId bloque les payloads sans userId (pas de bypass silencieux).
-  const jobUserId = (state.data as { userId?: string } | undefined)?.userId;
-  if (!jobUserId || jobUserId !== scope.userId) {
-    return NextResponse.json(
-      { error: "job_not_found", jobId, kind: parsed.data.kind },
-      { status: 404 },
-    );
-  }
-
-  return NextResponse.json({
-    jobId,
-    kind: parsed.data.kind,
-    state: state.state,
-    progress: state.progress,
-    returnvalue: state.returnvalue ?? null,
-    failedReason: state.failedReason ?? null,
-  });
-}
+    return NextResponse.json({
+      jobId,
+      kind: parsed.data.kind,
+      state: state.state,
+      progress: state.progress,
+      returnvalue: state.returnvalue ?? null,
+      failedReason: state.failedReason ?? null,
+    });
+  },
+);

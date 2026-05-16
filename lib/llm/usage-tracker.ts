@@ -14,7 +14,8 @@
  */
 
 import * as Sentry from "@sentry/nextjs";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 type UsageEvent = {
   tenant_id: string;
@@ -28,17 +29,8 @@ type UsageEvent = {
   failed?: boolean;
 };
 
-let supabaseAdmin: SupabaseClient | null = null;
-
 function getAdminClient(): SupabaseClient | null {
-  if (supabaseAdmin) return supabaseAdmin;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  supabaseAdmin = createClient(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-  return supabaseAdmin;
+  return getServerSupabase();
 }
 
 /**

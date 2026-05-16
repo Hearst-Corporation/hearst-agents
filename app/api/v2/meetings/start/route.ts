@@ -22,6 +22,7 @@ import {
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { MeetingBotInput } from "@/lib/jobs/types";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -59,14 +60,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsedMeeting = meetingsStartBodySchema.safeParse(raw);
-  if (!parsedMeeting.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsedMeeting.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsedMeeting = await parseJsonBody(req, meetingsStartBodySchema);
+  if (!parsedMeeting.ok) return parsedMeeting.response;
   const body: StartBody = parsedMeeting.data;
 
   const meetingUrl = (body.meetingUrl ?? body.joinUrl ?? "").trim();

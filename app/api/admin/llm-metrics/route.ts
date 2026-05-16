@@ -15,22 +15,20 @@
 
 import { NextResponse } from "next/server";
 import { getMetrics } from "@/lib/llm/metrics";
-import { isError, requireAdmin } from "../_helpers";
+import { withAdmin } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  const guard = await requireAdmin("GET /api/admin/llm-metrics", {
-    resource: "settings",
-    action: "read",
-  });
-  if (isError(guard)) return guard;
-
-  try {
-    const snapshot = getMetrics();
-    return NextResponse.json(snapshot, { status: 200 });
-  } catch (e) {
-    console.error("[Admin API] GET /llm-metrics error:", e);
-    return NextResponse.json({ error: "internal_error" }, { status: 500 });
-  }
-}
+export const GET = withAdmin(
+  "GET /api/admin/llm-metrics",
+  { resource: "settings", action: "read" },
+  async () => {
+    try {
+      const snapshot = getMetrics();
+      return NextResponse.json(snapshot, { status: 200 });
+    } catch (e) {
+      console.error("[Admin API] GET /llm-metrics error:", e);
+      return NextResponse.json({ error: "internal_error" }, { status: 500 });
+    }
+  },
+);

@@ -23,6 +23,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 const hearstCardBodySchema = z
   .object({
@@ -302,33 +303,29 @@ export async function POST(req: Request, context: RouteContext) {
   });
 }
 
-export async function GET(_req: Request, context: RouteContext) {
-  const { scope, error } = await requireScope({
-    context: "GET /api/v2/hearst-card/[yearMonth]",
-  });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
+export const GET = withScope<{ yearMonth: string }>(
+  "GET /api/v2/hearst-card/[yearMonth]",
+  async (_req, { scope, params }) => {
+    const { yearMonth } = params;
+    // GET = best-effort lookup, jamais de génération synchrone.
+    const result = await generateCard(scope, yearMonth);
+    if ("error" in result) {
+      return NextResponse.json({ error: result.error }, { status: result.status });
+    }
 
-  const { yearMonth } = await context.params;
-  // GET = best-effort lookup, jamais de génération synchrone.
-  const result = await generateCard(scope, yearMonth);
-  if ("error" in result) {
-    return NextResponse.json({ error: result.error }, { status: result.status });
-  }
-
-  return NextResponse.json({
-    yearMonth,
-    label: result.data.window.label,
-    pngUrl: result.pngUrl,
-    pngAvailable: result.pngAvailable,
-    publicShareUrl: result.publicShareUrl,
-    renderUrl: result.renderUrl,
-    summary: {
-      missionsRun: result.data.missionsRun,
-      reportsGenerated: result.data.reportsGenerated,
-      anomaliesCount: result.data.anomaliesCount,
-      kpis: result.data.kpis,
-    },
-  });
-}
+    return NextResponse.json({
+      yearMonth,
+      label: result.data.window.label,
+      pngUrl: result.pngUrl,
+      pngAvailable: result.pngAvailable,
+      publicShareUrl: result.publicShareUrl,
+      renderUrl: result.renderUrl,
+      summary: {
+        missionsRun: result.data.missionsRun,
+        reportsGenerated: result.data.reportsGenerated,
+        anomaliesCount: result.data.anomaliesCount,
+        kpis: result.data.kpis,
+      },
+    });
+  },
+);

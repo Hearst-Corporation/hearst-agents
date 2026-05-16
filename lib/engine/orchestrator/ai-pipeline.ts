@@ -35,6 +35,7 @@ import type { RunEventBus } from "@/lib/events/bus";
 import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
 import { computeCostUsd } from "@/lib/llm/pricing";
+import { isCircuitOpenFor } from "@/lib/llm/safe-chat";
 import { generateBriefing } from "@/lib/memory/briefing";
 import { getKgContextForUser } from "@/lib/memory/kg-context";
 import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
@@ -56,6 +57,7 @@ import { buildMissionTools } from "@/lib/tools/native/missions";
 import { buildResearchTools } from "@/lib/tools/native/research";
 import { buildWebSearchTools } from "@/lib/tools/native/web-search";
 import { canonicalHash } from "@/lib/utils/canonical-hash";
+import { redactId } from "@/lib/utils/redact";
 import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
 
 // Schema for validating tool results from the AI pipeline
@@ -438,7 +440,7 @@ export async function runAiPipeline(
   // Scope guard — tenantId et workspaceId doivent être fournis par le caller
   // (orchestrateur via buildTenantScope). En prod, l'absence est une erreur fatale.
   if (!input.tenantId || !input.workspaceId) {
-    const msg = `[AiPipeline] tenantId ou workspaceId absent (tenantId=${input.tenantId}, workspaceId=${input.workspaceId}, userId=${input.userId.slice(0, 8)})`;
+    const msg = `[AiPipeline] tenantId ou workspaceId absent (tenantId=${input.tenantId}, workspaceId=${input.workspaceId}, userId=${redactId(input.userId)})`;
     console.error(msg);
     await engine.fail(msg);
     return;
@@ -799,7 +801,10 @@ export async function runAiPipeline(
 
   // F002 — Circuit breaker guard avant le stream.
   // Si le breaker est ouvert pour ce tenant, on coupe immédiatement.
-  if (defaultCircuitBreaker.isOpen("kimi", resolvedTenantId)) {
+  // Note: streamText ne passe pas par chatWithCircuitBreaker (API différente),
+  // mais on garde la garde fail-fast via le helper isCircuitOpenFor pour
+  // homogénéiser le call-site avec DUP12.
+  if (isCircuitOpenFor("kimi", resolvedTenantId)) {
     const msg = "[AiPipeline] Circuit breaker OPEN pour kimi — requête annulée";
     console.error(msg);
     await engine.fail(msg);

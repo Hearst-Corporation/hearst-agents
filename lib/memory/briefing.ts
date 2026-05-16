@@ -1,6 +1,6 @@
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { BRIEFING_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import { getSummary } from "./conversation-summary";
 
@@ -71,16 +71,11 @@ export async function generateBriefing(params: {
 
   const { tenantId } = params;
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    console.warn("[memory/briefing] circuit breaker kimi open — briefing skip");
-    return GENERIC_BRIEFING;
-  }
-
-  const provider = getProvider("kimi");
-
-  try {
-    const res = await provider.chat({
-      model: "kimi-k2.5",
+  return chatWithCircuitBreaker<{ text: string; audioScript: string }>({
+    tenantId,
+    context: "memory/briefing",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 500,
       messages: [
         { role: "system", content: BRIEFING_SYSTEM_PROMPT },
@@ -96,23 +91,15 @@ export async function generateBriefing(params: {
           ].join("\n"),
         },
       ],
-    });
-
-    const text = res.content ?? "";
-    if (!text) return GENERIC_BRIEFING;
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-
-    return {
-      text,
-      audioScript: stripMarkdown(text),
-    };
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn("[memory/briefing] generateBriefing échouée:", err);
-    return GENERIC_BRIEFING;
-  }
+    },
+    fallback: GENERIC_BRIEFING,
+    parse: (res) => {
+      const text = res.content ?? "";
+      if (!text) return GENERIC_BRIEFING;
+      return {
+        text,
+        audioScript: stripMarkdown(text),
+      };
+    },
+  });
 }

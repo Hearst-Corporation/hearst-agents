@@ -6,6 +6,7 @@ import { authOptions } from "@/lib/platform/auth/options";
 import { verifyOAuthState } from "@/lib/platform/auth/signed-state";
 import { saveTokens } from "@/lib/platform/auth/tokens";
 import { aj } from "@/lib/security/arcjet";
+import { redactId } from "@/lib/utils/redact";
 
 const log = withRoute("GET /api/auth/callback/slack");
 
@@ -61,8 +62,8 @@ export async function GET(request: NextRequest) {
   if (!sessionUserId || sessionUserId !== userId) {
     log.warn(
       {
-        stateUserId: userId.slice(0, 8),
-        sessionUserId: sessionUserId?.slice(0, 8) ?? "none",
+        stateUserId: redactId(userId),
+        sessionUserId: redactId(sessionUserId),
       },
       "slack_callback_user_mismatch",
     );

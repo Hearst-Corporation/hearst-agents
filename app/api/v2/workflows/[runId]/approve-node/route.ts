@@ -26,6 +26,8 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
+import { redactId } from "@/lib/utils/redact";
 
 export const dynamic = "force-dynamic";
 
@@ -47,21 +49,15 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ run
 
   const { runId } = await params;
 
-  const raw = await req.json().catch(() => null);
-  const parsed = approveNodeBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, approveNodeBodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const body = parsed.data;
 
   // MVP : log audit-only. Aucun resume automatique tant que la persistance
   // du workflow state n'est pas livrée. Voir docstring du fichier.
   console.log(
-    `[ApproveNode] runId=${runId} nodeId=${body.nodeId} decision=${body.decision} user=${scope.userId.slice(0, 8)}`,
+    `[ApproveNode] runId=${runId} nodeId=${body.nodeId} decision=${body.decision} user=${redactId(scope.userId)}`,
   );
 
   return NextResponse.json({

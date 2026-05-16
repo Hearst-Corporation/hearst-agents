@@ -7,10 +7,10 @@
  * stage).
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getSession, stopSession } from "@/lib/capabilities/providers/browserbase";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -32,70 +32,60 @@ async function checkBrowserSessionOwnership(sessionId: string, userId: string): 
   }
 }
 
-export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
-  const { id } = await ctx.params;
+export const GET = withScope<{ id: string }>(
+  "GET /api/v2/browser/[id]",
+  async (_req, { scope, params }) => {
+    const { id } = params;
 
-  const { scope, error } = await requireScope({ context: "GET /api/v2/browser/[id]" });
-  if (error || !scope) {
-    return NextResponse.json(
-      { error: error?.message ?? "not_authenticated" },
-      { status: error?.status ?? 401 },
-    );
-  }
+    if (!id?.trim()) {
+      return NextResponse.json({ error: "session_id_required" }, { status: 400 });
+    }
 
-  if (!id?.trim()) {
-    return NextResponse.json({ error: "session_id_required" }, { status: 400 });
-  }
+    // Ownership check — retourne 404 pour éviter l'info disclosure (F-005)
+    const owned = await checkBrowserSessionOwnership(id, scope.userId);
+    if (!owned) {
+      return NextResponse.json({ error: "not_found" }, { status: 404 });
+    }
 
-  // Ownership check — retourne 404 pour éviter l'info disclosure (F-005)
-  const owned = await checkBrowserSessionOwnership(id, scope.userId);
-  if (!owned) {
-    return NextResponse.json({ error: "not_found" }, { status: 404 });
-  }
+    try {
+      const session = await getSession(id);
+      return NextResponse.json({
+        status: session.status,
+        createdAt: session.createdAt,
+        stoppedAt: session.stoppedAt,
+        debugViewerUrl: session.debugViewerUrl,
+        connectUrl: session.connectUrl,
+      });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[BrowserSession] getSession failed:", message);
+      return NextResponse.json({ error: "session_fetch_failed", message }, { status: 502 });
+    }
+  },
+);
 
-  try {
-    const session = await getSession(id);
-    return NextResponse.json({
-      status: session.status,
-      createdAt: session.createdAt,
-      stoppedAt: session.stoppedAt,
-      debugViewerUrl: session.debugViewerUrl,
-      connectUrl: session.connectUrl,
-    });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[BrowserSession] getSession failed:", message);
-    return NextResponse.json({ error: "session_fetch_failed", message }, { status: 502 });
-  }
-}
+export const DELETE = withScope<{ id: string }>(
+  "DELETE /api/v2/browser/[id]",
+  async (_req, { scope, params }) => {
+    const { id } = params;
 
-export async function DELETE(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
-  const { id } = await ctx.params;
+    if (!id?.trim()) {
+      return NextResponse.json({ error: "session_id_required" }, { status: 400 });
+    }
 
-  const { scope, error } = await requireScope({ context: "DELETE /api/v2/browser/[id]" });
-  if (error || !scope) {
-    return NextResponse.json(
-      { error: error?.message ?? "not_authenticated" },
-      { status: error?.status ?? 401 },
-    );
-  }
+    // Ownership check (F-005)
+    const owned = await checkBrowserSessionOwnership(id, scope.userId);
+    if (!owned) {
+      return NextResponse.json({ error: "not_found" }, { status: 404 });
+    }
 
-  if (!id?.trim()) {
-    return NextResponse.json({ error: "session_id_required" }, { status: 400 });
-  }
-
-  // Ownership check (F-005)
-  const owned = await checkBrowserSessionOwnership(id, scope.userId);
-  if (!owned) {
-    return NextResponse.json({ error: "not_found" }, { status: 404 });
-  }
-
-  try {
-    await stopSession(id);
-    return NextResponse.json({ stopped: true });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[BrowserSession] stopSession failed:", message);
-    return NextResponse.json({ error: "session_stop_failed", message }, { status: 502 });
-  }
-}
+    try {
+      await stopSession(id);
+      return NextResponse.json({ stopped: true });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("[BrowserSession] stopSession failed:", message);
+      return NextResponse.json({ error: "session_stop_failed", message }, { status: 502 });
+    }
+  },
+);

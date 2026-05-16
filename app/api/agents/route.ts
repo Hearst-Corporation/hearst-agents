@@ -3,15 +3,13 @@ import type { Database } from "@/lib/database.types";
 import { createAgentSchema, dbErr, err, ok, parseBody, slugify } from "@/lib/domain";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 type AgentInsert = Database["public"]["Tables"]["agents"]["Insert"];
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  const { scope, error: scopeError } = await requireScope({ context: "GET /api/agents" });
-  if (scopeError) return err(scopeError.message, scopeError.status);
-
+export const GET = withScope("GET /api/agents", async (_req, { scope }) => {
   try {
     const sb = requireServerSupabase();
     // Filtre par tenant_id — évite la fuite cross-tenant (F-002)
@@ -30,7 +28,7 @@ export async function GET() {
     console.error("GET /api/agents: uncaught", e);
     return err("internal_error", 500);
   }
-}
+});
 
 export async function POST(req: NextRequest) {
   const { scope, error: scopeError } = await requireScope({ context: "POST /api/agents" });

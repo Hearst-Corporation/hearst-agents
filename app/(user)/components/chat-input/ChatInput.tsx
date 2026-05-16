@@ -148,12 +148,22 @@ export function ChatInput({
         e.preventDefault();
         handleSubmit();
       }}
-      className="relative z-20 w-full animate-[panel-slide-in-bottom_0.6s_ease-out] px-4 py-2"
+      className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out]"
       style={{
-        background: "transparent",
+        paddingLeft: "var(--space-4)",
+        paddingRight: "var(--space-4)",
+        paddingTop: "var(--space-2)",
+        paddingBottom: "var(--space-2)",
       }}
     >
-      <div className="mx-auto relative max-w-input shell-input-pill-new">
+      <div
+        className="vision-glass preserve-3d mx-auto relative shell-input-pill-new"
+        style={{
+          maxWidth: 720,
+          borderRadius: isExpanded ? "var(--radius-lg)" : "var(--radius-pill)",
+          transition: "border-radius var(--duration-base) var(--ease-standard)",
+        }}
+      >
         {showTypeahead && (
           <MentionTypeahead
             typeaheadRef={typeaheadRef}

@@ -11,6 +11,7 @@ import { z } from "zod";
 import { checkRateLimit } from "@/lib/marketplace/rate-limit";
 import { reportTemplate } from "@/lib/marketplace/store";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -36,20 +37,8 @@ export async function POST(req: NextRequest, ctx: RouteContext) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
-  let body: unknown;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const parsed = bodySchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_input", details: parsed.error.issues },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, bodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const ok = await reportTemplate(id, scope.userId, parsed.data.reason);
   if (!ok) {

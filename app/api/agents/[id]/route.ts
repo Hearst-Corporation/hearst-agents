@@ -3,31 +3,33 @@ import type { Database, Json } from "@/lib/database.types";
 import { dbErr, err, ok, parseBody, updateAgentSchema } from "@/lib/domain";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 type AgentUpdate = Database["public"]["Tables"]["agents"]["Update"];
 
 export const dynamic = "force-dynamic";
 
-export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { scope, error: scopeError } = await requireScope({ context: "GET /api/agents/[id]" });
-  if (scopeError) return err(scopeError.message, scopeError.status);
-  const { id } = await params;
-  try {
-    const sb = requireServerSupabase();
-    // Filtre tenant_id — protège contre IDOR cross-tenant (F-002)
-    const { data, error } = await sb
-      .from("agents")
-      .select("*")
-      .eq("id", id)
-      .eq("tenant_id", scope.tenantId)
-      .single();
-    if (error || !data) return err("not_found", 404);
-    return ok({ agent: data });
-  } catch (e) {
-    console.error(`GET /api/agents/${id}: uncaught`, e);
-    return err("internal_error", 500);
-  }
-}
+export const GET = withScope<{ id: string }>(
+  "GET /api/agents/[id]",
+  async (_req, { scope, params }) => {
+    const { id } = params;
+    try {
+      const sb = requireServerSupabase();
+      // Filtre tenant_id — protège contre IDOR cross-tenant (F-002)
+      const { data, error } = await sb
+        .from("agents")
+        .select("*")
+        .eq("id", id)
+        .eq("tenant_id", scope.tenantId)
+        .single();
+      if (error || !data) return err("not_found", 404);
+      return ok({ agent: data });
+    } catch (e) {
+      console.error(`GET /api/agents/${id}: uncaught`, e);
+      return err("internal_error", 500);
+    }
+  },
+);
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error: scopeError } = await requireScope({ context: "PUT /api/agents/[id]" });

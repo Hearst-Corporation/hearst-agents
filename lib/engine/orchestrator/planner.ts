@@ -15,9 +15,8 @@ import {
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import { PlanStore } from "@/lib/engine/runtime/plans/store";
 import type { Plan, PlanStep } from "@/lib/engine/runtime/plans/types";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics } from "@/lib/llm/metrics";
-import { getProvider } from "@/lib/llm/router";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { ChatMessage } from "@/lib/llm/types";
 import { ORCHESTRATOR_MODEL, ORCHESTRATOR_SYSTEM_PROMPT } from "./system-prompt";
 
@@ -77,13 +76,6 @@ export async function planFromIntent(
 
   const { surface, capabilityDomain, discoveredActions } = opts;
 
-  // F002 — Circuit breaker guard.
-  if (defaultCircuitBreaker.isOpen("kimi", opts.tenantId)) {
-    const msg = "[Planner] Circuit breaker OPEN pour kimi — requête annulée";
-    console.error(msg);
-    return { kind: "error", error: msg };
-  }
-
   const chatMessages: ChatMessage[] = [
     { role: "system", content: ORCHESTRATOR_SYSTEM_PROMPT },
     ...conversationHistory.map((m) => ({
@@ -104,38 +96,55 @@ export async function planFromIntent(
   // Convert Anthropic-style tools (input_schema) to OpenAI function tools
   // KimiProvider.chat() utilise messages sans tool_calls — on passe les outils
   // via le prompt system (suffix) plutôt que via un paramètre tools dédié.
-  // Pour conserver la compatibilité du parsing de réponse, on utilise un appel
-  // direct au provider via getProvider("kimi").chat().
+  // Pour conserver la compatibilité du parsing de réponse, on utilise
+  // chatWithCircuitBreaker (helper safe-chat) qui wrappe breaker + getProvider.
   //
   // Note: ChatRequest ne supporte pas nativement tool_choice/tools —
   // le modèle Kimi produit du JSON structuré à partir du system prompt.
-  let llmResponse: { content: string; tokens_in: number; tokens_out: number; latency_ms: number };
-  try {
-    llmResponse = await getProvider("kimi").chat({
+  type LlmOk = {
+    ok: true;
+    content: string;
+    tokens_in: number;
+    tokens_out: number;
+    latency_ms: number;
+  };
+  type LlmFail = { ok: false };
+  const FAILED: LlmFail = { ok: false };
+
+  const llmResult = await chatWithCircuitBreaker<LlmOk | LlmFail>({
+    tenantId: opts.tenantId,
+    context: "orchestrator/planner",
+    chatRequest: {
       model: ORCHESTRATOR_MODEL,
       messages: chatMessages,
       max_tokens: 4096,
       temperature: 0,
-    });
-    defaultCircuitBreaker.recordSuccess("kimi", opts.tenantId);
-    defaultMetrics.recordCall({
-      provider: "kimi",
-      model: ORCHESTRATOR_MODEL,
-      latencyMs: llmResponse.latency_ms,
-      tokensIn: llmResponse.tokens_in,
-      tokensOut: llmResponse.tokens_out,
-    });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : "Unknown LLM error";
-    console.error("[Orchestrator/Planner] LLM error:", msg);
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(msg),
-      opts.tenantId,
-    );
+    },
+    fallback: FAILED,
+    parse: (res) => ({
+      ok: true as const,
+      content: res.content,
+      tokens_in: res.tokens_in,
+      tokens_out: res.tokens_out,
+      latency_ms: res.latency_ms,
+    }),
+  });
+
+  if (!llmResult.ok) {
+    const msg = "[Planner] kimi indisponible (circuit ouvert ou erreur LLM) — requête annulée";
+    console.error(msg);
     defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
     return { kind: "error", error: msg };
   }
+
+  const llmResponse = llmResult;
+  defaultMetrics.recordCall({
+    provider: "kimi",
+    model: ORCHESTRATOR_MODEL,
+    latencyMs: llmResponse.latency_ms,
+    tokensIn: llmResponse.tokens_in,
+    tokensOut: llmResponse.tokens_out,
+  });
 
   await engine.cost.track({
     input_tokens: llmResponse.tokens_in,

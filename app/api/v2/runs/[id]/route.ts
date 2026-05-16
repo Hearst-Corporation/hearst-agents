@@ -1,9 +1,9 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getRunById } from "@/lib/engine/runtime/runs/store";
 import { getRunById as getPersistedRun } from "@/lib/engine/runtime/state/adapter";
 import { normalizeRunEventsToTimeline } from "@/lib/engine/runtime/timeline/normalize";
 import { getPersistedRunEvents } from "@/lib/engine/runtime/timeline/persist";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 
@@ -43,108 +43,98 @@ function serializeRun(
   };
 }
 
-export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  // Resolve scope with dev fallback allowed
-  const { scope, error } = await requireScope({ context: "GET /api/v2/runs/[id]" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
+export const GET = withScope<{ id: string }>(
+  "GET /api/v2/runs/[id]",
+  async (_req, { scope, params }) => {
+    const { id } = params;
 
-  const { id } = await params;
+    try {
+      // In-memory run has live events — best for active/recent runs
+      const memRun = getRunById(id);
+      if (memRun && memRun.events.length > 0) {
+        // Verify ownership
+        if (memRun.userId && memRun.userId !== scope.userId) {
+          console.warn(`[v2/runs/${id}] Access denied — user mismatch (mem)`);
+          return NextResponse.json({ error: "run_not_found" }, { status: 404 });
+        }
 
-  try {
-    // In-memory run has live events — best for active/recent runs
-    const memRun = getRunById(id);
-    if (memRun && memRun.events.length > 0) {
-      // Verify ownership
-      if (memRun.userId && memRun.userId !== scope.userId) {
-        console.warn(`[v2/runs/${id}] Access denied — user mismatch (mem)`);
+        return NextResponse.json({
+          run: serializeRun(memRun, memRun.events),
+          timeline: normalizeRunEventsToTimeline({
+            runId: id,
+            events: memRun.events,
+          }),
+          timelineSource: "memory" as const,
+        });
+      }
+
+      // Fall back to persisted run + persisted timeline events
+      const persisted = memRun ? null : await getPersistedRun(id);
+      const run = memRun ?? persisted;
+      if (!run) {
         return NextResponse.json({ error: "run_not_found" }, { status: 404 });
       }
 
+      // Verify ownership for persisted runs
+      if (run.userId && run.userId !== scope.userId) {
+        console.warn(`[v2/runs/${id}] Access denied — user mismatch (db)`);
+        return NextResponse.json({ error: "run_not_found" }, { status: 404 });
+      }
+
+      const persistedEvents = await getPersistedRunEvents({ runId: id });
+      const timeline =
+        persistedEvents.length > 0
+          ? normalizeRunEventsToTimeline({
+              runId: id,
+              events: persistedEvents.map((e) => e.payload),
+            })
+          : [];
+
+      const events = persistedEvents.map((e) => e.payload as RunEvent);
+
       return NextResponse.json({
-        run: serializeRun(memRun, memRun.events),
-        timeline: normalizeRunEventsToTimeline({
-          runId: id,
-          events: memRun.events,
-        }),
-        timelineSource: "memory" as const,
+        run: serializeRun(run, events),
+        timeline,
+        timelineSource: persistedEvents.length > 0 ? "persistent" : "empty",
       });
+    } catch (e) {
+      console.error(`GET /api/v2/runs/${id}: uncaught`, e);
+      return NextResponse.json({ error: "internal_error" }, { status: 500 });
     }
-
-    // Fall back to persisted run + persisted timeline events
-    const persisted = memRun ? null : await getPersistedRun(id);
-    const run = memRun ?? persisted;
-    if (!run) {
-      return NextResponse.json({ error: "run_not_found" }, { status: 404 });
-    }
-
-    // Verify ownership for persisted runs
-    if (run.userId && run.userId !== scope.userId) {
-      console.warn(`[v2/runs/${id}] Access denied — user mismatch (db)`);
-      return NextResponse.json({ error: "run_not_found" }, { status: 404 });
-    }
-
-    const persistedEvents = await getPersistedRunEvents({ runId: id });
-    const timeline =
-      persistedEvents.length > 0
-        ? normalizeRunEventsToTimeline({
-            runId: id,
-            events: persistedEvents.map((e) => e.payload),
-          })
-        : [];
-
-    const events = persistedEvents.map((e) => e.payload as RunEvent);
-
-    return NextResponse.json({
-      run: serializeRun(run, events),
-      timeline,
-      timelineSource: persistedEvents.length > 0 ? "persistent" : "empty",
-    });
-  } catch (e) {
-    console.error(`GET /api/v2/runs/${id}: uncaught`, e);
-    return NextResponse.json({ error: "internal_error" }, { status: 500 });
-  }
-}
+  },
+);
 
 /**
  * DELETE /api/v2/runs/[id] — Stub : supprime un run de l'historique côté
  * client (la persistance Supabase n'expose pas encore de delete idempotent).
- * Le hook côté UI peut filtrer le run localement après un 200, et la
- * persistance sera nettoyée au prochain refresh ou via batch admin.
- *
- * On vérifie l'ownership pour rejeter les requêtes hors scope.
  */
-export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { scope, error } = await requireScope({ context: "DELETE /api/v2/runs/[id]" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
-
-  const { id } = await params;
-  if (!id) {
-    return NextResponse.json({ error: "invalid_params" }, { status: 400 });
-  }
-
-  try {
-    const memRun = getRunById(id);
-    const persisted = memRun ? null : await getPersistedRun(id);
-    const run = memRun ?? persisted;
-
-    if (!run) {
-      // Idempotence : déjà absent → 200, l'UI peut nettoyer son cache local.
-      return NextResponse.json({ ok: true, deleted: false });
+export const DELETE = withScope<{ id: string }>(
+  "DELETE /api/v2/runs/[id]",
+  async (_req, { scope, params }) => {
+    const { id } = params;
+    if (!id) {
+      return NextResponse.json({ error: "invalid_params" }, { status: 400 });
     }
 
-    if (run.userId && run.userId !== scope.userId) {
-      return NextResponse.json({ error: "run_not_found" }, { status: 404 });
-    }
+    try {
+      const memRun = getRunById(id);
+      const persisted = memRun ? null : await getPersistedRun(id);
+      const run = memRun ?? persisted;
 
-    // Stub : pas de delete persistant pour l'instant. L'UI peut
-    // filtrer le run localement.
-    return NextResponse.json({ ok: true, deleted: true, runId: id });
-  } catch (e) {
-    console.error(`DELETE /api/v2/runs/${id}: uncaught`, e);
-    return NextResponse.json({ error: "internal_error" }, { status: 500 });
-  }
-}
+      if (!run) {
+        // Idempotence : déjà absent → 200, l'UI peut nettoyer son cache local.
+        return NextResponse.json({ ok: true, deleted: false });
+      }
+
+      if (run.userId && run.userId !== scope.userId) {
+        return NextResponse.json({ error: "run_not_found" }, { status: 404 });
+      }
+
+      // Stub : pas de delete persistant pour l'instant.
+      return NextResponse.json({ ok: true, deleted: true, runId: id });
+    } catch (e) {
+      console.error(`DELETE /api/v2/runs/${id}: uncaught`, e);
+      return NextResponse.json({ error: "internal_error" }, { status: 500 });
+    }
+  },
+);

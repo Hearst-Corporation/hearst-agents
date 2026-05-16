@@ -3,6 +3,8 @@
  * (séparateur de milliers ` `, décimales `,`).
  */
 
+import { escapeHtml } from "@/lib/utils/escape-html";
+
 export function fmtNumber(v: unknown, opts?: { decimals?: number; locale?: string }): string {
   if (v === null || v === undefined) return "—";
   const n = typeof v === "number" ? v : Number(v);
@@ -57,15 +59,6 @@ export function fmtPercent(v: unknown, opts?: { decimals?: number; locale?: stri
  */
 export function fmtCitation(sourceId: string, label: string | number): string {
   return `<sup data-source-id="${escapeHtml(String(sourceId))}">[${escapeHtml(String(label))}]</sup>`;
-}
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }
 
 export function fmtDelta(v: unknown): { text: string; tone: "up" | "down" | "neutral" } {

@@ -5,24 +5,16 @@
  * All operations are fire-and-forget safe — errors are logged, never thrown upstream.
  */
 
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { PersistedRunRecord, PersistedScheduledMission } from "./types";
 
 /**
- * Untyped Supabase client — bypasses stale generated types.
- * Migrations 0014/0015 added columns/tables not yet in database.types.ts.
+ * Supabase client typé — partagé via le singleton canonique
+ * `lib/platform/db/supabase.ts` (cf. AUDIT-2 DUP8).
  */
-let _raw: SupabaseClient | null = null;
-
 function db(): SupabaseClient | null {
-  if (_raw) return _raw;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  _raw = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  return _raw;
+  return getServerSupabase();
 }
 
 // ── Runs ────────────────────────────────────────────────────
@@ -265,9 +257,16 @@ export async function saveScheduledMission(mission: PersistedScheduledMission): 
   }
 }
 
+/**
+ * userId optionnel : quand fourni (appels depuis les routes API),
+ * le filtre SQL garantit qu'on ne peut pas modifier une mission d'un autre
+ * utilisateur même en connaissant l'UUID (défense en profondeur — niveau DB).
+ * Les appels internes (scheduler, mission-context) omettent userId par design.
+ */
 export async function updateScheduledMission(
   missionId: string,
   patch: Partial<PersistedScheduledMission>,
+  userId?: string,
 ): Promise<boolean> {
   const sb = db();
   if (!sb) return false;
@@ -291,11 +290,9 @@ export async function updateScheduledMission(
       patch.approvalMode !== undefined;
 
     if (hasOpsFields) {
-      const { data: existing } = await sb
-        .from("missions")
-        .select("actions")
-        .eq("id", missionId)
-        .single();
+      let existingQuery = sb.from("missions").select("actions").eq("id", missionId);
+      if (userId) existingQuery = existingQuery.eq("user_id", userId);
+      const { data: existing } = await existingQuery.single();
 
       const actions = (existing?.actions ?? {}) as Record<string, unknown>;
       if (patch.lastRunAt !== undefined) actions.lastRunAt = patch.lastRunAt;
@@ -312,7 +309,9 @@ export async function updateScheduledMission(
       update.actions = actions;
     }
 
-    const { error } = await sb.from("missions").update(update).eq("id", missionId);
+    let updateQuery = sb.from("missions").update(update).eq("id", missionId);
+    if (userId) updateQuery = updateQuery.eq("user_id", userId);
+    const { error } = await updateQuery;
     if (error) {
       console.error("[RuntimeState] updateScheduledMission error:", error.message);
       return false;
@@ -329,9 +328,14 @@ export async function updateScheduledMission(
  * endpoint when the user clicks the cross — the previous soft-delete
  * (enabled = false) left the row visible on the dashboard, which read
  * like a bug from the user's POV.
+ *
+ * Filtre obligatoire sur user_id : garantit qu'un attaquant authentifié
+ * ne peut pas supprimer une mission d'un autre utilisateur même en
+ * connaissant l'UUID (défense en profondeur — niveau DB).
  */
 export async function deleteScheduledMission(
   missionId: string,
+  userId: string,
 ): Promise<{ ok: boolean; deletedCount: number; error?: string }> {
   const sb = db();
   if (!sb) return { ok: false, deletedCount: 0, error: "no_supabase_client" };
@@ -340,7 +344,8 @@ export async function deleteScheduledMission(
     const { error, count } = await sb
       .from("missions")
       .delete({ count: "exact" })
-      .eq("id", missionId);
+      .eq("id", missionId)
+      .eq("user_id", userId);
     if (error) {
       console.error("[RuntimeState] deleteScheduledMission error:", error.message);
       return { ok: false, deletedCount: 0, error: error.message };

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T14:54:34.541Z",
+  "generatedAt": "2026-05-16T17:20:35.327Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1746,
+    "testsExistants": 1750,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 323,
-    "cases": 2911,
+    "files": 330,
+    "cases": 2980,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -643,9 +643,9 @@
         "I-17. Tenant isolation : filtrage explicite côté app (pas RLS `auth.uid()`)",
         "I-18. `EmbeddingsUnavailableError` ne propage pas vers l'utilisateur"
       ],
-      "testsExistantsCount": 91,
-      "testsOnDisk": 91,
-      "testFilesOnDisk": 13,
+      "testsExistantsCount": 95,
+      "testsOnDisk": 95,
+      "testFilesOnDisk": 14,
       "testsDocExistants": 10,
       "testsManquantsCount": 23,
       "testGap": "moyen",

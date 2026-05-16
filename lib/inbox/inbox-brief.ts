@@ -20,8 +20,8 @@ import { executeComposioAction, isComposioConfigured } from "@/lib/connectors/co
 import { getTodayEvents } from "@/lib/connectors/google/calendar";
 import { getRecentEmails } from "@/lib/connectors/google/gmail";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { formatFewShotBlock, INBOX_PRIORITY_FEWSHOT } from "@/lib/prompts/examples";
 
 /**
@@ -86,7 +86,7 @@ export interface InboxBrief {
 }
 
 const MAX_ITEMS = 10;
-const HAIKU_MODEL = "kimi-k2.5";
+const HAIKU_MODEL = KIMI_MODELS.HAIKU;
 const TRUNCATE_SUMMARY = 80;
 
 interface RawEmail {
@@ -205,7 +205,6 @@ async function classifyBatch(
   tenantId: string,
 ): Promise<Map<string, ClassifiedItem>> {
   if (items.length === 0) return new Map();
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) return new Map();
 
   // Construit un payload compact : id + kind + title + extrait
   const compact = items.slice(0, 30).map((it) => ({
@@ -215,9 +214,12 @@ async function classifyBatch(
     excerpt: it.summary.slice(0, 200),
   }));
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
+  const empty = new Map<string, ClassifiedItem>();
+
+  return chatWithCircuitBreaker<Map<string, ClassifiedItem>>({
+    tenantId,
+    context: "inbox-brief/classify",
+    chatRequest: {
       model: HAIKU_MODEL,
       max_tokens: 1500,
       messages: [
@@ -232,37 +234,33 @@ async function classifyBatch(
           ].join("\n"),
         },
       ],
-    });
-
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-    const text = res.content;
-    const match = text.match(/\[[\s\S]*\]/);
-    if (!match) return new Map();
-
-    const parsed = JSON.parse(match[0]) as ClassifiedItem[];
-    const out = new Map<string, ClassifiedItem>();
-    for (const c of parsed) {
-      if (
-        c.id &&
-        (c.priority === "urgent" || c.priority === "important" || c.priority === "info")
-      ) {
-        out.set(c.id, {
-          id: c.id,
-          priority: c.priority,
-          summary: (c.summary ?? "").slice(0, TRUNCATE_SUMMARY),
-        });
+    },
+    fallback: empty,
+    parse: (res) => {
+      const text = res.content;
+      const match = text.match(/\[[\s\S]*\]/);
+      if (!match) return empty;
+      try {
+        const parsed = JSON.parse(match[0]) as ClassifiedItem[];
+        const out = new Map<string, ClassifiedItem>();
+        for (const c of parsed) {
+          if (
+            c.id &&
+            (c.priority === "urgent" || c.priority === "important" || c.priority === "info")
+          ) {
+            out.set(c.id, {
+              id: c.id,
+              priority: c.priority,
+              summary: (c.summary ?? "").slice(0, TRUNCATE_SUMMARY),
+            });
+          }
+        }
+        return out;
+      } catch {
+        return empty;
       }
-    }
-    return out;
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn("[inbox-brief] Haiku classify failed, fallback heuristic:", err);
-    return new Map();
-  }
+    },
+  });
 }
 
 /** Fallback heuristique quand Haiku indisponible : keywords basiques. */

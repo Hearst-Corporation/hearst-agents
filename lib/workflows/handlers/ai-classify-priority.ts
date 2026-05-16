@@ -6,7 +6,7 @@
  *  - text: string
  *  - type?: string
  *  - categories?: string[]  (default ["urgent", "normal", "low"])
- *  - model?: string  (default "kimi-k2.5")
+ *  - model?: string  (default KIMI_MODELS.HAIKU, cf lib/llm/models.ts)
  *
  * Sortie :
  *  { priority: "urgent" | "normal" | "low", reasoning?: string }
@@ -14,8 +14,8 @@
  * Sans clé Kimi → priority = "normal" + degraded.
  */
 
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { WorkflowHandler } from "./types";
 
 const DEFAULT_CATEGORIES = ["urgent", "normal", "low"] as const;
@@ -61,56 +61,56 @@ export const aiClassifyPriority: WorkflowHandler = async (args, ctx) => {
     };
   }
 
-  const rawModel = typeof args.model === "string" ? args.model : "kimi-k2.5";
-  const model = rawModel.startsWith("claude-") ? "kimi-k2.5" : rawModel;
+  const rawModel = typeof args.model === "string" ? args.model : KIMI_MODELS.HAIKU;
+  const model = rawModel.startsWith("claude-") ? KIMI_MODELS.HAIKU : rawModel;
 
   const userPrompt = [`Type : ${type ?? "(non précisé)"}`, "", `Texte de la request :`, text].join(
     "\n",
   );
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    return {
-      success: true,
-      output: { priority: "normal" as Priority, degraded: true, reason: "circuit_open" },
-    };
-  }
+  type ClassifyOutput =
+    | { priority: Priority; reasoning?: string }
+    | { priority: Priority; degraded: true; reason: string };
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
+  const fallback: ClassifyOutput = {
+    priority: "normal" as Priority,
+    degraded: true,
+    reason: "circuit_open_or_failed",
+  };
+
+  const output = await chatWithCircuitBreaker<ClassifyOutput>({
+    tenantId,
+    context: "workflows/ai-classify-priority",
+    chatRequest: {
       model,
       max_tokens: 200,
       messages: [
         { role: "system", content: SYSTEM },
         { role: "user", content: userPrompt },
       ],
-    });
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
+    },
+    fallback,
+    parse: (res) => {
+      const out = res.content.trim();
+      const m = out.match(/\{[\s\S]*\}/);
+      if (!m) {
+        return { priority: "normal" as Priority, degraded: true, reason: "no_json" };
+      }
+      try {
+        const parsed = JSON.parse(m[0]) as { priority?: string; reasoning?: string };
+        const p = isPriority(String(parsed.priority ?? ""))
+          ? (parsed.priority as Priority)
+          : "normal";
+        return { priority: p, reasoning: parsed.reasoning ?? "" };
+      } catch (err) {
+        const reason = err instanceof Error ? err.message : String(err);
+        return { priority: "normal" as Priority, degraded: true, reason };
+      }
+    },
+  });
 
-    const out = res.content.trim();
-    const m = out.match(/\{[\s\S]*\}/);
-    if (!m) {
-      return {
-        success: true,
-        output: { priority: "normal" as Priority, degraded: true, reason: "no_json" },
-      };
-    }
-    const parsed = JSON.parse(m[0]) as { priority?: string; reasoning?: string };
-    const p = isPriority(String(parsed.priority ?? "")) ? (parsed.priority as Priority) : "normal";
-    return {
-      success: true,
-      output: { priority: p, reasoning: parsed.reasoning ?? "" },
-    };
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    const reason = err instanceof Error ? err.message : String(err);
-    return {
-      success: true,
-      output: { priority: "normal" as Priority, degraded: true, reason },
-    };
-  }
+  return {
+    success: true,
+    output,
+  };
 };

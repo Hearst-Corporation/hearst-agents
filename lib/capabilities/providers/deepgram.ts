@@ -1,6 +1,6 @@
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { ACTION_ITEMS_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
 
 /**
@@ -43,12 +43,14 @@ export async function extractActionItems(
 
   if (!process.env.KIMI_API_KEY) return [];
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) return [];
+  type ActionItem = { action: string; owner?: string; deadline?: string };
+  const empty: ActionItem[] = [];
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
-      model: "kimi-k2.5",
+  return chatWithCircuitBreaker<ActionItem[]>({
+    tenantId,
+    context: "deepgram/extract-action-items",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 1024,
       messages: [
         { role: "system", content: ACTION_ITEMS_SYSTEM_PROMPT },
@@ -57,31 +59,26 @@ export async function extractActionItems(
           content: `Transcript à analyser :\n\n${transcript}\n\nExtrais les action items maintenant, au format JSON strict.`,
         },
       ],
-    });
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-
-    const text = res.content.trim();
-
-    const jsonMatch = text.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) return [];
-
-    const parsed = JSON.parse(jsonMatch[0]) as Array<{
-      action: string;
-      owner?: string | null;
-      deadline?: string | null;
-    }>;
-
-    return parsed.map((item) => ({
-      action: item.action,
-      ...(item.owner ? { owner: item.owner } : {}),
-      ...(item.deadline ? { deadline: item.deadline } : {}),
-    }));
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    return [];
-  }
+    },
+    fallback: empty,
+    parse: (res) => {
+      const text = res.content.trim();
+      const jsonMatch = text.match(/\[[\s\S]*\]/);
+      if (!jsonMatch) return empty;
+      try {
+        const parsed = JSON.parse(jsonMatch[0]) as Array<{
+          action: string;
+          owner?: string | null;
+          deadline?: string | null;
+        }>;
+        return parsed.map((item) => ({
+          action: item.action,
+          ...(item.owner ? { owner: item.owner } : {}),
+          ...(item.deadline ? { deadline: item.deadline } : {}),
+        }));
+      } catch {
+        return empty;
+      }
+    },
+  });
 }

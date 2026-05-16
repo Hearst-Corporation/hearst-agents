@@ -8,17 +8,15 @@ import { createPersonaSchema } from "@/lib/contracts/personas";
 import { createPersona, listPersonasForUser } from "@/lib/personas/store";
 import type { PersonaInsert } from "@/lib/personas/types";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  const { scope, error } = await requireScope({ context: "GET /api/v2/personas" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
+export const GET = withScope("GET /api/v2/personas", async (_req, { scope }) => {
   const personas = await listPersonasForUser(scope.userId, scope.tenantId);
   return NextResponse.json({ personas });
-}
+});
 
 export async function POST(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "POST /api/v2/personas" });
@@ -26,21 +24,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let raw: unknown;
-  try {
-    raw = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const parsed = createPersonaSchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_payload", issues: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
-  const data = parsed.data;
+  const parsedBody = await parseJsonBody(req, createPersonaSchema);
+  if (!parsedBody.ok) return parsedBody.response;
+  const data = parsedBody.data;
 
   const insert: PersonaInsert = {
     userId: scope.userId,

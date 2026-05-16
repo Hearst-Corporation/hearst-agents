@@ -23,6 +23,7 @@ import type { DailyBriefAssetMeta } from "@/lib/daily-brief/types";
 import type { DailyBriefInput, JobResult } from "@/lib/jobs/types";
 import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { getExportSignedUrl, persistExport } from "@/lib/reports/export/store";
+import { redactId } from "@/lib/utils/redact";
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
@@ -145,7 +146,7 @@ const handler: WorkerHandler<DailyBriefInput> = {
     await reportProgress(100, "Daily Brief prêt");
 
     console.log(
-      `[DailyBrief] user=${payload.userId.slice(0, 8)} signals=${totalItems} sources=[${data.sources.join(",")}] cost=$${narration.costUsd.toFixed(4)} assetId=${assetId}`,
+      `[DailyBrief] user=${redactId(payload.userId)} signals=${totalItems} sources=[${data.sources.join(",")}] cost=$${narration.costUsd.toFixed(4)} assetId=${assetId}`,
     );
 
     return {

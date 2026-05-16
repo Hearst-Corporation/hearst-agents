@@ -22,6 +22,7 @@ import { enqueueJob } from "@/lib/jobs/queue";
 import type { CodeExecInput } from "@/lib/jobs/types";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { protectLlmJob } from "@/lib/security/arcjet";
 
 export const dynamic = "force-dynamic";
@@ -58,22 +59,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let raw: unknown;
-  try {
-    raw = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
+  const parsedBody = await parseJsonBody(req, codeExecSchema);
+  if (!parsedBody.ok) return parsedBody.response;
 
-  const parsed = codeExecSchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "validation_error", details: parsed.error.format() },
-      { status: 400 },
-    );
-  }
-
-  const { code, runtime: codeRuntime, timeoutMs, threadId } = parsed.data;
+  const { code, runtime: codeRuntime, timeoutMs, threadId } = parsedBody.data;
   const placeholderJobId = `pending-exec-${Date.now()}-${randomUUID().slice(0, 8)}`;
 
   const guard = await requireCreditsForJob({

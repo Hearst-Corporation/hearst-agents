@@ -22,6 +22,7 @@ import {
 import { buildPublicCardUrl, signCardToken } from "@/lib/cockpit/monthly-card-token";
 import { inngest } from "@/lib/jobs/inngest/client";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { redactId } from "@/lib/utils/redact";
 
 interface MonthlyCardEventData {
   userId: string;
@@ -188,7 +189,7 @@ export const monthlyCardPerUserFunction = inngest.createFunction(
     });
     if (!signed) {
       console.warn(
-        `[MonthlyCard/user=${data.userId.slice(0, 8)}] sharing secret manquant — notification skip.`,
+        `[MonthlyCard/user=${redactId(data.userId)}] sharing secret manquant — notification skip.`,
       );
       return { skipped: true, reason: "no_secret" };
     }
@@ -208,7 +209,7 @@ export const monthlyCardPerUserFunction = inngest.createFunction(
     );
 
     console.log(
-      `[MonthlyCard/user=${data.userId.slice(0, 8)}] ready ym=${yearMonth} runs=${cardData.missionsRun} reports=${cardData.reportsGenerated}`,
+      `[MonthlyCard/user=${redactId(data.userId)}] ready ym=${yearMonth} runs=${cardData.missionsRun} reports=${cardData.reportsGenerated}`,
     );
 
     return {

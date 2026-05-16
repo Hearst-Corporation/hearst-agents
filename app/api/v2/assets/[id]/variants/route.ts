@@ -27,6 +27,7 @@ import { formatInsufficientCreditsMessage, requireCreditsForJob } from "@/lib/cr
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { AudioGenInput, JobKind, VideoGenInput } from "@/lib/jobs/types";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 const variantsBodySchema = z
   .object({
@@ -61,14 +62,8 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
     );
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsed = variantsBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, variantsBodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const body = parsed.data;
 

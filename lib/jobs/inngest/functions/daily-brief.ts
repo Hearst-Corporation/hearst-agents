@@ -22,6 +22,7 @@ import type { DailyBriefAssetMeta } from "@/lib/daily-brief/types";
 import { inngest } from "@/lib/jobs/inngest/client";
 import type { DailyBriefInput } from "@/lib/jobs/types";
 import { getExportSignedUrl, persistExport } from "@/lib/reports/export/store";
+import { redactId } from "@/lib/utils/redact";
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
@@ -157,7 +158,7 @@ export const dailyBriefFunction = inngest.createFunction(
     });
 
     console.log(
-      `[DailyBrief/Inngest] user=${payload.userId.slice(0, 8)} signals=${totalItems} sources=[${data.sources.join(",")}] cost=$${narration.costUsd.toFixed(4)} assetId=${assetId}`,
+      `[DailyBrief/Inngest] user=${redactId(payload.userId)} signals=${totalItems} sources=[${data.sources.join(",")}] cost=$${narration.costUsd.toFixed(4)} assetId=${assetId}`,
     );
 
     return {

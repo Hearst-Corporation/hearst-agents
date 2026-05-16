@@ -14,8 +14,8 @@
  */
 
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 
 export interface MeetingActionItem {
   action: string;
@@ -77,7 +77,6 @@ export async function generateMeetingDebrief(
   input: GenerateMeetingDebriefInput,
 ): Promise<string | null> {
   if (!input.transcript.trim()) return null;
-  if (defaultCircuitBreaker.isOpen("kimi", input.tenantId)) return null;
 
   const userPromptLines: string[] = [];
 
@@ -103,31 +102,23 @@ export async function generateMeetingDebrief(
     input.transcript.slice(0, TRANSCRIPT_CAP),
   );
 
-  try {
-    const provider = getProvider("kimi");
-    const msg = await provider.chat({
-      model: "kimi-k2.5",
+  return chatWithCircuitBreaker<string | null>({
+    tenantId: input.tenantId,
+    context: "meetings/debrief",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 1500,
       messages: [
         { role: "system", content: DEBRIEF_SYSTEM_PROMPT },
         { role: "user", content: userPromptLines.join("\n") },
       ],
-    });
-    defaultCircuitBreaker.recordSuccess("kimi", input.tenantId);
-    const text = msg.content.trim();
-    return text.length > 0 ? text : null;
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      input.tenantId,
-    );
-    console.warn(
-      "[meetings/debrief] generateMeetingDebrief failed :",
-      err instanceof Error ? err.message : err,
-    );
-    return null;
-  }
+    },
+    fallback: null,
+    parse: (res) => {
+      const text = res.content.trim();
+      return text.length > 0 ? text : null;
+    },
+  });
 }
 
 export { DEBRIEF_SYSTEM_PROMPT };

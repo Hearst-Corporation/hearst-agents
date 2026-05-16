@@ -2,42 +2,42 @@ import type { NextRequest } from "next/server";
 import { createMemorySchema, dbErr, err, ok, parseBody } from "@/lib/domain";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { scope, error: scopeError } = await requireScope({
-    context: "GET /api/agents/[id]/memory",
-  });
-  if (scopeError) return err(scopeError.message, scopeError.status);
-  const { id } = await params;
-  try {
-    const sb = requireServerSupabase();
+export const GET = withScope<{ id: string }>(
+  "GET /api/agents/[id]/memory",
+  async (_req, { scope, params }) => {
+    const { id } = params;
+    try {
+      const sb = requireServerSupabase();
 
-    // Vérifier ownership agent avant de lire la mémoire (F-094)
-    const { data: agent } = await sb
-      .from("agents")
-      .select("id")
-      .eq("id", id)
-      .eq("tenant_id", scope.tenantId)
-      .single();
-    if (!agent) return err("not_found", 404);
+      // Vérifier ownership agent avant de lire la mémoire (F-094)
+      const { data: agent } = await sb
+        .from("agents")
+        .select("id")
+        .eq("id", id)
+        .eq("tenant_id", scope.tenantId)
+        .single();
+      if (!agent) return err("not_found", 404);
 
-    const { data, error } = await sb
-      .from("agent_memory")
-      .select("*")
-      .eq("agent_id", id)
-      .eq("user_id", scope.userId)
-      .order("importance", { ascending: false })
-      .limit(50);
+      const { data, error } = await sb
+        .from("agent_memory")
+        .select("*")
+        .eq("agent_id", id)
+        .eq("user_id", scope.userId)
+        .order("importance", { ascending: false })
+        .limit(50);
 
-    if (error) return dbErr(`GET /api/agents/${id}/memory`, error);
-    return ok({ memories: data ?? [] });
-  } catch (e) {
-    console.error(`GET /api/agents/${id}/memory: uncaught`, e);
-    return err("internal_error", 500);
-  }
-}
+      if (error) return dbErr(`GET /api/agents/${id}/memory`, error);
+      return ok({ memories: data ?? [] });
+    } catch (e) {
+      console.error(`GET /api/agents/${id}/memory: uncaught`, e);
+      return err("internal_error", 500);
+    }
+  },
+);
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error: scopeError } = await requireScope({

@@ -13,18 +13,15 @@ import {
   updateScheduledMission,
 } from "@/lib/engine/runtime/state/adapter";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
+import { withScope } from "@/lib/platform/http/route-handler";
+import { redactId } from "@/lib/utils/redact";
 import type { WorkflowGraph } from "@/lib/workflows/types";
 import { validateGraph } from "@/lib/workflows/validate";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  // Resolve scope with dev fallback allowed
-  const { scope, error } = await requireScope({ context: "GET /api/v2/missions" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
-
+export const GET = withScope("GET /api/v2/missions", async (_req, { scope }) => {
   try {
     // Get missions scoped to current user/tenant/workspace
     const missions = await getScheduledMissions({
@@ -38,7 +35,7 @@ export async function GET() {
     console.error("GET /api/v2/missions: uncaught", e);
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
-}
+});
 
 export async function POST(req: NextRequest) {
   // Resolve scope with dev fallback allowed
@@ -47,20 +44,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const parsed = createMissionSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_payload", issues: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, createMissionSchema);
+  if (!parsed.ok) return parsed.response;
 
   // Mutable copy : la route dérive `schedule`/`input` à partir du graphe
   // C3 si manquants (cf logique legacy ci-dessous).
@@ -171,7 +156,7 @@ export async function POST(req: NextRequest) {
   }
 
   console.log(
-    `[MissionsAPI] Mission created: ${mission.id} — ${mission.schedule} (user: ${scope.userId.slice(0, 8)})`,
+    `[MissionsAPI] Mission created: ${mission.id} — ${mission.schedule} (user: ${redactId(scope.userId)})`,
   );
 
   return NextResponse.json({ mission }, { status: 201 });
@@ -184,21 +169,9 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let rawBody: unknown;
-  try {
-    rawBody = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const parsed = toggleMissionSchema.safeParse(rawBody);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_payload", issues: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
-  const body = parsed.data;
+  const parsedToggle = await parseJsonBody(req, toggleMissionSchema);
+  if (!parsedToggle.ok) return parsedToggle.response;
+  const body = parsedToggle.data;
 
   // Verify ownership before updating
   const mem = getMission(body.id);
@@ -220,7 +193,7 @@ export async function PATCH(req: NextRequest) {
   await updateScheduledMission(body.id, { enabled: body.enabled });
 
   console.log(
-    `[MissionsAPI] Mission ${body.id} ${body.enabled ? "enabled" : "disabled"} (user: ${scope.userId.slice(0, 8)})`,
+    `[MissionsAPI] Mission ${body.id} ${body.enabled ? "enabled" : "disabled"} (user: ${redactId(scope.userId)})`,
   );
 
   return NextResponse.json({ ok: true, id: body.id, enabled: body.enabled });

@@ -28,6 +28,7 @@ import { runBrowserTask } from "@/lib/browser/stagehand-executor";
 import { createSession } from "@/lib/capabilities/providers/browserbase";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 const browserStartBodySchema = z
   .object({
@@ -49,14 +50,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsed = browserStartBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, browserStartBodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const body = parsed.data;
   const task = body.task.trim();

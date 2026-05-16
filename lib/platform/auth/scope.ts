@@ -11,6 +11,7 @@
  */
 
 import { getServerSession } from "next-auth";
+import { redactId } from "@/lib/utils/redact";
 import { getUserId } from "./get-user-id";
 import { authOptions } from "./options";
 
@@ -75,7 +76,7 @@ export async function resolveScope(
     if (process.env.NODE_ENV === "production") {
       // Fail-closed en prod : session sans tenant = 401. Pas de fallback env.
       console.error(
-        `[Scope] CRITICAL: session.tenantId absent en prod (${context}, user: ${userId.slice(0, 8)})`,
+        `[Scope] CRITICAL: session.tenantId absent en prod (${context}, user: ${redactId(userId)})`,
       );
       return null;
     }
@@ -84,13 +85,13 @@ export async function resolveScope(
     // Permet de bosser sans flow OAuth complet en local.
     if (requireTenant && !tenantId) {
       console.error(
-        `[Scope] Tenant required but not resolved (${context}, user: ${userId.slice(0, 8)})`,
+        `[Scope] Tenant required but not resolved (${context}, user: ${redactId(userId)})`,
       );
       return null;
     }
     if (requireWorkspace && !workspaceId) {
       console.error(
-        `[Scope] Workspace required but not resolved (${context}, user: ${userId.slice(0, 8)})`,
+        `[Scope] Workspace required but not resolved (${context}, user: ${redactId(userId)})`,
       );
       return null;
     }
@@ -99,8 +100,11 @@ export async function resolveScope(
     workspaceId = workspaceId ?? process.env.HEARST_WORKSPACE_ID ?? DEV_WORKSPACE_ID;
     isDevFallback = true;
 
+    // Redact PII for log safety — tenantId/workspaceId peuvent contenir des
+    // identifiants opaques (UUID, slug client). On garde les 8 premiers
+    // caractères comme pour userId — suffisant pour debug, pas pour leak.
     console.warn(
-      `[Scope] DEV fallback active — tenant: ${tenantId}, workspace: ${workspaceId} (${context}, user: ${userId.slice(0, 8)})`,
+      `[Scope] DEV fallback active — tenant: ${redactId(tenantId)}, workspace: ${redactId(workspaceId)} (${context}, user: ${redactId(userId)})`,
     );
   }
 

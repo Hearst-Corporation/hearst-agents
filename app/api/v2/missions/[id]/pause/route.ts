@@ -14,8 +14,12 @@ import {
   getMission as getRuntimeMission,
 } from "@/lib/engine/runtime/missions/store";
 import { getScheduledMissions, updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { verifyMissionOwnership } from "@/lib/missions/ownership";
+import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { manifestMission } from "@/lib/ui/right-panel/manifestation";
+import { redactId } from "@/lib/utils/redact";
 
 export async function POST(
   req: NextRequest,
@@ -30,20 +34,8 @@ export async function POST(
   // Body optionnel — strict empty si fourni.
   const contentLength = req.headers.get("content-length");
   if (contentLength && contentLength !== "0") {
-    let rawBody: unknown = {};
-    try {
-      const text = await req.text();
-      rawBody = text.length > 0 ? JSON.parse(text) : {};
-    } catch {
-      return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-    }
-    const parsed = pauseMissionSchema.safeParse(rawBody);
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: "invalid_payload", issues: parsed.error.flatten() },
-        { status: 400 },
-      );
-    }
+    const parsed = await parseJsonBody(req, pauseMissionSchema);
+    if (!parsed.ok) return parsed.response;
   }
 
   const missionId = (await params).id;
@@ -52,9 +44,19 @@ export async function POST(
     // ── 1. Try runtime missions (canonical) ───────────────────
     const runtimeMission = getRuntimeMission(missionId);
     if (runtimeMission) {
-      // Verify ownership
-      if (runtimeMission.userId && runtimeMission.userId !== scope.userId) {
-        console.warn(`[MissionsAPI] Access denied — user mismatch for mission ${missionId}`);
+      // Verify ownership via canonical guard (fail-closed cross-tenant IDOR)
+      const owns = await verifyMissionOwnership(missionId, scope.userId, scope.tenantId);
+      if (!owns) {
+        logger.warn(
+          {
+            event: "idor_attempt",
+            action: "pause",
+            missionId,
+            userId: redactId(scope.userId),
+            tenantId: redactId(scope.tenantId),
+          },
+          "Mission pause blocked — ownership mismatch",
+        );
         return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
       }
 
@@ -73,7 +75,7 @@ export async function POST(
       await updateScheduledMission(missionId, { enabled: false });
 
       console.log(
-        `[MissionsAPI] Runtime mission paused: ${missionId} (user: ${scope.userId.slice(0, 8)})`,
+        `[MissionsAPI] Runtime mission paused: ${missionId} (user: ${redactId(scope.userId)})`,
       );
 
       return NextResponse.json({
@@ -103,7 +105,7 @@ export async function POST(
 
       await updateScheduledMission(missionId, { enabled: false });
       console.log(
-        `[MissionsAPI] Persisted mission paused: ${missionId} (user: ${scope.userId.slice(0, 8)})`,
+        `[MissionsAPI] Persisted mission paused: ${missionId} (user: ${redactId(scope.userId)})`,
       );
 
       return NextResponse.json({

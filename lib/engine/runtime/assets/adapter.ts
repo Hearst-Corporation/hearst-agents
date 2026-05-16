@@ -4,20 +4,12 @@
  * Bridges the v2 Asset type with the Supabase assets table.
  */
 
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { Asset, AssetType } from "./types";
 
-let _raw: SupabaseClient | null = null;
-
 function db(): SupabaseClient | null {
-  if (_raw) return _raw;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  _raw = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  return _raw;
+  return getServerSupabase();
 }
 
 /**

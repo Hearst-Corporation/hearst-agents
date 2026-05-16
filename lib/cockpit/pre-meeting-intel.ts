@@ -18,8 +18,8 @@
 
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { KgNode } from "@/lib/memory/kg";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -312,7 +312,7 @@ function buildKgSummary(node: KgNode | null, lastN: Array<{ label: string }>): s
 
 // ── Suggestion d'agenda via Haiku ────────────────────────────────
 
-const HAIKU_MODEL = "kimi-k2.5";
+const HAIKU_MODEL = KIMI_MODELS.HAIKU;
 const SUGGESTED_AGENDA_MAX = 200;
 
 const AGENDA_PROMPT = [
@@ -333,8 +333,6 @@ async function generateSuggestedAgenda(
   participants: PreMeetingParticipant[],
   tenantId: string,
 ): Promise<string> {
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) return "";
-
   // Compose un input compact pour Haiku.
   const participantSnippets = participants
     .slice(0, 5)
@@ -352,27 +350,20 @@ async function generateSuggestedAgenda(
     participantSnippets || "(aucun participant identifié)",
   ].join("\n");
 
-  try {
-    const provider = getProvider("kimi");
-    const res = await provider.chat({
+  return chatWithCircuitBreaker<string>({
+    tenantId,
+    context: "pre-meeting-intel/agenda",
+    chatRequest: {
       model: HAIKU_MODEL,
       max_tokens: 200,
       messages: [
         { role: "system", content: AGENDA_PROMPT },
         { role: "user", content: userMessage },
       ],
-    });
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-    return res.content.trim().replace(/\s+/g, " ").slice(0, SUGGESTED_AGENDA_MAX);
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn("[pre-meeting-intel] Haiku agenda échoué :", err);
-    return "";
-  }
+    },
+    fallback: "",
+    parse: (res) => res.content.trim().replace(/\s+/g, " ").slice(0, SUGGESTED_AGENDA_MAX),
+  });
 }
 
 // ── API publique ─────────────────────────────────────────────────

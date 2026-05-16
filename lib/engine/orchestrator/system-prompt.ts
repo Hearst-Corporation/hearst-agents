@@ -12,11 +12,12 @@ import { buildSlugStrictnessRule } from "@/lib/agents/connected-apps-context";
 import { buildDualAppGuidance } from "@/lib/agents/dual-apps";
 import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
 import { EDITORIAL_CHARTER_BLOCK } from "@/lib/editorial/charter";
+import { KIMI_MODELS } from "@/lib/llm/models";
 import { getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import type { Persona } from "@/lib/personas/types";
 
-export const ORCHESTRATOR_MODEL = "kimi-k2.5";
+export const ORCHESTRATOR_MODEL = KIMI_MODELS.HAIKU;
 
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
 

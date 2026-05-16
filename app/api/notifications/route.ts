@@ -6,20 +6,15 @@
  *   limit=N          → max N résultats (défaut 50, max 100)
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { listNotifications } from "@/lib/notifications/in-app";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(req: NextRequest) {
-  const { scope, error } = await requireScope({ context: "notifications GET" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
-
+export const GET = withScope("notifications GET", async (req, { scope }) => {
   const db = getServerSupabase();
   if (!db) {
     return NextResponse.json({ error: "db_unavailable" }, { status: 503 });
@@ -38,4 +33,4 @@ export async function GET(req: NextRequest) {
   });
 
   return NextResponse.json(notifications);
-}
+});

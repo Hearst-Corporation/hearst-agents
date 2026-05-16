@@ -12,7 +12,6 @@
  * Le job ne throw jamais — tous les chemins d'erreur sont absorbés et loggés.
  */
 
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import {
   AUTH_EXPIRING_DAYS_THRESHOLD,
@@ -20,6 +19,7 @@ import {
   refreshOAuthToken,
 } from "@/lib/connections/oauth-refresh";
 import { createNotification } from "@/lib/notifications/in-app";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { dispatchWebhookEvent } from "@/lib/webhooks/dispatcher";
 import type { WebhookEvent } from "@/lib/webhooks/types";
 
@@ -54,12 +54,7 @@ export interface CheckOAuthTokensResult {
 // ── Supabase client interne ──────────────────────────────────
 
 function getDb() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  return getServerSupabase();
 }
 
 // ── Job principal ────────────────────────────────────────────

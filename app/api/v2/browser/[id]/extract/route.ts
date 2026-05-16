@@ -12,6 +12,7 @@ import { persistExtraction } from "@/lib/browser/screenshot";
 import { runBrowserTask } from "@/lib/browser/stagehand-executor";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 const browserExtractBodySchema = z
   .object({
@@ -60,14 +61,8 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
     return NextResponse.json({ error: "browserbase_unavailable" }, { status: 503 });
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsed = browserExtractBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsed = await parseJsonBody(req, browserExtractBodySchema);
+  if (!parsed.ok) return parsed.response;
 
   const body = parsed.data;
   const instruction = body.instruction.trim();

@@ -19,9 +19,8 @@ import { generatePdfArtifact } from "@/lib/engine/runtime/assets/generators/pdf"
 import type { AssetFileInfo } from "@/lib/engine/runtime/assets/types";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics } from "@/lib/llm/metrics";
-import { getProvider } from "@/lib/llm/router";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 import { searchWeb, type WebSearchResult } from "@/lib/tools/handlers/web-search";
 import { extractResearchQuery, isReportIntent } from "./research-intent";
@@ -312,19 +311,18 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     return search.summary;
   }
 
-  // F002 — Circuit breaker guard pour synthesizeReport.
-  if (defaultCircuitBreaker.isOpen("kimi")) {
-    throw new Error("[ResearchReport] Circuit breaker OPEN pour kimi — synthesis annulée");
-  }
-
   const sourcesContext = search.results
     .slice(0, 8)
     .map((r, i) => `[${i + 1}] ${r.title}\n${r.url}\n${r.snippet}`)
     .join("\n\n");
 
-  let llmResponse: { content: string; tokens_in: number; tokens_out: number; latency_ms: number };
-  try {
-    llmResponse = await getProvider("kimi").chat({
+  type Ok = { ok: true; content: string };
+  type Fail = { ok: false };
+  const FAILED: Fail = { ok: false };
+
+  const result = await chatWithCircuitBreaker<Ok | Fail>({
+    context: "research-report/synthesize",
+    chatRequest: {
       model: ORCHESTRATOR_MODEL,
       max_tokens: 4096,
       messages: [
@@ -334,25 +332,26 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
           content: `Rédige le rapport sur : "${query}"\n\nSources disponibles (cite par leur numéro quand factuel) :\n${sourcesContext}`,
         },
       ],
-    });
-    defaultCircuitBreaker.recordSuccess("kimi");
-    defaultMetrics.recordCall({
-      provider: "kimi",
-      model: ORCHESTRATOR_MODEL,
-      latencyMs: llmResponse.latency_ms,
-      tokensIn: llmResponse.tokens_in,
-      tokensOut: llmResponse.tokens_out,
-    });
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-    );
+    },
+    fallback: FAILED,
+    parse: (res) => {
+      defaultMetrics.recordCall({
+        provider: "kimi",
+        model: ORCHESTRATOR_MODEL,
+        latencyMs: res.latency_ms,
+        tokensIn: res.tokens_in,
+        tokensOut: res.tokens_out,
+      });
+      return { ok: true as const, content: res.content };
+    },
+  });
+
+  if (!result.ok) {
     defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
-    throw err;
+    throw new Error("[ResearchReport] synthesis échouée — circuit ouvert ou LLM erreur");
   }
 
-  return llmResponse.content;
+  return result.content;
 }
 
 /**

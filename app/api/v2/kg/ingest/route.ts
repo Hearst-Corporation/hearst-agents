@@ -11,6 +11,7 @@ import { z } from "zod";
 import { checkDailyCap } from "@/lib/credits/daily-caps";
 import { extractEntities, upsertEdge, upsertNode } from "@/lib/memory/kg";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 const kgIngestBodySchema = z
   .object({
@@ -34,14 +35,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsed = kgIngestBodySchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsed.error.flatten() },
-      { status: 400 },
-    );
-  }
+  // Schema autorise 50k chars de texte → un body JSON peut dépasser
+  // les 64k bytes par défaut (escapes, sourceLabel, surcharge JSON).
+  // 128k offre une marge confortable sans ouvrir une porte trop large.
+  const parsed = await parseJsonBody(req, kgIngestBodySchema, { maxBytes: 128 * 1024 });
+  if (!parsed.ok) return parsed.response;
 
   const text = parsed.data.text.trim();
 

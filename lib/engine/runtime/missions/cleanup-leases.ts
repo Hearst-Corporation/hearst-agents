@@ -5,19 +5,11 @@
  * Safe to call periodically from the heartbeat loop.
  */
 
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-
-let _db: SupabaseClient | null = null;
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 function db(): SupabaseClient | null {
-  if (_db) return _db;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  _db = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  return _db;
+  return getServerSupabase();
 }
 
 export async function cleanupExpiredSchedulerLeases(): Promise<{ deleted: number }> {

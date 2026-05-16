@@ -187,7 +187,9 @@ describe("POST /api/v2/personas/ab-test", () => {
     expect(json.a.persona.id).toBe("builtin:default");
     expect(json.b.persona.id).toBe("builtin:formal");
     expect(mockChat).toHaveBeenCalledTimes(2);
-    expect(defaultCircuitBreaker.recordSuccess).toHaveBeenCalledTimes(1);
+    // Avec chatWithCircuitBreaker, chaque appel parallèle enregistre son succès
+    // indépendamment (per-call recordSuccess vs ancien recordSuccess unique en aval).
+    expect(defaultCircuitBreaker.recordSuccess).toHaveBeenCalledTimes(2);
   });
 
   it("retourne 402 si credits insuffisants", async () => {

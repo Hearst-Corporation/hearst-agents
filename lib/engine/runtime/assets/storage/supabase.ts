@@ -10,6 +10,7 @@
 
 import type { Readable } from "node:stream";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type {
   DownloadResult,
   SignedUrlOptions,
@@ -33,9 +34,24 @@ export class SupabaseStorageProvider implements StorageProvider {
   private publicUrlBase: string;
 
   constructor(options: SupabaseStorageOptions) {
-    this.client = createClient(options.url, options.serviceRoleKey, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
+    // Si les options matchent les env vars du process, reuse le singleton
+    // partagé (`getServerSupabase`) — sinon créer un client dédié à ce
+    // tenant/config alternative (test, multi-projet, etc.).
+    const envUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const envKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const shared = getServerSupabase();
+    if (shared && options.url === envUrl && options.serviceRoleKey === envKey) {
+      this.client = shared;
+    } else {
+      // On utilise createClient direct (et non getServerSupabase) car ce
+      // provider est paramétré par options : un test, un script CLI ou un
+      // tenant multi-projet peut pointer vers une URL/clé différentes du
+      // singleton serveur. Le singleton est réutilisé quand les options
+      // matchent l'env (branche du `if` ci-dessus).
+      this.client = createClient(options.url, options.serviceRoleKey, {
+        auth: { autoRefreshToken: false, persistSession: false },
+      });
+    }
     this.bucket = options.bucket;
     this.publicUrlBase =
       options.publicUrlBase ??

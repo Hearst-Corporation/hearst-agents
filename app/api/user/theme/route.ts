@@ -11,6 +11,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { DEFAULT_THEME, isKnownTheme } from "@/lib/themes";
 
 const bodySchema = z.object({
@@ -47,10 +48,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
   }
 
-  const parsed = bodySchema.safeParse(await req.json().catch(() => ({})));
-  if (!parsed.success) {
-    return NextResponse.json({ error: "invalid_body" }, { status: 400 });
-  }
+  const parsed = await parseJsonBody(req, bodySchema);
+  if (!parsed.ok) return parsed.response;
   const { slug } = parsed.data;
 
   if (!isKnownTheme(slug)) {

@@ -9,21 +9,39 @@
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-// ── Mock for storeAsset (orchestrator path) ───────────────────
-const upsertMock = vi.fn().mockReturnValue({ then: () => undefined });
+// ── Mocks pour les deux paths d'écriture ──────────────────────
+// Depuis DUP8, `storeAsset` (orchestrator) ET `saveAsset` (adapter v2) passent
+// tous deux par `getServerSupabase()`. On route via le `kind` mappé dans le
+// payload upsert pour conserver deux compteurs distincts :
+//   - orchestrator path → kind direct ("report", "brief", etc.) → upsertMock
+//   - adapter path      → kind mappé via mapTypeToKind ("document",
+//                         "spreadsheet", "report", "message") → adapterUpsertMock
+// Le mapping `mapTypeToKind` produit "document" pour type "doc"/"pdf"/"json"
+// (les seuls utilisés dans les tests), donc on discrimine sur ce kind.
+const upsertMock = vi.fn().mockResolvedValue({ error: null });
+const adapterUpsertMock = vi.fn().mockResolvedValue({ error: null });
+
+const ADAPTER_KINDS = new Set(["document", "spreadsheet", "message"]);
+
+function routedUpsert(payload: { kind?: string } & Record<string, unknown>) {
+  if (payload?.kind && ADAPTER_KINDS.has(payload.kind)) {
+    return adapterUpsertMock(payload);
+  }
+  return upsertMock(payload);
+}
 
 vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: () => ({
-    from: () => ({ upsert: upsertMock }),
+    from: () => ({ upsert: routedUpsert }),
   }),
 }));
 
-// ── Mock for saveAsset (API route path) ───────────────────────
-const adapterUpsertMock = vi.fn().mockResolvedValue({ error: null });
-
+// Legacy mock conservé : un éventuel import direct de `@supabase/supabase-js`
+// (storage provider, healthcheck, hospitality singleton) ne doit pas casser
+// le module-graph chargé par ce test.
 vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn(() => ({
-    from: () => ({ upsert: adapterUpsertMock }),
+    from: () => ({ upsert: vi.fn().mockResolvedValue({ error: null }) }),
   })),
 }));
 
@@ -34,7 +52,7 @@ import { saveAsset } from "@/lib/engine/runtime/assets/adapter";
 import type { Asset as RuntimeAsset } from "@/lib/engine/runtime/assets/types";
 
 beforeEach(() => {
-  upsertMock.mockReset().mockReturnValue({ then: () => undefined });
+  upsertMock.mockReset().mockResolvedValue({ error: null });
   adapterUpsertMock.mockReset().mockResolvedValue({ error: null });
   process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
   process.env.SUPABASE_SERVICE_ROLE_KEY = "service-key";

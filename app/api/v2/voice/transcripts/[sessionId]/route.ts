@@ -12,6 +12,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { getTranscript, linkTranscriptToThread } from "@/lib/voice/transcript-store";
 
 const transcriptPatchBodySchema = z
@@ -65,14 +66,8 @@ export async function PATCH(
     );
   }
 
-  const raw = await req.json().catch(() => null);
-  const parsedPatch = transcriptPatchBodySchema.safeParse(raw);
-  if (!parsedPatch.success) {
-    return NextResponse.json(
-      { error: "invalid_body", details: parsedPatch.error.flatten() },
-      { status: 400 },
-    );
-  }
+  const parsedPatch = await parseJsonBody(req, transcriptPatchBodySchema);
+  if (!parsedPatch.ok) return parsedPatch.response;
   const { threadId } = parsedPatch.data;
 
   // Vérifie ownership avant link (la migration RLS le fait aussi, mais on

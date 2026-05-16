@@ -7,6 +7,8 @@
  * Sources : pages pricing officielles (mai 2026).
  */
 
+import { KIMI_MODELS } from "./models";
+
 export const MODEL_PRICING: Record<string, { input: number; output: number; cacheRead: number }> = {
   // Anthropic Claude
   "claude-opus-4-7": { input: 15.0, output: 75.0, cacheRead: 1.5 },
@@ -25,8 +27,8 @@ export const MODEL_PRICING: Record<string, { input: number; output: number; cach
   "gpt-4-turbo": { input: 10.0, output: 30.0, cacheRead: 5.0 },
   "gpt-4": { input: 30.0, output: 60.0, cacheRead: 15.0 },
   // Kimi (Moonshot AI via hypercli) — tarifs approximatifs
-  "kimi-k2.6": { input: 2.0, output: 8.0, cacheRead: 0 },
-  "kimi-k2.5": { input: 2.0, output: 8.0, cacheRead: 0 },
+  [KIMI_MODELS.SONNET]: { input: 2.0, output: 8.0, cacheRead: 0 },
+  [KIMI_MODELS.HAIKU]: { input: 2.0, output: 8.0, cacheRead: 0 },
   "kimi-k2": { input: 2.0, output: 8.0, cacheRead: 0 },
   // Google Gemini
   "gemini-2.0-flash": { input: 0.1, output: 0.4, cacheRead: 0.025 },

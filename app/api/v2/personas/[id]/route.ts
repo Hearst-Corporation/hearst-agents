@@ -9,6 +9,7 @@ import { updatePersonaSchema } from "@/lib/contracts/personas";
 import { deletePersona, getPersonaById, updatePersona } from "@/lib/personas/store";
 import type { PersonaUpdate } from "@/lib/personas/types";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 
@@ -16,23 +17,20 @@ interface Ctx {
   params: Promise<{ id: string }>;
 }
 
-export async function GET(_req: NextRequest, ctx: Ctx) {
-  const { scope, error } = await requireScope({
-    context: "GET /api/v2/personas/[id]",
-  });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
-  const { id } = await ctx.params;
-  const persona = await getPersonaById(id, {
-    userId: scope.userId,
-    tenantId: scope.tenantId,
-  });
-  if (!persona) {
-    return NextResponse.json({ error: "not_found" }, { status: 404 });
-  }
-  return NextResponse.json({ persona });
-}
+export const GET = withScope<{ id: string }>(
+  "GET /api/v2/personas/[id]",
+  async (_req, { scope, params }) => {
+    const { id } = params;
+    const persona = await getPersonaById(id, {
+      userId: scope.userId,
+      tenantId: scope.tenantId,
+    });
+    if (!persona) {
+      return NextResponse.json({ error: "not_found" }, { status: 404 });
+    }
+    return NextResponse.json({ persona });
+  },
+);
 
 export async function PATCH(req: NextRequest, ctx: Ctx) {
   const { scope, error } = await requireScope({
@@ -98,26 +96,23 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
   return NextResponse.json({ persona: updated });
 }
 
-export async function DELETE(_req: NextRequest, ctx: Ctx) {
-  const { scope, error } = await requireScope({
-    context: "DELETE /api/v2/personas/[id]",
-  });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
-  const { id } = await ctx.params;
-  if (id.startsWith("builtin:")) {
-    return NextResponse.json(
-      { error: "builtin_immutable", message: "Builtin non supprimable." },
-      { status: 400 },
-    );
-  }
-  const ok = await deletePersona(id, {
-    userId: scope.userId,
-    tenantId: scope.tenantId,
-  });
-  if (!ok) {
-    return NextResponse.json({ error: "delete_failed" }, { status: 500 });
-  }
-  return NextResponse.json({ ok: true });
-}
+export const DELETE = withScope<{ id: string }>(
+  "DELETE /api/v2/personas/[id]",
+  async (_req, { scope, params }) => {
+    const { id } = params;
+    if (id.startsWith("builtin:")) {
+      return NextResponse.json(
+        { error: "builtin_immutable", message: "Builtin non supprimable." },
+        { status: 400 },
+      );
+    }
+    const ok = await deletePersona(id, {
+      userId: scope.userId,
+      tenantId: scope.tenantId,
+    });
+    if (!ok) {
+      return NextResponse.json({ error: "delete_failed" }, { status: 500 });
+    }
+    return NextResponse.json({ ok: true });
+  },
+);

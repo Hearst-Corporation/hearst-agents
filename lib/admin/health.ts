@@ -450,6 +450,13 @@ async function checkDeepseek(): Promise<ServiceCheck> {
   return fromHttp("DeepSeek", "llm", res);
 }
 
+/**
+ * Healthcheck Supabase DB — ping HTTP direct du REST endpoint, sans passer par
+ * `getServerSupabase()`. On veut détecter une coupure réseau / une mauvaise
+ * config d'env vars indépendamment de l'état du singleton serveur (qui peut
+ * être resté valide en mémoire alors que la connectivité réelle est cassée).
+ * `timedFetch` mesure aussi la latence, ce que le client SDK n'expose pas.
+ */
 async function checkSupabaseDb(): Promise<ServiceCheck> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -464,6 +471,11 @@ async function checkSupabaseDb(): Promise<ServiceCheck> {
   });
 }
 
+/**
+ * Healthcheck Supabase Storage — même rationale que checkSupabaseDb : ping
+ * HTTP isolé du singleton `getServerSupabase()` pour détecter une coupure
+ * réseau ou un bucket disparu sans dépendre de l'état du client partagé.
+ */
 async function checkSupabaseStorageBucket(): Promise<ServiceCheck> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;

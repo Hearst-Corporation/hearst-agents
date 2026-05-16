@@ -25,8 +25,8 @@
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { searchEmbeddings } from "@/lib/embeddings/store";
 import { updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
-import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { getProvider } from "@/lib/llm/router";
+import { KIMI_MODELS } from "@/lib/llm/models";
+import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { formatFewShotBlock, MISSION_CONTEXT_FEWSHOT_FR } from "@/lib/prompts/examples";
 import { getKgContextForUser } from "./kg-context";
@@ -376,11 +376,6 @@ interface UpdateSummaryOpts {
 export async function updateMissionContextSummary(opts: UpdateSummaryOpts): Promise<void> {
   const { tenantId } = opts;
 
-  if (defaultCircuitBreaker.isOpen("kimi", tenantId)) {
-    console.warn("[mission-context] circuit breaker kimi open — summary non régénéré");
-    return;
-  }
-
   const userMsg = [
     `Mission : « ${opts.missionInput} »`,
     "",
@@ -401,28 +396,20 @@ export async function updateMissionContextSummary(opts: UpdateSummaryOpts): Prom
     .filter((l) => l !== "")
     .join("\n");
 
-  const provider = getProvider("kimi");
-  let nextSummary: string | null = null;
-  try {
-    const res = await provider.chat({
-      model: "kimi-k2.5",
+  const nextSummary = await chatWithCircuitBreaker<string | null>({
+    tenantId,
+    context: "mission-context/summary",
+    chatRequest: {
+      model: KIMI_MODELS.HAIKU,
       max_tokens: 600,
       messages: [
         { role: "system", content: MISSION_CONTEXT_SYSTEM_PROMPT },
         { role: "user", content: userMsg },
       ],
-    });
-    nextSummary = res.content?.trim() ?? null;
-    defaultCircuitBreaker.recordSuccess("kimi", tenantId);
-  } catch (err) {
-    defaultCircuitBreaker.recordFailure(
-      "kimi",
-      err instanceof Error ? err : new Error(String(err)),
-      tenantId,
-    );
-    console.warn("[mission-context] updateMissionContextSummary LLM échouée:", err);
-    return;
-  }
+    },
+    fallback: null,
+    parse: (res) => res.content?.trim() ?? null,
+  });
 
   if (!nextSummary || nextSummary.length === 0) return;
 

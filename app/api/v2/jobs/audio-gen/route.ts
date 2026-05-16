@@ -24,6 +24,7 @@ import type { AudioGenInput } from "@/lib/jobs/types";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { protectLlmJob } from "@/lib/security/arcjet";
 
 export const dynamic = "force-dynamic";
@@ -58,22 +59,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let raw: unknown;
-  try {
-    raw = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
+  const parsedBody = await parseJsonBody(req, audioGenSchema);
+  if (!parsedBody.ok) return parsedBody.response;
 
-  const parsed = audioGenSchema.safeParse(raw);
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "validation_error", details: parsed.error.format() },
-      { status: 400 },
-    );
-  }
-
-  const { text, voiceId, modelId, threadId, tone, personaId } = parsed.data;
+  const { text, voiceId, modelId, threadId, tone, personaId } = parsedBody.data;
 
   // Vérifier que la persona appartient au scope.userId — empêche l'impersonation (F-118)
   if (personaId) {

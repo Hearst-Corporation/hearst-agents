@@ -1,17 +1,11 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getAllRuns } from "@/lib/engine/runtime/runs/store";
 import { getRuns } from "@/lib/engine/runtime/state/adapter";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(req: NextRequest) {
-  // Resolve scope with dev fallback allowed (logged)
-  const { scope, error } = await requireScope({ context: "GET /api/v2/runs" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
-
+export const GET = withScope("GET /api/v2/runs", async (req, { scope }) => {
   try {
     const limit = Math.min(parseInt(req.nextUrl.searchParams.get("limit") ?? "50", 10), 200);
     const missionId = req.nextUrl.searchParams.get("mission_id") ?? undefined;
@@ -69,4 +63,4 @@ export async function GET(req: NextRequest) {
     console.error("GET /api/v2/runs: uncaught", e);
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
-}
+});
