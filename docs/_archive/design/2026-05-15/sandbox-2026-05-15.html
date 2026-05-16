@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hearst OS · Design System Sandbox · 2026-05-15</title>
+<style>
+:root {
+  /* ── PALETTE ── */
+  --bg: #000000;
+  --bg-elev: rgba(255,255,255,0.05);
+  --bg-soft: rgba(255,255,255,0.02);
+  --surface: rgba(255,255,255,0.02);
+  --surface-1: rgba(255,255,255,0.025);
+  --surface-2: rgba(255,255,255,0.04);
+  --surface-card: rgba(255,255,255,0.035);
+
+  /* Text scale */
+  --text: #ffffff;
+  --text-soft: rgba(255,255,255,0.88);
+  --text-muted: rgba(255,255,255,0.65);
+  --text-faint: rgba(255,255,255,0.45);
+  --text-ghost: rgba(255,255,255,0.3);
+  --text-decor-25: rgba(255,255,255,0.25);
+
+  /* Accents */
+  --accent-teal: #4a8b86;
+  --accent-teal-border: color-mix(in srgb, #4a8b86 25%, transparent);
+  --accent-teal-surface: color-mix(in srgb, #4a8b86 8%, transparent);
+  --accent-teal-bg-active: rgba(74,139,134,0.08);
+  --accent-teal-bg-hover: rgba(74,139,134,0.05);
+  --gold: #c8a961;
+  --gold-surface: color-mix(in srgb, #c8a961 8%, transparent);
+  --accent-llm: #a78bfa;
+  --warn: #ffcc00;
+  --danger: #ff3333;
+  --color-success: #2dc558;
+
+  /* Borders */
+  --line: rgba(255,255,255,0.03);
+  --line-strong: rgba(255,255,255,0.06);
+  --border-shell: rgba(255,255,255,0.06);
+  --border-soft: rgba(255,255,255,0.04);
+  --border-input: rgba(255,255,255,0.08);
+  --border-default: rgba(255,255,255,0.12);
+  --border-strong: rgba(255,255,255,0.14);
+  --border-focus: rgba(255,255,255,0.4);
+  --sep: rgba(255,255,255,0.05);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-card: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+  --shadow-card-hover: 0 0 0 1px rgba(74,139,134,0.18), 0 8px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  --glow-cyan-sm: 0 0 30px rgba(74,139,134,0.1);
+  --glow-cyan-md: 0 0 60px rgba(74,139,134,0.15);
+  --input-glow: 0 0 40px rgba(74,139,134,0.12), 0 0 80px rgba(74,139,134,0.06);
+  --input-glow-focus: 0 0 40px rgba(74,139,134,0.22), 0 0 80px rgba(74,139,134,0.1);
+
+  /* Spacing */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px;--space-16: 64px;--space-20: 80px;
+
+  /* Radius */
+  --radius-xs: 4px; --radius-sm: 8px; --radius-md: 12px;
+  --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px; --radius-pill: 9999px;
+
+  /* Motion */
+  --duration-fast: 75ms; --duration-base: 150ms;
+  --duration-slow: 200ms; --duration-emphasis: 300ms; --duration-vision: 400ms;
+  --ease-spring: cubic-bezier(0.16,1,0.3,1);
+  --ease-standard: cubic-bezier(0.4,0,0.2,1);
+  --ease-out-soft: cubic-bezier(0.2,1,0.2,1);
+  --ease-vision: cubic-bezier(0.22,1,0.36,1);
+
+  /* Typography */
+  --weight-light: 300; --weight-regular: 400; --weight-medium: 500;
+  --weight-semibold: 600; --weight-bold: 700;
+  --leading-tight: 1.05; --leading-snug: 1.2; --leading-base: 1.45;
+  --leading-relaxed: 1.6; --leading-body: 1.7;
+  --tracking-tight: -0.02em; --tracking-editorial: -0.035em;
+  --tracking-hairline: 0.02em; --tracking-caption: 0.08em;
+
+  /* Layout */
+  --nav-h: 52px;
+  --sidebar-w: 200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Satoshi Variable', 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── LAYOUT ── */
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  background: var(--surface-1);
+  border-right: 1px solid var(--border-shell);
+  display: flex; flex-direction: column;
+  padding: var(--space-6) 0;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 0 var(--space-5) var(--space-6);
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caption);
+  color: var(--accent-teal);
+  text-transform: uppercase;
+}
+
+.sidebar-logo span { color: var(--text-muted); font-weight: var(--weight-regular); display: block; margin-top: 2px; letter-spacing: normal; text-transform: none; font-size: 10px; }
+
+.nav-link {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  transition: color var(--duration-base) var(--ease-standard),
+              background var(--duration-base) var(--ease-standard);
+  border-left: 2px solid transparent;
+}
+.nav-link:hover { color: var(--text-soft); background: var(--surface-2); }
+.nav-link.active { color: var(--accent-teal); border-left-color: var(--accent-teal); background: var(--accent-teal-surface); }
+
+.main-content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: var(--space-12) var(--space-10);
+  max-width: calc(100% - var(--sidebar-w));
+}
+
+/* ── SECTIONS ── */
+.section { margin-bottom: var(--space-20); scroll-margin-top: var(--space-8); }
+.section-title {
+  font-size: 22px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+.section-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-8);
+}
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border-shell);
+  margin-bottom: var(--space-8);
+}
+
+.label {
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+
+/* ── PALETTE ── */
+.palette-grid { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.swatch {
+  width: 80px;
+  cursor: pointer;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+.swatch:hover { transform: scale(1.05); }
+.swatch:hover .swatch-box { box-shadow: var(--shadow-card-hover); }
+.swatch-box {
+  width: 80px; height: 64px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+  margin-bottom: var(--space-1);
+  transition: box-shadow var(--duration-base) var(--ease-standard);
+}
+.swatch-name { font-size: 10px; color: var(--text-muted); word-break: break-all; line-height: 1.3; }
+.swatch-value { font-size: 9px; color: var(--text-faint); margin-top: 1px; }
+
+.palette-group { margin-bottom: var(--space-8); }
+
+/* Copy toast */
+#copy-toast {
+  position: fixed; bottom: var(--space-6); right: var(--space-6);
+  background: var(--accent-teal); color: #000;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: 12px; font-weight: var(--weight-semibold);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-standard);
+  z-index: 999;
+}
+#copy-toast.show { opacity: 1; }
+
+/* ── TYPOGRAPHY ── */
+.typo-scale { display: flex; flex-direction: column; gap: var(--space-4); }
+.typo-row {
+  display: grid; grid-template-columns: 160px 1fr;
+  gap: var(--space-4); align-items: baseline;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+.typo-meta { font-size: 11px; color: var(--text-faint); font-family: 'Courier New', monospace; }
+.typo-meta span { display: block; color: var(--text-muted); }
+
+/* ── SPACING ── */
+.space-grid { display: flex; flex-direction: column; gap: var(--space-3); }
+.space-row { display: flex; align-items: center; gap: var(--space-4); }
+.space-bar {
+  height: 24px;
+  background: var(--accent-teal-surface);
+  border: 1px solid var(--accent-teal-border);
+  border-radius: var(--radius-xs);
+  min-width: 4px;
+}
+.space-label { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+.space-val { font-size: 11px; color: var(--text-faint); }
+
+/* ── RADIUS & SHADOWS ── */
+.card-grid { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.card-demo {
+  width: 140px; height: 100px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  display: flex; align-items: flex-end;
+  padding: var(--space-3);
+  transition: box-shadow var(--duration-base) var(--ease-standard),
+              border-color var(--duration-base) var(--ease-standard);
+  cursor: default;
+}
+.card-demo:hover { box-shadow: var(--shadow-card-hover); border-color: rgba(74,139,134,0.18); }
+.card-demo-label { font-size: 10px; color: var(--text-faint); }
+
+/* ── MOTION ── */
+.motion-grid { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.motion-btn {
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.motion-btn:hover { background: var(--surface-card); color: var(--text); }
+@keyframes pulse-demo { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.96)} }
+@keyframes slide-demo { 0%{transform:translateX(-8px);opacity:0} 100%{transform:translateX(0);opacity:1} }
+@keyframes spring-demo { 0%{transform:scale(0.85);opacity:0} 100%{transform:scale(1);opacity:1} }
+.motion-target {
+  width: 80px; height: 40px;
+  background: var(--accent-teal-surface);
+  border: 1px solid var(--accent-teal-border);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--accent-teal);
+}
+
+/* ── COMPONENTS ── */
+.comp-grid { display: flex; flex-direction: column; gap: var(--space-8); }
+.comp-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: flex-start; }
+
+/* Action (button) variants */
+.action {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: var(--weight-medium);
+  font-family: inherit;
+  cursor: pointer; border: none; text-decoration: none;
+  transition: background var(--duration-base) var(--ease-standard),
+              color var(--duration-base) var(--ease-standard),
+              box-shadow var(--duration-base) var(--ease-standard);
+}
+.action-primary { background: var(--accent-teal); color: #000; }
+.action-primary:hover { background: color-mix(in srgb, var(--accent-teal) 90%, white); box-shadow: var(--glow-cyan-sm); }
+.action-secondary { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border-default); }
+.action-secondary:hover { background: var(--surface-card); color: var(--text); border-color: var(--border-strong); }
+.action-ghost { background: transparent; color: var(--text-muted); }
+.action-ghost:hover { background: var(--surface-2); color: var(--text); }
+.action-gold { background: var(--gold-surface); color: var(--gold); border: 1px solid var(--gold-border, rgba(200,169,97,0.25)); }
+.action-gold:hover { background: color-mix(in srgb, var(--gold) 12%, transparent); }
+.action-danger { background: color-mix(in srgb, var(--danger) 8%, transparent); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 25%, transparent); }
+.action-danger:hover { background: color-mix(in srgb, var(--danger) 14%, transparent); }
+.action-disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.action-sm { padding: var(--space-1) var(--space-3); font-size: 12px; }
+.action-lg { padding: var(--space-3) var(--space-6); font-size: 14px; }
+
+/* Empty state */
+.empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: var(--space-3);
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+}
+.empty-state-icon { font-size: 32px; opacity: 0.3; }
+.empty-state-title { font-size: 15px; font-weight: var(--weight-medium); color: var(--text-muted); }
+.empty-state-desc { font-size: 13px; color: var(--text-faint); max-width: 260px; line-height: 1.6; }
+
+/* Section header */
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: var(--space-3); margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-shell);
+}
+.section-header-label { font-size: 11px; font-weight: var(--weight-semibold); color: var(--text-muted); letter-spacing: var(--tracking-caption); text-transform: uppercase; }
+.section-header-count { font-size: 11px; color: var(--text-faint); margin-left: var(--space-2); }
+.section-header-action { font-size: 12px; color: var(--accent-teal); cursor: pointer; }
+
+/* Skeleton rows */
+.skeleton-row { height: 14px; background: var(--bg-elev); border-radius: var(--radius-xs); animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0%{opacity:0.5} 50%{opacity:1} 100%{opacity:0.5} }
+
+/* ── EXPLORER ── */
+.explorer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.explorer-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-shell);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex; flex-direction: column; gap: var(--space-4);
+}
+.explorer-card-label {
+  font-size: 10px; letter-spacing: var(--tracking-caption);
+  text-transform: uppercase; font-weight: var(--weight-semibold);
+}
+.explorer-a .explorer-card-label { color: var(--text-faint); }
+.explorer-b .explorer-card-label { color: var(--accent-teal); }
+.explorer-c .explorer-card-label { color: var(--gold); }
+.explorer-d .explorer-card-label { color: var(--accent-llm); }
+.explorer-card-title { font-size: 15px; font-weight: var(--weight-semibold); color: var(--text); letter-spacing: var(--tracking-tight); }
+.explorer-card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.explorer-card-preview {
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  min-height: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Direction A — état actuel */
+.dir-a-preview {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  flex-direction: column; gap: var(--space-2);
+}
+/* Direction B — air + typo */
+.dir-b-preview {
+  background: transparent;
+  border: 1px solid var(--accent-teal-border);
+  flex-direction: column; gap: var(--space-3);
+  background: linear-gradient(135deg, rgba(74,139,134,0.03), transparent);
+}
+/* Direction C — warm refonte */
+.dir-c-preview {
+  background: linear-gradient(135deg, rgba(200,169,97,0.04), transparent);
+  border: 1px solid var(--gold-border, rgba(200,169,97,0.2));
+  flex-direction: column; gap: var(--space-2);
+}
+/* Direction D — 3D/spatial */
+.dir-d-preview {
+  background: linear-gradient(135deg, rgba(167,139,250,0.06), rgba(74,139,134,0.03));
+  border: 1px solid rgba(167,139,250,0.15);
+  position: relative; overflow: hidden;
+}
+
+/* Audit findings */
+.audit-bar {
+  display: flex; gap: var(--space-2); margin-bottom: var(--space-6); flex-wrap: wrap;
+}
+.audit-chip {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: 11px; font-weight: var(--weight-medium);
+}
+.chip-ok { background: color-mix(in srgb, var(--color-success) 10%, transparent); color: var(--color-success); border: 1px solid color-mix(in srgb, var(--color-success) 25%, transparent); }
+.chip-warn { background: color-mix(in srgb, var(--warn) 10%, transparent); color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 25%, transparent); }
+.chip-err { background: color-mix(in srgb, var(--danger) 10%, transparent); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 25%, transparent); }
+
+/* ── PROMPT BOX ── */
+.prompt-tabs { display: flex; gap: var(--space-1); margin-bottom: var(--space-4); }
+.prompt-tab {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-size: 12px; font-weight: var(--weight-medium);
+  cursor: pointer; border: 1px solid var(--border-default); border-bottom: none;
+  background: var(--surface-1); color: var(--text-muted);
+  transition: background var(--duration-base), color var(--duration-base);
+}
+.prompt-tab.active { background: var(--surface-2); color: var(--text); border-color: var(--border-strong); }
+.prompt-box {
+  background: var(--surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm);
+  padding: var(--space-5);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.prompt-copy-btn {
+  margin-top: var(--space-3);
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 12px; color: var(--text-muted);
+  cursor: pointer; font-family: inherit;
+  transition: background var(--duration-base), color var(--duration-base);
+}
+.prompt-copy-btn:hover { background: var(--accent-teal-surface); color: var(--accent-teal); border-color: var(--accent-teal-border); }
+
+.prompt-hidden { display: none; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: var(--radius-pill); }
+</style>
+</head>
+<body>
+
+<div id="copy-toast">Copié ✓</div>
+
+<div class="layout">
+
+<!-- SIDEBAR NAV -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    Hearst OS
+    <span>Design System · 2026-05-15</span>
+  </div>
+  <a class="nav-link active" href="#palette" onclick="setActive(this)">🎨 Palette</a>
+  <a class="nav-link" href="#typography" onclick="setActive(this)">T Typographie</a>
+  <a class="nav-link" href="#spacing" onclick="setActive(this)">⬜ Spacing</a>
+  <a class="nav-link" href="#radius-shadows" onclick="setActive(this)">◻ Radius & Ombres</a>
+  <a class="nav-link" href="#motion" onclick="setActive(this)">✦ Motion</a>
+  <a class="nav-link" href="#components" onclick="setActive(this)">◈ Composants</a>
+  <a class="nav-link" href="#audit" onclick="setActive(this)">⚠ Audit</a>
+  <a class="nav-link" href="#explorer" onclick="setActive(this)">⊕ Explorer</a>
+  <a class="nav-link" href="#prompts" onclick="setActive(this)">→ Prompts</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main-content">
+
+<!-- ══════════════════════════════ PALETTE ══════════════════════════════ -->
+<section class="section" id="palette">
+  <div class="section-title">Palette</div>
+  <div class="section-sub">Cliquer sur un swatch pour copier le token CSS.</div>
+  <hr class="section-divider">
+
+  <div class="palette-group">
+    <div class="label">Backgrounds & Surfaces</div>
+    <div class="palette-grid">
+      <div class="swatch" onclick="copyToken('--bg')">
+        <div class="swatch-box" style="background:#000000;border:1px solid rgba(255,255,255,0.15)"></div>
+        <div class="swatch-name">--bg</div><div class="swatch-value">#000000</div>
+      </div>
+      <div class="swatch" onclick="copyToken('--bg-elev')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.05)"></div>
+        <div class="swatch-name">--bg-elev</div><div class="swatch-value">rgba 5%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('--surface')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.02)"></div>
+        <div class="swatch-name">--surface</div><div class="swatch-value">rgba 2%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('--surface-1')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.025)"></div>
+        <div class="swatch-name">--surface-1</div><div class="swatch-value">rgba 2.5%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('--surface-2')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.04)"></div>
+        <div class="swatch-name">--surface-2</div><div class="swatch-value">rgba 4%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('--surface-card')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.035)"></div>
+        <div class="swatch-name">--surface-card</div><div class="swatch-value">rgba 3.5%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-group">
+    <div class="label">Accents</div>
+    <div class="palette-grid">
+      <div class="swatch" onclick="copyToken('var(--accent-teal)')">
+        <div class="swatch-box" style="background:#4a8b86"></div>
+        <div class="swatch-name">--accent-teal</div><div class="swatch-value">#4a8b86</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--accent-teal-surface)')">
+        <div class="swatch-box" style="background:rgba(74,139,134,0.08)"></div>
+        <div class="swatch-name">--accent-teal-surface</div><div class="swatch-value">8% teal</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--gold)')">
+        <div class="swatch-box" style="background:#c8a961"></div>
+        <div class="swatch-name">--gold</div><div class="swatch-value">#c8a961</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--gold-surface)')">
+        <div class="swatch-box" style="background:rgba(200,169,97,0.08)"></div>
+        <div class="swatch-name">--gold-surface</div><div class="swatch-value">8% gold</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--accent-llm)')">
+        <div class="swatch-box" style="background:#a78bfa"></div>
+        <div class="swatch-name">--accent-llm</div><div class="swatch-value">#a78bfa</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-group">
+    <div class="label">Status</div>
+    <div class="palette-grid">
+      <div class="swatch" onclick="copyToken('var(--color-success)')">
+        <div class="swatch-box" style="background:#2dc558"></div>
+        <div class="swatch-name">--color-success</div><div class="swatch-value">#2dc558</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--warn)')">
+        <div class="swatch-box" style="background:#ffcc00"></div>
+        <div class="swatch-name">--warn</div><div class="swatch-value">#ffcc00</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--danger)')">
+        <div class="swatch-box" style="background:#ff3333"></div>
+        <div class="swatch-name">--danger</div><div class="swatch-value">#ff3333</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-group">
+    <div class="label">Text Scale</div>
+    <div class="palette-grid">
+      <div class="swatch" onclick="copyToken('var(--text)')">
+        <div class="swatch-box" style="background:#ffffff"></div>
+        <div class="swatch-name">--text</div><div class="swatch-value">100%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--text-soft)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.88)"></div>
+        <div class="swatch-name">--text-soft</div><div class="swatch-value">88%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--text-muted)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.65)"></div>
+        <div class="swatch-name">--text-muted</div><div class="swatch-value">65%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--text-faint)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.45)"></div>
+        <div class="swatch-name">--text-faint</div><div class="swatch-value">45%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--text-ghost)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.3)"></div>
+        <div class="swatch-name">--text-ghost</div><div class="swatch-value">30%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--text-decor-25)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.25)"></div>
+        <div class="swatch-name">--text-decor-25</div><div class="swatch-value">25%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-group">
+    <div class="label">Borders</div>
+    <div class="palette-grid">
+      <div class="swatch" onclick="copyToken('var(--border-shell)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.06)"></div>
+        <div class="swatch-name">--border-shell</div><div class="swatch-value">6%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--border-default)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.12)"></div>
+        <div class="swatch-name">--border-default</div><div class="swatch-value">12%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--border-strong)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.14)"></div>
+        <div class="swatch-name">--border-strong</div><div class="swatch-value">14%</div>
+      </div>
+      <div class="swatch" onclick="copyToken('var(--border-focus)')">
+        <div class="swatch-box" style="background:rgba(255,255,255,0.4)"></div>
+        <div class="swatch-name">--border-focus</div><div class="swatch-value">40%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ TYPOGRAPHY ══════════════════════════════ -->
+<section class="section" id="typography">
+  <div class="section-title">Typographie</div>
+  <div class="section-sub">Satoshi Variable · Scale visuelle complète.</div>
+  <hr class="section-divider">
+
+  <div class="typo-scale">
+    <div class="typo-row">
+      <div class="typo-meta">48px · bold · tight<span>Display / Hero</span></div>
+      <div style="font-size:48px;font-weight:700;letter-spacing:-0.035em;color:var(--text);line-height:1.05">Hearst OS</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">36px · semibold · tight<span>H1 · Stage title</span></div>
+      <div style="font-size:36px;font-weight:600;letter-spacing:-0.02em;color:var(--text);line-height:1.1">Tableau de bord</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">24px · semibold<span>H2 · Section title</span></div>
+      <div style="font-size:24px;font-weight:600;letter-spacing:-0.02em;color:var(--text-soft)">Signaux actifs</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">18px · medium<span>H3 · Panel title</span></div>
+      <div style="font-size:18px;font-weight:500;color:var(--text-soft)">Contexte de mission</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">15px · medium<span>Body · Strong</span></div>
+      <div style="font-size:15px;font-weight:500;color:var(--text-muted)">Réponse de l'agent en cours de traitement</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">14px · regular<span>Body · Default</span></div>
+      <div style="font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.6">L'orchestrateur analyse les données du flux. Les agents spécialisés sont mobilisés selon le contexte de la demande.</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">13px · regular<span>Body · Small</span></div>
+      <div style="font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.6">Dernière mise à jour il y a 3 minutes · 24 sources analysées</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">12px · medium<span>Meta / Caption</span></div>
+      <div style="font-size:12px;font-weight:500;color:var(--text-faint)">Signal actif · Confiance 87%</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">11px · semibold · wide<span>Label / Badge</span></div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint)">Missions récentes</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-meta">10px · semibold · caption<span>Rail tag / Status</span></div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-teal)">En cours</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ SPACING ══════════════════════════════ -->
+<section class="section" id="spacing">
+  <div class="section-title">Spacing</div>
+  <div class="section-sub">Échelle 4px · tokens --space-N.</div>
+  <hr class="section-divider">
+
+  <div class="space-grid">
+    <div id="space-rows"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ RADIUS & SHADOWS ══════════════════════════════ -->
+<section class="section" id="radius-shadows">
+  <div class="section-title">Radius & Ombres</div>
+  <div class="section-sub">Hover pour voir shadow-card-hover.</div>
+  <hr class="section-divider">
+
+  <div class="label" style="margin-bottom:var(--space-4)">Radius Scale</div>
+  <div class="card-grid" style="margin-bottom:var(--space-8)">
+    <div class="card-demo" style="border-radius:4px;box-shadow:var(--shadow-card)"><div class="card-demo-label">xs · 4px</div></div>
+    <div class="card-demo" style="border-radius:8px;box-shadow:var(--shadow-card)"><div class="card-demo-label">sm · 8px</div></div>
+    <div class="card-demo" style="border-radius:12px;box-shadow:var(--shadow-card)"><div class="card-demo-label">md · 12px</div></div>
+    <div class="card-demo" style="border-radius:16px;box-shadow:var(--shadow-card)"><div class="card-demo-label">lg · 16px</div></div>
+    <div class="card-demo" style="border-radius:20px;box-shadow:var(--shadow-card)"><div class="card-demo-label">xl · 20px</div></div>
+    <div class="card-demo" style="border-radius:24px;box-shadow:var(--shadow-card)"><div class="card-demo-label">2xl · 24px</div></div>
+  </div>
+
+  <div class="label" style="margin-bottom:var(--space-4)">Shadow Scale</div>
+  <div class="card-grid">
+    <div class="card-demo" style="border-radius:12px;box-shadow:var(--shadow-sm)"><div class="card-demo-label">shadow-sm</div></div>
+    <div class="card-demo" style="border-radius:12px;box-shadow:var(--shadow-md)"><div class="card-demo-label">shadow-md</div></div>
+    <div class="card-demo" style="border-radius:12px;box-shadow:var(--shadow-card)"><div class="card-demo-label">shadow-card</div></div>
+    <div class="card-demo" style="border-radius:12px;box-shadow:0 0 30px rgba(74,139,134,0.15)"><div class="card-demo-label">glow-cyan-sm</div></div>
+    <div class="card-demo" style="border-radius:12px;box-shadow:var(--input-glow)"><div class="card-demo-label">input-glow</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ MOTION ══════════════════════════════ -->
+<section class="section" id="motion">
+  <div class="section-title">Motion</div>
+  <div class="section-sub">Cliquer les boutons pour déclencher les animations.</div>
+  <hr class="section-divider">
+
+  <div class="motion-grid">
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
+      <button class="motion-btn" onclick="triggerAnim('demo-fast','pulse-demo 75ms ease forwards')">fast 75ms</button>
+      <div class="motion-target" id="demo-fast">·</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
+      <button class="motion-btn" onclick="triggerAnim('demo-base','slide-demo 150ms cubic-bezier(0.4,0,0.2,1) forwards')">base 150ms</button>
+      <div class="motion-target" id="demo-base">→</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
+      <button class="motion-btn" onclick="triggerAnim('demo-slow','slide-demo 200ms cubic-bezier(0.2,1,0.2,1) forwards')">slow 200ms</button>
+      <div class="motion-target" id="demo-slow">↑</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
+      <button class="motion-btn" onclick="triggerAnim('demo-spring','spring-demo 300ms cubic-bezier(0.16,1,0.3,1) forwards')">spring 300ms</button>
+      <div class="motion-target" id="demo-spring">✦</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
+      <button class="motion-btn" onclick="triggerAnim('demo-vision','spring-demo 400ms cubic-bezier(0.22,1,0.36,1) forwards')">vision 400ms</button>
+      <div class="motion-target" id="demo-vision">◎</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ COMPONENTS ══════════════════════════════ -->
+<section class="section" id="components">
+  <div class="section-title">Composants</div>
+  <div class="section-sub">Primitives canoniques · tous les états.</div>
+  <hr class="section-divider">
+
+  <div class="comp-grid">
+    <div>
+      <div class="label">Action · Variants</div>
+      <div class="comp-row">
+        <button class="action action-primary">Primaire</button>
+        <button class="action action-secondary">Secondaire</button>
+        <button class="action action-ghost">Ghost</button>
+        <button class="action action-gold">Gold</button>
+        <button class="action action-danger">Supprimer</button>
+        <button class="action action-primary action-disabled">Désactivé</button>
+      </div>
+    </div>
+    <div>
+      <div class="label">Action · Tailles</div>
+      <div class="comp-row" style="align-items:center">
+        <button class="action action-primary action-sm">Petit</button>
+        <button class="action action-primary">Moyen</button>
+        <button class="action action-primary action-lg">Grand</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">SectionHeader</div>
+      <div style="background:var(--surface-1);border:1px solid var(--border-shell);border-radius:var(--radius-md);padding:var(--space-5)">
+        <div class="section-header">
+          <div><span class="section-header-label">Missions</span><span class="section-header-count">12</span></div>
+          <span class="section-header-action">Voir tout</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <div class="skeleton-row" style="width:100%"></div>
+          <div class="skeleton-row" style="width:80%"></div>
+          <div class="skeleton-row" style="width:60%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">EmptyState</div>
+      <div style="background:var(--surface-1);border:1px solid var(--border-shell);border-radius:var(--radius-md)">
+        <div class="empty-state">
+          <div class="empty-state-icon">◎</div>
+          <div class="empty-state-title">Aucune mission active</div>
+          <div class="empty-state-desc">Lancez une nouvelle mission ou attendez qu'un signal déclenche une action.</div>
+          <button class="action action-secondary action-sm">Nouvelle mission</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">Skeletons · RowSkeleton</div>
+      <div style="background:var(--surface-1);border:1px solid var(--border-shell);border-radius:var(--radius-md);padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3)">
+        <div class="skeleton-row" style="width:100%"></div>
+        <div class="skeleton-row" style="width:85%"></div>
+        <div class="skeleton-row" style="width:70%"></div>
+        <div class="skeleton-row" style="width:90%"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">Badges / Status chips (manquants — P0)</div>
+      <div class="comp-row">
+        <span class="audit-chip chip-ok">Actif</span>
+        <span class="audit-chip chip-warn">En attente</span>
+        <span class="audit-chip chip-err">Échec</span>
+        <span style="padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:500;background:rgba(167,139,250,0.1);color:#a78bfa;border:1px solid rgba(167,139,250,0.2)">LLM</span>
+        <span style="padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:500;background:rgba(74,139,134,0.08);color:var(--accent-teal);border:1px solid rgba(74,139,134,0.2)">Signal</span>
+        <span style="padding:2px 10px;border-radius:9999px;font-size:11px;font-weight:500;background:rgba(200,169,97,0.08);color:var(--gold);border:1px solid rgba(200,169,97,0.2)">Premium</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ AUDIT ══════════════════════════════ -->
+<section class="section" id="audit">
+  <div class="section-title">Audit DS</div>
+  <div class="section-sub">Résultats de l'audit automatique · session 2026-05-15.</div>
+  <hr class="section-divider">
+
+  <div class="audit-bar">
+    <span class="audit-chip chip-ok">~200+ tokens définis</span>
+    <span class="audit-chip chip-warn">Shell 29% token-aware</span>
+    <span class="audit-chip chip-warn">29 valeurs hardcodées (shell)</span>
+    <span class="audit-chip chip-err">7 tokens trous (--duration-standard, --accent-teal-deep...)</span>
+    <span class="audit-chip chip-err">7 primitives manquantes (Card, Badge, Alert, Input, Divider, Modal, LoadingIndicator)</span>
+    <span class="audit-chip chip-warn">10 patterns dupliqués 2-3×</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5)">
+    <div style="background:var(--surface-1);border:1px solid var(--border-shell);border-radius:var(--radius-md);padding:var(--space-5)">
+      <div class="label" style="color:var(--danger)">P0 — Critique</div>
+      <div style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-top:var(--space-3)">
+        · LeftRail.tsx — 9 valeurs hardcodées (opacités 0.06/0.15/0.2/0.5, w-88px, rounded-3px)<br>
+        · AmbientLayers.tsx — #5ee5c3 signature teal hardcodé<br>
+        · Badge / Card / Alert — primitives absentes (40+ usages ad-hoc)<br>
+        · --duration-standard / --accent-teal-deep — tokens utilisés non définis
+      </div>
+    </div>
+    <div style="background:var(--surface-1);border:1px solid var(--border-shell);border-radius:var(--radius-md);padding:var(--space-5)">
+      <div class="label" style="color:var(--warn)">P1 — Important</div>
+      <div style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-top:var(--space-3)">
+        · FloatingFooter.tsx — 4 opacités hors scale (0.4/0.5/0.7)<br>
+        · Input / Divider / LoadingIndicator — primitives absentes<br>
+        · --space-64/96 / --leading-normal — tokens manquants<br>
+        · 10 patterns EmptyState/Section/Modal dupliqués
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ EXPLORER ══════════════════════════════ -->
+<section class="section" id="explorer">
+  <div class="section-title">Explorer · Directions</div>
+  <div class="section-sub">Quatre directions possibles. Choisir en bas (Prompts).</div>
+  <hr class="section-divider">
+
+  <div class="explorer-grid">
+    <!-- A — Nettoyage -->
+    <div class="explorer-card explorer-a">
+      <div class="explorer-card-label">Direction A</div>
+      <div class="explorer-card-title">Nettoyage DS</div>
+      <div class="explorer-card-desc">Retirer tout le hardcoding shell, consolider les 7 tokens trous, extraire Card/Badge/Alert. Porter la conformité à 90%+. Sonnet s'en charge en 2-4h.</div>
+      <div class="explorer-card-preview dir-a-preview">
+        <div style="font-size:11px;color:var(--text-faint);text-align:center">
+          LeftRail / AmbientLayers / FloatingFooter<br>
+          <span style="color:var(--text-ghost)">→ 100% token-aware</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- B — Évolution douce -->
+    <div class="explorer-card explorer-b">
+      <div class="explorer-card-label">Direction B</div>
+      <div class="explorer-card-title">Évolution douce</div>
+      <div class="explorer-card-desc">Plus d'air. Typo plus expressive. Radius légèrement plus doux (md → lg sur les cards). Accent-teal légèrement plus lumineux. On maquette ici d'abord.</div>
+      <div class="explorer-card-preview dir-b-preview" style="flex-direction:column;gap:12px">
+        <div style="font-size:20px;font-weight:600;letter-spacing:-0.03em;color:var(--text)">Mission 01</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7">Analyse de flux · 12 agents actifs</div>
+        <div style="display:flex;gap:8px">
+          <span style="padding:3px 12px;border-radius:9999px;font-size:11px;background:rgba(74,139,134,0.1);color:var(--accent-teal);border:1px solid rgba(74,139,134,0.22)">Actif</span>
+          <span style="padding:3px 12px;border-radius:9999px;font-size:11px;background:var(--surface-2);color:var(--text-faint);border:1px solid var(--border-shell)">Signaux 3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- C — Warm refonte -->
+    <div class="explorer-card explorer-c">
+      <div class="explorer-card-label">Direction C</div>
+      <div class="explorer-card-title">Refonte warm</div>
+      <div class="explorer-card-desc">Le gold devient accent primaire. Teal reste pour les états actifs système. Radius plus doux. Une chaleur éditoriale assumée — "intelligence élégante".</div>
+      <div class="explorer-card-preview dir-c-preview" style="flex-direction:column;gap:12px">
+        <div style="font-size:18px;font-weight:600;letter-spacing:-0.025em;color:var(--gold)">Mission 01</div>
+        <div style="font-size:13px;color:var(--text-muted)">Analyse de flux · 12 agents actifs</div>
+        <div style="display:flex;gap:8px">
+          <span style="padding:3px 12px;border-radius:9999px;font-size:11px;background:rgba(200,169,97,0.1);color:var(--gold);border:1px solid rgba(200,169,97,0.22)">En cours</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- D — 3D/spatial -->
+    <div class="explorer-card explorer-d">
+      <div class="explorer-card-label">Direction D</div>
+      <div class="explorer-card-title">3D · Spatial avancé</div>
+      <div class="explorer-card-desc">Shaders GLSL, DOF GPU, scène R3F avec post-processing. Particules réactives aux données. Caméra cinématique spring. Gemini Pro génère l'architecture.</div>
+      <div class="explorer-card-preview dir-d-preview">
+        <div id="spatial-canvas" style="width:100%;text-align:center;font-size:13px;color:rgba(167,139,250,0.7)">
+          <div style="font-size:28px;margin-bottom:8px;animation:pulse-demo 2s infinite">◎</div>
+          R3F · DOF · Shaders GLSL<br>
+          <span style="font-size:11px;opacity:0.5">Constellation agents · particules</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ PROMPTS ══════════════════════════════ -->
+<section class="section" id="prompts">
+  <div class="section-title">Prompts</div>
+  <div class="section-sub">Coller dans une session Sonnet ou Gemini dédiée selon la direction choisie.</div>
+  <hr class="section-divider">
+
+  <div class="prompt-tabs">
+    <button class="prompt-tab active" onclick="switchPrompt('sonnet-a', this)">A — Sonnet Nettoyage</button>
+    <button class="prompt-tab" onclick="switchPrompt('sonnet-b', this)">B — Sonnet Évolution</button>
+    <button class="prompt-tab" onclick="switchPrompt('sonnet-c', this)">C — Sonnet Refonte</button>
+    <button class="prompt-tab" onclick="switchPrompt('gemini-d', this)">D — Gemini 3D</button>
+  </div>
+
+  <div id="prompt-sonnet-a" class="prompt-box">Tu es Claude Sonnet. Tu travailles sur Next.js 15 + Tailwind v4 + React 19.
+
+CONTEXTE DS :
+- Tokens définis dans app/globals.css (:root + @theme inline)
+- Accent primaire : --accent-teal (#4a8b86)
+- Primitives existantes : Action, EmptyState, SectionHeader, RailSection, ScreenShell, RowSkeleton, CardSkeleton
+- Conformité shell actuelle : ~29% (29 valeurs hardcodées)
+- 7 tokens trous : --duration-standard, --ease-out, --accent-teal-deep, --space-64, --space-96, --leading-normal, --red
+
+MISSION A — Nettoyage DS (porter la conformité à 90%+) :
+
+ÉTAPE 1 — Ajouter tokens manquants dans app/globals.css (:root) :
+  --duration-standard: var(--duration-base);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --accent-teal-deep: color-mix(in srgb, #4a8b86 70%, #000);
+  --space-64: 256px;
+  --space-96: 384px;
+  --leading-normal: 1.5;
+  --red: var(--danger);
+  --rail-width: 88px;
+  --icon-radius: 3px;
+  --surface-alt: rgba(255,255,255,0.15);
+  --teal-signature: #5ee5c3;
+
+ÉTAPE 2 — Fixer les fichiers shell (par priorité) :
+  - app/(user)/_shell/LeftRail.tsx (9 hardcodes)
+    · w-[88px] → w-[var(--rail-width)]
+    · rounded-[3px] → rounded-[var(--icon-radius)] (2 occurrences)
+    · rgba(255,255,255,0.06) → var(--line-strong)
+    · rgba(255,255,255,0.15) → var(--surface-alt)
+    · rgba(255,255,255,0.2) → var(--shadow-inset-highlight)
+    · rgba(255,255,255,0.5) → var(--text-muted)
+  - app/(user)/_shell/AmbientLayers.tsx (10 hardcodes)
+    · rgba(94,229,195,0.32) → rgba(var(--teal-signature) / 0.32) (ou color-mix)
+    · toutes les opacités inline → tokens opacity ou variables CSS
+  - app/(user)/_shell/FloatingFooter.tsx (4 hardcodes)
+    · rgba(255,255,255,0.7) → var(--text-soft)
+    · rgba(255,255,255,0.4) → var(--text-faint)
+    · rgba(255,255,255,0.5) → var(--text-muted)
+
+ÉTAPE 3 — Créer les primitives manquantes dans app/(user)/components/ui/ :
+  - Badge.tsx : variantes tone (success/warn/danger/teal/gold/llm/neutral), size (sm/md)
+  - Card.tsx : variantes (default/elevated/interactive), props (radius, shadow, padding)
+  - Alert.tsx : variantes (warning/error/info/success), layout (inline/block)
+  Exporter via ui/index.ts.
+
+RÈGLES :
+  - Pas de magic numbers. Tout passe par var(--token) ou utility Tailwind équivalente
+  - Dark mode unique, pas de toggle light
+  - Pas de commentaires explicatifs dans le code
+  - Validation finale : npm run validate (typecheck + lint)
+
+LIVRABLE :
+  - Commit feat(design): nettoyage DS shell — hardcoding → tokens + primitives Badge/Card/Alert
+  - npm run validate doit passer en vert</div>
+
+  <div id="prompt-sonnet-b" class="prompt-box prompt-hidden">Tu es Claude Sonnet. Tu travailles sur Next.js 15 + Tailwind v4 + React 19.
+
+CONTEXTE DS :
+- Tokens définis dans app/globals.css (:root + @theme inline)
+- Accent : --accent-teal (#4a8b86) · Gold : --gold (#c8a961)
+- Primitives : Action, EmptyState, SectionHeader, RailSection, ScreenShell, Skeleton
+
+MISSION B — Évolution douce (plus d'air, typo plus expressive) :
+
+TOKENS À MODIFIER/AJOUTER dans app/globals.css :
+  Radius cards :
+    --radius-card: var(--radius-lg);       /* 16px au lieu de 12px */
+    --radius-card-inner: var(--radius-md); /* sous-éléments */
+  Accent légèrement plus chaud :
+    --accent-teal: #52968f;                /* +3% brightness */
+  Section gap :
+    --section-gap: var(--space-10);        /* 40px au lieu de 32px */
+  Card padding :
+    --card-padding: var(--space-5);        /* 20px au lieu de 16px */
+
+COMPOSANTS À AJUSTER :
+  - app/(user)/components/ui/EmptyState.tsx :
+    · padding: p-12 (48px) → p-14 (56px)
+    · title: text-[15px] → text-[16px], weight-medium → weight-semibold
+    · description: leading-1.6 → leading-1.75
+  - Tous les Stage (app/(user)/_stages/*.tsx) :
+    · border-radius des cards : var(--radius-md) → var(--radius-lg)
+    · padding intérieur : var(--card-padding) uniforme
+  - SectionHeader :
+    · margin-bottom: space-4 → space-6 (plus d'air après le header)
+
+RÈGLES :
+  - Préserver la voix silencieuse (pas de nouveau glow, pas d'effet décoratif)
+  - Pas de magic numbers, tout par token
+  - Validation : npm run validate
+
+LIVRABLE :
+  - Commit feat(design): évolution douce — radius + air + typo
+  - Screenshots Playwright avant/après ArtifactStage et CockpitStage</div>
+
+  <div id="prompt-sonnet-c" class="prompt-box prompt-hidden">Tu es Claude Sonnet. Tu travailles sur Next.js 15 + Tailwind v4 + React 19.
+
+CONTEXTE DS :
+- Tokens actuels dans app/globals.css
+- Accent actuel : --accent-teal (#4a8b86), --gold (#c8a961)
+- Objectif : rééquilibrage gold comme accent éditorial dominant
+
+MISSION C — Refonte warm (gold accent primary) :
+
+TOKENS À MODIFIER dans app/globals.css :
+  Rôles éditoriaux :
+    --accent-editorial: var(--gold);          /* gold = accent links, highlights */
+    --accent-system: var(--accent-teal);      /* teal = états actifs système */
+  Nouvelles surfaces gold :
+    --surface-editorial: rgba(200,169,97,0.04);
+    --border-editorial: rgba(200,169,97,0.12);
+
+COMPOSANTS À METTRE À JOUR :
+  - SectionHeader : --accent-teal → --gold pour les labels de section
+  - Action gold : renforcer le variant (padding légèrement plus généreux)
+  - RailSection headers : teal → gold
+  - Links éditoriaux (markdownlinks) : gold confirmé
+  - États actifs système (run, voice, focus) : conserver teal
+  - Status dots (PulseBar) : conserver teal pour système actif
+
+RÈGLES :
+  - Teal reste pour TOUS les états système (active, running, focus, voice)
+  - Gold pour éditorial (titres de section, liens contenu, badges premium)
+  - Pas de régression a11y (ratio contraste ≥ 4.5:1 body, ≥ 3:1 large)
+  - Validation : npm run validate
+
+LIVRABLE :
+  - Commit feat(design): refonte warm — gold accent éditorial dominant
+  - Screenshots avant/après CockpitStage et SignalStage</div>
+
+  <div id="prompt-gemini-d" class="prompt-box prompt-hidden">Tu es Gemini 2.5 Pro. Tu travailles sur Next.js 15 + React 19 + TypeScript.
+
+CONTEXTE TECHNIQUE :
+- Stack : Next.js 15, React 19, TypeScript, Tailwind v4
+- 3D existant : app/spatial/* (R3F + @react-three/drei + @react-three/postprocessing)
+- Design tokens : app/globals.css (:root)
+- Accent teal : #4a8b86 · Gold : #c8a961
+
+MISSION D — Architecture 3D avancée pour le cockpit :
+
+Proposer l'architecture complète pour une scène R3F qui remplace/augmente la vue Cockpit :
+
+COMPOSANTS À CRÉER dans app/(user)/_stages/spatial-cockpit/ :
+  1. SpatialCockpitScene.tsx
+     - Canvas R3F avec toneMapped + dpr [1, 2]
+     - Suspense + fallback → CockpitStage 2D classique
+     - PerspectiveCamera cinématique (spring physics via @react-spring/three)
+
+  2. AgentConstellation.tsx
+     - Nœuds agents positionnés en constellation 3D (sphère + plans orbitaux)
+     - Lignes de connexion animées (Line de @react-three/drei)
+     - Hover → DOF GPU (@react-three/postprocessing DepthOfField)
+     - Particules réactives aux données (count: 200, taille: 0.01-0.03)
+
+  3. ShaderBackground.glsl (GLSL fragment shader)
+     - Grain noise subtil (vert palette teal)
+     - Gradient radial bas → obscurité top
+     - Vignette edge-dodge
+
+  4. PostProcessingStack.tsx
+     - DepthOfField (focusDistance dynamique selon hover agent)
+     - Bloom (luminanceThreshold: 0.8, intensity: 0.3)
+     - Vignette (darkness: 0.4)
+
+  5. CameraOrchestrator.tsx
+     - Position de repos : [0, 2, 8]
+     - Focus sur agent sélectionné : spring vers [x, y, z-2]
+     - Retour : spring-out cubic-bezier(0.16,1,0.3,1)
+
+CONTRAINTES :
+  - 60fps target · LOD sur nœuds agents (loin = sphere simple, proche = détail)
+  - Isolation totale : aucun import depuis ces fichiers dans le reste de l'app
+  - Fallback 2D si WebGL non disponible (navigator.gpu check)
+  - npm packages requis listés explicitement
+
+LIVRABLE :
+  - Architecture complète (fichiers + dépendances)
+  - Code complet des 5 composants clés
+  - Commandes npm install
+  - Checklist perf : Lighthouse score, WebGL inspector targets</div>
+
+  <button class="prompt-copy-btn" onclick="copyActivePrompt()">
+    ⊕ Copier le prompt actif
+  </button>
+</section>
+
+</main>
+</div>
+
+<script>
+// ── Navigation active ──
+function setActive(el) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Scroll spy
+const sections = ['palette','typography','spacing','radius-shadows','motion','components','audit','explorer','prompts'];
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+// ── Copy token ──
+function copyToken(token) {
+  navigator.clipboard.writeText(`var(${token})`).then(() => showToast(`var(${token})`));
+}
+function showToast(msg) {
+  const t = document.getElementById('copy-toast');
+  t.textContent = `Copié : ${msg}`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ── Spacing rows ──
+const spaces = [
+  ['--space-1','4px'],['--space-2','8px'],['--space-3','12px'],['--space-4','16px'],
+  ['--space-5','20px'],['--space-6','24px'],['--space-8','32px'],['--space-10','40px'],
+  ['--space-12','48px'],['--space-16','64px'],['--space-20','80px']
+];
+const spaceContainer = document.getElementById('space-rows');
+spaces.forEach(([token, val]) => {
+  const px = parseInt(val);
+  const row = document.createElement('div');
+  row.className = 'space-row';
+  row.innerHTML = `
+    <div class="space-bar" style="width:${Math.min(px * 3, 300)}px"></div>
+    <span class="space-label">${token}</span>
+    <span class="space-val">${val}</span>
+  `;
+  spaceContainer.appendChild(row);
+});
+
+// ── Motion animations ──
+function triggerAnim(id, anim) {
+  const el = document.getElementById(id);
+  el.style.animation = 'none';
+  el.offsetHeight; // force reflow
+  el.style.animation = anim;
+}
+
+// ── Prompt tabs ──
+function switchPrompt(key, tab) {
+  document.querySelectorAll('.prompt-box').forEach(b => b.classList.add('prompt-hidden'));
+  document.querySelectorAll('.prompt-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('prompt-' + key).classList.remove('prompt-hidden');
+  tab.classList.add('active');
+}
+function copyActivePrompt() {
+  const visible = document.querySelector('.prompt-box:not(.prompt-hidden)');
+  if (visible) {
+    navigator.clipboard.writeText(visible.textContent).then(() => showToast('Prompt'));
+  }
+}
+</script>
+</body>
+</html>

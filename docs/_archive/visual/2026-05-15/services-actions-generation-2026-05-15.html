@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hearst OS — Services, actions, génération</title>
+<style>
+  :root {
+    --bg: #07090c;
+    --bg-elev: #0c1014;
+    --bg-card: #11161c;
+    --bg-card-hover: #161d25;
+    --border: #1f2731;
+    --border-strong: #2a3543;
+    --text: #e8edf5;
+    --text-muted: #8995a8;
+    --text-dim: #5a6577;
+    --accent-teal: #67d4c4;
+    --accent-teal-dim: rgba(103, 212, 196, 0.18);
+    --accent-gold: #d4b067;
+    --accent-danger: #d46767;
+    --accent-money: #67d49a;
+    --accent-violet: #9b67d4;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --shadow-card: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background:
+      radial-gradient(1100px 600px at 20% -10%, rgba(103, 212, 196, 0.06), transparent 60%),
+      radial-gradient(900px 500px at 90% 5%, rgba(155, 103, 212, 0.05), transparent 60%),
+      var(--bg);
+    min-height: 100vh;
+  }
+  .wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-8) var(--space-12);
+  }
+  header.hero {
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    color: var(--accent-teal);
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: var(--space-3);
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 var(--space-3);
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 720px;
+    margin: 0;
+  }
+  .meta {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-teal);
+    box-shadow: 0 0 12px var(--accent-teal-dim);
+  }
+  nav.toc {
+    margin: var(--space-6) 0 var(--space-10);
+    padding: var(--space-4) var(--space-5);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-2) var(--space-4);
+  }
+  nav.toc a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 0;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  nav.toc a:hover {
+    color: var(--accent-teal);
+    border-left-color: var(--accent-teal);
+  }
+  section {
+    margin-bottom: var(--space-12);
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+  h2 .idx {
+    font-size: 11px;
+    color: var(--accent-teal);
+    background: var(--accent-teal-dim);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  h2 + .lead {
+    color: var(--text-muted);
+    margin: 0 0 var(--space-6);
+    font-size: 14px;
+    max-width: 800px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin: var(--space-6) 0 var(--space-3);
+    letter-spacing: -0.005em;
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-4);
+  }
+  thead th {
+    text-align: left;
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 10px 16px;
+    background: var(--bg-elev);
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--bg-card-hover); }
+  td code, p code, li code {
+    background: var(--bg-elev);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", "JetBrains Mono", Menlo, monospace;
+    font-size: 12px;
+    color: var(--accent-teal);
+    border: 1px solid var(--border);
+  }
+  .grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-4);
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-card);
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .badge {
+    font-size: 10px;
+    color: var(--accent-teal);
+    background: var(--accent-teal-dim);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 var(--space-3);
+  }
+  .card ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-muted);
+    font-size: 12.5px;
+  }
+  .card ul li { margin-bottom: 4px; }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    border-radius: 4px;
+    margin-right: 4px;
+  }
+  .tag-tier1 { background: rgba(103, 212, 196, 0.15); color: var(--accent-teal); }
+  .tag-tier2 { background: rgba(212, 176, 103, 0.15); color: var(--accent-gold); }
+  .tag-tier3 { background: rgba(89, 101, 119, 0.2); color: var(--text-muted); }
+  .tag-native { background: rgba(103, 212, 154, 0.12); color: var(--accent-money); }
+  .tag-composio { background: rgba(155, 103, 212, 0.15); color: var(--accent-violet); }
+  .tag-hybrid { background: rgba(212, 103, 103, 0.12); color: var(--accent-danger); }
+  .status-ok { color: var(--accent-money); }
+  .status-warn { color: var(--accent-gold); }
+  .status-err { color: var(--accent-danger); }
+  .keyword {
+    color: var(--text);
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg-elev);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .file-link {
+    color: var(--text-dim);
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 11px;
+  }
+  .write-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--space-3);
+  }
+  .write-actions span {
+    padding: 3px 10px;
+    background: rgba(212, 176, 103, 0.08);
+    border: 1px solid rgba(212, 176, 103, 0.25);
+    color: var(--accent-gold);
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: "SF Mono", Menlo, monospace;
+  }
+  .domain-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .domain-row:last-child { border-bottom: none; }
+  .domain-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .domain-apps {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-family: "SF Mono", Menlo, monospace;
+  }
+  footer {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Hearst OS · cartographie runtime</div>
+    <h1>Services externes, actions, génération</h1>
+    <p class="subtitle">Inventaire exhaustif de tout ce que l'orchestrateur peut appeler : connecteurs OAuth Composio, tools natifs Hearst, modèles LLM, providers de génération, observabilité.</p>
+    <div class="meta">
+      <span class="pill"><span class="dot"></span>généré le 2026-05-15</span>
+      <span class="pill">stack v2 · RunEngine + SSE</span>
+      <span class="pill">orchestrator: <code>lib/engine/orchestrator</code></span>
+    </div>
+  </header>
+
+  <div class="summary-strip">
+    <div class="stat"><div class="stat-num">13</div><div class="stat-label">apps Composio</div></div>
+    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">tools natifs</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">workers Inngest</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">modèles LLM</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">modalités gen</div></div>
+  </div>
+
+  <nav class="toc">
+    <a href="#a">A · Composio (OAuth)</a>
+    <a href="#b">B · Tools natifs Hearst</a>
+    <a href="#c">C · Modèles LLM</a>
+    <a href="#d">D · Génération multimédia</a>
+    <a href="#e">E · Web search</a>
+    <a href="#f">F · Email + Observabilité</a>
+    <a href="#g">G · Workers Inngest</a>
+    <a href="#h">H · Clés API</a>
+  </nav>
+
+  <!-- ────────────────────────── A · COMPOSIO ────────────────────────── -->
+  <section id="a">
+    <h2><span class="idx">A</span> Connecteurs Composio (OAuth multi-app)</h2>
+    <p class="lead">Découverte dynamique des actions par app via Composio. Filtrage par domaine, plafond 40 tools max envoyés au LLM. Round-robin pour garantir que chaque app connectée soit représentée. <span class="file-link">lib/connectors/composio/</span></p>
+
+    <h3>Apps connectables (catalog UI)</h3>
+    <table>
+      <thead><tr><th>App</th><th>Catégorie</th><th>Tier</th><th>Type</th><th>Provider ID runtime</th><th>Use cases populaires</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gmail</strong></td><td>communication</td><td><span class="tag tag-tier1">tier 1</span></td><td><span class="tag tag-native">natif</span></td><td><code>google</code></td><td>résumer / répondre emails</td></tr>
+        <tr><td><strong>Google Calendar</strong></td><td>productivity</td><td><span class="tag tag-tier1">tier 1</span></td><td><span class="tag tag-native">natif</span></td><td><code>google</code></td><td>voir réunions / planifier</td></tr>
+        <tr><td><strong>Google Drive</strong></td><td>storage</td><td><span class="tag tag-tier1">tier 1</span></td><td><span class="tag tag-native">natif</span></td><td><code>google</code></td><td>trouver / analyser fichiers</td></tr>
+        <tr><td><strong>Slack</strong></td><td>communication</td><td><span class="tag tag-tier1">tier 1</span></td><td><span class="tag tag-native">natif</span></td><td><code>slack</code></td><td>voir messages / envoyer</td></tr>
+        <tr><td><strong>Notion</strong></td><td>productivity</td><td><span class="tag tag-tier2">tier 1.5</span></td><td><span class="tag tag-native">natif</span></td><td><code>notion</code></td><td>rechercher docs / créer note</td></tr>
+        <tr><td><strong>GitHub</strong></td><td>dev</td><td><span class="tag tag-tier2">tier 1.5</span></td><td><span class="tag tag-native">natif</span></td><td><code>github</code></td><td>voir PRs / revue code</td></tr>
+        <tr><td><strong>HubSpot</strong></td><td>crm</td><td><span class="tag tag-tier2">tier 2</span></td><td><span class="tag tag-hybrid">hybrid</span></td><td><code>hubspot</code></td><td>lister deals / créer contact</td></tr>
+        <tr><td><strong>Jira</strong></td><td>dev</td><td><span class="tag tag-tier2">tier 2</span></td><td><span class="tag tag-hybrid">hybrid</span></td><td><code>jira</code></td><td>tickets ouverts / créer</td></tr>
+        <tr><td><strong>Linear</strong></td><td>dev</td><td><span class="tag tag-tier2">tier 2</span></td><td><span class="tag tag-hybrid">hybrid</span></td><td><code>linear</code></td><td>issues / roadmap</td></tr>
+        <tr><td><strong>Stripe</strong></td><td>finance</td><td><span class="tag tag-tier2">tier 2</span></td><td><span class="tag tag-hybrid">hybrid</span></td><td><code>stripe</code></td><td>CA / analyse revenus</td></tr>
+        <tr><td><strong>Figma</strong></td><td>design</td><td><span class="tag tag-tier2">tier 2</span></td><td><span class="tag tag-hybrid">hybrid</span></td><td><code>figma</code></td><td>voir fichiers / commentaires</td></tr>
+        <tr><td><strong>Airtable</strong></td><td>productivity</td><td><span class="tag tag-tier2">tier 2</span></td><td><span class="tag tag-hybrid">hybrid</span></td><td><code>airtable</code></td><td>requêter / rapports</td></tr>
+        <tr><td><strong>Zapier</strong></td><td>automation</td><td><span class="tag tag-tier2">tier 2</span></td><td><span class="tag tag-hybrid">hybrid</span></td><td><code>zapier</code></td><td>lister zaps / workflow</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Allowlist par domaine de capability</h3>
+    <p style="color: var(--text-muted); font-size: 13px;">Filtrage avant envoi au LLM — empêche les tools hors-scope de polluer le contexte. <span class="file-link">lib/connectors/composio/write-guard.ts:95</span></p>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-5);">
+      <div class="domain-row"><span class="domain-name">communication</span><span class="domain-apps">gmail · slack · outlook · teams · whatsapp · telegram · discord</span></div>
+      <div class="domain-row"><span class="domain-name">productivity</span><span class="domain-apps">googlecalendar · notion · todoist · asana · trello · airtable</span></div>
+      <div class="domain-row"><span class="domain-name">finance</span><span class="domain-apps">stripe · quickbooks · hubspot · chargebee · braintree</span></div>
+      <div class="domain-row"><span class="domain-name">developer</span><span class="domain-apps">github · jira · linear · gitlab · bitbucket · sentry</span></div>
+      <div class="domain-row"><span class="domain-name">crm</span><span class="domain-apps">hubspot · salesforce · pipedrive · close</span></div>
+      <div class="domain-row"><span class="domain-name">design</span><span class="domain-apps">figma</span></div>
+      <div class="domain-row"><span class="domain-name">general / research</span><span class="domain-apps">aucune restriction (cap 40)</span></div>
+    </div>
+
+    <h3>Write actions (HITL — preview/confirm obligatoire)</h3>
+    <p style="color: var(--text-muted); font-size: 13px;">Toute action destructive passe par un pattern à deux étapes : <code>_preview: true</code> → draft formaté → confirmation user → <code>_preview: false</code> → exécution. <span class="file-link">write-guard.ts</span></p>
+    <div class="write-actions">
+      <span>SEND</span><span>CREATE</span><span>DELETE</span><span>UPDATE</span><span>REPLY</span><span>ARCHIVE</span><span>MOVE</span><span>POST</span><span>PUBLISH</span><span>REMOVE</span><span>WRITE</span><span>PATCH</span><span>PUT</span><span>SUBMIT</span><span>FORWARD</span><span>MARK</span><span>UNSUBSCRIBE</span><span>INVITE</span><span>ASSIGN</span>
+    </div>
+
+    <h3>Preview formatters dédiés</h3>
+    <p style="color: var(--text-muted); font-size: 13px;">Cards riches affichées avant exécution. <span class="file-link">lib/connectors/composio/preview-formatters/</span></p>
+    <div class="grid-cards">
+      <div class="card"><div class="card-title">Gmail</div><div class="card-desc">to, subject, body, attachements</div></div>
+      <div class="card"><div class="card-title">Google Calendar</div><div class="card-desc">titre, créneau, attendees, location</div></div>
+      <div class="card"><div class="card-title">Slack</div><div class="card-desc">channel, message, mentions</div></div>
+      <div class="card"><div class="card-title">Notion</div><div class="card-desc">database, propriétés, page</div></div>
+      <div class="card"><div class="card-title">Trello</div><div class="card-desc">board, list, card</div></div>
+      <div class="card"><div class="card-title">Stripe</div><div class="card-desc">customer, invoice, subscription</div></div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────── B · TOOLS NATIFS ────────────────────────── -->
+  <section id="b">
+    <h2><span class="idx">B</span> Tools natifs Hearst (registrés dans l'AI pipeline)</h2>
+    <p class="lead">30+ tools enregistrés dans <code>buildTools()</code> de <span class="file-link">ai-pipeline.ts</span>, par-dessus Composio. Le modèle décide quand les appeler.</p>
+
+    <h3>B.1 — Google natif</h3>
+    <p style="color: var(--text-muted); font-size: 13px;"><span class="file-link">lib/tools/native/google.ts</span> — wrappers natifs sur OAuth Google (fallback / chemin déterministe)</p>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th><th>HITL</th></tr></thead>
+      <tbody>
+        <tr><td><code>gmail_fetch_emails</code></td><td>lit les emails récents de la boîte connectée</td><td>—</td></tr>
+        <tr><td><code>gmail_send_email</code></td><td>envoie un email via le compte connecté</td><td class="status-warn">preview/confirm</td></tr>
+        <tr><td><code>googlecalendar_list_events</code></td><td>liste les events du Google Calendar</td><td>—</td></tr>
+        <tr><td><code>googlecalendar_create_event</code></td><td>crée un event sur Google Calendar</td><td class="status-warn">preview/confirm</td></tr>
+        <tr><td><code>googledrive_list_files</code></td><td>liste les fichiers récents de Drive</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B.2 — Hearst Actions (déclencheurs runtime)</h3>
+    <p style="color: var(--text-muted); font-size: 13px;"><span class="file-link">lib/tools/native/hearst-actions.ts</span></p>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th><th>Backend</th></tr></thead>
+      <tbody>
+        <tr><td><code>start_meeting_bot</code></td><td>déploie un bot Recall.ai dans un meeting (Google Meet / Zoom / Teams)</td><td>worker meeting-bot</td></tr>
+        <tr><td><code>start_simulation</code></td><td>lance une simulation Hearst</td><td>worker simulation</td></tr>
+        <tr><td><code>generate_image</code></td><td>génération image async</td><td>worker image-gen (fal.ai)</td></tr>
+        <tr><td><code>start_browser</code></td><td>pilote un browser cloud autonome</td><td>worker browser-task (Browserbase)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B.3 — Génération multimédia</h3>
+    <p style="color: var(--text-muted); font-size: 13px;"><span class="file-link">lib/tools/native/extras-media.ts</span></p>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th><th>Provider</th></tr></thead>
+      <tbody>
+        <tr><td><code>generate_audio</code></td><td>synthèse vocale (TTS) avec profil tonal</td><td>ElevenLabs</td></tr>
+        <tr><td><code>generate_video</code></td><td>génération vidéo</td><td>Runway / HeyGen</td></tr>
+        <tr><td><code>parse_document</code></td><td>parse PDF / DOCX / scans en markdown structuré</td><td>LlamaParse</td></tr>
+        <tr><td><code>run_code</code></td><td>exécution code sandbox Python/JS</td><td>E2B</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B.4 — Services & Ops</h3>
+    <p style="color: var(--text-muted); font-size: 13px;"><span class="file-link">lib/tools/native/extras-services.ts</span></p>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th><th>Provider</th></tr></thead>
+      <tbody>
+        <tr><td><code>send_email</code></td><td>email transactionnel (hors Gmail OAuth)</td><td>Resend</td></tr>
+        <tr><td><code>query_sentry_issues</code></td><td>debug — issues Sentry filtrées</td><td>Sentry API</td></tr>
+        <tr><td><code>query_axiom_logs</code></td><td>logs structurés Axiom (APL query)</td><td>Axiom</td></tr>
+        <tr><td><code>schedule_inngest_job</code></td><td>job différé custom</td><td>Inngest</td></tr>
+        <tr><td><code>query_langfuse_traces</code></td><td>traces LLM (par user / time range)</td><td>Langfuse</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B.5 — Recherche & Knowledge</h3>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th><th>Backend</th></tr></thead>
+      <tbody>
+        <tr><td><code>web_search</code></td><td>recherche web généraliste</td><td>Tavily / Exa / Perplexity</td></tr>
+        <tr><td><code>research_report</code></td><td>pipeline web → rapport structuré déterministe</td><td>multi-providers</td></tr>
+        <tr><td><code>query_knowledge_graph</code></td><td>KG Hearst (mémoire long-terme)</td><td>Supabase pgvector</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B.6 — Enrichissement contacts / entreprises</h3>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th><th>Provider</th></tr></thead>
+      <tbody>
+        <tr><td><code>enrich_company</code></td><td>enrichit une entreprise depuis son domaine</td><td>People Data Labs</td></tr>
+        <tr><td><code>enrich_contact</code></td><td>enrichit un contact depuis son email</td><td>Apollo.io</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B.7 — Market data (live, no auth)</h3>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><code>get_crypto_prices</code></td><td>prix crypto temps réel</td><td>CoinGecko (public)</td></tr>
+        <tr><td><code>get_stock_quotes</code></td><td>cotations actions temps réel</td><td>Yahoo Finance (public)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B.8 — Missions & Assets</h3>
+    <table>
+      <thead><tr><th>Tool</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>run_mission</code></td><td>exécute une mission existante</td></tr>
+        <tr><td><code>request_daily_brief</code></td><td>déclenche le brief quotidien</td></tr>
+        <tr><td><code>find_asset</code></td><td>recherche dans les assets générés</td></tr>
+        <tr><td><code>share_asset</code></td><td>partage public d'un asset</td></tr>
+        <tr><td><code>export_asset_pdf</code></td><td>export PDF</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ────────────────────────── C · MODÈLES LLM ────────────────────────── -->
+  <section id="c">
+    <h2><span class="idx">C</span> Modèles LLM (provider routing)</h2>
+    <p class="lead">Routage selon l'intent détecté. Default = Claude Sonnet 4.6 avec extended thinking. Fallback automatique en cascade.</p>
+
+    <table>
+      <thead><tr><th>Provider</th><th>Modèle</th><th>Cas d'usage</th><th>Trigger</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Anthropic</strong></td><td>Claude Sonnet 4.6</td><td>défaut — AI pipeline + extended thinking</td><td>fallback global</td></tr>
+        <tr><td><strong>OpenAI</strong></td><td>GPT-4 / Assistants</td><td>backend <code>openai_assistants</code></td><td>SYSTEM_CONFIG defaultBackend</td></tr>
+        <tr><td><strong>DeepSeek</strong></td><td>R1 (reasoning)</td><td>raisonnement complexe</td><td><code>capScope.intent === "reasoning"</code></td></tr>
+        <tr><td><strong>Hume</strong></td><td>EVI (emotion)</td><td>analyse émotion vocale</td><td>voice mode</td></tr>
+        <tr><td><strong>Deepgram</strong></td><td>Nova-2</td><td>STT + extract action items</td><td>meeting transcript</td></tr>
+        <tr><td><strong>OpenAI Realtime</strong></td><td>gpt-4o-realtime</td><td>voice mode interactif</td><td>Cmd+K voice</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ────────────────────────── D · GÉNÉRATION ────────────────────────── -->
+  <section id="d">
+    <h2><span class="idx">D</span> Génération multimédia (par modalité)</h2>
+    <p class="lead">Toutes les générations passent par des workers Inngest (jobs durables) et exposent un tool natif pour que le LLM puisse les déclencher.</p>
+
+    <div class="grid-cards">
+      <div class="card">
+        <div class="card-title">🖼 Image <span class="badge">fal.ai</span></div>
+        <p class="card-desc">Génération via Flux / SDXL. Prompt enricher automatique.</p>
+        <ul>
+          <li>tool: <code>generate_image</code></li>
+          <li>worker: <code>image-gen.ts</code></li>
+          <li>provider: <span class="file-link">capabilities/providers/fal.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔊 Audio TTS <span class="badge">ElevenLabs</span></div>
+        <p class="card-desc">Synthèse vocale avec profil tonal (warm, professional, urgent…)</p>
+        <ul>
+          <li>tool: <code>generate_audio</code></li>
+          <li>worker: <code>audio-gen.ts</code></li>
+          <li>provider: <span class="file-link">elevenlabs.ts + elevenlabs-voices.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎙 Voice realtime <span class="badge">OpenAI Realtime</span></div>
+        <p class="card-desc">Session voice bidirectionnelle (WebRTC). Cmd+K voice mode.</p>
+        <ul>
+          <li>function: <code>mintRealtimeSession()</code></li>
+          <li>provider: <span class="file-link">openai-realtime.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎬 Vidéo avatar <span class="badge">HeyGen</span></div>
+        <p class="card-desc">Vidéos talking-head depuis un script texte.</p>
+        <ul>
+          <li>tool: <code>generate_video</code> (mode avatar)</li>
+          <li>provider: <span class="file-link">heygen.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎥 Vidéo gen <span class="badge">Runway</span></div>
+        <p class="card-desc">Gen-3 / Seedance / Veo3 — txt2video, img2video, vid2vid.</p>
+        <ul>
+          <li>tool: <code>generate_video</code> (mode gen)</li>
+          <li>worker: <code>video-gen.ts</code></li>
+          <li>provider: <span class="file-link">runway.ts + video-prompt-enricher.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💻 Code exec <span class="badge">E2B</span></div>
+        <p class="card-desc">Sandbox Python / Node / Bash isolée.</p>
+        <ul>
+          <li>tool: <code>run_code</code></li>
+          <li>worker: <code>code-exec.ts</code></li>
+          <li>provider: <span class="file-link">e2b.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🌐 Browser autonome <span class="badge">Browserbase</span></div>
+        <p class="card-desc">Pilotage browser cloud (Playwright headed). Idéal scraping / actions web.</p>
+        <ul>
+          <li>tool: <code>start_browser</code></li>
+          <li>worker: <code>browser-task.ts</code></li>
+          <li>provider: <span class="file-link">browserbase.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🤖 Meeting bot <span class="badge">Recall.ai</span></div>
+        <p class="card-desc">Bot qui rejoint un meeting (Meet/Zoom/Teams), enregistre + transcrit.</p>
+        <ul>
+          <li>tool: <code>start_meeting_bot</code></li>
+          <li>worker: <code>meeting-bot.ts</code></li>
+          <li>provider: <span class="file-link">recall-ai.ts</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📄 Document parse <span class="badge">LlamaParse</span></div>
+        <p class="card-desc">PDF / DOCX / scans → markdown structuré exploitable LLM.</p>
+        <ul>
+          <li>tool: <code>parse_document</code></li>
+          <li>worker: <code>document-parse.ts</code></li>
+          <li>provider: <span class="file-link">llamaparse.ts</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────── E · WEB SEARCH ────────────────────────── -->
+  <section id="e">
+    <h2><span class="idx">E</span> Web search (3 providers parallèles)</h2>
+    <p class="lead">Recherche web combinée pour <code>web_search</code> et <code>research_report</code>. Fusion + dédoublonnage.</p>
+    <div class="grid-cards">
+      <div class="card">
+        <div class="card-title">Tavily <span class="badge">general</span></div>
+        <p class="card-desc">Recherche optimisée LLM, snippets + URLs.</p>
+        <ul><li>provider: <span class="file-link">tavily.ts</span></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Exa <span class="badge">semantic</span></div>
+        <p class="card-desc">Recherche neurale / semantic similarity.</p>
+        <ul><li>provider: <span class="file-link">exa.ts</span></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Perplexity <span class="badge">synthesis</span></div>
+        <p class="card-desc">Réponses synthétisées avec citations.</p>
+        <ul><li>provider: <span class="file-link">perplexity.ts</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────── F · EMAIL + OBS ────────────────────────── -->
+  <section id="f">
+    <h2><span class="idx">F</span> Email transactionnel + Observabilité</h2>
+    <table>
+      <thead><tr><th>Service</th><th>Rôle</th><th>Accès depuis chat</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Resend</strong></td><td>email transactionnel (notifications, share)</td><td><code>send_email</code></td></tr>
+        <tr><td><strong>Sentry</strong></td><td>error tracking + replay</td><td><code>query_sentry_issues</code></td></tr>
+        <tr><td><strong>Axiom</strong></td><td>logs structurés (APL queries)</td><td><code>query_axiom_logs</code></td></tr>
+        <tr><td><strong>Langfuse</strong></td><td>traces LLM + cost tracking</td><td><code>query_langfuse_traces</code></td></tr>
+        <tr><td><strong>Inngest</strong></td><td>jobs durables / scheduled</td><td><code>schedule_inngest_job</code></td></tr>
+        <tr><td><strong>Supabase</strong></td><td>DB + RLS + pgvector KG</td><td><code>query_knowledge_graph</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ────────────────────────── G · WORKERS ────────────────────────── -->
+  <section id="g">
+    <h2><span class="idx">G</span> Workers Inngest (jobs durables)</h2>
+    <p class="lead">Fonctions exposées via <code>app/api/inngest/route.ts</code>. <span class="status-warn">REDIS_URL absent → fallback inline (synchrone)</span></p>
+    <table>
+      <thead><tr><th>Worker</th><th>Trigger</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td><code>daily-brief</code></td><td>cron quotidien</td><td>brief perso (emails + agenda + tâches)</td></tr>
+        <tr><td><code>weekly-digest</code></td><td>cron hebdo</td><td>digest activité semaine</td></tr>
+        <tr><td><code>monthly-card</code></td><td>cron mensuel</td><td>carte mensuelle (KPI / résumé)</td></tr>
+        <tr><td><code>pre-meeting-intel</code></td><td>avant chaque meeting</td><td>brief contacts + contexte</td></tr>
+        <tr><td><code>image-gen</code></td><td>tool <code>generate_image</code></td><td>asset image</td></tr>
+        <tr><td><code>audio-gen</code></td><td>tool <code>generate_audio</code></td><td>asset audio MP3</td></tr>
+        <tr><td><code>video-gen</code></td><td>tool <code>generate_video</code></td><td>asset MP4</td></tr>
+        <tr><td><code>document-parse</code></td><td>tool <code>parse_document</code></td><td>markdown structuré</td></tr>
+        <tr><td><code>code-exec</code></td><td>tool <code>run_code</code></td><td>stdout + artifacts</td></tr>
+        <tr><td><code>browser-task</code></td><td>tool <code>start_browser</code></td><td>résultats scraping</td></tr>
+        <tr><td><code>meeting-bot</code></td><td>tool <code>start_meeting_bot</code></td><td>transcript + action items</td></tr>
+        <tr><td><code>inbox-fetch</code></td><td>cron (60s)</td><td>polling emails / refresh</td></tr>
+        <tr><td><code>simulation</code></td><td>tool <code>start_simulation</code></td><td>simulation Hearst</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ────────────────────────── H · CLÉS API ────────────────────────── -->
+  <section id="h">
+    <h2><span class="idx">H</span> État des clés API (.env.local)</h2>
+    <p class="lead">Snapshot 2026-05-15. Une clé absente = le tool / worker correspondant tombe en fail-soft.</p>
+    <div class="grid-cards">
+      <div class="card">
+        <div class="card-title status-ok">✓ Configurées (16)</div>
+        <ul>
+          <li>COMPOSIO_API_KEY (clé maîtresse OAuth)</li>
+          <li>ELEVENLABS_API_KEY</li>
+          <li>FAL_KEY</li>
+          <li>EXA_API_KEY / PERPLEXITY_API_KEY / TAVILY_API_KEY</li>
+          <li>E2B_API_KEY</li>
+          <li>HEYGEN_API_KEY / RUNWAY_API_KEY</li>
+          <li>BROWSERBASE_API_KEY + PROJECT_ID</li>
+          <li>DEEPGRAM_API_KEY</li>
+          <li>RECALL_API_KEY</li>
+          <li>HUME_API_KEY + SECRET_KEY</li>
+          <li>DEEPSEEK_API_KEY</li>
+          <li>APOLLO_API_KEY / PDL_API_KEY</li>
+          <li>RESEND_API_KEY + FROM_EMAIL</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title status-warn">⚠ Manquantes / fallback</div>
+        <ul>
+          <li><strong>REDIS_URL</strong> → BullMQ workers en mode inline (synchrone)</li>
+          <li><strong>InboxCron</strong> désactivé (refresh manuel seulement)</li>
+          <li>Inngest cron jobs : OK (cloud-based)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">🔐 Auth / Infra</div>
+        <ul>
+          <li>NEXTAUTH_URL = <code>http://localhost:4102</code></li>
+          <li>NEXTAUTH_SECRET (set)</li>
+          <li>SUPABASE_URL + ANON_KEY (set)</li>
+          <li>GOOGLE_CLIENT_ID / SECRET (NextAuth Google)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Document généré pour Adrien · cartographie runtime Hearst OS · 2026-05-15 ·
+    sources : <code>lib/engine/orchestrator/ai-pipeline.ts</code>, <code>lib/integrations/catalog.ts</code>, <code>lib/tools/native/</code>, <code>lib/capabilities/providers/</code>, <code>lib/jobs/inngest/functions/</code>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,898 @@
+
+> hearst-os@1.0.0 deadcode
+> knip
+
+Unused files (247)
+.tri-trash/2026-05-15-1900/scripts/check-missions-scope.mjs                                            
+.tri-trash/2026-05-15-1900/scripts/migrate-missions-to-personal-tenant.mjs                             
+.tri-trash/2026-05-15-1900/scripts/setup-personal-scope.mjs                                            
+app/(user)/_shell/FloatingFooter.tsx                                                                   
+app/(user)/components/AssetPreview.tsx                                                                 
+app/(user)/components/context-rail/ContextRail.tsx                                                     
+app/(user)/components/context-rail/ContextRailForAdmin.tsx                                             
+app/(user)/components/context-rail/ContextRailForArtifact.tsx                                          
+app/(user)/components/context-rail/ContextRailForAsset.tsx                                             
+app/(user)/components/context-rail/ContextRailForAssetCompare.tsx                                      
+app/(user)/components/context-rail/ContextRailForBrowser.tsx                                           
+app/(user)/components/context-rail/ContextRailForCockpitChat.tsx                                       
+app/(user)/components/context-rail/ContextRailForKnowledge.tsx                                         
+app/(user)/components/context-rail/ContextRailForMeeting.tsx                                           
+app/(user)/components/context-rail/ContextRailForPreMeeting.tsx                                        
+app/(user)/components/context-rail/ContextRailForSimulation.tsx                                        
+app/(user)/components/context-rail/ContextRailForVoice.tsx                                             
+app/(user)/components/context-rail/ContextRailShell.tsx                                                
+app/(user)/components/context-rail/hooks/usePreMeetingActive.ts                                        
+app/(user)/components/context-rail/Section.tsx                                                         
+app/(user)/components/ContextRail.tsx                                                                  
+app/(user)/components/HearstLogo.tsx                                                                   
+app/(user)/components/LeftPanelShell.tsx                                                               
+app/(user)/components/library/LibraryTabs.tsx                                                          
+app/(user)/components/marketplace/PublishTemplateModal.tsx                                             
+app/(user)/components/MissionEditor.tsx                                                                
+app/(user)/components/missions/builder/BuilderToolbar.tsx                                              
+app/(user)/components/missions/builder/NodeConfigPanel.tsx                                             
+app/(user)/components/missions/builder/NodePalette.tsx                                                 
+app/(user)/components/missions/builder/WorkflowCanvas.tsx                                              
+app/(user)/components/missions/MissionRow.tsx                                                          
+app/(user)/components/NotificationBell.tsx                                                             
+app/(user)/components/PdfViewer.tsx                                                                    
+app/(user)/components/PersonaABTestPanel.tsx                                                           
+app/(user)/components/personas/PersonaCard.tsx                                                         
+app/(user)/components/PulseBar.tsx                                                                     
+app/(user)/components/RelativeTime.tsx                                                                 
+app/(user)/components/reports/ReportCard.tsx                                                           
+app/(user)/components/reports/studio/BlockConfigPanel.tsx                                              
+app/(user)/components/reports/studio/PreviewPane.tsx                                                   
+app/(user)/components/reports/studio/StudioToolbar.tsx                                                 
+app/(user)/components/right-panel/GeneralDashboard.tsx                                                 
+app/(user)/components/right-panel/use-dashboard-counts.ts                                              
+app/(user)/components/RightPanel.tsx                                                                   
+app/(user)/components/RunTimeline.tsx                                                                  
+app/(user)/components/SpaceSelector.tsx                                                                
+app/(user)/components/StageFooter.tsx                                                                  
+app/(user)/components/timeline-rail/CollapsedTile.tsx                                                  
+app/(user)/components/timeline-rail/GhostFooterLink.tsx                                                
+app/(user)/components/timeline-rail/icons.tsx                                                          
+app/(user)/components/timeline-rail/index.ts                                                           
+app/(user)/components/timeline-rail/RailCollapsedBody.tsx                                              
+app/(user)/components/timeline-rail/RailExpandedBody.tsx                                               
+app/(user)/components/timeline-rail/RailFooter.tsx                                                     
+app/(user)/components/timeline-rail/RailHeader.tsx                                                     
+app/(user)/components/timeline-rail/SectionHeader.tsx                                                  
+app/(user)/components/timeline-rail/shared.ts                                                          
+app/(user)/components/timeline-rail/ThreadRow.tsx                                                      
+app/(user)/components/timeline-rail/TimelineRail.tsx                                                   
+app/(user)/components/timeline-rail/TopMenuItem.tsx                                                    
+app/(user)/components/TimelineRail.tsx                                                                 
+app/components/ToastContainer.tsx                                                                      
+components/spatial-safe/core/index.ts                                                                  
+components/spatial-safe/index.ts                                                                       
+components/spatial-safe/materials/GlassMaterial.tsx                                                    
+components/spatial-safe/materials/index.ts                                                             
+components/spatial-safe/motion/index.ts                                                                
+components/spatial-safe/motion/SpatialTransition.tsx                                                   
+components/spatial-safe/motion/variants.ts                                                             
+components/spatial-safe/orbital/ActionRing.tsx                                                         
+components/spatial-safe/orbital/index.ts                                                               
+components/spatial-safe/orbital/OrbitalItem.tsx                                                        
+components/spatial-safe/orbital/OrbitalRing.tsx                                                        
+components/spatial-safe/overlays/CopperPowerRing.tsx                                                   
+components/spatial-safe/overlays/ExpertModeAffordance.tsx                                              
+components/spatial-safe/overlays/index.ts                                                              
+components/spatial-safe/overlays/MissionStatus.tsx                                                     
+components/spatial-safe/overlays/OrbAffordance.tsx                                                     
+components/spatial-safe/overlays/SpatialHUD.tsx                                                        
+components/spatial/core/index.ts                                                                       
+components/spatial/index.ts                                                                            
+components/spatial/materials/GlassMaterial.tsx                                                         
+components/spatial/materials/index.ts                                                                  
+components/spatial/motion/index.ts                                                                     
+components/spatial/motion/SpatialTransition.tsx                                                        
+components/spatial/motion/variants.ts                                                                  
+components/spatial/orbital/ActionRing.tsx                                                              
+components/spatial/orbital/index.ts                                                                    
+components/spatial/orbital/OrbitalItem.tsx                                                             
+components/spatial/orbital/OrbitalRing.tsx                                                             
+components/spatial/overlays/CopperPowerRing.tsx                                                        
+components/spatial/overlays/ExpertModeAffordance.tsx                                                   
+components/spatial/overlays/index.ts                                                                   
+components/spatial/overlays/MissionStatus.tsx                                                          
+components/spatial/overlays/OrbAffordance.tsx                                                          
+components/spatial/overlays/SpatialHUD.tsx                                                             
+components/spatial/rnd/CockpitPanel3D.tsx                                                              
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/core-rnd/SceneCamera.tsx                             
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/core-rnd/SceneFog.tsx                                
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/core-rnd/SpatialDustField.tsx                        
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/core-rnd/SpatialEnvironment.tsx                      
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/core-rnd/SpatialPostFX.tsx                           
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/core-rnd/SpatialSceneR3F.tsx                         
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHelpers.tsx                            
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialDevHUD.tsx                                
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialGrid3D.tsx                                
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialLevaPanel.tsx                             
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/dev/SpatialObjectLabel.tsx                           
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/panel-registry.ts                                    
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/panels-3d/Panels3D.tsx                               
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/panels-3d/SpatialChatParticles.tsx                   
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/panels-3d/SpatialChatPill.tsx                        
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/panels-3d/SpatialPanels3D.tsx                        
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/scene-config.ts                                      
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-scene.ts                                     
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/spatial-selection.ts                                 
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/SpatialRndRoot.tsx                                   
+docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/useSpatialCameraFocus.ts                             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/app-spatial/layout.tsx                                 
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/app-spatial/page.tsx                                   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/index.ts                       
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SceneCamera.tsx                
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SceneFog.tsx                   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialDustField.tsx           
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialEnvironment.tsx         
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLayout.tsx              
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoCore.tsx            
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialLogoInteraction.tsx     
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialPostFX.tsx              
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialRoot.tsx                
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialScene.tsx               
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/core/SpatialSceneR3F.tsx            
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/dev/SpatialDevHelpers.tsx           
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/dev/SpatialDevHUD.tsx               
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/dev/SpatialGrid3D.tsx               
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/dev/SpatialLevaPanel.tsx            
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/dev/SpatialObjectLabel.tsx          
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/index.ts                            
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/materials/GlassMaterial.tsx         
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/materials/index.ts                  
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/motion/index.ts                     
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/motion/SpatialTransition.tsx        
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/motion/variants.ts                  
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/orbital/ActionRing.tsx              
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/orbital/index.ts                    
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/orbital/OrbitalItem.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/orbital/OrbitalRing.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/ApprovalAlert.tsx          
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/CommandBar.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/CopperPowerRing.tsx        
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/ExpertModeAffordance.tsx   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/index.ts                   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/MissionStatus.tsx          
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/NotificationBellSpatial.tsx
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/OrbAffordance.tsx          
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/SpatialHotkeys.tsx         
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/SpatialHUD.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/SpatialOverlayManager.tsx  
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/StageBreadcrumb.tsx        
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/overlays/VoicePill.tsx              
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels-3d/Panels3D.tsx              
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels-3d/SpatialChatParticles.tsx  
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels-3d/SpatialChatPill.tsx       
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels-3d/SpatialPanels3D.tsx       
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/AssetCard.tsx                
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/AssetsPanel.tsx              
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BentoCard.tsx                
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/BriefPanel.tsx               
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/FloatingPanel.tsx            
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/index.ts                     
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/KPIBento.tsx                 
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/MiniChart.tsx                
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/MissionPanel.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/components-spatial/panels/PlanStepCard.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/index.ts                                 
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSpatialCameraFocus.ts                 
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSpatialMouse.ts                       
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSpatialR3F.ts                         
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSplineApp.ts                          
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSplineIdleAmbient.ts                  
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSplineStateBridge.ts                  
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSplineToolBridge.ts                   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/hooks-spatial/useSplineVoiceBridge.ts                  
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/constants.ts                               
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/index.ts                                   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/panel-registry.ts                          
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/scene-config.ts                            
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/sse.ts                                     
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/types.ts                                   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/lib-spatial/utils.ts                                   
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/index.ts                             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMotionProvider.tsx            
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialMouseProvider.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialStageProvider.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/providers-spatial/SpatialThemeProvider.tsx             
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/styles-spatial/index.ts                                
+docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/styles-spatial/spatial.css                             
+hooks/spatial-safe/index.ts                                                                            
+hooks/spatial-safe/useSpatialMouse.ts                                                                  
+hooks/spatial-safe/useSpatialR3F.ts                                                                    
+hooks/spatial/index.ts                                                                                 
+hooks/spatial/useSpatialMouse.ts                                                                       
+hooks/spatial/useSpatialR3F.ts                                                                         
+lab/cli-os/screenshot_audit.mjs                                                                        
+lab/cli-os/screenshot.mjs                                                                              
+lab/cli-os/src/App.tsx                                                                                 
+lab/cli-os/src/components/AmbientLayers.tsx                                                            
+lab/cli-os/src/components/CommandBar.tsx                                                               
+lab/cli-os/src/components/Footer.tsx                                                                   
+lab/cli-os/src/components/LeftRail.tsx                                                                 
+lab/cli-os/src/components/RightRail.tsx                                                                
+lab/cli-os/src/components/Shell.tsx                                                                    
+lab/cli-os/src/lib/navigation-truth.ts                                                                 
+lab/cli-os/src/main.tsx                                                                                
+lab/cli-os/src/scenes/ChartsScene.tsx                                                                  
+lab/cli-os/src/scenes/CockpitScene.tsx                                                                 
+lab/cli-os/src/scenes/registry.ts                                                                      
+lab/cli-os/src/stages/AssetStage.tsx                                                                   
+lab/cli-os/src/stages/BrowserStage.tsx                                                                 
+lab/cli-os/src/stages/ChartsStage.tsx                                                                  
+lab/cli-os/src/stages/ChatStage.tsx                                                                    
+lab/cli-os/src/stages/CockpitLegacyStage.tsx                                                           
+lab/cli-os/src/stages/HomeStage.tsx                                                                    
+lab/cli-os/src/stages/KGStage.tsx                                                                      
+lab/cli-os/src/stages/MissionStage.tsx                                                                 
+lab/cli-os/src/stages/PlaceholderStage.tsx                                                             
+lab/cli-os/src/stages/VoiceStage.tsx                                                                   
+lab/cli-os/src/stores/stage.ts                                                                         
+lab/cli-os/src/styles.css                                                                              
+lab/cli-os/vite.config.ts                                                                              
+lib/connectors/composio/brand-colors.ts                                                                
+lib/multi-tenant/active-space.ts                                                                       
+lib/platform/fetch-timeout.ts                                                                          
+lib/spatial-safe/index.ts                                                                              
+lib/spatial/index.ts                                                                                   
+lib/ui/format-time.ts                                                                                  
+nexbot_robot_character_concept_copy (1) 2/app/globals.css                                              
+nexbot_robot_character_concept_copy (1) 2/app/layout.tsx                                               
+nexbot_robot_character_concept_copy (1) 2/app/page.tsx                                                 
+nexbot_robot_character_concept_copy (1) 2/next.config.js                                               
+providers/spatial-safe/index.ts                                                                        
+providers/spatial/index.ts                                                                             
+stores/builder.ts                                                                                      
+stores/spatial-selection.ts                                                                            
+styles/spatial-safe/index.ts                                                                           
+styles/spatial/index.ts                                                                                
+update.js                                                                                              
+Unused dependencies (6)
+@react-three/drei            package.json:85:6 
+@react-three/fiber           package.json:86:6 
+@react-three/postprocessing  package.json:87:6 
+gsap                         package.json:98:6 
+leva                         package.json:102:6
+three                        package.json:114:6
+Unlisted dependencies (5)
+@splinetool/runtime  components/spatial-safe/core/SpatialLogoCore.tsx:4:34
+@splinetool/runtime  components/spatial/core/SpatialLogoCore.tsx:3:34     
+@splinetool/runtime  hooks/spatial-safe/useSplineApp.ts:18:62             
+@splinetool/runtime  hooks/spatial/useSplineApp.ts:17:62                  
+vite/client          lab/cli-os/vite-env.d.ts:1:1                         
+Unused exports (229)
+getStageLabel                                 function  app/(user)/_stages/registry.ts:208:17                 
+GhostIconChevronRight                         function  app/(user)/components/ghost-icons.tsx:36:17           
+GhostIconPlay                                 function  app/(user)/components/ghost-icons.tsx:44:17           
+GhostIconPencil                               function  app/(user)/components/ghost-icons.tsx:52:17           
+GhostIconTrash                                function  app/(user)/components/ghost-icons.tsx:60:17           
+GhostIconMenu                                 function  app/(user)/components/ghost-icons.tsx:84:17           
+GhostIconCamera                               function  app/(user)/components/ghost-icons.tsx:102:17          
+GhostIconTarget                               function  app/(user)/components/ghost-icons.tsx:111:17          
+GhostIconWave                                 function  app/(user)/components/ghost-icons.tsx:122:17          
+GhostIconCard                                 function  app/(user)/components/ghost-icons.tsx:131:17          
+ServiceIdGlyph                                function  app/(user)/components/ghost-icons.tsx:141:17          
+RailSection                                             app/(user)/components/ui/index.ts:11:10               
+ScreenShell                                             app/(user)/components/ui/index.ts:12:10               
+SectionHeader                                           app/(user)/components/ui/index.ts:13:10               
+CardSkeleton                                            app/(user)/components/ui/index.ts:14:10               
+RowSkeleton                                             app/(user)/components/ui/index.ts:14:24               
+RailSection                                   function  app/(user)/components/ui/RailSection.tsx:31:17        
+ScreenShell                                   function  app/(user)/components/ui/ScreenShell.tsx:72:17        
+Toast                                         function  app/components/Toast.tsx:45:17                        
+useOAuthExpiry                                function  app/hooks/use-oauth-expiry.ts:86:17                   
+useToast                                      function  app/hooks/use-toast.ts:76:17                          
+BentoCard                                               components/spatial-safe/panels/index.ts:1:10          
+MiniChart                                               components/spatial-safe/panels/index.ts:2:10          
+FloatingPanel                                           components/spatial-safe/panels/index.ts:3:10          
+KPIBento                                                components/spatial-safe/panels/index.ts:9:10          
+BentoCard                                               components/spatial/panels/index.ts:3:10               
+FloatingPanel                                           components/spatial/panels/index.ts:5:10               
+KPIBento                                                components/spatial/panels/index.ts:6:10               
+MiniChart                                               components/spatial/panels/index.ts:7:10               
+THREAD_ID                                               e2e/reports/fixtures.ts:14:14                         
+DUAL_APP_GROUPS                                         lib/agents/dual-apps.ts:19:14                         
+computeToolMetrics                            function  lib/analytics/metrics.ts:45:23                        
+getBrowserExecutor                            function  lib/browser/stagehand-executor.ts:545:17              
+ELEVEN_DEFAULT_MODEL_ID                                 lib/capabilities/providers/elevenlabs.ts:25:14        
+TTL_MAX_HOURS                                           lib/cockpit/monthly-card-token.ts:21:14               
+TTL_MIN_HOURS                                           lib/cockpit/monthly-card-token.ts:22:14               
+SECRET_MIN_LENGTH                                       lib/cockpit/monthly-card-token.ts:23:14               
+buildWeeklyWindow                             function  lib/cockpit/weekly-digest.ts:107:17                   
+ExpiringConnectionSchema                                lib/connections/oauth-refresh.ts:31:3                 
+resetAppsCache                                function  lib/connectors/composio/apps.ts:71:17                 
+DISCOVERY_CACHE_TTL_MS                                  lib/connectors/composio/cache.ts:43:14                
+resetAppsCache                                          lib/connectors/composio/index.ts:3:29                 
+toAiTools                                               lib/connectors/composio/index.ts:27:10                
+REPORT_TEMPLATE_LIST_LIMIT_MAX                          lib/contracts/reports.ts:229:14                       
+mapFocalObject                                          lib/core/types/index.ts:79:3                          
+mapFocalObjects                                         lib/core/types/index.ts:80:3                          
+createSkillSchema                                       lib/domain/schemas.ts:32:14                           
+createWorkflowSchema                                    lib/domain/schemas.ts:84:14                           
+createModelProfileSchema                                lib/domain/schemas.ts:93:14                           
+PREFERRED_VOCABULARY                                    lib/editorial/charter.ts:20:14                        
+BANNED_FORMULAS                                         lib/editorial/charter.ts:27:14                        
+BANNED_FILLERS                                          lib/editorial/charter.ts:41:14                        
+updatePlanFromClarification                   function  lib/engine/planner/index.ts:244:17                    
+markPlanAwaitingApproval                      function  lib/engine/planner/index.ts:266:17                    
+resolveNextExecutableSteps                    function  lib/engine/planner/index.ts:298:17                    
+getActiveMissions                                       lib/engine/planner/mission-engine.ts:53:10            
+getDueMissions                                          lib/engine/planner/mission-engine.ts:53:29            
+executeIntent                                 function  lib/engine/planner/pipeline.ts:75:23                  
+LocalStorageProvider                                    lib/engine/runtime/assets/storage/index.ts:16:10      
+R2StorageProvider                                       lib/engine/runtime/assets/storage/index.ts:17:10      
+RuntimeError                                            lib/engine/runtime/index.ts:12:10                     
+withRetry                                               lib/engine/runtime/index.ts:12:24                     
+withTimeout                                             lib/engine/runtime/index.ts:12:35                     
+checkOAuthTokensPayloadSchema                           lib/engine/runtime/jobs/check-oauth-tokens.ts:28:14   
+approvalModeSchema                                      lib/engine/runtime/missions/types.ts:35:14            
+approvalConfigSchema                                    lib/engine/runtime/missions/types.ts:44:14            
+validatePromptArtifact                        function  lib/engine/runtime/prompt-guard.ts:28:23              
+loadPromptContent                             function  lib/engine/runtime/prompt-guard.ts:69:23              
+__clearPreMeetingIntelMemo                    function  lib/jobs/inngest/functions/pre-meeting-intel.ts:216:17
+defaultCircuitBreaker                                   lib/llm/index.ts:2:10                                 
+CircuitOpenError                                        lib/llm/index.ts:4:3                                  
+CostLimitExceededError                                  lib/llm/index.ts:5:3                                  
+LLMTimeoutError                                         lib/llm/index.ts:6:3                                  
+RateLimitExceededError                                  lib/llm/index.ts:7:3                                  
+defaultMetrics                                          lib/llm/index.ts:16:10                                
+getMetrics                                              lib/llm/index.ts:16:26                                
+LLMMetricsAggregator                                    lib/llm/index.ts:16:38                                
+defaultRateLimiter                                      lib/llm/index.ts:18:10                                
+chatWithProfile                                         lib/llm/index.ts:21:3                                 
+loadFallbackChain                                       lib/llm/index.ts:23:3                                 
+resetLlmProviderCache                                   lib/llm/index.ts:24:3                                 
+resolveModelProfile                                     lib/llm/index.ts:25:3                                 
+smartChat                                               lib/llm/index.ts:26:3                                 
+streamChatWithProfile                                   lib/llm/index.ts:28:3                                 
+BUILTIN_CREATIVE_PACK_ID_PREFIX                         lib/marketplace/creative-packs/index.ts:19:14         
+tagSchema                                               lib/marketplace/types.ts:18:14                        
+workflowGraphSchema                                     lib/marketplace/types.ts:44:14                        
+creativePromptPayloadSchema                             lib/marketplace/types.ts:57:14                        
+personaPayloadSchema                                    lib/marketplace/types.ts:77:14                        
+SummarySchema                                           lib/memory/conversation-summary.ts:18:14              
+SECRET_MIN_LENGTH                                       lib/missions/approvals.ts:33:14                       
+recordVital                                   function  lib/monitoring/web-vitals-store.ts:132:17             
+DEFAULT_SPACE_ID                                        lib/multi-tenant/types.ts:27:14                       
+resolveSpaceId                                function  lib/multi-tenant/types.ts:56:17                       
+CHANNEL_HTTP_TIMEOUT_MS                                 lib/notifications/channels.ts:14:14                   
+setPopupDriver                                function  lib/oauth/popup.ts:46:17                              
+PERSONA_TONES                                           lib/personas/types.ts:62:14                           
+assertDevBypassNotInProduction                          lib/platform/auth/index.ts:8:3                        
+getUserId                                               lib/platform/auth/index.ts:11:10                      
+requireScope                                            lib/platform/auth/index.ts:15:3                       
+resolveScope                                            lib/platform/auth/index.ts:16:3                       
+getCurrentUserId                                        lib/platform/auth/index.ts:19:3                       
+requireAuth                                             lib/platform/auth/index.ts:22:3                       
+clearTokens                                             lib/platform/auth/index.ts:25:3                       
+getTokenMeta                                            lib/platform/auth/index.ts:26:3                       
+getTokens                                               lib/platform/auth/index.ts:27:3                       
+isTokenExpired                                          lib/platform/auth/index.ts:28:3                       
+recordAuthFailure                                       lib/platform/auth/index.ts:30:3                       
+resetAuthFailures                                       lib/platform/auth/index.ts:31:3                       
+revokeToken                                             lib/platform/auth/index.ts:32:3                       
+saveTokens                                              lib/platform/auth/index.ts:34:3                       
+setKeyProvider                                          lib/platform/auth/index.ts:35:3                       
+touchLastUsed                                           lib/platform/auth/index.ts:37:3                       
+requireAuth                                   function  lib/platform/auth/session.ts:57:23                    
+revokeToken                                   function  lib/platform/auth/tokens.ts:383:23                    
+clearTokens                                   function  lib/platform/auth/tokens.ts:404:23                    
+getSettingValue                                         lib/platform/settings/index.ts:23:10                  
+setSettingValue                                         lib/platform/settings/index.ts:23:52                  
+getLimit                                                lib/platform/settings/index.ts:29:3                   
+getThreshold                                            lib/platform/settings/index.ts:30:3                   
+seedDefaults                                            lib/platform/settings/index.ts:31:3                   
+setThreshold                                            lib/platform/settings/index.ts:33:3                   
+getAllTenantSettings                                    lib/platform/settings/index.ts:37:3                   
+getTenantFeatureFlag                                    lib/platform/settings/index.ts:38:3                   
+getTenantLimit                                          lib/platform/settings/index.ts:39:3                   
+resetTenantSettings                                     lib/platform/settings/index.ts:41:3                   
+setTenantFeatureFlag                                    lib/platform/settings/index.ts:42:3                   
+getThreshold                                  function  lib/platform/settings/system.ts:38:23                 
+setThreshold                                  function  lib/platform/settings/system.ts:48:23                 
+getLimit                                      function  lib/platform/settings/system.ts:63:23                 
+seedDefaults                                  function  lib/platform/settings/system.ts:76:23                 
+getAllTenantSettings                          function  lib/platform/settings/tenant.ts:36:23                 
+getTenantFeatureFlag                          function  lib/platform/settings/tenant.ts:44:23                 
+setTenantFeatureFlag                          function  lib/platform/settings/tenant.ts:52:23                 
+getTenantLimit                                function  lib/platform/settings/tenant.ts:62:23                 
+resetTenantSettings                           function  lib/platform/settings/tenant.ts:74:23                 
+PROVIDER_IDS                                            lib/providers/registry.ts:16:14                       
+isProviderId                                  function  lib/providers/types.ts:63:17                          
+CUSTOMER_360_ID                                         lib/reports/catalog/index.ts:366:3                    
+CUSTOMER_360_REQUIRED_APPS                              lib/reports/catalog/index.ts:367:3                    
+DEAL_TO_CASH_ID                                         lib/reports/catalog/index.ts:371:3                    
+DEAL_TO_CASH_REQUIRED_APPS                              lib/reports/catalog/index.ts:372:3                    
+ENGINEERING_VELOCITY_REQUIRED_APPS                      lib/reports/catalog/index.ts:377:3                    
+FINANCIAL_PNL_ID                                        lib/reports/catalog/index.ts:381:3                    
+FINANCIAL_PNL_REQUIRED_APPS                             lib/reports/catalog/index.ts:382:3                    
+FOUNDER_COCKPIT_REQUIRED_APPS                           lib/reports/catalog/index.ts:388:3                    
+HOSPITALITY_DAILY_BRIEF_REQUIRED_APPS                   lib/reports/catalog/index.ts:394:3                    
+HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS            lib/reports/catalog/index.ts:400:3                    
+HOSPITALITY_REVPAR_REQUIRED_APPS                        lib/reports/catalog/index.ts:406:3                    
+HR_PEOPLE_ID                                            lib/reports/catalog/index.ts:410:3                    
+HR_PEOPLE_REQUIRED_APPS                                 lib/reports/catalog/index.ts:411:3                    
+MARKETING_AARRR_ID                                      lib/reports/catalog/index.ts:415:3                    
+MARKETING_AARRR_REQUIRED_APPS                           lib/reports/catalog/index.ts:416:3                    
+PRODUCT_ANALYTICS_ID                                    lib/reports/catalog/index.ts:420:3                    
+PRODUCT_ANALYTICS_REQUIRED_APPS                         lib/reports/catalog/index.ts:421:3                    
+SUPPORT_HEALTH_ID                                       lib/reports/catalog/index.ts:425:3                    
+SUPPORT_HEALTH_REQUIRED_APPS                            lib/reports/catalog/index.ts:426:3                    
+addCommentInputSchema                                   lib/reports/comments/store.ts:32:14                   
+listCommentsInputSchema                                 lib/reports/comments/store.ts:41:14                   
+deleteCommentInputSchema                                lib/reports/comments/store.ts:49:14                   
+REPORT_BUDGET_WARN_RATIO                                lib/reports/engine/cost-meter.ts:66:14                
+NARRATION_PRESETS                                       lib/reports/engine/narrate.ts:33:14                   
+SECRET_MIN_LENGTH                                       lib/reports/sharing/signed-url.ts:25:14               
+getSharingSecret                              function  lib/reports/sharing/signed-url.ts:78:17               
+getSharingSecretsForVerify                    function  lib/reports/sharing/signed-url.ts:103:17              
+revokeShare                                   function  lib/reports/sharing/store.ts:101:23                   
+fetchAsset                                              lib/reports/sources/index.ts:139:10                   
+fetchComposio                                           lib/reports/sources/index.ts:141:10                   
+applyMapping                                            lib/reports/sources/index.ts:142:10                   
+extractTabular                                          lib/reports/sources/index.ts:142:24                   
+fetchGoogle                                             lib/reports/sources/index.ts:143:10                   
+fetchHttp                                               lib/reports/sources/index.ts:144:10                   
+REPORT_CADENCES                                         lib/reports/spec/schema.ts:62:14                      
+REPORT_CONFIDENTIALITY                                  lib/reports/spec/schema.ts:64:14                      
+PRIMITIVE_KINDS                                         lib/reports/spec/schema.ts:288:14                     
+waterfallDatumSchema                                    lib/reports/spec/schema.ts:334:14                     
+waterfallPropsSchema                                    lib/reports/spec/schema.ts:340:14                     
+cohortRowSchema                                         lib/reports/spec/schema.ts:347:14                     
+cohortTrianglePropsSchema                               lib/reports/spec/schema.ts:352:14                     
+heatmapPropsSchema                                      lib/reports/spec/schema.ts:358:14                     
+sankeyNodeSchema                                        lib/reports/spec/schema.ts:388:14                     
+sankeyLinkSchema                                        lib/reports/spec/schema.ts:397:14                     
+bulletRangeSchema                                       lib/reports/spec/schema.ts:449:14                     
+bulletItemSchema                                        lib/reports/spec/schema.ts:455:14                     
+radarSeriesSchema                                       lib/reports/spec/schema.ts:470:14                     
+ganttRangeSchema                                        lib/reports/spec/schema.ts:504:14                     
+ganttTaskSchema                                         lib/reports/spec/schema.ts:509:14                     
+refreshSpecSchema                                       lib/reports/spec/schema.ts:742:14                     
+cacheTTLSchema                                          lib/reports/spec/schema.ts:760:14                     
+reportScopeSchema                                       lib/reports/spec/schema.ts:769:14                     
+templateSchema                                          lib/reports/templates/schema.ts:11:14                 
+templateSummarySchema                                   lib/reports/templates/schema.ts:72:14                 
+restoreVersionInputSchema                               lib/reports/versions/restore.ts:22:14                 
+createVersionInputSchema                                lib/reports/versions/store.ts:20:14                   
+listVersionsInputSchema                                 lib/reports/versions/store.ts:31:14                   
+getVersionInputSchema                                   lib/reports/versions/store.ts:38:14                   
+getLatestVersionInputSchema                             lib/reports/versions/store.ts:45:14                   
+SCENE_CONFIG                                            lib/spatial-safe/constants.ts:30:14                   
+MOTION_PRESETS                                          lib/spatial-safe/constants.ts:47:14                   
+ORB_RADIUS                                              lib/spatial-safe/constants.ts:55:14                   
+ORBITAL_DEFAULTS                                        lib/spatial-safe/constants.ts:61:14                   
+polarToCartesian                              function  lib/spatial-safe/utils.ts:7:17                        
+distributeOnEllipse                           function  lib/spatial-safe/utils.ts:19:17                       
+lerpColor                                     function  lib/spatial-safe/utils.ts:32:17                       
+clamp                                         function  lib/spatial-safe/utils.ts:36:17                       
+SCENE_CONFIG                                            lib/spatial/constants.ts:30:14                        
+MOTION_PRESETS                                          lib/spatial/constants.ts:47:14                        
+ORB_RADIUS                                              lib/spatial/constants.ts:55:14                        
+ORBITAL_DEFAULTS                                        lib/spatial/constants.ts:61:14                        
+polarToCartesian                              function  lib/spatial/utils.ts:7:17                             
+distributeOnEllipse                           function  lib/spatial/utils.ts:19:17                            
+lerpColor                                     function  lib/spatial/utils.ts:36:17                            
+clamp                                         function  lib/spatial/utils.ts:40:17                            
+listThemes                                    function  lib/themes/index.ts:17:17                             
+getTheme                                      function  lib/themes/index.ts:21:17                             
+THEME_CHANGE_EVENT                                      lib/themes/index.ts:29:14                             
+getMockServiceRequests                        function  lib/verticals/hospitality/mock-data.ts:180:17         
+VOICE_TOOL_LABELS                                       lib/voice/tool-defs.ts:101:14                         
+evaluateCondition                             function  lib/workflows/executor.ts:368:17                      
+evaluateValue                                 function  lib/workflows/executor.ts:400:17                      
+WEEKLY_DIGEST_CRON                                      lib/workflows/templates/weekly-slack-digest.ts:24:14  
+createEmptyGraph                              function  lib/workflows/types.ts:127:17                         
+useSpatialMotion                                        providers/spatial-safe/SpatialMotionProvider.tsx:14:14
+useSpatialStage                               function  providers/spatial-safe/SpatialStageProvider.tsx:51:17 
+useSpatialTheme                                         providers/spatial-safe/SpatialThemeProvider.tsx:18:14 
+useSpatialMotion                                        providers/spatial/SpatialMotionProvider.tsx:14:14     
+useSpatialStage                               function  providers/spatial/SpatialStageProvider.tsx:57:17      
+useSpatialTheme                                         providers/spatial/SpatialThemeProvider.tsx:18:14      
+panelCategory                                 function  stores/spatial-panels.ts:181:17                       
+Unused exported types (387)
+FooterConfig                    type       app/(user)/_stages/types.ts:22:13                         
+ExecResultItem                  type       app/(user)/components/artifact/PreviewPane.tsx:20:13      
+ChatInputProps                  type       app/(user)/components/chat-input/index.ts:2:15            
+ExpandBlockDetail               interface  app/(user)/components/chat/WorkingDocument.tsx:28:18      
+ChatInputProps                  type       app/(user)/components/ChatInput.tsx:7:15                  
+Message                         interface  app/(user)/components/ChatMessages.tsx:17:18              
+ServiceNode                     interface  app/(user)/components/cockpit/orbital/OrbitalNode.tsx:5:18
+ReportLayoutProps               type       app/(user)/components/report-layout/index.ts:8:15         
+ReportLayoutProps               type       app/(user)/components/ReportLayout.tsx:8:15               
+RowAction                       interface  app/(user)/components/RowActions.tsx:16:18                
+WebhookDraft                    interface  app/(user)/components/settings/alerting/types.ts:10:18    
+ActionVariant                   type       app/(user)/components/ui/Action.tsx:26:13                 
+ActionTone                      type       app/(user)/components/ui/Action.tsx:27:13                 
+ActionSize                      type       app/(user)/components/ui/Action.tsx:28:13                 
+ActionSize                      type       app/(user)/components/ui/index.ts:8:15                    
+ActionTone                      type       app/(user)/components/ui/index.ts:8:27                    
+ActionVariant                   type       app/(user)/components/ui/index.ts:8:39                    
+BatchVariantPhase               type       app/(user)/components/video-quick-launch/types.ts:16:13   
+Mode                            type       app/admin/_canvas/store.ts:8:13                           
+FlowPacket                      interface  app/admin/_canvas/store.ts:10:18                          
+RunTrailEntry                   interface  app/admin/_canvas/store.ts:16:18                          
+EdgeBranch                      type       app/admin/_canvas/topology.ts:46:13                       
+ToastProps                      interface  app/components/Toast.tsx:13:18                            
+NotificationKind                type       e2e/notifications/fixtures.ts:17:13                       
+NotificationSeverity            type       e2e/notifications/fixtures.ts:18:13                       
+SplineTargetName                type       hooks/spatial-safe/useSplineApp.ts:21:13                  
+SplineTargetName                type       hooks/spatial/useSplineApp.ts:21:13                       
+ServiceStatus                   type       lib/admin/health.ts:263:13                                
+ServiceCategory                 type       lib/admin/health.ts:266:13                                
+ServiceCheck                    interface  lib/admin/health.ts:281:18                                
+AgentChannel                    type       lib/agents/connected-apps-context.ts:14:13                
+AnalyticsEvent                  interface  lib/analytics/events.ts:20:18                             
+NodeStatus                      type       lib/architecture-map/types.ts:8:13                        
+EdgeType                        type       lib/architecture-map/types.ts:10:13                       
+UISurfaceEntry                  interface  lib/architecture-map/types.ts:14:18                       
+AgentEntry                      interface  lib/architecture-map/types.ts:23:18                       
+RuntimeEntry                    interface  lib/architecture-map/types.ts:35:18                       
+PersistenceEntry                interface  lib/architecture-map/types.ts:44:18                       
+ConnectorEntry                  interface  lib/architecture-map/types.ts:53:18                       
+ArtifactStatus                  type       lib/artifacts/types.ts:7:13                               
+ArtifactFormat                  type       lib/artifacts/types.ts:9:13                               
+ArtifactSection                 interface  lib/artifacts/types.ts:11:18                              
+ArtifactSourceRef               interface  lib/artifacts/types.ts:19:18                              
+ArtifactMetadata                interface  lib/artifacts/types.ts:54:18                              
+ActionType                      type       lib/assets/types.ts:122:13                                
+ActionStatus                    type       lib/assets/types.ts:132:13                                
+AgentToolName                   type       lib/browser/agent-loop.ts:182:13                          
+BrowserExecutor                 interface  lib/browser/stagehand-executor.ts:58:18                   
+ExecutionMode                   type       lib/capabilities/router.ts:182:13                         
+AmbientSignalSeverity           type       lib/cockpit/ambient-signals.ts:35:13                      
+MonthlyCardMissionRow           interface  lib/cockpit/monthly-card.ts:55:18                         
+MonthlyCardReportRow            interface  lib/cockpit/monthly-card.ts:63:18                         
+MonthlyCardKpi                  interface  lib/cockpit/monthly-card.ts:70:18                         
+MonthlyCardBestMoment           interface  lib/cockpit/monthly-card.ts:77:18                         
+PreMeetingParticipant           interface  lib/cockpit/pre-meeting-intel.ts:28:18                    
+WeeklyDigestMissionRow          interface  lib/cockpit/weekly-digest.ts:31:18                        
+WeeklyDigestAnomalyRow          interface  lib/cockpit/weekly-digest.ts:39:18                        
+WeeklyDigestAssetRow            interface  lib/cockpit/weekly-digest.ts:47:18                        
+WeeklyDigestWindow              interface  lib/cockpit/weekly-digest.ts:54:18                        
+ComposioApp                     type       lib/connectors/composio/index.ts:2:15                     
+ConnectedAccount                type       lib/connectors/composio/index.ts:11:15                    
+DiscoveredTool                  type       lib/connectors/composio/index.ts:17:15                    
+AiToolMap                       type       lib/connectors/composio/index.ts:26:15                    
+ComposioErrorCode               type       lib/connectors/composio/types.ts:22:13                    
+ConnectorStatus                 type       lib/connectors/control-plane/types.ts:10:13               
+ImageGenPayload                 type       lib/contracts/jobs.ts:27:13                               
+AudioGenPayload                 type       lib/contracts/jobs.ts:44:13                               
+CodeExecPayload                 type       lib/contracts/jobs.ts:55:13                               
+DocumentParsePayload            type       lib/contracts/jobs.ts:72:13                               
+CreateMissionPayload            type       lib/contracts/missions.ts:68:13                           
+ToggleMissionPayload            type       lib/contracts/missions.ts:81:13                           
+UpdateMissionPayload            type       lib/contracts/missions.ts:103:13                          
+RunMissionPayload               type       lib/contracts/missions.ts:113:13                          
+PauseMissionPayload             type       lib/contracts/missions.ts:119:13                          
+ResumeMissionPayload            type       lib/contracts/missions.ts:125:13                          
+StartRunPayload                 type       lib/contracts/orchestrator.ts:25:13                       
+CreatePersonaPayload            type       lib/contracts/personas.ts:59:13                           
+UpdatePersonaPayload            type       lib/contracts/personas.ts:82:13                           
+AbTestPersonaPayload            type       lib/contracts/personas.ts:97:13                           
+CreateReportSharePayload        type       lib/contracts/reports.ts:57:13                            
+RunReportPayload                type       lib/contracts/reports.ts:77:13                            
+RerunReportPayload              type       lib/contracts/reports.ts:90:13                            
+ExportReportQuery               type       lib/contracts/reports.ts:101:13                           
+CreateReportTemplatePayload     type       lib/contracts/reports.ts:120:13                           
+UpdateReportTemplatePayload     type       lib/contracts/reports.ts:135:13                           
+ListReportTemplatesQuery        type       lib/contracts/reports.ts:145:13                           
+SampleReportSpecPayload         type       lib/contracts/reports.ts:158:13                           
+CreateReportCommentPayload      type       lib/contracts/reports.ts:172:13                           
+ListReportVersionsQuery         type       lib/contracts/reports.ts:188:13                           
+DiffReportVersionsQuery         type       lib/contracts/reports.ts:202:13                           
+ReportVersionNumber             type       lib/contracts/reports.ts:212:13                           
+ReportIdParam                   type       lib/contracts/reports.ts:226:13                           
+AgentDefinition                 type       lib/core/types/agents.ts:10:15                            
+CapabilityAgent                 type       lib/core/types/agents.ts:12:15                            
+StepActor                       type       lib/core/types/agents.ts:13:15                            
+Action                          type       lib/core/types/assets.ts:10:3                             
+ActionStatus                    type       lib/core/types/assets.ts:11:3                             
+ActionType                      type       lib/core/types/assets.ts:12:3                             
+Asset                           type       lib/core/types/assets.ts:13:3                             
+AssetKind                       type       lib/core/types/assets.ts:14:3                             
+AssetProvenance                 type       lib/core/types/assets.ts:15:3                             
+DownloadResult                  type       lib/core/types/assets.ts:18:3                             
+SignedUrlOptions                type       lib/core/types/assets.ts:19:3                             
+StorageConfig                   type       lib/core/types/assets.ts:20:3                             
+StorageObject                   type       lib/core/types/assets.ts:21:3                             
+StorageProvider                 type       lib/core/types/assets.ts:22:3                             
+StorageProviderType             type       lib/core/types/assets.ts:23:3                             
+UploadResult                    type       lib/core/types/assets.ts:24:3                             
+AssetFileInfo                   type       lib/core/types/assets.ts:27:3                             
+AssetStorageKind                type       lib/core/types/assets.ts:28:3                             
+AssetType                       type       lib/core/types/assets.ts:29:3                             
+RuntimeAsset                    type       lib/core/types/assets.ts:30:3                             
+ApiResponse                     interface  lib/core/types/common.ts:7:18                             
+ProviderId                      type       lib/core/types/common.ts:13:13                            
+Timestamp                       type       lib/core/types/common.ts:15:13                            
+PaginatedResult                 interface  lib/core/types/common.ts:17:18                            
+TenantScope                     interface  lib/core/types/common.ts:25:18                            
+FocalMappingOptions             interface  lib/core/types/focal.ts:37:18                             
+ConnectedAccount                type       lib/core/types/index.ts:10:15                             
+DiscoveredTool                  type       lib/core/types/index.ts:10:33                             
+ConnectorCapability             type       lib/core/types/index.ts:13:15                             
+ConnectorDefinition             type       lib/core/types/index.ts:13:36                             
+ServiceDefinition               type       lib/core/types/index.ts:16:3                              
+ServiceWithConnectionStatus     type       lib/core/types/index.ts:17:3                              
+FocalObjectView                 type       lib/core/types/index.ts:21:3                              
+RightPanelAsset                 type       lib/core/types/index.ts:22:3                              
+RightPanelCurrentRun            type       lib/core/types/index.ts:23:3                              
+RightPanelMission               type       lib/core/types/index.ts:25:3                              
+RightPanelReportSuggestion      type       lib/core/types/index.ts:26:3                              
+RightPanelRun                   type       lib/core/types/index.ts:27:3                              
+FocalType                       type       lib/core/types/index.ts:33:3                              
+Surface                         type       lib/core/types/index.ts:38:3                              
+Thread                          type       lib/core/types/index.ts:39:3                              
+CoreState                       type       lib/core/types/index.ts:43:3                              
+StreamEvent                     type       lib/core/types/index.ts:44:3                              
+AgentDefinition                 type       lib/core/types/index.ts:47:15                             
+CapabilityAgent                 type       lib/core/types/index.ts:47:32                             
+StepActor                       type       lib/core/types/index.ts:47:49                             
+Action                          type       lib/core/types/index.ts:50:3                              
+ActionStatus                    type       lib/core/types/index.ts:51:3                              
+ActionType                      type       lib/core/types/index.ts:52:3                              
+Asset                           type       lib/core/types/index.ts:53:3                              
+AssetFileInfo                   type       lib/core/types/index.ts:54:3                              
+AssetKind                       type       lib/core/types/index.ts:55:3                              
+AssetProvenance                 type       lib/core/types/index.ts:56:3                              
+AssetStorageKind                type       lib/core/types/index.ts:57:3                              
+AssetType                       type       lib/core/types/index.ts:58:3                              
+DownloadResult                  type       lib/core/types/index.ts:59:3                              
+RuntimeAsset                    type       lib/core/types/index.ts:60:3                              
+SignedUrlOptions                type       lib/core/types/index.ts:61:3                              
+StorageConfig                   type       lib/core/types/index.ts:62:3                              
+StorageObject                   type       lib/core/types/index.ts:63:3                              
+StorageProvider                 type       lib/core/types/index.ts:64:3                              
+StorageProviderType             type       lib/core/types/index.ts:65:3                              
+UploadResult                    type       lib/core/types/index.ts:66:3                              
+ApiResponse                     type       lib/core/types/index.ts:70:3                              
+PaginatedResult                 type       lib/core/types/index.ts:71:3                              
+ProviderId                      type       lib/core/types/index.ts:72:3                              
+TenantScope                     type       lib/core/types/index.ts:73:3                              
+Timestamp                       type       lib/core/types/index.ts:74:3                              
+FocalMappingOptions             type       lib/core/types/index.ts:78:8                              
+PersistedMissionRunStatus       type       lib/core/types/index.ts:84:3                              
+PersistedRunRecord              type       lib/core/types/index.ts:85:3                              
+PersistedRunStatus              type       lib/core/types/index.ts:86:3                              
+PersistedScheduledMission       type       lib/core/types/index.ts:87:3                              
+RunAssetRef                     type       lib/core/types/index.ts:88:3                              
+RunRecord                       type       lib/core/types/index.ts:89:3                              
+RunStatus                       type       lib/core/types/index.ts:90:3                              
+TimelineItem                    type       lib/core/types/index.ts:91:3                              
+TimelineItemType                type       lib/core/types/index.ts:92:3                              
+TimelineSeverity                type       lib/core/types/index.ts:93:3                              
+RunAssetRef                     type       lib/core/types/runtime.ts:8:3                             
+RunRecord                       type       lib/core/types/runtime.ts:9:3                             
+RunStatus                       type       lib/core/types/runtime.ts:10:3                            
+PersistedMissionRunStatus       type       lib/core/types/runtime.ts:13:3                            
+PersistedRunRecord              type       lib/core/types/runtime.ts:14:3                            
+PersistedRunStatus              type       lib/core/types/runtime.ts:15:3                            
+PersistedScheduledMission       type       lib/core/types/runtime.ts:16:3                            
+TimelineItem                    type       lib/core/types/runtime.ts:19:3                            
+TimelineItemType                type       lib/core/types/runtime.ts:20:3                            
+TimelineSeverity                type       lib/core/types/runtime.ts:21:3                            
+CreditOperation                 type       lib/credits/types.ts:11:13                                
+ExtraSourceItem                 interface  lib/daily-brief/extras-providers.ts:15:18                 
+ChangeType                      type       lib/decisions/change-tracker.ts:13:13                     
+SelectionGoal                   type       lib/decisions/tool-selector.ts:16:13                      
+Agent                           type       lib/domain/types.ts:5:13                                  
+AgentInsert                     type       lib/domain/types.ts:6:13                                  
+AgentUpdate                     type       lib/domain/types.ts:7:13                                  
+Skill                           type       lib/domain/types.ts:9:13                                  
+Tool                            type       lib/domain/types.ts:10:13                                 
+Conversation                    type       lib/domain/types.ts:12:13                                 
+Message                         type       lib/domain/types.ts:13:13                                 
+AgentMemory                     type       lib/domain/types.ts:14:13                                 
+Workflow                        type       lib/domain/types.ts:16:13                                 
+WorkflowStep                    type       lib/domain/types.ts:17:13                                 
+WorkflowRun                     type       lib/domain/types.ts:18:13                                 
+Evaluation                      type       lib/domain/types.ts:20:13                                 
+UsageLog                        type       lib/domain/types.ts:21:13                                 
+AgentVersion                    type       lib/domain/types.ts:22:13                                 
+ModelProfile                    type       lib/domain/types.ts:24:13                                 
+Run                             type       lib/domain/types.ts:25:13                                 
+Trace                           type       lib/domain/types.ts:26:13                                 
+MemoryPolicy                    type       lib/domain/types.ts:27:13                                 
+Dataset                         type       lib/domain/types.ts:28:13                                 
+DatasetEntry                    type       lib/domain/types.ts:29:13                                 
+SkillVersion                    type       lib/domain/types.ts:30:13                                 
+PromptArtifact                  type       lib/domain/types.ts:31:13                                 
+WorkflowVersion                 type       lib/domain/types.ts:32:13                                 
+IntegrationConnection           type       lib/domain/types.ts:33:13                                 
+ImprovementSignal               type       lib/domain/types.ts:34:13                                 
+AppliedChange                   type       lib/domain/types.ts:35:13                                 
+RunStatus                       type       lib/domain/types.ts:47:13                                 
+PromptKind                      type       lib/domain/types.ts:59:13                                 
+PromptScope                     type       lib/domain/types.ts:68:13                                 
+ApiResponse                     interface  lib/domain/types.ts:70:18                                 
+EmbeddingSourceKind             type       lib/embeddings/store.ts:19:13                             
+ApplicableReportHint            interface  lib/engine/orchestrator/system-prompt.ts:208:18           
+CapabilityResolver              type       lib/engine/planner/executor.ts:38:13                      
+ToolExecutorFn                  type       lib/engine/planner/executor.ts:45:13                      
+ApprovalRequestFn               type       lib/engine/planner/executor.ts:54:13                      
+PlanStepStatus                  type       lib/engine/planner/types.ts:42:13                         
+MissionMode                     type       lib/engine/planner/types.ts:97:13                         
+MissionStatus                   type       lib/engine/planner/types.ts:98:13                         
+Readable                        type       lib/engine/runtime/assets/storage/supabase.ts:218:15      
+StorageProviderType             type       lib/engine/runtime/assets/storage/types.ts:8:13           
+AssetStorageKind                type       lib/engine/runtime/assets/types.ts:10:13                  
+RuntimeAsset                    interface  lib/engine/runtime/assets/types.ts:20:18                  
+CapabilityAgent                 type       lib/engine/runtime/delegate/types.ts:5:13                 
+ExpectedOutput                  type       lib/engine/runtime/delegate/types.ts:18:13                
+DelegateSuccess                 interface  lib/engine/runtime/delegate/types.ts:35:18                
+DelegateEnqueued                interface  lib/engine/runtime/delegate/types.ts:52:18                
+DelegateNeedsApproval           interface  lib/engine/runtime/delegate/types.ts:59:18                
+DelegateNeedsClarification      interface  lib/engine/runtime/delegate/types.ts:70:18                
+DelegateError                   interface  lib/engine/runtime/delegate/types.ts:77:18                
+EngineEntrypoint                type       lib/engine/runtime/engine/types.ts:18:13                  
+StepType                        type       lib/engine/runtime/engine/types.ts:41:13                  
+ApprovalStatus                  type       lib/engine/runtime/engine/types.ts:101:13                 
+TracePayload                    interface  lib/engine/runtime/lifecycle.ts:166:18                    
+MissionApprovalState            interface  lib/engine/runtime/missions/ops-types.ts:45:18            
+ApprovalConfig                  type       lib/engine/runtime/missions/types.ts:51:13                
+OutputClassification            type       lib/engine/runtime/output-validator.ts:15:13              
+PlanStatus                      type       lib/engine/runtime/plans/types.ts:10:13                   
+PlanStepStatus                  type       lib/engine/runtime/plans/types.ts:12:13                   
+PromptValidation                interface  lib/engine/runtime/prompt-guard.ts:19:18                  
+RunStatus                       type       lib/engine/runtime/runs/types.ts:10:13                    
+RunAssetRef                     interface  lib/engine/runtime/runs/types.ts:17:18                    
+PersistedRunStatus              type       lib/engine/runtime/state/types.ts:8:13                    
+PersistedMissionRunStatus       type       lib/engine/runtime/state/types.ts:41:13                   
+RunCreatedEvent                 interface  lib/events/types.ts:104:18                                
+RunStartedEvent                 interface  lib/events/types.ts:107:18                                
+RunCompletedEvent               interface  lib/events/types.ts:110:18                                
+RunFailedEvent                  interface  lib/events/types.ts:114:18                                
+RunAbortedEvent                 interface  lib/events/types.ts:118:18                                
+RunCancelledEvent               interface  lib/events/types.ts:124:18                                
+RunSuspendedEvent               interface  lib/events/types.ts:127:18                                
+RunResumedEvent                 interface  lib/events/types.ts:131:18                                
+PlanAttachedEvent               interface  lib/events/types.ts:137:18                                
+PlanPreviewEvent                interface  lib/events/types.ts:149:18                                
+PlanStepStartedEvent            interface  lib/events/types.ts:164:18                                
+PlanStepCompletedEvent          interface  lib/events/types.ts:173:18                                
+PlanStepAwaitingApprovalEvent   interface  lib/events/types.ts:184:18                                
+PlanStepFailedEvent             interface  lib/events/types.ts:194:18                                
+PlanRunCompleteEvent            interface  lib/events/types.ts:201:18                                
+StepStartedEvent                interface  lib/events/types.ts:212:18                                
+StepCompletedEvent              interface  lib/events/types.ts:218:18                                
+StepFailedEvent                 interface  lib/events/types.ts:223:18                                
+StepRetryingEvent               interface  lib/events/types.ts:228:18                                
+DelegateEnqueuedEvent           interface  lib/events/types.ts:236:18                                
+DelegateCompletedEvent          interface  lib/events/types.ts:242:18                                
+ToolCallStartedEvent            interface  lib/events/types.ts:250:18                                
+ToolCallCompletedEvent          interface  lib/events/types.ts:257:18                                
+ToolCallFailedEvent             interface  lib/events/types.ts:267:18                                
+RunCostEvent                    interface  lib/events/types.ts:278:18                                
+AppConnectRequiredEvent         interface  lib/events/types.ts:291:18                                
+MissionRunRequestEvent          interface  lib/events/types.ts:304:18                                
+ApprovalRequestedEvent          interface  lib/events/types.ts:318:18                                
+ApprovalDecidedEvent            interface  lib/events/types.ts:323:18                                
+ActionPlanProposedEvent         interface  lib/events/types.ts:328:18                                
+ArtifactCreatedEvent            interface  lib/events/types.ts:337:18                                
+ArtifactRevisedEvent            interface  lib/events/types.ts:343:18                                
+TextDeltaEvent                  interface  lib/events/types.ts:351:18                                
+ClarificationRequestedEvent     interface  lib/events/types.ts:358:18                                
+CostUpdatedEvent                interface  lib/events/types.ts:366:18                                
+RetrievalModeInferredEvent      interface  lib/events/types.ts:373:18                                
+ScheduledMissionCreatedEvent    interface  lib/events/types.ts:382:18                                
+ScheduledMissionTriggeredEvent  interface  lib/events/types.ts:389:18                                
+AssetGeneratedEvent             interface  lib/events/types.ts:397:18                                
+FocalObjectReadyEvent           interface  lib/events/types.ts:414:18                                
+AgentSelectedEvent              interface  lib/events/types.ts:427:18                                
+ToolSurfaceEvent                interface  lib/events/types.ts:438:18                                
+ExecutionModeSelectedEvent      interface  lib/events/types.ts:446:18                                
+OrchestratorLogEvent            interface  lib/events/types.ts:455:18                                
+CapabilityBlockedEvent          interface  lib/events/types.ts:462:18                                
+RuntimeWarningEvent             interface  lib/events/types.ts:471:18                                
+OperatorViolationEvent          interface  lib/events/types.ts:475:18                                
+BrowserActionEvent              interface  lib/events/types.ts:508:18                                
+BrowserTaskCompletedEvent       interface  lib/events/types.ts:514:18                                
+BrowserTaskFailedEvent          interface  lib/events/types.ts:524:18                                
+BrowserTakeOverEvent            interface  lib/events/types.ts:532:18                                
+StageRequestEvent               interface  lib/events/types.ts:542:18                                
+InboxItemKind                   type       lib/inbox/inbox-brief.ts:55:13                            
+InboxItemPriority               type       lib/inbox/inbox-brief.ts:56:13                            
+InboxActionKind                 type       lib/inbox/inbox-brief.ts:57:13                            
+SuggestedAction                 interface  lib/inbox/inbox-brief.ts:59:18                            
+InboxItem                       interface  lib/inbox/inbox-brief.ts:65:18                            
+ServiceStatus                   type       lib/integrations/types.ts:39:13                           
+IntegrationType                 type       lib/integrations/types.ts:40:13                           
+JobScopeFields                  interface  lib/jobs/types.ts:31:18                                   
+MemoryIngestInput               interface  lib/jobs/types.ts:113:18                                  
+AssetVariantInput               interface  lib/jobs/types.ts:120:18                                  
+WorkerContext                   interface  lib/jobs/worker-base.ts:23:18                             
+ToolUseRequest                  interface  lib/llm/anthropic.ts:46:18                                
+CircuitState                    type       lib/llm/index.ts:1:15                                     
+CounterKind                     type       lib/llm/index.ts:10:3                                     
+MetricsSnapshot                 type       lib/llm/index.ts:11:3                                     
+ProviderMetrics                 type       lib/llm/index.ts:12:3                                     
+RecordCallInput                 type       lib/llm/index.ts:13:3                                     
+RecordErrorInput                type       lib/llm/index.ts:14:3                                     
+RateLimiterOptions              type       lib/llm/index.ts:17:15                                    
+SmartChatOptions                type       lib/llm/index.ts:19:30                                    
+ChatRequest                     type       lib/llm/index.ts:32:3                                     
+ChatResponse                    type       lib/llm/index.ts:33:3                                     
+LLMProvider                     type       lib/llm/index.ts:34:3                                     
+ModelProfileConfig              type       lib/llm/index.ts:35:3                                     
+StreamChunk                     type       lib/llm/index.ts:36:3                                     
+RateLimiterOptions              interface  lib/llm/rate-limiter.ts:3:18                              
+KgNodeType                      type       lib/memory/kg.ts:20:13                                    
+ExtractedEntity                 interface  lib/memory/kg.ts:49:18                                    
+ExtractedRelation               interface  lib/memory/kg.ts:55:18                                    
+ApprovalVote                    type       lib/missions/approvals.ts:40:13                           
+VitalRating                     type       lib/monitoring/web-vitals-store.ts:17:13                  
+SpaceId                         type       lib/multi-tenant/types.ts:18:13                           
+ScopedMetadata                  interface  lib/multi-tenant/types.ts:43:18                           
+AlertWebhookPayload             interface  lib/notifications/channels.ts:27:18                       
+EmailMessage                    interface  lib/notifications/channels.ts:210:18                      
+PopupDriver                     interface  lib/oauth/popup.ts:32:18                                  
+CanonicalScope                  type       lib/platform/auth/index.ts:14:8                           
+HearstSession                   type       lib/platform/auth/index.ts:21:8                           
+KeyProvider                     type       lib/platform/auth/index.ts:29:8                           
+StoredTokens                    type       lib/platform/auth/index.ts:33:8                           
+TokenMeta                       type       lib/platform/auth/index.ts:36:8                           
+SettingCategory                 type       lib/platform/settings/index.ts:45:15                      
+SettingDefinition               type       lib/platform/settings/index.ts:45:32                      
+ResolverResult                  interface  lib/providers/resolver.ts:60:18                           
+ProviderUsageState              interface  lib/providers/state.ts:12:18                              
+ProviderStateStore              interface  lib/providers/state.ts:32:18                              
+AlertDispatcher                 type       lib/reports/engine/run-report.ts:83:13                    
+MeasureFn                       type       lib/reports/engine/tabular.ts:93:13                       
+Measure                         interface  lib/reports/engine/tabular.ts:104:18                      
+ExportFormat                    type       lib/reports/export/mission-job.ts:29:13                   
+SignedTokenPayload              interface  lib/reports/sharing/signed-url.ts:33:18                   
+ReportDraft                     type       lib/reports/spec/llm-tool.ts:44:13                        
+DiffKind                        type       lib/reports/versions/diff.ts:18:13                        
+SpatialMotionPreset             type       lib/spatial-safe/types.ts:14:13                           
+SpatialPanelPosition            type       lib/spatial-safe/types.ts:22:13                           
+OrbitalConfig                   interface  lib/spatial-safe/types.ts:63:18                           
+SpatialPanelPriority            type       lib/spatial/panel-types.ts:35:13                          
+SpatialMotionPreset             type       lib/spatial/types.ts:8:13                                 
+SpatialPanelPosition            type       lib/spatial/types.ts:10:13                                
+OrbitalConfig                   interface  lib/spatial/types.ts:51:18                                
+DeliveryStatus                  type       lib/tools/handlers/send-message.ts:29:13                  
+RightPanelCurrentRun            interface  lib/ui/right-panel/types.ts:8:18                          
+RightPanelRun                   interface  lib/ui/right-panel/types.ts:17:18                         
+RightPanelAsset                 interface  lib/ui/right-panel/types.ts:27:18                         
+RightPanelMission               interface  lib/ui/right-panel/types.ts:52:18                         
+RightPanelSchedulerSummary      interface  lib/ui/right-panel/types.ts:71:18                         
+RightPanelMissionOpsSummary     interface  lib/ui/right-panel/types.ts:76:18                         
+RightPanelConnectorHealth       interface  lib/ui/right-panel/types.ts:82:18                         
+WorkflowNodeKind                type       lib/workflows/types.ts:10:13                              
+WorkflowOnError                 type       lib/workflows/types.ts:24:13                              
+WorkflowEdge                    interface  lib/workflows/types.ts:38:18                              
+WorkflowToolHandler             type       lib/workflows/types.ts:97:13                              
+ChipKind                        type       stores/chat-context.ts:15:13                              
+ContextChip                     interface  stores/chat-context.ts:17:18                              
+ToolCallState                   type       stores/chat-stage.ts:16:13                                
+RunState                        type       stores/chat-stage.ts:17:13                                
+TokenEstimate                   interface  stores/chat-stage.ts:38:18                                
+Surface                         type       stores/navigation.ts:11:13                                
+Thread                          interface  stores/navigation.ts:26:18                                
+OAuthStatus                     type       stores/oauth.ts:16:13                                     
+PlanStepStatus                  type       stores/runtime.ts:27:13                                   
+SelectionKind                   type       stores/selection.ts:21:13                                 
+Selection                       interface  stores/selection.ts:23:18                                 
+StageEntry                      interface  stores/stage.ts:52:18                                     
+TranscriptRole                  type       stores/voice.ts:14:13                                     
+TranscriptEntry                 interface  stores/voice.ts:16:18                                     
+WorkingDocument                 interface  stores/working-document.ts:16:18                          
+Configuration hints (14)
+. (root)                     knip.json  Add entry and/or refine project files (247 unused files)
+dist/**                      knip.json  Remove from ignore                                      
+.next/**                     knip.json  Remove from ignore                                      
+app/admin/orchestrator/**    knip.json  Remove from ignore                                      
+app/api/orchestrator/**      knip.json  Remove from ignore                                      
+eslint-*                     knip.json  Remove from ignoreDependencies                          
+prettier-*                   knip.json  Remove from ignoreDependencies                          
+middleware.ts                knip.json  Refine entry pattern (no matches)                       
+app/**/loading.{ts,tsx}      knip.json  Refine entry pattern (no matches)                       
+app/**/error.{ts,tsx}        knip.json  Refine entry pattern (no matches)                       
+app/**/not-found.{ts,tsx}    knip.json  Refine entry pattern (no matches)                       
+instrumentation.ts           knip.json  Remove redundant entry pattern                          
+vitest.config.ts             knip.json  Remove redundant entry pattern                          
+playwright.config.ts         knip.json  Remove redundant entry pattern                          

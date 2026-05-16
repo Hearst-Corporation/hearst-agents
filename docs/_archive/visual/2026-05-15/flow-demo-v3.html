@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hearst OS — Flow Demo v3</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#05050a;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.13);--ink:#ededf0;--muted:rgba(237,237,240,.58);--faint:rgba(237,237,240,.24);--teal:rgba(52,210,190,.85);--teal-glow:rgba(52,210,190,.14);--gold:rgba(255,188,58,.9);--red:rgba(255,101,114,.92);--radius-xl:20px;--radius-pill:9999px;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1)}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+button,input{font:inherit}button{border:none;background:none;color:inherit}input{outline:none}
+.aurora,.vignette,.overlay{position:fixed;inset:0}.aurora{pointer-events:none;z-index:0}.aurora:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 56% 44% at 12% 20%,rgba(55,75,255,.22),transparent 60%),radial-gradient(ellipse 48% 36% at 84% 14%,rgba(120,55,255,.17),transparent 55%),radial-gradient(ellipse 42% 58% at 54% 94%,rgba(28,155,255,.14),transparent 60%);filter:blur(70px);animation:aurora 9s ease-in-out infinite}@keyframes aurora{0%,100%{opacity:.68}50%{opacity:1;transform:scale(1.03)}}
+.vignette{pointer-events:none;z-index:3;opacity:0;transition:opacity .6s var(--ease);background:radial-gradient(circle at center,transparent 40%,rgba(255,188,58,.04) 100%);box-shadow:inset 0 0 160px 40px rgba(255,188,58,.06)}.vignette.on{opacity:1}
+.glass{background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(40px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 24px 72px rgba(0,0,0,.54)}
+.orb{position:fixed;top:22px;left:22px;width:30px;height:30px;border-radius:50%;background:rgba(52,210,190,.12);border:1px solid rgba(52,210,190,.22);display:grid;place-items:center;z-index:110;animation:orb 3.2s ease-in-out infinite}.orb:after{content:"";width:8px;height:8px;border-radius:50%;background:rgba(52,210,190,1);animation:core 3.2s ease-in-out infinite}@keyframes orb{0%,100%{box-shadow:0 0 0 0 rgba(52,210,190,0)}50%{box-shadow:0 0 22px 7px rgba(52,210,190,.08)}}@keyframes core{0%,100%{opacity:.58;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+.voice{position:fixed;left:22px;top:66px;z-index:110;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:999px;background:rgba(10,10,16,.62);border:1px solid var(--border);backdrop-filter:blur(22px)}.bars{display:flex;gap:3px;height:10px}.bars span{width:2px;height:10px;border-radius:999px;background:rgba(52,210,190,.76);animation:vb 1.6s ease-in-out infinite}.bars span:nth-child(2){animation-delay:.12s}.bars span:nth-child(3){animation-delay:.24s}.bars span:nth-child(4){animation-delay:.36s}@keyframes vb{0%,100%{transform:scaleY(.4);opacity:.55}50%{transform:scaleY(1);opacity:1}}.voice small{font-size:11px;color:var(--faint)}
+.connectors{position:fixed;left:22px;bottom:92px;z-index:120;display:flex;flex-direction:column;gap:8px}.connector-row{display:flex;gap:8px;flex-wrap:wrap}.connector-pill{display:inline-flex;align-items:center;gap:8px;padding:8px;border-radius:16px;background:rgba(10,10,16,.78);border:1px solid var(--border);backdrop-filter:blur(28px) saturate(180%);cursor:pointer;transition:transform .28s var(--ease),border-color .28s var(--ease),box-shadow .28s var(--ease)}.connector-pill:hover{transform:translateY(-1px)}.connector-pill.active{border-color:rgba(52,210,190,.28);box-shadow:0 0 0 1px rgba(52,210,190,.08),0 0 36px rgba(52,210,190,.08)}.mark{width:24px;height:24px;border-radius:9px;display:grid;place-items:center;font-size:10px;font-weight:600;color:#fff}.gmail{background:linear-gradient(135deg,rgba(255,94,94,.9),rgba(255,142,96,.72))}.slack{background:linear-gradient(135deg,rgba(116,72,255,.9),rgba(52,210,190,.72))}.calendar{background:linear-gradient(135deg,rgba(75,120,255,.9),rgba(86,170,255,.72))}.notion{background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.12))}.hubspot{background:linear-gradient(135deg,rgba(255,149,77,.9),rgba(255,188,58,.72))}.composio{background:linear-gradient(135deg,rgba(52,210,190,.9),rgba(73,121,255,.72))}.plus{background:rgba(255,255,255,.06)}.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.24)}.connector-pill[data-status="active"] .dot{background:rgba(81,255,178,.95);box-shadow:0 0 8px rgba(81,255,178,.24)}.connector-pill[data-status="error"] .dot{background:rgba(255,101,114,.96);animation:err 1.4s ease-in-out infinite}@keyframes err{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,101,114,0)}50%{transform:scale(1.22);box-shadow:0 0 0 5px rgba(255,101,114,.08)}}.connectors small{font-size:11px;color:var(--faint);padding-left:2px}
+.steps{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:130;display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(0,0,0,.54);border:1px solid var(--border);backdrop-filter:blur(20px)}.step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16);cursor:pointer;transition:transform .22s var(--ease),background .22s var(--ease),box-shadow .22s var(--ease)}.step-dot:hover{transform:scale(1.12)}.step-dot.on{background:var(--teal);box-shadow:0 0 14px rgba(52,210,190,.22)}.step-label{margin-left:8px;font-size:11px;color:var(--muted)}
+.hint{position:fixed;top:20px;right:22px;z-index:130;text-align:right;font-size:11px;line-height:1.65;color:var(--faint);max-width:220px}
+.shell{position:relative;z-index:10;display:flex;width:100vw;height:100vh}.center{flex:1;position:relative;overflow:hidden}.stage{position:absolute;inset:0;display:flex;justify-content:center;padding:72px 28px 150px;overflow-y:auto;scrollbar-width:none;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease)}.stage::-webkit-scrollbar{display:none}.stage.live{opacity:1;transform:translateY(0);pointer-events:auto}.stage>section{width:100%;max-width:920px}.panel{border-radius:var(--radius-xl)}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint)}.big{font-size:44px;line-height:1.08;letter-spacing:-.04em;font-weight:500}.sub{font-size:15px;line-height:1.68;color:rgba(237,237,240,.64)}.shell-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}.mini-grid,.kpi-grid,.signal-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.card{padding:22px}.mini,.stat{padding:16px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--border)}.mini b,.stat b{display:block;font-size:28px;line-height:1;letter-spacing:-.03em;font-weight:500;margin-bottom:6px}.mini span,.stat span{font-size:11px;color:var(--faint)}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);font-size:12px;color:rgba(255,255,255,.82)}.chip.gold{border-color:rgba(255,188,58,.22);background:rgba(255,188,58,.08);color:var(--gold)}
+.btn-white,.btn-soft,.inline-action button,.modal-actions button{cursor:pointer;transition:transform .18s var(--ease),background .18s var(--ease)}.btn-white:hover,.btn-soft:hover,.inline-action button:hover,.modal-actions button:hover{transform:translateY(-1px)}.btn-white{padding:10px 18px;border-radius:999px;background:#fff;color:#000;font-size:13px;font-weight:600}.btn-soft{padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.05);color:rgba(255,255,255,.76);font-size:13px}
+.activity-list,.mission-stack,.tool-stream{display:flex;flex-direction:column;gap:8px}.activity,.tool-card,.mission-step,.rail-card,.toast{opacity:0;transform:translateY(10px)}.activity.live,.tool-card.live,.mission-step.live,.rail-card.live,.toast.live{animation:rise .28s var(--ease) forwards}@keyframes rise{to{opacity:1;transform:translateY(0)}}.activity{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 14px;border-radius:15px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.04)}.icon-box{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.06);font-size:10px;font-weight:600}.title{font-size:13px;font-weight:500;margin-bottom:3px}.meta,.time{font-size:11px;color:var(--faint)}
+.map-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.map-card{padding:14px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);min-height:118px}.map-card strong{display:block;font-size:13px;margin-bottom:8px;font-weight:500}.map-card ul{list-style:none;display:flex;flex-direction:column;gap:5px;font-size:11px;color:var(--muted)}
+.chat-sheet{padding:28px 30px;border-radius:24px}.chat-q{font-size:13px;color:var(--faint);margin-bottom:18px}.chat-title{font-size:32px;line-height:1.12;letter-spacing:-.03em;font-weight:500;margin-bottom:14px}.chat-doc{font-size:14px;line-height:1.72;color:rgba(237,237,240,.82);min-height:220px;white-space:pre-wrap}.tool-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px 15px;border-radius:16px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.04)}.tool-card em{font-style:normal;font-size:12px;color:var(--muted)}.tool-badge{font-size:10px;color:var(--teal);padding:5px 10px;border-radius:999px;background:rgba(52,210,190,.08);border:1px solid rgba(52,210,190,.18)}
+.mission-step{display:grid;grid-template-columns:auto 1fr auto;gap:14px;padding:16px 18px;border-radius:18px;border:1px solid transparent;background:rgba(255,255,255,.02)}.mission-step.active{border-color:rgba(52,210,190,.2);background:rgba(52,210,190,.05);box-shadow:0 0 38px rgba(52,210,190,.06)}.mission-step.pending{opacity:.42;transform:none}.node{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.14);display:grid;place-items:center;font-size:11px;color:var(--faint);margin-top:2px}.node.done{background:rgba(52,210,190,.18);border-color:rgba(52,210,190,.54);color:var(--teal)}.node.active{background:rgba(52,210,190,.08);border-color:rgba(52,210,190,.58);animation:halo 1.7s ease-in-out infinite}@keyframes halo{0%,100%{box-shadow:0 0 0 0 rgba(52,210,190,0)}50%{box-shadow:0 0 0 7px rgba(52,210,190,.08)}}.step-title{font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px;margin-bottom:4px}.step-desc{font-size:12px;line-height:1.58;color:var(--muted)}.step-time{font-size:11px;color:var(--faint)}
+.inline-action{margin-top:10px;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,188,58,.26);background:rgba(255,188,58,.08);display:flex;align-items:center;justify-content:space-between;gap:10px}.inline-action span{font-size:12px;color:rgba(255,255,255,.84)}.inline-actions{display:flex;gap:8px}.inline-actions button{padding:8px 14px;border-radius:999px;font-size:12px}.approve{background:rgba(255,255,255,.12)}.reject{background:rgba(255,255,255,.05);color:var(--muted)}
+.outputs{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px}.output{min-width:190px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--border);opacity:0;transform:translateX(16px)}.output.live{animation:out .28s var(--ease) forwards}@keyframes out{to{opacity:1;transform:translateX(0)}}.output strong{display:block;margin-bottom:4px;font-size:13px}.output span{font-size:11px;color:var(--faint)}
+.variants{display:grid;grid-template-columns:1fr 1fr;gap:12px}.slot{aspect-ratio:9/16;border-radius:20px;border:1px solid var(--border);overflow:hidden;position:relative;background:rgba(255,255,255,.02);cursor:pointer;transform:scale(.985);transition:border-color .24s var(--ease),box-shadow .24s var(--ease),transform .24s var(--ease)}.slot.selected{border-color:rgba(52,210,190,.52);box-shadow:0 0 0 2px rgba(52,210,190,.14)}.build{position:absolute;inset:0;background:radial-gradient(circle at 20% 18%,rgba(52,210,190,.18),transparent 40%),linear-gradient(180deg,rgba(52,210,190,0),rgba(52,210,190,.06) 48%,rgba(52,210,190,0))}.build:after{content:"";position:absolute;inset:-20%;background:linear-gradient(180deg,transparent,rgba(52,210,190,.18) 45%,transparent);animation:sweep 2.6s ease-in-out infinite}@keyframes sweep{0%{transform:translateY(120%)}100%{transform:translateY(-120%)}}.media{position:absolute;inset:0;opacity:0;transition:opacity .8s var(--ease),filter .8s var(--ease),transform .8s var(--ease);background-size:cover;background-position:center;filter:blur(18px) saturate(.9);transform:scale(1.08)}.slot.p1 .media{opacity:.58;filter:blur(14px)}.slot.p2 .media{opacity:.82;filter:blur(7px)}.slot.done .media{opacity:1;filter:blur(0);transform:scale(1.01);animation:settle .26s var(--ease) 1 forwards}@keyframes settle{0%{transform:scale(1.01)}100%{transform:scale(1)}}.caption{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(0deg,rgba(0,0,0,.62),transparent);display:flex;justify-content:space-between;align-items:flex-end;gap:10px}.caption strong{display:block;font-size:13px}.caption span{display:block;font-size:11px;color:rgba(255,255,255,.76)}.state{font-size:10px;color:var(--teal);padding:5px 10px;border-radius:999px;border:1px solid rgba(52,210,190,.18);background:rgba(52,210,190,.08)}.asset-status{margin-top:14px;text-align:center;font-size:12px;color:var(--faint)}
+.kg-wrap{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:14px}.kg{min-height:560px;border-radius:24px;position:relative;overflow:hidden}.kg svg{position:absolute;inset:0;width:100%;height:100%}.kg-link{fill:none;stroke:rgba(52,210,190,.28);stroke-width:1.2;opacity:0}.kg-link.live{animation:link .7s var(--ease) forwards}@keyframes link{from{opacity:0;stroke-dasharray:340;stroke-dashoffset:340}to{opacity:1;stroke-dasharray:340;stroke-dashoffset:0}}.kg-node{position:absolute;width:110px;min-height:48px;padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);backdrop-filter:blur(18px);transform:translate(-50%,-50%) scale(.7);opacity:0;cursor:pointer;transition:transform .22s var(--ease),border-color .22s var(--ease),background .22s var(--ease),box-shadow .22s var(--ease)}.kg-node.live{animation:bloom .32s var(--spring) forwards}.kg-node.selected{border-color:rgba(52,210,190,.38);background:rgba(52,210,190,.08);box-shadow:0 0 28px rgba(52,210,190,.08)}@keyframes bloom{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}.kg-node strong{display:block;font-size:13px;margin-bottom:4px}.kg-node span{display:block;font-size:11px;color:var(--faint)}.kg-side{padding:20px}.kg-side strong{display:block;margin-bottom:10px;font-size:13px}.kg-side ul{list-style:none;display:flex;flex-direction:column;gap:9px}.kg-side li{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);font-size:12px;color:var(--muted)}
+.typed{font-size:40px;line-height:1.08;letter-spacing:-.04em;font-weight:500;min-height:90px}.ghosts{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ghost{padding:20px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--border);overflow:hidden;position:relative}.lines{display:flex;flex-direction:column;gap:10px}.lines span{height:10px;width:100%;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,.07),rgba(255,255,255,.03),rgba(255,255,255,.07));background-size:160% 100%;animation:ghost 1.8s linear infinite}.lines span:nth-child(2){width:82%}.lines span:nth-child(3){width:64%}@keyframes ghost{0%{background-position:160% 0}100%{background-position:-20% 0}}.ghost.done .lines{opacity:0;transition:opacity .22s var(--ease)}.real{position:absolute;inset:20px;opacity:0;transform:translateY(10px);transition:opacity .32s var(--ease),transform .32s var(--ease)}.ghost.done .real{opacity:1;transform:translateY(0)}.real strong{display:block;margin-bottom:10px;font-size:13px}.real p{font-size:13px;line-height:1.66;color:var(--muted)}
+.chart{padding:20px}.chart svg,.signal-chart svg{width:100%;height:220px;overflow:visible}.gridline,.axis{stroke:rgba(255,255,255,.08);stroke-width:1}.draw{animation:draw .6s var(--ease) forwards}.line{fill:none;stroke:rgba(52,210,190,.9);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.line.draw{animation:draw 1.4s var(--ease) forwards}.point{fill:rgba(52,210,190,.96);opacity:0}.point.live{animation:pt .26s var(--ease) 1.18s forwards}@keyframes draw{from{stroke-dasharray:1000;stroke-dashoffset:1000}to{stroke-dasharray:1000;stroke-dashoffset:0}}@keyframes pt{to{opacity:1}}
+.signal-hero{padding:28px 30px;border-radius:24px;position:relative}.signal-hero:before{content:"";position:absolute;inset:0;border-radius:24px;box-shadow:inset 0 0 0 1px rgba(255,188,58,.14),inset 0 0 44px rgba(255,188,58,.05);pointer-events:none}.signal-title{font-size:34px;line-height:1.18;letter-spacing:-.03em;font-weight:500;max-width:620px}.signal-chart{padding:18px 20px 14px}.sig-base,.sig-flip{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.sig-base{stroke:rgba(52,210,190,.68)}.sig-flip{stroke:rgba(255,188,58,.9)}.sig-pulse{fill:rgba(255,188,58,.9);opacity:0}.sig-pulse.live{opacity:1;animation:sp 1.1s ease-in-out infinite}@keyframes sp{0%,100%{r:5;opacity:1}50%{r:10;opacity:.55}}.gold{color:var(--gold)}
+.apps{display:flex;flex-direction:column;gap:16px}.apps-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-end}.apps-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.app{padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:transform .22s var(--ease),border-color .22s var(--ease),background .22s var(--ease)}.app:hover{transform:translateY(-2px)}.app.active{border-color:rgba(52,210,190,.22);background:rgba(52,210,190,.06)}.app.error{border-color:rgba(255,101,114,.18)}.app-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.status-pill{font-size:10px;padding:5px 10px;border-radius:999px;border:1px solid var(--border);color:var(--faint)}.status-pill.ok{color:rgba(81,255,178,.92);border-color:rgba(81,255,178,.18);background:rgba(81,255,178,.08)}.status-pill.err{color:rgba(255,101,114,.92);border-color:rgba(255,101,114,.18);background:rgba(255,101,114,.08)}.app-name{font-size:15px;font-weight:500;margin-bottom:6px}.app-meta{font-size:12px;line-height:1.6;color:var(--muted)}.avail{max-height:176px;overflow:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding-right:4px}.avail::-webkit-scrollbar{width:8px}.avail::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:999px}.avail-card{padding:12px;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);font-size:12px}
+.footer{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:150;width:min(760px,calc(100vw - 44px));display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;border-radius:var(--radius-pill);background:rgba(10,10,16,.88);border:1px solid var(--border-hi);backdrop-filter:blur(40px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 28px rgba(0,0,0,.55);transition:box-shadow .32s var(--ease),opacity .32s var(--ease),transform .32s var(--ease)}.footer.working{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 28px rgba(0,0,0,.55),0 0 44px rgba(52,210,190,.06)}.footer.result{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 28px rgba(0,0,0,.55),0 0 44px rgba(255,188,58,.08)}.fdot{width:8px;height:8px;border-radius:50%;background:rgba(52,210,190,.68);flex-shrink:0}.footer.working .fdot{animation:fp .86s ease-in-out infinite}.footer.result .fdot{background:var(--gold)}@keyframes fp{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.45);opacity:.68}}.fstatus{min-width:94px;font-size:12px;color:var(--muted)}.finput{flex:1;border:none;background:transparent;color:var(--ink);caret-color:var(--teal);font-size:14px}.finput::placeholder{color:var(--faint)}.fhint{font-size:11px;color:var(--faint);white-space:nowrap;padding:5px 10px;border-radius:999px;border:1px solid var(--border)}
+.rail{width:0;overflow:hidden;flex-shrink:0;border-left:1px solid transparent;transition:width .4s var(--ease),border-color .4s var(--ease),background .4s var(--ease)}.rail.open{width:268px;border-color:var(--border);background:rgba(255,255,255,.015)}.rail-inner{width:268px;padding:56px 18px 28px}.rail-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:14px}.rail-card{padding:12px 13px;border-radius:15px;margin-bottom:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}.rail-card strong{display:block;margin-bottom:4px;font-size:13px;font-weight:500}.rail-card span{display:block;font-size:11px;line-height:1.55;color:var(--muted)}.rail-card.hot{border-color:rgba(52,210,190,.16);background:rgba(52,210,190,.06)}.rail-card.warn{border-color:rgba(255,188,58,.18);background:rgba(255,188,58,.07)}
+.overlay{z-index:210;display:none}.overlay.on{display:block}.overlay:before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.44);backdrop-filter:blur(12px)}.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,calc(100vw - 36px));border-radius:24px;padding:22px}.small{width:min(440px,calc(100vw - 36px))}.medium{width:min(520px,calc(100vw - 36px))}.search{width:100%;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#fff;margin-bottom:14px}.pal-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}.col strong,.modal strong{display:block;margin-bottom:12px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint)}.list{display:flex;flex-direction:column;gap:8px}.item{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);cursor:pointer;transition:background .18s var(--ease),transform .18s var(--ease)}.item:hover{transform:translateY(-1px);background:rgba(255,255,255,.06)}.item em{display:block;margin-top:4px;font-style:normal;font-size:11px;color:var(--muted)}.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 18px}.video-slot{border-radius:18px;padding:18px;border:1px solid rgba(52,210,190,.16);background:rgba(52,210,190,.05);min-height:128px}.video-slot span{display:block;margin-top:6px;font-size:12px;color:var(--muted)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}.primary{background:#fff;color:#000}.secondary{background:rgba(255,255,255,.06);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.08);padding:10px 16px;border-radius:999px}.primary,.secondary{padding:10px 16px;border-radius:999px}
+.toasts{position:fixed;right:22px;bottom:100px;z-index:220;display:flex;flex-direction:column;gap:10px;width:min(320px,calc(100vw - 44px))}.toast{padding:12px 14px;border-radius:16px;background:rgba(10,10,16,.9);border:1px solid var(--border);backdrop-filter:blur(20px);font-size:12px;line-height:1.55}
+.focus-badge{position:fixed;right:22px;bottom:24px;z-index:160;padding:8px 14px;border-radius:999px;background:rgba(10,10,16,.84);border:1px solid var(--border);font-size:11px;color:var(--faint);display:none}.focus-badge.on{display:block}
+body.focus-mode .rail,body.focus-mode .steps,body.focus-mode .hint,body.focus-mode .connectors,body.focus-mode .voice{opacity:0;pointer-events:none}body.focus-mode .footer{transform:translateX(-50%) translateY(10px);opacity:.28}
+@media (max-width:1180px){.rail.open{width:0;border-color:transparent;background:transparent}.shell-grid,.kg-wrap,.pal-grid{grid-template-columns:1fr}.map-grid,.apps-grid,.avail{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:760px){.stage{padding-inline:16px;padding-bottom:138px}.big,.typed,.chat-title,.signal-title{font-size:30px}.mini-grid,.kpi-grid,.signal-stats,.apps-grid,.map-grid,.variants,.avail,.ghosts{grid-template-columns:1fr}.footer{width:calc(100vw - 24px)}}
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+<div class="vignette" id="vignette"></div>
+<div class="orb" title="Agent actif"></div>
+<div class="voice"><div class="bars"><span></span><span></span><span></span><span></span></div><small>VoicePulse monté</small></div>
+<div class="connectors">
+  <div class="connector-row" id="connector-row">
+    <button class="connector-pill" data-connector="gmail" data-status="active"><span class="mark gmail">GM</span><span class="dot"></span></button>
+    <button class="connector-pill" data-connector="slack" data-status="active"><span class="mark slack">SL</span><span class="dot"></span></button>
+    <button class="connector-pill" data-connector="calendar" data-status="active"><span class="mark calendar">GC</span><span class="dot"></span></button>
+    <button class="connector-pill" data-connector="notion" data-status="idle"><span class="mark notion">NT</span><span class="dot"></span></button>
+    <button class="connector-pill" data-connector="hubspot" data-status="error"><span class="mark hubspot">HS</span><span class="dot"></span></button>
+    <button class="connector-pill" data-connector="plus" data-status="idle"><span class="mark plus">+3</span><span class="dot"></span></button>
+  </div>
+  <small>Connecteurs visibles en permanence</small>
+</div>
+<div class="steps">
+  <button class="step-dot on" data-state="home"></button>
+  <button class="step-dot" data-state="chat"></button>
+  <button class="step-dot" data-state="mission"></button>
+  <button class="step-dot" data-state="asset"></button>
+  <button class="step-dot" data-state="kg"></button>
+  <button class="step-dot" data-state="report"></button>
+  <button class="step-dot" data-state="signal"></button>
+  <button class="step-dot" data-state="apps"></button>
+  <span class="step-label" id="step-label">Cockpit home</span>
+</div>
+<div class="hint" id="hint">Entre une surface dans la pill.<br>⌘K palette · ⌘G vidéo · ← → navigation · Esc cockpit</div>
+<div class="shell">
+  <div class="center">
+    <div class="stage live" id="stage-home"><section></section></div>
+    <div class="stage" id="stage-chat"><section></section></div>
+    <div class="stage" id="stage-mission"><section></section></div>
+    <div class="stage" id="stage-asset"><section></section></div>
+    <div class="stage" id="stage-kg"><section></section></div>
+    <div class="stage" id="stage-report"><section></section></div>
+    <div class="stage" id="stage-signal"><section></section></div>
+    <div class="stage" id="stage-apps"><section></section></div>
+  </div>
+  <aside class="rail" id="rail"><div class="rail-inner"><div class="rail-title" id="rail-title">Contexte</div><div id="rail-content"></div></div></aside>
+</div>
+<div class="footer" id="footer">
+  <div class="fdot"></div>
+  <span class="fstatus" id="footer-status">Actif</span>
+  <input class="finput" id="footer-input" placeholder="Demande, lance, génère…">
+  <span class="fhint" id="footer-hint">⌘K</span>
+</div>
+<div class="overlay" id="overlay-palette"><div class="modal glass"><input class="search" value="ouvrir signal + mission Gmail + rapport" readonly><div class="pal-grid"><div class="col"><strong>Stages</strong><div class="list"><div class="item" data-go="mission">Mission Gmail<em>timeline, approval, outputs</em></div><div class="item" data-go="report">Rapport interactif<em>titre tapé, courbes, KPI</em></div><div class="item" data-go="apps">Connecteurs<em>OAuth inline, 2000+ apps</em></div></div></div><div class="col"><strong>Actions</strong><div class="list"><div class="item" id="palette-focus">Focus canvas<em>masquer rails et chrome secondaire</em></div><div class="item" id="palette-toast">Envoyer une notification<em>ToastContainer root</em></div><div class="item" id="palette-confirm">Action destructive<em>ouvrir ConfirmModal</em></div></div></div><div class="col"><strong>Raccourcis</strong><div class="list"><div class="item">⌘K<em>palette sémantique</em></div><div class="item">⌘G<em>VideoQuickLaunch</em></div><div class="item">Esc<em>retour cockpit</em></div></div></div></div></div></div>
+<div class="overlay" id="overlay-video"><div class="modal glass"><strong>VideoQuickLaunch · 4 variantes</strong><div class="video-grid"><div class="video-slot"><div class="eyebrow">Variant A</div><div style="font-size:18px;font-weight:500;margin-top:6px">Ouverture plus calme</div><span>Prompt vidéo aligné sur le brief investisseur</span></div><div class="video-slot"><div class="eyebrow">Variant B</div><div style="font-size:18px;font-weight:500;margin-top:6px">Teal accent plus cinématique</div><span>Construction en 3 passes, sans spinner</span></div><div class="video-slot"><div class="eyebrow">Variant C</div><div style="font-size:18px;font-weight:500;margin-top:6px">Narration plus dense</div><span>Atterrira dans AssetCompareStage</span></div><div class="video-slot"><div class="eyebrow">Variant D</div><div style="font-size:18px;font-weight:500;margin-top:6px">Hook visuel plus court</div><span>Rail contextuel mis à jour à la fin</span></div></div><div class="modal-actions"><button class="secondary" data-close="overlay-video">Annuler</button><button class="primary" id="video-generate">Générer</button></div></div></div>
+<div class="overlay" id="overlay-confirm"><div class="modal glass small"><strong>ConfirmModal · action destructive</strong><div class="sub" style="font-size:14px">Supprimer le run incomplet du briefing daily ? Cette démo ne supprime rien, mais montre bien le gate global.</div><div class="modal-actions"><button class="secondary" data-close="overlay-confirm">Annuler</button><button class="primary" id="confirm-run">Confirmer</button></div></div></div>
+<div class="overlay" id="overlay-oauth"><div class="modal glass medium"><strong id="oauth-title">OAuth inline</strong><div class="sub" style="font-size:14px">Prévisualisation de l'action avant consentement. Le connecteur sera marqué actif si tu confirmes.</div><div class="chip-row" style="margin-top:14px"><div class="chip">Scope lecture</div><div class="chip">Scope écriture</div><div class="chip gold">ApprovalInline requis ensuite</div></div><div class="modal-actions"><button class="secondary" data-close="overlay-oauth">Annuler</button><button class="primary" id="oauth-confirm">Connecter</button></div></div></div>
+<div class="toasts" id="toasts"></div>
+<div class="focus-badge" id="focus-badge">FocusBadge actif · ⌘⇧F pour revenir</div>
+<script>
+const states=["home","chat","mission","asset","kg","report","signal","apps"];
+const labels={home:"Cockpit home",chat:"Chat agent actif",mission:"Mission en cours",asset:"Génération asset vidéo",kg:"Knowledge Graph",report:"Rapport interactif",signal:"Signal système",apps:"Connecteurs"};
+const hints={home:"Entre une surface dans la pill.<br>⌘K palette · ⌘G vidéo · ← → navigation · Esc cockpit",chat:"Document stream avec tool cards.<br>Le texte se construit caractère par caractère.",mission:"Timeline verticale + outputs qui popent.<br>ApprovalInline reste visible sans recouvrir.",asset:"4 slots se remplissent en stagger.<br>Blur qui se résout en 3 passes.",kg:"Nœuds qui émergent depuis le centre.<br>Le rail devient entity card.",report:"Titre tapé, sections fantômes résolues.<br>Courbe SVG tracée de gauche à droite.",signal:"Vignette gold, point d'anomalie qui pulse.<br>Actions suggérées + connecteurs impactés.",apps:"Grille connecteurs + modal OAuth inline.<br>Composio 2000+ apps reste accessible ici."};
+const railData={home:null,chat:{title:"Connecteurs sollicités",items:[["Gmail","3 emails extraits, 2 threads critiques","hot"],["Slack","1 message produit cité"],["Calendar","événement 14h00 lié"]]},mission:{title:"Contexte de mission",items:[["Run #1842","démarré il y a 42s","hot"],["Gmail","5 drafts prêts à valider"],["Trace","4 étapes closes, 1 en attente"]]},asset:{title:"Asset stage",items:[["Variants","A/B/C/D en cours"],["Destination","AssetCompareStage","hot"],["Source","prompt venant du brief + chat"]]},kg:{title:"Entity card",items:[["Atlante Capital","investisseur suivi depuis 19 jours","hot"],["Liens chauds","Gmail, Meeting, Report"],["Embedding","3 extraits proches dans le corpus"]]},report:{title:"Sections du rapport",items:[["runs","6 runs personnels aujourd'hui"],["trace","2 anomalies, 1 auto-résolue"],["briefing","daily brief délivré à 08:02"]]},signal:{title:"Connecteurs impactés",items:[["HubSpot","token expiré","warn"],["Gmail","dégradation latente"],["Slack","non impacté"]]},apps:{title:"Hub de connexions",items:[["Actifs","5 connecteurs visibles dans le chrome","hot"],["Erreurs","HubSpot en défaut"],["Catalogue","Composio 2000+ apps"]]}};
+const connectorsByState={home:[],chat:["gmail","slack","calendar"],mission:["gmail"],asset:["gmail","calendar"],kg:["notion","gmail"],report:["calendar","slack"],signal:["hubspot","gmail"],apps:["gmail","slack","calendar","notion","hubspot","plus"]};
+const chatText=`J'ai consolidé les surfaces utiles pour le call investisseur.\n\n1. Trois emails Gmail demandent une réponse avant 14h00.\n2. Le briefing daily confirme une tension HubSpot sur le pipeline.\n3. Le dernier run mission a déjà rédigé cinq drafts compatibles avec ton ton.\n\nJe te propose d'approuver les réponses critiques, d'ouvrir le rapport interactif, puis de générer quatre variantes vidéo pour l'ouverture du call.`;
+let current="home",timers=[],intervals=[],focus=false,selectedConnector="Gmail";
+
+function q(s,r=document){return r.querySelector(s)}
+function qa(s,r=document){return [...r.querySelectorAll(s)]}
+function clearTimers(){timers.forEach(clearTimeout);timers=[];intervals.forEach(clearInterval);intervals=[]}
+function later(fn,ms){const t=setTimeout(fn,ms);timers.push(t);return t}
+function every(fn,ms){const i=setInterval(fn,ms);intervals.push(i);return i}
+function toast(text){const el=document.createElement("div");el.className="toast live";el.textContent=text;q("#toasts").appendChild(el);setTimeout(()=>el.remove(),3200)}
+function openOverlay(id){q("#"+id).classList.add("on")}
+function closeOverlay(id){q("#"+id).classList.remove("on")}
+function closeAllOverlays(){qa(".overlay").forEach(x=>x.classList.remove("on"))}
+function escapeHtml(text){return text.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+function renderHome(){q("#stage-home section").innerHTML=`
+  <div class="eyebrow" style="margin-bottom:14px">Vendredi 15 mai 2026 · cockpit</div>
+  <div class="shell-grid" style="margin-bottom:14px">
+    <div class="glass panel card">
+      <div class="big" style="margin-bottom:10px">Bonjour Adrien.<br>Le cockpit tient déjà la journée.</div>
+      <p class="sub" style="max-width:620px;margin-bottom:22px">47 emails triés, 3 briefs prêts, 6 runs terminés, 1 signal système à traiter. L'agent est le navigateur principal: parle, lance, ouvre, compare.</p>
+      <div class="mini-grid" style="margin-bottom:22px">
+        <div class="mini"><b>47</b><span>emails Gmail absorbés</span></div>
+        <div class="mini"><b>3</b><span>briefings audio + PDF</span></div>
+        <div class="mini"><b>6</b><span>missions closes ce matin</span></div>
+      </div>
+      <div class="glass panel" style="padding:24px;border-radius:20px;background:rgba(255,255,255,.02)">
+        <div class="eyebrow" style="margin-bottom:12px;display:flex;justify-content:space-between"><span>Action prioritaire</span><span>Gmail + Calendar</span></div>
+        <div style="font-size:28px;line-height:1.2;letter-spacing:-.03em;font-weight:500;margin-bottom:10px">Préparer la séquence investisseur<br>avant le call de 14h00.</div>
+        <p class="sub" style="margin-bottom:18px;max-width:520px">L'agent a déjà relié les mails, le brief meeting, le run précédent et le signal HubSpot. Tu peux ouvrir la mission, demander le rapport, ou générer 4 variantes vidéo du brief d'ouverture.</p>
+        <div class="chip-row">
+          <button class="btn-white" data-go="mission">Ouvrir la mission</button>
+          <button class="btn-soft" data-go="report">Lire le rapport</button>
+          <button class="btn-soft" id="launch-video-home">Lancer 4 variantes</button>
+        </div>
+      </div>
+    </div>
+    <div class="glass panel card">
+      <div class="eyebrow" style="margin-bottom:14px">Activité récente</div>
+      <div class="activity-list" id="activity-list">
+        <div class="activity"><div class="icon-box" style="background:linear-gradient(135deg,rgba(255,94,94,.16),rgba(255,142,96,.08))">GM</div><div><div class="title">Gmail a livré 3 drafts d'approbation</div><div class="meta">Mission triage · connecteur actif · réponse dans ta voix</div></div><div class="time">11:32</div></div>
+        <div class="activity"><div class="icon-box" style="background:linear-gradient(135deg,rgba(75,120,255,.16),rgba(86,170,255,.08))">GC</div><div><div class="title">Briefing daily lu à 08:05</div><div class="meta">Audio + PDF · stage briefing prêt · source Calendar</div></div><div class="time">08:05</div></div>
+        <div class="activity"><div class="icon-box" style="background:linear-gradient(135deg,rgba(116,72,255,.16),rgba(52,210,190,.08))">SL</div><div><div class="title">Slack digest envoyé à l'équipe produit</div><div class="meta">12 messages résumés · signal faible: un run a divergé</div></div><div class="time">07:48</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="glass panel card">
+    <div class="eyebrow" style="margin-bottom:12px">Inventaire complet couvert dans le flow</div>
+    <div class="map-grid">
+      <div class="map-card"><strong>Stages cœur</strong><ul><li>cockpit</li><li>chat</li><li>mission</li><li>asset / asset_compare</li><li>browser</li><li>meeting</li></ul></div>
+      <div class="map-card"><strong>Stages avancés</strong><ul><li>kg</li><li>voice</li><li>simulation</li><li>artifact</li><li>signal</li><li>briefing</li></ul></div>
+      <div class="map-card"><strong>Nouveaux modes</strong><ul><li>runs</li><li>trace</li><li>report</li><li>mission_catalog</li><li>marketplace</li><li>report_catalog / asset_library</li></ul></div>
+      <div class="map-card"><strong>Shell + overlays</strong><ul><li>Commandeur ⌘K</li><li>VideoQuickLaunch ⌘G</li><li>ApprovalInline</li><li>FocusBadge</li><li>ConfirmModal</li><li>ToastContainer</li></ul></div>
+    </div>
+    <div class="chip-row" style="margin-top:14px">
+      <div class="chip"><code>/missions/builder</code> survit</div>
+      <div class="chip"><code>/reports/studio</code> survit</div>
+      <div class="chip"><code>/settings</code> survit</div>
+      <div class="chip"><code>/onboarding/vertical</code> survit</div>
+      <div class="chip gold">pages publiques tokenisées hors cockpit</div>
+    </div>
+  </div>`}
+
+function renderChat(){q("#stage-chat section").innerHTML=`
+  <div class="glass chat-sheet">
+    <div class="chat-q">Utilisateur · "Prépare-moi la séquence investisseur et dis-moi si un connecteur bloque."</div>
+    <div class="chat-title">Synthèse opérable avant 14h00</div>
+    <div class="chat-doc" id="chat-doc"></div>
+    <div class="tool-stream" id="tool-stream"></div>
+  </div>`}
+
+function renderMission(){q("#stage-mission section").innerHTML=`
+  <div class="eyebrow" style="margin-bottom:10px">Mission · Gmail triage</div>
+  <div style="font-size:30px;letter-spacing:-.03em;font-weight:500;margin-bottom:8px">Timeline active, variables injectées, outputs en flux.</div>
+  <p class="sub" style="margin-bottom:22px;max-width:620px">La mission absorbe <code>runs</code>, <code>trace</code> et <code>approval</code> sans changer de page. Chaque étape expose le connecteur utilisé et le run courant.</p>
+  <div class="mission-stack" id="mission-stack">
+    <div class="mission-step"><div class="node done">✓</div><div><div class="step-title">Connexion Gmail <span class="chip" style="padding:4px 9px;font-size:10px">GM</span></div><div class="step-desc">47 emails récupérés via OAuth. Variables: priorité, thread, sentiment, délai.</div></div><div class="step-time">0.4s</div></div>
+    <div class="mission-step"><div class="node done">✓</div><div><div class="step-title">Lecture et classification <span class="chip" style="padding:4px 9px;font-size:10px">Trace</span></div><div class="step-desc">Urgents: 2 · À traiter: 3 · FYI: 18 · Newsletters: 24.</div></div><div class="step-time">3.1s</div></div>
+    <div class="mission-step active" id="mission-active"><div class="node active" id="mission-node">3</div><div><div class="step-title">Rédaction des drafts <span class="chip" style="padding:4px 9px;font-size:10px">GM</span></div><div class="step-desc" id="mission-progress">Draft en cours — email 2 / 5 prioritaires…</div></div><div class="step-time" id="mission-time">--</div></div>
+    <div class="mission-step pending" id="mission-approval"><div class="node" id="approval-node">4</div><div><div class="step-title">ApprovalInline <span class="chip gold" style="padding:4px 9px;font-size:10px">Gate write</span></div><div class="step-desc">5 drafts soumis pour relecture avant envoi.</div><div class="inline-action"><span>Approuver l'envoi des drafts critiques sans quitter la mission.</span><div class="inline-actions"><button class="approve" id="approve-btn">Approuver</button><button class="reject" id="reject-btn">Rejeter</button></div></div></div><div class="step-time">--</div></div>
+    <div class="mission-step pending"><div class="node">5</div><div><div class="step-title">Envoi Gmail API <span class="chip" style="padding:4px 9px;font-size:10px">GM</span></div><div class="step-desc">Les emails approuvés repartent depuis ton compte, avec historique de run attaché.</div></div><div class="step-time">--</div></div>
+  </div>
+  <div class="outputs" id="outputs"></div>`}
+
+function renderAsset(){q("#stage-asset section").innerHTML=`
+  <div class="eyebrow" style="margin-bottom:10px">Asset compare · vidéo</div>
+  <div style="font-size:30px;letter-spacing:-.03em;font-weight:500;margin-bottom:8px">4 variantes du hook d'ouverture en construction.</div>
+  <p class="sub" style="margin-bottom:22px;max-width:620px">Cmd+G ou un intent chat déclenche le batch. Les assets atterrissent ici, en stagger, avec une résolution progressive sans spinner.</p>
+  <div class="variants" id="variants">
+    ${[["A","Gradient teal plus calme","linear-gradient(180deg,rgba(52,210,190,.2),rgba(4,8,18,.7)),radial-gradient(circle at 50% 28%,rgba(52,210,190,.35),transparent 35%)"],["B","Cut plus cinématique","linear-gradient(180deg,rgba(79,103,255,.16),rgba(5,7,14,.82)),radial-gradient(circle at 46% 24%,rgba(90,145,255,.34),transparent 36%)"],["C","Narration plus dense","linear-gradient(180deg,rgba(120,74,255,.18),rgba(5,8,15,.78)),radial-gradient(circle at 56% 30%,rgba(120,74,255,.26),transparent 36%)"],["D","Hook visuel plus court","linear-gradient(180deg,rgba(255,188,58,.12),rgba(8,8,16,.82)),radial-gradient(circle at 50% 18%,rgba(255,188,58,.18),transparent 34%)"]].map((v,i)=>`<div class="slot" data-slot="${i}"><div class="build"></div><div class="media" style="background-image:${v[2]}"></div><div class="caption"><div><strong>Variant ${v[0]}</strong><span>${v[1]}</span></div><div class="state" id="slot-state-${i}">en attente</div></div></div>`).join("")}
+  </div>
+  <div class="asset-status" id="asset-status">0 / 4 variants prêts…</div>`}
+
+function renderKg(){q("#stage-kg section").innerHTML=`
+  <div class="eyebrow" style="margin-bottom:10px">Knowledge Graph</div>
+  <div style="font-size:30px;letter-spacing:-.03em;font-weight:500;margin-bottom:8px">Entités, liens, mémoire et recherche dense dans le même canvas.</div>
+  <p class="sub" style="margin-bottom:22px;max-width:640px">Les nœuds émergent depuis le centre, les liens se tracent comme des arcs lumineux, puis la card de l'entité sélectionnée migre dans le rail contextuel.</p>
+  <div class="kg-wrap">
+    <div class="glass kg" id="kg-canvas">
+      <svg viewBox="0 0 760 560" preserveAspectRatio="none" id="kg-svg"></svg>
+    </div>
+    <div class="glass kg-side">
+      <strong>Embedding search</strong>
+      <ul>
+        <li>Atlante Capital · réunion investisseur</li>
+        <li>Thread Gmail du 12 mai · deck actualisé</li>
+        <li>Run signal · dérive pipeline HubSpot</li>
+        <li>Meeting debrief · objections pricing</li>
+      </ul>
+    </div>
+  </div>`}
+
+function renderReport(){q("#stage-report section").innerHTML=`
+  <div class="eyebrow" style="margin-bottom:10px">Report stage</div>
+  <div class="glass panel card" style="margin-bottom:14px">
+    <div class="typed" id="typed-title"></div>
+    <p class="sub" style="max-width:640px">Le rapport interactif n'est pas un PDF passif: compteurs, courbes, sections résolues et recommandations reliées aux runs et connecteurs.</p>
+  </div>
+  <div class="ghosts" id="ghosts" style="margin-bottom:14px">
+    <div class="ghost" id="ghost-0"><div class="lines"><span></span><span></span><span></span></div><div class="real"><strong>Résumé d'activité</strong><p>62 actions automatiques complétées, 6 runs personnels, 1 signal critique, 0 écriture non approuvée.</p></div></div>
+    <div class="ghost" id="ghost-1"><div class="lines"><span></span><span></span><span></span></div><div class="real"><strong>Connecteurs et disponibilité</strong><p>Gmail, Slack et Calendar servent le cockpit; HubSpot doit être reconnecté avant les workflows CRM de l'après-midi.</p></div></div>
+  </div>
+  <div class="kpi-grid" style="margin-bottom:14px">
+    <div class="mini"><b id="kpi-0">0</b><span>actions complétées</span></div>
+    <div class="mini"><b id="kpi-1">0</b><span>coût tokens du jour</span></div>
+    <div class="mini"><b id="kpi-2">0</b><span>temps moyen par run</span></div>
+  </div>
+  <div class="glass panel chart">
+    <svg viewBox="0 0 760 220" preserveAspectRatio="none">
+      <line class="axis" id="axis-x" x1="40" y1="184" x2="720" y2="184"></line>
+      <line class="axis" id="axis-y" x1="40" y1="24" x2="40" y2="184"></line>
+      <line class="gridline" id="grid-1" x1="40" y1="56" x2="720" y2="56"></line>
+      <line class="gridline" id="grid-2" x1="40" y1="104" x2="720" y2="104"></line>
+      <line class="gridline" id="grid-3" x1="40" y1="152" x2="720" y2="152"></line>
+      <path class="line" id="report-line" d="M40 170 C120 162 168 130 230 126 C300 120 348 90 420 88 C496 84 550 96 618 74 C656 62 688 52 720 46"></path>
+      <circle class="point" id="report-point" cx="720" cy="46" r="5"></circle>
+    </svg>
+  </div>`}
+
+function renderSignal(){q("#stage-signal section").innerHTML=`
+  <div class="signal-hero glass">
+    <div class="eyebrow" style="margin-bottom:12px;color:rgba(255,188,58,.7)">Signal système · il y a 4 min</div>
+    <div class="signal-title">Le pipeline HubSpot dérive et peut contaminer le prochain run de qualification si rien n'est fait avant midi.</div>
+  </div>
+  <div class="glass panel signal-chart" style="margin-top:14px">
+    <svg viewBox="0 0 760 150" preserveAspectRatio="none">
+      <line class="axis" x1="0" y1="120" x2="760" y2="120"></line>
+      <path class="sig-base" id="sig-base" d="M0 100 C80 95 110 82 170 80 C226 78 290 65 340 60 C392 55 438 58 500 82"></path>
+      <path class="sig-flip" id="sig-flip" d="M500 82 C548 100 590 120 648 124 C694 127 726 126 760 122"></path>
+      <circle class="sig-pulse" id="sig-point" cx="500" cy="82" r="5"></circle>
+    </svg>
+  </div>
+  <div class="signal-stats" style="margin:14px 0">
+    <div class="stat"><b class="gold">3</b><span>missions potentiellement touchées</span></div>
+    <div class="stat"><b>HubSpot</b><span>connecteur en erreur OAuth</span></div>
+    <div class="stat"><b class="gold">11m</b><span>avant le prochain run CRM</span></div>
+  </div>
+  <div class="chip-row">
+    <button class="chip gold" id="signal-open-apps">Reconnecter le connecteur</button>
+    <button class="chip" data-go="mission">Voir la mission impactée</button>
+    <button class="chip" data-go="report">Lire le rapport source</button>
+  </div>`}
+
+function renderApps(){q("#stage-apps section").innerHTML=`
+  <div class="apps">
+    <div class="apps-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">Connections hub</div>
+        <div style="font-size:30px;letter-spacing:-.03em;font-weight:500;margin-bottom:8px">Les connecteurs ne sont pas une page cachée: ils vivent dans le chrome et s'ouvrent ici sans quitter le cockpit.</div>
+        <p class="sub" style="max-width:660px">Statut instantané, dernière activité, modal OAuth inline et continuité vers Composio 2000+ apps.</p>
+      </div>
+      <div class="chip-row"><div class="chip">actifs</div><div class="chip gold">erreurs visibles</div></div>
+    </div>
+    <div class="apps-grid" id="apps-grid">
+      <div class="app active" data-app="Gmail" data-status="ok"><div class="app-head"><span class="mark gmail">GM</span><span class="status-pill ok">actif</span></div><div class="app-name">Gmail</div><div class="app-meta">47 emails lus aujourd'hui. Dernière activité: drafts de réponse il y a 2 min.</div></div>
+      <div class="app active" data-app="Slack" data-status="ok"><div class="app-head"><span class="mark slack">SL</span><span class="status-pill ok">actif</span></div><div class="app-name">Slack</div><div class="app-meta">Digest quotidien envoyé. Dernière lecture de channel: 11:20.</div></div>
+      <div class="app active" data-app="Google Calendar" data-status="ok"><div class="app-head"><span class="mark calendar">GC</span><span class="status-pill ok">actif</span></div><div class="app-name">Google Calendar</div><div class="app-meta">3 briefs générés aujourd'hui. Dernière réunion liée: investisseurs 14h00.</div></div>
+      <div class="app" data-app="Notion" data-status="idle"><div class="app-head"><span class="mark notion">NT</span><span class="status-pill">à connecter</span></div><div class="app-name">Notion</div><div class="app-meta">Encore inactif dans ce tenant. Peut nourrir rapports et knowledge cards.</div></div>
+      <div class="app error" data-app="HubSpot" data-status="err"><div class="app-head"><span class="mark hubspot">HS</span><span class="status-pill err">erreur</span></div><div class="app-name">HubSpot</div><div class="app-meta">Token expiré. Impact direct sur les missions CRM et sur le signal système.</div></div>
+      <div class="app" data-app="Composio" data-status="ok"><div class="app-head"><span class="mark composio">CP</span><span class="status-pill ok">catalogue</span></div><div class="app-name">Composio</div><div class="app-meta">Pont vers 2000+ apps. Ouvre les templates publics et les workflows tenant.</div></div>
+    </div>
+    <div class="glass panel card">
+      <div class="eyebrow" style="margin-bottom:12px">Disponibles via Composio</div>
+      <div class="avail">${["LinkedIn","Zapier","Linear","Salesforce","Airtable","Zoom","Meet","Teams","Drive","Sheets","Docs","Resend","GitHub","Figma","Miro","Intercom"].map(x=>`<div class="avail-card">${x}</div>`).join("")}</div>
+    </div>
+  </div>`}
+
+function renderAll(){renderHome();renderChat();renderMission();renderAsset();renderKg();renderReport();renderSignal();renderApps()}
+
+function updateRail(mode){
+  const rail=q("#rail"),data=railData[mode];
+  if(!data){rail.classList.remove("open");q("#rail-content").innerHTML="";return}
+  rail.classList.add("open");
+  q("#rail-title").textContent=data.title;
+  q("#rail-content").innerHTML=data.items.map((item,i)=>`<div class="rail-card ${item[2]||""} live" style="animation-delay:${.08*i}s"><strong>${item[0]}</strong><span>${item[1]}</span></div>`).join("");
+}
+
+function updateFooter(mode,phase="working"){
+  const footer=q("#footer"),status=q("#footer-status");
+  footer.classList.remove("working","result");
+  if(mode==="home"){status.textContent="Actif";q("#footer-hint").textContent="⌘K";return}
+  if(phase==="result"){footer.classList.add("result")}else{footer.classList.add("working")}
+  const map={chat:"Écriture…",mission:"Mission active",asset:"Génération…",kg:"Exploration",report:"Rendu…",signal:"Signal actif",apps:"Connexions"};
+  status.textContent=map[mode]||"Actif";
+  q("#footer-hint").textContent=mode==="apps"?"OAuth":"⌘K";
+}
+
+function updateConnectors(mode){
+  qa(".connector-pill").forEach(el=>el.classList.remove("active"));
+  (connectorsByState[mode]||[]).forEach(key=>{const el=q(`.connector-pill[data-connector="${key}"]`);if(el)el.classList.add("active")})
+}
+
+function updateShell(mode){
+  qa(".step-dot").forEach(dot=>dot.classList.toggle("on",dot.dataset.state===mode));
+  q("#step-label").textContent=labels[mode];
+  q("#hint").innerHTML=hints[mode];
+  q("#vignette").classList.toggle("on",mode==="signal");
+  updateRail(mode);
+  updateFooter(mode,mode==="home"?"idle":"working");
+  updateConnectors(mode);
+}
+
+function go(mode){
+  if(!states.includes(mode)||mode===current)return;
+  clearTimers();
+  q("#stage-"+current).classList.remove("live");
+  q("#stage-"+mode).classList.add("live");
+  current=mode;
+  updateShell(mode);
+  initState(mode);
+}
+
+function animateHome(){
+  qa(".activity",q("#stage-home")).forEach((el,i)=>later(()=>el.classList.add("live"),180+i*90));
+  q("#launch-video-home").onclick=()=>openOverlay("overlay-video");
+}
+
+function animateChat(){
+  const doc=q("#chat-doc"); doc.textContent="";
+  let i=0;
+  const stream=every(()=>{doc.textContent=chatText.slice(0,i);i++;if(i>chatText.length){clearInterval(stream)}},16);
+  const tools=[["GM","Gmail","2 threads prioritaires extraits, 5 drafts disponibles."],["SL","Slack","1 message produit ajouté au contexte mission."],["GC","Calendar","le brief meeting de 14h00 est injecté dans le prompt."]];
+  tools.forEach((t,idx)=>later(()=>{
+    const card=document.createElement("div");
+    card.className="tool-card live";
+    card.innerHTML=`<div class="icon-box" style="background:rgba(255,255,255,.06)">${t[0]}</div><div><div class="title">${t[1]}</div><em>${t[2]}</em></div><span class="tool-badge">tool call</span>`;
+    q("#tool-stream").appendChild(card);
+  },520+idx*460));
+  later(()=>updateFooter("chat","result"),2600);
+}
+
+function animateMission(){
+  qa(".mission-step",q("#stage-mission")).forEach((el,i)=>later(()=>el.classList.add("live"),140+i*120));
+  const outputs=q("#outputs");
+  const names=["Re: Proposition Q3","Fwd: Contrat Atlante","Re: Onboarding board","Re: Intro investisseur"];
+  names.forEach((name,i)=>later(()=>{
+    const card=document.createElement("div");
+    card.className="output live";
+    card.innerHTML=`<strong>${name}</strong><span>Généré · en attente d'approbation</span>`;
+    outputs.appendChild(card);
+    q("#mission-progress").textContent=`Draft en cours — email ${Math.min(i+2,5)} / 5 prioritaires…`;
+  },760+i*440));
+  later(()=>{
+    q("#mission-progress").textContent="5 drafts générés — approbation requise";
+    q("#mission-time").textContent="8s";
+    q("#mission-active").classList.remove("active");
+    q("#mission-node").className="node done";
+    q("#mission-node").textContent="✓";
+    q("#mission-approval").classList.remove("pending");
+    q("#mission-approval").classList.add("active");
+    q("#approval-node").className="node active";
+    updateFooter("mission","result");
+  },2700);
+  q("#approve-btn").onclick=()=>toast("ApprovalInline: envoi Gmail validé.");
+  q("#reject-btn").onclick=()=>toast("ApprovalInline: draft renvoyé à la mission.");
+}
+
+function animateAsset(){
+  qa(".slot",q("#stage-asset")).forEach((slot,i)=>{
+    slot.onclick=()=>{qa(".slot",q("#stage-asset")).forEach(x=>x.classList.remove("selected"));slot.classList.add("selected");toast(`Variant ${String.fromCharCode(65+i)} sélectionnée.`)};
+    later(()=>{slot.classList.add("p1");q("#slot-state-"+i).textContent="pass 1"},400+i*520);
+    later(()=>{slot.classList.add("p2");q("#slot-state-"+i).textContent="pass 2"},980+i*520);
+    later(()=>{slot.classList.add("done");q("#slot-state-"+i).textContent="prête";q("#asset-status").textContent=`${i+1} / 4 variants prêts…`;if(i===3){updateFooter("asset","result");q("#asset-status").textContent="4 / 4 variants générés — clique pour sélectionner"}},1580+i*520);
+  });
+}
+
+function animateKg(){
+  const svg=q("#kg-svg");
+  const nodes=[{id:"a",x:380,y:280,label:"Atlante",meta:"investisseur"},{id:"b",x:244,y:180,label:"Gmail",meta:"thread"},{id:"c",x:520,y:184,label:"Meeting",meta:"debrief"},{id:"d",x:250,y:378,label:"Run 1842",meta:"trace"},{id:"e",x:540,y:372,label:"Report",meta:"render"}];
+  const links=[["380,280","244,180"],["380,280","520,184"],["380,280","250,378"],["380,280","540,372"],["520,184","540,372"],["244,180","250,378"]];
+  svg.innerHTML=links.map((l,i)=>`<path class="kg-link" id="kg-link-${i}" d="M${l[0]} Q380 280 ${l[1]}"></path>`).join("");
+  links.forEach((_,i)=>later(()=>q("#kg-link-"+i).classList.add("live"),180+i*90));
+  nodes.forEach((node,i)=>{
+    later(()=>{
+      const el=document.createElement("button");
+      el.className="kg-node live";
+      el.style.left=node.x+"px"; el.style.top=node.y+"px";
+      el.innerHTML=`<strong>${node.label}</strong><span>${node.meta}</span>`;
+      el.onclick=()=>selectKgNode(node,el);
+      q("#kg-canvas").appendChild(el);
+      if(i===0) later(()=>selectKgNode(node,el),240);
+    },480+i*140);
+  });
+  later(()=>updateFooter("kg","result"),1500);
+}
+
+function selectKgNode(node,el){
+  qa(".kg-node",q("#kg-canvas")).forEach(x=>x.classList.remove("selected"));
+  el.classList.add("selected");
+  q("#rail-title").textContent="Entity card";
+  q("#rail").classList.add("open");
+  q("#rail-content").innerHTML=`<div class="rail-card hot live"><strong>${node.label}</strong><span>Dernière interaction reliée au call investisseur. Cette card est issue du graph + embeddings.</span></div><div class="rail-card live"><strong>Sources</strong><span>Gmail · Meeting · Report</span></div><div class="rail-card live"><strong>Action</strong><span>Ouvrir le rapport ou injecter cette entité dans une mission.</span></div>`;
+}
+
+function animateReport(){
+  const title="Rapport interactif du cockpit agent-first";
+  let i=0; const node=q("#typed-title");
+  const typer=every(()=>{node.textContent=title.slice(0,i);i++;if(i>title.length)clearInterval(typer)},34);
+  qa(".ghost").forEach((g,i)=>later(()=>g.classList.add("done"),820+i*380));
+  [["kpi-0",62,""],["kpi-1",0.38,"$"],["kpi-2",4.1,"s"]].forEach(([id,val,suffix],i)=>later(()=>roll(id,val,suffix),760+i*120));
+  ["#axis-x","#axis-y","#grid-1","#grid-2","#grid-3","#report-line"].forEach((sel,i)=>later(()=>q(sel).classList.add("draw"),980+i*120));
+  later(()=>q("#report-point").classList.add("live"),2000);
+  later(()=>updateFooter("report","result"),2200);
+}
+
+function roll(id,target,suffix){
+  const node=q("#"+id),start=performance.now(),dur=1100;
+  function frame(now){
+    const p=Math.min((now-start)/dur,1),e=1-Math.pow(1-p,3),v=target*e;
+    node.textContent=(suffix==="$"?"$":"")+v.toFixed(target<1?2:target<10?1:0)+(suffix==="s"?"s":"");
+    if(p<1)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+function animateSignal(){
+  later(()=>q("#sig-base").classList.add("draw"),320);
+  later(()=>q("#sig-flip").classList.add("draw"),1180);
+  later(()=>q("#sig-point").classList.add("live"),1640);
+  later(()=>updateFooter("signal","result"),1760);
+  q("#signal-open-apps").onclick=()=>go("apps");
+}
+
+function animateApps(){
+  qa(".app",q("#stage-apps")).forEach((card,i)=>{card.classList.add("live");card.style.animationDelay=(i*.06)+"s";card.onclick=()=>{selectedConnector=card.dataset.app;q("#oauth-title").textContent=`OAuth inline · ${selectedConnector}`;openOverlay("overlay-oauth")}})
+  later(()=>updateFooter("apps","result"),400);
+}
+
+function initState(mode){
+  if(mode==="home")animateHome();
+  if(mode==="chat")animateChat();
+  if(mode==="mission")animateMission();
+  if(mode==="asset")animateAsset();
+  if(mode==="kg")animateKg();
+  if(mode==="report")animateReport();
+  if(mode==="signal")animateSignal();
+  if(mode==="apps")animateApps();
+}
+
+function parseInput(value){
+  const v=value.toLowerCase().trim();
+  if(!v)return;
+  if(v.includes("chat"))return go("chat");
+  if(v.includes("mission")||v.includes("gmail"))return go("mission");
+  if(v.includes("video")||v.includes("asset")||v.includes("compare"))return go("asset");
+  if(v.includes("graph")||v.includes("kg")||v.includes("connaissance"))return go("kg");
+  if(v.includes("rapport")||v.includes("report"))return go("report");
+  if(v.includes("signal"))return go("signal");
+  if(v.includes("connect")||v.includes("apps")||v.includes("oauth"))return go("apps");
+  if(v.includes("palette")||v.includes("commandeur"))return openOverlay("overlay-palette");
+  toast(`Commande non mappée dans la démo: "${value}"`);
+}
+
+function setupEvents(){
+  qa("[data-go]").forEach(el=>el.onclick=()=>go(el.dataset.go));
+  qa(".step-dot").forEach(dot=>dot.onclick=()=>go(dot.dataset.state));
+  qa(".connector-pill").forEach(el=>el.onclick=()=>go("apps"));
+  qa("[data-close]").forEach(el=>el.onclick=()=>closeOverlay(el.dataset.close));
+  q("#footer-input").addEventListener("keydown",e=>{if(e.key==="Enter"){parseInput(e.target.value);e.target.value=""}});
+  q("#palette-focus").onclick=()=>toggleFocus();
+  q("#palette-toast").onclick=()=>toast("ToastContainer: mission triage prête pour approbation.");
+  q("#palette-confirm").onclick=()=>openOverlay("overlay-confirm");
+  q("#video-generate").onclick=()=>{closeOverlay("overlay-video");go("asset");toast("VideoQuickLaunch lancé: 4 variantes en file.");};
+  q("#confirm-run").onclick=()=>{closeOverlay("overlay-confirm");toast("ConfirmModal confirmé: aucune suppression réelle dans la démo.");};
+  q("#oauth-confirm").onclick=()=>{
+    closeOverlay("overlay-oauth");
+    toast(`${selectedConnector} connecté.`);
+    if(selectedConnector==="HubSpot"){const c=q('.connector-pill[data-connector="hubspot"]');c.dataset.status="active";c.classList.remove("active");q('[data-app="HubSpot"]').classList.remove("error");q('[data-app="HubSpot"] .status-pill').className="status-pill ok";q('[data-app="HubSpot"] .status-pill').textContent="actif"}
+  };
+  document.addEventListener("keydown",e=>{
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openOverlay("overlay-palette")}
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="g"){e.preventDefault();openOverlay("overlay-video")}
+    if((e.metaKey||e.ctrlKey)&&e.shiftKey&&e.key.toLowerCase()==="f"){e.preventDefault();toggleFocus()}
+    if(e.key==="Escape"){if(qa(".overlay.on").length){closeAllOverlays();return}go("home")}
+    if(e.key==="ArrowRight"){const i=states.indexOf(current);if(i<states.length-1)go(states[i+1])}
+    if(e.key==="ArrowLeft"){const i=states.indexOf(current);if(i>0)go(states[i-1])}
+  });
+}
+
+function toggleFocus(){
+  focus=!focus;
+  document.body.classList.toggle("focus-mode",focus);
+  q("#focus-badge").classList.toggle("on",focus);
+}
+
+renderAll();
+setupEvents();
+updateShell("home");
+initState("home");
+</script>
+</body>
+</html>

@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hearst OS — Proposition Surfaces</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-font: -apple-system, "SF Pro Display", "Helvetica Neue", "Segoe UI", sans-serif;
+      --page-mono: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+      --page-bg: #06060A;
+      --page-surface: #0E0E13;
+      --page-border: rgba(255,255,255,0.07);
+      --page-text: rgba(255,255,255,0.88);
+      --page-muted: rgba(255,255,255,0.45);
+      --page-faint: rgba(255,255,255,0.22);
+
+      /* Accent fixe — teal Hearst OS */
+      --accent: #4A8B86;
+      --accent-muted: rgba(74,139,134,0.20);
+      --accent-soft: rgba(74,139,134,0.10);
+
+      --radius: 14px;
+      --radius-sm: 8px;
+      --radius-xs: 5px;
+    }
+
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: var(--page-font);
+      background: var(--page-bg);
+      color: var(--page-text);
+      min-height: 100vh;
+      padding: 64px 48px 96px;
+    }
+
+    /* ───────── Header ───────── */
+    .header {
+      max-width: 1200px;
+      margin: 0 auto 64px;
+    }
+
+    .header-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 18px;
+    }
+
+    .header p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--page-muted);
+      max-width: 640px;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 28px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--page-border);
+      flex-wrap: wrap;
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+
+    .meta-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--page-faint);
+    }
+
+    .meta-value {
+      font-size: 13px;
+      color: var(--page-muted);
+    }
+
+    .accent-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(74,139,134,0.25);
+    }
+
+    .accent-tag-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .accent-tag-text {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ───────── Section title ───────── */
+    .section-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--page-faint);
+      max-width: 1200px;
+      margin: 0 auto 24px;
+    }
+
+    /* ───────── Palette grid ───────── */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto 80px;
+    }
+
+    .palette-card {
+      background: var(--page-surface);
+      border: 1.5px solid var(--page-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+    }
+
+    .palette-card:hover {
+      border-color: rgba(255,255,255,0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    }
+
+    .palette-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent), 0 16px 48px rgba(0,0,0,0.6);
+      transform: translateY(-3px);
+    }
+
+    /* Tag */
+    .card-tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.55);
+      z-index: 2;
+    }
+
+    .card-tag.tag-current {
+      background: var(--accent-muted);
+      color: var(--accent);
+    }
+
+    /* ───────── Cockpit preview large ───────── */
+    .cockpit-preview {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* PulseBar */
+    .cp-pulsebar {
+      height: 28px;
+      width: 100%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .cp-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .cp-dot.active { background: var(--accent); box-shadow: 0 0 6px rgba(74,139,134,0.5); }
+
+    .cp-search {
+      flex: 1;
+      height: 12px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.06);
+      margin: 0 16px;
+      max-width: 160px;
+    }
+
+    .cp-pulsebar-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* Body row */
+    .cp-body {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+
+    /* Left rail */
+    .cp-rail-left {
+      width: 56px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px 0;
+      gap: 10px;
+      border-right: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .cp-rail-item {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .cp-rail-item.active {
+      background: var(--accent-muted);
+      box-shadow: inset 0 0 0 1px rgba(74,139,134,0.4);
+    }
+
+    /* Stage */
+    .cp-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 20px;
+      gap: 10px;
+      position: relative;
+    }
+
+    .cp-stage-header {
+      height: 10px;
+      width: 50%;
+      border-radius: 4px;
+    }
+
+    .cp-stage-sub {
+      height: 6px;
+      width: 30%;
+      border-radius: 3px;
+    }
+
+    .cp-card-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .cp-card {
+      flex: 1;
+      min-height: 70px;
+      border-radius: 9px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .cp-card-line {
+      height: 4px;
+      border-radius: 2px;
+    }
+
+    .cp-card-line.short { width: 55%; }
+
+    .cp-accent-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      padding: 3px 7px;
+      border-radius: 100px;
+      background: var(--accent-muted);
+    }
+
+    .cp-accent-pill-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .cp-accent-pill-line {
+      width: 18px;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0.85;
+      border-radius: 2px;
+    }
+
+    /* Right rail */
+    .cp-rail-right {
+      width: 70px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 14px 8px;
+      gap: 8px;
+      border-left: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .cp-rail-block {
+      width: 100%;
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .cp-rail-block-line {
+      height: 3px;
+      border-radius: 2px;
+    }
+
+    /* Stage footer */
+    .cp-stage-footer {
+      height: 18px;
+      width: 100%;
+      flex-shrink: 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* ───────── Card body ───────── */
+    .card-body {
+      padding: 22px 24px 24px;
+    }
+
+    .card-name {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: rgba(255,255,255,0.94);
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--page-faint);
+      margin-bottom: 14px;
+    }
+
+    .card-character {
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.58);
+      margin-bottom: 22px;
+      min-height: 44px;
+    }
+
+    /* Surface ladder */
+    .surface-ladder {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 18px;
+    }
+
+    .ladder-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ladder-swatch {
+      height: 36px;
+      border-radius: var(--radius-xs);
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .ladder-label {
+      font-size: 9px;
+      font-family: var(--page-mono);
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .ladder-value {
+      font-size: 8px;
+      font-family: var(--page-mono);
+      color: rgba(255,255,255,0.20);
+      text-align: center;
+    }
+
+    /* Card footer */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .layout-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .layout-summary-label {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--page-faint);
+    }
+
+    .layout-summary-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .delta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      font-family: var(--page-mono);
+    }
+
+    /* ───────── Detail panel ───────── */
+    .detail-panel {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--page-surface);
+      border: 1.5px solid var(--page-border);
+      border-radius: var(--radius);
+      padding: 40px 48px;
+      display: none;
+    }
+
+    .detail-panel.visible { display: block; }
+
+    .detail-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .detail-name {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .detail-char {
+      font-size: 15px;
+      color: var(--page-muted);
+      max-width: 540px;
+      line-height: 1.55;
+    }
+
+    .copy-btn {
+      padding: 11px 22px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.78);
+      font-family: var(--page-font);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.94);
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-muted);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Token grid */
+    .token-sections {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    .token-section-title {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--page-faint);
+      margin-bottom: 14px;
+    }
+
+    .token-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .token-row:last-child { border-bottom: none; }
+
+    .token-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-xs);
+      border: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .token-info { flex: 1; min-width: 0; }
+
+    .token-name {
+      font-size: 12px;
+      font-family: var(--page-mono);
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 2px;
+    }
+
+    .token-value {
+      font-size: 10px;
+      font-family: var(--page-mono);
+      color: var(--page-faint);
+    }
+
+    .token-zone {
+      font-size: 10px;
+      color: var(--page-faint);
+      font-style: italic;
+    }
+
+    /* CSS output */
+    .css-output {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      overflow-x: auto;
+    }
+
+    .css-output pre {
+      font-family: var(--page-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .css-output .token-key { color: rgba(140,180,255,0.85); }
+    .css-output .token-val { color: rgba(180,240,170,0.85); }
+    .css-output .token-comment { color: rgba(255,255,255,0.30); }
+
+    /* ───────── Responsive ───────── */
+    @media (max-width: 1000px) {
+      body { padding: 40px 24px 72px; }
+      .palette-grid { grid-template-columns: 1fr; }
+      .token-sections { grid-template-columns: 1fr; }
+      .header h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ───────── Header ───────── -->
+  <header class="header">
+    <div class="header-eyebrow">Hearst OS · Design System</div>
+    <h1>Disposition<br>des surfaces</h1>
+    <p>Six manières de répartir le poids visuel entre les rails (PulseBar, Timeline, Context, Footer), le body et le Stage central. Quelle zone est la plus sombre, laquelle remonte ? Où vit le focus ?</p>
+
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Variable fixe</span>
+        <span class="accent-tag">
+          <span class="accent-tag-dot"></span>
+          <span class="accent-tag-text">Accent teal · #4A8B86</span>
+        </span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Zones évaluées</span>
+        <span class="meta-value">Rails · Body · Stage · Cards</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Mode</span>
+        <span class="meta-value">Dark only</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Propositions</span>
+        <span class="meta-value">6 dispositions</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ───────── Palette grid ───────── -->
+  <div class="section-title">Propositions</div>
+  <div class="palette-grid" id="paletteGrid"></div>
+
+  <!-- ───────── Detail panel ───────── -->
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-header">
+      <div>
+        <div class="detail-name" id="detailName"></div>
+        <div class="detail-char" id="detailChar"></div>
+      </div>
+      <button class="copy-btn" id="copyBtn">Copier les tokens CSS</button>
+    </div>
+    <div class="token-sections" id="tokenSections"></div>
+    <div class="css-output" id="cssOutput"></div>
+  </div>
+
+<script>
+  /* ──────────────────────────────────────────────────
+     6 DISPOSITIONS — accent teal fixe partout
+     Variable: où est le noir, où est le gris
+  ────────────────────────────────────────────────── */
+  const PALETTES = [
+    {
+      id: "cascade-actuelle",
+      name: "Cascade actuelle",
+      subtitle: "Référence — système actuel",
+      character: "Rails noirs, body presque noir, Stage gris très foncé, cartes gris. Élévation discrète mais lisible. C'est le système en place.",
+      tag: "Actuel",
+      tagClass: "tag-current",
+      layoutSummary: "Rails sombres → Stage légèrement clair",
+      delta: "Δ ~24",
+      rail:     "#000000",
+      bg:       "#050709",
+      bgElev:   "#0E1014",
+      bgSoft:   "#181A20",
+      surface:  "#111111",
+    },
+    {
+      id: "inversion",
+      name: "Inversion",
+      subtitle: "Rails gris, Stage noir",
+      character: "Inverse complet : sidebars en gris medium, Stage central plongé dans le noir profond. Le contenu central devient l'écrin sombre, les rails sont les zones « interface ».",
+      tag: null,
+      layoutSummary: "Rails clairs → Stage très sombre",
+      delta: "Δ ~26 (inversé)",
+      rail:     "#1A1A1F",
+      bg:       "#0A0A0E",
+      bgElev:   "#040407",
+      bgSoft:   "#15151B",
+      surface:  "#0A0A0E",
+    },
+    {
+      id: "stage-clair",
+      name: "Stage clair",
+      subtitle: "Rails noirs, centre nettement plus clair",
+      character: "Le Stage devient un véritable plateau clair (gris chaud) qui flotte entre des rails noir absolus. Inspiration : Linear, Notion. Lisibilité longue durée maximale.",
+      tag: null,
+      layoutSummary: "Rails noirs → Stage gris medium",
+      delta: "Δ ~38 (fort)",
+      rail:     "#000000",
+      bg:       "#06060A",
+      bgElev:   "#1F1F26",
+      bgSoft:   "#2A2A32",
+      surface:  "#15151B",
+    },
+    {
+      id: "monochrome",
+      name: "Monochrome",
+      subtitle: "Toutes les zones uniformes",
+      character: "Rails et Stage dans le même registre. Élévation quasi invisible — l'œil ne perçoit qu'un seul tissu sombre traversé. Maximum minimal.",
+      tag: null,
+      layoutSummary: "Tout uniforme — élévation très subtile",
+      delta: "Δ ~10 (très faible)",
+      rail:     "#0C0C10",
+      bg:       "#0C0C10",
+      bgElev:   "#131318",
+      bgSoft:   "#1A1A20",
+      surface:  "#0F0F14",
+    },
+    {
+      id: "floating",
+      name: "Floating",
+      subtitle: "Rails fondus, Stage en carte",
+      character: "Rails et body dans le même noir absolu — la frontière disparaît. Le Stage central devient une carte gris flottante posée dessus. Inspiration : Apple, vision spatiale.",
+      tag: null,
+      layoutSummary: "Rails = body noirs → Stage flottant",
+      delta: "Δ ~22",
+      rail:     "#000000",
+      bg:       "#000000",
+      bgElev:   "#15151A",
+      bgSoft:   "#1F1F26",
+      surface:  "#0A0A0E",
+    },
+    {
+      id: "spotlight",
+      name: "Spotlight",
+      subtitle: "Rails gris medium, centre noir profond",
+      character: "Sidebars en gris medium qui posent un cadre doux autour d'un Stage central noir. Le contenu central reçoit toute la lumière : les rails s'effacent visuellement comme un théâtre.",
+      tag: null,
+      layoutSummary: "Rails moyens → Stage noir focus",
+      delta: "Δ ~22 (inversé)",
+      rail:     "#16161B",
+      bg:       "#06060A",
+      bgElev:   "#000000",
+      bgSoft:   "#13131A",
+      surface:  "#0A0A0E",
+    },
+  ];
+
+  /* Constants */
+  const ACCENT = "#4A8B86";
+  const ACCENT_MUTED = "rgba(74,139,134,0.20)";
+
+  /* Text levels — fixes (cohérence trans-palette) */
+  const TXT_STRONG = "rgba(255,255,255,0.88)";
+  const TXT_SOFT = "rgba(255,255,255,0.70)";
+  const TXT_FAINT = "rgba(255,255,255,0.42)";
+
+  /* ──────────────────────────────────────────────────
+     RENDER PALETTE CARDS
+  ────────────────────────────────────────────────── */
+  function renderCards() {
+    const grid = document.getElementById("paletteGrid");
+    grid.innerHTML = PALETTES.map(p => `
+      <div class="palette-card"
+           id="card-${p.id}"
+           onclick="selectPalette('${p.id}')">
+        ${p.tag ? `<div class="card-tag ${p.tagClass || ''}">${p.tag}</div>` : ""}
+
+        <!-- ── Cockpit preview ── -->
+        <div class="cockpit-preview" style="background: ${p.bg};">
+          <!-- PulseBar (rail) -->
+          <div class="cp-pulsebar" style="background: ${p.rail};">
+            <div class="cp-dot active"></div>
+            <div class="cp-dot"></div>
+            <div class="cp-search"></div>
+            <div class="cp-pulsebar-right">
+              <div class="cp-dot"></div>
+              <div class="cp-dot"></div>
+              <div class="cp-dot"></div>
+            </div>
+          </div>
+
+          <!-- Body row -->
+          <div class="cp-body">
+            <!-- Left rail (TimelineRail) -->
+            <div class="cp-rail-left" style="background: ${p.rail};">
+              <div class="cp-rail-item active"></div>
+              <div class="cp-rail-item"></div>
+              <div class="cp-rail-item"></div>
+              <div class="cp-rail-item"></div>
+              <div class="cp-rail-item"></div>
+            </div>
+
+            <!-- Stage (centre) -->
+            <div class="cp-stage" style="background: ${p.bgElev};">
+              <div class="cp-stage-header" style="background: ${TXT_STRONG};"></div>
+              <div class="cp-stage-sub" style="background: ${TXT_FAINT};"></div>
+
+              <div class="cp-card-row">
+                <div class="cp-card" style="background: ${p.bgSoft};">
+                  <div class="cp-accent-pill">
+                    <div class="cp-accent-pill-dot"></div>
+                    <div class="cp-accent-pill-line"></div>
+                  </div>
+                  <div class="cp-card-line" style="background: ${TXT_SOFT};"></div>
+                  <div class="cp-card-line short" style="background: ${TXT_FAINT};"></div>
+                </div>
+                <div class="cp-card" style="background: ${p.bgSoft};">
+                  <div class="cp-card-line" style="background: ${TXT_SOFT}; width: 70%;"></div>
+                  <div class="cp-card-line short" style="background: ${TXT_FAINT};"></div>
+                  <div class="cp-card-line" style="background: ${TXT_FAINT}; width: 40%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right rail (ContextRail) -->
+            <div class="cp-rail-right" style="background: ${p.rail};">
+              <div class="cp-rail-block" style="background: ${p.bgSoft};">
+                <div class="cp-rail-block-line" style="background: ${TXT_SOFT}; width: 80%;"></div>
+                <div class="cp-rail-block-line" style="background: ${TXT_FAINT}; width: 50%;"></div>
+              </div>
+              <div class="cp-rail-block" style="background: ${p.bgSoft};">
+                <div class="cp-rail-block-line" style="background: ${TXT_SOFT}; width: 60%;"></div>
+                <div class="cp-rail-block-line" style="background: ${TXT_FAINT}; width: 70%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage footer -->
+          <div class="cp-stage-footer" style="background: ${p.rail};"></div>
+        </div>
+
+        <!-- ── Card body ── -->
+        <div class="card-body">
+          <div class="card-name">${p.name}</div>
+          <div class="card-subtitle">${p.subtitle}</div>
+          <div class="card-character">${p.character}</div>
+
+          <!-- Surface ladder -->
+          <div class="surface-ladder">
+            <div class="ladder-item">
+              <div class="ladder-swatch" style="background: ${p.rail};"></div>
+              <div class="ladder-label">rail</div>
+              <div class="ladder-value">${p.rail}</div>
+            </div>
+            <div class="ladder-item">
+              <div class="ladder-swatch" style="background: ${p.bg};"></div>
+              <div class="ladder-label">bg</div>
+              <div class="ladder-value">${p.bg}</div>
+            </div>
+            <div class="ladder-item">
+              <div class="ladder-swatch" style="background: ${p.bgElev};"></div>
+              <div class="ladder-label">stage</div>
+              <div class="ladder-value">${p.bgElev}</div>
+            </div>
+            <div class="ladder-item">
+              <div class="ladder-swatch" style="background: ${p.bgSoft};"></div>
+              <div class="ladder-label">cards</div>
+              <div class="ladder-value">${p.bgSoft}</div>
+            </div>
+          </div>
+
+          <!-- Card footer -->
+          <div class="card-footer">
+            <div class="layout-summary">
+              <span class="layout-summary-label">Logique</span>
+              <span class="layout-summary-text">${p.layoutSummary}</span>
+            </div>
+            <div class="delta-badge">${p.delta}</div>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  /* ──────────────────────────────────────────────────
+     SELECT PALETTE → SHOW DETAIL
+  ────────────────────────────────────────────────── */
+  let currentId = null;
+
+  function _selectPalette(id) {
+    if (currentId === id) {
+      document.getElementById(`card-${id}`).classList.remove("selected");
+      document.getElementById("detailPanel").classList.remove("visible");
+      currentId = null;
+      return;
+    }
+
+    if (currentId) {
+      document.getElementById(`card-${currentId}`).classList.remove("selected");
+    }
+
+    currentId = id;
+    const p = PALETTES.find(x => x.id === id);
+    document.getElementById(`card-${id}`).classList.add("selected");
+
+    document.getElementById("detailName").textContent = p.name;
+    document.getElementById("detailChar").textContent = p.character;
+
+    document.getElementById("tokenSections").innerHTML = `
+      <!-- Surfaces -->
+      <div>
+        <div class="token-section-title">Surfaces (variable)</div>
+        ${tokenRow("--rail", p.rail, "PulseBar · TimelineRail · ContextRail · Footer")}
+        ${tokenRow("--bg", p.bg, "Body · arrière-plan global")}
+        ${tokenRow("--bg-elev", p.bgElev, "Container Stage central")}
+        ${tokenRow("--bg-soft", p.bgSoft, "Cards · popovers · tiles")}
+        ${tokenRow("--surface", p.surface, "Misc surfaces (modales)")}
+      </div>
+      <!-- Fixe -->
+      <div>
+        <div class="token-section-title">Accent & texte (fixes)</div>
+        ${tokenRow("--accent", ACCENT, "Teal Hearst OS — inchangé")}
+        ${tokenRow("--accent-muted", ACCENT_MUTED, "États actifs, pills")}
+        ${tokenRow("--text-strong", TXT_STRONG, "Heros, titres clés")}
+        ${tokenRow("--text-soft", TXT_SOFT, "Texte courant")}
+        ${tokenRow("--text-faint", TXT_FAINT, "Métadonnées, captions")}
+      </div>
+    `;
+
+    document.getElementById("cssOutput").innerHTML = `<pre>${buildCSS(p)}</pre>`;
+
+    const panel = document.getElementById("detailPanel");
+    panel.classList.add("visible");
+    setTimeout(() => panel.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  }
+
+  function tokenRow(name, value, zone) {
+    return `
+      <div class="token-row">
+        <div class="token-swatch" style="background: ${value};"></div>
+        <div class="token-info">
+          <div class="token-name">${name}</div>
+          <div class="token-value">${value}</div>
+        </div>
+        ${zone ? `<div class="token-zone">${zone}</div>` : ""}
+      </div>
+    `;
+  }
+
+  function buildCSS(p) {
+    const line = (k, v) =>
+      `  <span class="token-key">${k}</span>: <span class="token-val">${v}</span>;`;
+
+    return [
+      `<span class="token-comment">/* ${p.name} — ${p.subtitle} */</span>`,
+      `<span class="token-comment">/* Logique : ${p.layoutSummary} */</span>`,
+      `:root {`,
+      `<span class="token-comment">  /* ── Surfaces (variable) ─────────── */</span>`,
+      line("--rail", p.rail),
+      line("--bg", p.bg),
+      line("--bg-elev", p.bgElev),
+      line("--bg-soft", p.bgSoft),
+      line("--surface", p.surface),
+      ``,
+      `<span class="token-comment">  /* ── Accent (fixe — teal Hearst) ─── */</span>`,
+      line("--accent", ACCENT),
+      line("--accent-muted", ACCENT_MUTED),
+      ``,
+      `<span class="token-comment">  /* ── Texte (fixe) ────────────────── */</span>`,
+      line("--text-strong", TXT_STRONG),
+      line("--text-soft", TXT_SOFT),
+      line("--text-faint", TXT_FAINT),
+      `}`,
+    ].join("\n");
+  }
+
+  /* ──────────────────────────────────────────────────
+     COPY TO CLIPBOARD
+  ────────────────────────────────────────────────── */
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    if (!currentId) return;
+    const p = PALETTES.find(x => x.id === currentId);
+    const css = [
+      `/* ${p.name} — ${p.subtitle} */`,
+      `/* Logique : ${p.layoutSummary} */`,
+      `:root {`,
+      `  /* ── Surfaces ────────────────────── */`,
+      `  --rail: ${p.rail};`,
+      `  --bg: ${p.bg};`,
+      `  --bg-elev: ${p.bgElev};`,
+      `  --bg-soft: ${p.bgSoft};`,
+      `  --surface: ${p.surface};`,
+      ``,
+      `  /* ── Accent (teal Hearst) ────────── */`,
+      `  --accent: ${ACCENT};`,
+      `  --accent-muted: ${ACCENT_MUTED};`,
+      ``,
+      `  /* ── Texte ───────────────────────── */`,
+      `  --text-strong: ${TXT_STRONG};`,
+      `  --text-soft: ${TXT_SOFT};`,
+      `  --text-faint: ${TXT_FAINT};`,
+      `}`,
+    ].join("\n");
+
+    navigator.clipboard.writeText(css).then(() => {
+      const btn = document.getElementById("copyBtn");
+      btn.textContent = "Copié ✓";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "Copier les tokens CSS";
+        btn.classList.remove("copied");
+      }, 2200);
+    });
+  });
+
+  /* INIT */
+  renderCards();
+</script>
+</body>
+</html>

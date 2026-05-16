@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T14:13:27.231Z",
+  "generatedAt": "2026-05-16T14:53:27.123Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1750,
+    "testsExistants": 1746,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 325,
-    "cases": 2918,
+    "files": 323,
+    "cases": 2911,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -800,9 +800,9 @@
         "I-9. Redirect après submit → toujours `/`",
         "I-10. Hospitalité → persona concierge"
       ],
-      "testsExistantsCount": 59,
-      "testsOnDisk": 59,
-      "testFilesOnDisk": 10,
+      "testsExistantsCount": 55,
+      "testsOnDisk": 55,
+      "testFilesOnDisk": 9,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
