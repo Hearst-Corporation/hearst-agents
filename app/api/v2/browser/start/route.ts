@@ -96,6 +96,7 @@ export async function POST(req: NextRequest) {
         task,
         runId: taskId,
         maxActions: body.maxActions,
+        tenantId: scope.tenantId,
       });
     } catch (err) {
       console.error("[BrowserStart] runBrowserTask failed:", err);

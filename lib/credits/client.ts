@@ -136,12 +136,15 @@ export async function settleCredits(args: SettleCreditsArgs): Promise<void> {
 
 /**
  * Vérifie qu'un user a les fonds disponibles pour un coût estimé,
- * et réserve immédiatement le montant. Le worker settle ensuite
- * avec le coût réel.
+ * et réserve immédiatement le montant via reserve_credits_atomic.
+ * Le worker settle ensuite avec le coût réel.
  *
  * Retourne `{ allowed: false }` si solde insuffisant — le caller doit
  * surfacer un message UI au user (ex: "Solde insuffisant, recharge tes
  * crédits ou utilise un provider gratuit").
+ *
+ * Atomic : utilise l'idempotency_key dérivée du jobId pour garantir
+ * qu'aucune race condition ne peut créer une surcharge.
  */
 export async function guardAndReserveCredits(args: {
   userId: string;
@@ -150,6 +153,7 @@ export async function guardAndReserveCredits(args: {
   jobId: string;
   jobKind: ReserveCreditsArgs["jobKind"];
 }): Promise<CreditGuardResult> {
+  // First, check balance for fast feedback
   const balance = await getBalance(args.userId, args.tenantId);
   const available = balance?.availableUsd ?? 0;
 
@@ -162,24 +166,33 @@ export async function guardAndReserveCredits(args: {
     };
   }
 
-  const reserved = await reserveCredits({
-    userId: args.userId,
-    tenantId: args.tenantId,
-    amountUsd: args.estimatedCostUsd,
-    jobId: args.jobId,
-    jobKind: args.jobKind,
-  });
-  if (!reserved) {
-    // Race : un autre call a réservé entre temps. Retry pas pertinent —
-    // on remonte l'échec au caller.
+  // Use jobId as idempotency key to prevent double-charge on retry
+  // This call is atomic: FOR UPDATE + balance check in SQL
+  const result = await reserveCreditsAtomic(
+    args.userId,
+    args.tenantId,
+    args.estimatedCostUsd,
+    args.jobId,
+  );
+
+  if (!result.success) {
+    // Race condition or DB error after balance check
+    const reason =
+      result.error === "insufficient_credits"
+        ? "insufficient_credits"
+        : result.error === "user_not_found"
+          ? "user_not_found"
+          : "reservation_failed";
+
     return {
       allowed: false,
       availableUsd: available,
       estimatedCostUsd: args.estimatedCostUsd,
-      reason: "race_condition",
+      reason,
     };
   }
 
+  // Reservation succeeded
   return {
     allowed: true,
     availableUsd: available - args.estimatedCostUsd,

@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { LLMCircuitBreaker } from "../../lib/llm/circuit-breaker";
+import { InMemoryCircuitStore } from "../../lib/llm/redis-circuit-store";
 
-describe("LLMCircuitBreaker", () => {
+describe("LLMCircuitBreaker (InMemory)", () => {
   let breaker: LLMCircuitBreaker;
 
   beforeEach(() => {
     vi.useFakeTimers();
-    breaker = new LLMCircuitBreaker();
+    // Injection explicite du store in-memory pour isoler les tests
+    breaker = new LLMCircuitBreaker(new InMemoryCircuitStore());
   });
 
   afterEach(() => {

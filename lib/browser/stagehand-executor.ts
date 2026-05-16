@@ -16,9 +16,10 @@
  */
 
 import { randomUUID } from "node:crypto";
-import OpenAI from "openai";
 import { globalRunBus } from "@/lib/events/global-bus";
 import type { BrowserAction, BrowserActionType } from "@/lib/events/types";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { getProvider } from "@/lib/llm/router";
 import { getBrowserContext, type PlaywrightBridge } from "./playwright-bridge";
 
 // ── Types ────────────────────────────────────────────────
@@ -39,6 +40,8 @@ export interface RunBrowserTaskOptions {
    * réelle et déroule la liste fournie. Chaque action est émise comme
    * `browser_action`, exactement comme une exécution live. */
   testActions?: Array<Omit<BrowserAction, "id" | "timestamp">>;
+  /** Tenant ID pour circuit breaker et multi-tenant isolation. */
+  tenantId?: string;
 }
 
 export interface BrowserTaskResult {
@@ -371,6 +374,7 @@ class DefaultBrowserExecutor implements BrowserExecutor {
                 page: bridge.page,
                 instruction: opts.extractInstruction,
                 schema: opts.extractSchema,
+                tenantId: opts.tenantId,
               });
             } catch (err) {
               extractData = {
@@ -463,20 +467,21 @@ async function extractStructured(opts: {
   page: import("./playwright-bridge").PlaywrightPage;
   instruction: string;
   schema?: Record<string, unknown>;
+  tenantId?: string;
 }): Promise<unknown> {
-  const apiKey = process.env.KIMI_API_KEY;
-  if (!apiKey) {
+  // Vérifier que le circuit breaker pour Kimi n'est pas ouvert
+  const isCircuitOpen = await defaultCircuitBreaker.isOpen("kimi", opts.tenantId);
+  if (isCircuitOpen) {
     return {
       instruction: opts.instruction,
       schema: opts.schema ?? null,
-      error: "no_kimi_key",
+      error: "kimi_circuit_breaker_open",
     };
   }
+
   const html = await opts.page.content().catch(() => "");
   const cleaned = cleanHtml(html);
 
-  // F-126: Explicitement passer apiKey au client OpenAI (pas de fallback auto)
-  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
   const system = [
     "Tu es un extracteur de données structurées depuis du HTML.",
     "Réponds UNIQUEMENT en JSON valide qui matche le schéma fourni.",
@@ -496,23 +501,40 @@ async function extractStructured(opts: {
     cleaned,
   ].join("\n");
 
-  const msg = await client.chat.completions.create({
-    model: "kimi-k2.5",
-    max_tokens: 2000,
-    messages: [
-      { role: "system", content: system },
-      { role: "user", content: user },
-    ],
-  });
-  const text = msg.choices[0]?.message?.content?.trim() ?? "";
-  const m = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
-  if (!m) {
-    return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
-  }
   try {
-    return JSON.parse(m[0]);
-  } catch {
-    return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
+    const provider = getProvider("kimi");
+    const res = await provider.chat({
+      model: "kimi-k2.5",
+      max_tokens: 2000,
+      messages: [
+        { role: "system", content: system },
+        { role: "user", content: user },
+      ],
+    });
+
+    await defaultCircuitBreaker.recordSuccess("kimi", opts.tenantId);
+
+    const text = res.content.trim();
+    const m = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+    if (!m) {
+      return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
+    }
+    try {
+      return JSON.parse(m[0]);
+    } catch {
+      return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };
+    }
+  } catch (err) {
+    await defaultCircuitBreaker.recordFailure(
+      "kimi",
+      err instanceof Error ? err : new Error(String(err)),
+      opts.tenantId,
+    );
+    return {
+      instruction: opts.instruction,
+      schema: opts.schema ?? null,
+      error: err instanceof Error ? err.message : String(err),
+    };
   }
 }
 

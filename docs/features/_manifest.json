@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T14:03:21.794Z",
+  "generatedAt": "2026-05-16T14:09:53.976Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1747,
+    "testsExistants": 1750,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 321,
-    "cases": 2902,
+    "files": 325,
+    "cases": 2918,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -173,9 +173,9 @@
         "I-9. Extraction structurée : Claude Haiku, HTML capé à 30k chars",
         "I-10. BROWSERBASE_API_KEY absent → 503 propre sur capture et extract"
       ],
-      "testsExistantsCount": 22,
-      "testsOnDisk": 22,
-      "testFilesOnDisk": 4,
+      "testsExistantsCount": 25,
+      "testsOnDisk": 25,
+      "testFilesOnDisk": 5,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",

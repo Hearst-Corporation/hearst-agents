@@ -17,6 +17,7 @@ import { GeminiProvider } from "./gemini";
 import { KimiProvider } from "./kimi";
 import { defaultMetrics } from "./metrics";
 import { OpenAIProvider } from "./openai";
+import { persistRun } from "./persist-run";
 import { defaultRateLimiter } from "./rate-limiter";
 import type {
   ChatRequest,
@@ -202,6 +203,19 @@ export async function chatWithProfile(
         cacheCreationTokens: response.cache_creation_tokens,
         costUsd: response.cost_usd,
       });
+      if (tenantId) {
+        void persistRun({
+          tenantId,
+          userId: userId ?? null,
+          provider: profile.provider,
+          model: profile.model,
+          inputTokens: response.tokens_in,
+          outputTokens: response.tokens_out,
+          costUsd: response.cost_usd,
+          latencyMs: response.latency_ms,
+          status: "success",
+        });
+      }
       return { ...response, profile_used: `${profile.provider}/${profile.model}` };
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
@@ -218,6 +232,20 @@ export async function chatWithProfile(
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: profile.provider, errorCode: errCode });
+      if (tenantId) {
+        void persistRun({
+          tenantId,
+          userId: userId ?? null,
+          provider: profile.provider,
+          model: profile.model,
+          inputTokens: 0,
+          outputTokens: 0,
+          costUsd: null,
+          latencyMs: 0,
+          status: "failed",
+          errorCode: errCode,
+        });
+      }
       logger.error(
         { err: lastError, provider: profile.provider, model: profile.model },
         "[router] provider failed, trying fallback",
@@ -420,6 +448,19 @@ export async function smartChat(
         cacheCreationTokens: response.cache_creation_tokens,
         costUsd: response.cost_usd,
       });
+      if (opts.tenantId) {
+        void persistRun({
+          tenantId: opts.tenantId,
+          userId: opts.userId ?? null,
+          provider: attempt.provider,
+          model: attempt.model,
+          inputTokens: response.tokens_in,
+          outputTokens: response.tokens_out,
+          costUsd: response.cost_usd,
+          latencyMs: response.latency_ms,
+          status: "success",
+        });
+      }
 
       if (attemptIndex > 0 && opts.tracer) {
         await traceFallback(opts.tracer, attempt, attemptIndex, chain[0], lastError?.message);
@@ -441,6 +482,20 @@ export async function smartChat(
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
+      if (opts.tenantId) {
+        void persistRun({
+          tenantId: opts.tenantId,
+          userId: opts.userId ?? null,
+          provider: attempt.provider,
+          model: attempt.model,
+          inputTokens: 0,
+          outputTokens: 0,
+          costUsd: null,
+          latencyMs: 0,
+          status: "failed",
+          errorCode: errCode,
+        });
+      }
       logger.error(
         {
           err: lastError,
