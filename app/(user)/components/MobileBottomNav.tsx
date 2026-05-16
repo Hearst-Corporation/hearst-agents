@@ -1,46 +1,45 @@
 "use client";
 
 /**
- * MobileBottomNav — C8 Mobile companion.
+ * MobileBottomNav — Navigation primaire mobile.
+ *
+ * Aligné sur le dock desktop StageFooter (Factory Cockpit) :
+ *   Dashboard · Chat · Mission (central emphasis) · Commandeur · Connexions
+ *
+ * Voice reste accessible via Commandeur (⌘K) et hotkey ⌘⇧V — sortie du
+ * bottom nav primaire pour suivre la hiérarchie « Dashboard / Chat / Mission ».
  *
  * Visible uniquement < md (Tailwind `md:hidden`). Fixed bottom, safe-area
  * inset bottom respecté pour iOS notch.
  *
- * 5 actions :
- *   Cockpit / Chat / Voice (central, large, accent accent-teal) / Asset / Commandeur
- *
- * Voice est central car c'est le moonshot du C8 (voice-first quick access).
- * Asset ouvre le dernier asset focalisé (lastAssetId), fallback Commandeur.
- *
- * Tokens uniquement (cf. CLAUDE.md). Pas d'icônes lourdes — glyphes texte
- * minimalistes pour réduire le poids et rester cohérent avec le reste de
- * l'app (PulseBar, ghost-icons).
+ * Tokens uniquement (cf. CLAUDE.md). Glyphes texte minimalistes pour rester
+ * cohérent avec PulseBar/ghost-icons.
  */
 
+import { useRouter } from "next/navigation";
 import { useStageStore } from "@/stores/stage";
-import { useVoiceStore } from "@/stores/voice";
 
 interface NavItem {
-  id: "cockpit" | "chat" | "voice" | "asset" | "commandeur";
+  id: "cockpit" | "chat" | "mission" | "commandeur" | "connections";
   label: string;
   glyph: string;
   emphasis?: boolean;
 }
 
 const ITEMS: NavItem[] = [
-  { id: "cockpit", label: "Cockpit", glyph: "▦" },
+  { id: "cockpit", label: "Dashboard", glyph: "▦" },
   { id: "chat", label: "Chat", glyph: "✱" },
-  { id: "voice", label: "Voice", glyph: "◉", emphasis: true },
-  { id: "asset", label: "Asset", glyph: "◰" },
+  { id: "mission", label: "Mission", glyph: "◎", emphasis: true },
   { id: "commandeur", label: "Cmd", glyph: "⌘" },
+  { id: "connections", label: "Apps", glyph: "⌁" },
 ];
 
 export function MobileBottomNav() {
+  const router = useRouter();
   const setMode = useStageStore((s) => s.setMode);
   const currentMode = useStageStore((s) => s.current.mode);
-  const lastAssetId = useStageStore((s) => s.lastAssetId);
+  const lastMissionId = useStageStore((s) => s.lastMissionId);
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
-  const setVoiceActive = useVoiceStore((s) => s.setVoiceActive);
 
   const handlePress = (id: NavItem["id"]) => {
     switch (id) {
@@ -50,28 +49,22 @@ export function MobileBottomNav() {
       case "chat":
         setMode({ mode: "chat" });
         break;
-      case "voice":
-        setMode({ mode: "voice" });
-        setVoiceActive(true);
-        break;
-      case "asset":
-        if (lastAssetId) {
-          setMode({ mode: "asset", assetId: lastAssetId });
-        } else {
-          setCommandeurOpen(true);
-        }
+      case "mission":
+        setMode({ mode: "mission", missionId: lastMissionId ?? "" });
         break;
       case "commandeur":
         setCommandeurOpen(true);
+        break;
+      case "connections":
+        router.push("/connections");
         break;
     }
   };
 
   const isActive = (id: NavItem["id"]) => {
-    if (id === "asset") return currentMode === "asset";
-    if (id === "voice") return currentMode === "voice";
-    if (id === "chat") return currentMode === "chat";
     if (id === "cockpit") return currentMode === "cockpit";
+    if (id === "chat") return currentMode === "chat";
+    if (id === "mission") return currentMode === "mission";
     return false;
   };
 
@@ -98,6 +91,7 @@ export function MobileBottomNav() {
             type="button"
             onClick={() => handlePress(item.id)}
             aria-label={item.label}
+            aria-current={active ? "page" : undefined}
             data-testid={`mobile-nav-${item.id}`}
             data-active={active}
             className="flex flex-col items-center justify-center transition-colors"

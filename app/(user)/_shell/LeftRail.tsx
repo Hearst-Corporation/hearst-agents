@@ -1,198 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useStageStore } from "@/stores/stage";
-import { LEFT_RAIL_ORDER, STAGE_REGISTRY } from "../_stages/registry";
-import type { StageKey } from "../_stages/types";
 
 /**
- * LeftRail visionOS — 88px de large, glass, 12 slots cliquables.
+ * LeftRail — présence système + raccourcis secondaires (Factory Cockpit).
  *
- * Port direct de `lab/cli-os/src/components/LeftRail.tsx` (icônes + hover
- * states). Chaque slot change le `mode` du store via `setMode`.
+ * Refonte post-pivot navigation 2026-05-16 :
+ *   - **Footer** porte désormais la navigation PRIMAIRE
+ *     (Dashboard / Chat / Mission + Commandeur + Date).
+ *   - LeftRail devient DISCRET : logo, avatar, statut session, et
+ *     quelques raccourcis secondaires vers des destinations RÉELLES
+ *     (route existante ou ouverture du Commandeur).
+ *
+ * Aucun bouton ne pointe vers une route inexistante. Les 12 stages
+ * restent accessibles via :
+ *   - Footer (les 3 plus utilisés : Dashboard, Chat, Mission)
+ *   - Hotkeys ⌘1..⌘9 / ⌘0 (cf. app/hooks/use-global-hotkeys.ts)
+ *   - Commandeur (⌘K) — registry complet
+ *
+ * Largeur 88px conservée pour ne pas casser le layout Shell.tsx
+ * (composant LOCKED après P2).
  */
 
-// ── Icônes par stage (port du lab/cli-os) ──────────────────────────────────
-
-function StageIcon({ stage, active }: { stage: StageKey; active: boolean }) {
-  const stroke = active ? "rgba(255,255,255,0.95)" : "currentColor";
-  const fill = active ? "rgba(255,255,255,0.95)" : "currentColor";
-
-  switch (stage) {
-    case "cockpit":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect x="2" y="2" width="14" height="14" rx="2" stroke={stroke} strokeWidth="1.5" />
-        </svg>
-      );
-    case "chat":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <line
-            x1="3"
-            y1="6"
-            x2="15"
-            y2="6"
-            stroke={stroke}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-          <line
-            x1="3"
-            y1="9"
-            x2="15"
-            y2="9"
-            stroke={stroke}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-          <line
-            x1="3"
-            y1="12"
-            x2="10"
-            y2="12"
-            stroke={stroke}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
-    case "mission":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <circle cx="9" cy="9" r="6" stroke={stroke} strokeWidth="1.5" />
-        </svg>
-      );
-    case "asset":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect x="3" y="3" width="12" height="12" rx="1" stroke={stroke} strokeWidth="1.5" />
-          <rect x="6" y="6" width="6" height="6" rx="0.5" stroke={stroke} strokeWidth="1" />
-        </svg>
-      );
-    case "browser":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <polygon
-            points="4,14 14,9 4,4"
-            stroke={stroke}
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    case "voice":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <circle cx="9" cy="9" r="4" fill={fill} />
-        </svg>
-      );
-    case "meeting":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <line
-            x1="3"
-            y1="9"
-            x2="15"
-            y2="9"
-            stroke={stroke}
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
-    case "artifact":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect x="2" y="2" width="14" height="14" rx="1" stroke={stroke} strokeWidth="1.5" />
-          <polyline
-            points="6,11 8,9 6,7"
-            stroke={stroke}
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <line
-            x1="10"
-            y1="11"
-            x2="12"
-            y2="11"
-            stroke={stroke}
-            strokeWidth="1.2"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
-    case "kg":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <circle cx="9" cy="9" r="5.5" stroke={stroke} strokeWidth="1.5" />
-          <circle cx="9" cy="9" r="2" stroke={stroke} strokeWidth="1" />
-        </svg>
-      );
-    case "simulation":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect x="2" y="6" width="14" height="6" rx="1" stroke={stroke} strokeWidth="1.5" />
-          <line
-            x1="5"
-            y1="9"
-            x2="13"
-            y2="9"
-            stroke={stroke}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
-    case "signal":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <polygon
-            points="9,3 16,15 2,15"
-            stroke={stroke}
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    case "asset_compare":
-      return (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect x="2" y="2" width="6" height="14" rx="1" stroke={stroke} strokeWidth="1.5" />
-          <rect x="10" y="2" width="6" height="14" rx="1" stroke={stroke} strokeWidth="1.5" />
-        </svg>
-      );
-    default:
-      return <span className="block size-4 rounded-[3px] border border-current opacity-40" />;
-  }
-}
-
-// ── Payload builder ─────────────────────────────────────────────────────────
-
-function buildPayload(mode: StageKey, lastAssetId: string | null, lastMissionId: string | null) {
-  switch (mode) {
-    case "cockpit":
-    case "chat":
-    case "browser":
-    case "meeting":
-    case "kg":
-    case "voice":
-    case "simulation":
-    case "artifact":
-    case "signal":
-      if (mode === "browser") return { mode: "browser" as const, sessionId: "" };
-      if (mode === "meeting") return { mode: "meeting" as const, meetingId: "" };
-      return { mode } as { mode: typeof mode };
-    case "asset":
-      return { mode: "asset" as const, assetId: lastAssetId ?? "" };
-    case "asset_compare":
-      return { mode: "asset_compare" as const, assetIds: [] };
-    case "mission":
-      return { mode: "mission" as const, missionId: lastMissionId ?? "" };
-  }
-}
+// ── Sub-composants ────────────────────────────────────────────────────
 
 function UserAvatar() {
   const { data: session } = useSession();
@@ -205,60 +37,125 @@ function UserAvatar() {
       <img
         src={image}
         alt={name}
-        className="size-12 rounded-full object-cover"
+        className="size-10 rounded-full object-cover"
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)" }}
       />
     );
   }
   return (
-    <div className="flex size-12 items-center justify-center rounded-full bg-[rgba(255,255,255,0.15)] text-base text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+    <div
+      className="flex size-10 items-center justify-center rounded-full bg-[rgba(255,255,255,0.15)] text-sm text-white"
+      style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)" }}
+      aria-label={`Session ${name}`}
+      title={name}
+    >
       <span className="opacity-90">{initial}</span>
     </div>
   );
 }
 
+interface SecondaryButtonProps {
+  label: string;
+  hint?: string;
+  onClick: () => void;
+  active?: boolean;
+  children: React.ReactNode;
+}
+
+function SecondaryButton({ label, hint, onClick, active, children }: SecondaryButtonProps) {
+  const tooltip = hint ? `${label} · ${hint}` : label;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={tooltip}
+      title={tooltip}
+      className={`group relative flex size-12 items-center justify-center rounded-xl transition-all duration-200 ${
+        active ? "text-white" : "text-[rgba(255,255,255,0.35)] hover:text-[rgba(255,255,255,0.85)]"
+      }`}
+      style={{
+        background: active
+          ? "color-mix(in srgb, var(--accent-teal) 12%, transparent)"
+          : "transparent",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+function ConnectionsIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <circle cx="5" cy="5" r="2" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="13" cy="5" r="2" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="5" cy="13" r="2" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="13" cy="13" r="2" stroke="currentColor" strokeWidth="1.5" />
+      <line x1="7" y1="5" x2="11" y2="5" stroke="currentColor" strokeWidth="1.2" />
+      <line x1="5" y1="7" x2="5" y2="11" stroke="currentColor" strokeWidth="1.2" />
+      <line x1="13" y1="7" x2="13" y2="11" stroke="currentColor" strokeWidth="1.2" />
+      <line x1="7" y1="13" x2="11" y2="13" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+function CommandeurIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <text
+        x="9"
+        y="12"
+        textAnchor="middle"
+        fontSize="9"
+        fontFamily="ui-monospace, monospace"
+        fill="currentColor"
+      >
+        ⌘
+      </text>
+    </svg>
+  );
+}
+
+// ── Composant principal ──────────────────────────────────────────────
+
 export function LeftRail() {
-  const activeMode = useStageStore((s) => s.current.mode);
-  const lastAssetId = useStageStore((s) => s.lastAssetId);
-  const lastMissionId = useStageStore((s) => s.lastMissionId);
-  const setMode = useStageStore((s) => s.setMode);
+  const router = useRouter();
+  const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
+  const commandeurOpen = useStageStore((s) => s.commandeurOpen);
 
   return (
-    <aside aria-label="Navigation principale" className="relative z-20 h-full w-[88px] shrink-0">
-      <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center gap-3 border-y-0 border-l-0 py-8">
-        {/* Brand logo */}
-        <div className="mb-6 flex size-8 items-center justify-center" aria-hidden>
+    <aside aria-label="Navigation secondaire" className="relative z-20 h-full w-[88px] shrink-0">
+      <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center border-y-0 border-l-0 py-6">
+        {/* Brand logo — présence système */}
+        <div className="mb-4 flex size-8 items-center justify-center" aria-hidden>
           <img src="/hearst-h.svg" alt="" className="size-7 opacity-90" />
         </div>
 
-        {LEFT_RAIL_ORDER.map((key) => {
-          const active = activeMode === key;
-          const def = STAGE_REGISTRY[key];
-          const label = def.hotkey ? `${def.label} (${def.hotkey})` : def.label;
-          return (
-            <motion.button
-              whileTap={{ scale: 0.92 }}
-              key={key}
-              type="button"
-              onClick={() => setMode(buildPayload(key, lastAssetId, lastMissionId))}
-              aria-label={label}
-              aria-current={active ? "page" : undefined}
-              title={label}
-              className={`group relative flex size-14 items-center justify-center rounded-xl transition-all duration-200 ${
-                active
-                  ? "vision-btn-glass z-10 text-white"
-                  : "text-[rgba(255,255,255,0.45)] hover:bg-[rgba(255,255,255,0.06)] hover:text-white"
-              }`}
-            >
-              <StageIcon stage={key} active={active} />
-            </motion.button>
-          );
-        })}
+        {/* Raccourcis secondaires — uniquement routes/actions réelles */}
+        <div className="flex flex-col items-center" style={{ gap: "var(--space-2)" }}>
+          <SecondaryButton
+            label="Connexions"
+            hint="Apps et services connectés"
+            onClick={() => router.push("/connections")}
+          >
+            <ConnectionsIcon />
+          </SecondaryButton>
+
+          <SecondaryButton
+            label="Commandeur"
+            hint="Recherche et actions (⌘K)"
+            active={commandeurOpen}
+            onClick={() => setCommandeurOpen(true)}
+          >
+            <CommandeurIcon />
+          </SecondaryButton>
+        </div>
 
         <div className="flex-1" />
 
-        {/* Avatar bottom */}
-        <div className="mt-4">
+        {/* Avatar — session utilisateur */}
+        <div className="mt-2">
           <UserAvatar />
         </div>
       </div>

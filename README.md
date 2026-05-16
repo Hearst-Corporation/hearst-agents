@@ -88,7 +88,17 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 **Pivot 2026-04-29 — Cockpit polymorphe.** L'app n'est plus chat-first à plat : c'est un cockpit dont la surface centrale (Stage) commute entre 11 modes (`stores/stage.ts`). L'agent orchestrateur reste le point d'entrée — l'utilisateur parle, l'agent ouvre/ferme les Stages dynamiquement. Pas de navigation GUI sur la première page.
 
-- **Shell 3 colonnes** — `LeftRail` (mémoire / threads) / `Stage` central polymorphe / `RightRail` (ContextRail dont les sections changent **par Stage actif**, pas universelles).
+**Pivot 2026-05-16 — Factory Cockpit (hiérarchie nav).** La barre gauche ne porte plus les 12 stages comme menu principal. Hiérarchie nouvelle :
+
+- **Footer flottant = navigation PRIMAIRE** ([`StageFooter`](<./app/(user)/components/_shell/StageFooter.tsx>)) — pill glass 3 zones :
+  - Gauche : statut agent (« Prêt » / « Run en cours » / « Erreur ») lu sur `useChatStageStore.runState`.
+  - Centre : Dashboard (`mode: "cockpit"`), Chat (`mode: "chat"`), Mission (`mode: "mission", missionId: lastMissionId ?? ""`).
+  - Droite : Commandeur (`setCommandeurOpen(true)`) + chip Date informatif non cliquable (pas de fausse route agenda).
+- **LeftRail = navigation SECONDAIRE** ([`LeftRail`](<./app/(user)/_shell/LeftRail.tsx>)) — discrète, 88px, glass : logo Hearst, raccourcis vers routes/actions RÉELLES uniquement (Connexions `/connections`, Commandeur), avatar/session en bas. Aucun bouton vers une route inexistante.
+- **MobileBottomNav** ([`MobileBottomNav`](<./app/(user)/components/MobileBottomNav.tsx>)) — `md:hidden`, 5 items alignés sur le dock desktop : Dashboard / Chat / **Mission (central)** / Commandeur / Connexions.
+- **Accès expert aux 12 stages** : hotkeys ⌘1..⌘9 + ⌘0 (cf. [`app/hooks/use-global-hotkeys.ts`](app/hooks/use-global-hotkeys.ts)), Commandeur (⌘K) qui expose le registry complet, ou l'agent orchestrateur via tool calls.
+
+- **Shell 3 colonnes** — `LeftRail` (présence système + raccourcis secondaires) / `Stage` central polymorphe / `RightRail` (ContextRail dont les sections changent **par Stage actif**, pas universelles).
 - **Stage central** (`stores/stage.ts`, `StageMode`) — 11 modes : `cockpit` (briefing du jour, agenda, missions, KPIs), `chat`, `asset` / `asset_compare`, `mission`, `browser` (session Browserbase live), `meeting` (bot + transcript), `kg` (Knowledge Graph), `voice` (overlay WebRTC), `simulation` (DeepSeek), `artifact` (code/E2B), `signal` (Signal Board ambient).
 - **Commutation Stage** — Cmd+K (Commandeur), hotkeys Cmd+1..9 (mapping dans `stores/stage.ts`), ou via l'agent qui pousse un payload Stage en réponse à l'intention utilisateur.
 - **RightRail / ContextRail** (`RightPanel`) — Structure fixe **par Stage**, pas universelle. Architecture v2 : 4 strates empilées + navigation tuiles. Voir section RightPanel Structure ci-dessous.
