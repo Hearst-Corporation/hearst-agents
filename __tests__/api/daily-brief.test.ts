@@ -103,13 +103,11 @@ describe("POST /api/v2/daily-brief/generate", () => {
     expect(payload.trigger).toBe("manual");
   });
 
-  it("ignore targetDate invalide et utilise aujourd'hui", async () => {
+  it("rejette targetDate invalide avec 400", async () => {
     const { POST } = await import("@/app/api/v2/daily-brief/generate/route");
-    await POST(makeReq("http://localhost/x", { targetDate: "not-a-date" }));
-    const today = new Date().toISOString().slice(0, 10);
-    expect(mocks.loadDailyBriefForDate).toHaveBeenCalledWith(
-      expect.objectContaining({ targetDate: today }),
-    );
+    const res = await POST(makeReq("http://localhost/x", { targetDate: "not-a-date" }));
+    expect(res.status).toBe(400);
+    expect(mocks.loadDailyBriefForDate).not.toHaveBeenCalled();
   });
 });
 

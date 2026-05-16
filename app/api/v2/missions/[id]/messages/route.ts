@@ -22,8 +22,8 @@ import { requireScope } from "@/lib/platform/auth/scope";
 
 const missionMessageBodySchema = z
   .object({
-    content: z.string().min(1).max(10_000),
-    role: z.enum(["user", "system"]).optional().default("user"),
+    content: z.string().trim().min(1).max(10_000),
+    role: z.enum(["user", "system", "assistant"]).optional().default("user"),
   })
   .strict();
 
@@ -96,7 +96,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     );
   }
 
-  const { content, role } = parsed.data;
+  const { content } = parsed.data;
+  const role = parsed.data.role === "assistant" ? "user" : parsed.data.role;
 
   const message = await appendMissionMessage({
     missionId: id,

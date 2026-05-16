@@ -35,7 +35,7 @@ describe("POST /api/v2/workflows/preview", () => {
     const res = await POST(makeRequest({}) as never);
     expect(res.status).toBe(400);
     const data = await res.json();
-    expect(data.error).toBe("graph_required");
+    expect(data.error).toBe("invalid_body");
   });
 
   it("retourne 400 si graph invalide", async () => {

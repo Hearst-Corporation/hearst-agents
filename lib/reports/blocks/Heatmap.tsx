@@ -129,6 +129,7 @@ export function Heatmap({
                     return (
                       <td
                         key={`cell-${yi}-${xi}`}
+                        role="cell"
                         aria-label={`${yl} ${xLabels[xi]}: ${display}`}
                         className="t-9 font-mono tabular-nums"
                         style={{
