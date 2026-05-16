@@ -108,7 +108,8 @@ describe("getApplicableReports — routing par statut", () => {
   it("toutes les apps du Founder Cockpit → status=ready", () => {
     const entry = CATALOG.find((c) => c.id === FOUNDER_COCKPIT_ID);
     expect(entry).toBeDefined();
-    const allApps = [...entry?.requiredApps];
+    expect(entry?.requiredApps).toBeDefined();
+    const allApps = [...entry!.requiredApps];
     const reports = getApplicableReports(allApps);
     const cockpit = reports.find((r) => r.id === FOUNDER_COCKPIT_ID);
     expect(cockpit).toBeDefined();
@@ -119,8 +120,9 @@ describe("getApplicableReports — routing par statut", () => {
   it("apps partiellement connectées → status=partial + missingApps non vide", () => {
     const entry = CATALOG.find((c) => c.id === ENGINEERING_VELOCITY_ID);
     expect(entry).toBeDefined();
+    expect(entry?.requiredApps).toBeDefined();
     // On connecte seulement la première app
-    const partialApps = entry?.requiredApps.length > 1 ? [entry?.requiredApps[0]] : [];
+    const partialApps = entry!.requiredApps.length > 1 ? [entry!.requiredApps[0]] : [];
     if (partialApps.length === 0) return; // entry a 0 ou 1 app requise — skip
     const reports = getApplicableReports(partialApps);
     const eng = reports.find((r) => r.id === ENGINEERING_VELOCITY_ID);

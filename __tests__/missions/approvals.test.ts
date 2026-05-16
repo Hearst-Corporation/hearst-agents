@@ -312,7 +312,8 @@ describe("verifyApprovalToken", () => {
     const text = call.text as string;
     const match = text.match(/\/public\/approvals\/([^?\s]+)/);
     expect(match).toBeTruthy();
-    const token = decodeURIComponent(match?.[1]);
+    expect(match?.[1]).toBeDefined();
+    const token = decodeURIComponent(match![1]);
 
     const result = verifyApprovalToken(token);
     expect(result.ok).toBe(true);
@@ -335,7 +336,9 @@ describe("verifyApprovalToken", () => {
       mode: "all",
     });
     const text = emailMocks.sendTransactionalEmail.mock.calls[0][0].text as string;
-    const token = decodeURIComponent(text.match(/\/public\/approvals\/([^?\s]+)/)?.[1]);
+    const match = text.match(/\/public\/approvals\/([^?\s]+)/);
+    expect(match?.[1]).toBeDefined();
+    const token = decodeURIComponent(match![1]);
     // Tamper la signature : flip un char en milieu de la 2e partie.
     const [payload, sig] = token.split(".");
     const tampered = `${payload}.${sig.slice(0, -2)}AA`;
@@ -376,7 +379,9 @@ async function setupSession(approvers: string[], mode: "all" | "any" | "majority
   expect(result.ok).toBe(true);
   const tokens = emailMocks.sendTransactionalEmail.mock.calls.map((c) => {
     const text = c[0].text as string;
-    return decodeURIComponent(text.match(/\/public\/approvals\/([^?\s]+)/)?.[1]);
+    const match = text.match(/\/public\/approvals\/([^?\s]+)/);
+    if (!match?.[1]) throw new Error("Token not found in email");
+    return decodeURIComponent(match[1]);
   });
   return { tokens, sessionId: result.sessionId! };
 }

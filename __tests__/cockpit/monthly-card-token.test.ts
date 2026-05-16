@@ -78,7 +78,8 @@ describe("signCardToken / verifyCardToken", () => {
       yearMonth: YEAR_MONTH,
       mode: "public",
     });
-    const result = verifyCardToken(signed?.token);
+    expect(signed).not.toBeNull();
+    const result = verifyCardToken(signed!.token);
 
     expect(result.ok).toBe(true);
     if (result.ok) {
@@ -94,8 +95,10 @@ describe("signCardToken / verifyCardToken", () => {
       yearMonth: YEAR_MONTH,
       mode: "public",
     });
+    expect(signed).not.toBeNull();
     // Tamper : flip le dernier caractère de la signature.
-    const parts = signed?.token.split(".");
+    const parts = signed!.token.split(".");
+    expect(parts.length).toBe(2);
     const lastChar = parts[1].slice(-1);
     const altered = parts[1].slice(0, -1) + (lastChar === "A" ? "B" : "A");
     const tampered = `${parts[0]}.${altered}`;
@@ -116,7 +119,8 @@ describe("signCardToken / verifyCardToken", () => {
       ttlHours: 1,
       now: oneHourAgo,
     });
-    const result = verifyCardToken(signed?.token);
+    expect(signed).not.toBeNull();
+    const result = verifyCardToken(signed!.token);
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
@@ -143,7 +147,9 @@ describe("signCardToken / verifyCardToken", () => {
       yearMonth: YEAR_MONTH,
       mode: "public",
     });
-    const parts = signed?.token.split(".");
+    expect(signed).not.toBeNull();
+    const parts = signed!.token.split(".");
+    expect(parts.length).toBe(2);
     // Inverser le case du premier byte du payload (B64 reste valide)
     const head = parts[0].charCodeAt(0);
     const swapped = String.fromCharCode(head ^ 1) + parts[0].slice(1);
@@ -162,7 +168,7 @@ describe("signCardToken / verifyCardToken", () => {
       mode: "public",
     });
     expect(signed).not.toBeNull();
-    const result = verifyCardToken(signed?.token);
+    const result = verifyCardToken(signed!.token);
     expect(result.ok).toBe(true);
   });
 });

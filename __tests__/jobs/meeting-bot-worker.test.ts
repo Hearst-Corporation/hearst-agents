@@ -85,15 +85,16 @@ describe("worker meeting-bot — finalisation", () => {
     const detail = await getTranscript("bot-1");
     const items = await extractActionItems(detail.transcript);
     const existing = await loadAssetById("bot-1");
+    expect(existing).toBeDefined();
 
     await storeAsset({
       id: "bot-1",
-      threadId: existing?.threadId,
+      threadId: existing!.threadId,
       kind: "event",
-      title: existing?.title,
+      title: existing!.title,
       summary: `Réunion terminée · ${items.length} action items`,
-      createdAt: existing?.createdAt,
-      provenance: existing?.provenance,
+      createdAt: existing!.createdAt,
+      provenance: existing!.provenance,
       contentRef: JSON.stringify({
         status: "done",
         transcript: detail.transcript,

@@ -13,8 +13,9 @@ describe("hospitality workflow templates", () => {
   it("guest-arrival-prep est valide via validateGraph", () => {
     const tpl = getTemplateById("hospitality-guest-arrival-prep");
     expect(tpl).toBeDefined();
-    const graph = tpl?.build();
-    const result = validateGraph(graph);
+    const graph = tpl!.build();
+    expect(graph).toBeDefined();
+    const result = validateGraph(graph!);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
@@ -22,8 +23,9 @@ describe("hospitality workflow templates", () => {
   it("service-request-dispatch est valide via validateGraph", () => {
     const tpl = getTemplateById("hospitality-service-request-dispatch");
     expect(tpl).toBeDefined();
-    const graph = tpl?.build();
-    const result = validateGraph(graph);
+    const graph = tpl!.build();
+    expect(graph).toBeDefined();
+    const result = validateGraph(graph!);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
@@ -43,17 +45,23 @@ describe("hospitality workflow templates", () => {
   });
 
   it("guest-arrival-prep contient bien un node approval + start cron", () => {
-    const graph = getTemplateById("hospitality-guest-arrival-prep")?.build();
-    const kinds = graph.nodes.map((n) => n.kind);
+    const tpl = getTemplateById("hospitality-guest-arrival-prep");
+    expect(tpl).toBeDefined();
+    const graph = tpl!.build();
+    expect(graph).toBeDefined();
+    const kinds = graph!.nodes.map((n) => n.kind);
     expect(kinds).toContain("approval");
-    expect(graph.nodes.find((n) => n.id === graph.startNodeId)?.kind).toBe("trigger");
+    expect(graph!.nodes.find((n) => n.id === graph!.startNodeId)?.kind).toBe("trigger");
   });
 
   it("service-request-dispatch branche urgent/normal via condition", () => {
-    const graph = getTemplateById("hospitality-service-request-dispatch")?.build();
-    const cond = graph.nodes.find((n) => n.kind === "condition");
+    const tpl = getTemplateById("hospitality-service-request-dispatch");
+    expect(tpl).toBeDefined();
+    const graph = tpl!.build();
+    expect(graph).toBeDefined();
+    const cond = graph!.nodes.find((n) => n.kind === "condition");
     expect(cond).toBeDefined();
-    const branches = graph.edges.filter((e) => e.source === cond?.id);
+    const branches = graph!.edges.filter((e) => e.source === cond?.id);
     expect(branches.length).toBeGreaterThanOrEqual(2);
     const conditions = branches.map((b) => b.condition).sort();
     expect(conditions).toContain("true");

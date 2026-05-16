@@ -35,7 +35,8 @@ describe("mapFocalObject", () => {
     const after = Date.now();
 
     expect(result?.id).toMatch(/^focal-\d+$/);
-    const ts = parseInt(result?.id.replace("focal-", ""), 10);
+    expect(result?.id).toBeDefined();
+    const ts = parseInt(result!.id.replace("focal-", ""), 10);
     expect(ts).toBeGreaterThanOrEqual(before);
     expect(ts).toBeLessThanOrEqual(after);
   });

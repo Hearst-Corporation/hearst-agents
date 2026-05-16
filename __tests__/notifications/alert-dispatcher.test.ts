@@ -296,7 +296,11 @@ describe("dispatchAlerts — webhook payload shape", () => {
     });
 
     expect(captured).not.toBeNull();
-    const body = captured?.body as {
+    if (!captured) {
+      throw new Error("captured should not be null");
+    }
+    const { body: rawBody } = captured;
+    const body = rawBody as {
       v: number;
       tenantId: string;
       emittedAt: number;
