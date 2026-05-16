@@ -10,7 +10,7 @@
  * être passé tel quel au PDF renderer (4 sections numérotées).
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { DAILY_BRIEF_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import type { DailyBriefData, DailyBriefNarration } from "./types";
@@ -207,39 +207,34 @@ function fallbackNarration(d: DailyBriefData): Omit<DailyBriefNarration, "costUs
 export async function generateDailyBriefNarration(
   data: DailyBriefData,
 ): Promise<DailyBriefNarration> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) {
     return { ...fallbackNarration(data), costUsd: 0 };
   }
 
-  const anthropic = new Anthropic({ apiKey });
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
 
   try {
-    const res = await anthropic.messages.create({
-      model: "claude-sonnet-4-6",
+    const res = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 1200,
-      system: [
-        {
-          type: "text" as const,
-          text: DAILY_BRIEF_SYSTEM_PROMPT,
-          cache_control: { type: "ephemeral" as const },
-        },
+      messages: [
+        { role: "system", content: DAILY_BRIEF_SYSTEM_PROMPT },
+        { role: "user", content: buildUserMessage(data) },
       ],
-      messages: [{ role: "user", content: buildUserMessage(data) }],
     });
 
-    const block = res.content[0];
-    const text = block?.type === "text" ? block.text : "";
+    const text = res.choices[0]?.message?.content ?? "";
     const parsed = safeParseNarration(text);
     if (!parsed) {
       console.warn("[daily-brief/generate] narration JSON invalide — fallback déterministe");
       return { ...fallbackNarration(data), costUsd: 0 };
     }
 
-    // Coût estimé (Sonnet 4.6 : ~3$/M input, 15$/M output, prompt cache écono ~80%)
-    const usage = res.usage ?? { input_tokens: 0, output_tokens: 0 };
-    const inputCost = (usage.input_tokens * 3) / 1_000_000;
-    const outputCost = (usage.output_tokens * 15) / 1_000_000;
+    // Coût estimé (kimi-k2.5 : ~3$/M input, 15$/M output)
+    const usage = res.usage ?? { prompt_tokens: 0, completion_tokens: 0 };
+    const inputCost = (usage.prompt_tokens * 3) / 1_000_000;
+    const outputCost = (usage.completion_tokens * 15) / 1_000_000;
     const costUsd = inputCost + outputCost;
 
     return { ...parsed, costUsd };

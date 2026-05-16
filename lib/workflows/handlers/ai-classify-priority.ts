@@ -1,20 +1,20 @@
 /**
  * Handler `ai_classify_priority` — classification rapide d'une service request
- * en priorité {urgent | normal | low} via Claude Haiku.
+ * en priorité {urgent | normal | low} via Kimi.
  *
  * Args :
  *  - text: string
  *  - type?: string
  *  - categories?: string[]  (default ["urgent", "normal", "low"])
- *  - model?: string  (default "claude-haiku-4-5-20251001")
+ *  - model?: string  (default "kimi-k2.5")
  *
  * Sortie :
  *  { priority: "urgent" | "normal" | "low", reasoning?: string }
  *
- * Sans clé Anthropic → priority = "normal" + degraded.
+ * Sans clé Kimi → priority = "normal" + degraded.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import type { WorkflowHandler } from "./types";
 
 const DEFAULT_CATEGORIES = ["urgent", "normal", "low"] as const;
@@ -52,17 +52,19 @@ export const aiClassifyPriority: WorkflowHandler = async (args) => {
     };
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  const apiKey = process.env.KIMI_API_KEY;
+  if (!apiKey) {
     return {
       success: true,
-      output: { priority: "normal" as Priority, degraded: true, reason: "no_anthropic_key" },
+      output: { priority: "normal" as Priority, degraded: true, reason: "no_kimi_key" },
     };
   }
 
-  const model = typeof args.model === "string" ? args.model : "claude-haiku-4-5-20251001";
+  const rawModel = typeof args.model === "string" ? args.model : "kimi-k2.5";
+  const model = rawModel.startsWith("claude-") ? "kimi-k2.5" : rawModel;
 
   try {
-    const client = new Anthropic();
+    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
     const userPrompt = [
       `Type : ${type ?? "(non précisé)"}`,
       "",
@@ -70,14 +72,16 @@ export const aiClassifyPriority: WorkflowHandler = async (args) => {
       text,
     ].join("\n");
 
-    const msg = await client.messages.create({
+    const msg = await client.chat.completions.create({
       model,
       max_tokens: 200,
-      system: SYSTEM,
-      messages: [{ role: "user", content: userPrompt }],
+      messages: [
+        { role: "system", content: SYSTEM },
+        { role: "user", content: userPrompt },
+      ],
     });
 
-    const out = msg.content[0]?.type === "text" ? msg.content[0].text.trim() : "";
+    const out = msg.choices[0]?.message?.content?.trim() ?? "";
     const m = out.match(/\{[\s\S]*\}/);
     if (!m) {
       return {

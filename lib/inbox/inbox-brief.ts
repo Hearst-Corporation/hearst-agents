@@ -16,7 +16,7 @@
  * Calendar : tool natif Google.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { executeComposioAction, isComposioConfigured } from "@/lib/connectors/composio/client";
 import { getTodayEvents } from "@/lib/connectors/google/calendar";
 import { getRecentEmails } from "@/lib/connectors/google/gmail";
@@ -85,7 +85,7 @@ export interface InboxBrief {
 }
 
 const MAX_ITEMS = 10;
-const HAIKU_MODEL = "claude-haiku-4-5-20251001";
+const HAIKU_MODEL = "kimi-k2.5";
 const TRUNCATE_SUMMARY = 80;
 
 interface RawEmail {
@@ -200,7 +200,7 @@ interface ClassifiedItem {
 }
 
 async function classifyBatch(items: InboxItem[]): Promise<Map<string, ClassifiedItem>> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey || items.length === 0) return new Map();
 
   // Construit un payload compact : id + kind + title + extrait
@@ -211,13 +211,13 @@ async function classifyBatch(items: InboxItem[]): Promise<Map<string, Classified
     excerpt: it.summary.slice(0, 200),
   }));
 
-  const anthropic = new Anthropic({ apiKey });
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
   try {
-    const res = await anthropic.messages.create({
+    const res = await client.chat.completions.create({
       model: HAIKU_MODEL,
       max_tokens: 1500,
-      system: INBOX_PRIORITY_SYSTEM_PROMPT,
       messages: [
+        { role: "system", content: INBOX_PRIORITY_SYSTEM_PROMPT },
         {
           role: "user",
           content: [
@@ -230,8 +230,7 @@ async function classifyBatch(items: InboxItem[]): Promise<Map<string, Classified
       ],
     });
 
-    const block = res.content[0];
-    const text = block.type === "text" ? block.text : "";
+    const text = res.choices[0]?.message?.content ?? "";
     const match = text.match(/\[[\s\S]*\]/);
     if (!match) return new Map();
 

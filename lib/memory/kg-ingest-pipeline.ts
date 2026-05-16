@@ -12,7 +12,7 @@
  */
 
 import { upsertEmbedding } from "@/lib/embeddings/store";
-import { extractEntities, upsertEdge, upsertNode } from "./kg";
+import { extractEntities, sanitizeKgLabel, upsertEdge, upsertNode } from "./kg";
 import { __clearKgContextCache } from "./kg-context";
 import { buildNodeExcerpt } from "./kg-excerpt";
 
@@ -102,11 +102,18 @@ export async function ingestConversationTurn(input: IngestTurnInput): Promise<In
     const sourceId = idByLabel.get(relation.source_label);
     const targetId = idByLabel.get(relation.target_label);
     if (!sourceId || !targetId) continue;
+    const safeEdgeType = sanitizeKgLabel(relation.type);
+    if (!safeEdgeType) {
+      console.warn(
+        `[kg-ingest-pipeline] edge type rejeté (sanitize vide) pour ${relation.source_label} → ${relation.target_label}`,
+      );
+      continue;
+    }
     try {
       await upsertEdge(scope, {
         source_id: sourceId,
         target_id: targetId,
-        type: relation.type,
+        type: safeEdgeType,
         weight: relation.weight,
       });
       edgesCreated += 1;

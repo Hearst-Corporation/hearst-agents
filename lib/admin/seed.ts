@@ -34,8 +34,8 @@ const AGENTS = [
     name: "Email Assistant",
     description:
       "Triage Gmail, suggère des réponses, met en forme les drafts. Travaille en mode preview-then-confirm sur les write actions.",
-    model_provider: "anthropic",
-    model_name: "claude-sonnet-4-6",
+    model_provider: "kimi",
+    model_name: "kimi-k2.5",
     system_prompt:
       "Tu es l'assistant email d'Adrien. Tu lis Gmail, tu rédiges des réponses dans son style (concis, direct, français pro), et tu utilises le pattern preview/confirm pour tout envoi.",
     temperature: 0.3,
@@ -49,8 +49,8 @@ const AGENTS = [
     name: "Calendar Keeper",
     description:
       "Surveille Google Calendar, propose des slots, anticipe les conflits, prépare les briefs avant chaque meeting.",
-    model_provider: "anthropic",
-    model_name: "claude-sonnet-4-6",
+    model_provider: "kimi",
+    model_name: "kimi-k2.5",
     system_prompt:
       "Tu es le gardien d'agenda. Tu connais les contraintes d'Adrien (focus du matin, pas de meetings le vendredi PM) et tu protèges son temps.",
     temperature: 0.2,
@@ -64,8 +64,8 @@ const AGENTS = [
     name: "Research Analyst",
     description:
       "Branche déterministe pour les requêtes recherche / rapport. Web search → structuration → asset PDF.",
-    model_provider: "anthropic",
-    model_name: "claude-sonnet-4-6",
+    model_provider: "kimi",
+    model_name: "kimi-k2.5",
     system_prompt:
       "Tu produis des rapports factuels, sourcés, structurés. Format brief (300 mots) ou report (1500+) selon la demande.",
     temperature: 0.3,
@@ -79,8 +79,8 @@ const AGENTS = [
     name: "Slack Replier",
     description:
       "Lit les threads Slack, propose des réponses dans le ton de la conversation, alerte sur les mentions critiques.",
-    model_provider: "anthropic",
-    model_name: "claude-sonnet-4-6",
+    model_provider: "kimi",
+    model_name: "kimi-k2.5",
     system_prompt:
       "Tu réponds dans Slack en respectant la culture de chaque channel. Sois bref dans #ops, plus pédagogique dans #product.",
     temperature: 0.4,

@@ -115,7 +115,9 @@ const ARCJET_PROTECTED_PATHS = [
 // Quota strict via ajLlmJobs (20 req/min/user+IP). Les routes de polling
 // (ex: /api/v2/jobs/[jobId]/status) restent sur `aj` (100 req/min/IP).
 // Fix 1 : video-gen (~$0.50/run via Runway/HeyGen) ajouté au même quota.
+// Fix F-098 : /api/agents/[id]/chat est un appel LLM direct, même sans smart-routing.
 export const ARCJET_LLM_JOB_PATHS = [
+  "/api/agents",
   "/api/v2/jobs/code-exec",
   "/api/v2/jobs/image-gen",
   "/api/v2/jobs/audio-gen",
@@ -238,15 +240,17 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   }
 
   if (path.startsWith("/api/")) {
-    // 2. CSRF Origin check (F-052) — avant d'accepter la requête
-    if (!isCsrfSafe(req)) {
-      console.warn(`[Proxy] CSRF origin mismatch — ${req.method} ${path}`);
-      return NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 });
-    }
-
+    // 2. Dev bypass check (F-NEW-P8-02) — d'abord, pour UX dev sans NEXTAUTH_URL.
+    // isDevBypass() inclut un guard isProductionLike() qui refuse en prod.
     if (isDevBypass()) {
       console.log(`[Proxy] Dev bypass active — ${path}`);
       return NextResponse.next();
+    }
+
+    // 3. CSRF Origin check (F-052) — après dev bypass (dev local peut skip).
+    if (!isCsrfSafe(req)) {
+      console.warn(`[Proxy] CSRF origin mismatch — ${req.method} ${path}`);
+      return NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 });
     }
 
     if (hasValidApiKey(req)) {

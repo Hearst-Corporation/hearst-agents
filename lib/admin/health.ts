@@ -216,13 +216,13 @@ async function checkLLMHealth(): Promise<{
   const start = Date.now();
 
   try {
-    // Check Anthropic API (primary provider)
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    // Check Kimi API (primary provider)
+    const apiKey = process.env.KIMI_API_KEY;
     if (!apiKey) {
       return {
         ok: false,
         latencyMs: 0,
-        error: "ANTHROPIC_API_KEY not configured",
+        error: "KIMI_API_KEY not configured",
       };
     }
 
@@ -233,7 +233,7 @@ async function checkLLMHealth(): Promise<{
       return {
         ok: false,
         latencyMs: 0,
-        error: "Invalid ANTHROPIC_API_KEY format",
+        error: "Invalid KIMI_API_KEY format",
       };
     }
 
@@ -410,14 +410,13 @@ function notConfigured(name: string, category: ServiceCategory): ServiceCheck {
 // Reproduction adaptée de scripts/health-check.ts. NE PAS toucher au script
 // CLI : il reste la vérité source pour `npm run health`.
 
-async function checkAnthropic(): Promise<ServiceCheck> {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) return notConfigured("Anthropic", "llm");
-  const res = await timedFetch("https://api.anthropic.com/v1/models", {
-    "x-api-key": key,
-    "anthropic-version": "2023-06-01",
+async function checkKimi(): Promise<ServiceCheck> {
+  const key = process.env.KIMI_API_KEY;
+  if (!key) return notConfigured("Kimi", "llm");
+  const res = await timedFetch("https://api.hypercli.com/v1/models", {
+    Authorization: `Bearer ${key}`,
   });
-  return fromHttp("Anthropic", "llm", res, { okMessage: "models endpoint" });
+  return fromHttp("Kimi", "llm", res, { okMessage: "models endpoint" });
 }
 
 async function checkOpenAI(): Promise<ServiceCheck> {
@@ -764,7 +763,7 @@ async function checkComposio(): Promise<ServiceCheck> {
  */
 const SERVICE_CHECKS: Array<() => Promise<ServiceCheck>> = [
   // LLM
-  checkAnthropic,
+  checkKimi,
   checkOpenAI,
   checkGemini,
   checkDeepseek,

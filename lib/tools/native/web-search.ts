@@ -19,6 +19,10 @@ interface WebSearchArgs {
   query: string;
 }
 
+interface WebSearchToolsOpts {
+  tenantId?: string;
+}
+
 function formatResult(
   query: string,
   summary: string,
@@ -52,7 +56,7 @@ function formatResult(
   return lines.join("\n");
 }
 
-export function buildWebSearchTools(): AiToolMap {
+export function buildWebSearchTools(opts?: WebSearchToolsOpts): AiToolMap {
   const webSearchTool: Tool<WebSearchArgs, string> = {
     description:
       "Recherche d'informations éditoriales sur le web (actualités, faits, définitions, météo, contexte général). " +
@@ -74,7 +78,7 @@ export function buildWebSearchTools(): AiToolMap {
     }),
     execute: async (args) => {
       try {
-        const result = await searchWeb(args.query);
+        const result = await searchWeb(args.query, { tenantId: opts?.tenantId });
         if (result.error === "search_unavailable") {
           return "Recherche web indisponible (les 3 providers ont échoué). Réessaie plus tard ou reformule la requête.";
         }

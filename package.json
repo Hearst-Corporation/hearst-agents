@@ -37,7 +37,7 @@
     "validate:full": "npm run validate && npm run test:e2e:ci",
     "deadcode": "knip",
     "circular": "madge --circular --extensions ts,tsx app lib",
-    "audit:deps": "npm audit --omit=dev --audit-level=high",
+    "audit:deps": "pnpm audit --prod --audit-level=high",
     "routes:list": "node scripts/list-api-routes.mjs > docs/api-routes.md",
     "stores:list": "node scripts/list-stores.mjs > docs/stores.md",
     "doctor": "npm run typecheck && npm run lint && npm run audit:deps",

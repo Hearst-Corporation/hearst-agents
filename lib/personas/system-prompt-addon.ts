@@ -34,6 +34,24 @@ const INJECTION_PATTERNS = [
 ];
 
 /**
+ * Nettoie un champ texte de persona (description, tone, styleGuide) avant
+ * injection dans le bloc <persona>. Contrairement à sanitizeAddon, ne rejette
+ * pas le champ entier — strip uniquement les sous-chaînes dangereuses pour
+ * éviter les break-outs XML et les injections de balises système.
+ * - Retire les caractères de contrôle (hors \n et \t)
+ * - Strip les patterns d'injection (remplacés par "")
+ * - Cap à 500 chars (les champs courts n'ont pas besoin de plus)
+ */
+function sanitizeTextField(raw: string, cap = 500): string {
+  const stripped = raw.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x80-\x9F]/g, "");
+  let safe = stripped;
+  for (const pattern of INJECTION_PATTERNS) {
+    safe = safe.replace(pattern, "");
+  }
+  return safe.trim().slice(0, cap);
+}
+
+/**
  * Nettoie un systemPromptAddon avant injection dans le system prompt.
  * - Retire les caractères de contrôle (hors \n et \t)
  * - Echappe les balises XML dangereuses residuelles
@@ -65,10 +83,16 @@ export function buildPersonaAddon(persona: Persona): string {
   const lines: string[] = [];
   lines.push(`Persona active : ${persona.name}.`);
   if (persona.description?.trim()) {
-    lines.push(persona.description.trim());
+    const safeDescription = sanitizeTextField(persona.description.trim());
+    if (safeDescription) {
+      lines.push(safeDescription);
+    }
   }
   if (persona.tone) {
-    lines.push(`Ton : ${persona.tone}.`);
+    const safeTone = sanitizeTextField(persona.tone, 200);
+    if (safeTone) {
+      lines.push(`Ton : ${safeTone}.`);
+    }
   }
   const preferred = joinList(persona.vocabulary?.preferred);
   if (preferred) {
@@ -79,7 +103,10 @@ export function buildPersonaAddon(persona: Persona): string {
     lines.push(`À éviter : ${avoid}.`);
   }
   if (persona.styleGuide?.trim()) {
-    lines.push(`Style guide : ${persona.styleGuide.trim()}`);
+    const safeStyleGuide = sanitizeTextField(persona.styleGuide.trim());
+    if (safeStyleGuide) {
+      lines.push(`Style guide : ${safeStyleGuide}`);
+    }
   }
   if (persona.systemPromptAddon?.trim()) {
     const sanitized = sanitizeAddon(persona.systemPromptAddon.trim());

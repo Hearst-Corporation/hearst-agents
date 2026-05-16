@@ -3,7 +3,7 @@
  * pour la génération vidéo (Runway, principalement).
  *
  * Contrairement à `fal-prompt-enricher` (heuristique stylistique pour images
- * Flux), cet enricher utilise Claude Haiku pour réécrire le prompt brut en
+ * Flux), cet enricher utilise Kimi pour réécrire le prompt brut en
  * direction cinématographique : palette, mouvement caméra, lumière, ambiance,
  * focale, format. Runway répond beaucoup mieux à un prompt structuré
  * "shot description" qu'à une description plate.
@@ -15,12 +15,12 @@
  * Le `diff` est un tableau de fragments ajoutés par l'enrichisseur, surface
  * pour l'UI qui veut afficher un highlight type "delta" inline.
  *
- * Fallback : si l'API Anthropic est indisponible (pas de clé, erreur réseau),
+ * Fallback : si l'API Kimi est indisponible (pas de clé, erreur réseau),
  * on retombe sur un enrichissement heuristique léger pour ne pas bloquer la
  * génération vidéo.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
 export interface VideoPromptEnrichment {
   /** Prompt enrichi prêt à envoyer à Runway. */
@@ -30,7 +30,7 @@ export interface VideoPromptEnrichment {
   diff: string[];
 }
 
-const HAIKU_MODEL = "claude-haiku-4-5-20251001";
+const HAIKU_MODEL = "kimi-k2.5";
 
 const SYSTEM_PROMPT = [
   "Tu es un directeur photo qui réécrit des prompts vidéo pour le modèle Runway Gen-3.",
@@ -51,7 +51,7 @@ const HEURISTIC_SUFFIX =
   "cinematic lighting, anamorphic lens, smooth camera movement, shallow depth of field, golden hour, 35mm film grain";
 
 /**
- * Enrichit un prompt vidéo brut. Tente Claude Haiku, retombe sur heuristique.
+ * Enrichit un prompt vidéo brut. Tente Kimi, retombe sur heuristique.
  *
  * Provider-agnostique : le module ne dépend pas de Runway directement, on
  * pourra le réutiliser pour HeyGen / Veo si besoin (mêmes principes
@@ -63,18 +63,18 @@ export async function enrichVideoPrompt(rawPrompt: string): Promise<VideoPromptE
     throw new Error("[video-prompt-enricher] rawPrompt is empty");
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) {
     return heuristicFallback(trimmed);
   }
 
   try {
-    const anthropic = new Anthropic({ apiKey });
-    const res = await anthropic.messages.create({
+    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+    const res = await client.chat.completions.create({
       model: HAIKU_MODEL,
       max_tokens: 200,
-      system: SYSTEM_PROMPT,
       messages: [
+        { role: "system", content: SYSTEM_PROMPT },
         {
           role: "user",
           content: `Prompt brut : "${trimmed}"\n\nRéécris-le en direction cinématographique pour Runway.`,
@@ -82,8 +82,7 @@ export async function enrichVideoPrompt(rawPrompt: string): Promise<VideoPromptE
       ],
     });
 
-    const block = res.content[0];
-    const enriched = block?.type === "text" ? block.text.trim() : "";
+    const enriched = res.choices[0]?.message?.content?.trim() ?? "";
     if (!enriched || enriched.length < trimmed.length / 2) {
       // Réponse vide ou suspicieusement courte → fallback.
       return heuristicFallback(trimmed);
@@ -95,7 +94,7 @@ export async function enrichVideoPrompt(rawPrompt: string): Promise<VideoPromptE
     };
   } catch (err) {
     console.warn(
-      "[video-prompt-enricher] Claude enrichment failed, using heuristic:",
+      "[video-prompt-enricher] Kimi enrichment failed, using heuristic:",
       err instanceof Error ? err.message : err,
     );
     return heuristicFallback(trimmed);

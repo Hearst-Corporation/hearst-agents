@@ -13,7 +13,7 @@
  * du contentRef tel quel).
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 
 export interface MeetingActionItem {
@@ -65,8 +65,8 @@ const TRANSCRIPT_CAP = 30_000;
  *
  * Retourne `null` si :
  *   - transcript vide
- *   - ANTHROPIC_API_KEY absent
- *   - erreur Anthropic (logged warn)
+ *   - KIMI_API_KEY absent
+ *   - erreur LLM (logged warn)
  *
  * Le caller décide quoi faire avec null (afficher transcript brut, retry, etc.).
  */
@@ -74,9 +74,12 @@ export async function generateMeetingDebrief(
   input: GenerateMeetingDebriefInput,
 ): Promise<string | null> {
   if (!input.transcript.trim()) return null;
-  if (!process.env.ANTHROPIC_API_KEY) return null;
+  if (!process.env.KIMI_API_KEY) return null;
 
-  const client = new Anthropic();
+  const client = new OpenAI({
+    apiKey: process.env.KIMI_API_KEY,
+    baseURL: "https://api.hypercli.com/v1",
+  });
   const userPromptLines: string[] = [];
 
   if (input.title) {
@@ -102,13 +105,15 @@ export async function generateMeetingDebrief(
   );
 
   try {
-    const msg = await client.messages.create({
-      model: "claude-sonnet-4-6",
+    const msg = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 1500,
-      system: DEBRIEF_SYSTEM_PROMPT,
-      messages: [{ role: "user", content: userPromptLines.join("\n") }],
+      messages: [
+        { role: "system", content: DEBRIEF_SYSTEM_PROMPT },
+        { role: "user", content: userPromptLines.join("\n") },
+      ],
     });
-    const text = msg.content[0]?.type === "text" ? msg.content[0].text.trim() : "";
+    const text = msg.choices[0]?.message?.content?.trim() ?? "";
     return text.length > 0 ? text : null;
   } catch (err) {
     console.warn(

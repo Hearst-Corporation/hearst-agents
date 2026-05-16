@@ -1,5 +1,5 @@
 /**
- * Handler `ai_draft_welcome_notes` — génère via Claude Haiku une note de
+ * Handler `ai_draft_welcome_notes` — génère via Kimi une note de
  * bienvenue personnalisée par guest VIP.
  *
  * Args attendus :
@@ -10,12 +10,12 @@
  * Sortie :
  *  { notes: Array<{ guestName, room, note }> }
  *
- * Sans `ANTHROPIC_API_KEY`, on retourne `success: true` avec une note
+ * Sans `KIMI_API_KEY`, on retourne `success: true` avec une note
  * fallback minimaliste — le workflow continue mais l'asset final sera
  * clairement marqué `degraded: true`.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import type { WorkflowHandler } from "./types";
 
@@ -64,17 +64,18 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
   const tone = typeof args.tone === "string" ? args.tone : "warm-professional";
   const includeRoom = args.includeRoomNumber !== false;
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  const apiKey = process.env.KIMI_API_KEY;
+  if (!apiKey) {
     const notes = arrivals.map((a) => ({
       guestName: a.guestName,
       room: a.room ?? "",
       note: fallbackNote(a),
     }));
-    return { success: true, output: { notes, degraded: true, reason: "no_anthropic_key" } };
+    return { success: true, output: { notes, degraded: true, reason: "no_kimi_key" } };
   }
 
   try {
-    const client = new Anthropic();
+    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
     const userPrompt = [
       `Tone : ${tone}.`,
       includeRoom ? "Inclus le numéro de chambre dans la note." : "Pas de numéro de chambre.",
@@ -83,14 +84,16 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args) => {
       JSON.stringify(arrivals, null, 2),
     ].join("\n");
 
-    const msg = await client.messages.create({
-      model: "claude-haiku-4-5-20251001",
+    const msg = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 1500,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: userPrompt }],
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userPrompt },
+      ],
     });
 
-    const text = msg.content[0]?.type === "text" ? msg.content[0].text.trim() : "";
+    const text = msg.choices[0]?.message?.content?.trim() ?? "";
     const m = text.match(/\[[\s\S]*\]/);
     if (!m) {
       const notes = arrivals.map((a) => ({

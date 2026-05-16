@@ -19,7 +19,7 @@
  */
 
 import { createHash } from "node:crypto";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 // ── Types ──────────────────────────────────────────────────
@@ -138,7 +138,7 @@ export async function analyzeMissionDrift(
 
 // ── Narration Haiku ────────────────────────────────────────
 
-const HAIKU_MODEL = "claude-haiku-4-5-20251001";
+const HAIKU_MODEL = "kimi-k2.5";
 const NARRATION_TTL_MS = 60 * 60_000; // 1 h
 const MAX_LEN = 140;
 
@@ -163,7 +163,7 @@ export async function generateDriftNarration(
   const cached = narrationCache.get(cacheKey);
   if (cached && cached.expiresAt > Date.now()) return cached.text;
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) {
     const fallback = clipFr(
       `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
@@ -173,17 +173,20 @@ export async function generateDriftNarration(
   }
 
   try {
-    const anthropic = new Anthropic({ apiKey });
-    const res = await anthropic.messages.create({
+    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+    const res = await client.chat.completions.create({
       model: HAIKU_MODEL,
       max_tokens: 120,
-      system: [
-        "Tu es l'assistant cockpit d'un founder. Style sobre, voix régulière FR.",
-        "Tu produis UNE phrase ≤140 caractères qui suggère que la mission semble figée et invite à la re-évaluer.",
-        "Pas d'emoji, pas de guillemets, pas de point d'exclamation. Pas de liste.",
-        "Mentionne le nom de la mission tel quel et le nombre de runs sans mouvement.",
-      ].join(" "),
       messages: [
+        {
+          role: "system",
+          content: [
+            "Tu es l'assistant cockpit d'un founder. Style sobre, voix régulière FR.",
+            "Tu produis UNE phrase ≤140 caractères qui suggère que la mission semble figée et invite à la re-évaluer.",
+            "Pas d'emoji, pas de guillemets, pas de point d'exclamation. Pas de liste.",
+            "Mentionne le nom de la mission tel quel et le nombre de runs sans mouvement.",
+          ].join(" "),
+        },
         {
           role: "user",
           content: [
@@ -195,8 +198,7 @@ export async function generateDriftNarration(
       ],
     });
 
-    const block = res.content[0];
-    const text = block?.type === "text" ? block.text : "";
+    const text = res.choices[0]?.message?.content ?? "";
     const cleaned = clipFr(text);
     if (cleaned.length === 0) {
       const fallback = clipFr(

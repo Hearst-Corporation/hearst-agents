@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { ACTION_ITEMS_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
 
@@ -37,13 +37,16 @@ export async function extractActionItems(transcript: string): Promise<
 > {
   if (!transcript.trim()) return [];
 
+  const apiKey = process.env.KIMI_API_KEY;
+  if (!apiKey) return [];
+
   try {
-    const client = new Anthropic();
-    const msg = await client.messages.create({
-      model: "claude-haiku-4-5-20251001",
+    const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
+    const msg = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 1024,
-      system: ACTION_ITEMS_SYSTEM_PROMPT,
       messages: [
+        { role: "system", content: ACTION_ITEMS_SYSTEM_PROMPT },
         {
           role: "user",
           content: `Transcript à analyser :\n\n${transcript}\n\nExtrais les action items maintenant, au format JSON strict.`,
@@ -51,7 +54,7 @@ export async function extractActionItems(transcript: string): Promise<
       ],
     });
 
-    const text = msg.content[0]?.type === "text" ? msg.content[0].text.trim() : "";
+    const text = msg.choices[0]?.message?.content?.trim() ?? "";
 
     const jsonMatch = text.match(/\[[\s\S]*\]/);
     if (!jsonMatch) return [];

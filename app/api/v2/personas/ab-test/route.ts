@@ -9,8 +9,8 @@
  * Fail-soft : si Anthropic n'est pas configuré, on renvoie 503.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
 import { type NextRequest, NextResponse } from "next/server";
+import OpenAI from "openai";
 import { abTestPersonaSchema } from "@/lib/contracts/personas";
 import { getPersonaById } from "@/lib/personas/store";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
@@ -18,25 +18,24 @@ import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
-const MODEL = "claude-sonnet-4-6";
+const MODEL = "kimi-k2.5";
 const MAX_TOKENS = 800;
 
 async function runOne(opts: {
-  client: Anthropic;
+  client: OpenAI;
   systemPrompt: string;
   message: string;
 }): Promise<{ text: string; latencyMs: number }> {
   const t0 = Date.now();
-  const res = await opts.client.messages.create({
+  const res = await opts.client.chat.completions.create({
     model: MODEL,
     max_tokens: MAX_TOKENS,
-    system: opts.systemPrompt,
-    messages: [{ role: "user", content: opts.message }],
+    messages: [
+      { role: "system", content: opts.systemPrompt },
+      { role: "user", content: opts.message },
+    ],
   });
-  const text = res.content
-    .map((b) => (b.type === "text" ? b.text : ""))
-    .join("")
-    .trim();
+  const text = (res.choices[0]?.message?.content || "").trim();
   return { text, latencyMs: Date.now() - t0 };
 }
 
@@ -64,14 +63,6 @@ export async function POST(req: NextRequest) {
   }
   const message = parsed.data.message.trim();
   const { personaIdA, personaIdB } = parsed.data;
-
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "llm_unavailable", message: "ANTHROPIC_API_KEY non configuré." },
-      { status: 503 },
-    );
-  }
 
   const [pA, pB] = await Promise.all([
     getPersonaById(personaIdA, {
@@ -104,7 +95,15 @@ export async function POST(req: NextRequest) {
   const sysA = addonA ? `${baseSystem}\n\n${addonA}` : baseSystem;
   const sysB = addonB ? `${baseSystem}\n\n${addonB}` : baseSystem;
 
-  const client = new Anthropic({ apiKey });
+  const apiKey = process.env.KIMI_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json(
+      { error: "llm_unavailable", message: "KIMI_API_KEY non configuré." },
+      { status: 503 },
+    );
+  }
+
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
   try {
     const [resA, resB] = await Promise.all([
       runOne({ client, systemPrompt: sysA, message }),

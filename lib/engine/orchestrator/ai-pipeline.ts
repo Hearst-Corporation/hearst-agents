@@ -520,7 +520,7 @@ export async function runAiPipeline(
   // P0-6 : propage tenantId pour scoper les caches LRU Apollo/PDL et empêcher
   // la fuite cross-tenant des données PII (nom, titre, company, firmographics).
   const enrichTools = buildEnrichTools({ tenantId: resolvedTenantId });
-  const webSearchTools = buildWebSearchTools();
+  const webSearchTools = buildWebSearchTools({ tenantId: resolvedTenantId });
   const marketDataTools = buildMarketDataTools();
   const extrasServicesTools = buildExtrasServicesTools(pipelineScope);
   const researchTools = buildResearchTools({

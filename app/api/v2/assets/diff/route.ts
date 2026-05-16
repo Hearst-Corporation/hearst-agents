@@ -10,8 +10,8 @@
  * 500.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
 import { type NextRequest, NextResponse } from "next/server";
+import OpenAI from "openai";
 import { z } from "zod";
 import { type Asset, loadAssetById } from "@/lib/assets/types";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Fallback déterministe si pas de clé Anthropic
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(naiveDiff(a, b));
   }
@@ -119,16 +119,19 @@ function naiveDiff(a: Asset, b: Asset): DiffResult {
 }
 
 async function llmDiff(a: Asset, b: Asset, apiKey: string): Promise<DiffResult> {
-  const client = new Anthropic({ apiKey });
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
 
   const contentA = (a.contentRef ?? a.summary ?? "").slice(0, 6000);
   const contentB = (b.contentRef ?? b.summary ?? "").slice(0, 6000);
 
-  const response = await client.messages.create({
-    model: "claude-sonnet-4-6",
+  const response = await client.chat.completions.create({
+    model: "kimi-k2.5",
     max_tokens: 1024,
-    system: composeEditorialPrompt(
-      `
+    messages: [
+      {
+        role: "system",
+        content: composeEditorialPrompt(
+          `
 Tu es l'analyste qui compare deux assets Hearst OS et produit un diff sémantique structuré.
 
 FORMAT STRICT (JSON valide uniquement, pas de markdown fence) :
@@ -141,8 +144,8 @@ CONTRAINTES SPÉCIFIQUES :
 - description : nomme le delta (« A → B » ou « ajouté X » ou « retiré Y »).
 - Pas d'inférence si le contenu ne le supporte pas — dis « différence non détectable » plutôt qu'inventer.
     `.trim(),
-    ),
-    messages: [
+        ),
+      },
       {
         role: "user",
         content:
@@ -152,11 +155,7 @@ CONTRAINTES SPÉCIFIQUES :
     ],
   });
 
-  const text = response.content
-    .filter((c): c is Anthropic.TextBlock => c.type === "text")
-    .map((c) => c.text)
-    .join("\n")
-    .trim();
+  const text = (response.choices[0]?.message?.content || "").trim();
 
   // Extrait le premier JSON object — Claude peut wrap en ```json ... ```
   const jsonMatch = text.match(/\{[\s\S]*\}/);

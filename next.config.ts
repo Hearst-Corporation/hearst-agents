@@ -14,7 +14,7 @@ const securityHeaders = [
       "img-src 'self' data: https: blob:",
       "media-src 'self' data: https: blob:",
       "font-src 'self' data: https://cdn.fontshare.com",
-      "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io https://prod.spline.design https://*.spline.design https://unpkg.com",
+      "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io https://api.hypercli.com https://prod.spline.design https://*.spline.design https://unpkg.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

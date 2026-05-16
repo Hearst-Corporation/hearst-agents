@@ -16,7 +16,7 @@
  * payload partiel (`participants: []`, `suggestedAgenda: ""`).
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import type { KgNode } from "@/lib/memory/kg";
@@ -311,7 +311,7 @@ function buildKgSummary(node: KgNode | null, lastN: Array<{ label: string }>): s
 
 // ── Suggestion d'agenda via Haiku ────────────────────────────────
 
-const HAIKU_MODEL = "claude-haiku-4-5-20251001";
+const HAIKU_MODEL = "kimi-k2.5";
 const SUGGESTED_AGENDA_MAX = 200;
 
 const AGENDA_PROMPT = [
@@ -331,7 +331,7 @@ async function generateSuggestedAgenda(
   eventTitle: string,
   participants: PreMeetingParticipant[],
 ): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) return "";
 
   // Compose un input compact pour Haiku.
@@ -351,16 +351,17 @@ async function generateSuggestedAgenda(
     participantSnippets || "(aucun participant identifié)",
   ].join("\n");
 
-  const anthropic = new Anthropic({ apiKey });
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
   try {
-    const res = await anthropic.messages.create({
+    const res = await client.chat.completions.create({
       model: HAIKU_MODEL,
       max_tokens: 200,
-      system: AGENDA_PROMPT,
-      messages: [{ role: "user", content: userMessage }],
+      messages: [
+        { role: "system", content: AGENDA_PROMPT },
+        { role: "user", content: userMessage },
+      ],
     });
-    const block = res.content[0];
-    const raw = block?.type === "text" ? block.text : "";
+    const raw = res.choices[0]?.message?.content ?? "";
     return raw.trim().replace(/\s+/g, " ").slice(0, SUGGESTED_AGENDA_MAX);
   } catch (err) {
     console.warn("[pre-meeting-intel] Haiku agenda échoué :", err);
