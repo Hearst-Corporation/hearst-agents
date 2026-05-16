@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Template — base /setup</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400,200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Template cockpit statique (shell lab-like) + stages montés.
+   Route : hash #home | #chat | … (voir JS). CSS limité aux blocs HTML présents.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #000000;
+  --bg-elev-1: #141414;
+  --bg-elev-2: #1f1f1f;
+  --ink: rgba(255, 255, 255, 0.95);
+  --ink-strong: #ffffff;
+  --fg-dim: rgba(255, 255, 255, 0.65);
+  --fg-mute: rgba(255, 255, 255, 0.42);
+  --fg-faint: rgba(255, 255, 255, 0.14);
+  --border: rgba(255, 255, 255, 0.03);
+  --border-soft: rgba(255, 255, 255, 0.02);
+  --border-strong: rgba(255, 255, 255, 0.08);
+  --teal: #4A8B86;
+  --gold: #C8A961;
+  --danger: #FF3333;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-pill: 9999px;
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+html, body { height: 100%; background: var(--bg); }
+body {
+  margin: 0; color: var(--ink);
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* ===== Noise Overlay (Ghost Pattern) ===== */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ===== visionOS glass (Apple Glass Pipeline) ===== */
+.vision-glass {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15), /* Top Highlight */
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),       /* Bottom Shadow */
+    0 20px 60px -20px rgba(0, 0, 0, 0.8);
+}
+.vision-btn-primary {
+  background: #ffffff; color: #000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: 500; border: none;
+}
+.vision-btn-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(40px) saturate(200%) brightness(130%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(130%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.9);
+}
+.vision-btn-glass:hover { background: rgba(255, 255, 255, 0.08); }
+.vision-segmented-track {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+.perspective-scene { perspective: 1200px; perspective-origin: 50% 50%; }
+.preserve-3d { transform-style: preserve-3d; }
+.vision-content-depth { transform: translateZ(-15px); }
+.vision-footer-float { transform: translateX(-50%) translateZ(20px); }
+
+/* Helpers placeholder identiques au lab */
+.ph { font-style: italic; opacity: 0.5; }
+.ph::before { content: '['; }
+.ph::after { content: ']'; }
+
+/* ===== Shell layout ===== */
+.scene { position: relative; display: flex; height: 100vh; width: 100vw;
+  background: var(--bg); color: white; overflow: hidden; }
+
+/* Ambient layers (halo blanc + dots teal blurré) */
+.amb-halo { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 50% 50% at 50% 40%, rgba(74, 139, 134, 0.15), transparent 80%);
+  filter: blur(100px); }
+.amb-dots { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(74, 139, 134, 0.4) 1px, transparent 1.5px);
+  background-size: 40px 40px; opacity: 0.4;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 90%); }
+
+/* ===== Left rail 88px ===== */
+.lrail { position: relative; z-index: 20; height: 100%; width: 88px;
+  flex-shrink: 0; }
+.lrail-inner { display: flex; flex-direction: column; align-items: center;
+  height: 100%; width: 100%; padding: 32px 0;
+  background: rgba(255, 255, 255, 0.02);
+  border-right: 1px solid var(--border);
+  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+.lr-brand { margin-bottom: 16px; width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+  cursor: pointer; }
+.lr-group { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+.lr-brand-dot { width: 22px; height: 22px; border-radius: 50%; background: white; }
+.lr-slot { position: relative; width: 56px; height: 56px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5); cursor: pointer;
+  transition: all 0.3s var(--ease); background: transparent; border: none; }
+.lr-slot:hover { background: rgba(255,255,255,0.06); color: white; }
+.lr-slot.active { color: white;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(40px) saturate(200%) brightness(130%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(130%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.4); }
+.lr-slot:active { transform: scale(0.9); }
+.lr-slot-ph { cursor: default; }
+.lr-slot-ph:hover { background: transparent; color: rgba(255,255,255,0.5); }
+.lr-slot-ph:active { transform: none; }
+.lr-ico { width: 16px; height: 16px; border-radius: 3px;
+  border: 1px solid currentColor; opacity: 0.4; flex-shrink: 0; transition: all 0.3s; }
+.lr-slot.active .lr-ico { opacity: 1; border-width: 1.5px; }
+.lr-ico.dot { border-radius: 50%; }
+.lr-ico.bar { width: 18px; height: 3px; border-radius: 999px; }
+.lr-ico.gear { border-radius: 50%; border: 2px dashed currentColor; }
+.lr-ico.bill { width: 18px; height: 12px; border: 1px solid currentColor; border-radius: 2px; position: relative; }
+.lr-ico.bill::before { content: ''; position: absolute; top: 2px; left: 0; width: 100%; height: 2px; background: currentColor; opacity: 0.3; }
+.lr-ico.tri { width: 0; height: 0; border: none; opacity: .85;
+  border-left: 8px solid transparent; border-right: 8px solid transparent;
+  border-bottom: 12px solid currentColor; }
+.lr-spacer { flex: 1; }
+.lr-avatar { margin-top: 16px; width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: white; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  cursor: pointer; }
+
+/* Tooltip slot */
+.lr-slot[data-tip]:hover::after { content: attr(data-tip);
+  position: absolute; left: 70px; top: 50%; transform: translateY(-50%);
+  white-space: nowrap; padding: 6px 12px; border-radius: 8px;
+  background: rgba(20,20,20,.95); border: 1px solid var(--border-strong);
+  font-size: 11px; color: var(--ink); z-index: 100;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+
+/* ===== Right area (center + right rail) ===== */
+.rarea { position: relative; z-index: 10; display: flex; flex: 1; overflow: hidden; }
+
+/* Center */
+.main { position: relative; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.main-scroll { flex: 1; display: grid; grid-template-columns: 1fr; justify-items: center; overflow-y: auto;
+  padding: 80px 64px 256px; scrollbar-width: none; }
+.main-scroll::-webkit-scrollbar { display: none; }
+.main-inner { grid-area: 1 / 1 / 2 / 2; width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 64px; }
+.main-fade { pointer-events: none; position: absolute; bottom: 0; left: 0; right: 0; z-index: 20; height: 240px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 25%, rgba(0,0,0,0.92) 60%, #000000 85%); }
+
+/* Stage panels */
+.pw { display: none; flex-direction: column; gap: 64px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease); }
+.pw.show { display: flex; }
+.pw.in { opacity: 1; transform: translateY(0); }
+
+/* Right rail 320px (Apple Glass Pipeline) */
+.rrail { position: relative; z-index: 20; display: flex; width: 320px; flex-shrink: 0;
+  flex-direction: column; gap: 8px; padding: 56px 32px;
+  border-left: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.05); }
+.rrail-h { margin-bottom: 16px; padding-left: 16px; font-size: 13px;
+  font-weight: 500; color: rgba(255, 255, 255, 0.5); }
+.rrail-list { display: flex; flex-direction: column; gap: 8px; }
+.rritem { display: flex; align-items: flex-start; gap: 16px;
+  padding: 16px; border-radius: 8px; text-align: left;
+  color: rgba(255,255,255,0.6); transition: all 0.25s var(--ease);
+  background: transparent; border: none; cursor: pointer;
+  opacity: 0; transform: translateX(10px); }
+.rritem.vis { opacity: 1; transform: translateX(0); }
+.rritem:hover { background: rgba(255,255,255,0.04); color: white; }
+.rritem.hot { background: rgba(255,255,255,0.08); color: white; }
+.rritem-title { font-size: 15px; line-height: 1.35; font-weight: 500; }
+.rritem-sub { display: block; margin-top: 4px; font-size: 13px;
+  color: rgba(255, 255, 255, 0.4); line-height: 1.45; }
+.rritem.hot .rritem-sub { color: rgba(255,255,255,0.7); }
+
+/* Footer pill flottant */
+.footer { position: absolute; bottom: 32px; left: 50%; z-index: 30;
+  display: flex; align-items: center; gap: 48px;
+  width: max-content; padding: 16px 32px; border-radius: 9999px;
+  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 20px 40px rgba(0,0,0,0.6); }
+.footer-zone { display: flex; align-items: center; gap: 12px; }
+.footer-status { display: flex; align-items: center; gap: 12px;
+  font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.7); }
+.footer-status .ico { width: 16px; height: 16px; border-radius: 3px;
+  border: 1px solid currentColor; opacity: 0.55; }
+.footer-status .ico.run { background: currentColor; opacity: 0.8; border: none;
+  animation: pulseT 1.4s ease-in-out infinite; }
+@keyframes pulseT { 0%,100%{box-shadow:0 0 0 0 rgba(94,229,195,0)} 50%{box-shadow:0 0 0 8px rgba(94,229,195,.1)} }
+
+.footer-seg { display: flex; align-items: center; gap: 4px; padding: 6px; }
+.footer-btn { display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 24px; border-radius: 9999px; font-size: 13px;
+  color: rgba(255, 255, 255, 0.5); border: none; cursor: pointer;
+  background: transparent; transition: all 0.18s; white-space: nowrap; }
+.footer-btn:hover { color: white; }
+.footer-btn.on { color: white; }
+.footer-btn.on.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px) saturate(200%) brightness(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(130%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.footer-btn.on.primary { background: #fff; color: #000;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 4px 12px rgba(0,0,0,.15);
+  font-weight: 500; }
+.footer-btn .ico { width: 14px; height: 14px; border-radius: 3px;
+  border: 1px solid currentColor; opacity: 0.55; flex-shrink: 0; }
+.footer-btn.on .ico { background: currentColor; opacity: 0.8; border: none; }
+.footer-btn.on.primary .ico { background: #000; opacity: 1; }
+
+/* Hint overlay */
+.hint { position: fixed; top: 24px; right: 24px; max-width: 280px; z-index: 200;
+  font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.4);
+  text-align: right; white-space: pre-line; padding: 10px 14px;
+  border-radius: 12px; background: rgba(20,20,20,0.65);
+  border: 1px solid var(--border); backdrop-filter: blur(20px); }
+
+/* Dots stepper top center */
+.dots-bar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; align-items: center; gap: 7px;
+  padding: 6px 16px; border-radius: 9999px; max-width: 70vw;
+  background: rgba(20,20,20,0.65); border: 1px solid var(--border);
+  backdrop-filter: blur(20px); font-size: 11px; color: rgba(255,255,255,0.5); }
+.dots-bar .ds { width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); transition: all 0.3s; cursor: pointer; }
+.dots-bar .ds:hover { background: rgba(255,255,255,0.4); }
+.dots-bar .ds.on { background: white; box-shadow: 0 0 8px rgba(255,255,255,0.4); }
+.dots-bar .lbl { margin-left: 8px; }
+
+/* ============================================================
+   CONTENT — chaque stage utilise les mêmes primitives
+   ============================================================ */
+
+/* Greeting (cockpit) */
+.greet { display: flex; flex-direction: column; gap: 16px; }
+.greet .date { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.6); mix-blend-mode: plus-lighter; }
+.greet .h1 { font-size: 44px; font-weight: 500; letter-spacing: -.03em; line-height: 1.1; mix-blend-mode: plus-lighter; }
+.greet .sub { max-width: 640px; font-size: 16px; line-height: 1.5; color: var(--fg-dim); }
+
+/* Hero card (vision-glass) */
+.hero { position: relative; padding: 40px;
+  border-radius: 20px; display: flex; flex-direction: column; gap: 24px;
+  transition: transform .5s var(--ease); }
+.hero:hover { transform: translateY(-4px); }
+.hero-meta { display: flex; align-items: baseline; justify-content: space-between;
+  font-size: 13px; font-weight: 500; color: var(--fg-mute); }
+.hero h2 { max-width: 600px; font-size: 32px; font-weight: 500; line-height: 1.2; letter-spacing: -.02em; mix-blend-mode: plus-lighter; }
+.hero p { max-width: 580px; font-size: 16px; line-height: 1.6; color: var(--fg-dim); }
+.hero-cta { display: flex; align-items: center; gap: 16px; padding-top: 16px; }
+.btn-pill { padding: 12px 24px; border-radius: 9999px; font-size: 16px;
+  cursor: pointer; transition: opacity 0.18s; }
+.btn-pill:active { transform: scale(.95); }
+
+/* Section avec toggle filtre */
+.section-head { display: flex; align-items: center; justify-content: space-between; padding: 0 8px; }
+.section-head h2 { font-size: 20px; font-weight: 500; letter-spacing: -.01em; }
+.section-toggle { display: flex; gap: 4px; padding: 4px; }
+.tg-btn { padding: 8px 20px; border-radius: 9999px; font-size: 13px;
+  color: rgba(255,255,255,0.5); border: none; cursor: pointer;
+  background: transparent; transition: all 0.18s; }
+.tg-btn:hover { color: white; }
+.tg-btn.on { color: white; font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px) saturate(200%) brightness(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(130%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2); }
+
+/* Liste activité (style item-lab) */
+.act-list { display: flex; flex-direction: column; gap: 8px; }
+.act-row { display: flex; align-items: center; gap: 20px; padding: 16px;
+  border-radius: 8px; cursor: pointer; transition: background 0.15s;
+  opacity: 0; transform: translateY(10px); }
+.act-row.vis { opacity: 1; transform: translateY(0); transition: all 0.4s var(--ease); }
+.act-row:hover { background: rgba(255,255,255,0.04); }
+.act-row .ico-box { width: 16px; height: 16px; border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.4); flex-shrink: 0; }
+.act-row .body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.act-row .title { font-size: 16px; font-weight: 500; color: white; }
+.act-row .meta { font-size: 13px; color: rgba(255,255,255,0.5); }
+.act-row .ago { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+/* ============================================================
+   STAGES SPÉCIFIQUES (reuse primitives + variants spécifiques)
+   ============================================================ */
+
+/* --- Chat doc-style --- */
+.chat-q { padding: 14px 20px; border-radius: 16px;
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  font-size: 14px; color: var(--fg-dim); display: inline-block; }
+.chat-ans { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.95); mix-blend-mode: plus-lighter; }
+.cursor { display: inline-block; width: 8px; height: 18px; background: white;
+  margin-left: 2px; vertical-align: text-bottom; animation: cur 1s steps(1) infinite; box-shadow: 0 0 10px white; }
+@keyframes cur { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+.tools { display: flex; flex-direction: column; gap: 8px; }
+.tcard { display: flex; align-items: center; gap: 16px; padding: 16px;
+  border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  opacity: 0; transform: translateY(8px); transition: all .35s var(--ease); }
+.tcard.vis { opacity: 1; transform: translateY(0); }
+.tcard.run { border-color: rgba(255,255,255,0.18); }
+.t-mini { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; letter-spacing: -.02em; }
+.t-body { flex: 1; }
+.t-name { font-size: 14px; font-weight: 500; font-family: ui-monospace, "SF Mono", monospace; margin-bottom: 2px; }
+.t-sub { font-size: 12px; color: rgba(255,255,255,0.4); }
+.t-state { font-size: 12px; color: rgba(255,255,255,0.4); }
+.t-state.run { color: var(--gold); }
+.t-state.done { color: var(--teal); }
+
+/* --- Mission timeline --- */
+.mtl { display: flex; flex-direction: column; gap: 4px; }
+.mtl-row { display: flex; gap: 16px; padding: 16px; border-radius: 14px;
+  opacity: 0; position: relative; align-items: flex-start;
+  transition: all 0.4s var(--ease); }
+.mtl-row.vis { opacity: 1; transform: translateX(0); }
+.mtl-row.done { opacity: 1; }
+.mtl-row.active { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); opacity: 1; }
+.mtl-row.pend { opacity: 0.35; }
+.mtl-row.approval { background: rgba(255, 188, 58, .05); border: 1px solid rgba(255,188,58,.18); }
+.mtl-node { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(255,255,255,0.14); font-size: 11px; color: rgba(255,255,255,0.4);
+  margin-top: 2px; transition: all .3s; }
+.mtl-node.done { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); color: white; }
+.mtl-node.active { animation: pulseT 1.6s ease-in-out infinite;
+  background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); color: white; }
+.mtl-node.gold { background: rgba(255,188,58,.15); border-color: rgba(255,188,58,.5); color: var(--gold);
+  animation: pulseG 1.6s ease-in-out infinite; }
+@keyframes pulseG { 0%,100%{box-shadow:0 0 0 0 rgba(255,188,58,0)} 50%{box-shadow:0 0 0 8px rgba(255,188,58,.08)} }
+.mtl-c { flex: 1; }
+.mtl-t { font-size: 15px; font-weight: 500; margin-bottom: 3px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mtl-pin { display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; padding: 2px 8px; border-radius: 9999px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: rgba(255,255,255,0.5); }
+.mtl-d { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.mtl-time { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 3px; align-self: flex-start; }
+.approval-bar { margin-top: 12px; padding: 12px 16px; border-radius: 12px;
+  background: rgba(255,188,58,.08); border: 1px solid rgba(255,188,58,.22);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.approval-bar-t { flex: 1; font-size: 13px; color: var(--ink); min-width: 200px; }
+.appr-btn { padding: 7px 14px; border-radius: 9999px; font-size: 12px; font-weight: 500;
+  cursor: pointer; border: 1px solid rgba(255,188,58,.4);
+  background: rgba(255,188,58,.15); color: var(--gold); }
+.appr-btn.ghost { background: transparent; border-color: var(--border); color: rgba(255,255,255,0.5); }
+
+/* Outputs cards */
+.outs-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.out-card { padding: 12px 16px; border-radius: 13px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border); font-size: 13px;
+  opacity: 0; transform: translateX(10px); transition: all .3s var(--ease); }
+.out-card.vis { opacity: 1; transform: translateX(0); }
+.out-t { color: white; font-weight: 500; margin-bottom: 3px; }
+.out-s { color: rgba(255,255,255,0.4); font-size: 12px; }
+
+/* --- Asset 2x2 grid --- */
+.asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.slot { aspect-ratio: 9/16; max-height: 340px; border-radius: 18px; overflow: hidden;
+  position: relative; background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.4s var(--ease); }
+.slot.sel { border-color: rgba(255,255,255,0.5); box-shadow: 0 0 0 2px rgba(255,255,255,0.14); }
+.slot .breath { position: absolute; inset: 0;
+  background: linear-gradient(180deg,rgba(94,229,195,0) 0%,rgba(94,229,195,.10) 50%,rgba(94,229,195,0) 100%);
+  animation: sweep 2.5s ease-in-out infinite; }
+.slot:nth-child(2) .breath { animation-delay: .6s; }
+.slot:nth-child(3) .breath { animation-delay: 1.2s; }
+.slot:nth-child(4) .breath { animation-delay: 1.8s; }
+@keyframes sweep { 0%{transform:translateY(110%)} 100%{transform:translateY(-110%)} }
+.slot.loaded .breath { display: none; }
+.slot .bg { position: absolute; inset: 0; opacity: 0; transition: filter .6s, opacity .6s; filter: blur(20px); }
+.slot.pass1 .bg { opacity: .6; filter: blur(12px); }
+.slot.pass2 .bg { opacity: 1; filter: blur(4px); }
+.slot.loaded .bg { opacity: 1; filter: blur(0); }
+.slot .bg.v0 { background: linear-gradient(135deg,#6b53ff,#2a6fff 60%,#0fbfd1); }
+.slot .bg.v1 { background: linear-gradient(135deg,#ff5b8a,#c33ad1 60%,#4655ff); }
+.slot .bg.v2 { background: linear-gradient(135deg,#ffb13a,#ff5b3a 60%,#c43a8a); }
+.slot .bg.v3 { background: linear-gradient(135deg,#34d2be,#2a91ff 60%,#6b53ff); }
+.slot .cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px;
+  background: linear-gradient(0deg,rgba(0,0,0,.65),transparent);
+  font-size: 12px; color: rgba(255,255,255,.85); opacity: 0; transition: opacity .5s; }
+.slot.loaded .cap { opacity: 1; }
+.tag { display: inline-block; padding: 3px 9px; border-radius: 9999px;
+  background: rgba(255,255,255,.12); font-size: 10px; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+
+@keyframes fu { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* Palette ⌘K */
+.palette { position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(20px);
+  display: none; align-items: flex-start; justify-content: center;
+  padding-top: 14vh; opacity: 0; transition: opacity .2s; }
+.palette.on { display: flex; opacity: 1; }
+.palette-box { width: 580px; border-radius: 20px;
+  background: rgba(20,20,20,.85); border: 1px solid var(--border-strong);
+  backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%) brightness(120%);
+  box-shadow: 0 40px 100px rgba(0,0,0,.7); overflow: hidden;
+  transform: scale(.96); transition: transform .25s var(--ease); }
+.palette.on .palette-box { transform: scale(1); }
+.palette-in { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.palette-in input { width: 100%; background: transparent; border: none; outline: none;
+  font-size: 15px; color: white; font-family: inherit; caret-color: white; }
+.palette-list { max-height: 400px; overflow-y: auto; padding: 8px; }
+.pitem { padding: 10px 14px; border-radius: 11px; cursor: pointer;
+  display: flex; align-items: center; gap: 12px; transition: background .12s; }
+.pitem:hover, .pitem.foc { background: rgba(255,255,255,.06); }
+.pitem-i { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700;
+  background: rgba(255,255,255,.08); color: white; }
+.pitem-t { flex: 1; font-size: 14px; }
+.pitem-s { font-size: 11px; color: rgba(255,255,255,.4); }
+.pitem-k { font-size: 10px; color: rgba(255,255,255,.4); padding: 2px 7px;
+  border-radius: 5px; border: 1px solid var(--border); white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN (vue separee, plein ecran) ============ -->
+<div id="login-view" class="perspective-scene" style="position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden;">
+  <div class="amb-halo"></div>
+  <div class="amb-dots"></div>
+  <form id="login-form" class="vision-glass" style="position:relative;z-index:2;width:380px;padding:40px;border-radius:24px;display:flex;flex-direction:column;gap:24px;" onsubmit="event.preventDefault(); document.getElementById('login-view').style.display='none';">
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
+      <div style="width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 16px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.3);">
+        <div style="width:22px;height:22px;border-radius:50%;background:white;"></div>
+      </div>
+      <h1 style="font-size:22px;font-weight:500;letter-spacing:-.01em;margin-top:8px;"><span class="ph">Titre login</span></h1>
+      <p style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Sous-titre</span></p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <label style="display:flex;flex-direction:column;gap:6px;">
+        <span style="font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;">Champ 1</span>
+        <input type="text" placeholder="[placeholder]" style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;outline:none;">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:6px;">
+        <span style="font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;">Champ 2</span>
+        <input type="text" placeholder="[placeholder]" style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;outline:none;">
+      </label>
+    </div>
+    <button type="submit" class="vision-btn-primary" style="padding:12px 20px;border-radius:10px;font-size:14px;cursor:pointer;">CTA principal</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.5);">
+      <a href="#" style="color:rgba(255,255,255,.6);text-decoration:none;"><span class="ph">Lien 1</span></a>
+      <a href="#" style="color:rgba(255,255,255,.6);text-decoration:none;"><span class="ph">Lien 2</span></a>
+    </div>
+    <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+    <button type="button" onclick="document.getElementById('login-view').style.display='none';" style="padding:10px 16px;border-radius:9999px;font-size:12px;cursor:pointer;background:rgba(255,188,58,.12);border:1px solid rgba(255,188,58,.4);color:var(--gold);letter-spacing:.04em;">⚡ BYPASS DEV</button>
+  </form>
+</div>
+
+<!-- Dots stepper top center -->
+<div class="dots-bar">
+  <div id="dots" style="display:flex;gap:6px;"></div>
+  <span class="lbl" id="lbl">Cockpit</span>
+</div>
+
+<!-- Hint -->
+<div class="hint" id="hint">← → · Esc → Cockpit · ⌘K palette
+Footer / URL = navigation · Rail gauche = placeholders projet (non branchés au stage)</div>
+
+<div class="scene perspective-scene">
+
+  <!-- Ambient layers (Global Background for Glass) -->
+  <div class="amb-halo"></div>
+  <div class="amb-dots"></div>
+
+  <!-- ============ LEFT RAIL 88px (vision-glass) ============ -->
+  <aside class="lrail">
+    <div class="lrail-inner">
+      <div class="lr-brand" title="Hearst OS">
+        <div class="lr-brand-dot"></div>
+      </div>
+      
+      <div class="lr-group">
+        <button type="button" class="lr-slot lr-slot-ph" tabindex="-1" data-tip="Placeholder 1 — branche une action métier (indépendant du stage / footer)"><div class="lr-ico"></div></button>
+        <button type="button" class="lr-slot lr-slot-ph" tabindex="-1" data-tip="Placeholder 2 — branche une action métier (indépendant du stage / footer)"><div class="lr-ico dot"></div></button>
+        <button type="button" class="lr-slot lr-slot-ph" tabindex="-1" data-tip="Placeholder 3 — branche une action métier (indépendant du stage / footer)"><div class="lr-ico tri"></div></button>
+        <button type="button" class="lr-slot lr-slot-ph" tabindex="-1" data-tip="Placeholder 4 — branche une action métier (indépendant du stage / footer)"><div class="lr-ico bar"></div></button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px; align-items:center; margin-top:16px;">
+        <button type="button" class="lr-slot" data-stage="billing" data-tip="Raccourci — ouvre Billing"><div class="lr-ico bill"></div></button>
+        <button type="button" class="lr-slot" data-stage="settings" data-tip="Raccourci — ouvre Settings"><div class="lr-ico gear"></div></button>
+        <div class="lr-avatar" style="margin-top:0;" title="Adrien">A</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ AREA (center + right rail) ============ -->
+  <div class="rarea preserve-3d">
+
+    <!-- ============ MAIN center ============ -->
+    <div class="main preserve-3d">
+
+      <div class="main-scroll vision-content-depth preserve-3d">
+
+        <!-- ===== HOME ===== -->
+        <section class="main-inner pw preserve-3d" id="p-home">
+          <header class="greet">
+            <p class="date"><span class="ph">Date</span></p>
+            <h1 class="h1"><span class="ph">Greeting principal</span></h1>
+            <p class="sub"><span class="ph">Résumé d'activité — phrase d'accroche</span></p>
+          </header>
+
+          <section class="vision-glass hero" style="border-radius:20px;">
+            <div class="hero-meta">
+              <span><span class="ph">Tag statut</span></span>
+              <span><span class="ph">Timestamp</span></span>
+            </div>
+            <h2><span class="ph">Titre hero</span><br><span class="ph">suite titre hero</span></h2>
+            <p><span class="ph">Description du contexte — 2 phrases max</span></p>
+            <div class="hero-cta">
+              <button class="btn-pill vision-btn-primary" onclick="go('mission')">CTA primaire</button>
+              <button class="btn-pill vision-btn-glass" onclick="go('chat')">CTA secondaire</button>
+            </div>
+          </section>
+
+          <section style="display:flex;flex-direction:column;gap:24px;">
+            <div class="section-head">
+              <h2><span class="ph">Titre section</span></h2>
+              <div class="section-toggle vision-segmented-track">
+                <button class="tg-btn on" onclick="setF(this)">Filtre 1</button>
+                <button class="tg-btn" onclick="setF(this)">Filtre 2</button>
+                <button class="tg-btn" onclick="setF(this)">Filtre 3</button>
+              </div>
+            </div>
+            <ul class="act-list" id="act-list">
+              <li class="act-row" onclick="go('mission')">
+                <span class="ico-box"></span>
+                <div class="body">
+                  <span class="title"><span class="ph">Item titre</span></span>
+                  <span class="meta"><span class="ph">Item meta</span></span>
+                </div>
+                <span class="ago">--:--</span>
+              </li>
+              <li class="act-row" onclick="go('asset')">
+                <span class="ico-box"></span>
+                <div class="body">
+                  <span class="title"><span class="ph">Item titre</span></span>
+                  <span class="meta"><span class="ph">Item meta</span></span>
+                </div>
+                <span class="ago">--:--</span>
+              </li>
+              <li class="act-row" onclick="go('chat')">
+                <span class="ico-box"></span>
+                <div class="body">
+                  <span class="title"><span class="ph">Item titre</span></span>
+                  <span class="meta"><span class="ph">Item meta</span></span>
+                </div>
+                <span class="ago">--:--</span>
+              </li>
+              <li class="act-row" onclick="go('billing')">
+                <span class="ico-box"></span>
+                <div class="body">
+                  <span class="title"><span class="ph">Item titre</span></span>
+                  <span class="meta"><span class="ph">Item meta</span></span>
+                </div>
+                <span class="ago">--:--</span>
+              </li>
+              <li class="act-row" onclick="go('settings')">
+                <span class="ico-box"></span>
+                <div class="body">
+                  <span class="title"><span class="ph">Item titre</span></span>
+                  <span class="meta"><span class="ph">Item meta</span></span>
+                </div>
+                <span class="ago">--:--</span>
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <!-- ===== CHAT ===== -->
+        <section class="main-inner pw preserve-3d" id="p-chat">
+          <div style="display:flex;flex-direction:column;gap:32px;">
+            <div class="chat-q"><span class="ph">Question utilisateur</span></div>
+            <div class="chat-ans" id="chat-ans"><span id="ctyped"></span><span class="cursor" id="ccur"></span></div>
+            <div class="tools" id="ctools">
+              <div class="tcard" id="tc0">
+                <div class="t-mini" style="background:rgba(255,255,255,.08);color:white;">T1</div>
+                <div class="t-body">
+                  <div class="t-name"><span class="ph">tool.action</span></div>
+                  <div class="t-sub"><span class="ph">paramètres / contexte</span></div>
+                </div>
+                <div class="t-state" id="ts0">—</div>
+              </div>
+              <div class="tcard" id="tc1">
+                <div class="t-mini" style="background:rgba(94,229,195,.15);color:var(--teal);">T2</div>
+                <div class="t-body">
+                  <div class="t-name"><span class="ph">tool.action</span></div>
+                  <div class="t-sub"><span class="ph">paramètres / contexte</span></div>
+                </div>
+                <div class="t-state" id="ts1">—</div>
+              </div>
+              <div class="tcard" id="tc2">
+                <div class="t-mini" style="background:rgba(255,255,255,.06);color:white;">T3</div>
+                <div class="t-body">
+                  <div class="t-name"><span class="ph">tool.action</span></div>
+                  <div class="t-sub"><span class="ph">paramètres / contexte</span></div>
+                </div>
+                <div class="t-state" id="ts2">—</div>
+              </div>
+            </div>
+            <div class="chat-ans" id="chat-ans2" style="opacity:0;animation:fu .6s var(--ease) 6s forwards;">
+              <strong style="color:white;"><span class="ph">Label conclusion</span></strong> <span class="ph">Synthèse — phrase de réponse finale</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== MISSION ===== -->
+        <section class="main-inner pw preserve-3d" id="p-mission">
+          <header style="display:flex;flex-direction:column;gap:8px;">
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre mission</span></h1>
+            <p style="font-size:14px;color:rgba(255,255,255,.5);"><span class="ph">Sous-titre</span></p>
+          </header>
+
+          <div class="mtl">
+            <div class="mtl-row done vis">
+              <div class="mtl-node done">✓</div>
+              <div class="mtl-c">
+                <div class="mtl-t"><span class="ph">Étape 1</span> <span class="mtl-pin">tag</span></div>
+                <div class="mtl-d"><span class="ph">Description résultat étape</span></div>
+              </div>
+              <span class="mtl-time">0.0s</span>
+            </div>
+            <div class="mtl-row done vis">
+              <div class="mtl-node done">✓</div>
+              <div class="mtl-c">
+                <div class="mtl-t"><span class="ph">Étape 2</span></div>
+                <div class="mtl-d"><span class="ph">Description résultat étape</span></div>
+              </div>
+              <span class="mtl-time">0.0s</span>
+            </div>
+            <div class="mtl-row done vis">
+              <div class="mtl-node done">✓</div>
+              <div class="mtl-c">
+                <div class="mtl-t"><span class="ph">Étape 3</span> <span class="mtl-pin">tag</span> <span class="mtl-pin">tag</span></div>
+                <div class="mtl-d"><span class="ph">Description résultat étape</span></div>
+              </div>
+              <span class="mtl-time">0.0s</span>
+            </div>
+            <div class="mtl-row approval vis">
+              <div class="mtl-node gold">!</div>
+              <div class="mtl-c">
+                <div class="mtl-t"><span class="ph">Étape avec approbation</span> <span class="mtl-pin">tag</span></div>
+                <div class="mtl-d"><span class="ph">Description résultat étape</span></div>
+                <div class="approval-bar">
+                  <div class="approval-bar-t">⚠ <span class="ph">Message gate d'approbation</span></div>
+                  <button class="appr-btn">CTA approbation</button>
+                  <button class="appr-btn ghost">CTA alternatif</button>
+                </div>
+              </div>
+              <span class="mtl-time">0.0s</span>
+            </div>
+            <div class="mtl-row pend vis">
+              <div class="mtl-node">5</div>
+              <div class="mtl-c">
+                <div class="mtl-t"><span class="ph">Étape suivante</span></div>
+                <div class="mtl-d"><span class="ph">Description résultat étape</span></div>
+              </div>
+              <span class="mtl-time">—</span>
+            </div>
+          </div>
+
+          <div>
+            <p class="rp-sec-t"><span class="ph">Titre section grille</span></p>
+            <div class="outs-grid" id="ogrid"></div>
+          </div>
+        </section>
+
+        <!-- ===== ASSET ===== -->
+        <section class="main-inner pw preserve-3d" id="p-asset">
+          <header style="display:flex;flex-direction:column;gap:8px;">
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre Assets</span></h1>
+            <p style="font-size:14px;color:rgba(255,255,255,.5);"><span class="ph">Sous-titre / providers</span></p>
+          </header>
+          <div class="asset-grid">
+            <div class="slot" id="sl0"><div class="breath"></div><div class="bg v0"></div>
+              <div class="cap"><span class="tag">Tag</span><div><span class="ph">Caption variant 1</span></div></div>
+            </div>
+            <div class="slot" id="sl1"><div class="breath"></div><div class="bg v1"></div>
+              <div class="cap"><span class="tag">Tag</span><div><span class="ph">Caption variant 2</span></div></div>
+            </div>
+            <div class="slot" id="sl2"><div class="breath"></div><div class="bg v2"></div>
+              <div class="cap"><span class="tag">Tag</span><div><span class="ph">Caption variant 3</span></div></div>
+            </div>
+            <div class="slot" id="sl3"><div class="breath"></div><div class="bg v3"></div>
+              <div class="cap"><span class="tag">Tag</span><div><span class="ph">Caption variant 4</span></div></div>
+            </div>
+          </div>
+          <p style="text-align:center;font-size:13px;color:rgba(255,255,255,.4);" id="ast"><span class="ph">Statut génération</span></p>
+        </section>
+
+        <!-- ===== BILLING ===== -->
+        <section class="main-inner pw preserve-3d" id="p-billing">
+          <header style="display:flex;flex-direction:column;gap:8px;">
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre billing</span></h1>
+          </header>
+
+          <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;">
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <span style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);">Label plan</span>
+                <span style="font-size:24px;font-weight:500;"><span class="ph">Nom plan</span></span>
+                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Prix / fréquence / prochaine facture</span></span>
+              </div>
+              <button class="vision-btn-glass" style="padding:10px 18px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA plan</button>
+            </div>
+            <div style="height:1px;background:rgba(255,255,255,.08);"></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">Métrique 1</span>
+                <span style="font-size:20px;font-weight:500;"><span class="ph">Valeur</span></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">Métrique 2</span>
+                <span style="font-size:14px;"><span class="ph">Valeur</span></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">Status</span>
+                <span style="font-size:14px;color:var(--teal);">● <span class="ph">État</span></span>
+              </div>
+            </div>
+          </section>
+
+          <section style="display:flex;flex-direction:column;gap:12px;">
+            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);"><span class="ph">Titre section liste</span></h2>
+            <div class="vision-glass" style="border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:14px;"><span class="ph">Ligne 1 — label</span></span>
+                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Montant · statut</span></span>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:14px;"><span class="ph">Ligne 2 — label</span></span>
+                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Montant · statut</span></span>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:14px;"><span class="ph">Ligne 3 — label</span></span>
+                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Montant · statut</span></span>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- ===== SETTINGS ===== -->
+        <section class="main-inner pw preserve-3d" id="p-settings">
+          <header style="display:flex;flex-direction:column;gap:8px;">
+            <p style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);"><span class="ph">Eyebrow</span></p>
+            <h1 style="font-size:32px;font-weight:500;letter-spacing:-.02em;"><span class="ph">Titre settings</span></h1>
+          </header>
+
+          <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);">Section 1 — Profil</h2>
+            <div style="display:flex;align-items:center;gap:20px;">
+              <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:24px;">?</div>
+              <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
+                <span style="font-size:16px;font-weight:500;"><span class="ph">Nom utilisateur</span></span>
+                <span style="font-size:13px;color:rgba(255,255,255,.5);"><span class="ph">Email</span></span>
+              </div>
+              <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA</button>
+            </div>
+          </section>
+
+          <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);">Section 2 — Préférences</h2>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <span style="font-size:14px;">Réglage 1</span>
+                  <span style="font-size:12px;color:rgba(255,255,255,.4);"><span class="ph">Description réglage</span></span>
+                </div>
+                <div class="vision-segmented-track" style="display:flex;padding:3px;">
+                  <button class="footer-btn on" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:#fff;background:rgba(255,255,255,.1);">Option A</button>
+                  <button class="footer-btn" style="padding:6px 14px;border-radius:9999px;font-size:12px;border:none;cursor:pointer;color:rgba(255,255,255,.5);background:transparent;">Option B</button>
+                </div>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <span style="font-size:14px;">Réglage 2</span>
+                  <span style="font-size:12px;color:rgba(255,255,255,.4);"><span class="ph">Description réglage</span></span>
+                </div>
+                <span style="font-size:13px;color:rgba(255,255,255,.6);"><span class="ph">Valeur</span></span>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <span style="font-size:14px;">Réglage 3</span>
+                  <span style="font-size:12px;color:rgba(255,255,255,.4);"><span class="ph">Description réglage</span></span>
+                </div>
+                <span style="font-size:13px;color:var(--teal);">● <span class="ph">État</span></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="vision-glass" style="border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;">
+            <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.7);">Section 3 — Sécurité</h2>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:14px;">Item sécurité 1</span>
+                <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;">CTA</button>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:14px;">Item sécurité 2</span>
+                <span style="font-size:13px;color:rgba(255,255,255,.4);"><span class="ph">État</span></span>
+              </div>
+              <div style="height:1px;background:rgba(255,255,255,.06);"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:14px;color:var(--danger);">Action destructive</span>
+                <button class="vision-btn-glass" style="padding:8px 16px;border-radius:9999px;font-size:13px;cursor:pointer;color:var(--danger);">CTA</button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+      </div>
+
+      <!-- Fade bottom (lab pattern) -->
+      <div class="main-fade"></div>
+
+      <!-- ============ FOOTER FLOATING (3 zones) ============ -->
+      <footer class="footer vision-glass vision-footer-float">
+        <!-- Zone 1: status agent + input prompt -->
+        <div class="footer-zone footer-status">
+          <div class="ico run" id="footer-ico"></div>
+          <span id="footer-status">[Statut footer]</span>
+        </div>
+
+        <!-- Zone 2: navigation principale Cockpit / Chat / Mission -->
+        <div class="footer-seg vision-segmented-track" id="footer-seg-c">
+          <button type="button" class="footer-btn on glass" data-nav-stage="home"><span class="ico"></span><span>Cockpit</span></button>
+          <button type="button" class="footer-btn" data-nav-stage="chat"><span class="ico"></span><span>Chat</span></button>
+          <button type="button" class="footer-btn" data-nav-stage="mission"><span class="ico"></span><span>Mission</span></button>
+        </div>
+
+        <!-- Zone 3: segmented control droit (2 modes) -->
+        <div class="footer-seg vision-segmented-track" id="footer-seg-r">
+          <button type="button" class="footer-btn on primary" data-mode="m1"><span class="ico"></span><span>[Mode A]</span></button>
+          <button type="button" class="footer-btn" data-mode="m2"><span class="ico"></span><span>Assets</span></button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ============ RIGHT RAIL 320px ============ -->
+    <aside class="rrail preserve-3d">
+      <h3 class="rrail-h" id="rrail-h">Aperçu du jour</h3>
+      <div class="rrail-list" id="rrail-list"></div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- Palette ⌘K -->
+<div class="palette" id="palette">
+  <div class="palette-box">
+    <div class="palette-in">
+      <input id="pq" placeholder="Demande, lance, ouvre…" autocomplete="off"/>
+    </div>
+    <div class="palette-list" id="plist"></div>
+  </div>
+</div>
+
+<script>
+const STATES = ['home','chat','mission','asset','billing','settings'];
+const LABELS = ['Cockpit', 'Chat', 'Mission', 'Assets', 'Billing', 'Settings'];
+const HINTS = {
+  home: '[Hint home]',
+  chat: '[Hint chat]',
+  mission: '[Hint mission]',
+  asset: '[Hint asset]',
+  billing: '[Hint billing]',
+  settings: '[Hint settings]'
+};
+
+// Right rail content per stage (5 items max — pattern du lab)
+const RAIL = {
+  home: { title:'[Titre rail]', items:[
+    {t:'[Item 1]', s:'[Sous-texte item 1]', hot:true},
+    {t:'[Item 2]', s:'[Sous-texte item 2]'},
+    {t:'[Item 3]', s:'[Sous-texte item 3]'},
+    {t:'[Item 4]', s:'[Sous-texte item 4]'},
+    {t:'[Item 5]', s:'[Sous-texte item 5]'}
+  ]},
+  chat: { title:'[Titre rail]', items:[
+    {t:'[Item 1]', s:'[Sous-texte item 1]', hot:true},
+    {t:'[Item 2]', s:'[Sous-texte item 2]'},
+    {t:'[Item 3]', s:'[Sous-texte item 3]'},
+    {t:'[Item 4]', s:'[Sous-texte item 4]'}
+  ]},
+  mission: { title:'[Titre rail]', items:[
+    {t:'[Item 1]', s:'[Sous-texte item 1]', hot:true},
+    {t:'[Item 2]', s:'[Sous-texte item 2]'},
+    {t:'[Item 3]', s:'[Sous-texte item 3]'},
+    {t:'[Item 4]', s:'[Sous-texte item 4]'},
+    {t:'[Item 5]', s:'[Sous-texte item 5]'}
+  ]},
+  asset: { title:'[Titre rail]', items:[
+    {t:'[Item 1]', s:'[Sous-texte item 1]'},
+    {t:'[Item 2]', s:'[Sous-texte item 2]'},
+    {t:'[Item 3]', s:'[Sous-texte item 3]'},
+    {t:'[Item 4]', s:'[Sous-texte item 4]'}
+  ]},
+  billing: { title:'[Titre rail]', items:[
+    {t:'[Item 1]', s:'[Sous-texte item 1]', hot:true},
+    {t:'[Item 2]', s:'[Sous-texte item 2]'},
+    {t:'[Item 3]', s:'[Sous-texte item 3]'},
+    {t:'[Item 4]', s:'[Sous-texte item 4]'},
+    {t:'[Item 5]', s:'[Sous-texte item 5]'}
+  ]},
+  settings: { title:'[Titre rail]', items:[
+    {t:'[Item 1]', s:'[Sous-texte item 1]', hot:true},
+    {t:'[Item 2]', s:'[Sous-texte item 2]'},
+    {t:'[Item 3]', s:'[Sous-texte item 3]'},
+    {t:'[Item 4]', s:'[Sous-texte item 4]'}
+  ]}
+};
+
+// Navigation footer (fixe) : Cockpit / Chat / Mission
+const FOOTER_NAV = [
+  { label: 'Cockpit', stage: 'home' },
+  { label: 'Chat', stage: 'chat' },
+  { label: 'Mission', stage: 'mission' },
+];
+
+// Footer per-stage (2 modes à droite)
+const FOOTER = {
+  home:     { status:'[Statut home]',     icoRun:false, modes:['[Mode A]','Assets'] },
+  chat:     { status:'[Statut chat]',     icoRun:true,  modes:['[Mode A]','Assets'] },
+  mission:  { status:'[Statut mission]',  icoRun:true,  modes:['[Mode A]','Assets'] },
+  asset:    { status:'[Statut asset]',    icoRun:true,  modes:['[Mode A]','Assets'] },
+  billing:  { status:'[Statut billing]',  icoRun:false, modes:['[Mode A]','Assets'] },
+  settings: { status:'[Statut settings]', icoRun:false, modes:['[Mode A]','Assets'] }
+};
+
+function flushRunners() {
+  atos.forEach((h) => {
+    clearTimeout(h);
+    clearInterval(h);
+  });
+  atos = [];
+}
+
+function readHashStage() {
+  const h = (location.hash || '').replace(/^#/, '');
+  return STATES.includes(h) ? h : null;
+}
+
+function syncHash(stage) {
+  const next = '#' + stage;
+  if (location.hash !== next) location.hash = next;
+}
+
+/** null au boot : premier go() doit appliquer .show/.in. Route partagée via location.hash (#home, #chat, …). */
+let cur = null, atos = [];
+
+// Build dots
+function buildDots() {
+  const w = document.getElementById('dots');
+  w.innerHTML = STATES.map((s,i) => `<div class="ds${i===0?' on':''}" data-i="${i}" title="${LABELS[i]}"></div>`).join('');
+  w.querySelectorAll('.ds').forEach(d => d.onclick = () => go(STATES[+d.dataset.i]));
+}
+buildDots();
+
+function go(next) {
+  if (next === cur) return;
+  const prev = document.getElementById('p-' + cur);
+  const nx = document.getElementById('p-' + next);
+  if (!nx) return;
+  
+  // Reset scroll
+  document.querySelector('.main-scroll').scrollTop = 0;
+
+  // Pré-reset des éléments animés pour éviter le flicker
+  if (next === 'home') {
+    document.querySelectorAll('#p-home .act-row').forEach(r => r.classList.remove('vis'));
+  } else if (next === 'mission') {
+    document.querySelectorAll('#p-mission .mtl-row').forEach(r => r.classList.remove('vis'));
+  }
+
+  if (prev) {
+    prev.classList.remove('in');
+    setTimeout(() => { prev.classList.remove('show'); }, 290);
+  }
+  
+  nx.classList.add('show');
+  void nx.offsetHeight;
+  setTimeout(() => nx.classList.add('in'), 16);
+  cur = next;
+  updateUI(next);
+  syncHash(next);
+  setTimeout(() => initS(next), 120);
+}
+
+function updateUI(s) {
+  document.querySelectorAll('#dots .ds').forEach((d,i) => d.classList.toggle('on', STATES[i] === s));
+  document.getElementById('lbl').textContent = LABELS[STATES.indexOf(s)];
+  document.getElementById('hint').textContent = (HINTS[s] || '') + '\nRail haut (1–4) : placeholders template, pas liés au stage. 5–6 : raccourcis optionnels.\nURL : #home · #chat · #mission · #asset · #billing · #settings';
+
+  document.querySelectorAll('.lr-slot[data-stage]').forEach(b => b.classList.toggle('active', b.dataset.stage === s));
+
+  // Right rail
+  const r = RAIL[s];
+  document.getElementById('rrail-h').textContent = r.title;
+  document.getElementById('rrail-list').innerHTML = r.items.map((it,i) =>
+    `<button class="rritem${it.hot?' hot':''}" style="animation:fu .3s var(--ease) ${.3+i*.08}s forwards;animation-fill-mode:forwards;">
+      <span class="rritem-title">${it.t}<span class="rritem-sub">${it.s}</span></span>
+    </button>`
+  ).join('');
+  // trigger vis class for animation
+  setTimeout(() => document.querySelectorAll('.rritem').forEach(el => el.classList.add('vis')), 50);
+
+  // Footer
+  const f = FOOTER[s];
+  document.getElementById('footer-status').textContent = f.status;
+  document.getElementById('footer-ico').className = 'ico' + (f.icoRun ? ' run' : '');
+  const segC = document.getElementById('footer-seg-c');
+  segC.innerHTML = FOOTER_NAV.map(({ label, stage }) => {
+    const isOn = (s === stage);
+    return `<button type="button" class="footer-btn${isOn ? ' on glass' : ''}" data-nav-stage="${stage}"><span class="ico"></span><span>${label}</span></button>`;
+  }).join('');
+  segC.querySelectorAll('.footer-btn[data-nav-stage]').forEach(b => {
+    b.onclick = () => go(b.dataset.navStage);
+  });
+  const segR = document.getElementById('footer-seg-r');
+  segR.innerHTML = f.modes.map((m, i) => {
+    const onPrimary = (s === 'asset') ? (i === 1) : (i === 0);
+    return `<button type="button" class="footer-btn${onPrimary ? ' on primary' : ''}" data-mode-seg="${i}"><span class="ico"></span><span>${m}</span></button>`;
+  }).join('');
+  segR.querySelectorAll('.footer-btn').forEach(b => {
+    b.onclick = () => {
+      const idx = +b.dataset.modeSeg;
+      if (idx === 1) {
+        go('asset');
+        return;
+      }
+      go('home');
+    };
+  });
+}
+
+function initS(s) {
+  flushRunners();
+  if (s === 'chat') initChat();
+  if (s === 'mission') initMission();
+  if (s === 'asset') initAsset();
+  if (s === 'home') initHome();
+}
+
+function initHome() {
+  // stagger act-list
+  const rows = document.querySelectorAll('#p-home .act-row');
+  rows.forEach((r, i) => {
+    // Si on est déjà en train d'afficher, on ne reset pas brutalement pour éviter le flash
+    if (!r.classList.contains('vis')) {
+      atos.push(setTimeout(() => r.classList.add('vis'), 100 + i * 60));
+    }
+  });
+}
+
+// ========= CHAT =========
+function initChat() {
+  document.getElementById('ccur').style.display = '';
+  const c2 = document.getElementById('chat-ans2');
+  c2.style.animation = 'none'; void c2.offsetHeight;
+  c2.style.animation = 'fu .6s var(--ease) 6s forwards';
+  const txt = "[Texte réponse agent — phrase de réponse principale en plusieurs lignes.]";
+  const node = document.getElementById('ctyped');
+  node.textContent = '';
+  let i = 0;
+  const typer = setInterval(() => {
+    if (i >= txt.length) { clearInterval(typer); return; }
+    node.textContent += txt[i++];
+  }, 22);
+  atos.push(typer);
+  ['tc0','tc1','tc2'].forEach(id => document.getElementById(id).classList.remove('vis','run'));
+  ['ts0','ts1','ts2'].forEach(id => { const e = document.getElementById(id); e.textContent = '—'; e.className = 't-state'; });
+  const tcards = [
+    { id:'tc0', state:'ts0', t0:1800, t1:3200, label:'Exécution…', done:'[Résultat tool 1]' },
+    { id:'tc1', state:'ts1', t0:3300, t1:4500, label:'Exécution…', done:'[Résultat tool 2]' },
+    { id:'tc2', state:'ts2', t0:4600, t1:5800, label:'Exécution…', done:'[Résultat tool 3]' }
+  ];
+  tcards.forEach((c) => {
+    atos.push(setTimeout(() => {
+      const card = document.getElementById(c.id);
+      card.classList.add('vis','run');
+      const st = document.getElementById(c.state);
+      st.textContent = c.label; st.className = 't-state run';
+    }, c.t0));
+    atos.push(setTimeout(() => {
+      const card = document.getElementById(c.id);
+      card.classList.remove('run');
+      const st = document.getElementById(c.state);
+      st.textContent = c.done; st.className = 't-state done';
+    }, c.t1));
+  });
+  atos.push(setTimeout(() => { document.getElementById('ccur').style.display = 'none'; }, 6000));
+}
+
+// ========= MISSION =========
+function initMission() {
+  // stagger mtl-rows
+  const rows = document.querySelectorAll('#p-mission .mtl-row');
+  rows.forEach((r, i) => {
+    r.classList.remove('vis');
+    atos.push(setTimeout(() => {
+      r.classList.add('vis');
+    }, 100 + i * 80));
+  });
+
+  const grid = document.getElementById('ogrid');
+  grid.innerHTML = '';
+  const drafts = ['[Item 1]','[Item 2]','[Item 3]','[Item 4]','[Item 5]'];
+  drafts.forEach((label, i) => {
+    atos.push(setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'out-card';
+      c.innerHTML = `<div class="out-t">${label}</div><div class="out-s">[Sous-texte item]</div>`;
+      grid.appendChild(c);
+      requestAnimationFrame(() => setTimeout(() => c.classList.add('vis'), 20));
+    }, 600 + i * 380));
+  });
+}
+
+// ========= ASSET =========
+function initAsset() {
+  document.querySelectorAll('#p-asset .slot').forEach(s => s.className = 'slot');
+  let rdy = 0;
+  [0,1,2,3].forEach((i) => {
+    const base = 800 + i * 1400;
+    atos.push(setTimeout(() => { document.getElementById('sl'+i).classList.add('pass1'); }, base));
+    atos.push(setTimeout(() => {
+      const sl = document.getElementById('sl'+i);
+      sl.classList.remove('pass1'); sl.classList.add('pass2');
+    }, base + 450));
+    atos.push(setTimeout(() => {
+      const sl = document.getElementById('sl'+i);
+      sl.classList.remove('pass2'); sl.classList.add('loaded');
+      rdy++;
+      document.getElementById('ast').textContent = rdy < 4
+        ? `${rdy} / 4 variants prêts`
+        : '4 variants générés';
+    }, base + 950));
+  });
+  [0,1,2,3].forEach(i => {
+    document.getElementById('sl'+i).onclick = () => {
+      [0,1,2,3].forEach(j => document.getElementById('sl'+j).classList.remove('sel'));
+      document.getElementById('sl'+i).classList.add('sel');
+    };
+  });
+}
+
+// ========= Left rail : raccourcis optionnels (data-stage → go) ; placeholders = .lr-slot-ph sans data-stage =========
+document.querySelectorAll('.lr-slot[data-stage]').forEach(b => {
+  b.onclick = () => go(b.dataset.stage);
+});
+
+// ========= Toggle home filter =========
+function setF(b) {
+  document.querySelectorAll('#p-home .tg-btn').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+}
+
+// ========= Palette =========
+const PCMDS = [
+  { t:'Cockpit', s:'[Description]', s2:'home', k:'Esc' },
+  { t:'Chat', s:'[Description]', s2:'chat', k:'⌘L' },
+  { t:'Mission', s:'[Description]', s2:'mission' },
+  { t:'Assets', s:'[Description]', s2:'asset', k:'⌘G' },
+  { t:'Billing', s:'[Description]', s2:'billing', k:'⌘B' },
+  { t:'Settings', s:'[Description]', s2:'settings', k:'⌘,' }
+];
+function openPalette() {
+  document.getElementById('palette').classList.add('on');
+  renderPalette('');
+  setTimeout(() => document.getElementById('pq').focus(), 50);
+}
+function closePalette() { document.getElementById('palette').classList.remove('on'); document.getElementById('pq').value = ''; }
+function renderPalette(q) {
+  const f = PCMDS.filter(c => !q || c.t.toLowerCase().includes(q.toLowerCase()) || c.s.toLowerCase().includes(q.toLowerCase()));
+  document.getElementById('plist').innerHTML = f.map((c,i) => `
+    <div class="pitem${i===0?' foc':''}" onclick="paletteGo('${c.s2}')">
+      <div class="pitem-i">→</div>
+      <div class="pitem-t">${c.t}<div class="pitem-s">${c.s}</div></div>
+      ${c.k ? `<div class="pitem-k">${c.k}</div>` : ''}
+    </div>`).join('');
+}
+function paletteGo(s) { closePalette(); go(s); }
+document.getElementById('pq').addEventListener('input', e => renderPalette(e.target.value));
+
+// ========= Keyboard =========
+document.addEventListener('keydown', e => {
+  if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+    e.preventDefault();
+    document.getElementById('palette').classList.contains('on') ? closePalette() : openPalette();
+    return;
+  }
+  if (document.getElementById('palette').classList.contains('on')) {
+    if (e.key === 'Escape') closePalette();
+    return;
+  }
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'Escape') go('home');
+  if (e.key === 'ArrowRight') { const i = STATES.indexOf(cur); if (i < STATES.length-1) go(STATES[i+1]); }
+  if (e.key === 'ArrowLeft') { const i = STATES.indexOf(cur); if (i > 0) go(STATES[i-1]); }
+  if (e.key === 'g' && e.metaKey) { e.preventDefault(); go('asset'); }
+  if (e.key === 'b' && e.metaKey) { e.preventDefault(); go('billing'); }
+});
+
+window.addEventListener('hashchange', () => {
+  const s = readHashStage();
+  if (s && s !== cur) go(s);
+});
+
+cur = null;
+go(readHashStage() || 'home');
+</script>
+</body>
+</html>
