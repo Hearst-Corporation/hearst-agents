@@ -115,9 +115,7 @@ const ARCJET_PROTECTED_PATHS = [
 // Quota strict via ajLlmJobs (20 req/min/user+IP). Les routes de polling
 // (ex: /api/v2/jobs/[jobId]/status) restent sur `aj` (100 req/min/IP).
 // Fix 1 : video-gen (~$0.50/run via Runway/HeyGen) ajouté au même quota.
-// Fix F-098 : /api/agents/[id]/chat est un appel LLM direct, même sans smart-routing.
 export const ARCJET_LLM_JOB_PATHS = [
-  "/api/agents",
   "/api/v2/jobs/code-exec",
   "/api/v2/jobs/image-gen",
   "/api/v2/jobs/audio-gen",
@@ -127,11 +125,17 @@ export const ARCJET_LLM_JOB_PATHS = [
   "/api/v2/personas/ab-test",
 ];
 
+// Fix F-098 : /api/agents/[id]/chat est un appel LLM direct, à protéger
+// avec le même quota strict, mais SANS over-match sur /api/agents (CRUD
+// list/get/update qui n'engage pas de LLM). Pattern regex sur segment [id].
+const ARCJET_LLM_JOB_REGEX = /^\/api\/agents\/[^/]+\/(chat|run)$/;
+
 function isArcjetProtected(path: string): boolean {
   return ARCJET_PROTECTED_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
-function isLlmJobPath(path: string): boolean {
+export function isLlmJobPath(path: string): boolean {
+  if (ARCJET_LLM_JOB_REGEX.test(path)) return true;
   return ARCJET_LLM_JOB_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 

@@ -16,7 +16,7 @@
  */
 
 import { randomUUID } from "node:crypto";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { globalRunBus } from "@/lib/events/global-bus";
 import type { BrowserAction, BrowserActionType } from "@/lib/events/types";
 import { getBrowserContext, type PlaywrightBridge } from "./playwright-bridge";
@@ -464,19 +464,19 @@ async function extractStructured(opts: {
   instruction: string;
   schema?: Record<string, unknown>;
 }): Promise<unknown> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.KIMI_API_KEY;
   if (!apiKey) {
     return {
       instruction: opts.instruction,
       schema: opts.schema ?? null,
-      error: "no_anthropic_key",
+      error: "no_kimi_key",
     };
   }
   const html = await opts.page.content().catch(() => "");
   const cleaned = cleanHtml(html);
 
-  // F-126: Explicitement passer apiKey au client Anthropic (pas de fallback auto)
-  const client = new Anthropic({ apiKey });
+  // F-126: Explicitement passer apiKey au client OpenAI (pas de fallback auto)
+  const client = new OpenAI({ apiKey, baseURL: "https://api.hypercli.com/v1" });
   const system = [
     "Tu es un extracteur de données structurées depuis du HTML.",
     "Réponds UNIQUEMENT en JSON valide qui matche le schéma fourni.",
@@ -496,13 +496,15 @@ async function extractStructured(opts: {
     cleaned,
   ].join("\n");
 
-  const msg = await client.messages.create({
-    model: "claude-haiku-4-5-20251001",
+  const msg = await client.chat.completions.create({
+    model: "kimi-k2.5",
     max_tokens: 2000,
-    system,
-    messages: [{ role: "user", content: user }],
+    messages: [
+      { role: "system", content: system },
+      { role: "user", content: user },
+    ],
   });
-  const text = msg.content[0]?.type === "text" ? msg.content[0].text.trim() : "";
+  const text = msg.choices[0]?.message?.content?.trim() ?? "";
   const m = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
   if (!m) {
     return { instruction: opts.instruction, schema: opts.schema ?? null, raw: text };

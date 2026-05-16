@@ -6,7 +6,7 @@
  * Claude for synthesis. All other agents use LLM-only execution.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { capabilityGuard } from "@/lib/capabilities/guard";
 import type { Domain } from "@/lib/capabilities/taxonomy";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
@@ -324,7 +324,10 @@ async function executeAgentSync(
   stepId: string,
   input: DelegateInput,
 ): Promise<DelegateResult> {
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
+  const client = new OpenAI({
+    apiKey: process.env.KIMI_API_KEY!,
+    baseURL: "https://api.hypercli.com/v1",
+  });
   const userId = engine.getUserId();
 
   // ── Get connected providers for context ──
@@ -384,39 +387,38 @@ async function executeAgentSync(
   let usageTokens = { input_tokens: 0, output_tokens: 0 };
 
   if (useWebSearch) {
-    const response = await client.beta.messages.create({
-      model: "claude-sonnet-4-6",
+    const response = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 4096,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userContent }],
-      tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 5 }],
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userContent },
+      ],
+      // TODO: web_search tool format Anthropic non compatible OpenAI/Kimi
+      // tools: [{ type: "function", function: { name: "web_search", description: "Search the web" } }],
     });
 
-    text = response.content
-      .filter((b) => b.type === "text")
-      .map((b) => (b as Anthropic.Beta.BetaTextBlock).text)
-      .join("\n");
+    text = response.choices[0]?.message?.content ?? "";
 
     usageTokens = {
-      input_tokens: response.usage.input_tokens,
-      output_tokens: response.usage.output_tokens,
+      input_tokens: response.usage?.prompt_tokens ?? 0,
+      output_tokens: response.usage?.completion_tokens ?? 0,
     };
   } else {
-    const response = await client.messages.create({
-      model: "claude-sonnet-4-6",
+    const response = await client.chat.completions.create({
+      model: "kimi-k2.5",
       max_tokens: 4096,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userContent }],
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userContent },
+      ],
     });
 
-    text = response.content
-      .filter((b): b is Anthropic.TextBlock => b.type === "text")
-      .map((b) => b.text)
-      .join("\n");
+    text = response.choices[0]?.message?.content ?? "";
 
     usageTokens = {
-      input_tokens: response.usage.input_tokens,
-      output_tokens: response.usage.output_tokens,
+      input_tokens: response.usage?.prompt_tokens ?? 0,
+      output_tokens: response.usage?.completion_tokens ?? 0,
     };
   }
 

@@ -191,6 +191,70 @@ A10 a confirmé 5 angles morts P1 importants :
 
 ---
 
+## Vague 2 — Exécution (TERMINÉE 2026-05-16)
+
+### Résultats par agent
+
+| Agent | Mission | Status | Output |
+|-------|---------|--------|--------|
+| V2-A1 | headers-fixer : CSP hypercli + CSRF order + SECURITY.md rotation | ✅ DONE | commit `bb880110` |
+| V2-A2 | prompt-injection-fixer : F-101 + F-115 + F-046 edge.type | ✅ DONE | +44 tests, pattern `sanitizeTextField` |
+| V2-A3 | rate-limit-fixer : F-098 chat path | ⚠️ DONE avec over-match | corrigé manuellement post-vague (regex `^/api/agents/[^/]+/(chat\|run)$`) |
+| V2-A4 | tests-a11y-fixer : 4 fichiers tests P8 placeholders | ✅ DONE | commit `18d93d19`, 36 vrais tests, factorisation `lib/utils/safe-filename.ts` |
+| V2-A5 | cleanup-fixer : NF-001 + mocks Kimi cockpit | ✅ DONE | commit `0dc69e8f`, 106/106 tests |
+| V2-A6 | llm-auditor : plan F002 + monitoring fixers | ✅ DONE | `F002-PLAN-implementation.md` (721 lignes), 3 pièges identifiés |
+
+### Findings fermés par la Vague 2
+
+| ID | Title | Status final |
+|----|-------|--------------|
+| F-NEW-P8-01 | CSP connect-src manque hypercli.com | ✅ CLOSED |
+| F-NEW-P8-02 | isCsrfSafe avant isDevBypass | ✅ CLOSED |
+| F-NEW-P8-03 | Tests P8 placeholders | ✅ CLOSED (36 vrais tests) |
+| F-098 | /api/agents/[id]/chat sans rate limit | ✅ CLOSED (regex précis, pas over-match) |
+| F-101 | web_search cache cross-tenant | ✅ CLOSED |
+| F-115 | Persona description/tone/styleGuide non sanitizés | ✅ CLOSED |
+| F-046 (résiduel) | edge.type non sanitizé | ✅ CLOSED |
+| NF-001 | Dead compat ctx:string | ✅ CLOSED |
+| F-NEW-P1-01 | Mocks Kimi cockpit désynchronisés | ✅ CLOSED |
+| Secrets rotation LLM | Procédure non documentée | ✅ CLOSED (SECURITY.md) |
+
+**10 findings fermés en Vague 2.**
+
+### Découvertes Vague 2
+
+1. **Piège ai-pipeline.ts (V2-A6)** : utilise `@ai-sdk/openai` (Vercel AI SDK), pas `new OpenAI()`. Incompatible avec `chatWithProfile` sans refactor profond → migration partielle (hooks circuit-breaker/metrics seulement + lire `KIMI_BASE_URL` env).
+2. **Bug latent `lib/memory/kg.ts:124`** : `apiKey` lit `process.env.ANTHROPIC_API_KEY` mais l'utilise comme clé Kimi → 401 silencieux probable depuis hypercli. Disparaît après migration.
+3. **planner.ts** : ajout `sb, userId, tenantId` change signature publique → grep callers obligatoire (~5 callers à adapter).
+4. **factorisation safe-filename** : V2-A4 a centralisé la logique dans `lib/utils/safe-filename.ts` (avant : dupliquée dans 3 routes).
+
+### État final baseline (post Vague 2)
+
+| Check | Result |
+|-------|--------|
+| `npm run typecheck` | **0 erreur ✅** |
+| `npm run test -- __tests__/security/` | **315/320 pass, 5 skipped, 0 fail ✅** |
+| `npm run circular` | 0 ✅ |
+| Git commits dans la session | 4 (4e22371b, bb880110, 0dc69e8f, 18d93d19) |
+| Files non commités | 2 nouveaux tests V2-A2 + F002-PLAN.md V2-A6 + fix over-match manuel |
+
+### Backlog mis à jour
+
+**Encore OPEN (P1) — restent ~17h pour multi-user public :**
+- **F002** (12h) — 19 fichiers contournent router Kimi. **Plan complet livré** dans `F002-PLAN-implementation.md`.
+- **F-079** (3h) — `guardAndReserveCredits` race condition
+- **F-127** (6h) — Circuit breaker process-local (acceptable beta privée)
+- **F-MISSING-METRICS-PERSIST** (6h) — router.recordCall() n'écrit pas DB
+- **F-NEW-P5-01** (1h) — Routes Kimi hors budget tenant (redondant avec F002)
+
+**OPEN (P2) :**
+- F-104 SummarySchema enforce (15min)
+
+**OPEN (P3) :**
+- F-046 résiduel sur `edge.type` extra (déjà fait) — pas de résidu
+
+---
+
 ## Prochaines vagues recommandées
 
 ### Vague 2 — Quick wins P1 (~3h, à valider avant lancement)
