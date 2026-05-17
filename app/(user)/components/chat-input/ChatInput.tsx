@@ -150,18 +150,17 @@ export function ChatInput({
         handleSubmit();
       }}
       className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out] flex justify-center"
-      style={{
-        paddingBottom: "var(--space-6)",
-      }}
     >
       <div
-        className="vision-glass preserve-3d relative flex items-center"
+        className="relative flex items-center"
         style={{
+          background: "#000000",
+          border: "1px solid rgba(255, 255, 255, 0.15)",
           borderRadius: "var(--radius-pill)",
           padding: "var(--space-1) var(--space-1)",
           paddingRight: "var(--space-4)",
           gap: "var(--space-3)",
-          transform: "translateZ(20px)",
+          boxShadow: "0 24px 48px rgba(0,0,0,1)",
         }}
         onDragOver={handleAssetDragOver}
         onDragLeave={handleAssetDragLeave}
@@ -175,7 +174,7 @@ export function ChatInput({
           style={{
             width: "1px",
             height: "var(--space-4)",
-            background: "var(--border-default)",
+            background: "rgba(255, 255, 255, 0.15)",
           }}
         />
 

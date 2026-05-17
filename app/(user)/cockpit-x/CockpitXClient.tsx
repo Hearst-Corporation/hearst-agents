@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import type { StagePayload } from "@/stores/stage";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { Shell } from "../_shell/Shell";
@@ -18,7 +20,7 @@ import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import { SignalStage } from "../_stages/SignalStage";
 import { SimulationStage } from "../_stages/SimulationStage";
-import type { RailItem } from "../_stages/types";
+import type { RailItem, StageKey } from "../_stages/types";
 import { VoiceStage } from "../_stages/VoiceStage";
 import { ChatDock } from "../components/ChatDock";
 import { ConnectionsHub } from "../components/ConnectionsHub";
@@ -45,20 +47,74 @@ import { ConnectionsHub } from "../components/ConnectionsHub";
 
 interface CockpitXClientProps {
   initialCockpitData: CockpitTodayPayload | null;
+  initialMode?: string;
+  /** Quand `true`, ouvre le Commandeur avec "Créer une nouvelle mission" pré-rempli. */
+  openNewMission?: boolean;
 }
 
 const FACTORY_MAX = 5;
 const RAIL_MAX = 5;
 
-export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
+export function CockpitXClient({
+  initialCockpitData,
+  initialMode,
+  openNewMission,
+}: CockpitXClientProps) {
   const mode = useStageStore((s) => s.current.mode);
   const def = STAGE_REGISTRY[mode];
   const setMode = useStageStore((s) => s.setMode);
+  const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
 
   // Sources de vérité chat — alimentées par ChatStage (shellData) et ChatDock (runState).
   const shellData = useStageData((s) => s.shellData);
 
   const [data, setData] = useState<CockpitTodayPayload | null>(initialCockpitData);
+
+  // Force le mode initial si fourni (deep-link depuis une route dédiée ex. /missions, /connections).
+  useEffect(() => {
+    if (!initialMode || initialMode === "cockpit") return;
+    // Construit le payload minimal valide pour les modes sans required fields.
+    // Les modes avec champs obligatoires (asset, browser, meeting…) ne sont
+    // pas déclenchés ici — ils nécessitent un contexte supplémentaire.
+    // "browser" et "meeting" exclus : champs requis (sessionId / meetingId)
+    // nécessitent un contexte supplémentaire — ne pas déclencher depuis un deep-link.
+    const safeModesWithoutRequired: StageKey[] = [
+      "chat",
+      "mission",
+      "voice",
+      "kg",
+      "artifact",
+      "signal",
+      "simulation",
+      "connections",
+    ];
+    if (safeModesWithoutRequired.includes(initialMode as StageKey)) {
+      setMode({ mode: initialMode } as StagePayload);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Correction P2 — ouvre le Commandeur avec "Créer une nouvelle mission" si ?new=1.
+  useEffect(() => {
+    if (openNewMission) {
+      setCommandeurOpen(true, { prefilledQuery: "Créer une nouvelle mission" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Correction P1 — reset vers cockpit quand l'utilisateur revient sur `/`.
+  // useRef pour lire `mode` sans le mettre en dep : l'effet ne fire que sur changement de pathname.
+  const modeRef = useRef(mode);
+  modeRef.current = mode;
+
+  const pathname = usePathname();
+  useEffect(() => {
+    if (pathname === "/" && modeRef.current !== "cockpit") {
+      setMode({ mode: "cockpit" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, setMode]);
+
   const [refetchState, setRefetchState] = useState<"idle" | "loading" | "error">("idle");
 
   // Client refetch au mount (I-7 cockpit v1.5) — l'initialData RSC sert au LCP,
@@ -309,7 +365,7 @@ function FocusCard({
       }}
     >
       <div className="relative flex items-baseline justify-between">
-        <span className="t-12 font-medium" style={{ color: "var(--accent-teal)" }}>
+        <span className="t-12 font-medium" style={{ color: "var(--text-l1)" }}>
           {hero.label}
         </span>
         <span className="t-12" style={{ color: "var(--text-faint)" }}>
@@ -405,8 +461,8 @@ function TelemetryGrid({
             style={{
               padding: "var(--space-1-5) var(--space-3)",
               borderRadius: "var(--radius-pill)",
-              background: item.tone === "warn" ? "var(--gold-surface)" : "var(--surface-1)",
-              border: `1px solid ${item.tone === "warn" ? "var(--gold-border)" : "transparent"}`,
+              background: "var(--surface-1)",
+              border: `1px solid transparent`,
               gap: "var(--space-2)",
               cursor: connectHandler ? "pointer" : "default",
             }}
@@ -419,7 +475,7 @@ function TelemetryGrid({
             )}
             <span
               className="t-11"
-              style={{ color: item.tone === "warn" ? "var(--gold)" : "var(--text-muted)" }}
+              style={{ color: item.tone === "warn" ? "white" : "var(--text-muted)" }}
             >
               {item.footnote}
             </span>
@@ -494,8 +550,7 @@ function AgentProposals({
                   width: "6px",
                   height: "6px",
                   borderRadius: "50%",
-                  background:
-                    proposal.status === "ready" ? "var(--accent-teal)" : "var(--text-ghost)",
+                  background: proposal.status === "ready" ? "white" : "var(--text-ghost)",
                 }}
               />
               <span className="flex min-w-0 flex-1 flex-col" style={{ gap: "2px" }}>
@@ -507,7 +562,7 @@ function AgentProposals({
               <span
                 className="t-11"
                 style={{
-                  color: proposal.status === "ready" ? "var(--accent-teal)" : "var(--text-faint)",
+                  color: proposal.status === "ready" ? "white" : "var(--text-faint)",
                 }}
               >
                 {proposal.status === "ready" ? "Prêt" : "À compléter"}
@@ -645,36 +700,36 @@ function pillTokens(status: FactoryRow["status"]): {
   switch (status) {
     case "running":
       return {
-        dot: "var(--accent-teal)",
-        surface: "var(--accent-teal-surface)",
+        dot: "white",
+        surface: "transparent",
         fg: "var(--text-l1)",
         pulse: true,
       };
     case "success":
       return {
-        dot: "var(--accent-teal)",
-        surface: "var(--accent-teal-surface)",
+        dot: "var(--text-l2)",
+        surface: "transparent",
         fg: "var(--text-l1)",
         pulse: false,
       };
     case "failed":
       return {
-        dot: "var(--danger)",
-        surface: "var(--danger-surface)",
+        dot: "var(--text-l1)",
+        surface: "transparent",
         fg: "var(--text-l1)",
         pulse: false,
       };
     case "blocked":
       return {
-        dot: "var(--gold)",
-        surface: "var(--gold-surface)",
+        dot: "var(--text-l1)",
+        surface: "transparent",
         fg: "var(--text-l1)",
         pulse: false,
       };
     default:
       return {
         dot: "var(--text-ghost)",
-        surface: "var(--surface-1)",
+        surface: "transparent",
         fg: "var(--text-faint)",
         pulse: false,
       };
@@ -861,10 +916,7 @@ function WatchCard({
       <header className="flex items-baseline gap-2">
         <span className="t-13 font-medium text-white">{title}</span>
         {meta ? (
-          <span
-            className="t-11"
-            style={{ color: tone === "warn" ? "var(--gold)" : "var(--text-faint)" }}
-          >
+          <span className="t-11" style={{ color: tone === "warn" ? "white" : "var(--text-faint)" }}>
             — {meta}
           </span>
         ) : null}

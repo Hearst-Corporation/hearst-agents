@@ -74,9 +74,7 @@ function SecondaryButton({ label, hint, onClick, active, children }: SecondaryBu
         active ? "text-white" : "text-[rgba(255,255,255,0.35)] hover:text-[rgba(255,255,255,0.85)]"
       }`}
       style={{
-        background: active
-          ? "color-mix(in srgb, var(--accent-teal) 12%, transparent)"
-          : "transparent",
+        background: active ? "var(--surface-1)" : "transparent",
       }}
     >
       {children}

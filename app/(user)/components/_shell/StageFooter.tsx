@@ -43,10 +43,8 @@ function useStatusText() {
 
 function StatusPill() {
   const status = useStatusText();
-  const dotColor = status.error ? "var(--danger, rgba(255,120,120,0.95))" : "var(--accent-teal)";
-  const shadow = status.error
-    ? "0 0 0 3px color-mix(in srgb, var(--danger, rgba(255,120,120,0.4)) 18%, transparent)"
-    : "var(--shadow-pulse-dot)";
+  const dotColor = status.error ? "var(--text-l1)" : "white";
+  const shadow = "none";
 
   return (
     <output
@@ -86,15 +84,16 @@ function NavButton({ label, active, hotkey, onClick }: NavButtonProps) {
       aria-current={active ? "page" : undefined}
       aria-label={hotkey ? `${label} (${hotkey})` : label}
       title={hotkey ? `${label} (${hotkey})` : label}
-      className="t-11 font-medium 2xl:t-12"
+      className="t-11 2xl:t-12"
       style={{
-        padding: "var(--space-1-5) var(--space-3)",
+        padding: "var(--space-1-5) var(--space-4)",
         borderRadius: "var(--radius-pill)",
-        border: "1px solid transparent",
-        background: "transparent",
-        color: active ? "var(--text-l1)" : "var(--text-l2)",
+        background: active ? "#ffffff" : "transparent",
+        color: active ? "#000000" : "#666666",
+        fontWeight: active ? 600 : 500,
+        border: "none",
         cursor: "pointer",
-        transition: "all var(--duration-base) var(--ease-standard)",
+        transition: "all 0.1s ease-out",
       }}
     >
       {label}

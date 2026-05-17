@@ -59,29 +59,25 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
             {centerContent}
           </main>
 
-          {/* Fade noir bas — marche de respiration entre scroll et pill footer */}
+          {/* Fade noir bas — masque le texte qui défile sous le composer */}
           <div
             aria-hidden
-            className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-48"
+            className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-32"
             style={{
               background:
-                "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--mat-200) 45%, transparent) 25%, color-mix(in srgb, var(--mat-200) 92%, transparent) 60%, var(--mat-200) 85%)",
+                "linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 40%, transparent 100%)",
             }}
           />
 
           {/* Composer chat — remplace le FloatingFooter (P8) */}
           {composer && (
             <div
-              className="absolute right-0 bottom-0 left-0 z-25"
+              className="absolute right-0 bottom-0 left-0 z-25 pointer-events-none flex justify-center"
               style={{
-                background:
-                  "linear-gradient(to top, color-mix(in srgb, var(--accent-teal) 10%, rgba(0,0,0,0.75)) 0%, color-mix(in srgb, var(--accent-teal) 4%, rgba(0,0,0,0.35)) 50%, transparent 100%)",
-                backdropFilter: "blur(var(--blur-md))",
-                WebkitBackdropFilter: "blur(var(--blur-md))",
-                boxShadow: "0 -4px 24px color-mix(in srgb, var(--accent-teal) 12%, transparent)",
+                paddingBottom: "var(--space-6)",
               }}
             >
-              {composer}
+              <div className="pointer-events-auto w-full flex justify-center">{composer}</div>
             </div>
           )}
         </div>
