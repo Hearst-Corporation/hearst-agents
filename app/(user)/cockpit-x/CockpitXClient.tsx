@@ -27,28 +27,11 @@ import { ConnectionsHub } from "../components/ConnectionsHub";
 
 /**
  * CockpitXClient — orchestrateur du shell visionOS (P4+).
- *
- * Mode `cockpit` = Dashboard personnel : header compact + focus du jour avec
- * télémétrie discrète + propositions actionnables de l'agent + demandes en cours
- * + vue globale (Messages / Agenda). Toutes
- * les surfaces sont alimentées par `CockpitTodayPayload`
- * (`/api/v2/cockpit/today`). Pas de mock, pas de faux bouton : empty
- * states honnêtes, CTA câblés sur Chat / Mission / Commandeur uniquement.
- *
- * Vocabulaire visible : « Demandes » → code mode `"mission"`, « Messages »
- * → champ `inbox`. Rename UI 2026-05 pour parler à monsieur tout le monde ;
- * types/store/routes inchangés.
- *
- * Le legacy `app/(user)/` reste actif jusqu'à la bascule P8.
- *
- * Pattern RSC prefetch + client refetch préservé (I-7 cockpit v1.5).
- * Fail-soft (I-2) et honest empty state (I-3) appliqués sur chaque carte.
  */
 
 interface CockpitXClientProps {
   initialCockpitData: CockpitTodayPayload | null;
   initialMode?: string;
-  /** Quand `true`, ouvre le Commandeur avec "Créer une nouvelle mission" pré-rempli. */
   openNewMission?: boolean;
 }
 
@@ -65,19 +48,11 @@ export function CockpitXClient({
   const setMode = useStageStore((s) => s.setMode);
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
 
-  // Sources de vérité chat — alimentées par ChatStage (shellData) et ChatDock (runState).
   const shellData = useStageData((s) => s.shellData);
-
   const [data, setData] = useState<CockpitTodayPayload | null>(initialCockpitData);
 
-  // Force le mode initial si fourni (deep-link depuis une route dédiée ex. /missions, /connections).
   useEffect(() => {
     if (!initialMode || initialMode === "cockpit") return;
-    // Construit le payload minimal valide pour les modes sans required fields.
-    // Les modes avec champs obligatoires (asset, browser, meeting…) ne sont
-    // pas déclenchés ici — ils nécessitent un contexte supplémentaire.
-    // "browser" et "meeting" exclus : champs requis (sessionId / meetingId)
-    // nécessitent un contexte supplémentaire — ne pas déclencher depuis un deep-link.
     const safeModesWithoutRequired: StageKey[] = [
       "chat",
       "mission",
@@ -91,19 +66,14 @@ export function CockpitXClient({
     if (safeModesWithoutRequired.includes(initialMode as StageKey)) {
       setMode({ mode: initialMode } as StagePayload);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Correction P2 — ouvre le Commandeur avec "Créer une nouvelle mission" si ?new=1.
   useEffect(() => {
     if (openNewMission) {
       setCommandeurOpen(true, { prefilledQuery: "Créer une nouvelle mission" });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Correction P1 — reset vers cockpit quand l'utilisateur revient sur `/`.
-  // useRef pour lire `mode` sans le mettre en dep : l'effet ne fire que sur changement de pathname.
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
@@ -112,13 +82,10 @@ export function CockpitXClient({
     if (pathname === "/" && modeRef.current !== "cockpit") {
       setMode({ mode: "cockpit" });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, setMode]);
 
   const [refetchState, setRefetchState] = useState<"idle" | "loading" | "error">("idle");
 
-  // Client refetch au mount (I-7 cockpit v1.5) — l'initialData RSC sert au LCP,
-  // mais on resync toujours pour éviter un snapshot SSR figé.
   useEffect(() => {
     if (mode !== "cockpit") return;
     let cancelled = false;
@@ -148,7 +115,6 @@ export function CockpitXClient({
     };
   }, [mode, initialCockpitData]);
 
-  // Router de stages — cockpit mode avec data, autres avec leurs composants P5.
   if (mode === "cockpit") {
     const railItems = buildRailItems(data);
     return (
@@ -167,12 +133,6 @@ export function CockpitXClient({
     );
   }
 
-  // Stages P5 branchés — contenu + rail items par mode.
-  //
-  // Pattern data-bound (complet, vagues 1-3) : chaque Stage pousse son railTitle
-  // + railItems via `useStageData.setShellData(...)` au mount, clear au unmount.
-  // CockpitXClient lit `shellData` du store et fallback registry si rien n'a été push.
-  // Tous les 12 stages sont désormais data-bound — plus de hardcodes ici.
   const stageRailTitle: string = shellData?.railTitle ?? def.railTitle;
   const stageRailItems: RailItem[] = shellData?.railItems ? [...shellData.railItems] : [];
 
@@ -180,40 +140,28 @@ export function CockpitXClient({
     switch (mode) {
       case "chat":
         return <ChatStage mode={mode} />;
-
       case "mission":
         return <MissionStage mode={mode} />;
-
       case "asset":
         return <AssetStage mode={mode} />;
-
       case "browser":
         return <BrowserStage mode={mode} />;
-
       case "voice":
         return <VoiceStage mode={mode} />;
-
       case "meeting":
         return <MeetingStage mode={mode} />;
-
       case "kg":
         return <KGStage mode={mode} />;
-
       case "artifact":
         return <ArtifactStage mode={mode} />;
-
       case "signal":
         return <SignalStage mode={mode} />;
-
       case "asset_compare":
         return <AssetCompareStage mode={mode} />;
-
       case "simulation":
         return <SimulationStage mode={mode} />;
-
       case "connections":
         return <ConnectionsHub />;
-
       default:
         return <ModePlaceholder mode={mode} def={def} />;
     }
@@ -253,8 +201,6 @@ function CockpitContent({
     year: "numeric",
   });
 
-  const summary = buildSummary(data);
-  const hero = buildHero(data, setMode);
   const telemetry = buildTelemetry(data);
   const factoryRows = buildFactoryRows(data);
   const watch = buildWatch(data);
@@ -267,61 +213,81 @@ function CockpitContent({
   return (
     <motion.section
       key="cockpit"
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="preserve-3d flex w-full max-w-[760px] flex-col 2xl:max-w-[820px]"
-      style={{ gap: "var(--space-10)" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="preserve-3d flex w-full flex-col mx-auto h-full overflow-hidden"
+      style={{ gap: "var(--space-8)", maxWidth: "1600px", paddingBottom: "var(--space-4)" }}
     >
-      {/* HEADER compact */}
-      <header className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-        <p className="t-13 capitalize" style={{ color: "var(--text-faint)" }}>
+      {/* HEADER ultra-minimal */}
+      <header
+        className="flex flex-col relative w-full pb-2 shrink-0"
+        style={{ gap: "var(--space-2)" }}
+      >
+        {/* Decor SVG */}
+        <div className="absolute top-0 right-0 opacity-20 pointer-events-none hidden md:block">
+          <svg width="200" height="80" viewBox="0 0 200 80" fill="none">
+            <line
+              x1="0"
+              y1="40"
+              x2="200"
+              y2="40"
+              stroke="white"
+              strokeWidth="0.5"
+              strokeDasharray="4 4"
+            />
+            <circle cx="160" cy="40" r="20" stroke="white" strokeWidth="0.5" />
+            <circle cx="160" cy="40" r="2" fill="white" />
+          </svg>
+        </div>
+
+        <p className="uppercase tracking-[0.2em] text-[9px]" style={{ color: "var(--text-faint)" }}>
           {todayLabel}
         </p>
         <h1
-          className="font-medium leading-[1.1] tracking-tight text-white"
-          style={{ fontSize: "var(--text-display)" }}
+          className="font-light leading-[1] tracking-tighter text-white"
+          style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}
         >
-          Bonjour{firstName ? `, ${firstName}` : ""}.
+          {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
         </h1>
-        <p
-          className="max-w-[640px] text-base leading-normal"
-          style={{ color: "var(--text-muted)" }}
-        >
-          {summary}
-        </p>
         {showError ? (
-          <p className="t-13" style={{ color: "var(--text-faint)" }}>
-            Synchronisation indisponible pour l&apos;instant. Réessaie dans un instant.
+          <p className="uppercase tracking-[0.1em] text-[10px] text-white/40 mt-1">
+            SYSTÈME HORS LIGNE
           </p>
         ) : null}
+
+        <div className="mt-8">
+          <TelemetryLine
+            telemetry={telemetry}
+            onInboxConnect={() => openCommandeur("connecter inbox gmail")}
+            onAgendaConnect={() => openCommandeur("connecter google calendar")}
+          />
+        </div>
       </header>
 
-      {/* FOCUS — priorité du moment + télémétrie compacte */}
-      <FocusCard
-        hero={hero}
-        telemetry={telemetry}
-        onGoChat={onGoChat}
-        onInboxConnect={() => openCommandeur("connecter inbox gmail")}
-        onAgendaConnect={() => openCommandeur("connecter google calendar")}
-      />
-
-      {/* Propositions actionnables de l'agent */}
-      <AgentProposals proposals={proposals} onSuggestionOpen={(title) => openCommandeur(title)} />
-
-      {/* FACTORY LINE — missions running/récentes */}
-      <FactoryLine
-        rows={factoryRows}
-        onOpenMission={(id) => setMode({ mode: "mission", missionId: id })}
-        onGoChat={onGoChat}
-      />
-
-      {/* Vue globale — signaux / agenda */}
-      <WatchBlock
-        watch={watch}
-        onInboxOpen={() => openCommandeur("brief inbox")}
-        onAgendaOpen={() => openCommandeur("agenda du jour")}
-      />
+      {/* Grid: 3 columns layout for ultra-wide screen */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 w-full flex-1 overflow-hidden min-h-0 pt-4 border-t border-white/10">
+        <div className="flex flex-col h-full overflow-hidden">
+          <FactoryLine
+            rows={factoryRows}
+            onOpenMission={(id) => setMode({ mode: "mission", missionId: id })}
+            onGoChat={onGoChat}
+          />
+        </div>
+        <div className="flex flex-col h-full overflow-hidden">
+          <WatchBlock
+            watch={watch}
+            onInboxOpen={() => openCommandeur("brief inbox")}
+            onAgendaOpen={() => openCommandeur("agenda du jour")}
+          />
+        </div>
+        <div className="flex flex-col h-full overflow-hidden">
+          <AgentProposals
+            proposals={proposals}
+            onSuggestionOpen={(title) => openCommandeur(title)}
+          />
+        </div>
+      </div>
     </motion.section>
   );
 }
@@ -339,94 +305,10 @@ interface TelemetryItem {
   footnote: string;
   tone: TelemetryTone;
   progress: number;
-  /** True quand le footnote suggère une action de connexion (CTA Commandeur). */
   needsConnection?: boolean;
 }
 
-function FocusCard({
-  hero,
-  telemetry,
-  onGoChat,
-  onInboxConnect,
-  onAgendaConnect,
-}: {
-  hero: HeroContent;
-  telemetry: TelemetryItem[];
-  onGoChat: () => void;
-  onInboxConnect: () => void;
-  onAgendaConnect: () => void;
-}) {
-  return (
-    <section
-      className="preserve-3d relative flex flex-col"
-      style={{
-        padding: "var(--space-2) 0",
-        gap: "var(--space-3)",
-      }}
-    >
-      <div className="relative flex items-baseline justify-between">
-        <span className="t-12 font-medium" style={{ color: "var(--text-l1)" }}>
-          {hero.label}
-        </span>
-        <span className="t-12" style={{ color: "var(--text-faint)" }}>
-          {hero.meta}
-        </span>
-      </div>
-      <h2
-        className="relative max-w-[640px] font-medium leading-[1.2] tracking-tight text-white"
-        style={{ fontSize: "var(--text-vision-2xl)" }}
-      >
-        {hero.title}
-      </h2>
-      <p
-        className="relative max-w-[600px] text-lg leading-[1.6]"
-        style={{ color: "var(--text-muted)" }}
-      >
-        {hero.body}
-      </p>
-      <TelemetryGrid
-        telemetry={telemetry}
-        onInboxConnect={onInboxConnect}
-        onAgendaConnect={onAgendaConnect}
-      />
-      <div
-        className="relative flex items-center"
-        style={{ gap: "var(--space-3)", paddingTop: "var(--space-4)" }}
-      >
-        <motion.button
-          whileTap={{ scale: 0.97 }}
-          type="button"
-          onClick={onGoChat}
-          className="vision-btn-primary t-13 font-medium"
-          style={{
-            padding: "var(--space-2-5) var(--space-5)",
-            borderRadius: "var(--radius-pill)",
-            cursor: "pointer",
-          }}
-        >
-          Demander à l&apos;agent
-        </motion.button>
-        {hero.ctaSecondary ? (
-          <motion.button
-            whileTap={{ scale: 0.97 }}
-            type="button"
-            onClick={hero.ctaSecondary.onClick}
-            className="vision-btn-glass t-13"
-            style={{
-              padding: "var(--space-2-5) var(--space-5)",
-              borderRadius: "var(--radius-pill)",
-              cursor: "pointer",
-            }}
-          >
-            {hero.ctaSecondary.label}
-          </motion.button>
-        ) : null}
-      </div>
-    </section>
-  );
-}
-
-function TelemetryGrid({
+function TelemetryLine({
   telemetry,
   onInboxConnect,
   onAgendaConnect,
@@ -436,13 +318,7 @@ function TelemetryGrid({
   onAgendaConnect: () => void;
 }) {
   return (
-    <div
-      className="relative flex flex-wrap"
-      style={{
-        gap: "var(--space-3)",
-        paddingTop: "var(--space-2)",
-      }}
-    >
+    <div className="flex flex-wrap items-center gap-6 lg:gap-12">
       {telemetry.map((item) => {
         const connectHandler =
           item.needsConnection && item.id === "inbox"
@@ -456,28 +332,14 @@ function TelemetryGrid({
             key={item.id}
             type={connectHandler ? "button" : undefined}
             onClick={connectHandler ?? undefined}
-            aria-label={connectHandler ? `${item.label} — ${item.footnote}` : undefined}
-            className="flex items-center text-left transition-opacity hover:opacity-80"
-            style={{
-              padding: "var(--space-1-5) var(--space-3)",
-              borderRadius: "var(--radius-pill)",
-              background: "var(--surface-1)",
-              border: `1px solid transparent`,
-              gap: "var(--space-2)",
-              cursor: connectHandler ? "pointer" : "default",
-            }}
+            className="flex items-center gap-3 transition-opacity hover:opacity-100 opacity-60"
+            style={{ cursor: connectHandler ? "pointer" : "default" }}
           >
-            <span className="t-12" style={{ color: "var(--text-faint)" }}>
-              {item.label}
+            <span className="font-light text-white text-xl">
+              {item.value !== "—" ? item.value : "-"}
             </span>
-            {item.value !== "—" && (
-              <span className="font-medium text-white t-12">{item.value}</span>
-            )}
-            <span
-              className="t-11"
-              style={{ color: item.tone === "warn" ? "white" : "var(--text-muted)" }}
-            >
-              {item.footnote}
+            <span className="uppercase tracking-[0.2em] text-[9px] text-white pt-1">
+              {item.label}
             </span>
           </Wrapper>
         );
@@ -501,72 +363,52 @@ function AgentProposals({
   onSuggestionOpen: (prompt: string) => void;
 }) {
   return (
-    <section className="flex flex-col" style={{ gap: "var(--space-4)" }}>
-      <div
-        className="flex items-baseline justify-between"
-        style={{ paddingInline: "var(--space-1)" }}
-      >
-        <h2 className="t-15 font-medium text-white">L&apos;agent propose</h2>
-        <span className="t-11" style={{ color: "var(--text-faint)" }}>
-          {proposals.length > 0
-            ? `${proposals.length} idée${proposals.length > 1 ? "s" : ""}`
-            : "aucune idée prête"}
-        </span>
+    <section className="flex flex-col w-full h-full min-h-0">
+      <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 shrink-0">
+        <h2 className="uppercase tracking-[0.15em] text-[10px] text-white">Propositions</h2>
+        <span className="text-[9px] text-white/40">{proposals.length}</span>
       </div>
       {proposals.length === 0 ? (
-        <div
-          className="flex flex-col"
-          style={{
-            padding: "var(--space-2) 0",
-            gap: "var(--space-1)",
-          }}
-        >
-          <p className="t-13" style={{ color: "var(--text-muted)" }}>
-            Aucune proposition fiable pour le moment.
-          </p>
-          <p className="t-11" style={{ color: "var(--text-faint)" }}>
-            Les propositions apparaissent quand une source connectée donne assez de contexte.
-          </p>
+        <div className="flex items-center justify-center py-8 opacity-20 shrink-0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="6" stroke="white" strokeWidth="0.5" />
+            <line
+              x1="12"
+              y1="0"
+              x2="12"
+              y2="24"
+              stroke="white"
+              strokeWidth="0.5"
+              strokeDasharray="2 4"
+            />
+            <line
+              x1="0"
+              y1="12"
+              x2="24"
+              y2="12"
+              stroke="white"
+              strokeWidth="0.5"
+              strokeDasharray="2 4"
+            />
+          </svg>
         </div>
       ) : (
-        <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-          {proposals.map((proposal) => (
+        <div className="flex flex-col gap-2 overflow-y-auto min-h-0 pb-4 pr-2">
+          {proposals.map((p) => (
             <button
-              key={proposal.id}
+              key={p.id}
               type="button"
-              onClick={() => onSuggestionOpen(proposal.title)}
-              className="flex w-full items-center text-left transition-opacity hover:opacity-70 group"
-              style={{
-                padding: "var(--space-3) 0",
-                borderBottom:
-                  "1px solid color-mix(in srgb, var(--border-default) 40%, transparent)",
-                gap: "var(--space-3)",
-                cursor: "pointer",
-              }}
+              onClick={() => onSuggestionOpen(p.title)}
+              className="flex flex-col text-left group py-3 gap-1 opacity-70 hover:opacity-100 transition-opacity"
             >
-              <span
-                className="shrink-0"
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  borderRadius: "50%",
-                  background: proposal.status === "ready" ? "white" : "var(--text-ghost)",
-                }}
-              />
-              <span className="flex min-w-0 flex-1 flex-col" style={{ gap: "2px" }}>
-                <span className="t-13 font-medium text-white">{proposal.title}</span>
-                <span className="t-12" style={{ color: "var(--text-muted)" }}>
-                  {proposal.description}
-                </span>
-              </span>
-              <span
-                className="t-11"
-                style={{
-                  color: proposal.status === "ready" ? "white" : "var(--text-faint)",
-                }}
-              >
-                {proposal.status === "ready" ? "Prêt" : "À compléter"}
-              </span>
+              <div className="flex items-center justify-between w-full">
+                <span className="text-sm font-medium text-white">{p.title}</span>
+                <span
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ background: p.status === "ready" ? "white" : "var(--text-ghost)" }}
+                />
+              </div>
+              <span className="text-xs text-white/50">{p.description}</span>
             </button>
           ))}
         </div>
@@ -595,64 +437,50 @@ function FactoryLine({
   onGoChat: () => void;
 }) {
   return (
-    <section className="flex flex-col" style={{ gap: "var(--space-4)" }}>
-      <div
-        className="flex items-baseline justify-between"
-        style={{ paddingInline: "var(--space-1)" }}
-      >
-        <h2 className="t-15 font-medium text-white">Suivi des demandes</h2>
-        <span className="t-11" style={{ color: "var(--text-faint)" }}>
-          {rows.length > 0 ? `${rows.length} demande${rows.length > 1 ? "s" : ""}` : "vide"}
-        </span>
+    <section className="flex flex-col w-full h-full min-h-0">
+      <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 shrink-0">
+        <h2 className="uppercase tracking-[0.15em] text-[10px] text-white">Demandes</h2>
+        <span className="text-[9px] text-white/40">{rows.length}</span>
       </div>
       {rows.length === 0 ? (
-        <div
-          className="flex flex-col items-start"
-          style={{
-            padding: "var(--space-2) 0",
-            gap: "var(--space-2)",
-          }}
-        >
-          <p className="t-13" style={{ color: "var(--text-muted)" }}>
-            Aucune demande en cours. Demande à l&apos;agent de t&apos;aider — il propose le plan.
-          </p>
-          <button
-            type="button"
-            onClick={onGoChat}
-            className="vision-btn-glass t-12"
-            style={{
-              padding: "var(--space-1-5) var(--space-3)",
-              borderRadius: "var(--radius-pill)",
-              cursor: "pointer",
-            }}
-          >
-            Faire une demande
-          </button>
+        <div className="flex items-center justify-center py-8 opacity-20 shrink-0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <rect x="6" y="6" width="12" height="12" stroke="white" strokeWidth="0.5" />
+            <line
+              x1="12"
+              y1="0"
+              x2="12"
+              y2="24"
+              stroke="white"
+              strokeWidth="0.5"
+              strokeDasharray="2 4"
+            />
+            <line
+              x1="0"
+              y1="12"
+              x2="24"
+              y2="12"
+              stroke="white"
+              strokeWidth="0.5"
+              strokeDasharray="2 4"
+            />
+          </svg>
         </div>
       ) : (
-        <ul className="flex flex-col" style={{ gap: "0" }}>
+        <ul className="flex flex-col gap-2 overflow-y-auto min-h-0 pb-4 pr-2">
           {rows.map((row) => (
             <li key={row.id}>
               <button
                 type="button"
                 onClick={() => onOpenMission(row.missionId)}
-                className="flex w-full items-center text-left transition-opacity hover:opacity-70"
-                style={{
-                  padding: "var(--space-2) 0",
-                  gap: "var(--space-3)",
-                  cursor: "pointer",
-                }}
+                className="flex w-full items-start text-left py-3 gap-4 opacity-70 hover:opacity-100 transition-opacity"
               >
-                <StatusPill status={row.status} label={row.statusLabel} />
-                <div className="flex flex-1 flex-col" style={{ gap: "2px" }}>
-                  <span className="t-13 font-medium text-white">{row.name}</span>
-                  {row.detail ? (
-                    <span className="t-11" style={{ color: "var(--text-faint)" }}>
-                      {row.detail}
-                    </span>
-                  ) : null}
+                <StatusPill status={row.status} />
+                <div className="flex flex-1 flex-col gap-1">
+                  <span className="text-sm font-medium text-white">{row.name}</span>
+                  {row.detail ? <span className="text-xs text-white/40">{row.detail}</span> : null}
                 </div>
-                <span className="t-11" style={{ color: "var(--text-ghost)" }}>
+                <span className="text-[10px] uppercase tracking-wide text-white/30">
                   {row.when}
                 </span>
               </button>
@@ -664,16 +492,10 @@ function FactoryLine({
   );
 }
 
-function StatusPill({ status, label }: { status: FactoryRow["status"]; label: string }) {
-  const { dot, fg, pulse } = pillTokens(status);
+function StatusPill({ status }: { status: FactoryRow["status"] }) {
+  const { dot, pulse } = pillTokens(status);
   return (
-    <span
-      className="flex items-center"
-      style={{
-        gap: "var(--space-1-5)",
-        minWidth: "90px",
-      }}
-    >
+    <span className="flex items-center pt-1.5">
       <span
         aria-hidden
         className={pulse ? "animate-pulse" : ""}
@@ -684,55 +506,24 @@ function StatusPill({ status, label }: { status: FactoryRow["status"]; label: st
           background: dot,
         }}
       />
-      <span className="t-12 font-medium" style={{ color: fg }}>
-        {label}
-      </span>
     </span>
   );
 }
 
 function pillTokens(status: FactoryRow["status"]): {
   dot: string;
-  surface: string;
-  fg: string;
   pulse: boolean;
 } {
   switch (status) {
     case "running":
-      return {
-        dot: "white",
-        surface: "transparent",
-        fg: "var(--text-l1)",
-        pulse: true,
-      };
+      return { dot: "white", pulse: true };
     case "success":
-      return {
-        dot: "var(--text-l2)",
-        surface: "transparent",
-        fg: "var(--text-l1)",
-        pulse: false,
-      };
+      return { dot: "var(--text-l2)", pulse: false };
     case "failed":
-      return {
-        dot: "var(--text-l1)",
-        surface: "transparent",
-        fg: "var(--text-l1)",
-        pulse: false,
-      };
     case "blocked":
-      return {
-        dot: "var(--text-l1)",
-        surface: "transparent",
-        fg: "var(--text-l1)",
-        pulse: false,
-      };
+      return { dot: "white", pulse: false };
     default:
-      return {
-        dot: "var(--text-ghost)",
-        surface: "transparent",
-        fg: "var(--text-faint)",
-        pulse: false,
-      };
+      return { dot: "var(--text-ghost)", pulse: false };
   }
 }
 
@@ -758,23 +549,16 @@ function WatchBlock({
 }) {
   const blocks: { key: string; node: React.ReactNode }[] = [];
 
-  // Messages (Inbox)
   if (watch.inbox.kind === "items") {
     blocks.push({
       key: "inbox",
       node: (
-        <WatchCard
-          title="Messages"
-          meta={`${watch.inbox.items.length} à examiner`}
-          action={{ label: "Ouvrir le brief", onClick: onInboxOpen }}
-        >
-          <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+        <WatchCard title="Messages" action={{ label: "Ouvrir", onClick: onInboxOpen }}>
+          <ul className="flex flex-col gap-3">
             {watch.inbox.items.slice(0, 3).map((it) => (
-              <li key={it.id} className="flex flex-col" style={{ gap: "var(--space-0-5)" }}>
-                <span className="t-13 text-white">{it.title}</span>
-                <span className="t-11" style={{ color: "var(--text-faint)" }}>
-                  {it.summary}
-                </span>
+              <li key={it.id} className="flex flex-col gap-1">
+                <span className="text-sm text-white">{it.title}</span>
+                <span className="text-xs text-white/40">{it.summary}</span>
               </li>
             ))}
           </ul>
@@ -785,42 +569,23 @@ function WatchBlock({
     blocks.push({
       key: "inbox",
       node: (
-        <WatchCard
-          title="Messages"
-          meta="déconnectée"
-          tone="warn"
-          action={{ label: "Connecter Gmail ou Slack", onClick: onInboxOpen }}
-        >
-          <p className="t-12" style={{ color: "var(--text-muted)" }}>
-            L&apos;agent ne lit aucune messagerie pour l&apos;instant. Connectez une source pour
-            recevoir un brief du jour.
-          </p>
+        <WatchCard title="Messages" action={{ label: "Connecter", onClick: onInboxOpen }}>
+          <p className="text-xs text-white/40">Source déconnectée.</p>
         </WatchCard>
       ),
     });
   }
 
-  // Agenda
   if (watch.agenda.kind === "items") {
     blocks.push({
       key: "agenda",
       node: (
-        <WatchCard
-          title="Agenda"
-          meta={`${watch.agenda.items.length} rendez-vous`}
-          action={{ label: "Voir le détail", onClick: onAgendaOpen }}
-        >
-          <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+        <WatchCard title="Agenda" action={{ label: "Détail", onClick: onAgendaOpen }}>
+          <ul className="flex flex-col gap-3">
             {watch.agenda.items.slice(0, 3).map((ev) => (
-              <li
-                key={ev.id}
-                className="flex items-baseline justify-between"
-                style={{ gap: "var(--space-3)" }}
-              >
-                <span className="t-13 text-white">{ev.title}</span>
-                <span className="t-11" style={{ color: "var(--text-ghost)" }}>
-                  {ev.when}
-                </span>
+              <li key={ev.id} className="flex items-baseline justify-between gap-3">
+                <span className="text-sm text-white">{ev.title}</span>
+                <span className="text-[10px] uppercase tracking-wide text-white/40">{ev.when}</span>
               </li>
             ))}
           </ul>
@@ -831,111 +596,77 @@ function WatchBlock({
     blocks.push({
       key: "agenda",
       node: (
-        <WatchCard
-          title="Agenda"
-          meta="déconnecté"
-          tone="warn"
-          action={{ label: "Connecter Google Calendar", onClick: onAgendaOpen }}
-        >
-          <p className="t-12" style={{ color: "var(--text-muted)" }}>
-            Pas de calendrier branché. Connectez-le pour voir les rendez-vous du jour sur ce
-            dashboard.
-          </p>
+        <WatchCard title="Agenda" action={{ label: "Connecter", onClick: onAgendaOpen }}>
+          <p className="text-xs text-white/40">Calendrier déconnecté.</p>
         </WatchCard>
       ),
     });
   }
 
-  if (blocks.length === 0) {
-    return (
-      <section className="flex flex-col" style={{ gap: "var(--space-4)" }}>
-        <h2 className="t-15 font-medium text-white" style={{ paddingInline: "var(--space-1)" }}>
-          Vue globale
-        </h2>
-        <div
-          className="flex flex-col"
-          style={{
-            padding: "var(--space-2) 0",
-            gap: "var(--space-1)",
-          }}
-        >
-          <p className="t-13" style={{ color: "var(--text-muted)" }}>
-            Rien d&apos;important à afficher pour le moment.
-          </p>
-          <p className="t-11" style={{ color: "var(--text-faint)" }}>
-            L&apos;agent vous préviendra dès qu&apos;un message ou un rendez-vous arrive.
-          </p>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="flex flex-col" style={{ gap: "var(--space-4)" }}>
-      <h2 className="t-15 font-medium text-white" style={{ paddingInline: "var(--space-1)" }}>
-        Vue globale
-      </h2>
-      <div
-        className="grid"
-        style={{
-          gridTemplateColumns: blocks.length > 1 ? "repeat(auto-fit, minmax(260px, 1fr))" : "1fr",
-          gap: "var(--space-6)",
-        }}
-      >
-        {blocks.map((b) => (
-          <div key={b.key}>{b.node}</div>
-        ))}
+    <section className="flex flex-col w-full h-full min-h-0">
+      <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 shrink-0">
+        <h2 className="uppercase tracking-[0.15em] text-[10px] text-white">Signaux</h2>
       </div>
+      {blocks.length === 0 ? (
+        <div className="flex items-center justify-center py-8 opacity-20 shrink-0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <polygon points="12,2 22,22 2,22" stroke="white" strokeWidth="0.5" />
+            <line
+              x1="12"
+              y1="0"
+              x2="12"
+              y2="24"
+              stroke="white"
+              strokeWidth="0.5"
+              strokeDasharray="2 4"
+            />
+            <line
+              x1="0"
+              y1="12"
+              x2="24"
+              y2="12"
+              stroke="white"
+              strokeWidth="0.5"
+              strokeDasharray="2 4"
+            />
+          </svg>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3 overflow-y-auto min-h-0 pb-4 pr-2">
+          {blocks.map((b) => (
+            <div key={b.key}>{b.node}</div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
 
 function WatchCard({
   title,
-  meta,
-  tone = "default",
   action,
   children,
 }: {
   title: string;
-  meta?: string;
-  tone?: "default" | "warn";
   action?: { label: string; onClick: () => void };
   children: React.ReactNode;
 }) {
   return (
-    <div
-      className="flex h-full flex-col"
-      style={{
-        padding: "var(--space-2) 0",
-        gap: "var(--space-3)",
-        borderTop: "1px solid color-mix(in srgb, var(--border-default) 40%, transparent)",
-        paddingTop: "var(--space-3)",
-      }}
-    >
-      <header className="flex items-baseline gap-2">
-        <span className="t-13 font-medium text-white">{title}</span>
-        {meta ? (
-          <span className="t-11" style={{ color: tone === "warn" ? "white" : "var(--text-faint)" }}>
-            — {meta}
-          </span>
+    <div className="flex flex-col py-3 gap-2">
+      <header className="flex items-center justify-between">
+        <span className="text-xs tracking-widest uppercase text-white/50">{title}</span>
+        {action ? (
+          <button
+            type="button"
+            onClick={action.onClick}
+            className="text-[9px] uppercase tracking-widest text-white/40 hover:text-white transition-colors"
+          >
+            {action.label}
+          </button>
         ) : null}
       </header>
-      <div className="flex-1 pl-1">{children}</div>
-      {action ? (
-        <button
-          type="button"
-          onClick={action.onClick}
-          className="t-12 self-start font-medium transition-opacity hover:opacity-70"
-          style={{
-            color: "var(--text-muted)",
-            cursor: "pointer",
-            marginTop: "var(--space-1)",
-          }}
-        >
-          {action.label} →
-        </button>
-      ) : null}
+      <div className="flex-1 mt-1">{children}</div>
     </div>
   );
 }
@@ -943,26 +674,6 @@ function WatchCard({
 /* -------------------------------------------------------------------------- */
 /*                       Builders data-bound fail-soft                        */
 /* -------------------------------------------------------------------------- */
-
-function buildSummary(data: CockpitTodayPayload | null): string {
-  if (!data) return "Synchronisation en cours…";
-  const parts: string[] = [];
-  const runningCount = data.missionsRunning.filter((m) => m.status === "running").length;
-  if (runningCount > 0) {
-    parts.push(`${runningCount} demande${runningCount > 1 ? "s" : ""} en cours`);
-  }
-  if (data.agenda.length > 0) {
-    parts.push(`${data.agenda.length} rendez-vous`);
-  }
-  if (data.inbox.brief && data.inbox.brief.items.length > 0) {
-    const n = data.inbox.brief.items.length;
-    parts.push(`${n} message${n > 1 ? "s" : ""} à examiner`);
-  }
-  if (parts.length === 0) {
-    return "Aucune demande en cours. Tu peux respirer ou demander à l'agent de t'aider.";
-  }
-  return `${parts.join(" · ")}. Voici ce sur quoi l'agent peut t'aider aujourd'hui.`;
-}
 
 function buildTelemetry(data: CockpitTodayPayload | null): TelemetryItem[] {
   if (!data) {
@@ -988,9 +699,9 @@ function buildTelemetry(data: CockpitTodayPayload | null): TelemetryItem[] {
     runningCount > 0 ? String(runningCount) : recentCount > 0 ? String(recentCount) : "0";
   const missionsFootnote =
     runningCount > 0
-      ? `en cours · ${recentCount} récente${recentCount > 1 ? "s" : ""}`
+      ? `en cours · ${recentCount} récentes`
       : recentCount > 0
-        ? `${recentCount} récente${recentCount > 1 ? "s" : ""}`
+        ? `${recentCount} récentes`
         : "rien en cours";
 
   const agendaCount = data.agenda.length;
@@ -999,7 +710,7 @@ function buildTelemetry(data: CockpitTodayPayload | null): TelemetryItem[] {
         id: "agenda",
         label: "Agenda",
         value: "—",
-        footnote: "déconnecté · connecter",
+        footnote: "déconnecté",
         tone: "warn",
         progress: 20,
         needsConnection: true,
@@ -1008,7 +719,7 @@ function buildTelemetry(data: CockpitTodayPayload | null): TelemetryItem[] {
         id: "agenda",
         label: "Agenda",
         value: String(agendaCount),
-        footnote: agendaCount > 0 ? "rendez-vous à venir" : "rien aujourd'hui",
+        footnote: agendaCount > 0 ? "à venir" : "rien aujourd'hui",
         tone: agendaCount > 0 ? "active" : "rest",
         progress: progressFromCount(agendaCount, 4),
       };
@@ -1019,7 +730,7 @@ function buildTelemetry(data: CockpitTodayPayload | null): TelemetryItem[] {
         id: "inbox",
         label: "Messages",
         value: "—",
-        footnote: "déconnectée · connecter",
+        footnote: "déconnectée",
         tone: "warn",
         progress: 20,
         needsConnection: true,
@@ -1072,91 +783,6 @@ function buildProposals(data: CockpitTodayPayload | null): AgentProposal[] {
     description: s.description,
     status: s.status,
   }));
-}
-
-type HeroContent = {
-  label: string;
-  meta: string;
-  title: string;
-  body: string;
-  ctaSecondary?: { label: string; onClick: () => void };
-};
-
-function buildHero(
-  data: CockpitTodayPayload | null,
-  setMode: (p: import("@/stores/stage").StagePayload) => void,
-): HeroContent {
-  if (!data) {
-    return {
-      label: "Cockpit",
-      meta: "synchronisation",
-      title: "Chargement du brief du jour.",
-      body: "Les données vont apparaître dans quelques secondes.",
-    };
-  }
-
-  // Priorité 1 : un brief inbox récent (drafts à valider, messages frais)
-  const inboxItems = data.inbox.brief?.items ?? [];
-  if (inboxItems.length > 0) {
-    const top = inboxItems[0];
-    return {
-      label: "Messages",
-      meta: `${inboxItems.length} à examiner`,
-      title: top?.title ?? "Vous avez des messages à examiner.",
-      body: top?.summary ?? "L'agent a regroupé les nouveaux échanges importants depuis hier.",
-    };
-  }
-
-  // Priorité 2 : une demande en cours
-  const running = data.missionsRunning.find((m) => m.status === "running");
-  if (running) {
-    return {
-      label: "Demande en cours",
-      meta: running.lastRunAt ? formatAgo(running.lastRunAt) : "vient de démarrer",
-      title: running.name,
-      body: running.lastError
-        ? `Dernière erreur : ${running.lastError}`
-        : "Demande active. L'agent travaille, vous pouvez suivre ses étapes en direct.",
-      ctaSecondary: {
-        label: "Ouvrir la demande",
-        onClick: () => setMode({ mode: "mission", missionId: running.id }),
-      },
-    };
-  }
-
-  // Priorité 3 : un rendez-vous imminent
-  if (data.agenda.length > 0) {
-    const next = data.agenda[0];
-    if (next) {
-      return {
-        label: "Agenda",
-        meta: formatTime(next.startsAt),
-        title: next.title,
-        body: "Prochain rendez-vous. Veux-tu un récap rapide ?",
-      };
-    }
-  }
-
-  // Priorité 4 : une suggestion (rapport applicable)
-  if (data.suggestions.length > 0) {
-    const sug = data.suggestions[0];
-    if (sug) {
-      return {
-        label: "Suggestion",
-        meta: sug.status === "ready" ? "prêt" : "partiel",
-        title: sug.title,
-        body: sug.description,
-      };
-    }
-  }
-
-  // Honest empty state (I-3) — pas de mock.
-  return {
-    label: "Cockpit",
-    meta: "calme",
-    title: "Rien d'urgent ce matin.",
-    body: "Vous pouvez poser une question, faire une demande, ou laisser l'agent veiller.",
-  };
 }
 
 function buildFactoryRows(data: CockpitTodayPayload | null): FactoryRow[] {
@@ -1243,7 +869,6 @@ function buildRailItems(data: CockpitTodayPayload | null): RailItem[] {
   if (!data) return [];
   const items: RailItem[] = [];
 
-  // Priorité 1 : inbox brief (messages à examiner)
   if (data.inbox.brief && data.inbox.brief.items.length > 0) {
     const n = data.inbox.brief.items.length;
     items.push({
@@ -1255,19 +880,16 @@ function buildRailItems(data: CockpitTodayPayload | null): RailItem[] {
     items.push({ t: "Messages déconnectés", s: "Connecter Gmail ou Slack" });
   }
 
-  // Priorité 2 : demande en cours (hot)
   const running = data.missionsRunning.find((m) => m.status === "running");
   if (running) {
     items.push({ t: running.name, s: "Demande en cours", hot: true });
   }
 
-  // Priorité 3 : demande en échec récente (warn)
   const failed = data.missionsRunning.find((m) => m.status === "failed");
   if (failed && items.length < RAIL_MAX) {
     items.push({ t: failed.name, s: "Demande en échec" });
   }
 
-  // Priorité 4 : agenda imminent
   if (data.agenda.length > 0 && items.length < RAIL_MAX) {
     const first = data.agenda[0];
     if (first) items.push({ t: first.title, s: formatTime(first.startsAt) });
@@ -1275,12 +897,10 @@ function buildRailItems(data: CockpitTodayPayload | null): RailItem[] {
     items.push({ t: "Agenda déconnecté", s: "Connecter Google Calendar" });
   }
 
-  // Priorité 5 : propositions (l'agent propose)
   for (const sug of data.suggestions.slice(0, RAIL_MAX - items.length)) {
     items.push({ t: sug.title, s: sug.status === "ready" ? "Prêt" : "Partiel" });
   }
 
-  // Fillers : favoris (si reste de la place)
   for (const fav of data.favoriteReports.slice(0, RAIL_MAX - items.length)) {
     items.push({ t: fav.title, s: "Rapport disponible" });
   }
@@ -1331,7 +951,8 @@ function ModePlaceholder({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="preserve-3d flex w-full max-w-[760px] flex-col gap-16"
+      className="preserve-3d flex w-full flex-col gap-16"
+      style={{ maxWidth: "1600px", margin: "0 auto" }}
     >
       <header className="flex flex-col gap-4">
         <p className="text-base font-medium text-[rgba(255,255,255,0.5)]">

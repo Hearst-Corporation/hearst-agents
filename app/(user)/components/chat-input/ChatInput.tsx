@@ -156,11 +156,14 @@ export function ChatInput({
         style={{
           background: "#000000",
           border: "1px solid rgba(255, 255, 255, 0.15)",
-          borderRadius: "var(--radius-pill)",
-          padding: "var(--space-1) var(--space-1)",
-          paddingRight: "var(--space-4)",
-          gap: "var(--space-3)",
+          borderRadius: "32px",
+          padding: "var(--space-2) var(--space-2)",
+          paddingRight: "var(--space-6)",
+          gap: "var(--space-4)",
           boxShadow: "0 24px 48px rgba(0,0,0,1)",
+          width: "100%",
+          maxWidth: "960px",
+          minHeight: "64px",
         }}
         onDragOver={handleAssetDragOver}
         onDragLeave={handleAssetDragLeave}
@@ -223,7 +226,7 @@ export function ChatInput({
               }
             }}
             placeholder={resolveModePlaceholder(stageMode, surface, placeholder)}
-            className="w-full bg-transparent border-none outline-none text-white t-13 placeholder:text-text-muted"
+            className="w-full bg-transparent border-none outline-none text-white text-base placeholder:text-text-muted"
           />
         </div>
       </div>

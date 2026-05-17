@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Horizon — Scan technologique 2026 — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Horizon — Scan technologique 2026</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-17 00:49</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> f6d6af58</span>
+      <span><b>Scope</b> complet (10 axes)</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">49</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">18</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">32</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">28</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">7</div><div class="kpi-label">Score /10</div></div>
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title">session.maxAge = 12h dans NextAuth authOptions</span>
+              
+              <span class="qw-effort">XS (10min)</span>
+            </li><li>
+              <span class="qw-title">Sentry Alert Rules (error rate, credit exhaustion, LLM outage)</span>
+              
+              <span class="qw-effort">XS (30min)</span>
+            </li><li>
+              <span class="qw-title">GC orphelins : activer dryRun=false + auditer fichiers existants</span>
+              
+              <span class="qw-effort">S (2-3h)</span>
+            </li><li>
+              <span class="qw-title">.nvmrc + tsconfig ES2020 + pnpm --frozen-lockfile CI</span>
+              
+              <span class="qw-effort">XS (15min)</span>
+            </li><li>
+              <span class="qw-title">Backoff exponentiel polling Realtime (30-60s → 2-8s)</span>
+              
+              <span class="qw-effort">S (2-4h)</span>
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">LLM &amp; AI Orchestration</span>
+        <span class="section-agent">agent-1</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">1</span>
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">Fondation moderne (Vercel AI SDK v6, Langfuse, circuit-breaker Redis) mais single point of failure critique : proxy hypercli.com non-officiel, DeepSeek R1 inactif, prompt caching code mort (Kimi ne supporte pas cache_control).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Single Point of Failure : proxy hypercli.com non-officiel</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/kimi.ts">lib/llm/kimi.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Toute orchestration via https://api.hypercli.com/v1 sans failover</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>API officielle Moonshot + hypercli en fallback</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si hypercli down, toute l'app est hors service</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">DeepSeek R1 routing préparé mais INACTIF</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/router.ts:47-83">lib/capabilities/router.ts:47-83</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Requêtes reasoning sur Kimi malgré keywords détectés</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer DeepSeek R1 / o4-mini pour chain-of-thought</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Perte d'accuracy 40-60% sur math/proof/simulation</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Prompt caching = code mort en prod</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/anthropic.ts">lib/llm/anthropic.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Logic cache_control Anthropic mais Kimi ne la supporte pas</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer prompt caching via @ai-sdk/anthropic (provider secondaire)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Surcoût 30-40% systématique sur chaque appel</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de support Vision/Multimodal</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/router.ts">lib/capabilities/router.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Images rejetées, aucun fallback</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer Claude Opus 4.7 ou GPT-4o pour vision</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Blocage complet des use cases image analysis</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Pas d'analytics cache hit rate</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts">lib/observability/langfuse.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Langfuse logge métriques mais pas de dashboard ROI</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Dashboard cache hit rate dans admin</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Impossible d'optimiser les économies de caching</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Database &amp; ORM</span>
+        <span class="section-agent">agent-2</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">2</span>
+        </span>
+      </summary>
+      <p class="section-summary">79 migrations ordonnées, 102 indexes, RLS sur 12+ tables, pgvector (IVFFlat 1536d). Mais raw Supabase SDK (753 appels .from() sur 120 fichiers) sans type-safety ORM, 58 patterns loop+query (N+1 risk), service_role bypasse RLS.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Raw SDK sans ORM : 753 appels .from() sans type safety</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/db/supabase.ts">lib/platform/db/supabase.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Supabase SDK brut, typos colonnes non catchés avant runtime</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Drizzle ORM 1.0 (type safety, transactions, batch ops)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>N+1 non détecté, 10+ dev days/quarter en debugging</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">service_role bypasse RLS : filtrage applicatif fragile</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/db/supabase.ts">lib/platform/db/supabase.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Toutes opérations CRUD contournent RLS via service_role</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Middleware RLS enforcement + validation WHERE clauses</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Un bug userId = exposition de toutes les données</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">58 patterns loop+query = N+1 risk</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts">lib/engine/runtime/assets/storage/supabase.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Boucles avec appels DB non batchés à l'intérieur</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Batch loading helpers (loadAssetActions([assetIds]))</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>1000 assets → 1000 requêtes DB, latence et coût x1000</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">pgvector IVFFlat limité à ~1M embeddings</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/supabase/migrations/0046_pgvector_embeddings.sql">supabase/migrations/0046_pgvector_embeddings.sql</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>lists=100, pas de plan migration HNSW</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers HNSW (pgvector 0.5+) + partitioning par tenant</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Au-delà de 5M embeddings, latence ANN x10-100</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">50x select('*') : over-fetching systématique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/ui/right-panel/aggregate.ts">lib/ui/right-panel/aggregate.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Toutes colonnes sélectionnées incluant JSONB lourds</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Colonnes explicites par endpoint</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>20-40% bandwidth supplémentaire par requête</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Auth &amp; Identity</span>
+        <span class="section-agent">agent-3</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">1</span>
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">NextAuth v4 EOL, JWT AES-256-GCM OAuth tokens, Arcjet rate limiting. Zéro MFA, session maxAge non configurée (30j par défaut), zéro device tracking, pas de revocation OAuth au logout. Auth.js v5 disponible avec passkeys natifs.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">NextAuth v4 end-of-life — Auth.js v5 disponible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json">package.json</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>next-auth@4.24.14, fin des security patches actifs</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers Auth.js v5 (passkeys, MFA natifs)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Plus de nouvelles features ni patches proactifs</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Session maxAge non configurée (défaut 30 jours)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/options.ts">lib/platform/auth/options.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Pas de session.maxAge dans authOptions</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>session: { maxAge: 12 * 60 * 60 } — 12h recommandé</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tokens 30j = fenêtre de compromission trop large</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Aucun MFA (TOTP, WebAuthn, Passkeys)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth">lib/platform/auth/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Zero MFA dans tout le codebase</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>TOTP + WebAuthn/Passkeys via Auth.js v5</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Ops sensibles sans vérification secondaire</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de revocation OAuth au logout</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/auth/options.ts">lib/platform/auth/options.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Sign-out efface session locale uniquement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Appeler Google/Azure revoke endpoint au logout</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Refresh token volé reste valide chez le provider</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">RLS user_tokens : type mismatch TEXT vs UUID</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/supabase/migrations/0011, 0076">supabase/migrations/0011, 0076</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>user_id en TEXT (migration 0011), RLS utilise auth.uid() UUID</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Valider migration + tester isolation RLS</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>RLS peut ne jamais matcher = isolation silencieuse</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Storage &amp; CDN</span>
+        <span class="section-agent">agent-4</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">2</span>
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">Hybride Supabase Storage (principal) + Cloudflare R2 (legacy). Signed URLs TTL OK, multi-tenancy prefix OK. Pas d'optimisation image WebP/AVIF, GC orphelins non activé (dryRun), bucket R2 potentiellement public.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Aucune optimisation image (WebP/AVIF absente)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx">app/(user)/components/artifact/PreviewPane.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Assets servis résolution originale, next/image unoptimized</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Cloudflare Image Resizing ou imgix (natif R2)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>50-70% bandwidth en plus, LCP dégradé</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">GC orphelins non activé (dryRun non désactivé)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage">lib/engine/runtime/assets/storage/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Cron cleanup configuré mais dryRun=true, fichiers zombie s'accumulent</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer dryRun=false + auditer orphelins existants</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Coût storage en croissance exponentielle non contrôlée</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Bucket R2 potentiellement public sans auth</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts:54">lib/engine/runtime/assets/storage/r2.ts:54</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>R2 publicUrl construit URLs sans validation ACL bucket</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Auditer ACL R2, forcer signed-URL only</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Exposition de données si ACL bucket est public</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">list() hardcodé à 1000 fichiers (pagination absente)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/supabase.ts:171">lib/engine/runtime/assets/storage/supabase.ts:171</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>StorageProvider.list() limit: 1000 hardcodé</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Pagination curseur pour buckets &gt; 1000 fichiers</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>GC cleanup manque des fichiers sur gros buckets</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Pas de Cache-Control + ETag sur signed URLs</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/r2.ts">lib/engine/runtime/assets/storage/r2.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>URLs retournées sans headers de cache</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Cache-Control: max-age=3600 + ETag</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>20% bandwidth répétitif non caché browser/CDN</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Real-time &amp; Collaboration</span>
+        <span class="section-agent">agent-5</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">2</span>
+        </span>
+      </summary>
+      <p class="section-summary">Supabase Realtime (postgres_changes) bien intégré, fallback polling configuré. Mais polling 30-60s trop lent sur failure, zéro présence multi-user, zéro CRDT, SSE admin canvas sans reconnect logic.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Polling fallback 30-60s sans backoff exponentiel</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/stores/reports.ts:132, stores/notifications.ts:236">stores/reports.ts:132, stores/notifications.ts:236</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Fixed 30s reports / 60s notifications sur Realtime failure</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Exponential backoff + jitter (start 2s, max 60s)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>UX dégradée 30-60s, surcharge serveur sur failures</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Zéro collaboration multi-user (CRDT, présence, curseurs)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/N/A — absence complète">N/A — absence complète</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Aucun Yjs, presence channels, curseurs collaboratifs</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Liveblocks (presence + CRDT) + Supabase presence broadcast</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Impossible multi-user editing, pas de who-is-where</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SSE admin canvas sans reconnect logic</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_canvas/use-event-stream.ts">app/admin/_canvas/use-event-stream.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>EventSource vanilla, reconnect navigateur par défaut uniquement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Socket.io avec auto-reconnect + backoff</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Canvas perd le fil sur network flap sans récupération</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Pas d'idempotency headers sur routes mutables</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2">app/api/v2/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>POST/PUT/PATCH sans Idempotency-Key côté serveur</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Accept Idempotency-Key header + dedup via DB</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Double-mutation possible sur retry réseau</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Workflow &amp; Jobs</span>
+        <span class="section-agent">agent-6</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">Dual Inngest (8 kinds) + BullMQ (5 kinds). Routing complexe 100+ lignes, idempotency déterministe (hash payload), retry exponential. Pas de DLQ, pas de circuit breaker provider, Upstash Redis déclaré mais inutilisé.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de Dead Letter Queue (DLQ)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs">lib/jobs/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Jobs échoués après retry disparaissent silencieusement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Table failed_jobs + bulk-retry endpoint + alertes</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Missions perdues silencieusement, zéro visibilité</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Fragmentation Inngest + BullMQ : routing 100+ lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/queue.ts">lib/jobs/queue.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Dual-system, patterns d'erreur différents, observabilité inconsistante</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Consolider sur Inngest seul ou Trigger.dev v3</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Double maintenance, debugging complexe, onboarding lent</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de circuit breaker par provider AI</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/jobs/worker-base.ts">lib/jobs/worker-base.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>50 jobs retentent en parallèle si provider tombe</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Circuit breaker par provider (3 failures → 5min cooldown)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Surcharge provider, rate limits dépassés, cost spike</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@upstash/redis déclaré mais inutilisé (doublon ioredis)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/platform/redis/client.ts">lib/platform/redis/client.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>ioredis TCP + Upstash REST = 2 clients Redis coexistants</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Choisir Upstash (serverless) OU ioredis (TCP)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Complexité ops, latence Upstash 100ms vs ioredis 1-5ms non arbitrée</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Observability &amp; Monitoring</span>
+        <span class="section-agent">agent-7</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">1</span>
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">Sentry v10 + Langfuse v3 + Pino structuré avec PII redaction 3 niveaux. Mais zéro alerting configuré, Pino sans drain prod (stdout only), pas de traces distribuées OTel, coût LLM non lié au billing tenant, zéro analytics produit.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Zéro alerting configuré (Sentry rules, log alerts)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/sentry.server.config.ts">sentry.server.config.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Aucune règle d'alerte Sentry ni log-based alerting</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Sentry Alert Rules : error rate &gt; 5%, credit exhaustion, LLM outage</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Failures silencieux prod, SLA non monitoré</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pino sans drain prod (stdout uniquement)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/logger.ts">lib/observability/logger.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Logs Vercel 15j retention, pas d'Axiom/BetterStack</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Pino transport vers Axiom ou BetterStack</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Logs non searchables en prod, zéro alerting patterns</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de traces distribuées (OpenTelemetry absent)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/instrumentation.ts">instrumentation.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Overrides OTel dans package.json mais zéro SDK init</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>OTel SDK + Sentry exporter, spans BullMQ workers + Inngest</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Blind spots sur flows async multi-étapes</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Coût LLM non lié au billing tenant</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/pricing.ts">lib/llm/pricing.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Langfuse capture totalCost mais pas d'export Stripe</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Job daily Langfuse → Stripe metered billing par tenant</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Revenue leakage potentiel, réconciliation manuelle</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Pas d'analytics produit (Posthog, Segment absents)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/N/A — absence">N/A — absence</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Aucun tracking feature adoption, funnel, DAU</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>PostHog analytics produit + session replay</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Impossible d'optimiser roadmap sur données usage</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Frontend &amp; UI</span>
+        <span class="section-agent">agent-8</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">2</span>
+        </span>
+      </summary>
+      <p class="section-summary">Stack ultra-moderne : Next.js 16, React 19, React Compiler activé, Tailwind v4, Biome v2. Mais composants monolithiques (&gt;1300 lignes), zéro Suspense boundaries, pas de Radix/shadcn (6 primitives custom), dead code three.js/cytoscape.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Composants monolithiques &gt;1300 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components">app/(user)/components/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>9 composants &gt;500 lignes, 1 composant à 1331 lignes</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Éclater en sub-components (max 200-300 lignes)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>30% re-render overhead, impossible à tester isolément</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Zéro Suspense boundaries (PPR bloqué)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app">app/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>8 pages en force-dynamic, 2 Suspense marginales</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Suspense boundaries par stage + PPR activé</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>TTFB non optimisé, pas de streaming SSR</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">6 primitives UI custom sans Radix (a11y fragile)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/components">app/components/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Composants Dialog/Select/etc. custom non testés a11y</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers Radix UI + shadcn/ui pour les primitives</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>WCAG compliance risquée, maintenance double</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Dead code three.js/cytoscape non lazy-loaded</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json">package.json</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Libs 3D et graphe dans le bundle principal</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>dynamic() import() pour three.js et cytoscape</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>+300 KB bundle, slow Electron builds</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">2725 classes Tailwind avec arbitrary values : token drift</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app">app/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Valeurs hardcodées ex: w-[342px], h-[72px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Standardiser sur design tokens var(--spacing-*)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Inconsistances visuelles, violations lint:visual futures</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">AI Capabilities (Media, Voice, Agents)</span>
+        <span class="section-agent">agent-9</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">4</span>
+          <span class="badge badge-p1">2</span>
+          
+        </span>
+      </summary>
+      <p class="section-summary">Bonne couverture : Flux (image), Runway (video), ElevenLabs (TTS), E2B (code), Recall+Deepgram (meetings). CRITIQUE : Meshy 3D configuré mais ZÉRO code, Hume émotion idem, image sans fallback, Composio 1500+ tools inutilisés.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Meshy 3D : MESHY_API_KEY configuré, ZÉRO implémentation</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/.env.example:158 vs lib/capabilities/providers">.env.example:158 vs lib/capabilities/providers/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Clé dans .env, aucun provider meshy.ts créé</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer lib/capabilities/providers/meshy.ts + wiring taxonomy</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Blocage complet de tous les workflows 3D</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Hume émotion : clés configurées, ZÉRO intégration</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/.env.example:99-100">.env.example:99-100</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>HUME_API_KEY dans .env, aucun code d'intégration</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer lib/capabilities/providers/hume.ts + wire Recall flow</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Emotion detection entièrement bloquée</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Génération image : Flux seul, hard fail si FAL_KEY absent</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/taxonomy.ts:584">lib/capabilities/taxonomy.ts:584</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fal.ai seul provider image, zéro routing secondaire</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>OpenAI DALL-E 3 ou Midjourney en fallback circuit-breaker</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Rate limit ou indisponibilité fal.ai = domain image KO</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Voice cloning ElevenLabs : promise mais NON câblé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers/elevenlabs-voices.ts">lib/capabilities/providers/elevenlabs-voices.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>elevenlabs-voices.ts squelettique, endpoint /v1/voices/add jamais appelé</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Compléter Phase B.1bis : clone endpoint + UI upload voix</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Feature promise aux users mais non fonctionnelle</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Composio 1500+ tools : infrastructure prête, ZÉRO utilisation</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/connectors/composio">lib/connectors/composio/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Discovery cache OK, bulk-enable OK, mais zéro call site agents</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Wirer Composio dans le chat agent path (Gmail, Slack, Notion)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Value prop majeure non délivrée</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de cache médias (coût x2 sur requêtes répétées)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/capabilities/providers">lib/capabilities/providers/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Image/video/audio hit API systématiquement, même prompt identique</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>LRU cache 7j par prompt hash + tenant</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>40% coût API estimé gaspillé sur duplicates</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">DevEx &amp; Build</span>
+        <span class="section-agent">agent-10</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      <p class="section-summary">Stack DevEx A- : pnpm v10, Biome v2.4.15, TypeScript strict, Next.js 16 + Turbopack, Electron v41, 2498 tests. Fondation excellente. Quick wins : .nvmrc absent, TypeScript target ES2017 obsolète, Biome rules minimales.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Node.js version non pinnée (.nvmrc absent)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/.nvmrc (absent)">.nvmrc (absent)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>CI utilise v20 mais .nvmrc absent, devs locaux divergent</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer .nvmrc (node v20.14.0) + engines dans package.json</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Works on my machine syndrome, CI non reproductible</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">TypeScript target: ES2017 (obsolète, -2-3% perf)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/tsconfig.json:3">tsconfig.json:3</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>tsconfig.json target: ES2017</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers target: ES2020 ou ES2022</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bundles plus gros, polyfills inutiles</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Vitest v4.1.4 → v5 stable disponible (+15% perf)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json">package.json</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>vitest@4.1.4</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Upgrade vitest@5.x (coverage UI, browser mode)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>10-15% reduction startup time, nouvelles features</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Biome rules minimales (recommended: false)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/biome.json">biome.json</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Seulement noUnusedVariables + noUnusedImports actifs</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer recommended: true (200+ règles Biome)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>200+ règles qualité code non appliquées</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Visual regression Playwright skippé en CI (@skip-ci)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/.github/workflows/ci.yml">.github/workflows/ci.yml</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Tests visuels uniquement en local</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Intégrer dans CI avec screenshot caching</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Régressions UI non détectées en CI</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>Quick wins (semaine 1)</h3>
+              <ul><li>Auth: session.maxAge = 12h + domain allowlist fail-closed</li><li>Observability: Sentry Alert Rules (3 rules critiques)</li><li>Storage: activer GC cleanup dryRun=false, auditer orphelins</li><li>DevEx: .nvmrc + tsconfig ES2020 + pnpm --frozen-lockfile en CI</li><li>Realtime: backoff exponentiel polling fallback (30-60s → 2-8s)</li><li>LLM: API officielle Moonshot (remplacer proxy hypercli.com)</li></ul>
+            </div><div class="plan-batch">
+              <h3>Migrations cœur (mois 1)</h3>
+              <ul><li>LLM: Activer DeepSeek R1 routing + prompt caching @ai-sdk/anthropic</li><li>Auth: Migrer NextAuth v4 → Auth.js v5 + TOTP MFA</li><li>DB: Adopter Drizzle ORM (type safety, transactions, batch ops)</li><li>DB: Middleware RLS enforcement + replace select('*') explicites</li><li>AI Caps: Implémenter Meshy 3D + Hume émotion (P0 non-implémentés)</li><li>AI Caps: Fallback image DALL-E 3 + fallback video Veo 3</li><li>AI Caps: Activer Composio dans le chat agent path</li><li>Observability: Pino drain Axiom + OpenTelemetry SDK init</li><li>Storage: Auditer ACL R2 + Cloudflare Image Resizing</li></ul>
+            </div><div class="plan-batch">
+              <h3>Évolutions long terme (trim)</h3>
+              <ul><li>Auth: Device tracking + Passkeys WebAuthn via Auth.js v5</li><li>DB: Migrer embeddings IVFFlat → HNSW (pgvector 0.5+)</li><li>Frontend: Éclater composants monolithiques + Suspense + PPR</li><li>Frontend: Migrer primitives custom → Radix UI + shadcn/ui</li><li>AI Caps: ElevenLabs voice cloning + LRU cache médias 7j</li><li>Observability: PostHog analytics produit + Langfuse → Stripe billing</li><li>Jobs: Consolider Inngest + BullMQ → provider unique + DLQ</li><li>DevEx: Vitest v5 + Biome recommended: true + visual regression CI</li><li>Realtime: Liveblocks présence + collaborative editing Yjs</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Stack maturité 7/10 · P0:18 P1:32 P2:28 · Économies estimées ~$5-15k/mois · 6 providers à implémenter (Meshy, Hume, DLQ, OTel, Posthog, Composio actif) · Hearst OS · 2026-05-17 00:49
+  </footer>
+</div>
+</body>
+</html>
