@@ -17,6 +17,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
 
@@ -143,7 +144,7 @@ export function DocumentParseModal({
       toast.success("Document en cours de traitement", "Le parsing est lancé.");
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Erreur parsing document";
+      const message = sanitizeApiError(err);
       if (mountedRef.current) {
         setStatus("error");
         setErrorMsg(message);

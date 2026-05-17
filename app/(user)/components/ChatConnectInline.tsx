@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { type StreamEvent, useRuntimeStore } from "@/stores/runtime";
 
@@ -100,7 +101,7 @@ export function ChatConnectInline() {
       }
       toast.success(`${request.app} connecté`, "Re-pose ta question pour continuer");
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Erreur réseau";
+      const message = sanitizeApiError(err);
       if (mountedRef.current) setLastError({ message });
       toast.error("Connexion impossible", message);
     } finally {

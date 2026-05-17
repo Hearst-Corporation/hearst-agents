@@ -8,6 +8,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { consumeOrchestrateSseResponse } from "@/lib/engine/orchestrator/consume-sse-response";
 
@@ -139,7 +140,7 @@ export function FocalRetryButton({
       );
     } catch (error) {
       console.error("[FocalRetryButton] Retry failed:", error);
-      const errMsg = error instanceof Error ? error.message : "Une erreur est survenue";
+      const errMsg = sanitizeApiError(error);
       // T-J4 (it.4) : garde setState post-unmount.
       if (mountedRef.current) setLastError(errMsg);
       toast.error("Échec du réessai", errMsg);

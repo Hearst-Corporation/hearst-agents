@@ -11,6 +11,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { ProviderChip } from "./ProviderChip";
 import { Action } from "./ui";
@@ -72,7 +73,7 @@ export function ApprovalInline({
     try {
       await onApprove();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Erreur réseau";
+      const message = sanitizeApiError(err);
       // T-J3 (it.4) : étend la garde mountedRef au setActionError. Sans ça,
       // un reject de onApprove résolu après unmount déclenche setState sur
       // composant démonté (warning React 19).
@@ -91,7 +92,7 @@ export function ApprovalInline({
     try {
       await onSkip();
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Erreur réseau";
+      const message = sanitizeApiError(err);
       // T-J3 (it.4) : idem côté skip.
       if (mountedRef.current) {
         setActionError(message);

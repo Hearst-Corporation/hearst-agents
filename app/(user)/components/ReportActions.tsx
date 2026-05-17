@@ -13,6 +13,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
 
@@ -135,7 +136,7 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
       setShareUrl(json.shareUrl as string);
       setExpiresAt(json.expiresAt as string);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Erreur réseau";
+      const msg = sanitizeApiError(e);
       setError(msg);
       // Toast complète le state error inline (le bouton "Réessayer" rendu
       // sous l'erreur fait office d'action côté UI).

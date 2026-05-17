@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { type StreamEvent, useRuntimeStore } from "@/stores/runtime";
 
@@ -84,7 +85,7 @@ export function ChatMissionRunInline() {
       if (mountedRef.current) setDone(true);
       toast.success(`${request.missionName} lancée`, "Suis l'exécution dans /runs");
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Erreur réseau";
+      const message = sanitizeApiError(err);
       if (mountedRef.current) setLastError(message);
       toast.error("Lancement impossible", message);
     } finally {

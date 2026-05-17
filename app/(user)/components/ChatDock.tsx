@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import type { Message } from "@/lib/core/types";
 import { getAllServices } from "@/lib/integrations/catalog";
@@ -572,7 +573,7 @@ export function ChatDock() {
           return;
         }
 
-        const errorMsg = err instanceof Error ? err.message : "Échec de la connexion";
+        const errorMsg = sanitizeApiError(err);
         toast.error("Erreur de connexion", errorMsg);
         addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
         useChatStageStore.getState().setRunState("error", errorMsg);
