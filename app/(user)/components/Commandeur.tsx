@@ -110,6 +110,9 @@ export function Commandeur() {
   useEffect(() => {
     if (!isOpen) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- reset à la fermeture
+      // Note : setQuery("") déclenche l'effect [query] ci-dessous qui re-reset activeIndex.
+      // On garde quand même le reset explicite ici pour éviter une frame intermédiaire
+      // où activeIndex pointerait sur l'ancienne liste avant la re-render.
       setQuery("");
       setActiveIndex(0);
       return;
@@ -133,7 +136,7 @@ export function Commandeur() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reset index quand query change
     setActiveIndex(0);
-  }, []);
+  }, [query]);
 
   useEffect(() => {
     if (!isOpen) return;

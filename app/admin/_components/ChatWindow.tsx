@@ -71,17 +71,15 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         }
       }
     } catch (err) {
-      // T-F2a : sanitize le détail exposé à l'utilisateur — on whiteliste les
-      // erreurs réseau standard et on fallback sur un message générique pour
-      // ne pas leak un détail backend (stack, URL interne, etc.). Le full err
-      // reste consigné via console.error pour le debug.
-      const RAW_OK = [
-        "NetworkError",
-        "AbortError",
-        "Failed to fetch",
-        "fetch failed",
-        "TimeoutError",
-      ];
+      // Abort user-driven (ex: unmount, navigation) : pas de bubble.
+      // Check err.name car AbortError n'est PAS dans err.message.
+      if (err instanceof Error && err.name === "AbortError") {
+        console.warn("[ChatWindow] SSE aborted (user-driven)");
+        return;
+      }
+      // Sanitize le détail exposé à l'utilisateur — whitelist des erreurs réseau
+      // standard, fallback générique pour ne pas leak un détail backend.
+      const RAW_OK = ["NetworkError", "Failed to fetch", "fetch failed", "TimeoutError"];
       const detail =
         err instanceof Error
           ? RAW_OK.some((r) => err.message.includes(r))
