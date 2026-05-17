@@ -51,9 +51,8 @@ export function DocumentParseModal({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // T-K3 (it.5) : garde-fou anti-setState après unmount. Le modal peut être
-  // fermé pendant la submit async — sans ce ref on tape setStatus/setErrorMsg
-  // sur un composant déjà démonté (warning React + memory leak potentiel).
+  // Garde setState après unmount : le modal peut être fermé pendant la submit
+  // async (warning React + memory leak potentiel sinon).
   const mountedRef = useRef(true);
   useEffect(
     () => () => {
@@ -149,7 +148,7 @@ export function DocumentParseModal({
         setStatus("error");
         setErrorMsg(message);
       }
-      // it.3 H2 T-H2-8 : feedback toast symétrique au success (cf. onSuccess).
+      // Toast symétrique au success (cf. onSuccess).
       toast.error("Échec parsing document", message);
     }
   }

@@ -83,11 +83,9 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   const [loadStatus, setLoadStatus] = useState<LoadStatus>("idle");
   const [templateList, setTemplateList] = useState<TemplateSummary[]>([]);
 
-  // ── Stream B / T-B2 + T-B3 : confirms unsaved changes ───────
-  // On compare le spec courant à la copie initiale (T-B2) ou au spec courant
-  // (T-B3 → on remplace une spec possiblement modifiée par un template). On
-  // utilise JSON.stringify pour une égalité structurelle simple — le spec
-  // reste petit et n'a pas de cycles.
+  // Compare le spec courant à la copie initiale pour détecter les changements
+  // non sauvegardés (reset ou load template). JSON.stringify suffit : le spec
+  // reste petit et sans cycles.
   const isDirty = useMemo(
     () => JSON.stringify(spec) !== JSON.stringify(initialSpec),
     [spec, initialSpec],
@@ -95,7 +93,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
   const [pendingLoadTemplateId, setPendingLoadTemplateId] = useState<string | null>(null);
 
-  // Stream E / T-E3b : cleanup au unmount, abort tous les fetch en vol.
+  // Cleanup au unmount : abort tous les fetch en vol.
   useEffect(() => {
     return () => {
       saveAbortRef.current?.abort();
@@ -103,10 +101,9 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     };
   }, []);
 
-  // T-J2 (it.4) : tracking centralisé des setTimeout pour les feedbacks UI
-  // (reset auto des statuts save/load, focus delayed). Sans ce tracking,
-  // les setTimeout en cours au unmount déclencheraient setState post-unmount
-  // (React 19 tolère mais log un warning ; on évite proprement).
+  // Tracking centralisé des setTimeout (reset auto des statuts save/load,
+  // focus delayed). Sans ça, un setTimeout en cours au unmount déclencherait
+  // setState post-unmount (React 19 logge un warning).
   const timeoutsRef = useRef<Set<number>>(new Set());
   const trackTimeout = useCallback((fn: () => void, ms: number) => {
     const id = window.setTimeout(() => {
@@ -154,14 +151,14 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     [spec, onChange],
   );
 
-  // Stream E / T-E3b : pendant un save/load en cours, on no-op pour éviter
-  // d'écraser l'état pendant qu'un POST template utilise encore la spec.
+  // Pendant un save/load en cours, on no-op pour éviter d'écraser l'état
+  // pendant qu'un POST template utilise encore la spec.
   const performReset = useCallback(() => {
     if (isSaving) return;
     onChange(structuredClone(initialSpec));
   }, [initialSpec, onChange, isSaving]);
 
-  // Stream B / T-B2 : si dirty → confirm modal, sinon reset direct.
+  // Si dirty → confirm modal, sinon reset direct.
   const reset = useCallback(() => {
     if (isDirty) {
       setConfirmResetOpen(true);
@@ -273,7 +270,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     [onChange, trackTimeout],
   );
 
-  // Stream B / T-B3 : si dirty → confirm modal avant remplacement.
+  // Si dirty → confirm modal avant remplacement.
   const loadTemplateSpec = useCallback(
     async (templateId: string) => {
       if (isDirty) {
@@ -377,7 +374,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         </pre>
       )}
 
-      {/* Stream B / T-B2 : confirm restore initial layout */}
+      {/* Confirm restore initial layout */}
       <ConfirmModal
         open={confirmResetOpen}
         title="Restaurer le layout initial ?"
@@ -388,7 +385,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         onCancel={() => setConfirmResetOpen(false)}
       />
 
-      {/* Stream B / T-B3 : confirm load template écrase spec courant */}
+      {/* Confirm load template écrase spec courant */}
       <ConfirmModal
         open={pendingLoadTemplateId !== null}
         title="Charger le template ?"

@@ -53,8 +53,8 @@ export function ChatMissionRunInline() {
   const [done, setDone] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
 
-  // T-K3 (it.5) : garde-fou contre les setState après unmount si le composant
-  // disparaît (changement de run, dismiss du chat) pendant la requête en vol.
+  // Garde setState après unmount si le composant disparaît (changement de
+  // run, dismiss du chat) pendant la requête en vol.
   const mountedRef = useRef(true);
   useEffect(
     () => () => {

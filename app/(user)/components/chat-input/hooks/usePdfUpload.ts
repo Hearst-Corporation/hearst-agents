@@ -47,11 +47,11 @@ export function usePdfUpload() {
       })
       .catch((err: unknown) => {
         const msg = sanitizeApiError(err);
-        // Double signal volontaire (cf spec T-C18) :
-        //   - composer inline (`uploadError` → StatusMessages.tsx) :
-        //     statut éphémère collé au champ, disparaît après UPLOAD_ERROR_RESET_MS.
-        //   - toast persistant (`toast.error`) : notification cross-stage
-        //     qui reste tant que l'user ne la dismiss pas.
+        // Double signal volontaire :
+        //   - composer inline (`uploadError` → StatusMessages.tsx) : statut
+        //     éphémère collé au champ, disparaît après UPLOAD_ERROR_RESET_MS.
+        //   - toast persistant : notification cross-stage qui reste tant
+        //     que l'user ne la dismiss pas.
         setUploadError(msg);
         toast.error("Échec du PDF", msg);
         setTimeout(() => setUploadError(null), UPLOAD_ERROR_RESET_MS);

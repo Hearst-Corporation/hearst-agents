@@ -203,7 +203,7 @@ export function ChatInput({
             className="w-full bg-transparent border-none outline-none text-white/80 t-15 placeholder:text-white/30 font-light caret-white"
           />
 
-          {/* T-C16 : spinner inline pendant un run actif (aria-busy parent). */}
+          {/* Spinner inline pendant un run actif (aria-busy parent). */}
           {isRunning && (
             <span
               aria-hidden="true"

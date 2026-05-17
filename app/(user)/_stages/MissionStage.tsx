@@ -342,16 +342,13 @@ function ApprovalBar({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ stepId }),
       });
-      // T-F3b : check res.ok avant onApproved() — sinon une erreur HTTP côté
-      // serveur signalait un succès silencieux à l'utilisateur (catch jamais
-      // entré). On throw pour rentrer dans le catch et notifier proprement.
+      // Check res.ok avant onApproved() — sinon une erreur HTTP signalait
+      // un succès silencieux. On throw pour rentrer dans le catch.
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
       }
       onApproved();
     } catch {
-      // T-F3b : toast utilisateur — le catch silencieux laissait l'agent
-      // visuellement bloqué sans feedback en cas d'échec réseau.
       toast.error("Échec de l'approbation", "Vérifiez votre connexion ou réessayez.");
     } finally {
       setApproving(false);
@@ -442,13 +439,12 @@ export function MissionStage({ mode }: { mode: string }) {
   const [loading, setLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
-  // T-C12 : on ne montre le loader qu'après 300ms pour éviter le flash sur
-  // les fetches rapides (cache chaud, réseau local).
+  // Loader visible après 300ms uniquement → évite le flash sur les fetches
+  // rapides (cache chaud, réseau local).
   const [showLoader, setShowLoader] = useState(false);
 
-  // T-F3a : reset loader sur chaque nouveau cycle (loading→true) avant le
-  // setTimeout 300ms. Sinon un loader d'un fetch précédent peut rester
-  // affiché tant que le timer du nouveau cycle n'a pas tick.
+  // Reset loader à chaque nouveau cycle avant le setTimeout 300ms — sinon
+  // un loader d'un fetch précédent peut rester affiché.
   useEffect(() => {
     if (!loading) {
       setShowLoader(false);

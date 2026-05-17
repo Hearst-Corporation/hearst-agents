@@ -25,10 +25,9 @@ export interface ApprovalInlineProps {
   onSkip: () => void | Promise<void>;
   onEdit?: () => void;
   /**
-   * P1-4 : si true, affiche un backdrop fade qui assombrit le reste de la
-   * page pour attirer l'attention sur l'approval. La card reste cliquable.
-   * Auto-scroll vers la card au mount.
-   * Default: true (les approvals sont par nature critiques).
+   * Si true, affiche un backdrop fade qui assombrit le reste de la page pour
+   * attirer l'attention sur l'approval. La card reste cliquable. Auto-scroll
+   * vers la card au mount. Default: true (les approvals sont critiques).
    */
   prominent?: boolean;
 }
@@ -46,9 +45,8 @@ export function ApprovalInline({
   const [pending, setPending] = useState<"approve" | "skip" | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
-  // it.3 H2 T-H2-9 : évite setState après unmount si onApprove/onSkip
-  // résolvent (ou rejettent) après la disparition du composant. React 19
-  // tolère mais loggue un warning ; on évite proprement.
+  // Garde setState post-unmount si onApprove/onSkip résolvent après que le
+  // composant ait disparu (React 19 logge un warning sinon).
   const mountedRef = useRef(true);
   useEffect(() => {
     mountedRef.current = true;
@@ -57,8 +55,8 @@ export function ApprovalInline({
     };
   }, []);
 
-  // P1-4 : auto-scroll vers la card au mount pour que l'utilisateur ne manque
-  // pas l'approval. Behavior=smooth, block=center pour un effet doux.
+  // Auto-scroll vers la card au mount pour que l'utilisateur ne manque pas
+  // l'approval. behavior=smooth, block=center pour un effet doux.
   useEffect(() => {
     if (!prominent) return;
     const t = setTimeout(() => {
@@ -74,9 +72,6 @@ export function ApprovalInline({
       await onApprove();
     } catch (err) {
       const message = sanitizeApiError(err);
-      // T-J3 (it.4) : étend la garde mountedRef au setActionError. Sans ça,
-      // un reject de onApprove résolu après unmount déclenche setState sur
-      // composant démonté (warning React 19).
       if (mountedRef.current) {
         setActionError(message);
       }
@@ -93,7 +88,6 @@ export function ApprovalInline({
       await onSkip();
     } catch (err) {
       const message = sanitizeApiError(err);
-      // T-J3 (it.4) : idem côté skip.
       if (mountedRef.current) {
         setActionError(message);
       }
@@ -108,12 +102,9 @@ export function ApprovalInline({
 
   return (
     <>
-      {/* P1-4 : backdrop fixed pour attirer l'attention. z-40 reste sous les
-          modals lourds (z-50+) mais au-dessus du Stage normal. pointer-events
-          conservés sur la card (ci-dessous) via z-50.
-          Pendant isLocked (action en cours) : le backdrop reste visible mais
-          plus opaque + cursor:wait pour signaler le loading state, cf. pattern
-          ConfirmModal qui désactive l'interaction backdrop pendant loading. */}
+      {/* Backdrop pour attirer l'attention. z-40 reste sous les modals lourds
+          (z-50+). Pendant isLocked : backdrop plus opaque + cursor:wait pour
+          signaler que l'action est verrouillée (cf. ConfirmModal). */}
       {prominent && (
         <div
           aria-hidden="true"
@@ -171,8 +162,8 @@ export function ApprovalInline({
           {preview}
         </p>
 
-        {/* Stream B / T-B1 : warning post-approval — écriture définitive,
-            pas d'undo possible une fois l'action exécutée côté provider. */}
+        {/* Warning post-approval — écriture définitive, pas d'undo possible
+            une fois l'action exécutée côté provider. */}
         <div
           role="note"
           aria-live="polite"

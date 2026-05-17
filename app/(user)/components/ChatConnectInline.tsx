@@ -44,8 +44,8 @@ export function ChatConnectInline() {
   const [busy, setBusy] = useState(false);
   const [lastError, setLastError] = useState<{ message: string; code?: string } | null>(null);
 
-  // T-K3 (it.5) : garde-fou contre les setState après unmount si le composant
-  // disparaît (changement de run, dismiss inline) pendant la requête OAuth.
+  // Garde setState après unmount si le composant disparaît (changement de
+  // run, dismiss inline) pendant la requête OAuth.
   const mountedRef = useRef(true);
   useEffect(
     () => () => {

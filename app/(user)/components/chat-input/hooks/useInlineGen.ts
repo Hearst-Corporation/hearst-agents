@@ -52,9 +52,8 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
         const reason = data.message ?? data.error ?? "Image generation error";
         throw new Error(reason);
       }
-      // T-C17 : toast plus fiable que le message éphémère in-composer (qui
-      // disparaît silencieusement si l'utilisateur a scrollé / change de
-      // Stage). Le toast reste visible quel que soit le contexte visuel.
+      // Toast plus fiable que le message éphémère in-composer (qui disparaît
+      // silencieusement si l'utilisateur a scrollé ou changé de Stage).
       setImageGenStatus("idle");
       setImageGenMessage(null);
       setInput("");
@@ -91,9 +90,8 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
         const reason = data.message ?? data.error ?? "Audio synthesis error";
         throw new Error(reason);
       }
-      // T-F4a : aligné sur image-gen (T-C17) — toast plus fiable que le
-      // message éphémère in-composer (qui disparaît silencieusement si on
-      // change de Stage). Reset immédiat du state local.
+      // Toast plus fiable que le message éphémère in-composer + reset
+      // immédiat du state local (cf. handleImageGen).
       setAudioGenStatus("idle");
       setAudioGenMessage(null);
       setInput("");
@@ -134,8 +132,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
         const reason = data.message ?? data.error ?? "Code execution error";
         throw new Error(reason);
       }
-      // T-F4b : aligné sur image-gen (T-C17) — toast plus fiable. Reset
-      // immédiat du state local pour libérer le composer.
+      // Toast plus fiable + reset immédiat du state local (cf. handleImageGen).
       setCodeExecStatus("idle");
       setCodeExecMessage(null);
       setInput("");

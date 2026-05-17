@@ -60,8 +60,8 @@ export function SimulationStage({ mode = "simulation" }: Props) {
   const [assetId, setAssetId] = useState<string | null>(null);
   const [thinkingOpen, setThinkingOpen] = useState(false);
   const autoRanRef = useRef(false);
-  // Stream B / T-B6 : confirm avant de jeter scenarios + reasoning (30-50s
-  // de regen DeepSeek perdus si l'utilisateur clique par erreur).
+  // Confirm avant de jeter scenarios + reasoning (30-50s de regen DeepSeek
+  // perdus si l'utilisateur clique par erreur).
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
 
   const setSimulationSlice = useStageData((s) => s.setSimulation);
@@ -114,8 +114,8 @@ export function SimulationStage({ mode = "simulation" }: Props) {
     autoRanRef.current = false;
   }, []);
 
-  // Stream B / T-B6 : si on a déjà du travail (scenarios OU reasoning),
-  // demander confirm avant de reset. Sinon reset direct.
+  // Si on a déjà du travail (scenarios OU reasoning), demander confirm avant
+  // de reset. Sinon reset direct.
   const reset = useCallback(() => {
     if (scenarios.length > 0 || reasoning) {
       setConfirmResetOpen(true);
@@ -154,14 +154,10 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         });
         const data = (await res.json()) as SimulationResponse;
         if (!res.ok || !Array.isArray(data.scenarios)) {
-          // T-J7 (it.4) : sanitize le détail exposé — évite de leak un payload
-          // serveur brut (path, stack, identifiants) dans le toast.
           toast.error("Échec simulation", sanitizeApiError(data.message ?? data.error));
           setPhase("idle");
-          // T-F5 : reset autoRanRef sur path d'erreur — sinon, si une simu
-          // déclenchée via stage payload échoue, le retry manuel (ou un
-          // remount avec même initialScenario) est gated par autoRanRef=true
-          // et ne relance jamais.
+          // Reset autoRanRef sur path d'erreur — sinon un retry manuel (ou
+          // remount avec même initialScenario) reste gated et ne relance jamais.
           autoRanRef.current = false;
           return;
         }
@@ -172,7 +168,6 @@ export function SimulationStage({ mode = "simulation" }: Props) {
       } catch (err) {
         toast.error("Erreur réseau", sanitizeApiError(err));
         setPhase("idle");
-        // T-F5 : idem — path catch réseau, reset le ref de garde auto-run.
         autoRanRef.current = false;
       }
     },
@@ -435,7 +430,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         </div>
       )}
 
-      {/* Stream B / T-B6 : confirm restart simulation */}
+      {/* Confirm restart simulation */}
       <ConfirmModal
         open={confirmResetOpen}
         title="Redémarrer la simulation ?"

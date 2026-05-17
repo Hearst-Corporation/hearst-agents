@@ -67,14 +67,12 @@ export function FocalRetryButton({
   compact = false,
 }: FocalRetryButtonProps) {
   const [isRetrying, setIsRetrying] = useState(false);
-  // T-C15 : on conserve le dernier message d'erreur pour offrir un retry
-  // visible inline (le toast disparaît après quelques secondes, le bouton
-  // doit rester actionnable tant que le user n'a pas réessayé avec succès).
+  // Conserve le dernier message d'erreur pour un retry inline (le toast
+  // disparaît mais le bouton doit rester actionnable jusqu'au succès).
   const [lastError, setLastError] = useState<string | null>(null);
 
-  // T-J4 (it.4) : garde setState post-unmount. Le fetch (mission retry ou
-  // orchestrate SSE) peut prendre plusieurs secondes et l'utilisateur peut
-  // naviguer ailleurs pendant ce temps.
+  // Garde setState post-unmount : le fetch (mission retry ou orchestrate SSE)
+  // peut prendre plusieurs secondes pendant que l'utilisateur navigue.
   const mountedRef = useRef(true);
   useEffect(() => {
     mountedRef.current = true;
@@ -141,7 +139,6 @@ export function FocalRetryButton({
     } catch (error) {
       console.error("[FocalRetryButton] Retry failed:", error);
       const errMsg = sanitizeApiError(error);
-      // T-J4 (it.4) : garde setState post-unmount.
       if (mountedRef.current) setLastError(errMsg);
       toast.error("Échec du réessai", errMsg);
     } finally {

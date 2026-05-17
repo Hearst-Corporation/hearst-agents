@@ -61,10 +61,9 @@ export function MissionStage({ missionId }: MissionStageProps) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [editingCadence, setEditingCadence] = useState(false);
   const [cadenceDraft, setCadenceDraft] = useState("");
-  // Track la valeur "baseline" canonique (chargée ou dernier save) pour qu'un
-  // re-ouvre de l'éditeur ne montre pas un faux "dirty" et que l'on puisse
-  // comparer draft vs original. Mise à jour : (a) au load mission, (b) après
-  // un save cadence réussi, (c) à l'ouverture de l'éditeur (Stream B T-B7).
+  // Baseline canonique de la cadence (chargée ou dernier save) — sert à
+  // comparer draft vs original sans faux "dirty" au ré-ouvre de l'éditeur.
+  // Mise à jour : load mission, save réussi, ouverture éditeur.
   const cadenceOriginalRef = useRef<string>("");
 
   // ── Load mission ─────────────────────────────────────────────
@@ -216,13 +215,13 @@ export function MissionStage({ missionId }: MissionStageProps) {
     }
   };
 
-  // Stream B / T-B7 : ouvre l'éditeur en snapshottant la cadence courante.
+  // Ouvre l'éditeur en snapshottant la cadence courante.
   const openCadenceEditor = useCallback(() => {
     cadenceOriginalRef.current = cadenceDraft;
     setEditingCadence(true);
   }, [cadenceDraft]);
 
-  // Stream B / T-B7 : annule l'édition, et si dirty, toast warning.
+  // Annule l'édition ; si dirty, toast warning.
   const cancelCadenceEdit = useCallback(() => {
     const original = cadenceOriginalRef.current;
     if (cadenceDraft !== original) {

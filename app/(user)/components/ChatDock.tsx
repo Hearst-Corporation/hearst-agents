@@ -168,10 +168,9 @@ export function ChatDock() {
     if (stageMode !== "asset" || !stageAssetId) return;
     const ctx = useChatContext.getState();
     const nextLabel = stageAssetTitle || "Asset";
-    // Guard anti-flicker (it.3 H2 T-H2-4) : si le chip existe déjà avec le
-    // bon label, ne pas faire remove+add. Le `removeChip` puis `addChip`
-    // sert uniquement à mettre à jour le label quand le titre asynchrone
-    // remplace le générique "Asset" — sinon on flickerait à chaque render.
+    // Guard anti-flicker : si le chip existe déjà avec le bon label, on saute
+    // le remove+add (qui sert uniquement à mettre à jour le label quand le
+    // titre asynchrone remplace le générique "Asset").
     const existing = ctx.chips.find((c) => c.id === stageAssetId);
     if (existing?.label !== nextLabel) {
       ctx.removeChip(stageAssetId);
@@ -181,9 +180,8 @@ export function ChatDock() {
         label: nextLabel,
       });
     }
-    // T-J9 (it.4) : cleanup au sortie de stage — sans ça, le chip persiste
-    // dans le ChatDock après changement de mode (ex: asset → cockpit), ce
-    // qui injecte un faux contexte dans la prochaine requête.
+    // Cleanup au sortie de stage — sans ça le chip persiste après changement
+    // de mode (ex: asset → cockpit) et injecte un faux contexte au prochain run.
     return () => {
       useChatContext.getState().removeChip(stageAssetId);
     };
@@ -196,7 +194,6 @@ export function ChatDock() {
       kind: "mission",
       label: "Mission",
     });
-    // T-J9 (it.4) : cleanup du chip mission au sortie de stage.
     return () => {
       useChatContext.getState().removeChip(stageMissionId);
     };
@@ -254,9 +251,9 @@ export function ChatDock() {
   const assistantBufferRef = useRef<string>("");
   const currentAssistantIdRef = useRef<string | null>(null);
 
-  // T-K4 (it.5) : garde-fou pour les setTimeout différés (cf. setReconnectAnnouncement
-  // 3s après la fin du retry) — évite un setState orphelin si l'utilisateur
-  // change de page entre-temps.
+  // Garde-fou pour les setTimeout différés (setReconnectAnnouncement 3s après
+  // la fin du retry) — évite un setState orphelin si l'utilisateur change de
+  // page entre-temps.
   const mountedRef = useRef(true);
   useEffect(
     () => () => {
@@ -265,9 +262,8 @@ export function ChatDock() {
     [],
   );
 
-  // État visuel du backoff SSE : compteur visible pour l'utilisateur pendant
-  // les retries (T-C7) + détection offline (T-C6). null = pas de retry en
-  // cours, sinon { attempt, total, secondsLeft, offline }.
+  // État visuel du backoff SSE : compteur visible pendant les retries +
+  // détection offline. null = pas de retry en cours.
   const [reconnectInfo, setReconnectInfo] = useState<{
     attempt: number;
     total: number;
@@ -275,8 +271,8 @@ export function ChatDock() {
     offline: boolean;
   } | null>(null);
 
-  // T-F1c : annonce SR séparée du countdown (qui spam chaque seconde).
-  // Mute uniquement au démarrage du retry et à la fin → polite, sans bruit.
+  // Annonce SR séparée du countdown (qui spam chaque seconde). Mute uniquement
+  // au démarrage du retry et à la fin → polite, sans bruit.
   const [reconnectAnnouncement, setReconnectAnnouncement] = useState<string>("");
 
   const handleSubmit = useCallback(
@@ -455,7 +451,7 @@ export function ChatDock() {
             const totalSeconds = Math.ceil(delay / 1000);
             const offline = typeof navigator !== "undefined" && navigator.onLine === false;
 
-            // T-F1c : annonce SR unique au démarrage du retry (pas chaque tick).
+            // Annonce SR unique au démarrage du retry (pas chaque tick).
             if (attempt === 1) {
               didRetry = true;
               setReconnectAnnouncement("Reconnexion en cours…");
@@ -467,8 +463,8 @@ export function ChatDock() {
               message: `Reconnexion SSE (tentative ${attempt}/${MAX_RECONNECT_ATTEMPTS})…`,
             });
 
-            // T-C6 : si offline, on attend qu'on revienne online plutôt que
-            // d'épuiser bêtement les tentatives.
+            // Si offline, on attend le retour online plutôt que d'épuiser
+            // bêtement les tentatives.
             if (offline) {
               setReconnectInfo({
                 attempt,
@@ -498,9 +494,9 @@ export function ChatDock() {
               if (controller.signal.aborted) break;
             }
 
-            // T-C7 : décompte visible (1s tick) plutôt qu'un setTimeout opaque.
-            // T-F1b : le sleep 1s est abortable — si l'utilisateur abort pendant
-            // le countdown, on quitte la boucle sans attendre la seconde restante.
+            // Décompte visible (1s tick) plutôt qu'un setTimeout opaque.
+            // Le sleep est abortable — si l'utilisateur abort pendant le
+            // countdown, on quitte sans attendre la seconde restante.
             for (let s = totalSeconds; s > 0; s--) {
               if (controller.signal.aborted) break;
               setReconnectInfo({
@@ -532,8 +528,8 @@ export function ChatDock() {
           if (completed || controller.signal.aborted) break;
         }
 
-        // T-F1c : annonce SR de fin de retry (uniquement si on est passé par
-        // la branche reconnexion, càd au moins un attempt > 0).
+        // Annonce SR de fin de retry (uniquement si on est passé par la
+        // branche reconnexion, càd au moins un attempt > 0).
         if (didRetry) {
           if (completed) {
             setReconnectAnnouncement("Connexion rétablie.");
@@ -543,12 +539,10 @@ export function ChatDock() {
         }
 
         if (!completed && !controller.signal.aborted) {
-          // T-F1a : `navigator.onLine` est notoirement peu fiable (true sur
-          // captive portal, par ex.). On garde la branche offline pour le
-          // message le plus utile, mais sans surpromettre une reprise auto :
-          // l'écoute de l'event `online` se fait pendant la boucle de retry,
-          // pas ici. Si onLine=false alors qu'on a épuisé les retries → message
-          // explicite. Sinon → message neutre "vérification… réessaie".
+          // `navigator.onLine` est peu fiable (true sur captive portal). On
+          // garde la branche offline pour un message utile, sans surpromettre
+          // une reprise auto : l'écoute de l'event `online` se fait pendant
+          // la boucle de retry, pas ici.
           const offline = typeof navigator !== "undefined" && navigator.onLine === false;
           const errorMsg = offline
             ? "Hors ligne — la reconnexion reprendra à votre retour."
@@ -581,8 +575,8 @@ export function ChatDock() {
       } finally {
         setAbortController(null);
         setReconnectInfo(null);
-        // T-F1c : on laisse l'annonce SR visible un instant pour que le screen
-        // reader la consomme, puis on reset pour ne pas la rejouer plus tard.
+        // Laisser l'annonce SR visible un instant pour que le screen reader
+        // la consomme, puis reset pour ne pas la rejouer plus tard.
         if (didRetry) {
           setTimeout(() => {
             if (mountedRef.current) setReconnectAnnouncement("");
@@ -609,9 +603,8 @@ export function ChatDock() {
     ],
   );
 
-  // T-C4 : sortie explicite quand on est dans le Stage "chat".
-  // Repasse en mode cockpit (le shell garde la conversation accessible via
-  // la liste threads, on ne perd rien).
+  // Sortie explicite du Stage "chat" → repasse en cockpit. Le shell garde
+  // la conversation accessible via la liste threads.
   const showCloseButton = stageMode === "chat";
   const handleCloseChat = useCallback(() => {
     setStageMode({ mode: "cockpit" });
@@ -619,10 +612,10 @@ export function ChatDock() {
 
   return (
     <div className="relative flex w-full items-center justify-center">
-      {/* T-C7 : indicateur visuel de reconnexion SSE.
-          T-F1c : aria-hidden — le countdown 1s spam les SR en polite.
-          L'annonce SR passe par <span class="sr-only" role="status"> ci-dessous,
-          qui ne mute QU'au start et à la fin du retry. */}
+      {/* Indicateur visuel de reconnexion SSE.
+          aria-hidden — le countdown 1s spam les SR en polite. L'annonce SR
+          passe par <span class="sr-only" role="status"> ci-dessous, qui ne
+          mute QU'au start et à la fin du retry. */}
       {reconnectInfo && (
         <div
           aria-hidden="true"
@@ -646,8 +639,8 @@ export function ChatDock() {
         </div>
       )}
 
-      {/* T-F1c : annonce SR séparée — change uniquement au start et à la fin
-          du retry, donc polite sans bruit chaque seconde. */}
+      {/* Annonce SR séparée — change uniquement au start et à la fin du retry,
+          polite sans bruit chaque seconde. */}
       <span className="sr-only" role="status" aria-live="polite">
         {reconnectAnnouncement}
       </span>
@@ -655,7 +648,7 @@ export function ChatDock() {
       <StageFooter />
       <ChatInput onSubmit={handleSubmit} connectedServices={connectedServices} />
 
-      {/* T-C4 : bouton de fermeture explicite du chat (retour cockpit). */}
+      {/* Bouton de fermeture explicite du chat (retour cockpit). */}
       {showCloseButton && (
         <button
           type="button"

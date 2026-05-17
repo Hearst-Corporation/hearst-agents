@@ -274,9 +274,9 @@ export function ArtifactStage({ mode }: { mode: string }) {
           fetch(`/api/v2/assets/${artifactId}/variants`, { credentials: "include" }),
         ]);
 
-        // T-C13 : handle distinct des deux requêtes. L'asset est obligatoire
-        // (sans lui rien à afficher → error state) ; les variants sont
-        // optionnelles (degraded mode : on affiche l'asset seul + warn dev).
+        // Handle distinct des deux requêtes : l'asset est obligatoire (sans
+        // lui rien à afficher → error), les variants sont optionnelles
+        // (degraded mode : on affiche l'asset seul + warn dev).
         if (!assetRes.ok) {
           console.error("[ArtifactStage] asset fetch failed:", assetRes.status);
           if (!cancelled) {

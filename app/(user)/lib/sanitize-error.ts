@@ -1,15 +1,13 @@
 /**
  * sanitizeApiError — extrait un message utilisateur safe d'une erreur API.
  *
- * T-J6 (it.4) : helper centralisé pour éviter de leak des paths serveur,
- * stack traces ou tokens dans les toasts et erreurs UI. Toute consommation
- * d'erreur API côté client doit passer par ce helper plutôt que d'exposer
- * `err.message` brut.
+ * Helper centralisé pour éviter de leak des paths serveur, stack traces ou
+ * tokens dans les toasts et erreurs UI. Toute consommation d'erreur API côté
+ * client doit passer par ce helper plutôt que d'exposer `err.message` brut.
  *
  * Stratégie :
- *   - Whitelist : si le message matche un pattern réseau standard
- *     (Network, Failed to fetch, Connection, Timeout, Rate limit) on
- *     l'expose tel quel — il est neutre et utile.
+ *   - Whitelist : si le message matche un pattern réseau standard (Network,
+ *     Failed to fetch, Connection, Timeout, Rate limit) on l'expose tel quel.
  *   - AbortError : message dédié, l'utilisateur a sciemment annulé.
  *   - Sinon : message générique. Le détail technique reste dans la console
  *     / Sentry via le log à l'origine, jamais dans l'UI.

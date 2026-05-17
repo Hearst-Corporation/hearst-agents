@@ -33,16 +33,9 @@ export default function NewAgentPage() {
     max_tokens: 4096,
   });
 
-  // T-J8 (it.4) : isDirty étendu à TOUS les champs mutables via snapshot
-  // initial. La version précédente ne testait que name + system_prompt +
-  // temperature → l'utilisateur pouvait perdre une description ou un
-  // max_tokens custom sans confirm.
-  //
-  // T-K5 (it.5) : `useRef(form)` capture déjà la valeur initiale au premier
-  // render et la fige (useRef ne resync pas avec ses args). L'ancien
-  // useEffect qui réassignait `initialFormRef.current = form` avec deps `[]`
-  // était dead code (s'exécutait après le mount avec la même valeur que celle
-  // déjà figée). Retiré.
+  // isDirty étendu à TOUS les champs mutables via snapshot initial. `useRef`
+  // fige la valeur du premier render (pas de resync avec ses args), ce qui
+  // est exactement ce qu'on veut comme baseline.
   const initialFormRef = useRef(form);
   const isDirty = JSON.stringify(form) !== JSON.stringify(initialFormRef.current);
 
