@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import type { MissionLike } from "@/lib/ui/focal-mappers";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
@@ -59,6 +60,10 @@ export function MissionStage({ missionId }: MissionStageProps) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [editingCadence, setEditingCadence] = useState(false);
   const [cadenceDraft, setCadenceDraft] = useState("");
+  // Stream B / T-B7 : snapshot de la cadence au moment d'ouvrir l'éditeur,
+  // pour détecter le dirty au Cancel et émettre un toast warning si discard
+  // de modifications non enregistrées.
+  const cadenceOriginalRef = useRef<string>("");
 
   // ── Load mission ─────────────────────────────────────────────
   const loadMission = useCallback(() => {
@@ -202,12 +207,28 @@ export function MissionStage({ missionId }: MissionStageProps) {
     }
   };
 
+  // Stream B / T-B7 : ouvre l'éditeur en snapshottant la cadence courante.
+  const openCadenceEditor = useCallback(() => {
+    cadenceOriginalRef.current = cadenceDraft;
+    setEditingCadence(true);
+  }, [cadenceDraft]);
+
+  // Stream B / T-B7 : annule l'édition, et si dirty, toast warning.
+  const cancelCadenceEdit = useCallback(() => {
+    const original = cadenceOriginalRef.current;
+    if (cadenceDraft !== original) {
+      toast.warning("Modifications non enregistrées");
+      setCadenceDraft(original);
+    }
+    setEditingCadence(false);
+  }, [cadenceDraft]);
+
   // ── Listen for mission:edit dispatched from rail ─────────────
   useEffect(() => {
-    const onEdit = () => setEditingCadence(true);
+    const onEdit = () => openCadenceEditor();
     window.addEventListener("mission:edit", onEdit);
     return () => window.removeEventListener("mission:edit", onEdit);
-  }, []);
+  }, [openCadenceEditor]);
 
   const status = mission?.opsStatus ?? (mission?.enabled ? "active" : "paused");
   const statusColor =
@@ -233,7 +254,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
           {
             id: "edit",
             label: "Éditer",
-            onClick: () => setEditingCadence(true),
+            onClick: () => openCadenceEditor(),
             disabled: !mission || pendingAction !== null,
           },
           {
@@ -254,7 +275,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
           {
             id: "cadence",
             label: "Modifier cadence",
-            onClick: () => setEditingCadence(true),
+            onClick: () => openCadenceEditor(),
             disabled: pendingAction !== null,
           },
           {
@@ -403,12 +424,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
                     >
                       Enregistrer
                     </Action>
-                    <Action
-                      variant="ghost"
-                      tone="neutral"
-                      size="sm"
-                      onClick={() => setEditingCadence(false)}
-                    >
+                    <Action variant="ghost" tone="neutral" size="sm" onClick={cancelCadenceEdit}>
                       Annuler
                     </Action>
                   </div>

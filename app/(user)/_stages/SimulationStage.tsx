@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { ConfirmModal } from "../components/ConfirmModal";
 import type { RailItem } from "./types";
 
 const VISION_EASE = [0.22, 1, 0.36, 1] as const;
@@ -58,6 +59,9 @@ export function SimulationStage({ mode = "simulation" }: Props) {
   const [assetId, setAssetId] = useState<string | null>(null);
   const [thinkingOpen, setThinkingOpen] = useState(false);
   const autoRanRef = useRef(false);
+  // Stream B / T-B6 : confirm avant de jeter scenarios + reasoning (30-50s
+  // de regen DeepSeek perdus si l'utilisateur clique par erreur).
+  const [confirmResetOpen, setConfirmResetOpen] = useState(false);
 
   const setSimulationSlice = useStageData((s) => s.setSimulation);
   useEffect(() => {
@@ -101,13 +105,28 @@ export function SimulationStage({ mode = "simulation" }: Props) {
     [],
   );
 
-  const reset = useCallback(() => {
+  const performReset = useCallback(() => {
     setPhase("idle");
     setScenarios([]);
     setReasoning(null);
     setAssetId(null);
     autoRanRef.current = false;
   }, []);
+
+  // Stream B / T-B6 : si on a déjà du travail (scenarios OU reasoning),
+  // demander confirm avant de reset. Sinon reset direct.
+  const reset = useCallback(() => {
+    if (scenarios.length > 0 || reasoning) {
+      setConfirmResetOpen(true);
+      return;
+    }
+    performReset();
+  }, [scenarios.length, reasoning, performReset]);
+
+  const handleConfirmReset = useCallback(() => {
+    performReset();
+    setConfirmResetOpen(false);
+  }, [performReset]);
 
   const launchSimulation = useCallback(
     async (scenarioOverride?: string) => {
@@ -405,6 +424,17 @@ export function SimulationStage({ mode = "simulation" }: Props) {
           </div>
         </div>
       )}
+
+      {/* Stream B / T-B6 : confirm restart simulation */}
+      <ConfirmModal
+        open={confirmResetOpen}
+        title="Redémarrer la simulation ?"
+        description="Les scenarios et le raisonnement actuels seront perdus (re-génération 30-50s)."
+        confirmLabel="Redémarrer"
+        variant="danger"
+        onConfirm={handleConfirmReset}
+        onCancel={() => setConfirmResetOpen(false)}
+      />
     </motion.section>
   );
 }

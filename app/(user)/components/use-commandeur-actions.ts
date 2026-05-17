@@ -23,6 +23,13 @@ export interface CommandRow {
   hint?: string;
   hotkey?: string;
   disabled?: boolean;
+  /**
+   * Stream B / T-B5 : libellé optionnel affiché en toast après `perform()`.
+   * Si non défini → fallback générique "Action effectuée". Utile pour les
+   * rows qui résolvent silencieusement (ex: dispatch stage), pas pour les
+   * rows qui ouvrent une nouvelle vue où le feedback visuel suffit.
+   */
+  toastLabel?: string;
   perform: () => void;
 }
 

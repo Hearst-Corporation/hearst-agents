@@ -29,9 +29,10 @@
  *   - `report-editor-json-toggle`   (bouton expand/collapse JSON)
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 import type { TemplateSummary } from "@/lib/reports/templates/schema";
+import { ConfirmModal } from "../ConfirmModal";
 import { BlockEditorRow } from "./_parts/BlockEditorRow";
 import { EditorHeader } from "./_parts/EditorHeader";
 import { EditorToolbar } from "./_parts/EditorToolbar";
@@ -68,6 +69,18 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   const [loadStatus, setLoadStatus] = useState<LoadStatus>("idle");
   const [templateList, setTemplateList] = useState<TemplateSummary[]>([]);
 
+  // ── Stream B / T-B2 + T-B3 : confirms unsaved changes ───────
+  // On compare le spec courant à la copie initiale (T-B2) ou au spec courant
+  // (T-B3 → on remplace une spec possiblement modifiée par un template). On
+  // utilise JSON.stringify pour une égalité structurelle simple — le spec
+  // reste petit et n'a pas de cycles.
+  const isDirty = useMemo(
+    () => JSON.stringify(spec) !== JSON.stringify(initialSpec),
+    [spec, initialSpec],
+  );
+  const [confirmResetOpen, setConfirmResetOpen] = useState(false);
+  const [pendingLoadTemplateId, setPendingLoadTemplateId] = useState<string | null>(null);
+
   // ESC ferme le panneau si onClose fourni.
   useEffect(() => {
     if (!onClose) return;
@@ -98,9 +111,23 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     [spec, onChange],
   );
 
-  const reset = useCallback(() => {
+  const performReset = useCallback(() => {
     onChange(structuredClone(initialSpec));
   }, [initialSpec, onChange]);
+
+  // Stream B / T-B2 : si dirty → confirm modal, sinon reset direct.
+  const reset = useCallback(() => {
+    if (isDirty) {
+      setConfirmResetOpen(true);
+      return;
+    }
+    performReset();
+  }, [isDirty, performReset]);
+
+  const handleConfirmReset = useCallback(() => {
+    performReset();
+    setConfirmResetOpen(false);
+  }, [performReset]);
 
   // ── Handlers save template ──────────────────────────────────
 
@@ -165,7 +192,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     setTemplateList([]);
   }, []);
 
-  const loadTemplateSpec = useCallback(
+  const performLoadTemplateSpec = useCallback(
     async (templateId: string) => {
       setLoadStatus("loading_spec");
       try {
@@ -182,6 +209,24 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     },
     [onChange],
   );
+
+  // Stream B / T-B3 : si dirty → confirm modal avant remplacement.
+  const loadTemplateSpec = useCallback(
+    async (templateId: string) => {
+      if (isDirty) {
+        setPendingLoadTemplateId(templateId);
+        return;
+      }
+      await performLoadTemplateSpec(templateId);
+    },
+    [isDirty, performLoadTemplateSpec],
+  );
+
+  const handleConfirmLoadTemplate = useCallback(() => {
+    const id = pendingLoadTemplateId;
+    setPendingLoadTemplateId(null);
+    if (id) void performLoadTemplateSpec(id);
+  }, [pendingLoadTemplateId, performLoadTemplateSpec]);
 
   const visibleCount = spec.blocks.filter((b) => !b.hidden).length;
   const totalCount = spec.blocks.length;
@@ -268,6 +313,28 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
           {JSON.stringify(spec, null, 2)}
         </pre>
       )}
+
+      {/* Stream B / T-B2 : confirm restore initial layout */}
+      <ConfirmModal
+        open={confirmResetOpen}
+        title="Restaurer le layout initial ?"
+        description="Vos modifications locales seront perdues."
+        confirmLabel="Restaurer"
+        variant="danger"
+        onConfirm={handleConfirmReset}
+        onCancel={() => setConfirmResetOpen(false)}
+      />
+
+      {/* Stream B / T-B3 : confirm load template écrase spec courant */}
+      <ConfirmModal
+        open={pendingLoadTemplateId !== null}
+        title="Charger le template ?"
+        description="Votre spec actuelle sera remplacée."
+        confirmLabel="Charger"
+        variant="primary"
+        onConfirm={handleConfirmLoadTemplate}
+        onCancel={() => setPendingLoadTemplateId(null)}
+      />
     </aside>
   );
 }
