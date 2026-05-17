@@ -405,7 +405,7 @@ export function MeetingStage({ mode }: { mode: string }) {
       variants={CONTAINER_VARIANTS}
       initial="hidden"
       animate="visible"
-      className="preserve-3d flex w-full max-w-[760px] flex-col gap-16"
+      className="preserve-3d flex w-full flex-col gap-16"
     >
       {/* Empty state */}
       {!meetingId && <EmptyMeetingState />}

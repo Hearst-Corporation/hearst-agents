@@ -137,7 +137,8 @@ export function LeftRail() {
           <SecondaryButton
             label="Connexions"
             hint="Apps et services connectés"
-            onClick={() => router.push("/connections")}
+            active={useStageStore((s) => s.current.mode === "connections")}
+            onClick={() => useStageStore.getState().setMode({ mode: "connections" })}
           >
             <ConnectionsIcon />
           </SecondaryButton>

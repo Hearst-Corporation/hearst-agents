@@ -55,14 +55,14 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
         {/* Main content area (Scrollable + Floating Footer ancré dessus) */}
         <div className="preserve-3d relative flex flex-1 flex-col overflow-hidden">
           {/* Centre scrollable — translateZ(-15px) pour profondeur subtile */}
-          <main className="vision-content-depth preserve-3d flex flex-1 justify-center overflow-y-auto px-16 pt-20 pb-64">
+          <main className="vision-content-depth preserve-3d flex flex-1 justify-center overflow-y-auto px-6 pt-8 pb-48 lg:px-8 xl:px-10 2xl:px-16 2xl:pt-16 2xl:pb-56">
             {centerContent}
           </main>
 
           {/* Fade noir bas — marche de respiration entre scroll et pill footer */}
           <div
             aria-hidden
-            className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-60"
+            className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-48"
             style={{
               background:
                 "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--mat-200) 45%, transparent) 25%, color-mix(in srgb, var(--mat-200) 92%, transparent) 60%, var(--mat-200) 85%)",
@@ -72,7 +72,7 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
           {/* Composer chat — remplace le FloatingFooter (P8) */}
           {composer && (
             <div
-              className="absolute right-0 bottom-0 left-0 z-[25]"
+              className="absolute right-0 bottom-0 left-0 z-25"
               style={{
                 background:
                   "linear-gradient(to top, color-mix(in srgb, var(--accent-teal) 10%, rgba(0,0,0,0.75)) 0%, color-mix(in srgb, var(--accent-teal) 4%, rgba(0,0,0,0.35)) 50%, transparent 100%)",

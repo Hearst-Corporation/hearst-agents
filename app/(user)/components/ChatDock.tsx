@@ -13,7 +13,6 @@ import { useRuntimeStore } from "@/stores/runtime";
 import { useServicesStore } from "@/stores/services";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
-import { StageFooter } from "./_shell/StageFooter";
 import { ChatInput } from "./ChatInput";
 
 /**
@@ -464,8 +463,7 @@ export function ChatDock() {
   );
 
   return (
-    <div className="flex flex-col items-center gap-3 w-full">
-      <StageFooter />
+    <div className="flex w-full justify-center">
       <ChatInput onSubmit={handleSubmit} connectedServices={connectedServices} />
     </div>
   );

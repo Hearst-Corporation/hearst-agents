@@ -14,10 +14,10 @@ export function useChatComposer() {
   // Pill étendue dès qu'il y a du focus ou du texte
   const isExpanded = inputFocused || input.length > 0;
 
-  // Focus auto au mount
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+  // Focus auto au mount - désactivé pour éviter l'expansion automatique
+  // useEffect(() => {
+  //   inputRef.current?.focus();
+  // }, []);
 
   // Listener pour injection externe (Commandeur, slash commands, etc.)
   useEffect(() => {

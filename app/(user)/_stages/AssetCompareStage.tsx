@@ -594,7 +594,6 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
           justifyContent: "center",
           padding: "80px 0",
           textAlign: "center",
-          maxWidth: "760px",
           width: "100%",
         }}
       >
@@ -616,7 +615,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
       variants={SECTION_VARIANTS}
       initial="hidden"
       animate="show"
-      className="preserve-3d flex w-full max-w-[900px] flex-col gap-8"
+      className="preserve-3d flex w-full flex-col gap-8"
     >
       {/* En-tête */}
       <div

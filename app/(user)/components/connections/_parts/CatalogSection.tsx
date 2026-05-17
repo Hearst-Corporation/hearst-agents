@@ -21,9 +21,9 @@ export function CategoriesBar({
   const hiddenCount = Math.max(0, categories.length - visible.length);
   return (
     <div
-      className="flex items-center gap-6 px-8 py-3 overflow-x-auto"
+      className="flex items-center gap-6 py-3 overflow-x-auto"
       style={{
-        borderTop: "1px solid var(--border-shell)",
+        borderTop: "1px solid color-mix(in srgb, var(--border-default) 40%, transparent)",
       }}
     >
       <CategoryChip
@@ -102,7 +102,7 @@ export function Wallpaper({
   onLoadMore: () => void;
 }) {
   return (
-    <div className="px-8 pt-4 pb-8">
+    <div className="pt-4 pb-8">
       {apps.length === 0 ? (
         <p className="t-13 font-light text-center py-10 text-text-faint">
           Aucun service dans cette catégorie.

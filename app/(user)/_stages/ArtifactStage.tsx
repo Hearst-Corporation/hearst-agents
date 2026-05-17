@@ -153,7 +153,7 @@ function ErrorState({ message }: { message: string }) {
 
 function CodeBlock({ code, language }: { code: string; language: string }) {
   return (
-    <div className="flex-1 overflow-auto" style={{ padding: "14px 16px" }}>
+    <div style={{ padding: "14px 16px" }}>
       <pre
         className="code-block"
         style={{
@@ -197,7 +197,7 @@ function VersionsList({ versions }: { versions: VersionRow[] }) {
     );
   }
   return (
-    <div className="flex-1 overflow-auto" style={{ padding: "14px 16px" }}>
+    <div style={{ padding: "14px 16px" }}>
       <div className="flex flex-col" style={{ gap: "8px" }}>
         {versions.map((v, i) => (
           <div
@@ -376,7 +376,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
       variants={CONTAINER_VARIANTS}
       initial="hidden"
       animate="visible"
-      className="preserve-3d flex w-full max-w-[860px] flex-col gap-8"
+      className="preserve-3d flex w-full flex-col gap-8"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
@@ -450,7 +450,6 @@ export function ArtifactStage({ mode }: { mode: string }) {
             initial="hidden"
             animate="visible"
             className="flex gap-4"
-            style={{ minHeight: "360px" }}
           >
             {/* Éditeur code read-only */}
             <div
@@ -551,7 +550,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="flex-1 flex flex-col overflow-auto"
+                    className="flex flex-col"
                   >
                     {code ? (
                       <CodeBlock code={code} language={meta.language ?? "python"} />
@@ -575,7 +574,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="flex-1 flex flex-col overflow-auto"
+                    className="flex flex-col"
                   >
                     <VersionsList versions={versions} />
                   </motion.div>

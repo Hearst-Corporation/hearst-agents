@@ -15,7 +15,7 @@ export function OnboardingStage({
   );
 
   return (
-    <div className="px-8 pb-2">
+    <div className="pb-2">
       {starters.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {starters.map((app) => (

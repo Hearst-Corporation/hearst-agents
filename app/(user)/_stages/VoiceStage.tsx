@@ -54,7 +54,7 @@ export function VoiceStage({ mode }: { mode: string }) {
       variants={SECTION_VARIANTS}
       initial="hidden"
       animate="show"
-      className="preserve-3d flex w-full max-w-[760px] flex-col gap-16"
+      className="preserve-3d flex w-full flex-col gap-16"
     >
       <header style={{ textAlign: "center" }}>
         <p

@@ -32,7 +32,8 @@ export type StageMode =
   | "voice"
   | "simulation"
   | "artifact"
-  | "signal";
+  | "signal"
+  | "connections";
 
 /** Payload contextuel attaché au mode (selon le Stage actif). */
 export type StagePayload =
@@ -47,7 +48,8 @@ export type StagePayload =
   | { mode: "voice"; sessionId?: string }
   | { mode: "simulation"; scenario?: string }
   | { mode: "artifact"; artifactId?: string; code?: string; language?: "python" | "node" }
-  | { mode: "signal"; selectedSignalId?: string };
+  | { mode: "signal"; selectedSignalId?: string }
+  | { mode: "connections" };
 
 export interface StageEntry {
   payload: StagePayload;

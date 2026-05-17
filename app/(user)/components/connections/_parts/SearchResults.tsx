@@ -18,13 +18,13 @@ export function SearchResultsSection({
 }) {
   if (results.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-24 text-center gap-3 px-8">
+      <div className="flex flex-col items-center justify-center py-24 text-center gap-3 px-0">
         <p className="t-15 font-medium text-text-muted">Aucun résultat</p>
       </div>
     );
   }
   return (
-    <div className="px-8 pt-8 pb-8">
+    <div className="pt-8 pb-8">
       <div className="flex items-baseline gap-2 mb-4 t-13 font-medium">
         <span className="text-text">Résultats</span>
         <span className="text-text-ghost">·</span>
@@ -38,7 +38,7 @@ export function SearchResultsSection({
             key={app.key}
             type="button"
             onClick={() => onSelect(app)}
-            className="group flex items-center gap-3 px-8 py-3 text-left transition-colors rounded-none"
+            className="group flex items-center gap-3 py-3 text-left transition-colors rounded-none"
             style={{
               background: "transparent",
               borderBottom: "1px solid var(--border-soft)",

@@ -4,6 +4,7 @@ import { lazy, Suspense } from "react";
 import { useNavigationStore } from "@/stores/navigation";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
+import { StageFooter } from "../_shell/StageFooter";
 import { ContextChips } from "../chat/ContextChips";
 import { AttachedAssetChips } from "./AttachedAssetChips";
 import { ComposerActions } from "./ComposerActions";
@@ -148,66 +149,65 @@ export function ChatInput({
         e.preventDefault();
         handleSubmit();
       }}
-      className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out]"
+      className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out] flex justify-center"
       style={{
-        paddingLeft: "var(--space-4)",
-        paddingRight: "var(--space-4)",
-        paddingTop: "var(--space-2)",
-        paddingBottom: "var(--space-2)",
+        paddingBottom: "var(--space-6)",
       }}
     >
       <div
-        className="vision-glass preserve-3d mx-auto relative shell-input-pill-new"
+        className="vision-glass preserve-3d relative flex items-center"
         style={{
-          maxWidth: 720,
-          borderRadius: isExpanded ? "var(--radius-lg)" : "var(--radius-pill)",
-          transition: "border-radius var(--duration-base) var(--ease-standard)",
+          borderRadius: "var(--radius-pill)",
+          padding: "var(--space-1) var(--space-1)",
+          paddingRight: "var(--space-4)",
+          gap: "var(--space-3)",
+          transform: "translateZ(20px)",
         }}
+        onDragOver={handleAssetDragOver}
+        onDragLeave={handleAssetDragLeave}
+        onDrop={handleAssetDrop}
+        data-drag-over={isDragOver}
       >
-        {showTypeahead && (
-          <MentionTypeahead
-            typeaheadRef={typeaheadRef}
-            matchingServices={matchingServices}
-            typeaheadQuery={typeaheadQuery}
-            onSelect={selectService}
-          />
-        )}
-
-        {/* Context chips au-dessus de l'input */}
-        <div className="px-2">
-          <ContextChips />
-        </div>
+        <StageFooter />
 
         <div
-          className="peer group relative px-6 py-3"
-          onDragOver={handleAssetDragOver}
-          onDragLeave={handleAssetDragLeave}
-          onDrop={handleAssetDrop}
-          data-drag-over={isDragOver}
-        >
-          <AttachedAssetChips attachedAssets={attachedAssets} onRemove={removeAttachedAsset} />
+          className="shrink-0"
+          style={{
+            width: "1px",
+            height: "var(--space-4)",
+            background: "var(--border-default)",
+          }}
+        />
 
-          {attachment && <PdfAttachmentRow attachment={attachment} onRemove={clearAttachment} />}
+        <div className="relative flex items-center min-w-[280px] flex-1">
+          <div className="absolute bottom-full left-0 mb-4 flex flex-col gap-2 w-full">
+            {showTypeahead && (
+              <MentionTypeahead
+                typeaheadRef={typeaheadRef}
+                matchingServices={matchingServices}
+                typeaheadQuery={typeaheadQuery}
+                onSelect={selectService}
+              />
+            )}
+            <ContextChips />
+            <AttachedAssetChips attachedAssets={attachedAssets} onRemove={removeAttachedAsset} />
+            {attachment && <PdfAttachmentRow attachment={attachment} onRemove={clearAttachment} />}
+            <StatusMessages
+              uploadError={uploadError}
+              imageGenStatus={imageGenStatus}
+              imageGenMessage={imageGenMessage}
+              audioGenStatus={audioGenStatus}
+              audioGenMessage={audioGenMessage}
+              codeExecStatus={codeExecStatus}
+              codeExecMessage={codeExecMessage}
+              docParseMessage={docParseMessage}
+            />
+          </div>
 
-          <StatusMessages
-            uploadError={uploadError}
-            imageGenStatus={imageGenStatus}
-            imageGenMessage={imageGenMessage}
-            audioGenStatus={audioGenStatus}
-            audioGenMessage={audioGenMessage}
-            codeExecStatus={codeExecStatus}
-            codeExecMessage={codeExecMessage}
-            docParseMessage={docParseMessage}
-          />
-
-          <textarea
-            ref={inputRef}
+          <input
+            ref={inputRef as any}
             value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-              e.target.style.height = "auto";
-              e.target.style.height = `${e.target.scrollHeight}px`;
-            }}
+            onChange={(e) => setInput(e.target.value)}
             onFocus={() => setInputFocused(true)}
             onBlur={() => setInputFocused(false)}
             onKeyDown={(e) => {
@@ -223,37 +223,10 @@ export function ChatInput({
                 setHideTypeahead(true);
               }
             }}
-            aria-label="Tapez votre message"
-            aria-multiline="true"
-            aria-required="true"
             placeholder={resolveModePlaceholder(stageMode, surface, placeholder)}
-            rows={1}
-            className="block w-full bg-transparent t-18 font-light text-text placeholder:text-text-muted resize-none leading-relaxed min-h-input h-input-max px-4 py-3 focus:outline-none"
+            className="w-full bg-transparent border-none outline-none text-white t-13 placeholder:text-text-muted"
           />
-
-          <div className={isExpanded ? "" : "hidden"}>
-            <ComposerActions
-              input={input}
-              isRunning={isRunning}
-              fileInputRef={fileInputRef}
-              attachment={attachment}
-              uploading={uploading}
-              imageGenStatus={imageGenStatus}
-              audioGenStatus={audioGenStatus}
-              codeExecStatus={codeExecStatus}
-              onFileChange={handleFileChange}
-              onTriggerFilePicker={triggerFilePicker}
-              onAudioGen={handleAudioGen}
-              onCodeExec={handleCodeExec}
-              onImageGen={handleImageGen}
-              onOpenDocParse={openModal}
-              onSubmit={handleSubmit}
-            />
-          </div>
         </div>
-
-        {/* Quick-mention apps — clic logo → @mention ; + vers /apps */}
-        <QuickMentionRow connectedServices={connectedServices} onMention={insertMentionFromIcon} />
       </div>
 
       {docParseOpen && (
@@ -261,6 +234,13 @@ export function ChatInput({
           <DocumentParseModal open={docParseOpen} onClose={closeModal} onSuccess={handleSuccess} />
         </Suspense>
       )}
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="hidden"
+        onChange={handleFileChange}
+        accept="application/pdf"
+      />
     </form>
   );
 }

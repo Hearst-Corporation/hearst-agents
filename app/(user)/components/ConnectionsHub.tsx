@@ -38,7 +38,7 @@ export function ConnectionsHub() {
   if (hub.loading) return <LoadingState />;
 
   return (
-    <div className="flex-1 overflow-y-auto" style={{ background: "var(--bg-elev)" }}>
+    <section className="preserve-3d flex w-full max-w-[760px] flex-col 2xl:max-w-[820px] pb-12 animate-[fu_0.4s_ease-out_forwards]">
       <Header
         searchQuery={hub.searchQuery}
         onSearchChange={hub.setSearchQuery}
@@ -57,7 +57,7 @@ export function ConnectionsHub() {
           onSelect={hub.openDrawer}
         />
       ) : (
-        <div className="flex flex-col" style={{ padding: "var(--space-4)", gap: "var(--space-4)" }}>
+        <div className="flex flex-col gap-8">
           {/* CONNECTÉS */}
           <div>
             <SectionLabel label="Connectés" count={hub.stats.connectedCount} />
@@ -87,7 +87,7 @@ export function ConnectionsHub() {
               count={hub.wallpaperApps.length}
             />
             {hub.attentionFilter && (
-              <div className="px-8 pb-3">
+              <div className="pb-3">
                 <button
                   type="button"
                   onClick={hub.onClearAttentionFilter}
@@ -135,7 +135,7 @@ export function ConnectionsHub() {
           }
         />
       )}
-    </div>
+    </section>
   );
 }
 
@@ -143,7 +143,7 @@ export function ConnectionsHub() {
 
 function DisabledState({ message }: { message: string | null }) {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center gap-4 px-8 py-24">
+    <section className="preserve-3d flex w-full max-w-[760px] flex-col 2xl:max-w-[820px] items-center justify-center gap-4 py-24 animate-[fu_0.4s_ease-out_forwards]">
       <p className="t-15 font-medium text-text-muted">Composio indisponible</p>
       <p className="t-13 text-text-soft max-w-md text-center leading-relaxed">
         {message ?? "Composio n'est pas configuré."}
@@ -152,15 +152,15 @@ function DisabledState({ message }: { message: string | null }) {
         Vérifie <code className="text-(--accent-teal)">COMPOSIO_API_KEY</code> dans{" "}
         <code>.env.local</code>.
       </p>
-    </div>
+    </section>
   );
 }
 
 function LoadingState() {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center gap-4 px-8 py-24">
+    <section className="preserve-3d flex w-full max-w-[760px] flex-col 2xl:max-w-[820px] items-center justify-center gap-4 py-24 animate-[fu_0.4s_ease-out_forwards]">
       <div className="halo-core" aria-hidden />
       <p className="t-11 font-light text-text-muted">Chargement des connexions…</p>
-    </div>
+    </section>
   );
 }

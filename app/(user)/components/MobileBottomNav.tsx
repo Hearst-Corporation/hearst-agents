@@ -4,10 +4,15 @@
  * MobileBottomNav — Navigation primaire mobile.
  *
  * Aligné sur le dock desktop StageFooter (Factory Cockpit) :
- *   Dashboard · Chat · Mission (central emphasis) · Commandeur · Connexions
+ *   Dashboard · Chat · Demandes (central emphasis) · Commandeur · Aujourd'hui
  *
- * Voice reste accessible via Commandeur (⌘K) et hotkey ⌘⇧V — sortie du
- * bottom nav primaire pour suivre la hiérarchie « Dashboard / Chat / Mission ».
+ * Vocabulaire visible : « Demandes » → code mode `"mission"` (rename UI
+ * 2026-05). Le testid reste `mobile-nav-mission` pour ne pas casser les
+ * specs Vitest existantes ; types/store/routes inchangés.
+ *
+ * "Aujourd'hui" est un chip non dangereux qui ouvre le Commandeur prérempli
+ * sur "brief du jour" (pas de route /agenda dédiée). Voice reste accessible
+ * via Commandeur (⌘K) et hotkey ⌘⇧V.
  *
  * Visible uniquement < md (Tailwind `md:hidden`). Fixed bottom, safe-area
  * inset bottom respecté pour iOS notch.
@@ -16,11 +21,10 @@
  * cohérent avec PulseBar/ghost-icons.
  */
 
-import { useRouter } from "next/navigation";
 import { useStageStore } from "@/stores/stage";
 
 interface NavItem {
-  id: "cockpit" | "chat" | "mission" | "commandeur" | "connections";
+  id: "cockpit" | "chat" | "mission" | "commandeur" | "today";
   label: string;
   glyph: string;
   emphasis?: boolean;
@@ -29,13 +33,12 @@ interface NavItem {
 const ITEMS: NavItem[] = [
   { id: "cockpit", label: "Dashboard", glyph: "▦" },
   { id: "chat", label: "Chat", glyph: "✱" },
-  { id: "mission", label: "Mission", glyph: "◎", emphasis: true },
-  { id: "commandeur", label: "Cmd", glyph: "⌘" },
-  { id: "connections", label: "Apps", glyph: "⌁" },
+  { id: "mission", label: "Demandes", glyph: "◎", emphasis: true },
+  { id: "commandeur", label: "Commandeur", glyph: "⌘" },
+  { id: "today", label: "Aujourd'hui", glyph: "☼" },
 ];
 
 export function MobileBottomNav() {
-  const router = useRouter();
   const setMode = useStageStore((s) => s.setMode);
   const currentMode = useStageStore((s) => s.current.mode);
   const lastMissionId = useStageStore((s) => s.lastMissionId);
@@ -55,8 +58,8 @@ export function MobileBottomNav() {
       case "commandeur":
         setCommandeurOpen(true);
         break;
-      case "connections":
-        router.push("/connections");
+      case "today":
+        setCommandeurOpen(true, { prefilledQuery: "brief du jour" });
         break;
     }
   };

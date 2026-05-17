@@ -319,7 +319,7 @@ export function SignalStage({ mode }: { mode: string }) {
       variants={SECTION_VARIANTS}
       initial="hidden"
       animate="show"
-      className="preserve-3d flex w-full max-w-[760px] flex-col"
+      className="preserve-3d flex w-full flex-col"
       style={{ gap: "var(--space-10)" }}
     >
       {/* Header */}

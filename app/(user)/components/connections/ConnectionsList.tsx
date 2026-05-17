@@ -38,16 +38,15 @@ export function Header({
   onToggleAttentionFilter: () => void;
 }) {
   return (
-    <div
-      className="sticky top-0 z-10 flex items-center gap-4 px-8 py-3 border-b"
-      style={{ background: "var(--bg-elev)", borderColor: "var(--border-shell)" }}
-    >
+    <div className="flex items-center gap-4 py-3 mb-4">
       {/* Search globale */}
       <label
         className="flex-1 flex items-center gap-3 px-0 py-3 border-b rounded-none transition-colors"
         style={{
           background: "transparent",
-          borderColor: searchQuery ? "var(--accent-teal)" : "var(--border-shell)",
+          borderColor: searchQuery
+            ? "var(--accent-teal)"
+            : "color-mix(in srgb, var(--border-default) 40%, transparent)",
           borderBottomWidth: "1px",
           borderBottomStyle: "solid",
         }}
@@ -113,7 +112,7 @@ export function Header({
 
 export function SectionLabel({ label, count }: { label: string; count: number }) {
   return (
-    <div className="flex items-baseline gap-2 px-8 pt-5 pb-3 t-13 font-light">
+    <div className="flex items-baseline gap-2 pt-5 pb-3 t-13 font-light">
       <span className="text-text-soft">{label}</span>
       <span className="text-text-ghost">·</span>
       <span className="text-text-faint tabular-nums">{count}</span>

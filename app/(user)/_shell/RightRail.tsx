@@ -23,7 +23,7 @@ type RightRailProps = {
 };
 
 /**
- * RightRail — 320px, contexte du stage actif.
+ * RightRail — contexte du stage actif, compact en desktop moyen.
  *
  * Port enrichi de `lab/cli-os/src/components/RightRail.tsx` :
  * - Bordure subtile sur chaque item (vision-glass)
@@ -35,9 +35,11 @@ export function RightRail({ title, items }: RightRailProps) {
   return (
     <aside
       aria-label="Contexte"
-      className="vision-rail-right preserve-3d relative z-20 flex w-[320px] shrink-0 flex-col gap-2 border-l border-[var(--line-strong)] bg-[var(--surface)] px-8 py-14"
+      className="vision-rail-right preserve-3d relative z-20 hidden xl:flex xl:w-[260px] shrink-0 flex-col gap-2 border-l border-line-strong bg-surface px-5 py-10 2xl:w-[320px] 2xl:px-8 2xl:py-14"
     >
-      <h3 className="mb-4 pl-4 text-sm font-medium text-[var(--text-faint)]">{title}</h3>
+      <h3 className="mb-3 pl-3 text-xs font-medium text-text-faint 2xl:mb-4 2xl:pl-4 2xl:text-sm">
+        {title}
+      </h3>
       <motion.div
         key={title}
         variants={RAIL_CONTAINER_VARIANTS}
@@ -46,22 +48,24 @@ export function RightRail({ title, items }: RightRailProps) {
         className="flex flex-col gap-2"
       >
         {items.length === 0 ? (
-          <p className="px-4 text-sm text-[var(--text-ghost)]">Aucun signal pour l&apos;instant.</p>
+          <p className="px-3 text-xs text-text-ghost 2xl:px-4 2xl:text-sm">
+            Aucun signal pour l&apos;instant.
+          </p>
         ) : (
           items.map((item, idx) => (
             <motion.div
               variants={RAIL_ITEM_VARIANTS}
               key={idx}
-              className={`flex flex-col gap-1 rounded-lg border p-4 text-base transition-colors ${
+              className={`flex flex-col gap-1 rounded-lg border p-3 text-sm transition-colors 2xl:p-4 2xl:text-base ${
                 item.hot
-                  ? "border-[var(--line-strong)] bg-[var(--bg-elev)] text-white"
-                  : "border-transparent text-[var(--text-muted)]"
+                  ? "border-line-strong bg-bg-elev text-white"
+                  : "border-transparent text-text-muted"
               }`}
             >
               <span className="leading-snug">{item.t}</span>
               <span
                 className={`t-10 block font-mono tracking-wide ${
-                  item.hot ? "text-[var(--text-muted)]" : "text-[var(--text-ghost)]"
+                  item.hot ? "text-text-muted" : "text-text-ghost"
                 }`}
               >
                 {item.s}

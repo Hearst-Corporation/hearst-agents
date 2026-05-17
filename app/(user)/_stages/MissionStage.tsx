@@ -1,14 +1,17 @@
 "use client";
 
 /**
- * MissionStage — consumer data-bound de la mission active.
+ * MissionStage — consumer data-bound de la demande active (code `mission`).
  *
  * Lit `missionId` depuis `useStageStore`, fetche `/api/v2/missions/[id]`,
  * et pousse les jalons de synthèse vers `useStageData.shellData` pour
  * alimenter le ContextRail.
  *
+ * Vocabulaire visible : « Demande » → code mode `"mission"` (rename UI
+ * 2026-05). Les types/store/routes restent en `mission`.
+ *
  * Ce que la vue affiche aujourd'hui :
- *   "Synthèse mission" = 3 jalons dérivés de l'état mission
+ *   « Suivi de la demande » = 3 jalons dérivés de l'état mission
  *   (création, dernière exécution, prochaine exécution selon schedule).
  *   Ce ne sont PAS les vraies steps d'exécution agent — celles-ci
  *   viendront du run output quand l'API exposera `runSteps`.
@@ -122,7 +125,7 @@ function deriveSteps(mission: ApiMission): MissionStep[] {
   return [
     {
       id: "step-created",
-      name: "Mission créée",
+      name: "Demande créée",
       status: "done",
       desc: mission.input.slice(0, 120),
       time: new Date(mission.createdAt).toLocaleDateString("fr-FR"),
@@ -196,7 +199,7 @@ function EmptyMissionState() {
           lineHeight: 1.6,
         }}
       >
-        Sélectionne une mission depuis la liste ou lance une commande.
+        Aucune demande en cours. Demande à l&apos;agent de t&apos;aider depuis le chat.
       </p>
     </motion.div>
   );
@@ -269,7 +272,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
           color: "rgba(255,255,255,.35)",
         }}
       >
-        Mission active
+        Demande active
       </p>
       <h1
         style={{
@@ -348,7 +351,9 @@ function ApprovalBar({
 
   return (
     <div className="approval-bar">
-      <div className="approval-bar-t">Action write — gate approbation requis avant envoi.</div>
+      <div className="approval-bar-t">
+        Cette étape envoie un message — votre approbation est requise.
+      </div>
       <button className="vision-btn-primary appr-btn" disabled={approving} onClick={handleApprove}>
         {approving ? "Approbation…" : "Approuver tout"}
       </button>
@@ -475,7 +480,7 @@ export function MissionStage({ mode }: { mode: string }) {
       s: stateLabel(s.status),
       hot: s.status === "running",
     }));
-    useStageData.getState().setShellData(`Mission · ${mission.name}`, items);
+    useStageData.getState().setShellData(`Demande · ${mission.name}`, items);
     return () => {
       useStageData.getState().clearShellData();
     };
@@ -492,7 +497,7 @@ export function MissionStage({ mode }: { mode: string }) {
       variants={CONTAINER_VARIANTS}
       initial="hidden"
       animate="visible"
-      className="preserve-3d flex w-full max-w-[760px] flex-col gap-16"
+      className="preserve-3d flex w-full flex-col gap-16"
     >
       {/* Empty state — pas de missionId */}
       {!missionId && !loading && <EmptyMissionState />}
@@ -508,7 +513,7 @@ export function MissionStage({ mode }: { mode: string }) {
         <>
           <MissionHeader mission={mission} />
 
-          {/* Synthèse mission (jalons dérivés du statut — pas les vraies steps
+          {/* Suivi de la demande (jalons dérivés du statut — pas les vraies steps
               d'exécution agent ; celles-ci viendront du run output) */}
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <p
@@ -518,7 +523,7 @@ export function MissionStage({ mode }: { mode: string }) {
                 letterSpacing: "0.04em",
               }}
             >
-              Synthèse mission
+              Suivi de la demande
             </p>
             <div className="mtl">
               <AnimatePresence initial={false}>

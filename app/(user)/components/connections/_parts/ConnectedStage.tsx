@@ -16,7 +16,7 @@ export function Stage({
 }) {
   return (
     <div
-      className="grid gap-6 px-8 pb-6"
+      className="grid gap-6 pb-6"
       style={{
         gridTemplateColumns: "repeat(auto-fill, minmax(96px, 1fr))",
       }}
