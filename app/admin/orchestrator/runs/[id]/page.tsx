@@ -1,25 +1,9 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BackLink } from "@/app/admin/_components/BackLink";
 import { readRunBundle } from "@/lib/hom/registry";
 import { readRunSpans } from "@/lib/hom/telemetry";
 import type { ReplaySnapshot, RunDecisionFile, RunIntake } from "@/lib/hom/types";
 import { Card, HomShell, MetricCell, PageHeader, StatusPill } from "../../_components/Shell";
-
-const ChevronLeftIcon = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden
-  >
-    <path d="M15 18l-6-6 6-6" />
-  </svg>
-);
 
 export const dynamic = "force-dynamic";
 
@@ -33,13 +17,9 @@ export default async function RunDetailPage({ params }: { params: Promise<{ id: 
 
   return (
     <HomShell current="/admin/orchestrator/runs">
-      <Link
-        href="/admin/orchestrator/runs"
-        className="inline-flex items-center gap-(--space-2) t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit mb-(--space-3)"
-      >
-        <ChevronLeftIcon />
-        <span>Runs</span>
-      </Link>
+      <div className="mb-(--space-3)">
+        <BackLink href="/admin/orchestrator/runs" label="Runs" />
+      </div>
       <PageHeader title={`Run ${id}`} subtitle={intake.notes ?? "Détail du run."} />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-3) mb-(--space-6)">

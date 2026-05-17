@@ -1,24 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BackLink } from "@/app/admin/_components/BackLink";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import ChatWindow from "../../_components/ChatWindow";
 import ModelBadge from "../../_components/ModelBadge";
-
-const ChevronLeftIcon = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden
-  >
-    <path d="M15 18l-6-6 6-6" />
-  </svg>
-);
 
 export const dynamic = "force-dynamic";
 
@@ -99,13 +84,9 @@ export default async function AgentDetailPage({ params }: Props) {
   return (
     <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
       {/* Breadcrumb retour — pattern PageHeader.back */}
-      <Link
-        href="/admin/agents"
-        className="inline-flex items-center gap-(--space-2) t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit mb-(--space-4)"
-      >
-        <ChevronLeftIcon />
-        <span>Tous les agents</span>
-      </Link>
+      <div className="mb-(--space-4)">
+        <BackLink href="/admin/agents" label="Tous les agents" />
+      </div>
 
       {/* Header */}
       <div className="mb-(--space-6) flex items-start justify-between">
