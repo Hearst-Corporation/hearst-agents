@@ -9,29 +9,13 @@
  * et CockpitXClient retombe sur son fetch useEffect.
  */
 
-import { type CockpitTodayPayload, getCockpitToday } from "@/lib/cockpit/today";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { CockpitXClient } from "./cockpit-x/CockpitXClient";
+import { loadInitialCockpitData } from "./lib/cockpit-entry";
 
 export const dynamic = "force-dynamic";
 
-async function loadInitialCockpitData(): Promise<CockpitTodayPayload | null> {
-  const { scope, error } = await requireScope({ context: "RSC app/(user-x)/page.tsx" });
-  if (error || !scope) return null;
-  try {
-    return await getCockpitToday({
-      userId: scope.userId,
-      tenantId: scope.tenantId,
-      workspaceId: scope.workspaceId,
-    });
-  } catch (err) {
-    console.error("[RSC Home] getCockpitToday failed, falling back to client fetch:", err);
-    return null;
-  }
-}
-
 export default async function HomePage() {
-  const initialCockpitData = await loadInitialCockpitData();
+  const initialCockpitData = await loadInitialCockpitData("RSC Home");
   // fallback géré dans CockpitXClient : si `initialCockpitData === null`, le
   // client déclenche un refetch via useEffect (cf. CockpitXClient.tsx ~L122).
   return <CockpitXClient initialCockpitData={initialCockpitData ?? null} />;

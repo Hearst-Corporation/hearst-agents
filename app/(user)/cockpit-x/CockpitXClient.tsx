@@ -93,6 +93,13 @@ export function CockpitXClient({
     ];
     if (safeModesWithoutRequired.includes(initialMode as StageKey)) {
       setMode({ mode: initialMode } as StagePayload);
+      return;
+    }
+    // browser exige un sessionId : sans session active on entre avec un
+    // sessionId vide — BrowserStage rend son état idle (cf. _stages/
+    // BrowserStage.tsx, sessionId falsy → fetchState "idle", pas de crash).
+    if (initialMode === "browser") {
+      setMode({ mode: "browser", sessionId: "" });
     }
   }, [initialMode, setMode]);
 
