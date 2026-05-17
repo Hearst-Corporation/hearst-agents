@@ -141,8 +141,8 @@ export function ChatInput({
           background: "transparent",
           padding: "var(--space-2) 0",
           width: "100%",
-          maxWidth: "680px",
-          minHeight: "40px",
+          maxWidth: "var(--space-42-5)",
+          minHeight: "var(--space-10)",
         }}
         onDragOver={handleAssetDragOver}
         onDragLeave={handleAssetDragLeave}
@@ -198,7 +198,7 @@ export function ChatInput({
                 ? "Que devons-nous décider ? _"
                 : resolveModePlaceholder(stageMode, surface, placeholder)
             }
-            className="w-full bg-transparent border-none outline-none text-white/80 text-[15px] placeholder:text-white/30 font-light caret-white"
+            className="w-full bg-transparent border-none outline-none text-white/80 t-15 placeholder:text-white/30 font-light caret-white"
           />
         </div>
       </div>

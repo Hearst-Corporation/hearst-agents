@@ -4,28 +4,38 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import type { StagePayload } from "@/stores/stage";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { Shell } from "../_shell/Shell";
-import { ArtifactStage } from "../_stages/ArtifactStage";
-import { AssetCompareStage } from "../_stages/AssetCompareStage";
-import { AssetStage } from "../_stages/AssetStage";
-import { BrowserStage } from "../_stages/BrowserStage";
 import { ChatStage } from "../_stages/ChatStage";
-import { KGStage } from "../_stages/KGStage";
-import { MeetingStage } from "../_stages/MeetingStage";
 import { MissionListStage } from "../_stages/MissionListStage";
 import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
-import { SignalStage } from "../_stages/SignalStage";
-import { SimulationStage } from "../_stages/SimulationStage";
 import type { RailItem, StageKey } from "../_stages/types";
-import { VoiceStage } from "../_stages/VoiceStage";
 import { ChatDock } from "../components/ChatDock";
-import { ConnectionsHub } from "../components/ConnectionsHub";
+
+/* Stages non-critiques — lazy-load pour réduire le bundle initial */
+const ArtifactStage = dynamic(() =>
+  import("../_stages/ArtifactStage").then((m) => m.ArtifactStage),
+);
+const AssetCompareStage = dynamic(() =>
+  import("../_stages/AssetCompareStage").then((m) => m.AssetCompareStage),
+);
+const AssetStage = dynamic(() => import("../_stages/AssetStage").then((m) => m.AssetStage));
+const BrowserStage = dynamic(() => import("../_stages/BrowserStage").then((m) => m.BrowserStage));
+const ConnectionsHub = dynamic(() =>
+  import("../components/ConnectionsHub").then((m) => m.ConnectionsHub),
+);
+const KGStage = dynamic(() => import("../_stages/KGStage").then((m) => m.KGStage));
+const MeetingStage = dynamic(() => import("../_stages/MeetingStage").then((m) => m.MeetingStage));
+const SignalStage = dynamic(() => import("../_stages/SignalStage").then((m) => m.SignalStage));
+const SimulationStage = dynamic(() =>
+  import("../_stages/SimulationStage").then((m) => m.SimulationStage),
+);
+const VoiceStage = dynamic(() => import("../_stages/VoiceStage").then((m) => m.VoiceStage));
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
@@ -62,6 +72,13 @@ export function CockpitXClient({
   const shellData = useStageData((s) => s.shellData);
   const [data, setData] = useState<CockpitTodayPayload | null>(initialCockpitData);
 
+  /* Mémoïsation des données dérivées — évite les re-calculs à chaque render */
+  const telemetry = useMemo(() => buildTelemetry(data), [data]);
+  const factoryRows = useMemo(() => buildFactoryRows(data), [data]);
+  const watch = useMemo(() => buildWatch(data), [data]);
+  const proposals = useMemo(() => buildProposals(data), [data]);
+  const railItems = useMemo(() => buildRailItems(data), [data]);
+
   useEffect(() => {
     if (!initialMode || initialMode === "cockpit") return;
     const safeModesWithoutRequired: StageKey[] = [
@@ -77,13 +94,13 @@ export function CockpitXClient({
     if (safeModesWithoutRequired.includes(initialMode as StageKey)) {
       setMode({ mode: initialMode } as StagePayload);
     }
-  }, []);
+  }, [initialMode, setMode]);
 
   useEffect(() => {
     if (openNewMission) {
       setCommandeurOpen(true, { prefilledQuery: "Créer une nouvelle mission" });
     }
-  }, []);
+  }, [openNewMission, setCommandeurOpen]);
 
   const modeRef = useRef(mode);
   modeRef.current = mode;
@@ -129,7 +146,6 @@ export function CockpitXClient({
   }, [mode, initialCockpitData]);
 
   if (mode === "cockpit") {
-    const railItems = buildRailItems(data);
     return (
       <Shell
         centerContent={
@@ -137,6 +153,10 @@ export function CockpitXClient({
             data={data}
             refetchState={refetchState}
             onGoChat={() => setMode({ mode: "chat" })}
+            telemetry={telemetry}
+            factoryRows={factoryRows}
+            watch={watch}
+            proposals={proposals}
           />
         }
         railTitle="ARBITRAGE REQUIS"
@@ -198,10 +218,18 @@ function CockpitContent({
   data,
   refetchState,
   onGoChat,
+  telemetry,
+  factoryRows,
+  watch,
+  proposals,
 }: {
   data: CockpitTodayPayload | null;
   refetchState: "idle" | "loading" | "error";
   onGoChat: () => void;
+  telemetry: TelemetryItem[];
+  factoryRows: FactoryRow[];
+  watch: WatchData;
+  proposals: AgentProposal[];
 }) {
   const { data: session } = useSession();
   const setMode = useStageStore((s) => s.setMode);
@@ -214,13 +242,11 @@ function CockpitContent({
     year: "numeric",
   });
 
-  const telemetry = buildTelemetry(data);
-  const factoryRows = buildFactoryRows(data);
-  const watch = buildWatch(data);
-  const proposals = buildProposals(data);
-
-  const openCommandeur = (prefilledQuery?: string) =>
-    setCommandeurOpen(true, prefilledQuery ? { prefilledQuery } : undefined);
+  const openCommandeur = useCallback(
+    (prefilledQuery?: string) =>
+      setCommandeurOpen(true, prefilledQuery ? { prefilledQuery } : undefined),
+    [setCommandeurOpen],
+  );
 
   return (
     <motion.section
@@ -245,14 +271,26 @@ function CockpitContent({
 
       {/* Contenu Principal - Alignement Editorial */}
       <div className="relative z-10 flex flex-col w-full max-w-[620px] px-14 pt-16 pb-32">
+        {/* État d'erreur silencieux — affiché quand le refetch échoue */}
+        {refetchState === "error" && (
+          <div
+            role="alert"
+            aria-live="polite"
+            className="mb-8 rounded-(--radius-sm) border border-white/10 bg-white/5 px-(--space-4) py-(--space-3)"
+          >
+            <p className="t-13 text-white/60">
+              Impossible de rafraîchir les données. Affichage des dernières informations connues.
+            </p>
+          </div>
+        )}
         {/* Top Left - Ancrage système */}
         <header className="flex flex-col gap-1 mb-20">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-mono font-bold">
+          <div className="t-10 uppercase tracking-[0.2em] text-white/30 font-mono font-bold">
             {todayLabel}
           </div>
           <div className="flex items-center gap-2 mt-1">
             <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-pulse" />
-            <span className="text-[9px] uppercase tracking-[0.2em] text-white/30 font-bold">
+            <span className="t-9 uppercase tracking-[0.2em] text-white/30 font-bold">
               En écoute
             </span>
           </div>
@@ -260,10 +298,10 @@ function CockpitContent({
 
         {/* Focus - Accueil & Arbitrage */}
         <div className="flex flex-col gap-4 mb-20">
-          <h1 className="text-[64px] leading-[1.1] font-light tracking-[-0.04em] text-white/90">
+          <h1 className="t-64 leading-[1.1] font-light tracking-[-0.04em] text-white/90">
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
           </h1>
-          <p className="text-[20px] font-light text-white/55">
+          <p className="t-20 font-light text-white/55">
             {telemetry[0]?.value !== "0" && telemetry[0]?.value !== "—"
               ? `${telemetry[0].value} exécutions requièrent votre attention.`
               : telemetry[2]?.value !== "0" && telemetry[2]?.value !== "—"
@@ -280,7 +318,7 @@ function CockpitContent({
               {/* EXÉCUTION ACTIVE */}
               <div className="flex flex-col">
                 <div className="border-t border-white/5 pt-4 mb-6">
-                  <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                  <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
                     Exécution active
                   </h2>
                 </div>
@@ -289,16 +327,15 @@ function CockpitContent({
                     <button
                       key={row.id}
                       type="button"
+                      aria-label={`Mission ${row.name}, statut ${row.statusLabel}`}
                       onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
-                      className="flex flex-col text-left group gap-1"
+                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                     >
-                      <span className="text-[18px] text-white/80 group-hover:text-white transition-colors duration-500">
+                      <span className="t-18 text-white/80 group-hover:text-white transition-colors duration-500">
                         {row.name}
                       </span>
-                      {row.detail && (
-                        <span className="text-[15px] text-white/45">{row.detail}</span>
-                      )}
-                      <span className="text-[11px] uppercase font-mono text-white/25 mt-1">
+                      {row.detail && <span className="t-15 text-white/45">{row.detail}</span>}
+                      <span className="t-11 uppercase font-mono text-white/25 mt-1">
                         Dernière activité — {row.when}
                       </span>
                     </button>
@@ -310,7 +347,7 @@ function CockpitContent({
               {factoryRows.length > 1 && (
                 <div className="flex flex-col">
                   <div className="border-t border-white/5 pt-4 mb-6">
-                    <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                    <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
                       En file
                     </h2>
                   </div>
@@ -319,10 +356,11 @@ function CockpitContent({
                       <button
                         key={row.id}
                         type="button"
+                        aria-label={`Mission ${row.name}, statut ${row.statusLabel}`}
                         onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
-                        className="flex flex-col text-left group gap-1"
+                        className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                       >
-                        <span className="text-[15px] text-white/50 group-hover:text-white transition-colors duration-500">
+                        <span className="t-15 text-white/50 group-hover:text-white transition-colors duration-500">
                           {row.name}
                         </span>
                       </button>
@@ -337,9 +375,7 @@ function CockpitContent({
           {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
             <div className="flex flex-col">
               <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
-                  Radar
-                </h2>
+                <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">Radar</h2>
               </div>
               <div className="flex flex-col gap-6">
                 {watch.inbox.kind === "items" &&
@@ -347,13 +383,14 @@ function CockpitContent({
                     <button
                       key={it.id}
                       type="button"
+                      aria-label={`Message : ${it.title}`}
                       onClick={() => openCommandeur("brief inbox")}
-                      className="flex flex-col text-left group gap-1"
+                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                     >
-                      <span className="text-[15px] text-white/70 group-hover:text-white transition-colors duration-500">
+                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
                         {it.title}
                       </span>
-                      <span className="text-[14px] text-white/45">{it.summary}</span>
+                      <span className="t-14 text-white/45">{it.summary}</span>
                     </button>
                   ))}
                 {watch.agenda.kind === "items" &&
@@ -361,15 +398,14 @@ function CockpitContent({
                     <button
                       key={ev.id}
                       type="button"
+                      aria-label={`Événement agenda : ${ev.title} à ${ev.when}`}
                       onClick={() => openCommandeur("agenda du jour")}
-                      className="flex flex-col text-left group gap-1"
+                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                     >
-                      <span className="text-[15px] text-white/70 group-hover:text-white transition-colors duration-500">
+                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
                         Prochain engagement : {ev.title}
                       </span>
-                      <span className="text-[10px] uppercase font-mono text-white/25 mt-1">
-                        {ev.when}
-                      </span>
+                      <span className="t-10 uppercase font-mono text-white/25 mt-1">{ev.when}</span>
                     </button>
                   ))}
               </div>
@@ -380,7 +416,7 @@ function CockpitContent({
           {proposals.length > 0 && (
             <div className="flex flex-col">
               <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
                   Initiatives
                 </h2>
               </div>
@@ -389,13 +425,14 @@ function CockpitContent({
                   <button
                     key={p.id}
                     type="button"
+                    aria-label={`Initiative : ${p.title}`}
                     onClick={() => openCommandeur(p.title)}
-                    className="flex flex-col text-left group gap-1"
+                    className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                   >
-                    <span className="text-[15px] text-white/70 group-hover:text-white transition-colors duration-500">
+                    <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
                       {p.title}
                     </span>
-                    <span className="text-[14px] text-white/45">{p.description}</span>
+                    <span className="t-14 text-white/45">{p.description}</span>
                   </button>
                 ))}
               </div>

@@ -88,8 +88,8 @@ function NavButton({ label, active, hotkey, onClick }: NavButtonProps) {
       style={{
         padding: "var(--space-1-5) var(--space-4)",
         borderRadius: "var(--radius-pill)",
-        background: active ? "#ffffff" : "transparent",
-        color: active ? "#000000" : "#666666",
+        background: active ? "var(--text)" : "transparent",
+        color: active ? "var(--bg)" : "var(--text-faint)",
         fontWeight: active ? 600 : 500,
         border: "none",
         cursor: "pointer",

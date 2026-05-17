@@ -121,11 +121,13 @@
   --space-12: 48px;
   --space-14: 56px;
   --space-16: 64px;
+  --space-17: 68px;
   --space-20: 80px;
   --space-24: 120px;
   --space-32: 160px;
   --space-0-5: 2px;
   --space-40: 192px; /* zone Quick Actions / Constellation cockpit */
+  --space-42-5: 170px;
   --space-48: 224px;
 
   /* ── Layout tokens (composants spécifiques) ── */
@@ -1370,6 +1372,10 @@ body {
   font-size: clamp(13px, 0.339vw + 10.833px, 19.5px);
   line-height: 1.4;
 }
+.t-14 {
+  font-size: clamp(14px, 0.365vw + 11.667px, 21px);
+  line-height: 1.4;
+}
 .t-15 {
   font-size: clamp(15px, 0.391vw + 12.5px, 22.5px);
   line-height: 1.45;
@@ -1377,6 +1383,10 @@ body {
 .t-18 {
   font-size: clamp(18px, 0.469vw + 15px, 27px);
   line-height: 1.4;
+}
+.t-20 {
+  font-size: clamp(20px, 0.521vw + 16.667px, 30px);
+  line-height: 1.35;
 }
 .t-24 {
   font-size: clamp(24px, 0.625vw + 20px, 36px);
@@ -1405,6 +1415,10 @@ body {
 .t-60 {
   font-size: clamp(60px, 1.563vw + 50px, 90px);
   line-height: 1;
+}
+.t-64 {
+  font-size: clamp(64px, 1.667vw + 53.333px, 96px);
+  line-height: 1.05;
 }
 
 /* ── Typography utilities ───────────────── */
