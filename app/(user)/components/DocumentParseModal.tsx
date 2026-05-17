@@ -74,6 +74,10 @@ export function DocumentParseModal({
     autoFocus: false,
   });
 
+  // useModalA11y(autoFocus:false) ci-dessus : focus trap actif mais focus
+  // initial confié au useEffect ci-dessous (l'URL input est notre champ
+  // primaire, on ne veut pas que le hook focalise le premier focusable
+  // générique — ici ce serait l'input mais on garde la maîtrise explicite).
   useEffect(() => {
     if (!open) return;
     inputRef.current?.focus();
@@ -169,12 +173,12 @@ export function DocumentParseModal({
           >
             Parser un document
           </h2>
+          {/* TODO: Phase B = upload natif (R2 → fileUrl auto). */}
           <p
             className="t-11 font-light text-text-muted"
             style={{ margin: 0, lineHeight: "var(--leading-base)" }}
           >
-            Colle l&apos;URL d&apos;un document accessible (Drive, S3 signé, CDN public). Phase B :
-            upload natif.
+            Colle l&apos;URL d&apos;un document accessible (Drive, S3 signé, CDN public).
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import type { PdfAttachment } from "../types";
 
 const UPLOAD_ERROR_RESET_MS = 4000;
@@ -43,8 +44,15 @@ export function usePdfUpload() {
           pageCount: data.pageCount ?? 0,
         });
       })
-      .catch(() => {
-        setUploadError("PDF parsing failed");
+      .catch((err: unknown) => {
+        const msg = err instanceof Error ? err.message : "PDF parsing failed";
+        // Double signal volontaire (cf spec T-C18) :
+        //   - composer inline (`uploadError` → StatusMessages.tsx) :
+        //     statut éphémère collé au champ, disparaît après 4s.
+        //   - toast persistant (`toast.error`) : notification cross-stage
+        //     qui reste tant que l'user ne la dismiss pas.
+        setUploadError(msg);
+        toast.error("Échec du PDF", msg);
         setTimeout(() => setUploadError(null), UPLOAD_ERROR_RESET_MS);
       })
       .finally(() => setUploading(false));

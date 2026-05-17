@@ -20,8 +20,9 @@
  */
 
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { toast } from "@/app/hooks/use-toast";
 import { useFocalStore } from "@/stores/focal";
 import { useNavigationStore } from "@/stores/navigation";
 import { type StagePayload, useStageStore } from "@/stores/stage";
@@ -92,6 +93,20 @@ export function Commandeur() {
   // Flatten pour la nav clavier.
   const flatRows = useMemo<CommandRow[]>(() => sections.flatMap((s) => s.rows), [sections]);
 
+  // Wrapper async-safe : si `perform()` throw, on émet un toast d'erreur
+  // au lieu de masquer l'échec. Le `toastLabel` ne s'affiche qu'en cas de
+  // succès et seulement s'il est défini (navigation = pas de toast).
+  const runRow = useCallback(async (row: CommandRow) => {
+    try {
+      await row.perform();
+      if (row.toastLabel) {
+        toast.success(row.toastLabel);
+      }
+    } catch (err) {
+      toast.error("Échec", err instanceof Error ? err.message : "Erreur inconnue");
+    }
+  }, []);
+
   useEffect(() => {
     if (!isOpen) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- reset à la fermeture
@@ -146,12 +161,12 @@ export function Commandeur() {
       if (e.key === "Enter") {
         e.preventDefault();
         const row = flatRows[activeIndex];
-        if (row && !row.disabled) row.perform();
+        if (row && !row.disabled) void runRow(row);
       }
     };
     window.addEventListener("keydown", onKey, { capture: true });
     return () => window.removeEventListener("keydown", onKey, { capture: true });
-  }, [isOpen, flatRows, activeIndex, setOpen]);
+  }, [isOpen, flatRows, activeIndex, setOpen, runRow]);
 
   // Hook a11y : focus trap + scroll lock body + restore focus.
   // F-015 : `autoFocus: true` → le hook focus le premier focusable du dialog,
@@ -237,7 +252,7 @@ export function Commandeur() {
                           active={myIndex === activeIndex}
                           disabled={row.disabled}
                           onSelect={() => {
-                            if (!row.disabled) row.perform();
+                            if (!row.disabled) void runRow(row);
                           }}
                           onHover={() => {
                             if (!row.disabled) setActiveIndex(myIndex);

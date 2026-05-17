@@ -8,6 +8,14 @@
  * Aucune logique métier ici — uniquement des dispatch router/stage/voice.
  *
  * Invariants F-16 : non touchés (debounce, LRU, abort dans use-commandeur-data).
+ *
+ * Convention `toastLabel` :
+ *   - `nav-*` / `go-*` / `open-*` / `action-new-*` / `action-launch-*` : pas
+ *     de toast (navigation/stage change visible immédiatement = feedback
+ *     propre). Le toast serait redondant et bruyant.
+ *   - Si on ajoute plus tard une action qui mute silencieusement
+ *     (`action-create-mission-silent`, `action-archive-asset`, etc.),
+ *     préciser `toastLabel: "Mission archivée"` pour signaler le succès.
  */
 
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
@@ -23,7 +31,15 @@ export interface CommandRow {
   hint?: string;
   hotkey?: string;
   disabled?: boolean;
-  perform: () => void;
+  /**
+   * Texte du toast de succès affiché après `perform()` réussi.
+   * - Pour les actions de navigation (nav-*, go-*) : laisser `undefined`
+   *   (la navigation EST le feedback visible).
+   * - Pour les actions qui mutent quelque chose silencieusement
+   *   (create, lancement asynchrone) : fournir un libellé explicite.
+   */
+  toastLabel?: string;
+  perform: () => void | Promise<void>;
 }
 
 interface UseCommandeurActionsParams {

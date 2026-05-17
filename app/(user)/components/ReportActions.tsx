@@ -12,6 +12,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { Action } from "./ui";
 
 interface ReportActionsProps {
@@ -174,7 +175,7 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
         </Action>
       </div>
       {error && (
-        <p className="t-9" style={{ color: "var(--color-error)", marginTop: "var(--space-2)" }}>
+        <p className="t-9" style={{ color: "var(--danger)", marginTop: "var(--space-2)" }}>
           Erreur : {error}
         </p>
       )}
@@ -353,7 +354,7 @@ function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () =
           Publier
         </Action>
         {error && (
-          <span className="t-9" style={{ color: "var(--color-error)" }}>
+          <span className="t-9" style={{ color: "var(--danger)" }}>
             {error}
           </span>
         )}
@@ -419,37 +420,36 @@ function PopoverShell({
   title: string;
   onClose: () => void;
 }) {
-  const ref = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
-  // ESC ferme le popover. Click-outside ferme aussi (mais préserve le focus
-  // sur le trigger natif via le pattern relative + absolute du parent).
-  // On évite useModalA11y ici car le popover est positionné absolument et
-  // n'a pas vocation à bloquer le scroll du body — c'est un menu, pas une modale.
+  // useModalA11y avec lockBodyScroll:false : c'est un popover positionné
+  // absolument, pas une modale bloquante. On garde focus trap + Escape
+  // + restore focus, mais on ne lock pas le scroll du body.
+  const ref = useModalA11y<HTMLDivElement>(true, {
+    onClose,
+    lockBodyScroll: false,
+    // autoFocus géré manuellement ci-dessous : on focalise le bouton "Fermer"
+    // au mount pour rester cohérent avec l'ancien comportement.
+    autoFocus: false,
+  });
+
+  // Click-outside ferme le popover (le hook a11y ne gère pas l'outside-click).
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-      }
-    };
     const onClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         onClose();
       }
     };
-    window.addEventListener("keydown", onKey);
     // setTimeout pour ne pas capter le click qui vient d'ouvrir le popover.
     const t = window.setTimeout(() => {
       window.addEventListener("mousedown", onClick);
     }, 0);
     closeBtnRef.current?.focus();
     return () => {
-      window.removeEventListener("keydown", onKey);
       window.removeEventListener("mousedown", onClick);
       window.clearTimeout(t);
     };
-  }, [onClose]);
+  }, [onClose, ref]);
 
   return (
     <div
@@ -492,7 +492,7 @@ function PopoverShell({
             border: 0,
           }}
         >
-          x
+          ×
         </button>
       </div>
       {children}
