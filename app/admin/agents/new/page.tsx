@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 
 const providers = [
   { value: "openai", label: "OpenAI" },
@@ -36,19 +37,28 @@ export default function NewAgentPage() {
     setSaving(true);
     setError(null);
 
-    const res = await fetch("/api/agents", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const json = await res.json();
+    try {
+      const res = await fetch("/api/agents", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const json = await res.json();
 
-    if (!json.ok) {
-      setError(json.error ?? "Erreur inconnue");
+      if (!json.ok) {
+        const msg = json.error ?? "Erreur inconnue";
+        setError(msg);
+        toast.error("Échec création agent", msg);
+        return;
+      }
+      router.push(`/admin/agents/${json.agent.id}`);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Erreur réseau";
+      setError(msg);
+      toast.error("Échec création agent", msg);
+    } finally {
       setSaving(false);
-      return;
     }
-    router.push(`/admin/agents/${json.agent.id}`);
   };
 
   return (

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BackLink } from "@/app/admin/_components/BackLink";
 
 export const dynamic = "force-dynamic";
 
@@ -95,22 +95,7 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
   return (
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
       {/* Retour */}
-      <Link
-        href="/admin/agent-driven-dev"
-        className="inline-flex items-center gap-(--space-2) t-12 text-text-muted hover:text-text transition-colors"
-      >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
-        Retour Agent Driven Dev
-      </Link>
+      <BackLink href="/admin/agent-driven-dev" label="Retour Agent Driven Dev" />
 
       {/* Header */}
       <div className="space-y-(--space-4)">

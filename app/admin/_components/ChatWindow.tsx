@@ -64,7 +64,16 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
           }
         }
       }
-    } catch {
+    } catch (err) {
+      // Abort user-driven (ex: unmount, navigation, futur bouton stop) : pas de bubble.
+      // On check via err.name car le nom AbortError n'est PAS dans err.message (cf. it.3 H1-5).
+      if (
+        (err instanceof DOMException && err.name === "AbortError") ||
+        (err instanceof Error && err.name === "AbortError")
+      ) {
+        console.warn("[ChatWindow] SSE aborted (user-driven)");
+        return;
+      }
       setMessages((prev) => [...prev, { role: "assistant", content: "Erreur de connexion." }]);
     } finally {
       setLoading(false);
