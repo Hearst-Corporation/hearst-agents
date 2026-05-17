@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import type { InlineGenStatus } from "../types";
 import { extractCodeBlock } from "../utils/extractCodeBlock";
 
@@ -51,10 +52,13 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
         const reason = data.message ?? data.error ?? "Image generation error";
         throw new Error(reason);
       }
+      // T-C17 : toast plus fiable que le message éphémère in-composer (qui
+      // disparaît silencieusement si l'utilisateur a scrollé / change de
+      // Stage). Le toast reste visible quel que soit le contexte visuel.
       setImageGenStatus("idle");
-      setImageGenMessage("Image queued — it will appear in your assets.");
+      setImageGenMessage(null);
       setInput("");
-      setTimeout(() => setImageGenMessage(null), SUCCESS_RESET_MS);
+      toast.success("Image en file d'attente", "Elle apparaîtra dans tes assets.");
     } catch (err) {
       const reason = err instanceof Error ? err.message : "Image generation error";
       setImageGenStatus("error");

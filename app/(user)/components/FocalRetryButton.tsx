@@ -66,9 +66,14 @@ export function FocalRetryButton({
   compact = false,
 }: FocalRetryButtonProps) {
   const [isRetrying, setIsRetrying] = useState(false);
+  // T-C15 : on conserve le dernier message d'erreur pour offrir un retry
+  // visible inline (le toast disparaît après quelques secondes, le bouton
+  // doit rester actionnable tant que le user n'a pas réessayé avec succès).
+  const [lastError, setLastError] = useState<string | null>(null);
 
   const handleRetry = async () => {
     setIsRetrying(true);
+    setLastError(null);
 
     try {
       if (missionId) {
@@ -123,10 +128,9 @@ export function FocalRetryButton({
       );
     } catch (error) {
       console.error("[FocalRetryButton] Retry failed:", error);
-      toast.error(
-        "Échec du réessai",
-        error instanceof Error ? error.message : "Une erreur est survenue",
-      );
+      const errMsg = error instanceof Error ? error.message : "Une erreur est survenue";
+      setLastError(errMsg);
+      toast.error("Échec du réessai", errMsg);
     } finally {
       setIsRetrying(false);
     }
@@ -135,18 +139,31 @@ export function FocalRetryButton({
   const baseClasses = compact ? "px-4 py-2 t-11 font-medium" : "px-8 py-4 t-13 font-medium";
 
   return (
-    <button
-      type="button"
-      onClick={handleRetry}
-      disabled={isRetrying}
-      className={
-        className ||
-        `${baseClasses} bg-(--accent-teal) text-[var(--text-on-accent-teal)] transition-[background-color,opacity,box-shadow] duration-(--duration-emphasis) disabled:opacity-50 disabled:cursor-not-allowed`
-      }
-      style={{ boxShadow: "var(--shadow-card-hover)" }}
-      title={isRetrying ? "Réessai en cours…" : "Réessayer l'opération"}
-    >
-      {isRetrying ? "…" : label}
-    </button>
+    <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+      <button
+        type="button"
+        onClick={handleRetry}
+        disabled={isRetrying}
+        className={
+          className ||
+          `${baseClasses} bg-(--accent-teal) text-[var(--text-on-accent-teal)] transition-[background-color,opacity,box-shadow] duration-(--duration-emphasis) disabled:opacity-50 disabled:cursor-not-allowed`
+        }
+        style={{ boxShadow: "var(--shadow-card-hover)" }}
+        title={isRetrying ? "Réessai en cours…" : "Réessayer l'opération"}
+        aria-describedby={lastError ? "focal-retry-error" : undefined}
+      >
+        {isRetrying ? "…" : lastError ? "Réessayer à nouveau" : label}
+      </button>
+      {lastError && (
+        <p
+          id="focal-retry-error"
+          role="alert"
+          className="t-11 font-light"
+          style={{ color: "var(--color-error, var(--danger))", margin: 0 }}
+        >
+          {lastError}
+        </p>
+      )}
+    </div>
   );
 }

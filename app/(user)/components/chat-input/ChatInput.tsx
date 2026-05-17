@@ -129,6 +129,7 @@ export function ChatInput({
   return (
     <form
       aria-label="Envoyer un message"
+      aria-busy={isRunning}
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
@@ -180,6 +181,7 @@ export function ChatInput({
             onChange={(e) => setInput(e.target.value)}
             onFocus={() => setInputFocused(true)}
             onBlur={() => setInputFocused(false)}
+            aria-busy={isRunning}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -200,6 +202,17 @@ export function ChatInput({
             }
             className="w-full bg-transparent border-none outline-none text-white/80 t-15 placeholder:text-white/30 font-light caret-white"
           />
+
+          {/* T-C16 : spinner inline pendant un run actif (aria-busy parent). */}
+          {isRunning && (
+            <span
+              aria-hidden="true"
+              className="animate-pulse text-white/40 t-15 font-light shrink-0"
+              style={{ marginLeft: "var(--space-2)" }}
+            >
+              ⋯
+            </span>
+          )}
         </div>
       </div>
 

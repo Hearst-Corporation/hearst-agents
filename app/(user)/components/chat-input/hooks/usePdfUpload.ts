@@ -1,9 +1,8 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import type { PdfAttachment } from "../types";
-
-const UPLOAD_ERROR_RESET_MS = 4000;
 
 /**
  * Upload PDF + parsing serveur (`/api/v2/documents/upload`).
@@ -44,8 +43,15 @@ export function usePdfUpload() {
         });
       })
       .catch(() => {
+        // T-C18 : toast persistant (pas d'auto-dismiss) — l'erreur d'upload
+        // PDF doit rester visible jusqu'à dismiss explicite par l'user, c'est
+        // une action coûteuse à relancer. Le toast manager actuel n'expose
+        // pas `duration: 0`, mais ne purge que sur dismiss/clear → comportement
+        // équivalent (le toast reste tant qu'aucun overflow MAX_TOASTS ne le
+        // chasse). On garde aussi `uploadError` pour rétro-compatibilité du
+        // composer (PdfAttachmentRow / StatusMessages s'y abonnent).
         setUploadError("PDF parsing failed");
-        setTimeout(() => setUploadError(null), UPLOAD_ERROR_RESET_MS);
+        toast.error("Échec parsing PDF", "Réessaie ou vérifie le fichier.");
       })
       .finally(() => setUploading(false));
   }, []);
