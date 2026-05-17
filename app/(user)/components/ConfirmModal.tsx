@@ -79,11 +79,17 @@ export function ConfirmModal({
       aria-modal="true"
       aria-labelledby="confirm-modal-title"
       data-testid="confirm-modal"
+      aria-disabled={loading ? "true" : undefined}
       className="fixed inset-0 flex items-center justify-center"
       style={{
         zIndex: "var(--z-modal)" as unknown as number,
         // Backdrop : color-mix sur le shell ambient (--bg) pour rester token-only.
-        background: "color-mix(in srgb, var(--bg) 70%, transparent)",
+        // Pendant loading on assombrit un cran + curseur "wait" pour signaler
+        // que la modale est verrouillée (Escape et click-outside ignorés).
+        background: loading
+          ? "color-mix(in srgb, var(--bg) 80%, transparent)"
+          : "color-mix(in srgb, var(--bg) 70%, transparent)",
+        cursor: loading ? "wait" : undefined,
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget && !loading) onCancel();

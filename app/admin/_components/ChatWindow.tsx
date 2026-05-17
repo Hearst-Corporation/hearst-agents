@@ -59,13 +59,25 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
                 return copy;
               });
             }
-          } catch {
-            // skip
+          } catch (err) {
+            // Parse SSE défaillant — on log en dev pour identifier les payloads
+            // mal formés sans casser le stream global.
+            if (process.env.NODE_ENV !== "production") {
+              console.warn("[ChatWindow SSE] Parse error:", line, err);
+            }
           }
         }
       }
-    } catch {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Erreur de connexion." }]);
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : "Erreur inconnue";
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: `Erreur de connexion : ${detail}. Vérifiez votre réseau ou réessayez.`,
+        },
+      ]);
+      console.error("[ChatWindow] SSE fetch failed:", err);
     } finally {
       setLoading(false);
     }

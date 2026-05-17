@@ -17,6 +17,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
 
 export interface DocumentParseModalProps {
@@ -122,6 +123,9 @@ export function DocumentParseModal({
       }
       onSuccess?.(data.jobId ?? "");
       resetState();
+      // Feedback explicite : le job est async, l'utilisateur doit voir que
+      // la soumission a bien été prise en compte avant la fermeture.
+      toast.success("Document en cours de traitement", "Le parsing est lancé.");
       onClose();
     } catch (err) {
       setStatus("error");

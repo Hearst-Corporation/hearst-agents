@@ -12,6 +12,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
 
 interface ReportActionsProps {
@@ -120,13 +121,19 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
       });
       const json = await res.json();
       if (!res.ok) {
-        setError(typeof json.error === "string" ? json.error : "share_failed");
+        const apiMsg = typeof json.error === "string" ? json.error : "share_failed";
+        setError(apiMsg);
+        toast.error("Partage échoué", apiMsg);
         return;
       }
       setShareUrl(json.shareUrl as string);
       setExpiresAt(json.expiresAt as string);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "network_error");
+      const msg = e instanceof Error ? e.message : "Erreur réseau";
+      setError(msg);
+      // Toast complète le state error inline (le bouton "Réessayer" rendu
+      // sous l'erreur fait office d'action côté UI).
+      toast.error("Partage échoué", msg);
     } finally {
       setLoading(false);
     }
@@ -174,9 +181,29 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
         </Action>
       </div>
       {error && (
-        <p className="t-9" style={{ color: "var(--color-error)", marginTop: "var(--space-2)" }}>
-          Erreur : {error}
-        </p>
+        <div
+          className="flex items-center"
+          style={{ marginTop: "var(--space-2)", gap: "var(--space-2)" }}
+        >
+          <p className="t-9" style={{ color: "var(--color-error)", margin: 0 }}>
+            Erreur : {error}
+          </p>
+          <button
+            type="button"
+            onClick={() => void generate()}
+            disabled={loading}
+            className="t-9 font-light"
+            style={{
+              padding: "var(--space-1) var(--space-2)",
+              border: "1px solid var(--surface-2)",
+              borderRadius: "var(--radius-xs)",
+              background: "transparent",
+              color: "var(--text-muted)",
+            }}
+          >
+            Réessayer
+          </button>
+        </div>
       )}
       {shareUrl && (
         <div style={{ marginTop: "var(--space-3)" }}>
@@ -280,6 +307,7 @@ function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () =
         return;
       }
       setBody("");
+      toast.success("Commentaire enregistré");
       await load();
     } catch (e) {
       setError(e instanceof Error ? e.message : "network_error");
@@ -421,12 +449,23 @@ function PopoverShell({
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  // T-C11 : restaure le focus sur le trigger qui a ouvert le popover.
+  // useModalA11y est trop large ici (body scroll lock + focus trap qui ne
+  // convient pas à un menu non-bloquant) — on implémente le minimum a11y
+  // (Escape + restore focus) à la main.
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   // ESC ferme le popover. Click-outside ferme aussi (mais préserve le focus
   // sur le trigger natif via le pattern relative + absolute du parent).
   // On évite useModalA11y ici car le popover est positionné absolument et
   // n'a pas vocation à bloquer le scroll du body — c'est un menu, pas une modale.
   useEffect(() => {
+    // Mémorise le focus actif (trigger ActionButton) avant d'ouvrir.
+    previousFocusRef.current =
+      typeof document !== "undefined" && document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
@@ -448,6 +487,15 @@ function PopoverShell({
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("mousedown", onClick);
       window.clearTimeout(t);
+      // Restore focus sur le trigger si toujours dans le DOM (sinon no-op).
+      const prev = previousFocusRef.current;
+      if (prev instanceof HTMLElement && document.contains(prev)) {
+        try {
+          prev.focus({ preventScroll: true });
+        } catch {
+          /* élément non focusable — ignore */
+        }
+      }
     };
   }, [onClose]);
 

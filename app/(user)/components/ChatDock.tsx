@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
 import type { Message } from "@/lib/core/types";
 import { getAllServices } from "@/lib/integrations/catalog";
@@ -110,7 +110,12 @@ function trackAnalytics(
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ type, properties }),
-  }).catch(() => {});
+  }).catch((err) => {
+    // Best-effort — on log en dev uniquement pour ne pas spammer Sentry/prod.
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("[Analytics] Failed:", err);
+    }
+  });
 }
 
 const baseServices: ServiceWithConnectionStatus[] = getAllServices().map((s) => ({
@@ -237,6 +242,16 @@ export function ChatDock() {
   const assistantBufferRef = useRef<string>("");
   const currentAssistantIdRef = useRef<string | null>(null);
 
+  // État visuel du backoff SSE : compteur visible pour l'utilisateur pendant
+  // les retries (T-C7) + détection offline (T-C6). null = pas de retry en
+  // cours, sinon { attempt, total, secondsLeft, offline }.
+  const [reconnectInfo, setReconnectInfo] = useState<{
+    attempt: number;
+    total: number;
+    secondsLeft: number;
+    offline: boolean;
+  } | null>(null);
+
   const handleSubmit = useCallback(
     async (message: string, opts?: { attachedAssetIds?: string[] }) => {
       // Si on n'est pas sur la page racine, on y revient pour que l'utilisateur
@@ -324,15 +339,26 @@ export function ChatDock() {
           signal: controller.signal,
         });
         if (!res.ok) {
-          const errorMsg = `Erreur serveur: ${res.status}`;
-          toast.error("Échec de l'envoi", errorMsg);
+          // Différenciation des statuts HTTP : message user-friendly + log
+          // technique pour ne pas perdre le code HTTP côté observabilité.
+          let msg: string;
+          if (res.status === 401 || res.status === 403) {
+            msg = "Session expirée, veuillez vous reconnecter.";
+          } else if (res.status === 429) {
+            msg = "Trop de requêtes — réessayez dans quelques secondes.";
+          } else if (res.status >= 500) {
+            msg = "Problème serveur — l'équipe a été notifiée.";
+          } else {
+            msg = `Erreur ${res.status}`;
+          }
+          toast.error("Échec de l'envoi", msg);
           addEvent({
             type: "run_failed",
-            error: errorMsg,
+            error: `HTTP ${res.status}: ${msg}`,
             run_id: clientToken,
             client_token: clientToken,
           });
-          useChatStageStore.getState().setRunState("error", errorMsg);
+          useChatStageStore.getState().setRunState("error", msg);
           return true; // Ne pas retry sur erreur HTTP (4xx/5xx)
         }
         const reader = res.body?.getReader();
@@ -398,12 +424,55 @@ export function ChatDock() {
           if (attempt > 0) {
             // Backoff exponentiel : 1s, 2s, 4s
             const delay = BASE_RECONNECT_DELAY_MS * Math.pow(2, attempt - 1);
+            const totalSeconds = Math.ceil(delay / 1000);
+            const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+
             addEvent({
               type: "orchestrator_log",
               run_id: clientToken,
               message: `Reconnexion SSE (tentative ${attempt}/${MAX_RECONNECT_ATTEMPTS})…`,
             });
-            await new Promise((resolve) => setTimeout(resolve, delay));
+
+            // T-C6 : si offline, on attend qu'on revienne online plutôt que
+            // d'épuiser bêtement les tentatives.
+            if (offline) {
+              setReconnectInfo({
+                attempt,
+                total: MAX_RECONNECT_ATTEMPTS,
+                secondsLeft: totalSeconds,
+                offline: true,
+              });
+              await new Promise<void>((resolve) => {
+                const cleanup = () => {
+                  window.removeEventListener("online", onOnline);
+                  controller.signal.removeEventListener("abort", onAbort);
+                  resolve();
+                };
+                const onOnline = () => cleanup();
+                const onAbort = () => cleanup();
+                if (typeof window !== "undefined") {
+                  window.addEventListener("online", onOnline, { once: true });
+                }
+                controller.signal.addEventListener("abort", onAbort, { once: true });
+                // Garde-fou : si l'event "online" ne firait jamais, on
+                // débloque après le délai max + 10s.
+                setTimeout(cleanup, delay + 10000);
+              });
+              if (controller.signal.aborted) break;
+            }
+
+            // T-C7 : décompte visible (1s tick) plutôt qu'un setTimeout opaque.
+            for (let s = totalSeconds; s > 0; s--) {
+              if (controller.signal.aborted) break;
+              setReconnectInfo({
+                attempt,
+                total: MAX_RECONNECT_ATTEMPTS,
+                secondsLeft: s,
+                offline: false,
+              });
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+            setReconnectInfo(null);
             if (controller.signal.aborted) break;
             // Reset le buffer pour le nouveau run (réponse repartira from scratch)
             assistantBufferRef.current = "";
@@ -414,7 +483,10 @@ export function ChatDock() {
         }
 
         if (!completed && !controller.signal.aborted) {
-          const errorMsg = "Connexion perdue après plusieurs tentatives. Réessaie.";
+          const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+          const errorMsg = offline
+            ? "Vous semblez hors ligne. La reconnexion reprendra automatiquement."
+            : "Connexion perdue après plusieurs tentatives. Réessaie.";
           toast.error("Connexion SSE perdue", errorMsg);
           addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
           useChatStageStore.getState().setRunState("error", errorMsg);
@@ -442,6 +514,7 @@ export function ChatDock() {
         trackAnalytics("run_failed", { runId: clientToken, error: errorMsg });
       } finally {
         setAbortController(null);
+        setReconnectInfo(null);
       }
     },
     [
@@ -463,10 +536,79 @@ export function ChatDock() {
     ],
   );
 
+  // T-C4 : sortie explicite quand on est dans le Stage "chat".
+  // Repasse en mode cockpit (le shell garde la conversation accessible via
+  // la liste threads, on ne perd rien).
+  const showCloseButton = stageMode === "chat";
+  const handleCloseChat = useCallback(() => {
+    setStageMode({ mode: "cockpit" });
+  }, [setStageMode]);
+
   return (
-    <div className="flex w-full items-center justify-center">
+    <div className="relative flex w-full items-center justify-center">
+      {/* T-C7 : indicateur visuel de reconnexion SSE. */}
+      {reconnectInfo && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="absolute"
+          style={{
+            top: "calc(-1 * var(--space-8))",
+            left: "50%",
+            transform: "translateX(-50%)",
+            padding: "var(--space-1-5) var(--space-3)",
+            borderRadius: "var(--radius-pill)",
+            background: "var(--surface-1)",
+            border: "1px solid var(--border-default)",
+            color: "var(--text-faint)",
+            fontSize: "var(--text-xs, 11px)",
+            whiteSpace: "nowrap",
+            boxShadow: "var(--shadow-card)",
+          }}
+        >
+          {reconnectInfo.offline
+            ? "Hors ligne — reprise auto dès retour réseau"
+            : `Reconnexion dans ${reconnectInfo.secondsLeft}s… (tentative ${reconnectInfo.attempt}/${reconnectInfo.total})`}
+        </div>
+      )}
+
       <StageFooter />
       <ChatInput onSubmit={handleSubmit} connectedServices={connectedServices} />
+
+      {/* T-C4 : bouton de fermeture explicite du chat (retour cockpit). */}
+      {showCloseButton && (
+        <button
+          type="button"
+          onClick={handleCloseChat}
+          aria-label="Fermer le chat"
+          title="Fermer le chat"
+          className="absolute"
+          style={{
+            top: "calc(-1 * var(--space-10))",
+            right: "var(--space-4)",
+            width: "var(--space-7)",
+            height: "var(--space-7)",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "var(--radius-pill)",
+            background: "var(--surface-1)",
+            border: "1px solid var(--border-default)",
+            color: "var(--text-faint)",
+            cursor: "pointer",
+            transition: "color var(--duration-fast) var(--ease-standard)",
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path
+              d="M3 3L9 9M9 3L3 9"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

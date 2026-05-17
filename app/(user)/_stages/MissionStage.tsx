@@ -433,6 +433,18 @@ export function MissionStage({ mode }: { mode: string }) {
   const [loading, setLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  // T-C12 : on ne montre le loader qu'après 300ms pour éviter le flash sur
+  // les fetches rapides (cache chaud, réseau local).
+  const [showLoader, setShowLoader] = useState(false);
+
+  useEffect(() => {
+    if (!loading) {
+      setShowLoader(false);
+      return;
+    }
+    const t = setTimeout(() => setShowLoader(true), 300);
+    return () => clearTimeout(t);
+  }, [loading]);
 
   // Fetch mission quand missionId change
   useEffect(() => {
@@ -540,8 +552,8 @@ export function MissionStage({ mode }: { mode: string }) {
       {/* Empty state — pas de missionId */}
       {!missionId && !loading && <EmptyMissionState />}
 
-      {/* Loading */}
-      {loading && <LoadingSkeleton />}
+      {/* Loading — différé 300ms pour éviter le flash sur cache chaud */}
+      {showLoader && <LoadingSkeleton />}
 
       {/* Erreur fetch */}
       {!loading && fetchError && <ErrorBanner error={fetchError} />}
