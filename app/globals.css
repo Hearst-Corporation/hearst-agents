@@ -1,27 +1,9 @@
 @import "tailwindcss";
 
-/* === Themes opt-in (skin via /admin/themes) ===
- * Chaque thème scope ses tokens sous `:root[data-theme="<slug>"]`.
- * Pas de data-theme = thème "default" (les tokens ci-dessous prennent effet).
- * Auto-géré par /skin — ne pas éditer à la main. */
 @import "../themes/robotflowtemplate-webflow-io/tokens.css";
 
-/**
- * HEARST OS — Design Tokens v3 (Ghost Protocol).
- */
-
 :root {
-  /* Core surfaces — Spotlight disposition (pivot 2026-05-10).
-     Inversion délibérée du pattern classique « rails noirs / Stage clair » :
-     ici les rails (PulseBar / TimelineRail / ContextRail / StageFooter)
-     prennent un gris medium #16161B (~9% lum) qui pose un cadre doux,
-     tandis que le Stage central (--surface) plonge dans le noir absolu
-     #000. Le contenu reçoit toute la lumière, comme un théâtre — les
-     rails s'effacent visuellement sans disparaître.
-     Cards sur Stage : --bg-elev #131318 / --bg-soft #1B1B22 — élévation
-     visible au-dessus du noir Stage sans casser la cohérence charbon.
-     Le shadow-stage-card crée naturellement un halo de récession qui
-     renforce l'effet « well » du Stage encadré par les rails plus clairs. */
+  
   --bg: #000000;
   --bg-elev: rgba(255, 255, 255, 0.05);
   --bg-soft: rgba(255, 255, 255, 0.02);
@@ -29,7 +11,7 @@
   --foreground: #ffffff;
   --surface: rgba(255, 255, 255, 0.02);
   --rail: transparent;
-  /* Material scale — Technological Luxury */
+  /* Material scale */
   --mat-100: #040404;
   --mat-200: #070707;
   --mat-300: #0a0a0a;
@@ -44,11 +26,7 @@
   --surface-1: rgba(255, 255, 255, 0.025);
   --surface-2: rgba(255, 255, 255, 0.04);
 
-  /* Text opacity scale — Mastered Contrast.
-   * Pivot UI 2026-05-01 : --text-ghost remonté de 0.25 → 0.42 pour passer WCAG AA
-   * sur les éléments cliquables (Admin/Exit, compteurs, hints, icônes faint).
-   * --text-decor-25 garde l'ancien 0.25 pour usages PUREMENT décoratifs (séparateurs,
-   * filigrane, fond de skeleton) — JAMAIS pour du texte lisible ou interactif. */
+  
   --text: #ffffff;
   --text-soft: rgba(255, 255, 255, 0.88);
   --text-muted: rgba(255, 255, 255, 0.65);
@@ -73,10 +51,7 @@
   --accent-llm: #a78bfa;
   /* Branche « agent custom » pipeline admin (câbles + waterfall) — aligné cartes [data-kind="agent"]. */
   --accent-agent: #fbbf24;
-  /* Editorial gold — accent éditorial pour liens de contenu, highlights, points
-   * d'attention NON-système. Le accent-teal reste réservé aux états système (focus,
-   * hover, run actif, voice actif, sélection). Cette séparation a été tranchée
-   * dans le pivot UI 2026-05-01 (direction A — Éditoriale Tenue). */
+  
   --gold: #c8a961;
   --gold-border: color-mix(in srgb, var(--gold) 28%, transparent);
   --gold-surface: color-mix(in srgb, var(--gold) 6%, transparent);
@@ -163,9 +138,7 @@
   --max-height-page-content: 70vh;
   --height-textarea-sm: 120px;
   --height-textarea-md: 200px;
-  /** Estimation hauteur MobileBottomNav (icône t-15 ≈ 18px + label t-11 ≈ 14px +
-   * 2*space-2 padding + space-1 gap + safe-area). RightPanel FAB s'appuie dessus
-   * pour éviter le chevauchement (bottom = nav + space-4). */
+  
   --height-mobile-nav: 56px;
   /** Grid template colonnes — Audit log table (cf. app/admin/audit/page.tsx).
    * Time | Action | Resource (flex) | Status | Severity. */
@@ -173,7 +146,7 @@
   --size-icon-sm: 2rem;
   --size-icon-md: 2.25rem;
   --size-icon-lg: 3rem;
-  /** Hit target touch (WCAG 2.5.5 / Apple HIG) — utilisé pour boutons icon RowActions. */
+  /* Touch target minimum */
   --size-touch-target: 44px;
   /** Demi-step entre --space-2 (8px) et --space-3 (12px) — padding interne RowActions. */
   --space-2-5: 10px;
@@ -189,16 +162,10 @@
   /* ─── Card minimum width (grid auto-fill) ─── */
   --card-min-width: 320px; /* breakpoint card grid — reports, marketplace */
 
-  /* ─── Hearst Connect — Layout shell (3 zones) ─────────────────
-   * Sidebars : largeurs égales, fluides ~20vw (18–22% selon viewport),
-   * bornées pour rester lisibles à toute taille. Le centre prend le
-   * reste de l'espace via flex-1 → ratio ~20/60/20 cohérent à toutes
-   * les tailles, sans zones mortes en grand écran. */
+  
   --width-threads: clamp(176px, 16vw, 384px); /* -20% du token initial 220/20vw/480 */
   --width-threads-collapsed: 64px;
-  /* Pivot UI 2026-05-01 : ContextRail réduit (322→280 min, 553→440 max) pour
-   * rendre la main au centre. La promesse éditoriale demande que le canvas
-   * principal domine ; le rail droit redevient un contexte, pas une seconde page. */
+  
   --width-context: clamp(280px, 22vw, 440px);
   --width-center-max: 960px;
   --width-actions: clamp(440px, 36vw, 720px);
@@ -209,9 +176,7 @@
   /** Popover / dropdown chrome (NotificationBell, menus contextuels) — fluide
    * mais borné, plus étroit que --width-context. */
   --width-popover: clamp(300px, 22vw, 380px);
-  /** Side panel "quick launch" (VideoQuickLaunch ⌘G — S2-A). Plus large
-   * qu'un popover (formulaire prompt + provider + ratio + progress bar)
-   * mais borné pour ne pas envahir le canvas. */
+  
   --width-quick-launch: 400px;
   /** Sidebar stats du SignalBoardStage (Q3-B). Largeur fixe pour le panneau
    * latéral droit avec cumul + répartition par kind. */
@@ -220,9 +185,7 @@
   --height-admin-prompt-max: min(60dvh, var(--width-center-max));
   --height-topbar: 48px;
 
-  /* ─── Sizes — éléments circulaires / carrés ──────────────────
-   * Tokens de taille pour avatars, badges, dots dimensionnés. Évite
-   * les `w-8 h-8` répétés quand un élément a une sémantique propre. */
+  
   --size-avatar-sm: 32px; /* Avatar profil — TimelineRail footer, badges initiale */
   --size-dot: 6px; /* Dot status (FocusBadge, pulse "En cours" PulseBar, status indicators) */
   --size-progress-segment-w: 8px; /* Largeur d'un segment de barre de progression discrète (MissionBudgetBadge) */
@@ -231,10 +194,7 @@
   /* ─── Modal backdrop ───────────────────────────────────────── */
   --modal-backdrop: rgba(0, 0, 0, 0.6); /* Backdrop modal (enrichment diff, fork panel) */
 
-  /* ─── Cockpit visualizations ──────────────────────────────────
-   * Dimensions des visualisations signatures du Cockpit. Les hauteurs
-   * sont fluides via clamp pour respirer en grand viewport sans
-   * écraser le KPIStrip en petit écran. */
+  
   --height-particles-wave: clamp(
     240px,
     32vh,
@@ -242,7 +202,7 @@
   ); /* ParticlesWave — onde sinusoïdale centrale */
   --height-agent-constellation: 200px; /* AgentsConstellation — hexagone 2D rail droit */
 
-  /* ─── Prose — largeurs de lecture éditoriale ───────────────────────── */
+  /* Prose widths */
   --width-prose-narrow: 560px;
   --width-working-doc: min(50%, 720px);
 
@@ -321,10 +281,7 @@
   --accent-teal-border-hover: rgba(74, 139, 134, 0.22);
 
   /* ─── HOM status surfaces ───────────────────────────────────── */
-  /* Surfaces translucides utilisées par les pills/badges status de l'admin
-   * orchestrateur (Trust, Drift, Quarantaine, Command Center). Pattern
-   * miroir de --accent-teal-bg-active : token unique réutilisable, jamais
-   * d'inline color-mix dans les composants. */
+  
   --warn-surface: color-mix(in srgb, var(--warn) 12%, transparent);
   --warn-surface-soft: color-mix(in srgb, var(--warn) 6%, transparent);
   --danger-surface: color-mix(in srgb, var(--danger) 12%, transparent);
@@ -387,9 +344,7 @@
   --leading-base: 1.45;
   --leading-relaxed: 1.6;
   --leading-loose: 1.8;
-  /* Pivot 2026-05-10 : tokens body unifiés pour la prose
-   * (articles, focal, missions). Évite les magic numbers
-   * leading-[1.5] / leading-[1.7] disséminés. */
+  
   --leading-body-tight: 1.5;
   --leading-body: 1.7;
 
@@ -412,9 +367,7 @@
   --border-strong: rgba(255, 255, 255, 0.14);
   --border-focus: rgba(255, 255, 255, 0.4);
 
-  /* Orbital mono palette — aliases neutres pour la constellation Cockpit.
-     Ces tokens alimentent CockpitOrbitView (lignes de connexion) et
-     OrbitalQuickActions (boutons pill). Ne pas utiliser ailleurs. */
+  
   --mono-surface: var(--surface-2);
   --mono-border: rgba(255, 255, 255, 0.08);
   --mono-border-hover: var(--border-strong);
@@ -456,11 +409,6 @@
   --section-gap: var(--space-8); /* gap vertical entre sections d'une page */
 }
 
-/* ─── Cockpit Poster — typo éditoriale ────────────────────────────
- * Greeting H1 + eyebrow uppercase + brief block (filet accent-teal). Le reste
- * du langage poster (display, prose, dropcap, observation, rule, cta)
- * a été retiré au pivot 2026-05-02 quand le brief block est devenu
- * la pièce maîtresse unique. */
 .poster-greeting {
   font-weight: 500;
   font-size: clamp(18px, 2vw, 28px);
@@ -477,11 +425,6 @@
   font-weight: 500;
 }
 
-/* ─── Cockpit éditorial — pivot 2026-05-02 ───────────────────────
- * Le poster central porte uniquement le brief (la promesse Hearst).
- * Les KPI vivent au right rail (GeneralDashboard) — un seul endroit.
- * Le brief block reste filet accent-teal, l'incipit est mis en valeur par
- * la première phrase en strong. */
 .poster-brief-block {
   border-left: 2px solid var(--accent-teal);
   padding: var(--space-4) var(--space-6);
@@ -520,11 +463,6 @@
   cursor: progress;
 }
 
-/* ─── Modules tactiles — ContextRail GeneralDashboard "Actions rapides" ──
- * Pivot v1.4 (silent luxury OS, 2026-05-09) : grille 2x2 de modules tactiles
- * sans outline visible. Format icon + title + state. Matérialité par 2 inset
- * shadows (top hi-light + bottom shadow). Pas de border, pas de drop shadow.
- * Hover : translate -1px + bg légèrement plus clair. */
 .touch-module {
   background:
     radial-gradient(140% 100% at 30% 0%, rgba(255, 255, 255, 0.028) 0%, transparent 60%),
@@ -608,9 +546,6 @@
   animation: touch-module-pulse 2s ease-in-out infinite;
 }
 
-/* ─── TimelineRail collapsed tile — architectural ─────────────
- * Pivot v1.4. État actif signalé par filet vertical 1px teal sur la gauche
- * (pas de full bg flooding). Inactif : transparent, hover discret. */
 .touch-rail-tile {
   background: transparent;
   border: none;
@@ -640,9 +575,6 @@
   border-radius: 1px;
 }
 
-/* ─── PulseBar Cmd+K pill — silent luxury ─────────────────────
- * Pivot v1.4. Pill ultra-thin centrée au header, smoked glass surface,
- * pas de hover teal envahissant (juste border qui se renforce). */
 .touch-cmdk-pill {
   background: linear-gradient(180deg, #16161b 0%, #0f0f13 100%);
   border: 1px solid var(--border-soft);
@@ -656,10 +588,6 @@
   border-color: var(--border-shell);
 }
 
-/* ─── Status card / Context card — ContextRail GeneralDashboard ──
- * Pivot v1.4 (silent luxury OS) : pas d'outline visible, juste matérialité
- * par inset shadows. Filet teal vertical à gauche pour la card de contexte
- * actif (signal "ce qui est focal là-maintenant"). */
 .touch-status-card {
   background:
     radial-gradient(140% 100% at 30% 0%, rgba(255, 255, 255, 0.022) 0%, transparent 60%),
@@ -697,9 +625,6 @@
   border-radius: 0 1.5px 1.5px 0;
 }
 
-/* ─── Recap cards — ContextRail GeneralDashboard ─────────────
- * 3 cards uniformes (même hauteur min), structure identique :
- * label + count en header, body one-liner, dots optionnels. */
 .recap-card {
   display: flex;
   flex-direction: column;
@@ -802,9 +727,6 @@
   }
 }
 
-/* ─── Pipeline admin — surface technique sur thème courant ─────────────
- * Le canvas hérite du thème actif (light dans `AdminShell`). Les accents
- * par famille de stage (data-kind) sont scopés sur `.pipeline-canvas-frame`. */
 .pipeline-canvas-frame {
   position: absolute;
   inset: 0;
@@ -1294,9 +1216,7 @@
   --radius-2xl: var(--radius-2xl);
   --radius-pill: var(--radius-pill);
 
-  /* Hearst Connect — spacing scale (p-N, gap-N, m-N, w-N, h-N… → tokens)
-   * Chaque --spacing-N mappe la classe Tailwind correspondante sur le token
-   * --space-N. Zéro magic number côté TSX : px-6 = var(--space-6) = 24px. */
+  
   --spacing-1: var(--space-1);
   --spacing-2: var(--space-2);
   --spacing-3: var(--space-3);
@@ -1314,9 +1234,7 @@
   --spacing-50: 200px;
   --max-w-input: var(--input-max-width);
 
-  /* Hearst Connect — leading scale (leading-tight → var(--leading-tight)…)
-   * Override les valeurs Tailwind par défaut (1.25 / 1.375 / 2.0) qui
-   * divergeaient du scale du DS (1.05 / 1.2 / 1.8). */
+  
   --leading-tight: var(--leading-tight);
   --leading-snug: var(--leading-snug);
   --leading-base: var(--leading-base);
@@ -1360,9 +1278,7 @@
   --color-cyan-accent: var(--cyan-accent);
   --color-accent-teal: var(--accent-teal);
 
-  /* Hearst Connect — text opacity scale → classes `text-text-soft`, `text-text-muted`,
-   * `text-text-faint`, `text-text-ghost`, `text-text` (Tailwind v4 exige --color-X
-   * dans @theme pour que la classe utilitaire `text-X` génère du CSS). */
+  
   --color-text: var(--text);
   --color-text-soft: var(--text-soft);
   --color-text-muted: var(--text-muted);
@@ -1510,10 +1426,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Rail section header — pivot UI 2026-05-01 (direction A — Éditoriale Tenue).
- * Voix éditoriale calme : 13px medium text-l1, plus de mono caps tracking-label.
- * Le rail droit n'est plus une console à étiquettes ghost — c'est un panneau
- * de contexte lisible où les sections respirent comme des paragraphes. */
 .rail-section-label {
   font-family: var(--font-satoshi);
   font-size: 13px;
@@ -1523,9 +1435,6 @@ body {
   line-height: var(--leading-tight);
 }
 
-/* Rail section card — wrapper visuel commun.
- * 3-layer shadow: inset top (highlight blanc), drop soft, drop deeper.
- * Profondeur progressive sans blur — purement architecture matière. */
 /* .rail-section-card supprimée — Halo UI, pas de boîtes */
 
 /* ── Ghost Background ─────────────────── */
@@ -1617,10 +1526,6 @@ body {
   opacity: 0.7;
 }
 
-/* ─── Status dots — pastilles d'état (pivot 2026-05-02) ─────────
- * Initialement enfants des .context-tile (refactor remplacé par .recap-card
- * dans GeneralDashboard). Réutilisés en standalone pour signaler l'état
- * d'une mission (running pulse accent-teal / blocked ambre / failed rouge / success vert). */
 .context-tile-status {
   position: absolute;
   top: var(--space-1);
@@ -1659,10 +1564,6 @@ body {
   }
 }
 
-/* ─── StageFooter — dots état LLM ───────────────────────────────
- * 3 dots animés sous ChatDock, pattern dépend de useRuntimeStore.coreState.
- * Chaque dot reçoit `animationDelay` pour décaler la vague (typing-style).
- * Couleur portée par `style.background` (accent-teal / gold / danger / muted). */
 .sf-dot {
   display: inline-block;
   width: var(--space-1);
@@ -1805,14 +1706,6 @@ body {
   box-shadow: var(--shadow-card-hover);
 }
 
-/* Input "two-lines" — pivot 2026-05-03.
- * Plus de coquille rounded, plus de halo accent-teal en focus, plus de fond.
- * Juste deux filets 1px (top + bottom) avec un linear-gradient qui fade
- * aux extrémités (transparent → couleur → transparent) pour donner de la
- * légèreté éditoriale. Le textarea flotte dans le paper.
- *
- * Focus : les filets passent de var(--border-default) à var(--text-soft),
- * shift de contraste subtil, JAMAIS de accent-teal. */
 .cockpit-input-pill-line {
   position: relative;
   z-index: 1;
@@ -1977,10 +1870,6 @@ body {
   }
 }
 
-/* ── Ghost Protocol legacy classes — utilisées par /missions, MissionEditor,
-   RightPanel, /runs/[id]. Définitions tokens-based pour rendre l'affichage
-   visible (avant ces classes étaient référencées sans définition CSS). */
-
 .ghost-meta-label {
   font-size: clamp(11px, 0.286vw + 9.167px, 16.5px);
   line-height: 1.3;
@@ -2075,13 +1964,6 @@ body {
   z-index: 1;
 }
 
-/* ─────────────────────────────────────────────────────────────
- * HEARST CONNECT — Cinematic layer (additive, opt-in classes)
- * ─────────────────────────────────────────────────────────────
- * These utilities are non-destructive: they only apply when you
- * add the class. They don't alter existing component rendering.
- * ───────────────────────────────────────────────────────────── */
-
 /* Card depth stack (3-layer shadow + cyan halo on hover) */
 .card-depth {
   background-color: var(--mat-300);
@@ -2109,9 +1991,6 @@ body {
     0 30px 60px -16px rgba(0, 0, 0, 0.6);
 }
 
-/* Dashboard row — ligne tactile mission/event du ContextRail.
- * Surface ultra-faible au repos, hover teal (accent sourd) — pas de
- * translation, pas de halo. focus-visible respecté pour clavier. */
 .dashboard-row {
   background: var(--surface-row-rest);
   transition:
@@ -2231,12 +2110,6 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   }
 }
 
-/* ── Halo Core ──────────────────────────────────────────────────
- * Centerpiece visuel de l'idle home — orbe lumineux cyan qui remplace
- * le wordmark "Hearst" t-48. Cf. mock-vision lignes 199-247.
- * Trois couches : halo radial soft (background), anneau rotatif lent
- * (::before), pulse central discret (::after).
- * ──────────────────────────────────────────────────────────────── */
 .halo-core {
   position: relative;
   width: var(--size-halo-core);
@@ -2299,16 +2172,6 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   }
 }
 
-/* ── ContextRail Strates 1 & 2 — services + constellation système ────
-   Les keyframes SVG (service-chip-pop / constellation-*) ont été retirées
-   au profit du rendu vanilla three (cf. SystemServicesRow.tsx +
-   SystemConstellation.tsx). Toute l'animation des particules vit dans le
-   RAF des composants WebGL. */
-
-/* ── Ghost Protocol — boutons & inputs minimalistes ──────────────
-   Pattern : `.ghost-btn-solid` pose la base (layout, font, transition),
-   un modificateur `.ghost-btn-accent-teal` ou `.ghost-btn-ghost` pose le skin.
-   `.ghost-input-line` = input underline cockpit. */
 .ghost-btn-solid {
   display: inline-flex;
   align-items: center;
@@ -2339,15 +2202,6 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   box-shadow: inset 0 0 0 1px var(--accent-teal-border-hover);
 }
 
-/* A11y AA — fallback global focus-visible pour tous les <button> natifs qui
-   n'ont pas leur propre traitement focus-visible (Stages historiques, modals,
-   tabs custom, etc.). Les composants `<Action>` et `<StageActionBar>` ont leur
-   propre ring `var(--accent-teal-border-hover)` plus marqué et override ce fallback.
-
-   Exclusions :
-   - .ghost-btn-solid : déjà géré ci-dessus (inset shadow)
-   - boutons sans aria-label avec opacity-0 / sr-only : couverts par leur parent
-*/
 button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   outline: 1px solid var(--accent-teal-border-hover);
   outline-offset: 1px;
@@ -2422,12 +2276,6 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   cursor: not-allowed;
 }
 
-/* Electron — drag regions pour la titlebar custom (titleBarStyle: hiddenInset).
-   Sans ces classes sur le top bar, la fenêtre n'est pas draggable.
-   La classe .electron-titlebar fournit une zone fixe 32px en haut qui reste
-   draggable même quand le content du PulseBar re-render — fix du bug
-   "déplaçable une fois puis bloqué". pointer-events:none laisse passer les
-   clics vers les boutons en dessous (Electron lit app-region avant pointer-events). */
 .app-drag {
   -webkit-app-region: drag;
   app-region: drag;
@@ -2801,10 +2649,6 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   }
 }
 
-/* === visionOS shell — port depuis lab/cli-os (2026-05-15) ===
- * Classes utilitaires pour le shell visionOS (route group (user-x)).
- * Source : lab/cli-os/src/styles.css l.108-189. Aucun rename.
- * Scope : utilisées uniquement dans app/(user-x)/**. */
 @layer utilities {
   .vision-glass {
     position: relative;
@@ -2885,11 +2729,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     transform-style: preserve-3d;
   }
 
-  /* ================================================================
-     STAGE CLASSES — portées depuis flow-demo-v2.html
-     Utilisées par les stages : Chat, Mission, Asset, Browser, Voice,
-     Meeting, KG, Artifact.
-     ================================================================ */
+  
 
   /* Keyframes partagées */
   @keyframes fu { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
