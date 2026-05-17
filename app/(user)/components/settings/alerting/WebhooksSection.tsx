@@ -4,9 +4,10 @@
  * Section "Webhooks" — liste, ajout, suppression et test.
  */
 
-import type { Dispatch } from "react";
+import { type Dispatch, useState } from "react";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
+import { ConfirmModal } from "../../ConfirmModal";
 import { Btn, Card, Input, SectionTitle, SignalBadge, TestBadge } from "./primitives";
 import type { Action, SignalType, State } from "./types";
 
@@ -20,6 +21,15 @@ interface Props {
 }
 
 export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
+  // Stream B / T-B4 : confirm before deleting a webhook (cascade automations).
+  const [pendingRemoveIdx, setPendingRemoveIdx] = useState<number | null>(null);
+
+  const handleConfirmRemove = () => {
+    if (pendingRemoveIdx === null) return;
+    dispatch({ type: "REMOVE_WEBHOOK", index: pendingRemoveIdx });
+    setPendingRemoveIdx(null);
+  };
+
   return (
     <section>
       <SectionTitle>Webhooks</SectionTitle>
@@ -63,10 +73,7 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
               >
                 Tester
               </Btn>
-              <Btn
-                variant="danger"
-                onClick={() => dispatch({ type: "REMOVE_WEBHOOK", index: idx })}
-              >
+              <Btn variant="danger" onClick={() => setPendingRemoveIdx(idx)}>
                 Supprimer
               </Btn>
             </div>
@@ -158,6 +165,17 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
           + Ajouter un webhook
         </Btn>
       )}
+
+      {/* Stream B / T-B4 : confirm webhook removal */}
+      <ConfirmModal
+        open={pendingRemoveIdx !== null}
+        title="Supprimer le webhook ?"
+        description="Les automations qui en dépendent ne se déclencheront plus."
+        confirmLabel="Supprimer"
+        variant="danger"
+        onConfirm={handleConfirmRemove}
+        onCancel={() => setPendingRemoveIdx(null)}
+      />
     </section>
   );
 }

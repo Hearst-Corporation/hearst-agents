@@ -131,6 +131,37 @@ export function ApprovalInline({
           {preview}
         </p>
 
+        {/* Stream B / T-B1 : warning post-approval — écriture définitive,
+            pas d'undo possible une fois l'action exécutée côté provider. */}
+        <div
+          role="note"
+          aria-live="polite"
+          className="flex items-start"
+          style={{
+            gap: "var(--space-2)",
+            padding: "var(--space-2) var(--space-3)",
+            marginBottom: "var(--space-3)",
+            background: "var(--warn-surface)",
+            border: "1px solid color-mix(in srgb, var(--warn) 55%, transparent)",
+            borderRadius: "var(--radius-xs)",
+          }}
+          data-testid="approval-warning"
+        >
+          <span
+            aria-hidden="true"
+            className="t-11 shrink-0"
+            style={{ color: "var(--warn)", lineHeight: "var(--leading-base)" }}
+          >
+            ⚠
+          </span>
+          <span
+            className="t-11 font-light"
+            style={{ color: "var(--warn)", lineHeight: "var(--leading-base)" }}
+          >
+            Cette écriture est définitive et ne peut pas être annulée.
+          </span>
+        </div>
+
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
           <Action
             variant="primary"
