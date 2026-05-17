@@ -53,9 +53,20 @@ type SaveStatus = "idle" | "form" | "saved" | "error";
 type LoadStatus = "idle" | "loading_list" | "list" | "loading_spec" | "error";
 
 export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
-  // Mémorise une copie initiale du spec au mount pour permettre Reset.
-  const [initialSpec] = useState<ReportSpec>(() => structuredClone(spec));
+  // Mémorise une copie initiale du spec pour permettre Reset.
+  // Re-snapshot quand le parent navigue vers un autre rapport (spec.id change).
+  const [initialSpec, setInitialSpec] = useState<ReportSpec>(() => structuredClone(spec));
   const [jsonOpen, setJsonOpen] = useState(false);
+
+  // Resync du baseline quand le spec parent change d'identité (autre rapport).
+  // Sans ça, Reset restaure le 1er rapport ouvert au mount du composant — bug
+  // visible en navigation entre rapports si le panneau reste monté.
+  useEffect(() => {
+    setInitialSpec(structuredClone(spec));
+    // On dépend uniquement de spec.id (UUID stable du ReportSpec), pas du
+    // contenu : sinon chaque édition réinitialise le baseline et casse Reset.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spec.id]);
 
   // ── Template save state ─────────────────────────────────────
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
@@ -63,10 +74,23 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   const [saveName, setSaveName] = useState("");
   const [saveDesc, setSaveDesc] = useState("");
   const saveNameRef = useRef<HTMLInputElement>(null);
+  // AbortControllers pour les fetch save/load — annulés si l'utilisateur ferme
+  // le panneau ou change de rapport pendant la requête (évite races + setState
+  // sur composant unmounted).
+  const saveAbortRef = useRef<AbortController | null>(null);
+  const loadAbortRef = useRef<AbortController | null>(null);
 
   // ── Template load state ─────────────────────────────────────
   const [loadStatus, setLoadStatus] = useState<LoadStatus>("idle");
   const [templateList, setTemplateList] = useState<TemplateSummary[]>([]);
+
+  // Cleanup au unmount : abort tous les fetch en vol.
+  useEffect(() => {
+    return () => {
+      saveAbortRef.current?.abort();
+      loadAbortRef.current?.abort();
+    };
+  }, []);
 
   // ESC ferme le panneau si onClose fourni.
   useEffect(() => {
@@ -99,8 +123,12 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   );
 
   const reset = useCallback(() => {
+    // Gate : pendant un save en cours, on ignore Reset pour éviter d'écraser
+    // l'état pendant qu'un POST template utilise encore la spec courante.
+    // EditorToolbar (hors scope) ne reçoit pas isSaving — on no-op ici.
+    if (isSaving) return;
     onChange(structuredClone(initialSpec));
-  }, [initialSpec, onChange]);
+  }, [initialSpec, onChange, isSaving]);
 
   // ── Handlers save template ──────────────────────────────────
 
@@ -119,6 +147,10 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
 
   const confirmSave = useCallback(async () => {
     if (!saveName.trim()) return;
+    // Abort une éventuelle requête précédente avant d'en démarrer une nouvelle.
+    saveAbortRef.current?.abort();
+    const controller = new AbortController();
+    saveAbortRef.current = controller;
     setIsSaving(true);
     try {
       const res = await fetch("/api/reports/templates", {
@@ -130,6 +162,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
           spec,
           isPublic: false,
         }),
+        signal: controller.signal,
       });
       if (!res.ok) throw new Error("save_failed");
       setIsSaving(false);
@@ -137,7 +170,9 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
       setTimeout(() => setSaveStatus("idle"), 2500);
       setSaveName("");
       setSaveDesc("");
-    } catch {
+    } catch (err) {
+      // Si abort, on ne touche pas l'état — composant probablement unmounted.
+      if (err instanceof DOMException && err.name === "AbortError") return;
       setIsSaving(false);
       setSaveStatus("error");
       setTimeout(() => setSaveStatus("idle"), 3000);
@@ -147,14 +182,18 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   // ── Handlers load template ──────────────────────────────────
 
   const openLoadList = useCallback(async () => {
+    loadAbortRef.current?.abort();
+    const controller = new AbortController();
+    loadAbortRef.current = controller;
     setLoadStatus("loading_list");
     try {
-      const res = await fetch("/api/reports/templates");
+      const res = await fetch("/api/reports/templates", { signal: controller.signal });
       if (!res.ok) throw new Error("list_failed");
       const data = (await res.json()) as { templates: TemplateSummary[] };
       setTemplateList(data.templates ?? []);
       setLoadStatus("list");
-    } catch {
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
       setLoadStatus("error");
       setTimeout(() => setLoadStatus("idle"), 3000);
     }
@@ -167,15 +206,21 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
 
   const loadTemplateSpec = useCallback(
     async (templateId: string) => {
+      loadAbortRef.current?.abort();
+      const controller = new AbortController();
+      loadAbortRef.current = controller;
       setLoadStatus("loading_spec");
       try {
-        const res = await fetch(`/api/reports/templates/${templateId}`);
+        const res = await fetch(`/api/reports/templates/${templateId}`, {
+          signal: controller.signal,
+        });
         if (!res.ok) throw new Error("load_failed");
         const data = (await res.json()) as { spec: ReportSpec };
         onChange(data.spec);
         setLoadStatus("idle");
         setTemplateList([]);
-      } catch {
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
         setLoadStatus("error");
         setTimeout(() => setLoadStatus("idle"), 3000);
       }

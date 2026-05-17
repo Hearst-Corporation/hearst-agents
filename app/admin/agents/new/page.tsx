@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ConfirmModal } from "@/app/(user)/components/ConfirmModal";
 
 const providers = [
   { value: "openai", label: "OpenAI" },
@@ -13,10 +14,13 @@ const defaultModels: Record<string, string[]> = {
   anthropic: ["claude-sonnet-4-6", "claude-3-5-haiku-20241022", "claude-opus-4-20250514"],
 };
 
+const DEFAULT_TEMPERATURE = 0.7;
+
 export default function NewAgentPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -24,9 +28,31 @@ export default function NewAgentPage() {
     model_provider: "openai",
     model_name: "gpt-4o",
     system_prompt: "",
-    temperature: 0.7,
+    temperature: DEFAULT_TEMPERATURE,
     max_tokens: 4096,
   });
+
+  // Form "dirty" si l'utilisateur a touché un champ texte ou modifié la
+  // température depuis la valeur par défaut. Sert à protéger contre les
+  // pertes de brouillon au clic Annuler.
+  const isDirty =
+    form.name.trim() !== "" ||
+    form.system_prompt.trim() !== "" ||
+    form.temperature !== DEFAULT_TEMPERATURE;
+
+  const handleCancelClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isDirty) {
+      setConfirmCancelOpen(true);
+    } else {
+      router.push("/admin/agents");
+    }
+  };
+
+  const confirmCancel = () => {
+    setConfirmCancelOpen(false);
+    router.push("/admin/agents");
+  };
 
   const set = (key: string, value: string | number) =>
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -174,14 +200,36 @@ export default function NewAgentPage() {
           </label>
         </div>
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
-        >
-          {saving ? "Création..." : "Créer l'agent"}
-        </button>
+        <div className="flex items-center gap-(--space-3)">
+          <button
+            type="submit"
+            disabled={saving}
+            className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
+          >
+            {saving ? "Création..." : "Créer l'agent"}
+          </button>
+          <button
+            type="button"
+            onClick={handleCancelClick}
+            disabled={saving}
+            className="t-12 font-light px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--border-default) text-text-muted hover:text-text transition-colors disabled:opacity-50"
+            data-testid="agent-new-cancel"
+          >
+            Annuler
+          </button>
+        </div>
       </form>
+
+      <ConfirmModal
+        open={confirmCancelOpen}
+        title="Quitter sans enregistrer ?"
+        description="Le brouillon de l'agent sera perdu."
+        confirmLabel="Quitter"
+        cancelLabel="Continuer l'édition"
+        variant="danger"
+        onConfirm={confirmCancel}
+        onCancel={() => setConfirmCancelOpen(false)}
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { MissionLike } from "@/lib/ui/focal-mappers";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
@@ -59,6 +59,11 @@ export function MissionStage({ missionId }: MissionStageProps) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [editingCadence, setEditingCadence] = useState(false);
   const [cadenceDraft, setCadenceDraft] = useState("");
+  // Track la valeur "baseline" canonique (chargée ou dernier save) pour qu'un
+  // re-ouvre de l'éditeur ne montre pas un faux "dirty" et que l'on puisse
+  // comparer draft vs original. Mise à jour : (a) au load mission, (b) après
+  // un save cadence réussi.
+  const cadenceOriginalRef = useRef<string>("");
 
   // ── Load mission ─────────────────────────────────────────────
   const loadMission = useCallback(() => {
@@ -83,7 +88,9 @@ export function MissionStage({ missionId }: MissionStageProps) {
         } else {
           setMission(found);
           setError(null);
-          setCadenceDraft(found.schedule ?? found.frequency ?? "");
+          const cad = found.schedule ?? found.frequency ?? "";
+          setCadenceDraft(cad);
+          cadenceOriginalRef.current = cad;
         }
       })
       .catch((err) => {
@@ -179,6 +186,11 @@ export function MissionStage({ missionId }: MissionStageProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ frequency: "custom", customCron: trimmed }),
       });
+      // Met à jour le baseline immédiatement pour qu'un ré-ouvre de
+      // l'éditeur (avant la fin du loadMission async) ne montre pas un
+      // faux "dirty" sur la valeur fraîchement enregistrée.
+      cadenceOriginalRef.current = trimmed;
+      setCadenceDraft(trimmed);
       setEditingCadence(false);
       loadMission();
     } finally {
