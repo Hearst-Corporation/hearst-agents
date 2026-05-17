@@ -124,7 +124,7 @@ export default function AdminSidebar({
         <Link
           href="/"
           onClick={onNavigate}
-          title={collapsed ? "Retour au workspace" : undefined}
+          title={collapsed ? "Retour cockpit" : undefined}
           className={[
             "flex items-center rounded-(--radius-sm) text-text-muted hover:text-text hover:bg-(--surface-1) transition-colors duration-(--duration-fast) ease-(--ease-standard)",
             collapsed
@@ -135,7 +135,7 @@ export default function AdminSidebar({
           <span className="text-text-faint transition-colors">
             <NavIcon d="M19 12H5M12 19l-7-7 7-7" />
           </span>
-          {!collapsed && <span className="t-12">Retour au workspace</span>}
+          {!collapsed && <span className="t-12">Retour cockpit</span>}
         </Link>
         <button
           type="button"

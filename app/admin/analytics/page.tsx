@@ -347,15 +347,22 @@ function TenantDrillDown({
         background: "var(--bg-elev)",
       }}
     >
-      <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
+      <header className="flex items-center justify-between" style={{ gap: "var(--space-3)" }}>
         <h2 className="t-15 font-medium text-text">Drill-down : {t.tenantId}</h2>
         <button
           type="button"
           onClick={onClose}
-          className="t-9 font-mono uppercase text-text-ghost hover:text-(--accent-teal)"
-          style={{ background: "transparent", border: "none", cursor: "pointer" }}
+          aria-label="Fermer"
+          title="Fermer"
+          className="t-13 text-text-ghost hover:text-(--accent-teal) transition-colors"
+          style={{
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            padding: "var(--space-1) var(--space-2)",
+          }}
         >
-          Fermer
+          ✕
         </button>
       </header>
       <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--space-3)" }}>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -174,13 +175,21 @@ export default function NewAgentPage() {
           </label>
         </div>
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
-        >
-          {saving ? "Création..." : "Créer l'agent"}
-        </button>
+        <div className="flex items-center justify-between gap-(--space-3) pt-(--space-2)">
+          <Link
+            href="/admin/agents"
+            className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--border-shell) text-text-muted hover:text-text hover:bg-(--surface-1) transition-colors"
+          >
+            Annuler
+          </Link>
+          <button
+            type="submit"
+            disabled={saving}
+            className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
+          >
+            {saving ? "Création..." : "Créer l'agent"}
+          </button>
+        </div>
       </form>
     </div>
   );
