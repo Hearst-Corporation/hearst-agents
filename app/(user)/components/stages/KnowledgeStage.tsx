@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
 import { useNavigationStore } from "@/stores/navigation";
@@ -143,7 +144,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         message?: string;
       };
       if (!res.ok) {
-        toast.error("Échec ingestion", data.message || data.error || "Erreur inconnue");
+        toast.error("Échec ingestion", sanitizeApiError(data.message ?? data.error));
         return;
       }
       toast.info(
@@ -156,7 +157,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         setPhase(refreshed.nodes.length === 0 ? "empty" : "ready");
       }
     } catch (err) {
-      toast.error("Erreur réseau", err instanceof Error ? err.message : String(err));
+      toast.error("Erreur réseau", sanitizeApiError(err));
     } finally {
       setIngesting(false);
     }

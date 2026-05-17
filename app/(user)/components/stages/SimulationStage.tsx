@@ -9,6 +9,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -101,7 +102,7 @@ export function SimulationStage() {
         });
         const data = (await res.json()) as SimulationResponse;
         if (!res.ok || !Array.isArray(data.scenarios)) {
-          toast.error("Échec simulation", data.message || data.error || "Sortie DeepSeek invalide");
+          toast.error("Échec simulation", sanitizeApiError(data.message ?? data.error));
           setPhase("idle");
           return;
         }
@@ -110,7 +111,7 @@ export function SimulationStage() {
         setAssetId(data.assetId ?? null);
         setPhase("done");
       } catch (err) {
-        toast.error("Erreur réseau", err instanceof Error ? err.message : String(err));
+        toast.error("Erreur réseau", sanitizeApiError(err));
         setPhase("idle");
       }
     },

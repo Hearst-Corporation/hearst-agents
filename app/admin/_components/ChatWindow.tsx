@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 
 interface Message {
   role: "user" | "assistant";
@@ -91,15 +92,10 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         console.warn("[ChatWindow] SSE aborted (user-driven)");
         return;
       }
-      // Sanitize le détail exposé à l'utilisateur — whitelist des erreurs réseau
-      // standard, fallback générique pour ne pas leak un détail backend.
-      const RAW_OK = ["NetworkError", "Failed to fetch", "fetch failed", "TimeoutError"];
-      const detail =
-        err instanceof Error
-          ? RAW_OK.some((r) => err.message.includes(r))
-            ? err.message
-            : "Connexion interrompue"
-          : "Erreur inconnue";
+      // T-K2 (it.5) : sanitize via helper centralisé (cf. sanitize-error.ts).
+      // Remplace l'ancienne whitelist RAW_OK locale pour rester cohérent
+      // avec le reste de l'app (ChatDock, stages, modals, etc.).
+      const detail = sanitizeApiError(err);
       setMessages((prev) => [
         ...prev,
         {

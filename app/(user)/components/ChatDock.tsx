@@ -253,6 +253,17 @@ export function ChatDock() {
   const assistantBufferRef = useRef<string>("");
   const currentAssistantIdRef = useRef<string | null>(null);
 
+  // T-K4 (it.5) : garde-fou pour les setTimeout différés (cf. setReconnectAnnouncement
+  // 3s après la fin du retry) — évite un setState orphelin si l'utilisateur
+  // change de page entre-temps.
+  const mountedRef = useRef(true);
+  useEffect(
+    () => () => {
+      mountedRef.current = false;
+    },
+    [],
+  );
+
   // État visuel du backoff SSE : compteur visible pour l'utilisateur pendant
   // les retries (T-C7) + détection offline (T-C6). null = pas de retry en
   // cours, sinon { attempt, total, secondsLeft, offline }.
@@ -572,7 +583,9 @@ export function ChatDock() {
         // T-F1c : on laisse l'annonce SR visible un instant pour que le screen
         // reader la consomme, puis on reset pour ne pas la rejouer plus tard.
         if (didRetry) {
-          setTimeout(() => setReconnectAnnouncement(""), 3000);
+          setTimeout(() => {
+            if (mountedRef.current) setReconnectAnnouncement("");
+          }, 3000);
         }
       }
     },

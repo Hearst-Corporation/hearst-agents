@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -104,12 +105,12 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
         return;
       }
       if (!res.ok || !data.meetingId) {
-        toast.error("Échec lancement bot", data.message ?? data.error ?? "Erreur inconnue");
+        toast.error("Échec lancement bot", sanitizeApiError(data.message ?? data.error));
         return;
       }
       setMode({ mode: "meeting", meetingId: data.meetingId });
     } catch (err) {
-      toast.error("Échec lancement bot", err instanceof Error ? err.message : String(err));
+      toast.error("Échec lancement bot", sanitizeApiError(err));
     } finally {
       setStarting(false);
     }
@@ -123,7 +124,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
       toast.info("Bot arrêté", "Le bot quitte la réunion.");
       setMode({ mode: "meeting", meetingId: "" });
     } catch (err) {
-      toast.error("Échec arrêt bot", err instanceof Error ? err.message : String(err));
+      toast.error("Échec arrêt bot", sanitizeApiError(err));
     } finally {
       setStopping(false);
     }

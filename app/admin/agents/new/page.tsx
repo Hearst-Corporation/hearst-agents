@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ConfirmModal } from "@/app/(user)/components/ConfirmModal";
 import { toast } from "@/app/hooks/use-toast";
 
@@ -38,14 +38,12 @@ export default function NewAgentPage() {
   // temperature → l'utilisateur pouvait perdre une description ou un
   // max_tokens custom sans confirm.
   //
-  // Le snapshot est figé au mount via useEffect deps [] (pas de resync à
-  // chaque keystroke, sinon isDirty serait toujours false). Lint suppressed
-  // intentionnellement — comportement voulu.
+  // T-K5 (it.5) : `useRef(form)` capture déjà la valeur initiale au premier
+  // render et la fige (useRef ne resync pas avec ses args). L'ancien
+  // useEffect qui réassignait `initialFormRef.current = form` avec deps `[]`
+  // était dead code (s'exécutait après le mount avec la même valeur que celle
+  // déjà figée). Retiré.
   const initialFormRef = useRef(form);
-  useEffect(() => {
-    initialFormRef.current = form;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const isDirty = JSON.stringify(form) !== JSON.stringify(initialFormRef.current);
 
   const handleCancelClick = (e: React.MouseEvent) => {

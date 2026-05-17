@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
 import { type StreamEvent, useRuntimeStore } from "@/stores/runtime";
 
@@ -43,6 +43,16 @@ export function ChatConnectInline() {
   const [busy, setBusy] = useState(false);
   const [lastError, setLastError] = useState<{ message: string; code?: string } | null>(null);
 
+  // T-K3 (it.5) : garde-fou contre les setState après unmount si le composant
+  // disparaît (changement de run, dismiss inline) pendant la requête OAuth.
+  const mountedRef = useRef(true);
+  useEffect(
+    () => () => {
+      mountedRef.current = false;
+    },
+    [],
+  );
+
   const request = useMemo(() => selectLatestConnectRequest(events, lastRunId), [events, lastRunId]);
 
   if (!request) return null;
@@ -72,7 +82,7 @@ export function ChatConnectInline() {
           `[Composio] Inline connect failed for ${request.app}: code=${data.errorCode} message=${message}`,
           data.details,
         );
-        setLastError({ message, code: data.errorCode });
+        if (mountedRef.current) setLastError({ message, code: data.errorCode });
         toast.error(`Connexion ${request.app} impossible`, message);
         if (data.errorCode === "NO_INTEGRATION" || data.errorCode === "AUTH_CONFIG_REQUIRED") {
           window.open(
@@ -83,7 +93,7 @@ export function ChatConnectInline() {
         }
         return;
       }
-      setLastError(null);
+      if (mountedRef.current) setLastError(null);
       if (data.redirectUrl) {
         window.location.href = data.redirectUrl;
         return;
@@ -91,10 +101,10 @@ export function ChatConnectInline() {
       toast.success(`${request.app} connecté`, "Re-pose ta question pour continuer");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Erreur réseau";
-      setLastError({ message });
+      if (mountedRef.current) setLastError({ message });
       toast.error("Connexion impossible", message);
     } finally {
-      setBusy(false);
+      if (mountedRef.current) setBusy(false);
     }
   };
 

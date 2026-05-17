@@ -50,6 +50,17 @@ export function DocumentParseModal({
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // T-K3 (it.5) : garde-fou anti-setState après unmount. Le modal peut être
+  // fermé pendant la submit async — sans ce ref on tape setStatus/setErrorMsg
+  // sur un composant déjà démonté (warning React + memory leak potentiel).
+  const mountedRef = useRef(true);
+  useEffect(
+    () => () => {
+      mountedRef.current = false;
+    },
+    [],
+  );
+
   function resetState() {
     setFileUrl("");
     setFileName("");
@@ -133,8 +144,10 @@ export function DocumentParseModal({
       onClose();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Erreur parsing document";
-      setStatus("error");
-      setErrorMsg(message);
+      if (mountedRef.current) {
+        setStatus("error");
+        setErrorMsg(message);
+      }
       // it.3 H2 T-H2-8 : feedback toast symétrique au success (cf. onSuccess).
       toast.error("Échec parsing document", message);
     }
