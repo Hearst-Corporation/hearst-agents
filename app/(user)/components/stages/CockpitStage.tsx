@@ -2,6 +2,7 @@
 // lint-visual-disable-file
 
 import { useCallback, useEffect, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { CockpitOrbitView } from "../cockpit/orbital/CockpitOrbitView";
@@ -64,7 +65,7 @@ export function CockpitStage({ initialData = null }: CockpitStageProps = {}) {
           );
           return prev;
         }
-        setError(err instanceof Error ? err.message : "Erreur");
+        setError(sanitizeApiError(err));
         return prev;
       });
     } finally {
@@ -92,7 +93,7 @@ export function CockpitStage({ initialData = null }: CockpitStageProps = {}) {
               );
               return prev;
             }
-            setError(err instanceof Error ? err.message : "Erreur");
+            setError(sanitizeApiError(err));
             return prev;
           });
         }

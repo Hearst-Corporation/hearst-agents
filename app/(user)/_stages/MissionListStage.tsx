@@ -12,6 +12,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
@@ -341,7 +342,7 @@ export function MissionListStage({ mode }: { mode: string }) {
         const json = (await res.json()) as { missions: ApiMission[] };
         if (!cancelled) setMissions(json.missions ?? []);
       } catch (err) {
-        if (!cancelled) setFetchError(err instanceof Error ? err.message : "Erreur de chargement");
+        if (!cancelled) setFetchError(sanitizeApiError(err));
       } finally {
         if (!cancelled) setLoading(false);
       }

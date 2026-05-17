@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import type { MissionLike } from "@/lib/ui/focal-mappers";
 import { useRuntimeStore } from "@/stores/runtime";
@@ -95,7 +96,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
         }
       })
       .catch((err) => {
-        setError(err instanceof Error ? err.message : "Erreur de chargement");
+        setError(sanitizeApiError(err));
       })
       .finally(() => {
         setLoading(false);

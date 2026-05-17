@@ -13,6 +13,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
@@ -328,7 +329,7 @@ export function MeetingStage({ mode }: { mode: string }) {
           startedAt.current = Date.now();
         }
       } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : "Erreur réseau");
+        if (!cancelled) setError(sanitizeApiError(e));
       } finally {
         if (!cancelled) setLoading(false);
       }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import type { PdfAttachment } from "../types";
 
@@ -45,7 +46,7 @@ export function usePdfUpload() {
         });
       })
       .catch((err: unknown) => {
-        const msg = err instanceof Error ? err.message : "PDF parsing failed";
+        const msg = sanitizeApiError(err);
         // Double signal volontaire (cf spec T-C18) :
         //   - composer inline (`uploadError` → StatusMessages.tsx) :
         //     statut éphémère collé au champ, disparaît après UPLOAD_ERROR_RESET_MS.

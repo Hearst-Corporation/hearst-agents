@@ -14,6 +14,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
@@ -329,7 +330,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
         if (!cancelled) setFetchState("ready");
       } catch (err) {
         if (!cancelled) {
-          setErrorMsg(err instanceof Error ? err.message : "Erreur réseau.");
+          setErrorMsg(sanitizeApiError(err));
           setFetchState("error");
         }
       }

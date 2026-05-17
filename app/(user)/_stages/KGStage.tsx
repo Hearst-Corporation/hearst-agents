@@ -15,6 +15,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
@@ -547,7 +548,7 @@ export function KGStage({ mode }: KGStageProps) {
         setEdges(de);
       })
       .catch((err: unknown) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : "Erreur inconnue");
+        if (!cancelled) setError(sanitizeApiError(err));
       })
       .finally(() => {
         if (!cancelled) setLoading(false);

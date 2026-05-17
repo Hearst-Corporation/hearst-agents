@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { BrowserAction } from "@/lib/events/types";
 import { useStageStore } from "@/stores/stage";
 import { ActionLog } from "../ActionLog";
@@ -105,7 +106,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
       setExecuting(true);
       setIsControlled(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur réseau");
+      setError(sanitizeApiError(err));
     } finally {
       setStarting(false);
     }
@@ -226,7 +227,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
       setExecuting(false);
       setMode({ mode: "browser", sessionId: "" });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur réseau");
+      setError(sanitizeApiError(err));
     } finally {
       setStopping(false);
     }
@@ -242,7 +243,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
       setIsControlled(true);
       setExecuting(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur réseau");
+      setError(sanitizeApiError(err));
     }
   }, [sessionId]);
 
@@ -277,7 +278,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
         },
       ]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur réseau");
+      setError(sanitizeApiError(err));
     } finally {
       setCapturing(false);
     }
@@ -306,7 +307,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
         }
         setExtractOpen(false);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Erreur réseau");
+        setError(sanitizeApiError(err));
       } finally {
         setExtractLoading(false);
       }

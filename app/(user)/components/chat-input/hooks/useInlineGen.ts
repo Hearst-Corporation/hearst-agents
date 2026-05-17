@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import type { InlineGenStatus } from "../types";
 import { extractCodeBlock } from "../utils/extractCodeBlock";
@@ -59,7 +60,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
       setInput("");
       toast.success("Image en file d'attente", "Elle apparaîtra dans tes assets.");
     } catch (err) {
-      const reason = err instanceof Error ? err.message : "Image generation error";
+      const reason = sanitizeApiError(err);
       setImageGenStatus("error");
       setImageGenMessage(reason);
       setTimeout(() => {
@@ -98,7 +99,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
       setInput("");
       toast.success("Audio en file d'attente", "Il apparaîtra dans tes assets.");
     } catch (err) {
-      const reason = err instanceof Error ? err.message : "Audio synthesis error";
+      const reason = sanitizeApiError(err);
       setAudioGenStatus("error");
       setAudioGenMessage(reason);
       setTimeout(() => {
@@ -140,7 +141,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
       setInput("");
       toast.success("Exécution sandbox lancée", "Le résultat apparaîtra dans tes assets.");
     } catch (err) {
-      const reason = err instanceof Error ? err.message : "Code execution error";
+      const reason = sanitizeApiError(err);
       setCodeExecStatus("error");
       setCodeExecMessage(reason);
       setTimeout(() => {

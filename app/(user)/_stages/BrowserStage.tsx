@@ -14,6 +14,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
@@ -468,7 +469,7 @@ export function BrowserStage({ mode }: { mode: string }) {
       })
       .catch((err: unknown) => {
         if (err instanceof Error && err.name === "AbortError") return;
-        setFetchError(err instanceof Error ? err.message : String(err));
+        setFetchError(sanitizeApiError(err));
         setFetchState("error");
       });
 

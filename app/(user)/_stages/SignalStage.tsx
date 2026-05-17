@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { AmbientSignal, AmbientSignalKind } from "@/lib/cockpit/ambient-signals";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -265,7 +266,7 @@ export function SignalStage({ mode }: { mode: string }) {
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Erreur réseau");
+          setError(sanitizeApiError(err));
           setLoading(false);
         }
       }

@@ -16,6 +16,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
@@ -313,8 +314,7 @@ export function AssetStage({ mode }: { mode: string }) {
       })
       .catch((err: unknown) => {
         if (cancelled) return;
-        const msg = err instanceof Error ? err.message : "Erreur inconnue";
-        setError(msg);
+        setError(sanitizeApiError(err));
         setLoading(false);
       });
 

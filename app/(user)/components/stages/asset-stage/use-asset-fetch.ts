@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { Asset } from "@/lib/assets/types";
 import { isPlaceholderAssetId } from "@/lib/ui/asset-id";
 
@@ -59,7 +60,7 @@ export function useAssetFetch(assetId: string): UseAssetFetchResult {
       })
       .catch((err) => {
         if (cancelled) return;
-        setError(err instanceof Error ? err.message : "Erreur de chargement");
+        setError(sanitizeApiError(err));
       })
       .finally(() => {
         if (!cancelled) setLoading(false);

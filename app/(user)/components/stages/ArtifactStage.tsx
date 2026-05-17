@@ -20,6 +20,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { CodeEditor } from "../artifact/CodeEditor";
@@ -228,8 +229,7 @@ export function ArtifactStage({
       });
       setRunState(meta.error ? "failed" : "ready");
     } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      setErrorMessage(msg);
+      setErrorMessage(sanitizeApiError(err));
       setRunState("failed");
     }
   }, [code, language]);
