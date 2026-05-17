@@ -48,6 +48,56 @@ interface ApiAssetsResponse {
   assets: ApiAsset[];
 }
 
+// ── Démo dev-only ─────────────────────────────────────────────────────────────
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+/** Jeu d'assets fictifs — affiché uniquement en dev quand aucune donnée réelle. */
+const DEMO_ASSETS: AssetItem[] = [
+  {
+    id: "demo-asset-1",
+    title: "Lancement campagne Q2 — teaser",
+    type: "video",
+    status: "ready",
+    tag: "video",
+  },
+  {
+    id: "demo-asset-2",
+    title: "Visuel hero — page produit",
+    type: "image",
+    status: "ready",
+    tag: "image",
+  },
+  {
+    id: "demo-asset-3",
+    title: "Synthèse marché — rapport client Acme",
+    type: "image",
+    status: "ready",
+    tag: "report",
+  },
+  {
+    id: "demo-asset-4",
+    title: "Briefing du matin — note de cadrage",
+    type: "image",
+    status: "running",
+    tag: "brief",
+  },
+  {
+    id: "demo-asset-5",
+    title: "Spot social — variante verticale",
+    type: "video",
+    status: "running",
+    tag: "video",
+  },
+  {
+    id: "demo-asset-6",
+    title: "Bannière display — déclinaison FR",
+    type: "image",
+    status: "ready",
+    tag: "image",
+  },
+];
+
 // ── Variants ─────────────────────────────────────────────────────────────────
 
 const VISION_EASE = [0.22, 1, 0.36, 1] as const;
@@ -336,8 +386,13 @@ export function AssetStage({ mode }: { mode: string }) {
     };
   }, [assets]);
 
-  const readyCount = assets.filter((a) => a.status === "ready").length;
-  const total = assets.length;
+  // Dev only : si aucune donnée réelle et pas d'erreur/chargement, on injecte
+  // un jeu fictif pour pouvoir développer le design. En prod : inchangé.
+  const isDemo = IS_DEV && !loading && !error && assets.length === 0;
+  const displayAssets = isDemo ? DEMO_ASSETS : assets;
+
+  const readyCount = displayAssets.filter((a) => a.status === "ready").length;
+  const total = displayAssets.length;
 
   return (
     <motion.section
@@ -347,6 +402,21 @@ export function AssetStage({ mode }: { mode: string }) {
       animate="show"
       className="preserve-3d flex w-full flex-col gap-16"
     >
+      {/* Badge démo dev-only */}
+      {isDemo && (
+        <span
+          className="t-9 font-mono uppercase self-start"
+          style={{
+            padding: "var(--space-1) var(--space-2)",
+            color: "var(--text-faint)",
+            background: "var(--surface-1)",
+            borderRadius: "var(--radius-xs)",
+          }}
+        >
+          Démo · données fictives (dev)
+        </span>
+      )}
+
       {/* Header */}
       <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <p
@@ -369,7 +439,7 @@ export function AssetStage({ mode }: { mode: string }) {
         </h1>
         {total > 0 && (
           <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
-            {assets.map((a) => a.tag).join(" · ")}
+            {displayAssets.map((a) => a.tag).join(" · ")}
           </p>
         )}
       </header>
@@ -386,7 +456,7 @@ export function AssetStage({ mode }: { mode: string }) {
       {/* Populated */}
       {!loading && !error && total > 0 && (
         <div className="asset-grid">
-          {assets.map((asset, idx) => (
+          {displayAssets.map((asset, idx) => (
             <AssetSlot key={asset.id} asset={asset} index={idx} />
           ))}
         </div>

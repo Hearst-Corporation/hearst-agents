@@ -39,6 +39,31 @@ interface SessionInfo {
 
 type FetchState = "idle" | "loading" | "ready" | "error";
 
+// ── Mode démo (dev only) ─────────────────────────────────────────────────────
+// Affiché uniquement en dev quand aucune session réelle n'est branchée, pour
+// pouvoir développer le design sans backend. Inchangé en production.
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+const DEMO_SESSION_ID = "bb_demo_session_3f8a1c9e2d4b";
+
+const DEMO_SESSION: SessionInfo = {
+  status: "running",
+  createdAt: new Date().toISOString(),
+  stoppedAt: null,
+  debugViewerUrl: "https://www.browserbase.com/sessions/bb_demo_session_3f8a1c9e2d4b/debug",
+  connectUrl: "https://www.linkedin.com/in/contact-prioritaire",
+};
+
+const DEMO_STEPS: BrowserStep[] = [
+  { id: "demo-1", label: "Ouverture de la page LinkedIn du prospect", status: "done" },
+  { id: "demo-2", label: "Acceptation de la bannière cookies", status: "done" },
+  { id: "demo-3", label: "Extraction du poste et de l'entreprise", status: "done" },
+  { id: "demo-4", label: "Navigation vers la page Contact", status: "running" },
+  { id: "demo-5", label: "Récupération de l'adresse e-mail professionnelle", status: "pending" },
+  { id: "demo-6", label: "Synthèse de la fiche prospect", status: "pending" },
+];
+
 // ── Constantes / variants ────────────────────────────────────────────────────
 
 const VISION_EASE = [0.22, 1, 0.36, 1] as const;
@@ -107,6 +132,23 @@ function doneCount(steps: BrowserStep[]): number {
 }
 
 // ── Sub-composants ───────────────────────────────────────────────────────────
+
+function DemoBanner() {
+  return (
+    <div
+      className="t-9 font-mono uppercase tracking-wide"
+      style={{
+        alignSelf: "flex-start",
+        color: "var(--text-faint)",
+        background: "var(--surface-1)",
+        padding: "var(--space-1) var(--space-3)",
+        borderRadius: "var(--radius-pill, 9999px)",
+      }}
+    >
+      Démo · données fictives (dev)
+    </div>
+  );
+}
 
 function EmptyBrowserState() {
   return (
@@ -424,12 +466,20 @@ function ModeToggle({ auto, onToggle }: { auto: boolean; onToggle: () => void })
 
 export function BrowserStage({ mode }: { mode: string }) {
   const payload = useStageStore((s) => s.current);
-  const sessionId = payload.mode === "browser" ? payload.sessionId : null;
+  // Normalise "" → null : le LeftRail ouvre le Stage avec sessionId="" (pas
+  // de session active). Sans ça, `realSessionId ?? demo` garderait "" (le ??
+  // ne traite pas la chaîne vide comme nullish) et la démo ne s'activerait pas.
+  const realSessionId = payload.mode === "browser" && payload.sessionId ? payload.sessionId : null;
+
+  // Mode démo : actif uniquement en dev ET sans session réelle. Le fetch réel
+  // reste prioritaire — dès qu'une vraie session arrive, la démo disparaît.
+  const demoActive = IS_DEV && !realSessionId;
+  const sessionId = realSessionId ?? (demoActive ? DEMO_SESSION_ID : null);
 
   const [fetchState, setFetchState] = useState<FetchState>("idle");
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [steps] = useState<BrowserStep[]>([]);
+  const [steps] = useState<BrowserStep[]>(demoActive ? DEMO_STEPS : []);
   const [currentUrl, setCurrentUrl] = useState<string>("");
   const [autoMode, setAutoMode] = useState(true);
   const [captureTs, setCaptureTs] = useState<string | null>(null);
@@ -437,6 +487,16 @@ export function BrowserStage({ mode }: { mode: string }) {
 
   // Fetch session info quand sessionId dispo
   useEffect(() => {
+    if (demoActive) {
+      // Pas d'appel réseau : on injecte la session démo telle quelle.
+      setSessionInfo(DEMO_SESSION);
+      setCurrentUrl(DEMO_SESSION.connectUrl ?? DEMO_SESSION.debugViewerUrl ?? "");
+      setFetchState("ready");
+      setCaptureTs(new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
+      setFetchError(null);
+      return;
+    }
+
     if (!sessionId) {
       setFetchState("idle");
       setSessionInfo(null);
@@ -474,7 +534,7 @@ export function BrowserStage({ mode }: { mode: string }) {
       });
 
     return () => ctrl.abort();
-  }, [sessionId]);
+  }, [sessionId, demoActive]);
 
   // Steps : en attente de SSE /api/v2/browser/[id]/steps.
 
@@ -541,6 +601,8 @@ export function BrowserStage({ mode }: { mode: string }) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-16"
     >
+      {demoActive && <DemoBanner />}
+
       {/* Header */}
       <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <p

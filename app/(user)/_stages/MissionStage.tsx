@@ -162,6 +162,69 @@ function deriveSteps(mission: ApiMission): MissionStep[] {
   ];
 }
 
+// ── Démo dev-only ────────────────────────────────────────────────────────────
+// Affiché uniquement en dev quand aucune demande réelle n'est sélectionnée,
+// pour développer le design sans dépendre de l'API. Inchangé en production.
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+const DEMO_MISSION: ApiMission = {
+  id: "demo-mission",
+  name: "Veille concurrentielle hebdomadaire",
+  input:
+    "Surveiller les annonces produit des trois principaux concurrents et produire une synthèse priorisée chaque lundi matin.",
+  schedule: "0 8 * * 1",
+  enabled: true,
+  createdAt: new Date("2026-04-22T09:12:00").getTime(),
+  lastRunAt: new Date("2026-05-12T08:03:00").getTime(),
+  lastRunStatus: "success",
+};
+
+const DEMO_STEPS: MissionStep[] = [
+  {
+    id: "demo-step-1",
+    name: "Demande créée",
+    status: "done",
+    desc: "Veille concurrentielle hebdomadaire configurée par l'équipe produit.",
+    time: "22/04/2026",
+  },
+  {
+    id: "demo-step-2",
+    name: "Collecte des sources",
+    status: "done",
+    desc: "14 sources analysées — blogs produit, communiqués, réseaux.",
+    time: "08:01",
+  },
+  {
+    id: "demo-step-3",
+    name: "Synthèse en cours",
+    status: "running",
+    desc: "Rédaction du rapport priorisé pour la direction produit.",
+    time: "08:03",
+  },
+  {
+    id: "demo-step-4",
+    name: "Diffusion par email",
+    status: "requires_approval",
+    desc: "L'envoi du rapport aux 6 destinataires attend votre approbation.",
+    time: "—",
+  },
+  {
+    id: "demo-step-5",
+    name: "Archivage Drive",
+    status: "pending",
+    desc: "Le rapport sera classé dans le dossier Veille 2026.",
+    time: "—",
+  },
+  {
+    id: "demo-step-6",
+    name: "Prochaine exécution",
+    status: "pending",
+    desc: "Schedule : Tous les jours à 08h",
+    time: "—",
+  },
+];
+
 function humanCron(cron: string): string {
   if (!cron || cron === "manual") return "manuel";
   const parts = cron.trim().split(/\s+/);
@@ -176,6 +239,24 @@ function humanCron(cron: string): string {
 }
 
 // ── Sub-composants ───────────────────────────────────────────────────────────
+
+function DemoBadge() {
+  return (
+    <span
+      className="t-9 font-mono uppercase"
+      style={{
+        alignSelf: "flex-start",
+        padding: "var(--space-1) var(--space-2)",
+        borderRadius: "var(--radius-sm)",
+        background: "var(--surface-1)",
+        color: "var(--text-faint)",
+        letterSpacing: "0.06em",
+      }}
+    >
+      Démo · données fictives (dev)
+    </span>
+  );
+}
 
 function EmptyMissionState() {
   return (
@@ -489,11 +570,16 @@ export function MissionStage({ mode }: { mode: string }) {
     };
   }, [missionId, refreshKey]);
 
-  const steps = mission ? deriveSteps(mission) : [];
+  // Démo dev-only : aucune demande réelle sélectionnée + pas de chargement
+  // en cours + pas d'erreur → on rend le chemin plein avec données fictives
+  // pour développer le design. Les données réelles restent prioritaires.
+  const showDemo = IS_DEV && !missionId && !loading && !fetchError;
+  const activeMission = mission ?? (showDemo ? DEMO_MISSION : null);
+  const steps = mission ? deriveSteps(mission) : showDemo ? DEMO_STEPS : [];
 
   // Pousse les 5 premières steps dans shellData → ContextRail miroir
   useEffect(() => {
-    if (!mission) {
+    if (!activeMission) {
       useStageData.getState().clearShellData();
       return;
     }
@@ -502,12 +588,12 @@ export function MissionStage({ mode }: { mode: string }) {
       s: stateLabel(s.status),
       hot: s.status === "running",
     }));
-    useStageData.getState().setShellData(`Demande · ${mission.name}`, items);
+    useStageData.getState().setShellData(`Demande · ${activeMission.name}`, items);
     return () => {
       useStageData.getState().clearShellData();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [steps.length, mission?.id, mission?.lastRunStatus]);
+  }, [steps.length, activeMission?.id, activeMission?.lastRunStatus]);
 
   function handleApproved() {
     setRefreshKey((k) => k + 1);
@@ -558,8 +644,11 @@ export function MissionStage({ mode }: { mode: string }) {
         </button>
       )}
 
-      {/* Empty state — pas de missionId */}
-      {!missionId && !loading && <EmptyMissionState />}
+      {/* Badge démo — dev uniquement, aucune demande réelle */}
+      {showDemo && <DemoBadge />}
+
+      {/* Empty state — pas de missionId (prod, ou dev sans démo possible) */}
+      {!missionId && !loading && !showDemo && <EmptyMissionState />}
 
       {/* Loading — différé 300ms pour éviter le flash sur cache chaud */}
       {showLoader && <LoadingSkeleton />}
@@ -567,10 +656,10 @@ export function MissionStage({ mode }: { mode: string }) {
       {/* Erreur fetch */}
       {!loading && fetchError && <ErrorBanner error={fetchError} />}
 
-      {/* Contenu mission */}
-      {!loading && !fetchError && mission && (
+      {/* Contenu mission (données réelles ou démo dev) */}
+      {!loading && !fetchError && activeMission && (
         <>
-          <MissionHeader mission={mission} />
+          <MissionHeader mission={activeMission} />
 
           {/* Suivi de la demande (jalons dérivés du statut — pas les vraies steps
               d'exécution agent ; celles-ci viendront du run output) */}
@@ -591,7 +680,7 @@ export function MissionStage({ mode }: { mode: string }) {
                     key={step.id}
                     step={step}
                     index={idx}
-                    missionId={mission.id}
+                    missionId={activeMission.id}
                     onApproved={handleApproved}
                   />
                 ))}

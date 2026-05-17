@@ -20,6 +20,134 @@ import type { KgEdge, KgNode } from "@/lib/memory/kg";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
 
+// ── Démo dev-only ─────────────────────────────────────────────────────────────
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+const DEMO_NODE_BASE = {
+  user_id: "demo",
+  tenant_id: "demo",
+  created_at: "2026-05-18T08:00:00.000Z",
+  updated_at: "2026-05-18T08:00:00.000Z",
+  properties: {} as Record<string, unknown>,
+};
+
+/** Graphe fictif — affiché uniquement en dev quand aucune donnée réelle. */
+const DEMO_GRAPH: { nodes: KgNode[]; edges: KgEdge[] } = {
+  nodes: [
+    { ...DEMO_NODE_BASE, id: "demo-n1", type: "project", label: "Mission Q2" },
+    { ...DEMO_NODE_BASE, id: "demo-n2", type: "company", label: "Client Acme" },
+    { ...DEMO_NODE_BASE, id: "demo-n3", type: "person", label: "Camille Roy" },
+    { ...DEMO_NODE_BASE, id: "demo-n4", type: "decision", label: "Cadrage budget" },
+    { ...DEMO_NODE_BASE, id: "demo-n5", type: "commitment", label: "Livraison 30 mai" },
+    { ...DEMO_NODE_BASE, id: "demo-n6", type: "topic", label: "Campagne display" },
+    { ...DEMO_NODE_BASE, id: "demo-n7", type: "company", label: "Studio Lumen" },
+    { ...DEMO_NODE_BASE, id: "demo-n8", type: "topic", label: "Rapport marché" },
+  ],
+  edges: [
+    {
+      id: "demo-e1",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n2",
+      type: "concerne",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e2",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n3",
+      type: "piloté par",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e3",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n4",
+      type: "décide",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e4",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n5",
+      type: "engage",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e5",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n6",
+      type: "porte sur",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e6",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n2",
+      target_id: "demo-n3",
+      type: "contact",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e7",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n6",
+      target_id: "demo-n7",
+      type: "réalisé par",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e8",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n4",
+      target_id: "demo-n5",
+      type: "implique",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e9",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n8",
+      target_id: "demo-n2",
+      type: "analyse",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e10",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n8",
+      target_id: "demo-n6",
+      type: "nourrit",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+  ],
+};
+
 // ── Variants ─────────────────────────────────────────────────────────────────
 
 const VISION_EASE = [0.22, 1, 0.36, 1] as const;
@@ -559,24 +687,40 @@ export function KGStage({ mode }: KGStageProps) {
     };
   }, []);
 
+  // Dev only : si aucune donnée réelle, on injecte un graphe fictif via les
+  // helpers de layout existants (renderer SVG inchangé). En prod : inchangé.
+  const isDemo = IS_DEV && !loading && !error && nodes.length === 0;
+  const displayNodes = useMemo<DisplayNode[]>(
+    () => (isDemo ? layoutNodes(DEMO_GRAPH.nodes) : nodes),
+    [isDemo, nodes],
+  );
+  const displayEdges = useMemo<DisplayEdge[]>(
+    () => (isDemo ? buildEdges(layoutNodes(DEMO_GRAPH.nodes), DEMO_GRAPH.edges) : edges),
+    [isDemo, edges],
+  );
+
   // Push railItems → ContextRail
-  const clusters = useMemo(() => detectClusters(nodes, edges), [nodes, edges]);
+  const clusters = useMemo(
+    () => detectClusters(displayNodes, displayEdges),
+    [displayNodes, displayEdges],
+  );
   const selectedDisplayNode = useMemo(
-    () => (selectedNode ? (nodes.find((n) => n.id === selectedNode) ?? null) : null),
-    [selectedNode, nodes],
+    () => (selectedNode ? (displayNodes.find((n) => n.id === selectedNode) ?? null) : null),
+    [selectedNode, displayNodes],
   );
 
   useEffect(() => {
     const items: RailItem[] = [];
 
     if (selectedDisplayNode) {
-      const linkCount = edgeCountForNode(selectedDisplayNode.id, edges);
+      const linkCount = edgeCountForNode(selectedDisplayNode.id, displayEdges);
       items.push({ t: selectedDisplayNode.label, s: selectedDisplayNode.type, hot: true });
       items.push({ t: "Liaisons", s: String(linkCount) });
     } else {
-      if (nodes.length > 0) items.push({ t: "Nœud central", s: nodes[0]?.label ?? "—" });
-      items.push({ t: "Entités", s: String(nodes.length) });
-      items.push({ t: "Relations", s: String(edges.length) });
+      if (displayNodes.length > 0)
+        items.push({ t: "Nœud central", s: displayNodes[0]?.label ?? "—" });
+      items.push({ t: "Entités", s: String(displayNodes.length) });
+      items.push({ t: "Relations", s: String(displayEdges.length) });
       if (clusters > 1) items.push({ t: "Clusters", s: String(clusters) });
     }
 
@@ -584,7 +728,7 @@ export function KGStage({ mode }: KGStageProps) {
     return () => {
       useStageData.getState().clearShellData();
     };
-  }, [selectedDisplayNode, nodes, edges, clusters]);
+  }, [selectedDisplayNode, displayNodes, displayEdges, clusters]);
 
   // Sync kg slice dans le store
   useEffect(() => {
@@ -596,11 +740,11 @@ export function KGStage({ mode }: KGStageProps) {
     });
   }, []);
 
-  const isEmpty = !loading && !error && nodes.length === 0;
+  const isEmpty = !loading && !error && displayNodes.length === 0;
   const headerTitle = selectedDisplayNode
     ? `${selectedDisplayNode.label} — nœud central`
-    : nodes.length > 0
-      ? `${nodes[0]?.label ?? "Graphe"} — ${nodes.length} entité${nodes.length > 1 ? "s" : ""}`
+    : displayNodes.length > 0
+      ? `${displayNodes[0]?.label ?? "Graphe"} — ${displayNodes.length} entité${displayNodes.length > 1 ? "s" : ""}`
       : "Knowledge Graph";
 
   return (
@@ -611,6 +755,21 @@ export function KGStage({ mode }: KGStageProps) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-16"
     >
+      {/* Badge démo dev-only */}
+      {isDemo && (
+        <span
+          className="t-9 font-mono uppercase self-start"
+          style={{
+            padding: "var(--space-1) var(--space-2)",
+            color: "var(--text-faint)",
+            background: "var(--surface-1)",
+            borderRadius: "var(--radius-xs)",
+          }}
+        >
+          Démo · données fictives (dev)
+        </span>
+      )}
+
       {/* Header */}
       <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <p
@@ -626,9 +785,9 @@ export function KGStage({ mode }: KGStageProps) {
         <h1 style={{ fontSize: "30px", fontWeight: 500, letterSpacing: "-.02em" }}>
           {loading ? "Knowledge Graph" : headerTitle}
         </h1>
-        {!loading && !error && nodes.length > 0 && (
+        {!loading && !error && displayNodes.length > 0 && (
           <p style={{ fontSize: "14px", color: "rgba(255,255,255,.5)" }}>
-            {edges.length} liaison{edges.length !== 1 ? "s" : ""}
+            {displayEdges.length} liaison{displayEdges.length !== 1 ? "s" : ""}
             {clusters > 1 ? ` · ${clusters} cluster${clusters > 1 ? "s" : ""}` : ""}
           </p>
         )}
@@ -644,20 +803,20 @@ export function KGStage({ mode }: KGStageProps) {
       {isEmpty && <EmptyKGState />}
 
       {/* Contenu principal */}
-      {!loading && !error && nodes.length > 0 && (
+      {!loading && !error && displayNodes.length > 0 && (
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {/* Vue Graph ou Liste */}
           {viewMode === "graph" ? (
             <GraphView
-              nodes={nodes}
-              edges={edges}
+              nodes={displayNodes}
+              edges={displayEdges}
               selectedNode={selectedNode}
               onSelectNode={setSelectedNode}
             />
           ) : (
             <ListView
-              nodes={nodes}
-              edges={edges}
+              nodes={displayNodes}
+              edges={displayEdges}
               selectedNode={selectedNode}
               onSelectNode={setSelectedNode}
             />
@@ -669,7 +828,7 @@ export function KGStage({ mode }: KGStageProps) {
               <DetailPanel
                 key={selectedDisplayNode.id}
                 node={selectedDisplayNode}
-                edges={edges}
+                edges={displayEdges}
                 onClose={() => setSelectedNode(null)}
               />
             )}

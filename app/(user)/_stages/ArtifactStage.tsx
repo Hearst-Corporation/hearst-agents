@@ -56,6 +56,58 @@ interface VersionRow {
   createdAt?: string | undefined;
 }
 
+// ── Mode démo (dev only) ─────────────────────────────────────────────────────
+// Affiché uniquement en dev quand aucun artifact réel n'est branché, pour
+// pouvoir développer le design sans backend. Inchangé en production.
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+const DEMO_ARTIFACT_ID = "art_demo_7c2f9a1e";
+
+const DEMO_CODE = `import csv
+from datetime import datetime
+
+
+def synthese_prospects(chemin_csv: str) -> dict:
+    """Agrège les prospects par secteur et calcule le score moyen."""
+    secteurs: dict[str, list[float]] = {}
+
+    with open(chemin_csv, encoding="utf-8") as fichier:
+        for ligne in csv.DictReader(fichier):
+            secteur = ligne["secteur"].strip()
+            score = float(ligne["score"])
+            secteurs.setdefault(secteur, []).append(score)
+
+    resultat = {
+        secteur: round(sum(scores) / len(scores), 2)
+        for secteur, scores in secteurs.items()
+    }
+
+    print(f"Synthèse générée le {datetime.now():%d/%m/%Y %H:%M}")
+    return resultat
+
+
+if __name__ == "__main__":
+    print(synthese_prospects("prospects.csv"))
+`;
+
+const DEMO_META: ArtifactMeta = {
+  title: "Synthèse prospects par secteur",
+  language: "python",
+  model: "claude-opus-4",
+  buildStatus: "ready",
+  createdAt: new Date().toISOString(),
+};
+
+const DEMO_VERSIONS: VersionRow[] = [
+  { id: "ver_demo_b4d1f9c2", status: "ready", createdAt: new Date().toISOString() },
+  {
+    id: "ver_demo_a1c8e3d7",
+    status: "ready",
+    createdAt: new Date(Date.now() - 3_600_000).toISOString(),
+  },
+];
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function buildStatusLabel(status: string | undefined): string {
@@ -75,6 +127,23 @@ function buildStatusColor(status: string | undefined): string {
 }
 
 // ── Sub-composants ─────────────────────────────────────────────────────────────
+
+function DemoBanner() {
+  return (
+    <div
+      className="t-9 font-mono uppercase tracking-wide"
+      style={{
+        alignSelf: "flex-start",
+        color: "var(--text-faint)",
+        background: "var(--surface-1)",
+        padding: "var(--space-1) var(--space-3)",
+        borderRadius: "var(--radius-pill, 9999px)",
+      }}
+    >
+      Démo · données fictives (dev)
+    </div>
+  );
+}
 
 function EmptyArtifactState() {
   return (
@@ -245,17 +314,35 @@ function VersionsList({ versions }: { versions: VersionRow[] }) {
 
 export function ArtifactStage({ mode }: { mode: string }) {
   const stagePayload = useStageStore((s) => s.current);
-  const artifactId = stagePayload.mode === "artifact" ? (stagePayload.artifactId ?? null) : null;
+  const realArtifactId =
+    stagePayload.mode === "artifact" ? (stagePayload.artifactId ?? null) : null;
 
-  const [fetchState, setFetchState] = useState<FetchState>(artifactId ? "loading" : "empty");
-  const [code, setCode] = useState<string>("");
-  const [meta, setMeta] = useState<ArtifactMeta>({});
-  const [versions, setVersions] = useState<VersionRow[]>([]);
+  // Mode démo : actif uniquement en dev ET sans artifact réel. Le fetch réel
+  // reste prioritaire — dès qu'un vrai artifact arrive, la démo disparaît.
+  const demoActive = IS_DEV && !realArtifactId;
+  const artifactId = realArtifactId ?? (demoActive ? DEMO_ARTIFACT_ID : null);
+
+  const [fetchState, setFetchState] = useState<FetchState>(
+    demoActive ? "ready" : artifactId ? "loading" : "empty",
+  );
+  const [code, setCode] = useState<string>(demoActive ? DEMO_CODE : "");
+  const [meta, setMeta] = useState<ArtifactMeta>(demoActive ? DEMO_META : {});
+  const [versions, setVersions] = useState<VersionRow[]>(demoActive ? DEMO_VERSIONS : []);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<FooterTab>("apercu");
 
   // Fetch artifact + versions quand artifactId change
   useEffect(() => {
+    if (demoActive) {
+      // Pas d'appel réseau : on injecte l'artifact démo tel quel.
+      setCode(DEMO_CODE);
+      setMeta(DEMO_META);
+      setVersions(DEMO_VERSIONS);
+      setErrorMsg(null);
+      setFetchState("ready");
+      return;
+    }
+
     if (!artifactId) {
       setFetchState("empty");
       setCode("");
@@ -339,7 +426,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
     return () => {
       cancelled = true;
     };
-  }, [artifactId]);
+  }, [artifactId, demoActive]);
 
   // Push railItems → ContextRail
   useEffect(() => {
@@ -388,6 +475,8 @@ export function ArtifactStage({ mode }: { mode: string }) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-8"
     >
+      {demoActive && <DemoBanner />}
+
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1.5">

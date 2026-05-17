@@ -62,6 +62,75 @@ interface MeetingApiResponse {
   message?: string;
 }
 
+// ── Mode démo (dev only) ─────────────────────────────────────────────────────
+// Affiché uniquement en dev quand aucun meeting réel n'est branché, pour
+// pouvoir développer le design sans backend. Inchangé en production.
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+const DEMO_MEETING_ID = "Revue commerciale · Q2";
+
+const DEMO_MEETING: MeetingApiResponse = {
+  meetingId: DEMO_MEETING_ID,
+  status: "in_call",
+  transcript: "Camille : Merci à tous d'être là. On fait le point sur le pipeline du trimestre.",
+  segments: [
+    {
+      speaker: "Camille",
+      text: "Merci à tous d'être là. On fait le point sur le pipeline du trimestre.",
+      start: 0,
+      end: 7,
+    },
+    {
+      speaker: "Julien",
+      text: "Côté nouveaux comptes, on est à dix-huit signatures, soit cent dix pour cent de l'objectif.",
+      start: 8,
+      end: 19,
+    },
+    {
+      speaker: "Camille",
+      text: "Excellent. Et sur le renouvellement des contrats grands comptes ?",
+      start: 20,
+      end: 26,
+    },
+    {
+      speaker: "Sarah",
+      text: "Deux dossiers à risque, je relance les décideurs cette semaine avec une offre ajustée.",
+      start: 27,
+      end: 37,
+    },
+    {
+      speaker: "Julien",
+      text: "Je peux préparer un comparatif tarifaire pour appuyer la négociation si besoin.",
+      start: 38,
+      end: 46,
+    },
+    {
+      speaker: "Camille",
+      text: "Parfait. On valide ça et on synchronise avant vendredi.",
+      start: 47,
+      end: 53,
+    },
+  ],
+  actionItems: [
+    {
+      action: "Relancer les deux comptes à risque avec une offre ajustée",
+      owner: "Sarah",
+      deadline: "Cette semaine",
+    },
+    {
+      action: "Préparer un comparatif tarifaire pour la négociation",
+      owner: "Julien",
+      deadline: "Avant vendredi",
+    },
+    {
+      action: "Synchroniser l'équipe commerciale sur le pipeline Q2",
+      owner: "Camille",
+      deadline: "Vendredi",
+    },
+  ],
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 /** Formate un offset en secondes → "MM:SS". */
@@ -108,6 +177,23 @@ function isLive(status: string): boolean {
 }
 
 // ── Sub-composants ────────────────────────────────────────────────────────────
+
+function DemoBanner() {
+  return (
+    <div
+      className="t-9 font-mono uppercase tracking-wide"
+      style={{
+        alignSelf: "flex-start",
+        color: "var(--text-faint)",
+        background: "var(--surface-1)",
+        padding: "var(--space-1) var(--space-3)",
+        borderRadius: "var(--radius-pill, 9999px)",
+      }}
+    >
+      Démo · données fictives (dev)
+    </div>
+  );
+}
 
 function EmptyMeetingState() {
   return (
@@ -287,9 +373,17 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
 
 export function MeetingStage({ mode }: { mode: string }) {
   const current = useStageStore((s) => s.current);
-  const meetingId = current.mode === "meeting" ? current.meetingId : null;
+  // Normalise "" → null : le LeftRail ouvre avec meetingId="" (pas de meeting
+  // actif). Le ?? ne traitant pas "" comme nullish, sans ça la démo dev ne
+  // s'activerait jamais via la navigation.
+  const realMeetingId = current.mode === "meeting" && current.meetingId ? current.meetingId : null;
 
-  const [data, setData] = useState<MeetingApiResponse | null>(null);
+  // Mode démo : actif uniquement en dev ET sans meeting réel. Le poll réel
+  // reste prioritaire — dès qu'un vrai meeting arrive, la démo disparaît.
+  const demoActive = IS_DEV && !realMeetingId;
+  const meetingId = realMeetingId ?? (demoActive ? DEMO_MEETING_ID : null);
+
+  const [data, setData] = useState<MeetingApiResponse | null>(demoActive ? DEMO_MEETING : null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -302,6 +396,15 @@ export function MeetingStage({ mode }: { mode: string }) {
 
   // Fetch + polling 5s
   useEffect(() => {
+    if (demoActive) {
+      // Pas de poll réseau : on injecte le meeting démo et on amorce le timer.
+      setData(DEMO_MEETING);
+      setError(null);
+      setLoading(false);
+      if (startedAt.current === null) startedAt.current = Date.now();
+      return;
+    }
+
     if (!meetingId) {
       setData(null);
       setError(null);
@@ -343,7 +446,7 @@ export function MeetingStage({ mode }: { mode: string }) {
       cancelled = true;
       clearInterval(interval);
     };
-  }, [meetingId]);
+  }, [meetingId, demoActive]);
 
   // Auto-scroll vers le bas quand le transcript grandit
   useEffect(() => {
@@ -414,6 +517,8 @@ export function MeetingStage({ mode }: { mode: string }) {
       {/* Content */}
       {meetingId && (
         <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+          {demoActive && <DemoBanner />}
+
           {/* Header */}
           <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <p

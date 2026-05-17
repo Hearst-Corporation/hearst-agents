@@ -25,6 +25,59 @@ const ITEM_VARIANTS = {
   show: { opacity: 1, x: 0, transition: { duration: 0.32, ease: VISION_EASE } },
 };
 
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+/** Signaux fictifs — affichés uniquement en dev quand aucune donnée réelle. */
+const DEMO_SIGNALS: AmbientSignal[] = [
+  {
+    id: "demo-sig-1",
+    kind: "mission_failed",
+    narration: "Mission Veille concurrentielle a échoué — voir",
+    detectedAt: new Date(Date.now() - 8 * 60_000).toISOString(),
+    ctaHref: "/missions/demo-1",
+    severity: "warning",
+  },
+  {
+    id: "demo-sig-2",
+    kind: "oauth_expired",
+    narration: "Connexion Google Drive expirée — reconnecter",
+    detectedAt: new Date(Date.now() - 95 * 60_000).toISOString(),
+    ctaHref: "/apps",
+    severity: "warning",
+  },
+  {
+    id: "demo-sig-3",
+    kind: "brief_stale",
+    narration: "Briefing du matin pas encore régénéré — actualiser",
+    detectedAt: new Date(Date.now() - 5 * 3_600_000).toISOString(),
+    ctaHref: "/inbox",
+    severity: "info",
+  },
+  {
+    id: "demo-sig-4",
+    kind: "variant_timeout",
+    narration: "Vidéo Teaser campagne Q2 a expiré — réessayer",
+    detectedAt: new Date(Date.now() - 26 * 3_600_000).toISOString(),
+    ctaHref: "/assets/demo-4",
+    severity: "warning",
+  },
+  {
+    id: "demo-sig-5",
+    kind: "mission_silent",
+    narration: "Mission Synthèse marché Acme silencieuse depuis 9 j",
+    detectedAt: new Date(Date.now() - 9 * 24 * 3_600_000).toISOString(),
+    severity: "info",
+  },
+  {
+    id: "demo-sig-6",
+    kind: "mission_failed",
+    narration: "Mission Génération rapport client a échoué — voir",
+    detectedAt: new Date(Date.now() - 3 * 24 * 3_600_000).toISOString(),
+    ctaHref: "/missions/demo-6",
+    severity: "warning",
+  },
+];
+
 type RangeKey = "1h" | "7d" | "30d" | "all";
 type KindFilter = "all" | AmbientSignal["kind"];
 type SignalsResponse = { signals: AmbientSignal[] };
@@ -276,9 +329,15 @@ export function SignalStage({ mode }: { mode: string }) {
     };
   }, [range]);
 
+  // Dev only : si aucune donnée réelle, on injecte des signaux fictifs pour
+  // développer le design. En prod : empty state réel inchangé.
+  const isDemo = IS_DEV && !loading && !error && signals.length === 0;
+  const displaySignals = isDemo ? DEMO_SIGNALS : signals;
+
   const filtered = useMemo(
-    () => (kindFilter === "all" ? signals : signals.filter((s) => s.kind === kindFilter)),
-    [signals, kindFilter],
+    () =>
+      kindFilter === "all" ? displaySignals : displaySignals.filter((s) => s.kind === kindFilter),
+    [displaySignals, kindFilter],
   );
 
   const stats = useMemo(() => {
@@ -289,13 +348,13 @@ export function SignalStage({ mode }: { mode: string }) {
       variant_timeout: 0,
       mission_silent: 0,
     };
-    for (const s of signals) byKind[s.kind] += 1;
-    return { total: signals.length, byKind };
-  }, [signals]);
+    for (const s of displaySignals) byKind[s.kind] += 1;
+    return { total: displaySignals.length, byKind };
+  }, [displaySignals]);
 
   useEffect(() => {
-    const warningCount = signals.filter((s) => s.severity === "warning").length;
-    const items: RailItem[] = signals.slice(0, 4).map((s) => ({
+    const warningCount = displaySignals.filter((s) => s.severity === "warning").length;
+    const items: RailItem[] = displaySignals.slice(0, 4).map((s) => ({
       t: kindLabel(s.kind),
       s: s.severity === "warning" ? "Alerte" : "Info",
       hot: s.severity === "warning",
@@ -308,7 +367,7 @@ export function SignalStage({ mode }: { mode: string }) {
     return () => {
       useStageData.getState().clearShellData();
     };
-  }, [signals]);
+  }, [displaySignals]);
 
   const onInvestigate = (signal: AmbientSignal) => {
     setCommandeurOpen(true, { prefilledQuery: buildInvestigateQuery(signal) });
@@ -323,6 +382,21 @@ export function SignalStage({ mode }: { mode: string }) {
       className="preserve-3d flex w-full flex-col"
       style={{ gap: "var(--space-10)" }}
     >
+      {/* Badge démo dev-only */}
+      {isDemo && (
+        <span
+          className="t-9 font-mono uppercase self-start"
+          style={{
+            padding: "var(--space-1) var(--space-2)",
+            color: "var(--text-faint)",
+            background: "var(--surface-1)",
+            borderRadius: "var(--radius-xs)",
+          }}
+        >
+          Démo · données fictives (dev)
+        </span>
+      )}
+
       {/* Header */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
         <h2 className="t-28 font-light text-[var(--text)]">Signaux</h2>
