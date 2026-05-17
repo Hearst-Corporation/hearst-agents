@@ -11,6 +11,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { ProviderChip } from "./ProviderChip";
 import { Action } from "./ui";
 
@@ -42,6 +43,7 @@ export function ApprovalInline({
   prominent = true,
 }: ApprovalInlineProps) {
   const [pending, setPending] = useState<"approve" | "skip" | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   // P1-4 : auto-scroll vers la card au mount pour que l'utilisateur ne manque
@@ -56,8 +58,13 @@ export function ApprovalInline({
 
   const handleApprove = async () => {
     setPending("approve");
+    setActionError(null);
     try {
       await onApprove();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Erreur réseau";
+      setActionError(message);
+      toast.error("Échec de l'approbation", message);
     } finally {
       setPending(null);
     }
@@ -65,8 +72,13 @@ export function ApprovalInline({
 
   const handleSkip = async () => {
     setPending("skip");
+    setActionError(null);
     try {
       await onSkip();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Erreur réseau";
+      setActionError(message);
+      toast.error("Échec du skip", message);
     } finally {
       setPending(null);
     }
@@ -79,12 +91,21 @@ export function ApprovalInline({
     <>
       {/* P1-4 : backdrop fixed pour attirer l'attention. z-40 reste sous les
           modals lourds (z-50+) mais au-dessus du Stage normal. pointer-events
-          conservés sur la card (ci-dessous) via z-50. */}
-      {prominent && !isLocked && (
+          conservés sur la card (ci-dessous) via z-50.
+          Pendant isLocked (action en cours) : le backdrop reste visible mais
+          plus opaque + cursor:wait pour signaler le loading state, cf. pattern
+          ConfirmModal qui désactive l'interaction backdrop pendant loading. */}
+      {prominent && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/30 pointer-events-none transition-opacity"
-          style={{ transitionDuration: "var(--duration-medium, 200ms)" }}
+          className="fixed inset-0 z-40 pointer-events-none transition-opacity"
+          style={{
+            background: isLocked
+              ? "color-mix(in srgb, var(--bg) 50%, transparent)"
+              : "rgb(0 0 0 / 0.30)",
+            cursor: isLocked ? "wait" : "default",
+            transitionDuration: "var(--duration-medium, 200ms)",
+          }}
         />
       )}
       <div
@@ -198,6 +219,26 @@ export function ApprovalInline({
             <span>{pending === "skip" ? "…" : "Sauter"}</span>
           </button>
         </div>
+
+        {/* Bloc d'erreur d'action — visible si la dernière approbation/skip a
+            échoué. role="alert" pour annonce immédiate par les screen readers.
+            Reste visible jusqu'à la prochaine tentative (qui clear actionError). */}
+        {actionError && (
+          <div
+            role="alert"
+            className="border-l-2 border-(--danger)"
+            style={{
+              marginTop: "var(--space-3)",
+              padding: "var(--space-2) var(--space-3)",
+              background: "color-mix(in srgb, var(--danger) 8%, transparent)",
+            }}
+            data-testid="approval-error"
+          >
+            <p className="t-11 font-medium text-(--danger)" style={{ margin: 0 }}>
+              Échec · {actionError}
+            </p>
+          </div>
+        )}
       </div>
     </>
   );

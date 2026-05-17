@@ -60,6 +60,10 @@ export function ConfirmModal({
     autoFocus: false,
   });
 
+  // useModalA11y autoFocus=false : on focus explicitement le cancel pour
+  // pattern safe-default. Pas de race avec autoFocus du hook (désactivé
+  // ci-dessus) — cet effect est l'unique source de focus initial dans
+  // l'ouverture de la modale.
   useEffect(() => {
     if (!open) return;
     // Focus initial sur le bouton "Annuler" (option safe par défaut).
