@@ -1,3 +1,7 @@
+// builder = entrypoint CockpitXClient openNewMission
+// La page ne contient pas de wizard propre : elle ouvre le panneau de création
+// de mission de CockpitXClient via `openNewMission`. Le flow d'abandon est géré
+// dans le panneau (cockpit-x), pas ici.
 import { type CockpitTodayPayload, getCockpitToday } from "@/lib/cockpit/today";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { CockpitXClient } from "../../cockpit-x/CockpitXClient";

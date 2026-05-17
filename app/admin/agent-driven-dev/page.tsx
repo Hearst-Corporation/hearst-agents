@@ -5,6 +5,22 @@ import { getAgentLockState } from "@/lib/agent-lock";
 import AgentLockCard from "./_components/AgentLockCard";
 import RefreshManifestButton from "./_components/RefreshManifestButton";
 
+const ChevronLeftIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M15 18l-6-6 6-6" />
+  </svg>
+);
+
 export const dynamic = "force-dynamic";
 
 interface FeatureEntry {
@@ -211,6 +227,14 @@ export default async function AgentDrivenDevPage() {
 
   return (
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
+      <Link
+        href="/admin"
+        className="inline-flex items-center gap-(--space-2) t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit"
+      >
+        <ChevronLeftIcon />
+        <span>Admin</span>
+      </Link>
+
       <AgentLockCard initial={lockState} />
 
       <div className="flex items-start justify-between gap-(--space-6)">

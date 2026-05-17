@@ -32,5 +32,7 @@ async function loadInitialCockpitData(): Promise<CockpitTodayPayload | null> {
 
 export default async function HomePage() {
   const initialCockpitData = await loadInitialCockpitData();
-  return <CockpitXClient initialCockpitData={initialCockpitData} />;
+  // fallback géré dans CockpitXClient : si `initialCockpitData === null`, le
+  // client déclenche un refetch via useEffect (cf. CockpitXClient.tsx ~L122).
+  return <CockpitXClient initialCockpitData={initialCockpitData ?? null} />;
 }
