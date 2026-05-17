@@ -132,8 +132,11 @@ export function DocumentParseModal({
       toast.success("Document en cours de traitement", "Le parsing est lancé.");
       onClose();
     } catch (err) {
+      const message = err instanceof Error ? err.message : "Erreur parsing document";
       setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Erreur parsing document");
+      setErrorMsg(message);
+      // it.3 H2 T-H2-8 : feedback toast symétrique au success (cf. onSuccess).
+      toast.error("Échec parsing document", message);
     }
   }
 

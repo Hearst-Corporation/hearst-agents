@@ -55,17 +55,15 @@ type LoadStatus = "idle" | "loading_list" | "list" | "loading_spec" | "error";
 
 export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   // Mémorise une copie initiale du spec pour permettre Reset.
-  // Re-snapshot quand le parent navigue vers un autre rapport (spec.id change).
   const [initialSpec, setInitialSpec] = useState<ReportSpec>(() => structuredClone(spec));
   const [jsonOpen, setJsonOpen] = useState(false);
 
-  // Resync du baseline quand le spec parent change d'identité (autre rapport).
-  // Sans ça, Reset restaure le 1er rapport ouvert au mount du composant — bug
-  // visible en navigation entre rapports si le panneau reste monté.
+  // Resync du baseline quand le spec parent change d'identité (autre rapport
+  // ou template chargé). Si pas d'id stable (draft client sans persistance),
+  // on garde la 1ère baseline — sinon Reset deviendrait inutilisable.
   useEffect(() => {
+    if (!spec.id) return;
     setInitialSpec(structuredClone(spec));
-    // On dépend uniquement de spec.id (UUID stable du ReportSpec), pas du
-    // contenu : sinon chaque édition réinitialise le baseline et casse Reset.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spec.id]);
 
