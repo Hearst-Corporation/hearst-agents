@@ -458,7 +458,9 @@ export function ChatDock() {
                 offline: true,
               });
               await new Promise<void>((resolve) => {
+                let timeoutId: number | undefined;
                 const cleanup = () => {
+                  if (timeoutId !== undefined) window.clearTimeout(timeoutId);
                   window.removeEventListener("online", onOnline);
                   controller.signal.removeEventListener("abort", onAbort);
                   resolve();
@@ -470,8 +472,9 @@ export function ChatDock() {
                 }
                 controller.signal.addEventListener("abort", onAbort, { once: true });
                 // Garde-fou : si l'event "online" ne firait jamais, on
-                // débloque après le délai max + 10s.
-                setTimeout(cleanup, delay + 10000);
+                // débloque après le délai max + 10s. Le timeoutId est cleared
+                // dans cleanup() pour éviter un leak quand online/abort fire.
+                timeoutId = window.setTimeout(cleanup, delay + 10000);
               });
               if (controller.signal.aborted) break;
             }

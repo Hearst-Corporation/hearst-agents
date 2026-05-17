@@ -11,7 +11,7 @@
  * logique métier vit côté API. Composant client-only (browser fetch).
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
@@ -42,9 +42,11 @@ export function ReportActions({ reportId, title }: ReportActionsProps) {
         onClick={() => setPanel(panel === "comments" ? null : "comments")}
         active={panel === "comments"}
       />
-      {panel === "share" && <SharePopover reportId={reportId} onClose={() => setPanel(null)} />}
+      {panel === "share" && (
+        <SharePopover open reportId={reportId} onClose={() => setPanel(null)} />
+      )}
       {panel === "comments" && (
-        <CommentsDrawer reportId={reportId} onClose={() => setPanel(null)} />
+        <CommentsDrawer open reportId={reportId} onClose={() => setPanel(null)} />
       )}
     </div>
   );
@@ -104,7 +106,15 @@ const TTL_OPTIONS: Array<{ label: string; hours: number }> = [
   { label: "30 jours", hours: 720 },
 ];
 
-function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => void }) {
+function SharePopover({
+  open,
+  reportId,
+  onClose,
+}: {
+  open: boolean;
+  reportId: string;
+  onClose: () => void;
+}) {
   const [ttlHours, setTtlHours] = useState(24);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
@@ -141,7 +151,7 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
   }, [reportId, ttlHours]);
 
   return (
-    <PopoverShell onClose={onClose} title="Partager le rapport">
+    <PopoverShell open={open} onClose={onClose} title="Partager le rapport">
       <p
         className="t-11 font-light text-text-muted"
         style={{
@@ -266,7 +276,15 @@ interface CommentRow {
   blockRef: string | null;
 }
 
-function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () => void }) {
+function CommentsDrawer({
+  open,
+  reportId,
+  onClose,
+}: {
+  open: boolean;
+  reportId: string;
+  onClose: () => void;
+}) {
   const [comments, setComments] = useState<CommentRow[]>([]);
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(false);
@@ -318,7 +336,7 @@ function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () =
   }, [body, reportId, load]);
 
   return (
-    <PopoverShell onClose={onClose} title="Commentaires">
+    <PopoverShell open={open} onClose={onClose} title="Commentaires">
       <div
         style={{
           maxHeight: "var(--space-64, 320px)",
@@ -440,30 +458,39 @@ function MenuItem({ children, onClick }: { children: React.ReactNode; onClick: (
 }
 
 function PopoverShell({
+  open,
   children,
   title,
   onClose,
 }: {
+  open: boolean;
   children: React.ReactNode;
   title: string;
   onClose: () => void;
 }) {
-  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
-
-  // useModalA11y avec lockBodyScroll:false : c'est un popover positionné
-  // absolument, pas une modale bloquante. On garde focus trap + Escape
-  // + restore focus, mais on ne lock pas le scroll du body.
-  const ref = useModalA11y<HTMLDivElement>(true, {
+  // useModalA11y piloté par `open` (T-4 it.3 follow-up) : la prop reflète
+  // l'état réel du parent (panel === "share" | "comments") au lieu du `true`
+  // hardcodé. Cleanup focus/escape/listeners du hook s'enchaîne correctement
+  // si on bascule open=false sans démonter, tout en restant compatible avec
+  // le mount conditionnel actuel.
+  //
+  // lockBodyScroll:false → c'est un popover positionné absolument, pas une
+  // modale bloquante. On garde focus trap + Escape + restore focus.
+  //
+  // autoFocus:true (T-5 it.3 follow-up) → le bouton "Fermer" est le premier
+  // focusable du DOM order (rendu en tête, dans le header avant `children`),
+  // donc le hook le focalise naturellement. Plus besoin de closeBtnRef +
+  // useEffect manuel.
+  const ref = useModalA11y<HTMLDivElement>(open, {
     onClose,
     lockBodyScroll: false,
-    // autoFocus géré manuellement ci-dessous : on focalise le bouton "Fermer"
-    // au mount pour rester cohérent avec l'ancien comportement.
-    autoFocus: false,
+    autoFocus: true,
   });
 
   // Click-outside ferme le popover (le hook a11y ne gère pas l'outside-click).
   // Escape + focus restore sont délégués à useModalA11y.
   useEffect(() => {
+    if (!open) return;
     const onClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         onClose();
@@ -473,12 +500,11 @@ function PopoverShell({
     const t = window.setTimeout(() => {
       window.addEventListener("mousedown", onClick);
     }, 0);
-    closeBtnRef.current?.focus();
     return () => {
       window.removeEventListener("mousedown", onClick);
       window.clearTimeout(t);
     };
-  }, [onClose, ref]);
+  }, [open, onClose, ref]);
 
   return (
     <div
@@ -509,7 +535,6 @@ function PopoverShell({
           {title}
         </h3>
         <button
-          ref={closeBtnRef}
           type="button"
           onClick={onClose}
           aria-label="Fermer"

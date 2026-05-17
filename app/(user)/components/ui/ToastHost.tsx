@@ -13,15 +13,17 @@
  */
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { type ToastType, useToast } from "@/app/hooks/use-toast";
 
-// Durées d'auto-dismiss (ms). `error` est persistant : l'user doit dismiss.
+// Durées d'auto-dismiss (ms).
+// `error` auto-dismiss après 15s (assez long pour lire) : évite le pile-up
+// infini à MAX_TOASTS=5 si plusieurs erreurs surviennent en burst.
 const AUTO_DISMISS_MS: Record<ToastType, number | null> = {
   success: 5000,
   info: 5000,
   warning: 8000,
-  error: null,
+  error: 15000,
 };
 
 const ICON: Record<ToastType, string> = {
@@ -70,12 +72,15 @@ interface ToastCardProps {
 
 function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
   const duration = AUTO_DISMISS_MS[type];
+  // WCAG 2.2.1 — pause auto-dismiss au hover/focus. L'utilisateur a le temps
+  // de lire le toast sans qu'il s'évanouisse sous ses yeux.
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (duration === null) return;
+    if (duration === null || paused) return;
     const t = window.setTimeout(() => onDismiss(id), duration);
     return () => window.clearTimeout(t);
-  }, [id, duration, onDismiss]);
+  }, [id, duration, onDismiss, paused]);
 
   return (
     <motion.div
@@ -86,6 +91,10 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
       role={type === "error" || type === "warning" ? "alert" : "status"}
       aria-live={ARIA_LIVE[type]}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
       style={{
         display: "flex",
         alignItems: "flex-start",
