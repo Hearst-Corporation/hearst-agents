@@ -12,7 +12,7 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { createOpenAI } from "@ai-sdk/openai";
+import { createAnthropic } from "@ai-sdk/anthropic";
 import type { ModelMessage, Tool } from "ai";
 import {
   extractReasoningMiddleware,
@@ -114,23 +114,9 @@ export interface AiPipelineInput {
   missionId?: string;
 }
 
-const kimi = createOpenAI({
-  apiKey: process.env.KIMI_API_KEY ?? "",
-  baseURL: process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
+const anthropic = createAnthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY ?? "",
 });
-
-// Kimi K2.5/K2.6 via Hyperbolic streament leur chain-of-thought dans
-// `delta.content` entouré de balises `<think>...</think>` avant le vrai
-// contenu de la réponse. Sans middleware, le SDK Vercel AI consomme tout
-// dans le canal text et l'UI affiche soit le reasoning brut, soit rien
-// (parser qui filtre). `extractReasoningMiddleware` détoure le reasoning
-// dans un canal séparé (`reasoning`) et ne laisse passer que le vrai
-// contenu post-`</think>` dans le canal `text` consommé par l'UI.
-const kimiWithReasoning = (modelId: string) =>
-  wrapLanguageModel({
-    model: kimi(modelId),
-    middleware: extractReasoningMiddleware({ tagName: "think" }),
-  });
 
 /**
  * Builds the `request_connection` tool that lets the model surface an inline
@@ -785,7 +771,7 @@ export async function runAiPipeline(
   // si l'erreur survient en amont (création du stream impossible).
   const runStream = () =>
     streamText({
-      model: kimiWithReasoning(ORCHESTRATOR_MODEL),
+      model: anthropic(ORCHESTRATOR_MODEL),
       system: systemPrompt,
       messages,
       tools: aiTools,
@@ -804,8 +790,8 @@ export async function runAiPipeline(
   // Note: streamText ne passe pas par chatWithCircuitBreaker (API différente),
   // mais on garde la garde fail-fast via le helper isCircuitOpenFor pour
   // homogénéiser le call-site avec DUP12.
-  if (isCircuitOpenFor("kimi", resolvedTenantId)) {
-    const msg = "[AiPipeline] Circuit breaker OPEN pour kimi — requête annulée";
+  if (isCircuitOpenFor("anthropic", resolvedTenantId)) {
+    const msg = "[AiPipeline] Circuit breaker OPEN pour anthropic — requête annulée";
     console.error(msg);
     await engine.fail(msg);
     return;
@@ -1076,7 +1062,7 @@ export async function runAiPipeline(
             const stepInputTokens = ev.usage.inputTokens ?? 0;
             const stepOutputTokens = ev.usage.outputTokens;
             const stepCacheRead = ev.usage.cacheReadInputTokens ?? 0;
-            const stepCostUsd = computeCostUsd("kimi", ORCHESTRATOR_MODEL, {
+            const stepCostUsd = computeCostUsd("anthropic", ORCHESTRATOR_MODEL, {
               input_tokens: stepInputTokens,
               output_tokens: stepOutputTokens,
               cache_read_input_tokens: stepCacheRead,
@@ -1176,7 +1162,7 @@ export async function runAiPipeline(
         input_tokens: totalInputTokens,
         output_tokens: totalOutputTokens,
         cost_usd: runCostUsd,
-        provider: "kimi",
+        provider: "anthropic",
         model: ORCHESTRATOR_MODEL,
       });
     }
@@ -1287,13 +1273,13 @@ export async function runAiPipeline(
       }
     }
 
-    defaultCircuitBreaker.recordSuccess("kimi", resolvedTenantId);
+    defaultCircuitBreaker.recordSuccess("anthropic", resolvedTenantId);
     await engine.complete();
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error("[AiPipeline] streamText failed:", msg);
     defaultCircuitBreaker.recordFailure(
-      "kimi",
+      "anthropic",
       err instanceof Error ? err : new Error(msg),
       resolvedTenantId,
     );

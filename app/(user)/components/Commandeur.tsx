@@ -93,13 +93,18 @@ export function Commandeur() {
   // Flatten pour la nav clavier.
   const flatRows = useMemo<CommandRow[]>(() => sections.flatMap((s) => s.rows), [sections]);
 
-  // Stream B / T-B5 : wrappe row.perform() pour émettre un toast contextuel
-  // APRÈS l'appel — la plupart des rows ferment la palette via setOpen(false)
-  // dans leur perform, donc le toast s'affiche après la fermeture (pas de
-  // blocage). Fallback générique si row.toastLabel non défini.
-  const runRow = useCallback((row: CommandRow) => {
-    row.perform();
-    toast.success(row.toastLabel ?? "Action effectuée");
+  // Wrapper async-safe : si `perform()` throw, on émet un toast d'erreur
+  // au lieu de masquer l'échec. Le `toastLabel` ne s'affiche qu'en cas de
+  // succès et seulement s'il est défini (navigation = pas de toast).
+  const runRow = useCallback(async (row: CommandRow) => {
+    try {
+      await row.perform();
+      if (row.toastLabel) {
+        toast.success(row.toastLabel);
+      }
+    } catch (err) {
+      toast.error("Échec", err instanceof Error ? err.message : "Erreur inconnue");
+    }
   }, []);
 
   useEffect(() => {
@@ -156,7 +161,7 @@ export function Commandeur() {
       if (e.key === "Enter") {
         e.preventDefault();
         const row = flatRows[activeIndex];
-        if (row && !row.disabled) runRow(row);
+        if (row && !row.disabled) void runRow(row);
       }
     };
     window.addEventListener("keydown", onKey, { capture: true });
@@ -247,7 +252,7 @@ export function Commandeur() {
                           active={myIndex === activeIndex}
                           disabled={row.disabled}
                           onSelect={() => {
-                            if (!row.disabled) runRow(row);
+                            if (!row.disabled) void runRow(row);
                           }}
                           onHover={() => {
                             if (!row.disabled) setActiveIndex(myIndex);

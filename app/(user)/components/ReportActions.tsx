@@ -12,6 +12,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
 
@@ -185,7 +186,7 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
           className="flex items-center"
           style={{ marginTop: "var(--space-2)", gap: "var(--space-2)" }}
         >
-          <p className="t-9" style={{ color: "var(--color-error)", margin: 0 }}>
+          <p className="t-9" style={{ color: "var(--danger)", margin: 0 }}>
             Erreur : {error}
           </p>
           <button
@@ -381,7 +382,7 @@ function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () =
           Publier
         </Action>
         {error && (
-          <span className="t-9" style={{ color: "var(--color-error)" }}>
+          <span className="t-9" style={{ color: "var(--danger)" }}>
             {error}
           </span>
         )}
@@ -447,57 +448,37 @@ function PopoverShell({
   title: string;
   onClose: () => void;
 }) {
-  const ref = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
-  // T-C11 : restaure le focus sur le trigger qui a ouvert le popover.
-  // useModalA11y est trop large ici (body scroll lock + focus trap qui ne
-  // convient pas à un menu non-bloquant) — on implémente le minimum a11y
-  // (Escape + restore focus) à la main.
-  const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  // ESC ferme le popover. Click-outside ferme aussi (mais préserve le focus
-  // sur le trigger natif via le pattern relative + absolute du parent).
-  // On évite useModalA11y ici car le popover est positionné absolument et
-  // n'a pas vocation à bloquer le scroll du body — c'est un menu, pas une modale.
+  // useModalA11y avec lockBodyScroll:false : c'est un popover positionné
+  // absolument, pas une modale bloquante. On garde focus trap + Escape
+  // + restore focus, mais on ne lock pas le scroll du body.
+  const ref = useModalA11y<HTMLDivElement>(true, {
+    onClose,
+    lockBodyScroll: false,
+    // autoFocus géré manuellement ci-dessous : on focalise le bouton "Fermer"
+    // au mount pour rester cohérent avec l'ancien comportement.
+    autoFocus: false,
+  });
+
+  // Click-outside ferme le popover (le hook a11y ne gère pas l'outside-click).
+  // Escape + focus restore sont délégués à useModalA11y.
   useEffect(() => {
-    // Mémorise le focus actif (trigger ActionButton) avant d'ouvrir.
-    previousFocusRef.current =
-      typeof document !== "undefined" && document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-      }
-    };
     const onClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         onClose();
       }
     };
-    window.addEventListener("keydown", onKey);
     // setTimeout pour ne pas capter le click qui vient d'ouvrir le popover.
     const t = window.setTimeout(() => {
       window.addEventListener("mousedown", onClick);
     }, 0);
     closeBtnRef.current?.focus();
     return () => {
-      window.removeEventListener("keydown", onKey);
       window.removeEventListener("mousedown", onClick);
       window.clearTimeout(t);
-      // Restore focus sur le trigger si toujours dans le DOM (sinon no-op).
-      const prev = previousFocusRef.current;
-      if (prev instanceof HTMLElement && document.contains(prev)) {
-        try {
-          prev.focus({ preventScroll: true });
-        } catch {
-          /* élément non focusable — ignore */
-        }
-      }
     };
-  }, [onClose]);
+  }, [onClose, ref]);
 
   return (
     <div
@@ -540,7 +521,7 @@ function PopoverShell({
             border: 0,
           }}
         >
-          x
+          ×
         </button>
       </div>
       {children}

@@ -17,7 +17,7 @@ import { getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import type { Persona } from "@/lib/personas/types";
 
-export const ORCHESTRATOR_MODEL = KIMI_MODELS.HAIKU;
+export const ORCHESTRATOR_MODEL = "claude-sonnet-4-6";
 
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
 
