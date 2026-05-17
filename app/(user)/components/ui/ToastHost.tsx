@@ -1,0 +1,210 @@
+"use client";
+
+/**
+ * ToastHost — Renderer global des toasts.
+ *
+ * Le hook `useToast()` (app/hooks/use-toast.ts) expose `toast.*` qui push
+ * dans un singleton `ToastManager`, mais aucun composant ne rendait la
+ * file. Tous les `toast.success/error/warning/info` du repo étaient donc
+ * invisibles. Ce host monte la stack en bottom-right, gère l'auto-dismiss
+ * par type et l'a11y (aria-live).
+ *
+ * Monté une seule fois dans `app/layout.tsx`, juste avant `</body>`.
+ */
+
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
+import { type ToastType, useToast } from "@/app/hooks/use-toast";
+
+// Durées d'auto-dismiss (ms). `error` est persistant : l'user doit dismiss.
+const AUTO_DISMISS_MS: Record<ToastType, number | null> = {
+  success: 5000,
+  info: 5000,
+  warning: 8000,
+  error: null,
+};
+
+const ICON: Record<ToastType, string> = {
+  success: "✓",
+  error: "✕",
+  warning: "⚠",
+  info: "ⓘ",
+};
+
+const ARIA_LIVE: Record<ToastType, "polite" | "assertive"> = {
+  success: "polite",
+  info: "polite",
+  warning: "assertive",
+  error: "assertive",
+};
+
+// Couleur d'accent par type → token CSS.
+const TONE_VAR: Record<ToastType, string> = {
+  success: "var(--color-success)",
+  error: "var(--danger)",
+  warning: "var(--warn)",
+  info: "var(--accent-teal)",
+};
+
+const TONE_SURFACE: Record<ToastType, string> = {
+  success: "var(--color-success-bg, rgba(45, 197, 88, 0.10))",
+  error: "var(--danger-surface, rgba(255, 51, 51, 0.12))",
+  warning: "var(--warn-surface, rgba(255, 204, 0, 0.12))",
+  info: "var(--accent-teal-surface, rgba(74, 139, 134, 0.08))",
+};
+
+const TONE_BORDER: Record<ToastType, string> = {
+  success: "var(--color-success-border, rgba(45, 197, 88, 0.25))",
+  error: "rgba(255, 51, 51, 0.32)",
+  warning: "rgba(255, 204, 0, 0.32)",
+  info: "var(--accent-teal-border, rgba(74, 139, 134, 0.25))",
+};
+
+interface ToastCardProps {
+  id: string;
+  type: ToastType;
+  title: string;
+  message?: string;
+  onDismiss: (id: string) => void;
+}
+
+function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
+  const duration = AUTO_DISMISS_MS[type];
+
+  useEffect(() => {
+    if (duration === null) return;
+    const t = window.setTimeout(() => onDismiss(id), duration);
+    return () => window.clearTimeout(t);
+  }, [id, duration, onDismiss]);
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 12, scale: 0.96 }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      role={type === "error" || type === "warning" ? "alert" : "status"}
+      aria-live={ARIA_LIVE[type]}
+      style={{
+        display: "flex",
+        alignItems: "flex-start",
+        gap: "var(--space-3)",
+        minWidth: "280px",
+        maxWidth: "380px",
+        padding: "var(--space-3) var(--space-4)",
+        borderRadius: "var(--radius-md)",
+        background: TONE_SURFACE[type],
+        border: `1px solid ${TONE_BORDER[type]}`,
+        backdropFilter: "blur(20px) saturate(140%)",
+        WebkitBackdropFilter: "blur(20px) saturate(140%)",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.32)",
+        color: "var(--text)",
+        pointerEvents: "auto",
+      }}
+    >
+      <span
+        aria-hidden="true"
+        style={{
+          flexShrink: 0,
+          marginTop: "var(--space-0-5)",
+          fontSize: "14px",
+          lineHeight: 1,
+          color: TONE_VAR[type],
+        }}
+      >
+        {ICON[type]}
+      </span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div
+          style={{
+            fontWeight: 500,
+            fontSize: "13px",
+            lineHeight: 1.4,
+            color: "var(--text-l0, var(--text))",
+          }}
+        >
+          {title}
+        </div>
+        {message ? (
+          <div
+            style={{
+              marginTop: "var(--space-1)",
+              fontSize: "12px",
+              lineHeight: 1.4,
+              color: "var(--text-muted)",
+            }}
+          >
+            {message}
+          </div>
+        ) : null}
+      </div>
+      <button
+        type="button"
+        onClick={() => onDismiss(id)}
+        aria-label="Fermer la notification"
+        style={{
+          flexShrink: 0,
+          width: "var(--space-5)",
+          height: "var(--space-5)",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "var(--radius-xs)",
+          background: "transparent",
+          border: "none",
+          color: "var(--text-muted)",
+          cursor: "pointer",
+          fontSize: "14px",
+          lineHeight: 1,
+          transition: "background 120ms ease, color 120ms ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(255, 255, 255, 0.06)";
+          e.currentTarget.style.color = "var(--text)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "transparent";
+          e.currentTarget.style.color = "var(--text-muted)";
+        }}
+      >
+        ×
+      </button>
+    </motion.div>
+  );
+}
+
+export function ToastHost() {
+  const { toasts, dismiss } = useToast();
+
+  return (
+    <div
+      aria-label="Notifications"
+      style={{
+        position: "fixed",
+        bottom: "var(--space-6)",
+        right: "var(--space-6)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--space-2)",
+        zIndex: "var(--z-toast, 70)",
+        pointerEvents: "none",
+      }}
+    >
+      <AnimatePresence initial={false}>
+        {toasts.map((t) => (
+          <ToastCard
+            key={t.id}
+            id={t.id}
+            type={t.type}
+            title={t.title}
+            message={t.message}
+            onDismiss={dismiss}
+          />
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export default ToastHost;
