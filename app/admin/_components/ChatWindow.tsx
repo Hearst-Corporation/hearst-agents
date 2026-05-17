@@ -17,9 +17,11 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  // T-F2b : auto-scroll quand un nouveau message arrive (deps [] ne re-scrollait
+  // pas sur la mise à jour des messages — bug visible dès le 2e tour).
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages.length]);
 
   const send = async () => {
     if (!input.trim() || loading) return;
@@ -69,7 +71,23 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         }
       }
     } catch (err) {
-      const detail = err instanceof Error ? err.message : "Erreur inconnue";
+      // T-F2a : sanitize le détail exposé à l'utilisateur — on whiteliste les
+      // erreurs réseau standard et on fallback sur un message générique pour
+      // ne pas leak un détail backend (stack, URL interne, etc.). Le full err
+      // reste consigné via console.error pour le debug.
+      const RAW_OK = [
+        "NetworkError",
+        "AbortError",
+        "Failed to fetch",
+        "fetch failed",
+        "TimeoutError",
+      ];
+      const detail =
+        err instanceof Error
+          ? RAW_OK.some((r) => err.message.includes(r))
+            ? err.message
+            : "Connexion interrompue"
+          : "Erreur inconnue";
       setMessages((prev) => [
         ...prev,
         {

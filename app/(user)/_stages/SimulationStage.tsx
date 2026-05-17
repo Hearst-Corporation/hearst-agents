@@ -155,6 +155,11 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         if (!res.ok || !Array.isArray(data.scenarios)) {
           toast.error("Échec simulation", data.message ?? data.error ?? "Sortie invalide");
           setPhase("idle");
+          // T-F5 : reset autoRanRef sur path d'erreur — sinon, si une simu
+          // déclenchée via stage payload échoue, le retry manuel (ou un
+          // remount avec même initialScenario) est gated par autoRanRef=true
+          // et ne relance jamais.
+          autoRanRef.current = false;
           return;
         }
         setScenarios(data.scenarios);
@@ -164,6 +169,8 @@ export function SimulationStage({ mode = "simulation" }: Props) {
       } catch (err) {
         toast.error("Erreur réseau", err instanceof Error ? err.message : String(err));
         setPhase("idle");
+        // T-F5 : idem — path catch réseau, reset le ref de garde auto-run.
+        autoRanRef.current = false;
       }
     },
     [scenarioInput, variables],

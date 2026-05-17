@@ -252,6 +252,10 @@ export function ChatDock() {
     offline: boolean;
   } | null>(null);
 
+  // T-F1c : annonce SR séparée du countdown (qui spam chaque seconde).
+  // Mute uniquement au démarrage du retry et à la fin → polite, sans bruit.
+  const [reconnectAnnouncement, setReconnectAnnouncement] = useState<string>("");
+
   const handleSubmit = useCallback(
     async (message: string, opts?: { attachedAssetIds?: string[] }) => {
       // Si on n'est pas sur la page racine, on y revient pour que l'utilisateur
@@ -418,6 +422,7 @@ export function ChatDock() {
         return receivedCompletion;
       };
 
+      let didRetry = false;
       try {
         let completed = false;
         for (let attempt = 0; attempt <= MAX_RECONNECT_ATTEMPTS; attempt++) {
@@ -426,6 +431,12 @@ export function ChatDock() {
             const delay = BASE_RECONNECT_DELAY_MS * Math.pow(2, attempt - 1);
             const totalSeconds = Math.ceil(delay / 1000);
             const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+
+            // T-F1c : annonce SR unique au démarrage du retry (pas chaque tick).
+            if (attempt === 1) {
+              didRetry = true;
+              setReconnectAnnouncement("Reconnexion en cours…");
+            }
 
             addEvent({
               type: "orchestrator_log",
@@ -462,6 +473,8 @@ export function ChatDock() {
             }
 
             // T-C7 : décompte visible (1s tick) plutôt qu'un setTimeout opaque.
+            // T-F1b : le sleep 1s est abortable — si l'utilisateur abort pendant
+            // le countdown, on quitte la boucle sans attendre la seconde restante.
             for (let s = totalSeconds; s > 0; s--) {
               if (controller.signal.aborted) break;
               setReconnectInfo({
@@ -470,7 +483,18 @@ export function ChatDock() {
                 secondsLeft: s,
                 offline: false,
               });
-              await new Promise((resolve) => setTimeout(resolve, 1000));
+              await new Promise<void>((resolve) => {
+                const t = setTimeout(resolve, 1000);
+                controller.signal.addEventListener(
+                  "abort",
+                  () => {
+                    clearTimeout(t);
+                    resolve();
+                  },
+                  { once: true },
+                );
+              });
+              if (controller.signal.aborted) break;
             }
             setReconnectInfo(null);
             if (controller.signal.aborted) break;
@@ -482,10 +506,26 @@ export function ChatDock() {
           if (completed || controller.signal.aborted) break;
         }
 
+        // T-F1c : annonce SR de fin de retry (uniquement si on est passé par
+        // la branche reconnexion, càd au moins un attempt > 0).
+        if (didRetry) {
+          if (completed) {
+            setReconnectAnnouncement("Connexion rétablie.");
+          } else if (!controller.signal.aborted) {
+            setReconnectAnnouncement("Connexion perdue après plusieurs tentatives.");
+          }
+        }
+
         if (!completed && !controller.signal.aborted) {
+          // T-F1a : `navigator.onLine` est notoirement peu fiable (true sur
+          // captive portal, par ex.). On garde la branche offline pour le
+          // message le plus utile, mais sans surpromettre une reprise auto :
+          // l'écoute de l'event `online` se fait pendant la boucle de retry,
+          // pas ici. Si onLine=false alors qu'on a épuisé les retries → message
+          // explicite. Sinon → message neutre "vérification… réessaie".
           const offline = typeof navigator !== "undefined" && navigator.onLine === false;
           const errorMsg = offline
-            ? "Vous semblez hors ligne. La reconnexion reprendra automatiquement."
+            ? "Hors ligne — la reconnexion reprendra à votre retour."
             : "Connexion perdue après plusieurs tentatives. Réessaie.";
           toast.error("Connexion SSE perdue", errorMsg);
           addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
@@ -515,6 +555,11 @@ export function ChatDock() {
       } finally {
         setAbortController(null);
         setReconnectInfo(null);
+        // T-F1c : on laisse l'annonce SR visible un instant pour que le screen
+        // reader la consomme, puis on reset pour ne pas la rejouer plus tard.
+        if (didRetry) {
+          setTimeout(() => setReconnectAnnouncement(""), 3000);
+        }
       }
     },
     [
@@ -546,12 +591,14 @@ export function ChatDock() {
 
   return (
     <div className="relative flex w-full items-center justify-center">
-      {/* T-C7 : indicateur visuel de reconnexion SSE. */}
+      {/* T-C7 : indicateur visuel de reconnexion SSE.
+          T-F1c : aria-hidden — le countdown 1s spam les SR en polite.
+          L'annonce SR passe par <span class="sr-only" role="status"> ci-dessous,
+          qui ne mute QU'au start et à la fin du retry. */}
       {reconnectInfo && (
         <div
-          role="status"
-          aria-live="polite"
-          className="absolute"
+          aria-hidden="true"
+          className="t-11 font-light absolute"
           style={{
             top: "calc(-1 * var(--space-8))",
             left: "50%",
@@ -561,7 +608,6 @@ export function ChatDock() {
             background: "var(--surface-1)",
             border: "1px solid var(--border-default)",
             color: "var(--text-faint)",
-            fontSize: "var(--text-xs, 11px)",
             whiteSpace: "nowrap",
             boxShadow: "var(--shadow-card)",
           }}
@@ -571,6 +617,12 @@ export function ChatDock() {
             : `Reconnexion dans ${reconnectInfo.secondsLeft}s… (tentative ${reconnectInfo.attempt}/${reconnectInfo.total})`}
         </div>
       )}
+
+      {/* T-F1c : annonce SR séparée — change uniquement au start et à la fin
+          du retry, donc polite sans bruit chaque seconde. */}
+      <span className="sr-only" role="status" aria-live="polite">
+        {reconnectAnnouncement}
+      </span>
 
       <StageFooter />
       <ChatInput onSubmit={handleSubmit} connectedServices={connectedServices} />

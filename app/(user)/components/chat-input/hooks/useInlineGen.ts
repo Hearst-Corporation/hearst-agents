@@ -5,7 +5,6 @@ import { toast } from "@/app/hooks/use-toast";
 import type { InlineGenStatus } from "../types";
 import { extractCodeBlock } from "../utils/extractCodeBlock";
 
-const SUCCESS_RESET_MS = 4000;
 const ERROR_RESET_MS = 5000;
 
 interface UseInlineGenParams {
@@ -35,7 +34,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
     const prompt = input.trim();
     if (!prompt || imageGenStatus === "pending") return;
     setImageGenStatus("pending");
-    setImageGenMessage("Generating image…");
+    setImageGenMessage("Génération image…");
     try {
       const res = await fetch("/api/v2/jobs/image-gen", {
         method: "POST",
@@ -74,7 +73,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
     const text = input.trim();
     if (!text || audioGenStatus === "pending") return;
     setAudioGenStatus("pending");
-    setAudioGenMessage("Synthesizing audio…");
+    setAudioGenMessage("Synthèse audio…");
     try {
       const res = await fetch("/api/v2/jobs/audio-gen", {
         method: "POST",
@@ -91,10 +90,13 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
         const reason = data.message ?? data.error ?? "Audio synthesis error";
         throw new Error(reason);
       }
+      // T-F4a : aligné sur image-gen (T-C17) — toast plus fiable que le
+      // message éphémère in-composer (qui disparaît silencieusement si on
+      // change de Stage). Reset immédiat du state local.
       setAudioGenStatus("idle");
-      setAudioGenMessage("Audio queued — it will appear in your assets.");
+      setAudioGenMessage(null);
       setInput("");
-      setTimeout(() => setAudioGenMessage(null), SUCCESS_RESET_MS);
+      toast.success("Audio en file d'attente", "Il apparaîtra dans tes assets.");
     } catch (err) {
       const reason = err instanceof Error ? err.message : "Audio synthesis error";
       setAudioGenStatus("error");
@@ -111,7 +113,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
     const extracted = extractCodeBlock(input);
     if (!extracted?.code) return;
     setCodeExecStatus("pending");
-    setCodeExecMessage("Running sandbox…");
+    setCodeExecMessage("Exécution sandbox…");
     try {
       const res = await fetch("/api/v2/jobs/code-exec", {
         method: "POST",
@@ -131,10 +133,12 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
         const reason = data.message ?? data.error ?? "Code execution error";
         throw new Error(reason);
       }
+      // T-F4b : aligné sur image-gen (T-C17) — toast plus fiable. Reset
+      // immédiat du state local pour libérer le composer.
       setCodeExecStatus("idle");
-      setCodeExecMessage("Execution started — result will appear in your assets.");
+      setCodeExecMessage(null);
       setInput("");
-      setTimeout(() => setCodeExecMessage(null), SUCCESS_RESET_MS);
+      toast.success("Exécution sandbox lancée", "Le résultat apparaîtra dans tes assets.");
     } catch (err) {
       const reason = err instanceof Error ? err.message : "Code execution error";
       setCodeExecStatus("error");

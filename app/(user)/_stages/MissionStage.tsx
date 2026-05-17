@@ -22,6 +22,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
@@ -335,15 +336,23 @@ function ApprovalBar({
   async function handleApprove() {
     setApproving(true);
     try {
-      await fetch(`/api/v2/missions/${missionId}/approve-step`, {
+      const res = await fetch(`/api/v2/missions/${missionId}/approve-step`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ stepId }),
       });
+      // T-F3b : check res.ok avant onApproved() — sinon une erreur HTTP côté
+      // serveur signalait un succès silencieux à l'utilisateur (catch jamais
+      // entré). On throw pour rentrer dans le catch et notifier proprement.
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
       onApproved();
     } catch {
-      // fail-soft
+      // T-F3b : toast utilisateur — le catch silencieux laissait l'agent
+      // visuellement bloqué sans feedback en cas d'échec réseau.
+      toast.error("Échec de l'approbation", "Vérifiez votre connexion ou réessayez.");
     } finally {
       setApproving(false);
     }
@@ -437,11 +446,15 @@ export function MissionStage({ mode }: { mode: string }) {
   // les fetches rapides (cache chaud, réseau local).
   const [showLoader, setShowLoader] = useState(false);
 
+  // T-F3a : reset loader sur chaque nouveau cycle (loading→true) avant le
+  // setTimeout 300ms. Sinon un loader d'un fetch précédent peut rester
+  // affiché tant que le timer du nouveau cycle n'a pas tick.
   useEffect(() => {
     if (!loading) {
       setShowLoader(false);
       return;
     }
+    setShowLoader(false);
     const t = setTimeout(() => setShowLoader(true), 300);
     return () => clearTimeout(t);
   }, [loading]);
