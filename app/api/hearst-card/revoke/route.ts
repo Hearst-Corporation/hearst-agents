@@ -12,9 +12,12 @@ import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
+
+const log = withRoute("POST|DELETE /api/hearst-card/revoke");
 
 export const runtime = "nodejs";
 
@@ -58,7 +61,7 @@ export async function POST(req: Request) {
     .upsert({ token_hash: tokenHash }, { onConflict: "token_hash" });
 
   if (dbError) {
-    console.error("[hearst-card/revoke] DB error:", dbError.message);
+    log.error({ err: redactedError(dbError) }, "card_revoke_db_failed");
     return NextResponse.json({ error: "revoke_failed" }, { status: 500 });
   }
 
@@ -92,7 +95,7 @@ export async function DELETE(req: Request) {
     .lt("revoked_at", cutoff);
 
   if (dbError) {
-    console.error("[hearst-card/revoke] Cleanup error:", dbError.message);
+    log.error({ err: redactedError(dbError) }, "card_revoke_cleanup_failed");
     return NextResponse.json({ error: "cleanup_failed" }, { status: 500 });
   }
 

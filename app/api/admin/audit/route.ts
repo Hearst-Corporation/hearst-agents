@@ -4,7 +4,10 @@
 
 import { NextResponse } from "next/server";
 import { type AuditQueryFilters, getAuditLogs } from "@/lib/admin/audit";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { withAdmin } from "@/lib/platform/http/route-handler";
+
+const log = withRoute("GET /api/admin/audit");
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +34,7 @@ export const GET = withAdmin(
       const result = await getAuditLogs(db, filters);
       return NextResponse.json({ logs: result.logs, total: result.total, filters });
     } catch (e) {
-      console.error("[Admin API] GET /audit error:", e);
+      log.error({ err: redactedError(e) }, "audit_logs_fetch_failed");
       return NextResponse.json({ error: "internal_error" }, { status: 500 });
     }
   },

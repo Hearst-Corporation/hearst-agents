@@ -19,7 +19,10 @@ import {
   getCrossTenantOverview,
   getCrossTenantTimeSeries,
 } from "@/lib/admin/usage/aggregate";
+import { withRoute } from "@/lib/observability/logger";
 import { isError, requireAdmin } from "../../_helpers";
+
+const log = withRoute("GET /api/admin/analytics/usage");
 
 export const dynamic = "force-dynamic";
 
@@ -65,9 +68,9 @@ export async function GET(req: NextRequest) {
       overview,
       timeSeries,
     });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : "aggregation_failed";
-    console.warn("[admin/analytics/usage] aggregation failed:", msg);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "aggregation_failed";
+    log.warn({ msg }, "analytics_aggregation_failed");
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

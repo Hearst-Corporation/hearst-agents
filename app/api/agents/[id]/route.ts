@@ -1,9 +1,12 @@
 import type { NextRequest } from "next/server";
 import type { Database, Json } from "@/lib/database.types";
 import { dbErr, err, ok, parseBody, updateAgentSchema } from "@/lib/domain";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { withScope } from "@/lib/platform/http/route-handler";
+
+const log = withRoute("GET|PUT|DELETE /api/agents/[id]");
 
 type AgentUpdate = Database["public"]["Tables"]["agents"]["Update"];
 
@@ -25,7 +28,7 @@ export const GET = withScope<{ id: string }>(
       if (error || !data) return err("not_found", 404);
       return ok({ agent: data });
     } catch (e) {
-      console.error(`GET /api/agents/${id}: uncaught`, e);
+      log.error({ err: redactedError(e) }, "agent_get_failed");
       return err("internal_error", 500);
     }
   },
@@ -90,7 +93,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (error) return dbErr(`PUT /api/agents/${id}`, error);
     return ok({ agent: data, version_snapshot_id: versionData?.id });
   } catch (e) {
-    console.error(`PUT /api/agents/${id}: uncaught`, e);
+    log.error({ err: redactedError(e) }, "agent_put_failed");
     return err("internal_error", 500);
   }
 }
@@ -106,7 +109,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (error) return dbErr(`DELETE /api/agents/${id}`, error);
     return ok({ deleted: true });
   } catch (e) {
-    console.error(`DELETE /api/agents/${id}: uncaught`, e);
+    log.error({ err: redactedError(e) }, "agent_delete_failed");
     return err("internal_error", 500);
   }
 }

@@ -15,7 +15,10 @@
 
 import { NextResponse } from "next/server";
 import { getServicesHealth } from "@/lib/admin/health";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { isError, requireAdmin } from "../../_helpers";
+
+const log = withRoute("GET /api/admin/health/services");
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +36,7 @@ export async function GET() {
     const allDown = report.summary.total > 0 && report.summary.ok === 0;
     return NextResponse.json(report, { status: allDown ? 503 : 200 });
   } catch (e) {
-    console.error("[Admin API] GET /health/services error:", e);
+    log.error({ err: redactedError(e) }, "services_health_check_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 }

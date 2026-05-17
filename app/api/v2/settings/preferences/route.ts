@@ -5,6 +5,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
@@ -15,6 +16,8 @@ import {
   type SettingValue,
   setUserPreference,
 } from "@/lib/platform/settings";
+
+const log = withRoute("GET|POST /api/v2/settings/preferences");
 
 const preferencesBodySchema = z
   .object({
@@ -41,7 +44,7 @@ export async function GET() {
       preferences: { locale, notifications },
     });
   } catch (e) {
-    console.error("[Settings API] GET /preferences error:", e);
+    log.error({ err: redactedError(e) }, "preferences_get_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 }
@@ -72,7 +75,7 @@ export async function POST(req: NextRequest) {
     const current = await getUserPreference(db, scope.userId, key, value as SettingValue);
     return NextResponse.json({ key, value: current });
   } catch (e) {
-    console.error("[Settings API] POST /preferences error:", e);
+    log.error({ err: redactedError(e) }, "preferences_post_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 }

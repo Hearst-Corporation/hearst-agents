@@ -2,8 +2,11 @@ import type { NextRequest } from "next/server";
 import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import type { Database } from "@/lib/database.types";
 import { createToolSchema, dbErr, err, ok, parseBody, slugify } from "@/lib/domain";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+
+const log = withRoute("GET|POST /api/tools");
 
 type ToolInsert = Database["public"]["Tables"]["tools"]["Insert"];
 
@@ -24,7 +27,7 @@ export async function GET() {
     if (error) return dbErr("GET /api/tools", error);
     return ok({ tools: data ?? [] });
   } catch (e) {
-    console.error("GET /api/tools: uncaught", e);
+    log.error({ err: redactedError(e) }, "tools_get_failed");
     return err("internal_error", 500);
   }
 }
@@ -63,7 +66,7 @@ export async function POST(req: NextRequest) {
     if (error) return dbErr("POST /api/tools", error);
     return ok({ tool: data }, 201);
   } catch (e) {
-    console.error("POST /api/tools: uncaught", e);
+    log.error({ err: redactedError(e) }, "tools_post_failed");
     return err("internal_error", 500);
   }
 }

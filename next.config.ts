@@ -1,13 +1,18 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 /* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ── */
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.sentry.io https://cloud.langfuse.com https://unpkg.com",
+      // TODO(nonces): remplacer 'unsafe-inline' par 'strict-dynamic' + nonce via middleware.ts
+      // quand le nonce middleware sera en place (generateNonces() Next.js 15).
+      // 'unsafe-eval' nécessaire en dev pour React/Webpack, supprimé en prod.
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' 'wasm-unsafe-eval'" : ""} https://*.sentry.io https://cloud.langfuse.com https://unpkg.com`,
       "worker-src 'self' blob:",
       "child-src 'self' blob:",
       "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",

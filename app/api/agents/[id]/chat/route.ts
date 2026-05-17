@@ -6,8 +6,11 @@ import { RunTracer } from "@/lib/engine/runtime";
 import type { AgentGuardPolicy } from "@/lib/engine/runtime/prompt-guard";
 import type { ChatMessage, ModelDecision } from "@/lib/llm";
 import { getProvider, smartStreamChat } from "@/lib/llm";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+
+const log = withRoute("POST /api/agents/[id]/chat");
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -231,7 +234,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       } catch (streamErr) {
         const rawMsg = streamErr instanceof Error ? streamErr.message : "stream_failed";
         const clientError = sanitizeClientError(streamErr);
-        console.error(`chat stream error agent=${id} run=${runId}:`, rawMsg);
+        log.error({ err: redactedError(streamErr), agentId: id, runId }, "chat_stream_failed");
         controller.enqueue(
           encoder.encode(
             `data: ${JSON.stringify({ error: clientError, done: true, run_id: runId })}\n\n`,

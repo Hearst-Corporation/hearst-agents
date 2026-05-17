@@ -12,12 +12,15 @@ import {
   saveScheduledMission,
   updateScheduledMission,
 } from "@/lib/engine/runtime/state/adapter";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { withScope } from "@/lib/platform/http/route-handler";
 import { redactId } from "@/lib/utils/redact";
 import type { WorkflowGraph } from "@/lib/workflows/types";
 import { validateGraph } from "@/lib/workflows/validate";
+
+const log = withRoute("GET|POST|PATCH /api/v2/missions");
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +35,7 @@ export const GET = withScope("GET /api/v2/missions", async (_req, { scope }) => 
 
     return NextResponse.json({ missions });
   } catch (e) {
-    console.error("GET /api/v2/missions: uncaught", e);
+    log.error({ err: redactedError(e) }, "missions_get_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 });
@@ -102,8 +105,9 @@ export async function POST(req: NextRequest) {
   );
 
   if (duplicateMission) {
-    console.warn(
-      `[MissionsAPI] Duplicate mission prevented: ${duplicateMission.id} — ${duplicateMission.schedule}`,
+    log.warn(
+      { missionId: duplicateMission.id, schedule: duplicateMission.schedule },
+      "mission_duplicate_prevented",
     );
     return NextResponse.json({ mission: duplicateMission, duplicate: true }, { status: 200 });
   }
@@ -152,11 +156,12 @@ export async function POST(req: NextRequest) {
   });
 
   if (!persisted) {
-    console.warn("[MissionsAPI] Mission saved in-memory only — Supabase unavailable");
+    log.warn({ missionId: mission.id }, "mission_saved_memory_only");
   }
 
-  console.log(
-    `[MissionsAPI] Mission created: ${mission.id} — ${mission.schedule} (user: ${redactId(scope.userId)})`,
+  log.info(
+    { missionId: mission.id, schedule: mission.schedule, userId: redactId(scope.userId) },
+    "mission_created",
   );
 
   return NextResponse.json({ mission }, { status: 201 });
@@ -176,7 +181,7 @@ export async function PATCH(req: NextRequest) {
   // Verify ownership before updating
   const mem = getMission(body.id);
   if (mem?.userId && mem.userId !== scope.userId) {
-    console.warn(`[MissionsAPI] Access denied — user mismatch for mission ${body.id}`);
+    log.warn({ missionId: body.id }, "mission_access_denied_user_mismatch");
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
   }
 
@@ -192,8 +197,9 @@ export async function PATCH(req: NextRequest) {
   // Update in Supabase
   await updateScheduledMission(body.id, { enabled: body.enabled });
 
-  console.log(
-    `[MissionsAPI] Mission ${body.id} ${body.enabled ? "enabled" : "disabled"} (user: ${redactId(scope.userId)})`,
+  log.info(
+    { missionId: body.id, enabled: body.enabled, userId: redactId(scope.userId) },
+    "mission_toggled",
   );
 
   return NextResponse.json({ ok: true, id: body.id, enabled: body.enabled });

@@ -6,8 +6,11 @@
  */
 
 import { NextResponse } from "next/server";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { withAdmin } from "@/lib/platform/http/route-handler";
 import { listWebhooks } from "@/lib/webhooks/store";
+
+const log = withRoute("GET /api/admin/webhooks-status");
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +26,7 @@ export const GET = withAdmin(
 
       return NextResponse.json({ webhooks }, { status: 200 });
     } catch (e) {
-      console.error("[Admin API] GET /webhooks-status error:", e);
+      log.error({ err: redactedError(e) }, "webhooks_status_fetch_failed");
       return NextResponse.json({ error: "internal_error" }, { status: 500 });
     }
   },

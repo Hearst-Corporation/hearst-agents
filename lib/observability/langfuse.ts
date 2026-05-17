@@ -16,6 +16,7 @@
  */
 
 import { Langfuse } from "langfuse";
+import { logger } from "./logger";
 
 let _client: Langfuse | null = null;
 let _bootStatusLogged = false;
@@ -24,11 +25,11 @@ function logBootStatus(status: "enabled" | "disabled" | "fatal", detail?: string
   if (_bootStatusLogged) return;
   _bootStatusLogged = true;
   if (status === "enabled") {
-    console.log("[langfuse] enabled (prod)");
+    logger.info({ detail }, "langfuse_enabled");
   } else if (status === "disabled") {
-    console.log(`[langfuse] disabled (${detail ?? "no keys"})`);
+    logger.info({ detail: detail ?? "no keys" }, "langfuse_disabled");
   } else {
-    console.error(`[langfuse] FATAL: missing keys in production (${detail ?? "unknown"})`);
+    logger.error({ detail: detail ?? "unknown" }, "langfuse_fatal_missing_keys");
   }
 }
 
@@ -57,11 +58,8 @@ function getClient(): Langfuse | null {
     secretKey,
     baseUrl: process.env.LANGFUSE_HOST ?? "https://cloud.langfuse.com",
   });
-  if (isProd) {
-    logBootStatus("enabled");
-  } else {
-    logBootStatus("disabled", "dev with keys — traces enabled");
-  }
+  // En prod comme en dev avec clés, le client est actif → statut "enabled".
+  logBootStatus("enabled");
   return _client;
 }
 
@@ -81,18 +79,36 @@ export function startTrace(name: string, metadata?: Record<string, unknown>) {
 }
 
 /**
- * Vérifie au boot que Langfuse est correctement configuré en production.
- * À appeler depuis `instrumentation.ts` (Next.js `register()`) pour fail fast
- * si les clés sont absentes en prod. No-op en dev/test.
- *
- * NOTE : cette fonction n'est pas auto-invoquée. L'utilisateur doit l'ajouter
- * manuellement dans `instrumentation.ts` (laissé volontairement hors de ce
- * patch pour respecter le scope ADD).
+ * Alias fail-soft de getLangfuseClient().
+ * Retourne le client Langfuse si les clés sont présentes, null sinon.
+ * Ne throw jamais — même en production.
+ * Utilisé par le health check admin (assertLangfuseReady async).
  */
+export function getLangfuse(): Langfuse | null {
+  try {
+    return getClient();
+  } catch {
+    return null;
+  }
+}
+
 export function assertLangfuseReady(): void {
   if (process.env.NODE_ENV !== "production") return;
   // getClient() throws en prod si clés absentes — comportement voulu
   getClient();
+}
+
+/**
+ * Vérifie que Langfuse est correctement configuré.
+ * Utilisé par le health check admin.
+ * Fail-soft : ne throw jamais.
+ */
+export async function assertLangfuseReadyAsync(): Promise<{ ok: boolean; reason?: string }> {
+  const client = getLangfuse();
+  if (!client) {
+    return { ok: false, reason: "LANGFUSE_PUBLIC_KEY or LANGFUSE_SECRET_KEY not set" };
+  }
+  return { ok: true };
 }
 
 /**
@@ -117,13 +133,13 @@ export async function flushLangfuse(timeoutMs = 2000): Promise<boolean> {
     const flushPromise = client.flushAsync().then(() => true);
     const timeoutPromise = new Promise<boolean>((resolve) => {
       timer = setTimeout(() => {
-        console.warn(`[langfuse] flush timeout after ${timeoutMs}ms — traces may be lost`);
+        logger.warn({ timeoutMs }, "langfuse_flush_timeout");
         resolve(false);
       }, timeoutMs);
     });
     return await Promise.race([flushPromise, timeoutPromise]);
   } catch (err) {
-    console.warn("[langfuse] flush error:", err instanceof Error ? err.message : String(err));
+    logger.warn({ msg: err instanceof Error ? err.message : String(err) }, "langfuse_flush_error");
     return false;
   } finally {
     if (timer) clearTimeout(timer);

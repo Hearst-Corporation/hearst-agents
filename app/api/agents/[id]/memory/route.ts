@@ -1,8 +1,11 @@
 import type { NextRequest } from "next/server";
 import { createMemorySchema, dbErr, err, ok, parseBody } from "@/lib/domain";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { withScope } from "@/lib/platform/http/route-handler";
+
+const log = withRoute("GET|POST /api/agents/[id]/memory");
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +36,7 @@ export const GET = withScope<{ id: string }>(
       if (error) return dbErr(`GET /api/agents/${id}/memory`, error);
       return ok({ memories: data ?? [] });
     } catch (e) {
-      console.error(`GET /api/agents/${id}/memory: uncaught`, e);
+      log.error({ err: redactedError(e) }, "agent_memory_get_failed");
       return err("internal_error", 500);
     }
   },
@@ -82,7 +85,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     if (error) return dbErr(`POST /api/agents/${id}/memory`, error);
     return ok({ memory: data }, 201);
   } catch (e) {
-    console.error(`POST /api/agents/${id}/memory: uncaught`, e);
+    log.error({ err: redactedError(e) }, "agent_memory_post_failed");
     return err("internal_error", 500);
   }
 }

@@ -1,8 +1,11 @@
 import type { NextRequest } from "next/server";
 import { err, ok } from "@/lib/domain";
 import { enforceMemoryPolicy } from "@/lib/engine/runtime";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+
+const log = withRoute("POST /api/agents/[id]/memory/govern");
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +36,7 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ id
     const result = await enforceMemoryPolicy(sb, id, agent.memory_policy_id);
     return ok({ ...result, agent_id: id });
   } catch (e) {
-    console.error(`POST /api/agents/${id}/memory/govern: uncaught`, e);
+    log.error({ err: redactedError(e) }, "memory_govern_failed");
     return err("internal_error", 500);
   }
 }

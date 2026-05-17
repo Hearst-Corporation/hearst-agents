@@ -41,7 +41,7 @@ export type StagePayload =
   | { mode: "chat"; threadId?: string }
   | { mode: "asset"; assetId: string; variantKind?: string }
   | { mode: "asset_compare"; assetIds: string[] }
-  | { mode: "mission"; missionId: string }
+  | { mode: "mission"; missionId?: string }
   | { mode: "browser"; sessionId: string }
   | { mode: "meeting"; meetingId: string }
   | { mode: "kg"; entityId?: string; query?: string }
@@ -120,7 +120,8 @@ export const useStageStore = create<StageState>((set, get) => ({
   setMode: (payload) => {
     const prev = get().current;
     const nextLastAssetId = payload.mode === "asset" ? payload.assetId : get().lastAssetId;
-    const nextLastMissionId = payload.mode === "mission" ? payload.missionId : get().lastMissionId;
+    const nextLastMissionId =
+      payload.mode === "mission" ? (payload.missionId ?? get().lastMissionId) : get().lastMissionId;
     set({
       current: payload,
       history: [...get().history, { payload: prev, ts: Date.now() }].slice(-20),
@@ -137,7 +138,8 @@ export const useStageStore = create<StageState>((set, get) => ({
     }
     const prev = get().current;
     const nextLastAssetId = payload.mode === "asset" ? payload.assetId : get().lastAssetId;
-    const nextLastMissionId = payload.mode === "mission" ? payload.missionId : get().lastMissionId;
+    const nextLastMissionId =
+      payload.mode === "mission" ? (payload.missionId ?? get().lastMissionId) : get().lastMissionId;
     set({
       current: payload,
       history: [...get().history, { payload: prev, ts: Date.now() }].slice(-20),

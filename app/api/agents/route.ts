@@ -1,9 +1,12 @@
 import type { NextRequest } from "next/server";
 import type { Database } from "@/lib/database.types";
 import { createAgentSchema, dbErr, err, ok, parseBody, slugify } from "@/lib/domain";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { withScope } from "@/lib/platform/http/route-handler";
+
+const log = withRoute("GET|POST /api/agents");
 
 type AgentInsert = Database["public"]["Tables"]["agents"]["Insert"];
 
@@ -25,7 +28,7 @@ export const GET = withScope("GET /api/agents", async (_req, { scope }) => {
     if (error) return dbErr("GET /api/agents", error);
     return ok({ agents: data ?? [] });
   } catch (e) {
-    console.error("GET /api/agents: uncaught", e);
+    log.error({ err: redactedError(e) }, "agents_get_failed");
     return err("internal_error", 500);
   }
 });
@@ -67,7 +70,7 @@ export async function POST(req: NextRequest) {
     if (error) return dbErr("POST /api/agents", error);
     return ok({ agent: data }, 201);
   } catch (e) {
-    console.error("POST /api/agents: uncaught", e);
+    log.error({ err: redactedError(e) }, "agents_post_failed");
     return err("internal_error", 500);
   }
 }

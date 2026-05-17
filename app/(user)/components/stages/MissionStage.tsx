@@ -11,7 +11,7 @@ import { Action } from "../ui";
 import { type StageAction, StageActionBar } from "./StageActionBar";
 
 interface MissionStageProps {
-  missionId: string;
+  missionId?: string;
 }
 
 interface RunSummary {
@@ -274,7 +274,9 @@ export function MissionStage({ missionId }: MissionStageProps) {
                   className="rounded-pill bg-[var(--text-ghost)]"
                   style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                 />
-                <span className="t-11 font-light text-text-muted">{missionId.slice(0, 8)}</span>
+                <span className="t-11 font-light text-text-muted">
+                  {(missionId ?? "").slice(0, 8)}
+                </span>
                 {mission && (
                   <>
                     <span
@@ -470,7 +472,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
               {/* Mission Memory (vague 9) — résumé éditorial + fil de
                   conversation long-terme. Charge /context côté client, le
                   POST messages + relance run depuis le composant. */}
-              <MissionConversation missionId={missionId} onRunTriggered={loadRuns} />
+              {missionId && <MissionConversation missionId={missionId} onRunTriggered={loadRuns} />}
             </>
           )}
         </div>
@@ -479,7 +481,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
       <ConfirmModal
         open={confirmDelete}
         title="Supprimer cette mission ?"
-        description={`La mission « ${mission?.name ?? missionId.slice(0, 8)} » et son planning seront supprimés. Les runs passés sont conservés.`}
+        description={`La mission « ${mission?.name ?? (missionId ?? "").slice(0, 8)} » et son planning seront supprimés. Les runs passés sont conservés.`}
         confirmLabel="Supprimer"
         variant="danger"
         loading={pendingAction === "delete"}

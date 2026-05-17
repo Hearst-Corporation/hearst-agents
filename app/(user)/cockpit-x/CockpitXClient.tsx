@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +17,7 @@ import { BrowserStage } from "../_stages/BrowserStage";
 import { ChatStage } from "../_stages/ChatStage";
 import { KGStage } from "../_stages/KGStage";
 import { MeetingStage } from "../_stages/MeetingStage";
+import { MissionListStage } from "../_stages/MissionListStage";
 import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import { SignalStage } from "../_stages/SignalStage";
@@ -24,6 +26,15 @@ import type { RailItem, StageKey } from "../_stages/types";
 import { VoiceStage } from "../_stages/VoiceStage";
 import { ChatDock } from "../components/ChatDock";
 import { ConnectionsHub } from "../components/ConnectionsHub";
+
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center w-full h-full">
+      <div className="w-8 h-8 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
+    </div>
+  ),
+});
 
 /**
  * CockpitXClient — orchestrateur du shell visionOS (P4+).
@@ -36,7 +47,7 @@ interface CockpitXClientProps {
 }
 
 const FACTORY_MAX = 5;
-const RAIL_MAX = 5;
+const RAIL_MAX = 3;
 
 export function CockpitXClient({
   initialCockpitData,
@@ -84,6 +95,8 @@ export function CockpitXClient({
     }
   }, [pathname, setMode]);
 
+  const hasMissionId = useStageStore((s) => s.current.mode === "mission" && !!s.current.missionId);
+
   const [refetchState, setRefetchState] = useState<"idle" | "loading" | "error">("idle");
 
   useEffect(() => {
@@ -126,7 +139,7 @@ export function CockpitXClient({
             onGoChat={() => setMode({ mode: "chat" })}
           />
         }
-        railTitle="À surveiller"
+        railTitle="ARBITRAGE REQUIS"
         railItems={railItems}
         composer={<ChatDock />}
       />
@@ -141,7 +154,7 @@ export function CockpitXClient({
       case "chat":
         return <ChatStage mode={mode} />;
       case "mission":
-        return <MissionStage mode={mode} />;
+        return hasMissionId ? <MissionStage mode={mode} /> : <MissionListStage mode={mode} />;
       case "asset":
         return <AssetStage mode={mode} />;
       case "browser":
@@ -205,7 +218,6 @@ function CockpitContent({
   const factoryRows = buildFactoryRows(data);
   const watch = buildWatch(data);
   const proposals = buildProposals(data);
-  const showError = refetchState === "error" && !data;
 
   const openCommandeur = (prefilledQuery?: string) =>
     setCommandeurOpen(true, prefilledQuery ? { prefilledQuery } : undefined);
@@ -216,76 +228,179 @@ function CockpitContent({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="preserve-3d flex w-full flex-col mx-auto h-full overflow-hidden"
-      style={{ gap: "var(--space-8)", maxWidth: "1600px", paddingBottom: "var(--space-4)" }}
+      className="preserve-3d flex w-full flex-col mx-auto flex-1 relative min-h-screen"
+      style={{ maxWidth: "1600px" }}
     >
-      {/* HEADER ultra-minimal */}
-      <header
-        className="flex flex-col relative w-full pb-2 shrink-0"
-        style={{ gap: "var(--space-2)" }}
-      >
-        {/* Decor SVG */}
-        <div className="absolute top-0 right-0 opacity-20 pointer-events-none hidden md:block">
-          <svg width="200" height="80" viewBox="0 0 200 80" fill="none">
-            <line
-              x1="0"
-              y1="40"
-              x2="200"
-              y2="40"
-              stroke="white"
-              strokeWidth="0.5"
-              strokeDasharray="4 4"
-            />
-            <circle cx="160" cy="40" r="20" stroke="white" strokeWidth="0.5" />
-            <circle cx="160" cy="40" r="2" fill="white" />
-          </svg>
-        </div>
-
-        <p className="uppercase tracking-[0.2em] text-[9px]" style={{ color: "var(--text-faint)" }}>
-          {todayLabel}
-        </p>
-        <h1
-          className="font-light leading-[1] tracking-tighter text-white"
-          style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}
+      {/* L'Aura du Système (3D Spline) - Présence fantomatique à droite */}
+      <div className="fixed top-0 right-[-15vw] w-[65vw] h-screen pointer-events-none z-0 overflow-hidden flex items-center justify-center">
+        <div
+          className="absolute inset-0 scale-[1.3] opacity-50"
+          style={{ filter: "grayscale(100%) contrast(1.3) brightness(0.6)" }}
         >
-          {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
-        </h1>
-        {showError ? (
-          <p className="uppercase tracking-[0.1em] text-[10px] text-white/40 mt-1">
-            SYSTÈME HORS LIGNE
+          <Spline scene="https://prod.spline.design/jc1CUanFKE-XIpec/scene.splinecode" />
+        </div>
+        {/* Gradient pour assombrir le torse et ancrer le robot dans le noir */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent z-10" />
+      </div>
+
+      {/* Contenu Principal - Alignement Editorial */}
+      <div className="relative z-10 flex flex-col w-full max-w-[620px] px-14 pt-16 pb-32">
+        {/* Top Left - Ancrage système */}
+        <header className="flex flex-col gap-1 mb-20">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-mono font-bold">
+            {todayLabel}
+          </div>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-pulse" />
+            <span className="text-[9px] uppercase tracking-[0.2em] text-white/30 font-bold">
+              En écoute
+            </span>
+          </div>
+        </header>
+
+        {/* Focus - Accueil & Arbitrage */}
+        <div className="flex flex-col gap-4 mb-20">
+          <h1 className="text-[64px] leading-[1.1] font-light tracking-[-0.04em] text-white/90">
+            {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
+          </h1>
+          <p className="text-[20px] font-light text-white/55">
+            {telemetry[0]?.value !== "0" && telemetry[0]?.value !== "—"
+              ? `${telemetry[0].value} exécutions requièrent votre attention.`
+              : telemetry[2]?.value !== "0" && telemetry[2]?.value !== "—"
+                ? `${telemetry[2].value} communications requièrent votre arbitrage.`
+                : "Aucune décision urgente requise."}
           </p>
-        ) : null}
+        </div>
 
-        <div className="mt-8">
-          <TelemetryLine
-            telemetry={telemetry}
-            onInboxConnect={() => openCommandeur("connecter inbox gmail")}
-            onAgendaConnect={() => openCommandeur("connecter google calendar")}
-          />
-        </div>
-      </header>
+        {/* Listes Éditoriales (Max 3 items au total) */}
+        <div className="flex flex-col gap-16">
+          {/* EXÉCUTION */}
+          {factoryRows.length > 0 && (
+            <div className="flex flex-col gap-10">
+              {/* EXÉCUTION ACTIVE */}
+              <div className="flex flex-col">
+                <div className="border-t border-white/5 pt-4 mb-6">
+                  <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                    Exécution active
+                  </h2>
+                </div>
+                <div className="flex flex-col gap-6">
+                  {factoryRows.slice(0, 1).map((row) => (
+                    <button
+                      key={row.id}
+                      type="button"
+                      onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
+                      className="flex flex-col text-left group gap-1"
+                    >
+                      <span className="text-[18px] text-white/80 group-hover:text-white transition-colors duration-500">
+                        {row.name}
+                      </span>
+                      {row.detail && (
+                        <span className="text-[15px] text-white/45">{row.detail}</span>
+                      )}
+                      <span className="text-[11px] uppercase font-mono text-white/25 mt-1">
+                        Dernière activité — {row.when}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-      {/* Grid: 3 columns layout for ultra-wide screen */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 w-full flex-1 overflow-hidden min-h-0 pt-4 border-t border-white/10">
-        <div className="flex flex-col h-full overflow-hidden">
-          <FactoryLine
-            rows={factoryRows}
-            onOpenMission={(id) => setMode({ mode: "mission", missionId: id })}
-            onGoChat={onGoChat}
-          />
-        </div>
-        <div className="flex flex-col h-full overflow-hidden">
-          <WatchBlock
-            watch={watch}
-            onInboxOpen={() => openCommandeur("brief inbox")}
-            onAgendaOpen={() => openCommandeur("agenda du jour")}
-          />
-        </div>
-        <div className="flex flex-col h-full overflow-hidden">
-          <AgentProposals
-            proposals={proposals}
-            onSuggestionOpen={(title) => openCommandeur(title)}
-          />
+              {/* EN FILE */}
+              {factoryRows.length > 1 && (
+                <div className="flex flex-col">
+                  <div className="border-t border-white/5 pt-4 mb-6">
+                    <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                      En file
+                    </h2>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    {factoryRows.slice(1, 3).map((row) => (
+                      <button
+                        key={row.id}
+                        type="button"
+                        onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
+                        className="flex flex-col text-left group gap-1"
+                      >
+                        <span className="text-[15px] text-white/50 group-hover:text-white transition-colors duration-500">
+                          {row.name}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* RADAR (Inbox / Agenda) */}
+          {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
+            <div className="flex flex-col">
+              <div className="border-t border-white/5 pt-4 mb-6">
+                <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                  Radar
+                </h2>
+              </div>
+              <div className="flex flex-col gap-6">
+                {watch.inbox.kind === "items" &&
+                  watch.inbox.items.slice(0, 1).map((it) => (
+                    <button
+                      key={it.id}
+                      type="button"
+                      onClick={() => openCommandeur("brief inbox")}
+                      className="flex flex-col text-left group gap-1"
+                    >
+                      <span className="text-[15px] text-white/70 group-hover:text-white transition-colors duration-500">
+                        {it.title}
+                      </span>
+                      <span className="text-[14px] text-white/45">{it.summary}</span>
+                    </button>
+                  ))}
+                {watch.agenda.kind === "items" &&
+                  watch.agenda.items.slice(0, 1).map((ev) => (
+                    <button
+                      key={ev.id}
+                      type="button"
+                      onClick={() => openCommandeur("agenda du jour")}
+                      className="flex flex-col text-left group gap-1"
+                    >
+                      <span className="text-[15px] text-white/70 group-hover:text-white transition-colors duration-500">
+                        Prochain engagement : {ev.title}
+                      </span>
+                      <span className="text-[10px] uppercase font-mono text-white/25 mt-1">
+                        {ev.when}
+                      </span>
+                    </button>
+                  ))}
+              </div>
+            </div>
+          )}
+
+          {/* INITIATIVES */}
+          {proposals.length > 0 && (
+            <div className="flex flex-col">
+              <div className="border-t border-white/5 pt-4 mb-6">
+                <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                  Initiatives
+                </h2>
+              </div>
+              <div className="flex flex-col gap-6">
+                {proposals.slice(0, 1).map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => openCommandeur(p.title)}
+                    className="flex flex-col text-left group gap-1"
+                  >
+                    <span className="text-[15px] text-white/70 group-hover:text-white transition-colors duration-500">
+                      {p.title}
+                    </span>
+                    <span className="text-[14px] text-white/45">{p.description}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </motion.section>
@@ -308,113 +423,11 @@ interface TelemetryItem {
   needsConnection?: boolean;
 }
 
-function TelemetryLine({
-  telemetry,
-  onInboxConnect,
-  onAgendaConnect,
-}: {
-  telemetry: TelemetryItem[];
-  onInboxConnect: () => void;
-  onAgendaConnect: () => void;
-}) {
-  return (
-    <div className="flex flex-wrap items-center gap-6 lg:gap-12">
-      {telemetry.map((item) => {
-        const connectHandler =
-          item.needsConnection && item.id === "inbox"
-            ? onInboxConnect
-            : item.needsConnection && item.id === "agenda"
-              ? onAgendaConnect
-              : null;
-        const Wrapper = connectHandler ? "button" : "div";
-        return (
-          <Wrapper
-            key={item.id}
-            type={connectHandler ? "button" : undefined}
-            onClick={connectHandler ?? undefined}
-            className="flex items-center gap-3 transition-opacity hover:opacity-100 opacity-60"
-            style={{ cursor: connectHandler ? "pointer" : "default" }}
-          >
-            <span className="font-light text-white text-xl">
-              {item.value !== "—" ? item.value : "-"}
-            </span>
-            <span className="uppercase tracking-[0.2em] text-[9px] text-white pt-1">
-              {item.label}
-            </span>
-          </Wrapper>
-        );
-      })}
-    </div>
-  );
-}
-
 interface AgentProposal {
   id: string;
   title: string;
   description: string;
   status: "ready" | "partial";
-}
-
-function AgentProposals({
-  proposals,
-  onSuggestionOpen,
-}: {
-  proposals: AgentProposal[];
-  onSuggestionOpen: (prompt: string) => void;
-}) {
-  return (
-    <section className="flex flex-col w-full h-full min-h-0">
-      <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 shrink-0">
-        <h2 className="uppercase tracking-[0.15em] text-[10px] text-white">Propositions</h2>
-        <span className="text-[9px] text-white/40">{proposals.length}</span>
-      </div>
-      {proposals.length === 0 ? (
-        <div className="flex items-center justify-center py-8 opacity-20 shrink-0">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="6" stroke="white" strokeWidth="0.5" />
-            <line
-              x1="12"
-              y1="0"
-              x2="12"
-              y2="24"
-              stroke="white"
-              strokeWidth="0.5"
-              strokeDasharray="2 4"
-            />
-            <line
-              x1="0"
-              y1="12"
-              x2="24"
-              y2="12"
-              stroke="white"
-              strokeWidth="0.5"
-              strokeDasharray="2 4"
-            />
-          </svg>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-2 overflow-y-auto min-h-0 pb-4 pr-2">
-          {proposals.map((p) => (
-            <button
-              key={p.id}
-              type="button"
-              onClick={() => onSuggestionOpen(p.title)}
-              className="flex flex-col text-left group py-3 gap-1 opacity-70 hover:opacity-100 transition-opacity"
-            >
-              <div className="flex items-center justify-between w-full">
-                <span className="text-sm font-medium text-white">{p.title}</span>
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: p.status === "ready" ? "white" : "var(--text-ghost)" }}
-                />
-              </div>
-              <span className="text-xs text-white/50">{p.description}</span>
-            </button>
-          ))}
-        </div>
-      )}
-    </section>
-  );
 }
 
 interface FactoryRow {
@@ -427,106 +440,6 @@ interface FactoryRow {
   detail: string | null;
 }
 
-function FactoryLine({
-  rows,
-  onOpenMission,
-  onGoChat,
-}: {
-  rows: FactoryRow[];
-  onOpenMission: (missionId: string) => void;
-  onGoChat: () => void;
-}) {
-  return (
-    <section className="flex flex-col w-full h-full min-h-0">
-      <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 shrink-0">
-        <h2 className="uppercase tracking-[0.15em] text-[10px] text-white">Demandes</h2>
-        <span className="text-[9px] text-white/40">{rows.length}</span>
-      </div>
-      {rows.length === 0 ? (
-        <div className="flex items-center justify-center py-8 opacity-20 shrink-0">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect x="6" y="6" width="12" height="12" stroke="white" strokeWidth="0.5" />
-            <line
-              x1="12"
-              y1="0"
-              x2="12"
-              y2="24"
-              stroke="white"
-              strokeWidth="0.5"
-              strokeDasharray="2 4"
-            />
-            <line
-              x1="0"
-              y1="12"
-              x2="24"
-              y2="12"
-              stroke="white"
-              strokeWidth="0.5"
-              strokeDasharray="2 4"
-            />
-          </svg>
-        </div>
-      ) : (
-        <ul className="flex flex-col gap-2 overflow-y-auto min-h-0 pb-4 pr-2">
-          {rows.map((row) => (
-            <li key={row.id}>
-              <button
-                type="button"
-                onClick={() => onOpenMission(row.missionId)}
-                className="flex w-full items-start text-left py-3 gap-4 opacity-70 hover:opacity-100 transition-opacity"
-              >
-                <StatusPill status={row.status} />
-                <div className="flex flex-1 flex-col gap-1">
-                  <span className="text-sm font-medium text-white">{row.name}</span>
-                  {row.detail ? <span className="text-xs text-white/40">{row.detail}</span> : null}
-                </div>
-                <span className="text-[10px] uppercase tracking-wide text-white/30">
-                  {row.when}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  );
-}
-
-function StatusPill({ status }: { status: FactoryRow["status"] }) {
-  const { dot, pulse } = pillTokens(status);
-  return (
-    <span className="flex items-center pt-1.5">
-      <span
-        aria-hidden
-        className={pulse ? "animate-pulse" : ""}
-        style={{
-          width: "6px",
-          height: "6px",
-          borderRadius: "50%",
-          background: dot,
-        }}
-      />
-    </span>
-  );
-}
-
-function pillTokens(status: FactoryRow["status"]): {
-  dot: string;
-  pulse: boolean;
-} {
-  switch (status) {
-    case "running":
-      return { dot: "white", pulse: true };
-    case "success":
-      return { dot: "var(--text-l2)", pulse: false };
-    case "failed":
-    case "blocked":
-      return { dot: "white", pulse: false };
-    default:
-      return { dot: "var(--text-ghost)", pulse: false };
-  }
-}
-
 interface WatchData {
   inbox:
     | { kind: "items"; items: { id: string; title: string; summary: string }[] }
@@ -536,139 +449,6 @@ interface WatchData {
     | { kind: "items"; items: { id: string; title: string; when: string }[] }
     | { kind: "disconnected" }
     | { kind: "empty" };
-}
-
-function WatchBlock({
-  watch,
-  onInboxOpen,
-  onAgendaOpen,
-}: {
-  watch: WatchData;
-  onInboxOpen: () => void;
-  onAgendaOpen: () => void;
-}) {
-  const blocks: { key: string; node: React.ReactNode }[] = [];
-
-  if (watch.inbox.kind === "items") {
-    blocks.push({
-      key: "inbox",
-      node: (
-        <WatchCard title="Messages" action={{ label: "Ouvrir", onClick: onInboxOpen }}>
-          <ul className="flex flex-col gap-3">
-            {watch.inbox.items.slice(0, 3).map((it) => (
-              <li key={it.id} className="flex flex-col gap-1">
-                <span className="text-sm text-white">{it.title}</span>
-                <span className="text-xs text-white/40">{it.summary}</span>
-              </li>
-            ))}
-          </ul>
-        </WatchCard>
-      ),
-    });
-  } else if (watch.inbox.kind === "disconnected") {
-    blocks.push({
-      key: "inbox",
-      node: (
-        <WatchCard title="Messages" action={{ label: "Connecter", onClick: onInboxOpen }}>
-          <p className="text-xs text-white/40">Source déconnectée.</p>
-        </WatchCard>
-      ),
-    });
-  }
-
-  if (watch.agenda.kind === "items") {
-    blocks.push({
-      key: "agenda",
-      node: (
-        <WatchCard title="Agenda" action={{ label: "Détail", onClick: onAgendaOpen }}>
-          <ul className="flex flex-col gap-3">
-            {watch.agenda.items.slice(0, 3).map((ev) => (
-              <li key={ev.id} className="flex items-baseline justify-between gap-3">
-                <span className="text-sm text-white">{ev.title}</span>
-                <span className="text-[10px] uppercase tracking-wide text-white/40">{ev.when}</span>
-              </li>
-            ))}
-          </ul>
-        </WatchCard>
-      ),
-    });
-  } else if (watch.agenda.kind === "disconnected") {
-    blocks.push({
-      key: "agenda",
-      node: (
-        <WatchCard title="Agenda" action={{ label: "Connecter", onClick: onAgendaOpen }}>
-          <p className="text-xs text-white/40">Calendrier déconnecté.</p>
-        </WatchCard>
-      ),
-    });
-  }
-
-  return (
-    <section className="flex flex-col w-full h-full min-h-0">
-      <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 shrink-0">
-        <h2 className="uppercase tracking-[0.15em] text-[10px] text-white">Signaux</h2>
-      </div>
-      {blocks.length === 0 ? (
-        <div className="flex items-center justify-center py-8 opacity-20 shrink-0">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <polygon points="12,2 22,22 2,22" stroke="white" strokeWidth="0.5" />
-            <line
-              x1="12"
-              y1="0"
-              x2="12"
-              y2="24"
-              stroke="white"
-              strokeWidth="0.5"
-              strokeDasharray="2 4"
-            />
-            <line
-              x1="0"
-              y1="12"
-              x2="24"
-              y2="12"
-              stroke="white"
-              strokeWidth="0.5"
-              strokeDasharray="2 4"
-            />
-          </svg>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-3 overflow-y-auto min-h-0 pb-4 pr-2">
-          {blocks.map((b) => (
-            <div key={b.key}>{b.node}</div>
-          ))}
-        </div>
-      )}
-    </section>
-  );
-}
-
-function WatchCard({
-  title,
-  action,
-  children,
-}: {
-  title: string;
-  action?: { label: string; onClick: () => void };
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col py-3 gap-2">
-      <header className="flex items-center justify-between">
-        <span className="text-xs tracking-widest uppercase text-white/50">{title}</span>
-        {action ? (
-          <button
-            type="button"
-            onClick={action.onClick}
-            className="text-[9px] uppercase tracking-widest text-white/40 hover:text-white transition-colors"
-          >
-            {action.label}
-          </button>
-        ) : null}
-      </header>
-      <div className="flex-1 mt-1">{children}</div>
-    </div>
-  );
 }
 
 /* -------------------------------------------------------------------------- */
@@ -869,40 +649,42 @@ function buildRailItems(data: CockpitTodayPayload | null): RailItem[] {
   if (!data) return [];
   const items: RailItem[] = [];
 
-  if (data.inbox.brief && data.inbox.brief.items.length > 0) {
+  // Priorité 1 : Messages déconnectés ou urgents
+  if (data.inbox.needsConnection) {
+    items.push({ t: "Messages déconnectés", s: "Connecter Gmail ou Slack" });
+  } else if (data.inbox.brief && data.inbox.brief.items.length > 0) {
     const n = data.inbox.brief.items.length;
     items.push({
       t: `${n} message${n > 1 ? "s" : ""} à examiner`,
-      s: "À surveiller",
+      s: "Action requise",
       hot: true,
     });
-  } else if (data.inbox.needsConnection) {
-    items.push({ t: "Messages déconnectés", s: "Connecter Gmail ou Slack" });
   }
 
-  const running = data.missionsRunning.find((m) => m.status === "running");
-  if (running) {
-    items.push({ t: running.name, s: "Demande en cours", hot: true });
+  // Priorité 2 : Rapports disponibles (ex: Deal-to-Cash)
+  for (const fav of data.favoriteReports) {
+    if (items.length >= RAIL_MAX) break;
+    items.push({ t: fav.title, s: "Rapport disponible" });
   }
 
+  // Priorité 3 : Demandes en échec
   const failed = data.missionsRunning.find((m) => m.status === "failed");
   if (failed && items.length < RAIL_MAX) {
     items.push({ t: failed.name, s: "Demande en échec" });
   }
 
-  if (data.agenda.length > 0 && items.length < RAIL_MAX) {
+  // Priorité 4 : Agenda déconnecté ou prochain event
+  if (!data.calendarConnected && items.length < RAIL_MAX) {
+    items.push({ t: "Agenda déconnecté", s: "Connecter Google Calendar" });
+  } else if (data.agenda.length > 0 && items.length < RAIL_MAX) {
     const first = data.agenda[0];
     if (first) items.push({ t: first.title, s: formatTime(first.startsAt) });
-  } else if (!data.calendarConnected && items.length < RAIL_MAX) {
-    items.push({ t: "Agenda déconnecté", s: "Connecter Google Calendar" });
   }
 
-  for (const sug of data.suggestions.slice(0, RAIL_MAX - items.length)) {
+  // Priorité 5 : Suggestions
+  for (const sug of data.suggestions) {
+    if (items.length >= RAIL_MAX) break;
     items.push({ t: sug.title, s: sug.status === "ready" ? "Prêt" : "Partiel" });
-  }
-
-  for (const fav of data.favoriteReports.slice(0, RAIL_MAX - items.length)) {
-    items.push({ t: fav.title, s: "Rapport disponible" });
   }
 
   return items.slice(0, RAIL_MAX);

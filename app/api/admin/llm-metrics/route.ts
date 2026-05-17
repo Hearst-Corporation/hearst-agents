@@ -15,7 +15,10 @@
 
 import { NextResponse } from "next/server";
 import { getMetrics } from "@/lib/llm/metrics";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { withAdmin } from "@/lib/platform/http/route-handler";
+
+const log = withRoute("GET /api/admin/llm-metrics");
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +30,7 @@ export const GET = withAdmin(
       const snapshot = getMetrics();
       return NextResponse.json(snapshot, { status: 200 });
     } catch (e) {
-      console.error("[Admin API] GET /llm-metrics error:", e);
+      log.error({ err: redactedError(e) }, "llm_metrics_fetch_failed");
       return NextResponse.json({ error: "internal_error" }, { status: 500 });
     }
   },

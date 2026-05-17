@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { getAllPlans } from "@/lib/engine/planner/store";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
+
+const log = withRoute("GET /api/v2/plans");
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +37,7 @@ export async function GET() {
       count: sorted.length,
     });
   } catch (e) {
-    console.error("GET /api/v2/plans:", e);
+    log.error({ err: redactedError(e) }, "plans_get_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 }

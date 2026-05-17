@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useStageStore } from "@/stores/stage";
 
@@ -118,7 +117,6 @@ function CommandeurIcon() {
 // ── Composant principal ──────────────────────────────────────────────
 
 export function LeftRail() {
-  const router = useRouter();
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
   const commandeurOpen = useStageStore((s) => s.commandeurOpen);
 

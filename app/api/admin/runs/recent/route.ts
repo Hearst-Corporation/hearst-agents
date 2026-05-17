@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { getRuns } from "@/lib/engine/runtime/state/adapter";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { withAdmin } from "@/lib/platform/http/route-handler";
+
+const log = withRoute("GET /api/admin/runs/recent");
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +19,7 @@ export const GET = withAdmin(
       const runs = await getRuns({ limit });
       return NextResponse.json({ runs });
     } catch (e) {
-      console.error("[Admin API] GET /runs/recent error:", e);
+      log.error({ err: redactedError(e) }, "runs_recent_fetch_failed");
       return NextResponse.json({ error: "internal_error" }, { status: 500 });
     }
   },

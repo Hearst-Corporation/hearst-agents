@@ -427,6 +427,7 @@ export function MissionStage({ mode }: { mode: string }) {
   const missionId = useStageStore((s) =>
     s.current.mode === "mission" ? s.current.missionId : null,
   );
+  const setMode = useStageStore((s) => s.setMode);
 
   const [mission, setMission] = useState<ApiMission | null>(null);
   const [loading, setLoading] = useState(false);
@@ -499,6 +500,43 @@ export function MissionStage({ mode }: { mode: string }) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-16"
     >
+      {/* Bouton retour vers la liste — visible uniquement quand missionId est défini */}
+      {missionId && (
+        <button
+          type="button"
+          onClick={() => setMode({ mode: "mission" })}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            fontSize: "13px",
+            color: "rgba(255,255,255,0.45)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: "0",
+            marginBottom: "-8px",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.85)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.45)";
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path
+              d="M9 2L4 7L9 12"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Demandes
+        </button>
+      )}
+
       {/* Empty state — pas de missionId */}
       {!missionId && !loading && <EmptyMissionState />}
 

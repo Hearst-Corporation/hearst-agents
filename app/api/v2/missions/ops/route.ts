@@ -4,7 +4,10 @@ import type { MissionOpsRecord } from "@/lib/engine/runtime/missions/ops-types";
 import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
 import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { getApprovalState } from "@/lib/missions/approvals";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
+
+const log = withRoute("GET /api/v2/missions/ops");
 
 export const dynamic = "force-dynamic";
 
@@ -85,7 +88,7 @@ export async function GET() {
 
     return NextResponse.json({ missions });
   } catch (e) {
-    console.error("GET /api/v2/missions/ops:", e);
+    log.error({ err: redactedError(e) }, "missions_ops_get_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 }

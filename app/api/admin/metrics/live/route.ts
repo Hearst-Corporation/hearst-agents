@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { withAdmin } from "@/lib/platform/http/route-handler";
+
+const log = withRoute("GET /api/admin/metrics/live");
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +36,7 @@ export const GET = withAdmin(
       .limit(1000);
 
     if (error) {
-      console.error("[Admin API] metrics/live:", error.message);
+      log.error({ err: redactedError(error) }, "metrics_query_failed");
       return NextResponse.json({ error: "metrics_query_failed" }, { status: 500 });
     }
 

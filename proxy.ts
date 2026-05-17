@@ -13,7 +13,7 @@
  * Vercel Edge — il produit une 500 loguée à la première requête.
  */
 
-import { timingSafeEqual } from "node:crypto";
+import { randomUUID, timingSafeEqual } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
@@ -98,10 +98,6 @@ function hasValidApiKey(req: NextRequest): boolean {
   return timingSafeEqual(Buffer.from(token), Buffer.from(apiKey));
 }
 
-function isDevBypass(): boolean {
-  return isDevBypassEnabled();
-}
-
 const ARCJET_PROTECTED_PATHS = [
   "/api/orchestrate",
   "/api/v2/jobs",
@@ -131,6 +127,9 @@ export const ARCJET_LLM_JOB_PATHS = [
 const ARCJET_LLM_JOB_REGEX = /^\/api\/agents\/[^/]+\/(chat|run)$/;
 
 function isArcjetProtected(path: string): boolean {
+  // Inclut les routes LLM (notamment /api/agents/[id]/chat via regex)
+  // qui ne figurent pas dans ARCJET_PROTECTED_PATHS mais doivent passer par applyArcjet.
+  if (isLlmJobPath(path)) return true;
   return ARCJET_PROTECTED_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
@@ -204,7 +203,15 @@ async function applyArcjet(
 
 let _envChecked = false;
 
+/** Applique un correlationId préétabli sur la response. */
+function applyCorrelationId(response: NextResponse, correlationId: string): NextResponse {
+  response.headers.set("x-correlation-id", correlationId);
+  return response;
+}
+
 export async function proxy(req: NextRequest): Promise<NextResponse> {
+  // Générer ou réutiliser le correlation-id en premier — avant auth, avant Arcjet
+  const correlationId = req.headers.get("x-correlation-id") ?? randomUUID();
   // F-022 : env validation lazily, une seule fois, sans crasher le boot.
   // env.server.ts est un side-effect module (pas d'exports) : on l'importe
   // dans un bloc try/catch pour ne pas crash le middleware si une var manque.
@@ -229,69 +236,75 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   // (Arcjet userId, session check, refreshToken check). Évite 2-3 appels
   // getToken() redondants sur les routes /api/orchestrate.
   // Skip pour les chemins statiques évidents et dev bypass (pas besoin).
-  const jwtToken = !STATIC_RE.test(path) && !isDevBypass() ? await resolveToken(req) : null;
+  const jwtToken = !STATIC_RE.test(path) && !isDevBypassEnabled() ? await resolveToken(req) : null;
   const userId = extractUserIdFromToken(jwtToken);
 
   // 1. Arcjet check sur les routes sensibles (avant auth pour bloquer
   // les attaques sans consommer de ressources auth).
   if (isArcjetProtected(path)) {
     const denied = await applyArcjet(req, userId);
-    if (denied) return denied;
+    if (denied) return applyCorrelationId(denied, correlationId);
   }
 
   if (isPublic(path)) {
-    return NextResponse.next();
+    return applyCorrelationId(NextResponse.next(), correlationId);
   }
 
   if (path.startsWith("/api/")) {
     // 2. Dev bypass check (F-NEW-P8-02) — d'abord, pour UX dev sans NEXTAUTH_URL.
-    // isDevBypass() inclut un guard isProductionLike() qui refuse en prod.
-    if (isDevBypass()) {
+    // isDevBypassEnabled() inclut un guard isProductionLike() qui refuse en prod.
+    if (isDevBypassEnabled()) {
       console.log(`[Proxy] Dev bypass active — ${path}`);
-      return NextResponse.next();
+      return applyCorrelationId(NextResponse.next(), correlationId);
     }
 
     // 3. CSRF Origin check (F-052) — après dev bypass (dev local peut skip).
     if (!isCsrfSafe(req)) {
       console.warn(`[Proxy] CSRF origin mismatch — ${req.method} ${path}`);
-      return NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 });
+      return applyCorrelationId(
+        NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 }),
+        correlationId,
+      );
     }
 
     if (hasValidApiKey(req)) {
-      return NextResponse.next();
+      return applyCorrelationId(NextResponse.next(), correlationId);
     }
 
     // Réutilise jwtToken déjà décodé (was: hasSession(req) → getToken() again).
     if (jwtToken != null) {
-      return NextResponse.next();
+      return applyCorrelationId(NextResponse.next(), correlationId);
     }
 
     console.warn(`[Proxy] Unauthorized API access — ${path}`);
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    return applyCorrelationId(
+      NextResponse.json({ error: "unauthorized" }, { status: 401 }),
+      correlationId,
+    );
   }
 
   if (jwtToken == null) {
-    if (isDevBypass()) return NextResponse.next();
+    if (isDevBypassEnabled()) return applyCorrelationId(NextResponse.next(), correlationId);
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("callbackUrl", path);
     console.log(`[Proxy] Redirecting unauthenticated user to login — ${path}`);
-    return NextResponse.redirect(loginUrl);
+    return applyCorrelationId(NextResponse.redirect(loginUrl), correlationId);
   }
 
   // Session présente mais refreshToken Google absent → token pas en base,
   // impossible d'appeler Gmail/Calendar/Drive. Forcer reconnexion Google.
   // Réutilise jwtToken (was: 3ème getToken() ici via getToken({ req, secret })).
-  if (!isDevBypass()) {
+  if (!isDevBypassEnabled()) {
     if (!jwtToken.refreshToken) {
       const signinUrl = new URL("/api/auth/signin", req.url);
       signinUrl.searchParams.set("callbackUrl", path);
       signinUrl.searchParams.set("reason", "token_missing");
       console.warn(`[Proxy] Session without refreshToken — forcing re-auth — ${path}`);
-      return NextResponse.redirect(signinUrl);
+      return applyCorrelationId(NextResponse.redirect(signinUrl), correlationId);
     }
   }
 
-  return NextResponse.next();
+  return applyCorrelationId(NextResponse.next(), correlationId);
 }
 
 export const config = {

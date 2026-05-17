@@ -4,10 +4,8 @@ import { lazy, Suspense } from "react";
 import { useNavigationStore } from "@/stores/navigation";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
-import { StageFooter } from "../_shell/StageFooter";
 import { ContextChips } from "../chat/ContextChips";
 import { AttachedAssetChips } from "./AttachedAssetChips";
-import { ComposerActions } from "./ComposerActions";
 import { useAttachedAssets } from "./hooks/useAttachedAssets";
 import { useChatComposer } from "./hooks/useChatComposer";
 import { useDocumentParseModal } from "./hooks/useDocumentParseModal";
@@ -16,7 +14,6 @@ import { useMentionTypeahead } from "./hooks/useMentionTypeahead";
 import { usePdfUpload } from "./hooks/usePdfUpload";
 import { MentionTypeahead } from "./MentionTypeahead";
 import { PdfAttachmentRow } from "./PdfAttachmentRow";
-import { QuickMentionRow } from "./QuickMentionRow";
 import { StatusMessages } from "./StatusMessages";
 import type { ChatInputProps } from "./types";
 import { resolvePlaceholder } from "./utils/surfacePlaceholders";
@@ -75,7 +72,7 @@ export function ChatInput({
   const surface = useNavigationStore((s) => s.surface);
   const stageMode = useStageStore((s) => s.current.mode);
 
-  const { input, setInput, setInputFocused, inputRef, isExpanded } = useChatComposer();
+  const { input, setInput, setInputFocused, inputRef } = useChatComposer();
 
   const {
     typeaheadRef,
@@ -83,7 +80,6 @@ export function ChatInput({
     typeaheadQuery,
     matchingServices,
     selectService,
-    insertMentionFromIcon,
     setHideTypeahead,
   } = useMentionTypeahead({
     input,
@@ -103,16 +99,8 @@ export function ChatInput({
     resetAttachedAssets,
   } = useAttachedAssets({ setInput, inputRef });
 
-  const {
-    fileInputRef,
-    attachment,
-    uploading,
-    uploadError,
-    handleFileChange,
-    clearAttachment,
-    triggerFilePicker,
-    resetUpload,
-  } = usePdfUpload();
+  const { fileInputRef, attachment, uploadError, handleFileChange, clearAttachment, resetUpload } =
+    usePdfUpload();
 
   const {
     imageGenStatus,
@@ -121,13 +109,9 @@ export function ChatInput({
     audioGenMessage,
     codeExecStatus,
     codeExecMessage,
-    handleImageGen,
-    handleAudioGen,
-    handleCodeExec,
   } = useInlineGen({ input, setInput });
 
-  const { docParseOpen, docParseMessage, openModal, closeModal, handleSuccess } =
-    useDocumentParseModal();
+  const { docParseOpen, docParseMessage, closeModal, handleSuccess } = useDocumentParseModal();
 
   function handleSubmit() {
     if (!input.trim() || isRunning) return;
@@ -149,39 +133,23 @@ export function ChatInput({
         e.preventDefault();
         handleSubmit();
       }}
-      className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out] flex justify-center"
+      className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out] flex justify-center pb-12"
     >
       <div
-        className="relative flex items-center"
+        className="relative flex items-center group transition-colors duration-500 border-b border-white/10 focus-within:border-white/30"
         style={{
-          background: "#000000",
-          border: "1px solid rgba(255, 255, 255, 0.15)",
-          borderRadius: "32px",
-          padding: "var(--space-2) var(--space-2)",
-          paddingRight: "var(--space-6)",
-          gap: "var(--space-4)",
-          boxShadow: "0 24px 48px rgba(0,0,0,1)",
+          background: "transparent",
+          padding: "var(--space-2) 0",
           width: "100%",
-          maxWidth: "960px",
-          minHeight: "64px",
+          maxWidth: "680px",
+          minHeight: "40px",
         }}
         onDragOver={handleAssetDragOver}
         onDragLeave={handleAssetDragLeave}
         onDrop={handleAssetDrop}
         data-drag-over={isDragOver}
       >
-        <StageFooter />
-
-        <div
-          className="shrink-0"
-          style={{
-            width: "1px",
-            height: "var(--space-4)",
-            background: "rgba(255, 255, 255, 0.15)",
-          }}
-        />
-
-        <div className="relative flex items-center min-w-[280px] flex-1">
+        <div className="relative flex items-center w-full flex-1">
           <div className="absolute bottom-full left-0 mb-4 flex flex-col gap-2 w-full">
             {showTypeahead && (
               <MentionTypeahead
@@ -225,8 +193,12 @@ export function ChatInput({
                 setHideTypeahead(true);
               }
             }}
-            placeholder={resolveModePlaceholder(stageMode, surface, placeholder)}
-            className="w-full bg-transparent border-none outline-none text-white text-base placeholder:text-text-muted"
+            placeholder={
+              stageMode === "cockpit"
+                ? "Que devons-nous décider ? _"
+                : resolveModePlaceholder(stageMode, surface, placeholder)
+            }
+            className="w-full bg-transparent border-none outline-none text-white/80 text-[15px] placeholder:text-white/30 font-light caret-white"
           />
         </div>
       </div>
