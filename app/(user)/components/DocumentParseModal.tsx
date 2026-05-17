@@ -17,6 +17,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
 
 export interface DocumentParseModalProps {
@@ -124,8 +125,11 @@ export function DocumentParseModal({
       resetState();
       onClose();
     } catch (err) {
+      const message = err instanceof Error ? err.message : "Erreur parsing document";
       setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Erreur parsing document");
+      setErrorMsg(message);
+      // it.3 H2 T-H2-8 : feedback toast symétrique au success (cf. onSuccess).
+      toast.error("Échec parsing document", message);
     }
   }
 

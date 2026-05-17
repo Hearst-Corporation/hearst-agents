@@ -161,14 +161,18 @@ export function ChatDock() {
   useEffect(() => {
     if (stageMode === "asset" && stageAssetId) {
       const ctx = useChatContext.getState();
-      // Retire l'ancien chip (générique ou périmé) avant de re-ajouter
-      // avec le titre le plus récent, pour éviter de rester bloqué sur
-      // "Asset" si le titre arrive après le premier rendu.
+      const nextLabel = stageAssetTitle || "Asset";
+      // Guard anti-flicker (it.3 H2 T-H2-4) : si le chip existe déjà avec le
+      // bon label, ne pas faire remove+add. Le `removeChip` puis `addChip`
+      // sert uniquement à mettre à jour le label quand le titre asynchrone
+      // remplace le générique "Asset" — sinon on flickerait à chaque render.
+      const existing = ctx.chips.find((c) => c.id === stageAssetId);
+      if (existing?.label === nextLabel) return;
       ctx.removeChip(stageAssetId);
       ctx.addChip({
         id: stageAssetId,
         kind: "asset",
-        label: stageAssetTitle || "Asset",
+        label: nextLabel,
       });
     }
     // Modes sans objet focal asset : rien à injecter ici.

@@ -54,8 +54,18 @@ type LoadStatus = "idle" | "loading_list" | "list" | "loading_spec" | "error";
 
 export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
   // Mémorise une copie initiale du spec au mount pour permettre Reset.
-  const [initialSpec] = useState<ReportSpec>(() => structuredClone(spec));
+  const [initialSpec, setInitialSpec] = useState<ReportSpec>(() => structuredClone(spec));
   const [jsonOpen, setJsonOpen] = useState(false);
+
+  // it.3 H2 T-H2-5 : si on swap de spec (nouvel id stable, ex. après load
+  // template), on re-snapshot. Si pas d'id stable (draft client), on garde
+  // la baseline initiale — sinon Reset deviendrait inutilisable car
+  // la baseline serait écrasée à chaque édition.
+  useEffect(() => {
+    if (!spec.id) return;
+    setInitialSpec(structuredClone(spec));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spec.id]);
 
   // ── Template save state ─────────────────────────────────────
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");

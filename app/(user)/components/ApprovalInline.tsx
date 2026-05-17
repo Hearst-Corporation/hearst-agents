@@ -43,6 +43,16 @@ export function ApprovalInline({
 }: ApprovalInlineProps) {
   const [pending, setPending] = useState<"approve" | "skip" | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
+  // it.3 H2 T-H2-9 : évite setState après unmount si onApprove/onSkip
+  // résolvent (ou rejettent) après la disparition du composant. React 19
+  // tolère mais loggue un warning ; on évite proprement.
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   // P1-4 : auto-scroll vers la card au mount pour que l'utilisateur ne manque
   // pas l'approval. Behavior=smooth, block=center pour un effet doux.
@@ -59,7 +69,7 @@ export function ApprovalInline({
     try {
       await onApprove();
     } finally {
-      setPending(null);
+      if (mountedRef.current) setPending(null);
     }
   };
 
@@ -68,7 +78,7 @@ export function ApprovalInline({
     try {
       await onSkip();
     } finally {
-      setPending(null);
+      if (mountedRef.current) setPending(null);
     }
   };
 
