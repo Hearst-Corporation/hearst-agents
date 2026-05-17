@@ -322,10 +322,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
           }
         } else {
           // Non-fatal : l'asset est rendu sans liste de versions.
-          console.warn(
-            "[ArtifactStage] variants fetch failed (optional):",
-            variantsRes.status,
-          );
+          console.warn("[ArtifactStage] variants fetch failed (optional):", variantsRes.status);
           if (!cancelled) setVersions([]);
         }
 
