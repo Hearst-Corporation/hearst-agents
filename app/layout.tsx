@@ -4,6 +4,7 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import "./globals.css";
+import { ToastHost } from "./(user)/components/ui/ToastHost";
 import { NoiseLayer } from "./components/system/NoiseLayer";
 import { ThemeHydrator } from "./components/system/ThemeHydrator";
 
@@ -54,6 +55,7 @@ export default async function RootLayout({
         <ThemeHydrator initial={themeCookie} />
         {children}
         <NoiseLayer />
+        <ToastHost />
       </body>
     </html>
   );
