@@ -79,6 +79,7 @@ const ALL_MODES: Record<StageMode, true> = {
   simulation: true,
   artifact: true,
   signal: true,
+  connections: true,
 };
 
 const EXPECTED_MODES = [
@@ -94,6 +95,7 @@ const EXPECTED_MODES = [
   "simulation",
   "artifact",
   "signal",
+  "connections",
 ] as const satisfies ReadonlyArray<StageMode>;
 
 /**
@@ -185,10 +187,10 @@ describe("useStageStore — contract", () => {
   });
 
   describe("StageMode (discriminated union)", () => {
-    it("pin la liste exhaustive des 12 modes du cockpit polymorphe", () => {
+    it("pin la liste exhaustive des 13 modes du cockpit polymorphe", () => {
       const keys = Object.keys(ALL_MODES).sort();
       expect(keys).toEqual([...EXPECTED_MODES].sort());
-      expect(keys).toHaveLength(12);
+      expect(keys).toHaveLength(13);
     });
 
     it("STAGE_HOTKEYS référence uniquement des modes valides du contrat", () => {
@@ -220,8 +222,8 @@ describe("useStageStore — contract", () => {
       expect([...STAGE_HOTKEYS]).toEqual(EXPECTED_HOTKEYS);
     });
 
-    // ── Pins négatifs : 2 modes existent SANS hotkey directe (12 modes - 10 hotkeys) ──
-    // Si un futur dev câble une hotkey sur asset_compare ou signal sans documenter
+    // ── Pins négatifs : 3 modes existent SANS hotkey directe (13 modes - 10 hotkeys) ──
+    // Si un futur dev câble une hotkey sur ces modes sans documenter
     // l'intention, ces tests cassent → discussion obligée.
 
     it("asset_compare n'a pas de hotkey directe (accès via Commandeur uniquement)", () => {
@@ -230,6 +232,10 @@ describe("useStageStore — contract", () => {
 
     it("signal n'a pas de hotkey directe (accès via timeline drill-down)", () => {
       expect(STAGE_HOTKEYS.find((h) => h.mode === "signal")).toBeUndefined();
+    });
+
+    it("connections n'a pas de hotkey directe (accès via LeftRail uniquement)", () => {
+      expect(STAGE_HOTKEYS.find((h) => h.mode === "connections")).toBeUndefined();
     });
   });
 
@@ -266,6 +272,7 @@ describe("useStageStore — contract", () => {
         language: "python",
       },
       signal: { mode: "signal", selectedSignalId: "sig-1" },
+      connections: { mode: "connections" },
     };
 
     it.each(EXPECTED_MODES)("expose une variante pour le mode '%s'", (mode) => {

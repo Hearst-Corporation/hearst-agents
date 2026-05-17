@@ -337,11 +337,16 @@ export function ChatStage({ mode }: { mode: string }) {
     [messages.length, toolCalls.length, runState],
   );
 
-  // Run lancé mais rien encore rendu (pas de delta, pas de toolCall). On
-  // veut une affordance visible plutôt qu'un écran qui semble figé.
+  // Run lancé mais aucun contenu assistant visible encore. On vérifie que
+  // l'assistant n'a pas encore émis de delta (pas messages.length === 0
+  // qui rate le cas où seul le message user est dans le store pendant
+  // les 2-3s de reasoning silencieux de Kimi avant le 1er token).
   const isStreamingSilent = useMemo(
-    () => runState === "streaming" && messages.length === 0 && toolCalls.length === 0,
-    [runState, messages.length, toolCalls.length],
+    () =>
+      runState === "streaming" &&
+      toolCalls.length === 0 &&
+      !messages.some((m) => m.role === "assistant" && m.content.length > 0),
+    [runState, messages, toolCalls.length],
   );
 
   return (
@@ -350,7 +355,7 @@ export function ChatStage({ mode }: { mode: string }) {
       variants={CONTAINER_VARIANTS}
       initial="hidden"
       animate="visible"
-      className="preserve-3d flex w-full max-w-[760px] flex-col gap-16"
+      className="preserve-3d flex w-full flex-col gap-16"
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
         {isEmpty && <EmptyChatState />}

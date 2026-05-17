@@ -6,13 +6,18 @@
  *   - label / navLabel : libellés visibles (centre + LeftRail)
  *   - hotkey : raccourci affiché (purement informatif — la logique
  *     d'écoute est dans `app/hooks/use-global-hotkeys.ts`)
- *   - footer : config FloatingFooter par défaut du stage
+ *   - footer : config FloatingFooter LEGACY — voir note ci-dessous
  *   - railTitle : titre de la RightRail par défaut
  *
- * Le contenu data-bound (railItems + footer.status dynamique) sera injecté
- * par chaque StageX component en P4–P6 via les props du <Shell>. Le
- * registry sert de fallback statique avant que le stage ne hydrate ses
- * vraies données.
+ * ⚠️ FOOTER LEGACY — depuis le pivot Factory Cockpit (2026-05), la
+ * navigation primaire vit dans `app/(user)/components/_shell/StageFooter.tsx`
+ * (dock fixe Dashboard / Chat / Mission + Commandeur). Les champs
+ * `footer.actions` et `footer.modes` ci-dessous ne pilotent PLUS le footer
+ * primaire — ils restent comme fallback statique tant qu'aucun
+ * `onActionClick` / `onModeClick` n'est passé (cf. `FooterConfig` dans
+ * types.ts : sans handler les chips ne sont pas rendus interactifs). À
+ * traiter comme contenu décoratif / placeholder par mode tant que les
+ * Stages n'injectent pas leurs propres handlers data-bound.
  *
  * Ordre LEFT_RAIL_ORDER : du haut vers le bas dans la rail 88px. Les
  * hotkeys ⌘1..9 + ⌘0 sont mappés via STAGE_HOTKEYS dans stores/stage.ts
@@ -23,8 +28,8 @@
  * jamais (anti-conflit registry lors des merges parallèles).
  *
  * Sources de référence :
- *   - lab/cli-os/src/scenes/CockpitScene.tsx (labels + footer 3 zones)
- *   - docs/visual/flow-demo-v2.html (specs footer exact par stage)
+ *   - app/(user)/components/_shell/StageFooter.tsx (footer primaire actuel)
+ *   - lab/cli-os/src/scenes/CockpitScene.tsx (labels d'origine)
  *   - stores/stage.ts (12 modes polymorphes verrouillés)
  */
 
@@ -173,10 +178,21 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
       modes: ["Live", "Historique"],
     },
   },
+  connections: {
+    key: "connections",
+    label: "Connexions",
+    navLabel: "Connexions",
+    railTitle: "Intégrations",
+    footer: {
+      status: "Configuration",
+      actions: ["Ajouter", "Configurer", "Révoquer"],
+      modes: ["Liste", "Détail"],
+    },
+  },
 };
 
 /**
- * Ordre LeftRail (88px) — du haut vers le bas. 12 slots, un par mode.
+ * Ordre LeftRail (88px) — du haut vers le bas. 13 slots, un par mode.
  *
  * Cmd+1..9 + Cmd+0 mappés via STAGE_HOTKEYS (stores/stage.ts). Les modes
  * `asset_compare` et `signal` n'ont pas de hotkey direct (accessibles
@@ -184,7 +200,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
  *
  * Mémo : l'ordre suit la grille systématique du store (cockpit > chat >
  * asset > browser > meeting > kg > voice > simulation > mission >
- * artifact) puis les 2 modes sans hotkey en queue (signal > asset_compare).
+ * artifact) puis les 3 modes sans hotkey en queue (signal > asset_compare > connections).
  */
 export const LEFT_RAIL_ORDER: readonly StageKey[] = [
   "cockpit",
@@ -199,6 +215,7 @@ export const LEFT_RAIL_ORDER: readonly StageKey[] = [
   "artifact",
   "signal",
   "asset_compare",
+  "connections",
 ] as const;
 
 /**

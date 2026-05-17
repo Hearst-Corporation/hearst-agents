@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T22:36:25.571Z",
+  "generatedAt": "2026-05-17T00:08:40.550Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1798,
+    "testsExistants": 1799,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
     "files": 332,
-    "cases": 3030,
+    "cases": 3031,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -1686,8 +1686,8 @@
         "I-14. Pas d'animation wrappers",
         "I-15. Cytoscape `ssr: false`"
       ],
-      "testsExistantsCount": 34,
-      "testsOnDisk": 34,
+      "testsExistantsCount": 35,
+      "testsOnDisk": 35,
       "testFilesOnDisk": 3,
       "testsDocExistants": 2,
       "testsManquantsCount": 26,
