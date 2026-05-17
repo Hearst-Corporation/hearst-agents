@@ -164,15 +164,15 @@ export function ChatDock() {
   // remplacer le label générique par le vrai titre — removeChip puis addChip
   // pour contourner la dédup native (idempotente sur l'id).
   useEffect(() => {
-    if (stageMode === "asset" && stageAssetId) {
-      const ctx = useChatContext.getState();
-      const nextLabel = stageAssetTitle || "Asset";
-      // Guard anti-flicker (it.3 H2 T-H2-4) : si le chip existe déjà avec le
-      // bon label, ne pas faire remove+add. Le `removeChip` puis `addChip`
-      // sert uniquement à mettre à jour le label quand le titre asynchrone
-      // remplace le générique "Asset" — sinon on flickerait à chaque render.
-      const existing = ctx.chips.find((c) => c.id === stageAssetId);
-      if (existing?.label === nextLabel) return;
+    if (stageMode !== "asset" || !stageAssetId) return;
+    const ctx = useChatContext.getState();
+    const nextLabel = stageAssetTitle || "Asset";
+    // Guard anti-flicker (it.3 H2 T-H2-4) : si le chip existe déjà avec le
+    // bon label, ne pas faire remove+add. Le `removeChip` puis `addChip`
+    // sert uniquement à mettre à jour le label quand le titre asynchrone
+    // remplace le générique "Asset" — sinon on flickerait à chaque render.
+    const existing = ctx.chips.find((c) => c.id === stageAssetId);
+    if (existing?.label !== nextLabel) {
       ctx.removeChip(stageAssetId);
       ctx.addChip({
         id: stageAssetId,
@@ -180,18 +180,25 @@ export function ChatDock() {
         label: nextLabel,
       });
     }
-    // Modes sans objet focal asset : rien à injecter ici.
+    // T-J9 (it.4) : cleanup au sortie de stage — sans ça, le chip persiste
+    // dans le ChatDock après changement de mode (ex: asset → cockpit), ce
+    // qui injecte un faux contexte dans la prochaine requête.
+    return () => {
+      useChatContext.getState().removeChip(stageAssetId);
+    };
   }, [stageMode, stageAssetId, stageAssetTitle]);
 
   useEffect(() => {
-    if (stageMode === "mission" && stageMissionId) {
-      useChatContext.getState().addChip({
-        id: stageMissionId,
-        kind: "mission",
-        label: "Mission",
-      });
-    }
-    // Modes sans objet focal mission : rien à injecter ici.
+    if (stageMode !== "mission" || !stageMissionId) return;
+    useChatContext.getState().addChip({
+      id: stageMissionId,
+      kind: "mission",
+      label: "Mission",
+    });
+    // T-J9 (it.4) : cleanup du chip mission au sortie de stage.
+    return () => {
+      useChatContext.getState().removeChip(stageMissionId);
+    };
   }, [stageMode, stageMissionId]);
 
   const services = useServicesStore((s) => s.services);

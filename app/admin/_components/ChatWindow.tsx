@@ -16,12 +16,19 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  // T-J1 (it.4) : AbortController réel pour annuler le SSE en cours quand
+  // l'utilisateur (re)envoie un message ou que le composant unmount. La
+  // branche `err.name === "AbortError"` plus bas devient désormais atteignable.
+  const abortRef = useRef<AbortController | null>(null);
 
   // T-F2b : auto-scroll quand un nouveau message arrive (deps [] ne re-scrollait
   // pas sur la mise à jour des messages — bug visible dès le 2e tour).
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages.length]);
+
+  // T-J1 (it.4) : cleanup au unmount — abort tout fetch SSE en vol.
+  useEffect(() => () => abortRef.current?.abort(), []);
 
   const send = async () => {
     if (!input.trim() || loading) return;
@@ -30,11 +37,18 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
     setMessages((prev) => [...prev, { role: "user", content: text }]);
     setLoading(true);
 
+    // T-J1 (it.4) : annule l'éventuel run précédent et expose un signal
+    // au fetch courant. Sans ça, la branche AbortError du catch n'était
+    // jamais atteinte (déclarée mais inaccessible).
+    abortRef.current?.abort();
+    abortRef.current = new AbortController();
+
     try {
       const res = await fetch(`/api/agents/${agentId}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
+        signal: abortRef.current.signal,
       });
 
       const reader = res.body?.getReader();

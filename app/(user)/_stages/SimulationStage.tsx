@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -153,7 +154,9 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         });
         const data = (await res.json()) as SimulationResponse;
         if (!res.ok || !Array.isArray(data.scenarios)) {
-          toast.error("Échec simulation", data.message ?? data.error ?? "Sortie invalide");
+          // T-J7 (it.4) : sanitize le détail exposé — évite de leak un payload
+          // serveur brut (path, stack, identifiants) dans le toast.
+          toast.error("Échec simulation", sanitizeApiError(data.message ?? data.error));
           setPhase("idle");
           // T-F5 : reset autoRanRef sur path d'erreur — sinon, si une simu
           // déclenchée via stage payload échoue, le retry manuel (ou un

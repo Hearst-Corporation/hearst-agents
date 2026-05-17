@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ConfirmModal } from "@/app/(user)/components/ConfirmModal";
 import { toast } from "@/app/hooks/use-toast";
 
@@ -33,13 +33,20 @@ export default function NewAgentPage() {
     max_tokens: 4096,
   });
 
-  // Form "dirty" si l'utilisateur a touché un champ texte ou modifié la
-  // température depuis la valeur par défaut. Sert à protéger contre les
-  // pertes de brouillon au clic Annuler.
-  const isDirty =
-    form.name.trim() !== "" ||
-    form.system_prompt.trim() !== "" ||
-    form.temperature !== DEFAULT_TEMPERATURE;
+  // T-J8 (it.4) : isDirty étendu à TOUS les champs mutables via snapshot
+  // initial. La version précédente ne testait que name + system_prompt +
+  // temperature → l'utilisateur pouvait perdre une description ou un
+  // max_tokens custom sans confirm.
+  //
+  // Le snapshot est figé au mount via useEffect deps [] (pas de resync à
+  // chaque keystroke, sinon isDirty serait toujours false). Lint suppressed
+  // intentionnellement — comportement voulu.
+  const initialFormRef = useRef(form);
+  useEffect(() => {
+    initialFormRef.current = form;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const isDirty = JSON.stringify(form) !== JSON.stringify(initialFormRef.current);
 
   const handleCancelClick = (e: React.MouseEvent) => {
     e.preventDefault();

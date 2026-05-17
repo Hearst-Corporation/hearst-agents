@@ -103,6 +103,27 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     };
   }, []);
 
+  // T-J2 (it.4) : tracking centralisé des setTimeout pour les feedbacks UI
+  // (reset auto des statuts save/load, focus delayed). Sans ce tracking,
+  // les setTimeout en cours au unmount déclencheraient setState post-unmount
+  // (React 19 tolère mais log un warning ; on évite proprement).
+  const timeoutsRef = useRef<Set<number>>(new Set());
+  const trackTimeout = useCallback((fn: () => void, ms: number) => {
+    const id = window.setTimeout(() => {
+      timeoutsRef.current.delete(id);
+      fn();
+    }, ms);
+    timeoutsRef.current.add(id);
+    return id;
+  }, []);
+  useEffect(
+    () => () => {
+      timeoutsRef.current.forEach((id) => window.clearTimeout(id));
+      timeoutsRef.current.clear();
+    },
+    [],
+  );
+
   // ESC ferme le panneau si onClose fourni.
   useEffect(() => {
     if (!onClose) return;
@@ -160,8 +181,8 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     setSaveName(spec.meta.title);
     setSaveDesc("");
     setSaveStatus("form");
-    setTimeout(() => saveNameRef.current?.focus(), 50);
-  }, [spec.meta.title]);
+    trackTimeout(() => saveNameRef.current?.focus(), 50);
+  }, [spec.meta.title, trackTimeout]);
 
   const cancelSave = useCallback(() => {
     setSaveStatus("idle");
@@ -191,7 +212,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
       if (!res.ok) throw new Error("save_failed");
       setIsSaving(false);
       setSaveStatus("saved");
-      setTimeout(() => setSaveStatus("idle"), 2500);
+      trackTimeout(() => setSaveStatus("idle"), 2500);
       setSaveName("");
       setSaveDesc("");
     } catch (err) {
@@ -199,9 +220,9 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
       if (err instanceof DOMException && err.name === "AbortError") return;
       setIsSaving(false);
       setSaveStatus("error");
-      setTimeout(() => setSaveStatus("idle"), 3000);
+      trackTimeout(() => setSaveStatus("idle"), 3000);
     }
-  }, [saveName, saveDesc, spec]);
+  }, [saveName, saveDesc, spec, trackTimeout]);
 
   // ── Handlers load template ──────────────────────────────────
 
@@ -219,9 +240,9 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
       setLoadStatus("error");
-      setTimeout(() => setLoadStatus("idle"), 3000);
+      trackTimeout(() => setLoadStatus("idle"), 3000);
     }
-  }, []);
+  }, [trackTimeout]);
 
   const cancelLoad = useCallback(() => {
     setLoadStatus("idle");
@@ -246,10 +267,10 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") return;
         setLoadStatus("error");
-        setTimeout(() => setLoadStatus("idle"), 3000);
+        trackTimeout(() => setLoadStatus("idle"), 3000);
       }
     },
-    [onChange],
+    [onChange, trackTimeout],
   );
 
   // Stream B / T-B3 : si dirty → confirm modal avant remplacement.

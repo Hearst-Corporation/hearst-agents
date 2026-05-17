@@ -82,6 +82,18 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
     return () => window.clearTimeout(t);
   }, [id, duration, onDismiss, paused]);
 
+  // T-J5 (it.4) : cap absolu de 60s. Le flag `paused` peut rester true
+  // indéfiniment (onglet en arrière-plan, focus stale, hover puis blur sans
+  // mouseleave) → le toast bloquerait la stack MAX_TOASTS sans cet override.
+  // 60s suffisent pour lire l'erreur la plus longue ; au-delà l'UX se
+  // dégrade plus qu'elle ne sert.
+  useEffect(() => {
+    if (duration === null) return;
+    const HARD_CAP_MS = 60_000;
+    const hardCap = window.setTimeout(() => onDismiss(id), HARD_CAP_MS);
+    return () => window.clearTimeout(hardCap);
+  }, [id, duration, onDismiss]);
+
   return (
     <motion.div
       layout

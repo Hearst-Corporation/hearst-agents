@@ -7,7 +7,7 @@
  * Used by FocalStage.
  */
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
 import { consumeOrchestrateSseResponse } from "@/lib/engine/orchestrator/consume-sse-response";
 
@@ -71,6 +71,17 @@ export function FocalRetryButton({
   // doit rester actionnable tant que le user n'a pas réessayé avec succès).
   const [lastError, setLastError] = useState<string | null>(null);
 
+  // T-J4 (it.4) : garde setState post-unmount. Le fetch (mission retry ou
+  // orchestrate SSE) peut prendre plusieurs secondes et l'utilisateur peut
+  // naviguer ailleurs pendant ce temps.
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
   const handleRetry = async () => {
     setIsRetrying(true);
     setLastError(null);
@@ -129,10 +140,11 @@ export function FocalRetryButton({
     } catch (error) {
       console.error("[FocalRetryButton] Retry failed:", error);
       const errMsg = error instanceof Error ? error.message : "Une erreur est survenue";
-      setLastError(errMsg);
+      // T-J4 (it.4) : garde setState post-unmount.
+      if (mountedRef.current) setLastError(errMsg);
       toast.error("Échec du réessai", errMsg);
     } finally {
-      setIsRetrying(false);
+      if (mountedRef.current) setIsRetrying(false);
     }
   };
 

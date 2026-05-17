@@ -42,11 +42,14 @@ export function ReportActions({ reportId, title }: ReportActionsProps) {
         onClick={() => setPanel(panel === "comments" ? null : "comments")}
         active={panel === "comments"}
       />
-      {panel === "share" && (
-        <SharePopover open reportId={reportId} onClose={() => setPanel(null)} />
-      )}
+      {/* T-J10 (it.4) : mount conditionnel = équivalent open=true. La prop
+          `open` était dead code (toujours true) et a été retirée de
+          PopoverShell + descendants. useModalA11y est piloté par `true`
+          fixé tant que le composant est monté, et le parent contrôle le
+          mount/unmount via `panel`. */}
+      {panel === "share" && <SharePopover reportId={reportId} onClose={() => setPanel(null)} />}
       {panel === "comments" && (
-        <CommentsDrawer open reportId={reportId} onClose={() => setPanel(null)} />
+        <CommentsDrawer reportId={reportId} onClose={() => setPanel(null)} />
       )}
     </div>
   );
@@ -106,15 +109,7 @@ const TTL_OPTIONS: Array<{ label: string; hours: number }> = [
   { label: "30 jours", hours: 720 },
 ];
 
-function SharePopover({
-  open,
-  reportId,
-  onClose,
-}: {
-  open: boolean;
-  reportId: string;
-  onClose: () => void;
-}) {
+function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => void }) {
   const [ttlHours, setTtlHours] = useState(24);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
@@ -151,7 +146,7 @@ function SharePopover({
   }, [reportId, ttlHours]);
 
   return (
-    <PopoverShell open={open} onClose={onClose} title="Partager le rapport">
+    <PopoverShell onClose={onClose} title="Partager le rapport">
       <p
         className="t-11 font-light text-text-muted"
         style={{
@@ -276,15 +271,7 @@ interface CommentRow {
   blockRef: string | null;
 }
 
-function CommentsDrawer({
-  open,
-  reportId,
-  onClose,
-}: {
-  open: boolean;
-  reportId: string;
-  onClose: () => void;
-}) {
+function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () => void }) {
   const [comments, setComments] = useState<CommentRow[]>([]);
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(false);
@@ -336,7 +323,7 @@ function CommentsDrawer({
   }, [body, reportId, load]);
 
   return (
-    <PopoverShell open={open} onClose={onClose} title="Commentaires">
+    <PopoverShell onClose={onClose} title="Commentaires">
       <div
         style={{
           maxHeight: "var(--space-64, 320px)",
@@ -458,21 +445,18 @@ function MenuItem({ children, onClick }: { children: React.ReactNode; onClick: (
 }
 
 function PopoverShell({
-  open,
   children,
   title,
   onClose,
 }: {
-  open: boolean;
   children: React.ReactNode;
   title: string;
   onClose: () => void;
 }) {
-  // useModalA11y piloté par `open` (T-4 it.3 follow-up) : la prop reflète
-  // l'état réel du parent (panel === "share" | "comments") au lieu du `true`
-  // hardcodé. Cleanup focus/escape/listeners du hook s'enchaîne correctement
-  // si on bascule open=false sans démonter, tout en restant compatible avec
-  // le mount conditionnel actuel.
+  // T-J10 (it.4) : la prop `open` a été retirée — le parent (ReportActions)
+  // mount/unmount le composant via `panel === "share" | "comments"`, donc
+  // tant que ce composant est monté il est par définition ouvert. Le `true`
+  // hardcodé passé à useModalA11y est l'équivalent exact de l'ancien `open`.
   //
   // lockBodyScroll:false → c'est un popover positionné absolument, pas une
   // modale bloquante. On garde focus trap + Escape + restore focus.
@@ -481,7 +465,7 @@ function PopoverShell({
   // focusable du DOM order (rendu en tête, dans le header avant `children`),
   // donc le hook le focalise naturellement. Plus besoin de closeBtnRef +
   // useEffect manuel.
-  const ref = useModalA11y<HTMLDivElement>(open, {
+  const ref = useModalA11y<HTMLDivElement>(true, {
     onClose,
     lockBodyScroll: false,
     autoFocus: true,
@@ -490,7 +474,6 @@ function PopoverShell({
   // Click-outside ferme le popover (le hook a11y ne gère pas l'outside-click).
   // Escape + focus restore sont délégués à useModalA11y.
   useEffect(() => {
-    if (!open) return;
     const onClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         onClose();
@@ -504,7 +487,7 @@ function PopoverShell({
       window.removeEventListener("mousedown", onClick);
       window.clearTimeout(t);
     };
-  }, [open, onClose, ref]);
+  }, [onClose, ref]);
 
   return (
     <div

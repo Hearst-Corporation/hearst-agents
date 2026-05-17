@@ -73,7 +73,12 @@ export function ApprovalInline({
       await onApprove();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Erreur réseau";
-      setActionError(message);
+      // T-J3 (it.4) : étend la garde mountedRef au setActionError. Sans ça,
+      // un reject de onApprove résolu après unmount déclenche setState sur
+      // composant démonté (warning React 19).
+      if (mountedRef.current) {
+        setActionError(message);
+      }
       toast.error("Échec de l'approbation", message);
     } finally {
       if (mountedRef.current) setPending(null);
@@ -87,7 +92,10 @@ export function ApprovalInline({
       await onSkip();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Erreur réseau";
-      setActionError(message);
+      // T-J3 (it.4) : idem côté skip.
+      if (mountedRef.current) {
+        setActionError(message);
+      }
       toast.error("Échec du skip", message);
     } finally {
       if (mountedRef.current) setPending(null);
