@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { assetToFocal } from "@/lib/ui/focal-mappers";
 import { useFocalStore } from "@/stores/focal";
@@ -79,7 +80,7 @@ export function useRunReportSuggestion(activeThreadId: string | null): UseRunRep
         if (createdThreadForThisRun) {
           nav.removeThread(threadId);
         }
-        toast.error("Échec génération", err instanceof Error ? err.message : "Erreur inconnue");
+        toast.error("Échec génération", sanitizeApiError(err));
       } finally {
         setRunningSpecs((prev) => {
           const next = new Set(prev);

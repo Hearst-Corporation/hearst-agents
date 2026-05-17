@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useOAuthCompletionPoll } from "@/app/hooks/use-oauth-completion-poll";
 import { invalidateOAuthExpiryCache } from "@/app/hooks/use-oauth-expiry";
 import { toast } from "@/app/hooks/use-toast";
@@ -406,11 +407,9 @@ export function useConnectionsHub() {
         await refreshAccounts();
         setTimeout(() => useOAuthStore.getState().clear(), 3000);
       } catch (err) {
-        toast.error("Connexion impossible", err instanceof Error ? err.message : "Erreur réseau");
+        toast.error("Connexion impossible", sanitizeApiError(err));
         if (popup && !popup.closed) popup.close();
-        useOAuthStore
-          .getState()
-          .setStatus("error", err instanceof Error ? err.message : "Erreur réseau");
+        useOAuthStore.getState().setStatus("error", sanitizeApiError(err));
       } finally {
         setBusy(null);
       }

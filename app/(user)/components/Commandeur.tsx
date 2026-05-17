@@ -22,6 +22,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { useFocalStore } from "@/stores/focal";
 import { useNavigationStore } from "@/stores/navigation";
@@ -103,7 +104,7 @@ export function Commandeur() {
         toast.success(row.toastLabel);
       }
     } catch (err) {
-      toast.error("Échec", err instanceof Error ? err.message : "Erreur inconnue");
+      toast.error("Échec", sanitizeApiError(err));
     }
   }, []);
 

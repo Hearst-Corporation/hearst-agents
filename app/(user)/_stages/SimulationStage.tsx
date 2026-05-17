@@ -170,7 +170,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         setAssetId(data.assetId ?? null);
         setPhase("done");
       } catch (err) {
-        toast.error("Erreur réseau", err instanceof Error ? err.message : String(err));
+        toast.error("Erreur réseau", sanitizeApiError(err));
         setPhase("idle");
         // T-F5 : idem — path catch réseau, reset le ref de garde auto-run.
         autoRanRef.current = false;
