@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>QA Flows utilisateur — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>QA Flows utilisateur</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-18 06:22</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> bb30d080</span>
+      <span><b>Scope</b> complet</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">30</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">1</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">13</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">19</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">0</div><div class="kpi-label">Score /10</div></div>
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Navigation &amp; Flow</span>
+        <span class="section-agent">agent-1</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Marketplace sans lien retour au cockpit</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/marketplace/page.tsx:56">app/(user)/marketplace/page.tsx:56</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Aucun &lt;Link&gt; ou bouton retour</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>&lt;PageHeader back={{ href: '/' }}&gt;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisateur arrivant via Cmd+K bloqué sur mobile</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Hospitality sans lien retour</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/hospitality/page.tsx:56">app/(user)/hospitality/page.tsx:56</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Métriques affichées sans navigation retour</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Intégrer comme stage CockpitXClient ou ajouter PageHeader back</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Page orpheline, cohérence avec /copilote manquante</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Archive sans lien retour visible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/archive/page.tsx:5">app/(user)/archive/page.tsx:5</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Accessible via Cmd+K uniquement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>PageHeader avec back.href='/'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dead-end pour navigateurs sans Cmd+K</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Labels modal Annuler asymétriques : 'Quitter' / 'Continuer l'édition'</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agents/new/page.tsx:224">app/admin/agents/new/page.tsx:224</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Quitter' / 'Continuer l'édition'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>'Abandonner' / 'Rester'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mélange de registres lexicaux, confusion sur l'intention</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">redirect() serveur invisible sans UI de chargement</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/page.tsx:4">app/admin/orchestrator/page.tsx:4</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Redirection pure sans feedback</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Lien direct /admin/orchestrator/overview ou spinner</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Confusion si la redirection est lente</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Dashboard admin sans CTA vers sous-sections</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/page.tsx:156">app/admin/page.tsx:156</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>KPIs sans liens vers /admin/agents, /admin/orchestrator</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Cards cliquables vers sections principales</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Navigation uniquement via sidebar</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PageHeader.back (t-11) vs BackLink (t-12) — incohérence typographique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/PageHeader.tsx:84">app/(user)/components/PageHeader.tsx:84</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>t-11 dans PageHeader, t-12 dans BackLink</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner sur t-12 ou créer variable partagée</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Incohérence perceptible entre pages user et admin</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Settings sans back global vers cockpit</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/settings/page.tsx:86">app/(user)/settings/page.tsx:86</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Liens internes de section uniquement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>PageHeader avec back.href='/'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisateur peut arriver via lien direct et être coincé</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Product Logic</span>
+        <span class="section-agent">agent-2</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">1</span>
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Reset simulation sans souligner le coût : 30-50s de génération perdus</span>
+        <span class="status">Confirmation existante mais description incomplète</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SimulationStage.tsx:116">app/(user)/_stages/SimulationStage.tsx:116</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>ConfirmModal sans mention de la durée estimée</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter dans la description : 'Cette action supprimera ~30-50s de génération DeepSeek.'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisateur ne réalise pas le coût réel avant de confirmer</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Suppression variable de simulation sans confirmation ni undo</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SimulationStage.tsx:285">app/(user)/_stages/SimulationStage.tsx:285</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>removeVariable() direct, 1 clic</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Toast undo 3s ou double-clic pour supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Incohérent avec reset qui demande confirmation</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Relancer simulation : 5-7 clics (reset → confirm → re-remplir → relancer)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SimulationStage.tsx:118">app/(user)/_stages/SimulationStage.tsx:118</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>5+ clics après reset</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Drawer 'Éditer' qui préfille les champs actuels</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>L'utilisateur doit reconstituer ses variables manuellement</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Skip step : POST direct sans confirmation UI</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/MissionStepGraph.tsx:71">app/(user)/components/MissionStepGraph.tsx:71</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>handleSkip() → POST API immédiat</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Modale 'Sauter cette étape ?' ou toast pré-action</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Skip est irréversible côté runtime</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Suppression chip contexte : 1 clic sans undo</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat/ContextChips.tsx:48">app/(user)/components/chat/ContextChips.tsx:48</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>removeChip() immédiat</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Toast undo 3-5s</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le contexte influence le comportement du chat</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Suppression asset attaché sans undo</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/AttachedAssetChips.tsx:50">app/(user)/components/chat-input/AttachedAssetChips.tsx:50</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>× retire l'asset immédiatement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Toast 'Asset retiré' avec 'Rétablir'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Asset perdu = re-upload nécessaire</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Suppression PDF sans undo (parsing 30s+ perdu)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/PdfAttachmentRow.tsx:24">app/(user)/components/chat-input/PdfAttachmentRow.tsx:24</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>× retire le PDF immédiatement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Toast undo 5s</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Re-upload + re-parse LlamaParse coûteux</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Export rapport : 1 clic déclenche API sans pre-toast</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ReportActions.tsx:240">app/(user)/components/ReportActions.tsx:240</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Export direct, toast success après</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Toast 'Génération en cours…' avec cancel 3s</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>3 clics accidentels = 3 exports API</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Suppression variante vidéo batch sans confirm</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/video-quick-launch/VideoBatchForm.tsx:124">app/(user)/components/video-quick-launch/VideoBatchForm.tsx:124</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>removeForm() immédiat</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Toast undo si forms.length &gt; 2</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Perte de prompts finement itérés</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Interaction &amp; Feedback</span>
+        <span class="section-agent">agent-3</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">7</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Fetch variants : erreur réseau complètement silencieuse</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/VariantCarousel.tsx:50">app/(user)/components/VariantCarousel.tsx:50</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>catch { /* silent */ } — aucun toast, aucun retry</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>toast.error() après 3+ échecs de poll ou UI 'Erreur de chargement'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisateur attend indéfiniment un état qui ne viendra pas</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Erreur CodeRunner sans bouton Réessayer</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/CodeRunner.tsx:25">app/(user)/components/CodeRunner.tsx:25</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;p&gt;...{fetchError}...&lt;/p&gt; seul</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bouton onClick={() =&gt; refetch()} + message contextuel</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Erreurs réseau temporaires = rechargement page entière nécessaire</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Seed admin : succès silencieux, pas de toast après router.refresh()</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/EmptyState.tsx:31">app/admin/_components/EmptyState.tsx:31</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>router.refresh() sans toast.success()</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>toast.success('Données générées') après res.ok</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisateur ne sait pas si l'action a réussi</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Erreur partage affichée deux fois : state.error + toast.error</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ReportActions.tsx:130">app/(user)/components/ReportActions.tsx:130</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Double affichage sur erreur API</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Toast seul ou state.error + bouton Réessayer, pas les deux</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Redondance réduit la crédibilité UX</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Commandeur : perform() peut throw sans catch visible si navigation échoue</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Commandeur.tsx:100">app/(user)/components/Commandeur.tsx:100</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>try/catch toast mais state peut rester inconsistent</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Valider perform() stable + catch sur setStageMode()</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Commandeur peut rester ouvert dans un état brisé</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">res.ok vérifié mais body JSON non validé (undefined = success)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMissionRunInline.tsx:79">app/(user)/components/ChatMissionRunInline.tsx:79</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>if (!res.ok || !data.ok) — data.ok peut être undefined</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Valider hasOwnProperty('ok') + typeof data.error</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Réponses malformées acceptées comme succès</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Exports/partage sans détection offline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ReportActions.tsx:358">app/(user)/components/ReportActions.tsx:358</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fetch sans vérifier navigator.onLine</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Guard navigator.onLine + toast 'Vous êtes hors ligne'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Erreur confuse au lieu d'indication claire</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SSE stream ChatWindow sans timeout</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/ChatWindow.tsx:86">app/admin/_components/ChatWindow.tsx:86</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>while(true) { await reader.read() } sans AbortController timeout</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>AbortController timeout 30s + message 'Connexion perdue'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Serveur freeze = attente infinie utilisateur</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Escape ferme ConfirmModal pendant action destructive (loading=true)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/hooks/useModalA11y.ts:127">app/(user)/hooks/useModalA11y.ts:127</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>closeOnEscape=true même pendant loading</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>ConfirmModal passe closeOnEscape={!loading}</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Escape par habitude pendant action = état serveur inconsistent</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">KPI top bar silencieux quand stale (catch sans toast)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_shell/AdminTopbarKpis.tsx:62">app/admin/_shell/AdminTopbarKpis.tsx:62</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setStale(true) sans feedback visible</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>toast.warning ou icône d'alerte sur le composant KPI</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Métriques métier disparaissent sans explication</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Erreur fetch mission : message générique sans action recovery</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MissionStage.tsx:495">app/(user)/_stages/MissionStage.tsx:495</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Erreur serveur' sans bouton Réessayer</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Message spécifique + bouton Réessayer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisateur ne distingue pas erreur réseau / mission supprimée / erreur serveur</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">err.message affiché sans sanitizeApiError()</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/_components/StartRunButton.tsx:29">app/admin/orchestrator/_components/StartRunButton.tsx:29</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setError(err.message) direct</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>sanitizeApiError() avant affichage</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Fuite potentielle d'URLs internes ou tokens</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">queueMicrotask autofocus peut manquer si DOM pas stable</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/hooks/useModalA11y.ts:104">app/(user)/hooks/useModalA11y.ts:104</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>queueMicrotask(() =&gt; { getFocusables(); })</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>useLayoutEffect ou setTimeout(0)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Focus se pose parfois sur le mauvais élément</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>P0 — perte de données</h3>
+              <ul><li>SimulationStage reset : mentionner '~30-50s de génération' dans la description ConfirmModal</li></ul>
+            </div><div class="plan-batch">
+              <h3>P1 — friction notable</h3>
+              <ul><li>Ajouter PageHeader back sur /marketplace, /hospitality, /archive</li><li>VariantCarousel : toast.error après 3 échecs de poll (catch actuellement silencieux)</li><li>CodeRunner : ajouter bouton Réessayer sur état d'erreur</li><li>EmptyState seed admin : toast.success() après router.refresh()</li><li>SimulationStage variable : toast undo 3s sur removeVariable()</li><li>MissionStepGraph skip : modale confirmation avant POST</li><li>Harmoniser labels ConfirmModal admin agents : 'Abandonner'/'Rester'</li><li>ChatMissionRunInline : valider body JSON (hasOwnProperty check)</li></ul>
+            </div><div class="plan-batch">
+              <h3>P2 — polish UX</h3>
+              <ul><li>useModalA11y : closeOnEscape={!loading} dans ConfirmModal</li><li>PDF/Asset/Context chips : toast undo 3-5s sur suppression</li><li>ChatWindow SSE : AbortController timeout 30s</li><li>ReportActions : fusionner double affichage erreur (toast OU state, pas les deux)</li><li>AdminTopbarKpis : icône alerte si stale</li><li>StartRunButton : sanitizeApiError() sur err.message</li><li>ReportActions export : toast 'Génération…' avant déclenchement API</li><li>Admin dashboard : ajouter cards navigables vers /admin/agents, /admin/orchestrator</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-18 06:22
+  </footer>
+</div>
+</body>
+</html>
