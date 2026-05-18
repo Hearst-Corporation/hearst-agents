@@ -15,8 +15,10 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { EmptyState } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
+import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
 
@@ -282,27 +284,17 @@ function nodeColor(type: string): string {
 
 function EmptyKGState() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "80px 0",
-        textAlign: "center",
-        gap: "12px",
+    <EmptyState
+      title="Le graphe de connaissance est vide."
+      description="Lance une demande ou connecte des sources pour alimenter le graphe."
+      cta={{
+        label: "Explorer mes données",
+        onClick: () =>
+          useStageStore
+            .getState()
+            .setCommandeurOpen(true, { prefilledQuery: "Explorer mes données" }),
       }}
-    >
-      <p
-        className="t-15"
-        style={{ color: "rgba(255,255,255,0.45)", maxWidth: "440px", lineHeight: 1.6 }}
-      >
-        Le graphe de connaissance est vide. Lance une mission ou connecte des sources.
-      </p>
-    </motion.div>
+    />
   );
 }
 
@@ -389,9 +381,18 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
         return (
           <div
             key={node.id}
+            role="button"
+            tabIndex={0}
+            aria-pressed={isSelected}
             className={`kg-node${node.center ? " center" : ""}${visNodes[node.id] ? " vis" : ""}${isSelected ? " sel" : ""}`}
             style={{ left: `${node.cx}%`, top: `${node.cy}%`, cursor: "pointer" }}
             onClick={() => onSelectNode(isSelected ? null : node.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectNode(isSelected ? null : node.id);
+              }
+            }}
             title={`${node.label} (${node.type})`}
           >
             {/* Dot couleur type */}
@@ -435,7 +436,16 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
         return (
           <div
             key={node.id}
+            role="button"
+            tabIndex={0}
+            aria-pressed={isSelected}
             onClick={() => onSelectNode(isSelected ? null : node.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectNode(isSelected ? null : node.id);
+              }
+            }}
             style={{
               display: "flex",
               alignItems: "center",

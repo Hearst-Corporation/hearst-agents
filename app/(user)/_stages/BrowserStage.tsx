@@ -14,6 +14,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { EmptyState } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -152,27 +153,15 @@ function DemoBanner() {
 
 function EmptyBrowserState() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "80px 0",
-        textAlign: "center",
-        gap: "12px",
+    <EmptyState
+      title="Aucune session active."
+      description="Lance une mission de navigation ou demande à l'agent d'ouvrir un navigateur."
+      cta={{
+        label: "Lancer une navigation",
+        onClick: () =>
+          useStageStore.getState().setCommandeurOpen(true, { prefilledQuery: "Naviguer vers" }),
       }}
-    >
-      <p
-        className="t-15"
-        style={{ color: "rgba(255,255,255,0.45)", maxWidth: "440px", lineHeight: 1.6 }}
-      >
-        Aucune session active. Lance une mission de navigation ou demande à l'agent.
-      </p>
-    </motion.div>
+    />
   );
 }
 

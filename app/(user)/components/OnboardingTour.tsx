@@ -40,7 +40,7 @@ const SLIDES: Slide[] = [
   {
     eyebrow: "03 — Démarrer",
     title: "Lance ta première mission.",
-    body: "Tape une intention dans le Commandeur (⌘K), ou demande à Hearst de générer ton brief du jour. Tout part de là.",
+    body: "Tape une intention dans le Commandeur (⌘K), ou demande à Hearst de générer ton brief du jour. Lance ta première demande depuis là.",
     cta: "Démarrer",
   },
 ];

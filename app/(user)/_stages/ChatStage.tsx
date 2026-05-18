@@ -12,7 +12,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef } from "react";
+import { EmptyState } from "@/app/(user)/components/ui";
 import { type StreamingMessage, type ToolCall, useChatStageStore } from "@/stores/chat-stage";
+import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
 
@@ -177,30 +179,14 @@ function DemoBadge() {
 
 function EmptyChatState() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "80px 0",
-        textAlign: "center",
+    <EmptyState
+      title="Prêt à t'aider."
+      description="Pose une question, lance une demande, ou laisse l'agent veiller."
+      cta={{
+        label: "Ouvrir le Commandeur",
+        onClick: () => useStageStore.getState().setCommandeurOpen(true, { prefilledQuery: "" }),
       }}
-    >
-      <p
-        className="t-15"
-        style={{
-          color: "rgba(255,255,255,0.45)",
-          maxWidth: "440px",
-          lineHeight: 1.6,
-        }}
-      >
-        Pose une question, lance une mission, ou laisse l'agent veiller.
-      </p>
-    </motion.div>
+    />
   );
 }
 

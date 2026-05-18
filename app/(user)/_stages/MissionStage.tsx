@@ -22,6 +22,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { EmptyState } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -260,30 +261,15 @@ function DemoBadge() {
 
 function EmptyMissionState() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "80px 0",
-        textAlign: "center",
+    <EmptyState
+      title="Aucune demande en cours."
+      description="Demande à l'agent de t'aider depuis le chat, ou crée une nouvelle demande."
+      cta={{
+        label: "Nouvelle demande",
+        onClick: () =>
+          useStageStore.getState().setCommandeurOpen(true, { prefilledQuery: "Créer une demande" }),
       }}
-    >
-      <p
-        className="t-15"
-        style={{
-          color: "rgba(255,255,255,0.45)",
-          maxWidth: "440px",
-          lineHeight: 1.6,
-        }}
-      >
-        Aucune demande en cours. Demande à l&apos;agent de t&apos;aider depuis le chat.
-      </p>
-    </motion.div>
+    />
   );
 }
 
