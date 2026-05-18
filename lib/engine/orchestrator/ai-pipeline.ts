@@ -14,13 +14,7 @@
 import { randomUUID } from "node:crypto";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import type { ModelMessage, Tool } from "ai";
-import {
-  extractReasoningMiddleware,
-  jsonSchema,
-  stepCountIs,
-  streamText,
-  wrapLanguageModel,
-} from "ai";
+import { jsonSchema, stepCountIs, streamText } from "ai";
 import { z } from "zod";
 import { type Asset, type AssetKind, storeAsset } from "@/lib/assets/types";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";

@@ -52,7 +52,7 @@ const handler: WorkerHandler<MeetingBotInput> = {
   },
 
   async process(ctx): Promise<JobResult> {
-    const { payload, reportProgress } = ctx;
+    const { payload } = ctx;
     const botId = payload.assetId!;
     const startedAt = Date.now();
 
