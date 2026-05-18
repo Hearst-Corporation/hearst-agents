@@ -42,31 +42,6 @@ interface SessionInfo {
 
 type FetchState = "idle" | "loading" | "ready" | "error";
 
-// ── Mode démo (dev only) ─────────────────────────────────────────────────────
-// Affiché uniquement en dev quand aucune session réelle n'est branchée, pour
-// pouvoir développer le design sans backend. Inchangé en production.
-
-const IS_DEV = process.env.NODE_ENV !== "production";
-
-const DEMO_SESSION_ID = "bb_demo_session_3f8a1c9e2d4b";
-
-const DEMO_SESSION: SessionInfo = {
-  status: "running",
-  createdAt: new Date().toISOString(),
-  stoppedAt: null,
-  debugViewerUrl: "https://www.browserbase.com/sessions/bb_demo_session_3f8a1c9e2d4b/debug",
-  connectUrl: "https://www.linkedin.com/in/contact-prioritaire",
-};
-
-const DEMO_STEPS: BrowserStep[] = [
-  { id: "demo-1", label: "Ouverture de la page LinkedIn du prospect", status: "done" },
-  { id: "demo-2", label: "Acceptation de la bannière cookies", status: "done" },
-  { id: "demo-3", label: "Extraction du poste et de l'entreprise", status: "done" },
-  { id: "demo-4", label: "Navigation vers la page Contact", status: "running" },
-  { id: "demo-5", label: "Récupération de l'adresse e-mail professionnelle", status: "pending" },
-  { id: "demo-6", label: "Synthèse de la fiche prospect", status: "pending" },
-];
-
 // ── Constantes / variants ────────────────────────────────────────────────────
 
 const CONTAINER_VARIANTS = {
@@ -136,14 +111,6 @@ function doneCount(steps: BrowserStep[]): number {
 }
 
 // ── Sub-composants ───────────────────────────────────────────────────────────
-
-function DemoBanner() {
-  return (
-    <div className="t-9 self-start font-mono uppercase tracking-wide text-(--text-faint) bg-(--surface-1) py-(--space-1) px-(--space-3) rounded-full">
-      Démo · données fictives (dev)
-    </div>
-  );
-}
 
 function EmptyBrowserState() {
   return (
@@ -342,19 +309,14 @@ function ModeToggle({ auto, onToggle }: { auto: boolean; onToggle: () => void })
 export function BrowserStage({ mode }: { mode: string }) {
   const payload = useStageStore((s) => s.current);
   // Normalise "" → null : le LeftRail ouvre le Stage avec sessionId="" (pas
-  // de session active). Sans ça, `realSessionId ?? demo` garderait "" (le ??
-  // ne traite pas la chaîne vide comme nullish) et la démo ne s'activerait pas.
+  // de session active). Falsy → état idle / empty state existant.
   const realSessionId = payload.mode === "browser" && payload.sessionId ? payload.sessionId : null;
-
-  // Mode démo : actif uniquement en dev ET sans session réelle. Le fetch réel
-  // reste prioritaire — dès qu'une vraie session arrive, la démo disparaît.
-  const demoActive = IS_DEV && !realSessionId;
-  const sessionId = realSessionId ?? (demoActive ? DEMO_SESSION_ID : null);
+  const sessionId = realSessionId;
 
   const [fetchState, setFetchState] = useState<FetchState>("idle");
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const steps: BrowserStep[] = demoActive ? DEMO_STEPS : EMPTY_STEPS;
+  const steps: BrowserStep[] = EMPTY_STEPS;
   const [currentUrl, setCurrentUrl] = useState<string>("");
   const [autoMode, setAutoMode] = useState(true);
   const [captureTs, setCaptureTs] = useState<string | null>(null);
@@ -362,16 +324,6 @@ export function BrowserStage({ mode }: { mode: string }) {
 
   // Fetch session info quand sessionId dispo
   useEffect(() => {
-    if (demoActive) {
-      // Pas d'appel réseau : on injecte la session démo telle quelle.
-      setSessionInfo(DEMO_SESSION);
-      setCurrentUrl(DEMO_SESSION.connectUrl ?? DEMO_SESSION.debugViewerUrl ?? "");
-      setFetchState("ready");
-      setCaptureTs(new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }));
-      setFetchError(null);
-      return;
-    }
-
     if (!sessionId) {
       setFetchState("idle");
       setSessionInfo(null);
@@ -409,10 +361,10 @@ export function BrowserStage({ mode }: { mode: string }) {
       });
 
     return () => ctrl.abort();
-  }, [sessionId, demoActive]);
+  }, [sessionId]);
 
-  // Polling des steps Stagehand — déclenché uniquement sur une vraie session
-  // (demoActive === false). S'arrête si la session passe dans un état terminal.
+  // Polling des steps Stagehand — déclenché uniquement sur une vraie session.
+  // S'arrête si la session passe dans un état terminal.
   // TODO: dépend SSE backend — la route /api/v2/browser/sessions/[id]/steps
   //   n'existe pas encore. Le squelette est prêt ; remplacer le no-op par le
   //   vrai fetch dès que le backend l'expose.
@@ -525,8 +477,6 @@ export function BrowserStage({ mode }: { mode: string }) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-16"
     >
-      {demoActive && <DemoBanner />}
-
       {/* Header */}
       <header className="flex flex-col gap-2">
         <p className="t-13 text-(--text-decor-25) tracking-[.04em]">
