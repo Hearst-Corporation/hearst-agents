@@ -112,14 +112,14 @@ function stepStateLabel(status: StepStatus): string {
 function stepDotColor(status: StepStatus): string {
   switch (status) {
     case "done":
-      return "rgba(94,229,195,0.85)";
+      return "var(--step-dot-done)";
     case "running":
-      return "rgba(140,100,255,0.9)";
+      return "var(--step-dot-running)";
     case "error":
-      return "rgba(255,80,80,0.85)";
+      return "var(--step-dot-error)";
     case "pending":
     default:
-      return "rgba(255,255,255,0.2)";
+      return "var(--step-dot-pending)";
   }
 }
 
@@ -207,11 +207,11 @@ function SessionFrame({
       <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-(--line-strong) bg-(--bg-soft)">
         {/* Traffic lights */}
         <div className="flex gap-1.5">
-          {(
-            ["rgba(255,90,90,0.45)", "rgba(255,188,58,0.45)", "rgba(94,229,195,0.45)"] as const
-          ).map((bg, i) => (
-            <span key={i} className="size-2.5 rounded-full" style={{ background: bg }} />
-          ))}
+          {(["var(--traffic-red)", "var(--traffic-yellow)", "var(--traffic-green)"] as const).map(
+            (bg, i) => (
+              <span key={i} className="size-2.5 rounded-full" style={{ background: bg }} />
+            ),
+          )}
         </div>
 
         {/* URL pill */}
@@ -224,7 +224,7 @@ function SessionFrame({
           <motion.div
             className="size-[5px] rounded-full"
             style={{
-              background: isActive ? "rgba(140,100,255,0.9)" : "rgba(255,255,255,0.2)",
+              background: isActive ? "var(--step-dot-running)" : "var(--step-dot-pending)",
             }}
             animate={isActive ? { opacity: [1, 0.3, 1] } : { opacity: 1 }}
             transition={isActive ? { repeat: Infinity, duration: 1, ease: "easeInOut" } : {}}
@@ -270,8 +270,8 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       layout
       className="flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] transition-[opacity,background] duration-300 ease-[ease]"
       style={{
-        background: isRunning ? "rgba(140,100,255,0.06)" : "transparent",
-        border: isRunning ? "1px solid rgba(140,100,255,0.15)" : "1px solid rgba(255,255,255,0.04)",
+        background: isRunning ? "var(--row-running-bg)" : "transparent",
+        border: isRunning ? "var(--row-running-border)" : "var(--row-pending-border)",
         opacity: isPending ? 0.4 : 1,
       }}
     >
@@ -280,7 +280,10 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
         className="size-6 rounded-full flex items-center justify-center t-11 font-semibold shrink-0"
         style={{
           background: stepDotColor(step.status),
-          color: isDone || isRunning || isError ? "rgba(0,0,0,0.85)" : "rgba(255,255,255,0.3)",
+          color:
+            isDone || isRunning || isError
+              ? "var(--step-num-color-active)"
+              : "var(--step-num-color-pending)",
         }}
       >
         {isDone ? "✓" : isError ? "✕" : isRunning ? "…" : index + 1}
@@ -297,19 +300,19 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
           fontSize: "11px",
           fontWeight: 500,
           background: isError
-            ? "rgba(255,80,80,0.12)"
+            ? "var(--badge-error-bg)"
             : isRunning
-              ? "rgba(140,100,255,0.15)"
+              ? "var(--badge-running-bg)"
               : isDone
-                ? "rgba(255,255,255,0.05)"
+                ? "var(--badge-done-bg)"
                 : "transparent",
           color: isError
-            ? "rgba(255,140,140,0.9)"
+            ? "var(--badge-error-color)"
             : isRunning
-              ? "rgba(140,100,255,0.9)"
+              ? "var(--badge-running-color)"
               : isDone
-                ? "rgba(255,255,255,0.35)"
-                : "rgba(255,255,255,0.2)",
+                ? "var(--badge-done-color)"
+                : "var(--step-dot-pending)",
         }}
       >
         {stepStateLabel(step.status)}

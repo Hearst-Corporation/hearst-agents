@@ -292,26 +292,26 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
   const isApproval = mission.lastRunStatus === "awaiting_approval";
 
   const badgeBg = isError
-    ? "rgba(255,80,80,0.1)"
+    ? "var(--mission-badge-error-bg)"
     : isApproval
-      ? "rgba(212,175,55,0.1)"
+      ? "var(--mission-badge-approval-bg)"
       : isRunning
-        ? "rgba(94,229,195,0.1)"
-        : "rgba(255,255,255,0.06)";
+        ? "var(--mission-badge-running-bg)"
+        : "var(--mission-badge-neutral-bg)";
   const badgeBorder = isError
-    ? "1px solid rgba(255,120,120,0.35)"
+    ? "var(--mission-badge-error-border)"
     : isApproval
-      ? "1px solid rgba(212,175,55,0.35)"
+      ? "var(--mission-badge-approval-border)"
       : isRunning
-        ? "1px solid rgba(94,229,195,0.3)"
-        : "1px solid rgba(255,255,255,0.1)";
+        ? "var(--mission-badge-running-border)"
+        : "var(--mission-badge-neutral-border)";
   const badgeColor = isError
-    ? "rgba(255,140,140,0.9)"
+    ? "var(--mission-badge-error-color)"
     : isApproval
-      ? "rgba(212,175,55,0.9)"
+      ? "var(--mission-badge-approval-color)"
       : isRunning
-        ? "rgba(94,229,195,0.85)"
-        : "rgba(255,255,255,0.45)";
+        ? "var(--mission-badge-running-color)"
+        : "var(--mission-badge-neutral-color)";
 
   return (
     <header className="flex flex-col gap-2">

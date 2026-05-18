@@ -153,17 +153,17 @@ function useElapsed(startRef: React.MutableRefObject<number | null>): string {
 
 /** Couleur avatar pseudo-stable par nom de speaker. */
 const SPEAKER_PALETTE = [
-  { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" },
-  { bg: "rgba(140,100,255,.2)", color: "rgba(187, 158, 255, 1)" },
-  { bg: "rgba(255,188,58,.2)", color: "rgba(255, 188, 58, 1)" },
-  { bg: "rgba(94,229,195,.2)", color: "rgba(94,229,195,.9)" },
-  { bg: "rgba(255,120,80,.2)", color: "rgba(255, 144, 96, 1)" },
+  { bg: "var(--speaker-0-bg)", color: "var(--speaker-0-color)" },
+  { bg: "var(--speaker-1-bg)", color: "var(--speaker-1-color)" },
+  { bg: "var(--speaker-2-bg)", color: "var(--speaker-2-color)" },
+  { bg: "var(--speaker-3-bg)", color: "var(--speaker-3-color)" },
+  { bg: "var(--speaker-4-bg)", color: "var(--speaker-4-color)" },
 ];
 
 function speakerColor(name: string) {
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
-  const fallback = { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" };
+  const fallback = { bg: "var(--speaker-0-bg)", color: "var(--speaker-0-color)" };
   return SPEAKER_PALETTE[Math.abs(hash) % SPEAKER_PALETTE.length] ?? fallback;
 }
 
@@ -211,7 +211,7 @@ function EmptyMeetingState() {
     >
       <p
         className="t-15"
-        style={{ color: "rgba(255,255,255,0.45)", maxWidth: "440px", lineHeight: 1.6 }}
+        style={{ color: "var(--stage-empty-text)", maxWidth: "440px", lineHeight: 1.6 }}
       >
         Lance ou rejoins un meeting pour voir le transcript en direct.
       </p>
@@ -229,7 +229,7 @@ function LoadingSkeleton() {
           style={{
             height: "56px",
             borderRadius: "12px",
-            background: "rgba(255,255,255,0.05)",
+            background: "var(--meeting-skeleton-bg)",
           }}
         />
       ))}
@@ -246,14 +246,14 @@ function ErrorBanner({ message }: { message: string }) {
       style={{
         padding: "14px 18px",
         borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
+        background: "var(--error-state-bg)",
+        borderLeft: "2px solid var(--error-state-border)",
+        color: "var(--error-state-text)",
         fontSize: "13px",
         lineHeight: 1.55,
       }}
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
+      <strong style={{ color: "var(--error-state-text-strong)", fontWeight: 600 }}>Erreur</strong> —{" "}
       {message}
     </motion.div>
   );
@@ -293,14 +293,14 @@ function TranscriptBubble({ seg, index }: { seg: Segment; index: number }) {
       <div style={{ display: "flex", flexDirection: "column", gap: "3px", flex: 1 }}>
         <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
           <span style={{ fontSize: "12px", fontWeight: 600, color }}>{name || "Intervenant"}</span>
-          <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
+          <span style={{ fontSize: "11px", color: "var(--transcript-timestamp-color)" }}>
             {fmtTime(seg.start)}
           </span>
         </div>
         <p
           style={{
             fontSize: "14px",
-            color: "rgba(255,255,255,0.82)",
+            color: "var(--transcript-text-color)",
             lineHeight: 1.55,
             margin: 0,
           }}
@@ -322,15 +322,15 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
         gap: "8px",
         padding: "16px 20px",
         borderRadius: "14px",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: "var(--action-items-bg)",
+        border: `1px solid var(--action-items-border)`,
       }}
     >
       <p
         style={{
           fontSize: "11px",
           fontWeight: 600,
-          color: "rgba(255,255,255,0.4)",
+          color: "var(--action-items-label-color)",
           letterSpacing: ".06em",
           marginBottom: "4px",
         }}
@@ -345,7 +345,7 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
               width: "16px",
               height: "16px",
               borderRadius: "4px",
-              border: "1.5px solid rgba(94,229,195,0.45)",
+              border: `1.5px solid var(--action-item-checkbox-border)`,
               flexShrink: 0,
               display: "inline-flex",
               alignItems: "center",
@@ -353,11 +353,13 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
             }}
           />
           <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-            <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
+            <span
+              style={{ fontSize: "13px", color: "var(--transcript-text-color)", lineHeight: 1.5 }}
+            >
               {item.action}
             </span>
             {(item.owner || item.deadline) && (
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
+              <span style={{ fontSize: "11px", color: "var(--transcript-timestamp-color)" }}>
                 {[item.owner, item.deadline].filter(Boolean).join(" · ")}
               </span>
             )}
@@ -523,7 +525,7 @@ export function MeetingStage({ mode }: { mode: string }) {
             <p
               style={{
                 fontSize: "12px",
-                color: "rgba(255,255,255,0.35)",
+                color: "var(--meeting-header-meta)",
                 letterSpacing: ".06em",
               }}
             >
@@ -551,10 +553,10 @@ export function MeetingStage({ mode }: { mode: string }) {
                     gap: "6px",
                     fontSize: "12px",
                     fontWeight: 500,
-                    color: "rgba(255,90,90,0.9)",
+                    color: "var(--meeting-live-color)",
                     padding: "4px 10px",
                     borderRadius: "9999px",
-                    background: "rgba(255,80,80,0.12)",
+                    background: "var(--meeting-live-bg)",
                   }}
                 >
                   <motion.span
@@ -562,7 +564,7 @@ export function MeetingStage({ mode }: { mode: string }) {
                       width: "5px",
                       height: "5px",
                       borderRadius: "50%",
-                      background: "rgba(255,90,90,0.9)",
+                      background: "var(--meeting-live-color)",
                       display: "inline-block",
                     }}
                     animate={{ opacity: [1, 0.3, 1] }}
@@ -576,10 +578,10 @@ export function MeetingStage({ mode }: { mode: string }) {
                   style={{
                     fontSize: "12px",
                     fontWeight: 500,
-                    color: "rgba(255,255,255,0.45)",
+                    color: "var(--meeting-done-color)",
                     padding: "4px 10px",
                     borderRadius: "9999px",
-                    background: "rgba(255,255,255,0.06)",
+                    background: "var(--meeting-done-bg)",
                   }}
                 >
                   Terminé
@@ -587,7 +589,7 @@ export function MeetingStage({ mode }: { mode: string }) {
               )}
             </h1>
             {data && (
-              <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.45)" }}>
+              <p style={{ fontSize: "14px", color: "var(--meeting-header-speakers)" }}>
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length}{" "}
                 speaker
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length !== 1

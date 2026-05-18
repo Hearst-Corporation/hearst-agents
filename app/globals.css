@@ -422,6 +422,132 @@
   --page-padding-y: var(--space-8); /* padding vertical standard des pages admin */
   --card-padding: var(--space-4); /* padding interne standard des cartes */
   --section-gap: var(--space-8); /* gap vertical entre sections d'une page */
+
+  /* ─── Batch 2 — tokens migrés depuis littéraux hardcodés ────────── */
+
+  /* Step / dot statuts (BrowserStage, MissionStage) */
+  --step-dot-done: rgba(94, 229, 195, 0.85);
+  --step-dot-running: rgba(140, 100, 255, 0.9);
+  --step-dot-error: rgba(255, 80, 80, 0.85);
+  --step-dot-pending: rgba(255, 255, 255, 0.2);
+  --step-num-color-active: rgba(0, 0, 0, 0.85); /* numéro sur fond coloré done/running/error */
+  --step-num-color-pending: rgba(255, 255, 255, 0.3); /* numéro sur fond transparent pending */
+
+  /* Badge statut (BrowserStage row) */
+  --badge-error-bg: rgba(255, 80, 80, 0.12);
+  --badge-error-color: rgba(255, 140, 140, 0.9);
+  --badge-running-bg: rgba(140, 100, 255, 0.15);
+  --badge-running-color: rgba(140, 100, 255, 0.9);
+  --badge-done-bg: rgba(255, 255, 255, 0.05);
+  --badge-done-color: rgba(255, 255, 255, 0.35);
+
+  /* Row running (BrowserStage) */
+  --row-running-bg: rgba(140, 100, 255, 0.06);
+  --row-running-border: 1px solid rgba(140, 100, 255, 0.15);
+  --row-pending-border: 1px solid rgba(255, 255, 255, 0.04);
+
+  /* Traffic lights navigateur (BrowserStage SessionFrame) */
+  --traffic-red: rgba(255, 90, 90, 0.45);
+  --traffic-yellow: rgba(255, 188, 58, 0.45);
+  --traffic-green: rgba(94, 229, 195, 0.45);
+
+  /* Mission badge statut (MissionStage MissionHeader) */
+  --mission-badge-error-bg: rgba(255, 80, 80, 0.1);
+  --mission-badge-error-border: 1px solid rgba(255, 120, 120, 0.35);
+  --mission-badge-error-color: rgba(255, 140, 140, 0.9);
+  --mission-badge-approval-bg: rgba(212, 175, 55, 0.1);
+  --mission-badge-approval-border: 1px solid rgba(212, 175, 55, 0.35);
+  --mission-badge-approval-color: rgba(212, 175, 55, 0.9);
+  --mission-badge-running-bg: rgba(94, 229, 195, 0.1);
+  --mission-badge-running-border: 1px solid rgba(94, 229, 195, 0.3);
+  --mission-badge-running-color: rgba(94, 229, 195, 0.85);
+  --mission-badge-neutral-bg: rgba(255, 255, 255, 0.06);
+  --mission-badge-neutral-border: 1px solid rgba(255, 255, 255, 0.1);
+  --mission-badge-neutral-color: rgba(255, 255, 255, 0.45);
+
+  /* Build status (ArtifactStage) */
+  --build-status-default: rgba(255, 255, 255, 0.3);
+  --build-status-ready: rgba(160, 255, 160, 0.65);
+  --build-status-pending: rgba(255, 200, 80, 0.7);
+  --build-status-error: rgba(255, 120, 120, 0.65);
+
+  /* Error state (ArtifactStage, MeetingStage) */
+  --error-state-bg: rgba(255, 80, 80, 0.08);
+  --error-state-border: rgba(255, 120, 120, 0.55);
+  --error-state-text: rgba(255, 200, 200, 0.85);
+  --error-state-text-strong: rgba(255, 180, 180, 0.95);
+
+  /* Artifact editor panel */
+  --artifact-panel-border: rgba(255, 255, 255, 0.08);
+  --artifact-tabbar-border: rgba(255, 255, 255, 0.07);
+  --artifact-tabbar-bg: rgba(255, 255, 255, 0.03);
+  --artifact-tab-active-bg: rgba(255, 255, 255, 0.1);
+  --artifact-tab-active-color: rgba(255, 255, 255, 0.85);
+  --artifact-tab-inactive-color: rgba(255, 255, 255, 0.35);
+  --artifact-code-color: rgba(255, 255, 255, 0.65);
+  --artifact-empty-text: rgba(255, 255, 255, 0.25);
+
+  /* Version row (ArtifactStage VersionsList) */
+  --version-row-bg: rgba(255, 255, 255, 0.03);
+  --version-row-border: rgba(255, 255, 255, 0.06);
+  --version-row-id-color: rgba(255, 255, 255, 0.55);
+  --version-row-hash-color: rgba(255, 255, 255, 0.3);
+  --version-row-date-color: rgba(255, 255, 255, 0.2);
+
+  /* Loading (ArtifactStage) */
+  --artifact-loading-dot: rgba(94, 229, 195, 0.6);
+  --artifact-loading-text: rgba(255, 255, 255, 0.35);
+
+  /* Empty state (ArtifactStage, MeetingStage) */
+  --stage-empty-text: rgba(255, 255, 255, 0.45);
+
+  /* Meeting — speaker palette (MeetingStage) */
+  --speaker-0-bg: rgba(255, 255, 255, 0.15);
+  --speaker-0-color: rgba(255, 255, 255, 0.9);
+  --speaker-1-bg: rgba(140, 100, 255, 0.2);
+  --speaker-1-color: rgba(187, 158, 255, 1);
+  --speaker-2-bg: rgba(255, 188, 58, 0.2);
+  --speaker-2-color: rgba(255, 188, 58, 1);
+  --speaker-3-bg: rgba(94, 229, 195, 0.2);
+  --speaker-3-color: rgba(94, 229, 195, 0.9);
+  --speaker-4-bg: rgba(255, 120, 80, 0.2);
+  --speaker-4-color: rgba(255, 144, 96, 1);
+
+  /* Meeting — transcript + action items */
+  --transcript-timestamp-color: rgba(255, 255, 255, 0.35);
+  --transcript-text-color: rgba(255, 255, 255, 0.82);
+  --action-items-bg: rgba(255, 255, 255, 0.04);
+  --action-items-border: rgba(255, 255, 255, 0.07);
+  --action-items-label-color: rgba(255, 255, 255, 0.4);
+  --action-item-checkbox-border: rgba(94, 229, 195, 0.45);
+
+  /* Meeting — header live badge */
+  --meeting-live-color: rgba(255, 90, 90, 0.9);
+  --meeting-live-bg: rgba(255, 80, 80, 0.12);
+  --meeting-done-color: rgba(255, 255, 255, 0.45);
+  --meeting-done-bg: rgba(255, 255, 255, 0.06);
+  --meeting-header-meta: rgba(255, 255, 255, 0.35);
+  --meeting-header-speakers: rgba(255, 255, 255, 0.45);
+
+  /* Meeting — loading skeleton */
+  --meeting-skeleton-bg: rgba(255, 255, 255, 0.05);
+
+  /* AmbientLayers */
+  --ambient-halo: rgba(255, 255, 255, 0.10); /* halo blanc centré sur hero zone */
+  --ambient-dot-teal: rgba(94, 229, 195, 0.32); /* pattern dots teal signature Hearst */
+  --mask-dark-medium: rgba(0, 0, 0, 0.5); /* masque dégradé ellipse central */
+
+  /* LeftRail — inset shadow avatar/icon */
+  --shadow-inset-light: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  /* Brand providers — login (couleurs identitaires immuables) */
+  --brand-google-blue: #4285F4;
+  --brand-google-green: #34A853;
+  --brand-google-yellow: #FBBC05;
+  --brand-google-red: #EA4335;
+  --brand-microsoft-blue: #0078D4;
+  --brand-microsoft-dark-blue: #0364B8;
+  --brand-microsoft-light-blue: #28A8EA;
 }
 
 .poster-greeting {
