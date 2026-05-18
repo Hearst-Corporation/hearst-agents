@@ -26,12 +26,14 @@ interface MonthlyCardViewProps {
 const CARD_WIDTH = 1080;
 const CARD_HEIGHT = 1920;
 
+// Couleurs spécifiques à la Hearst Card — non ajoutées au DS car propres au
+// rendu Stories 1080×1920 (fond gradient éditorial, hors palette UI cockpit).
 const COLOR_BG_TOP = "#0a1f24";
 const COLOR_BG_BOTTOM = "#020608";
 const COLOR_TEXT = "#f4f5f3";
 const COLOR_TEXT_SOFT = "rgba(244,245,243,0.72)";
 const COLOR_TEXT_FAINT = "rgba(244,245,243,0.42)";
-const COLOR_ACCENT = "#5fb6a8"; // accent-teal sourd
+const COLOR_ACCENT = "var(--accent-teal)"; // token DS canonique
 const COLOR_BORDER = "rgba(244,245,243,0.08)";
 
 function formatNumber(n: number): string {

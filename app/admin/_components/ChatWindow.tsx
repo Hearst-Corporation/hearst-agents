@@ -113,10 +113,9 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className={`rounded-(--radius-sm) px-(--space-3) py-(--space-2) t-13 ${
+              className={`rounded-(--radius-sm) px-(--space-3) py-(--space-2) t-13 max-w-[80%] ${
                 m.role === "user" ? "bg-surface-2 text-text" : "bg-surface-1 text-text-soft"
               }`}
-              style={{ maxWidth: "80%" }}
             >
               {m.content}
             </div>
