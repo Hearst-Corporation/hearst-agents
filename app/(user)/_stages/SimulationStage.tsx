@@ -94,16 +94,42 @@ export function SimulationStage({ mode = "simulation" }: Props) {
     [],
   );
 
+  // Undo suppression variable : stocke temporairement la variable retirée.
+  const [undoRemoved, setUndoRemoved] = useState<{ variable: Variable; idx: number } | null>(null);
+  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const addVariable = useCallback(
-    () => setVariables((prev) => [...prev, { key: "", value: "" }]),
+    (variable?: Variable) => setVariables((prev) => [...prev, variable ?? { key: "", value: "" }]),
     [],
   );
 
   const removeVariable = useCallback(
-    (idx: number) =>
-      setVariables((prev) => (prev.length === 1 ? prev : prev.filter((_, i) => i !== idx))),
+    (idx: number) => {
+      setVariables((prev) => {
+        if (prev.length === 1) return prev;
+        const removed = prev[idx];
+        // Enregistre pour undo (4s).
+        if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+        setUndoRemoved({ variable: removed, idx });
+        undoTimerRef.current = setTimeout(() => setUndoRemoved(null), 4000);
+        toast.info("Variable retirée", "Cliquez sur Rétablir pour annuler.");
+        return prev.filter((_, i) => i !== idx);
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
+
+  const handleUndoRemove = useCallback(() => {
+    if (!undoRemoved) return;
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    setVariables((prev) => {
+      const next = [...prev];
+      next.splice(undoRemoved.idx, 0, undoRemoved.variable);
+      return next;
+    });
+    setUndoRemoved(null);
+  }, [undoRemoved]);
 
   const performReset = useCallback(() => {
     setPhase("idle");
@@ -238,7 +264,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
               <span className="t-11 font-light text-[var(--text-ghost)]">Variables clés</span>
               <button
                 type="button"
-                onClick={addVariable}
+                onClick={() => addVariable()}
                 className="t-11 font-light text-[var(--text-ghost)] hover:text-[var(--text-faint)] transition-colors focus-visible:outline-none"
                 style={{
                   padding: "var(--space-1) var(--space-3)",
@@ -300,6 +326,28 @@ export function SimulationStage({ mode = "simulation" }: Props) {
               ))}
             </div>
           </div>
+
+          {/* Bannière undo suppression variable */}
+          {undoRemoved && (
+            <div
+              className="flex items-center justify-between"
+              style={{
+                padding: "var(--space-2) var(--space-4)",
+                background: "var(--surface-2)",
+                border: "1px solid var(--border-shell)",
+                borderRadius: "var(--radius-sm)",
+              }}
+            >
+              <span className="t-11 font-light text-[var(--text-ghost)]">Variable retirée.</span>
+              <button
+                type="button"
+                onClick={handleUndoRemove}
+                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--text-faint)] transition-colors focus-visible:outline-none"
+              >
+                Rétablir
+              </button>
+            </div>
+          )}
 
           <button
             type="button"

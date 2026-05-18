@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const dynamic = "force-dynamic";
 
 interface MetricCard {
@@ -57,6 +59,12 @@ export default async function HospitalityPage() {
   return (
     <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
       <div className="max-w-4xl mx-auto">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 t-13 text-white/40 hover:text-white mb-4"
+        >
+          ← Cockpit
+        </Link>
         <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl px-4 py-3 mb-8 text-sm text-amber-300/80">
           Mode démo · Connecteurs PMS bientôt disponibles. Données simulées.
         </div>

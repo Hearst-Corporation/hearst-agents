@@ -42,6 +42,14 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
     abortRef.current?.abort();
     abortRef.current = new AbortController();
 
+    // Timeout 30s : abort si le SSE ne répond pas dans les temps.
+    // On distingue le timeout d'un abort user-driven via ce flag.
+    let timedOut = false;
+    const timeoutId = setTimeout(() => {
+      timedOut = true;
+      abortRef.current?.abort();
+    }, 30_000);
+
     try {
       const res = await fetch(`/api/agents/${agentId}/chat`, {
         method: "POST",
@@ -84,10 +92,22 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         }
       }
     } catch (err) {
-      // Abort user-driven (ex: unmount, navigation) : pas de bubble.
+      // Abort user-driven (ex: unmount, navigation) ou timeout 30s.
       // Check err.name car AbortError n'est PAS dans err.message.
       if (err instanceof Error && err.name === "AbortError") {
-        console.warn("[ChatWindow] SSE aborted (user-driven)");
+        // Si le timeout a expiré, on affiche un message utilisateur.
+        // Sinon c'est un abort volontaire (unmount/navigation) : pas de bubble.
+        if (timedOut) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: "assistant",
+              content: "Délai d'attente dépassé (30 s). Vérifiez votre réseau ou réessayez.",
+            },
+          ]);
+        } else {
+          console.warn("[ChatWindow] SSE aborted (user-driven)");
+        }
         return;
       }
       const detail = sanitizeApiError(err);
@@ -100,6 +120,7 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
       ]);
       console.error("[ChatWindow] SSE fetch failed:", err);
     } finally {
+      clearTimeout(timeoutId);
       setLoading(false);
     }
   };

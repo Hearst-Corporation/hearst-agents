@@ -127,7 +127,6 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
       if (!res.ok) {
         const apiMsg = typeof json.error === "string" ? json.error : "share_failed";
         setError(apiMsg);
-        toast.error("Partage échoué", apiMsg);
         return;
       }
       setShareUrl(json.shareUrl as string);
@@ -135,9 +134,6 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
     } catch (e) {
       const msg = sanitizeApiError(e);
       setError(msg);
-      // Toast complète le state error inline (le bouton "Réessayer" rendu
-      // sous l'erreur fait office d'action côté UI).
-      toast.error("Partage échoué", msg);
     } finally {
       setLoading(false);
     }

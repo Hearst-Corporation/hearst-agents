@@ -10,7 +10,9 @@
  * Tokens design system uniquement (cf. CLAUDE.md règles UI).
  */
 
+import { useState } from "react";
 import { type PlanState, useRuntimeStore } from "@/stores/runtime";
+import { ConfirmModal } from "./ConfirmModal";
 import { StepCard } from "./StepCard";
 
 export interface MissionStepGraphProps {
@@ -60,6 +62,9 @@ function estimateRemainingSecs(plan: PlanState): number | null {
 export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphProps) {
   const approveStep = useRuntimeStore((s) => s.approveStep);
 
+  // Confirmation avant skip : stocke le stepId à sauter.
+  const [pendingSkipStepId, setPendingSkipStepId] = useState<string | null>(null);
+
   const handleApprove = async (stepId: string) => {
     if (onApprove) {
       await onApprove(stepId);
@@ -68,7 +73,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
     await approveStep(plan.id, stepId);
   };
 
-  const handleSkip = async (stepId: string) => {
+  const performSkip = async (stepId: string) => {
     if (onSkip) {
       await onSkip(stepId);
       return;
@@ -84,6 +89,18 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
     } catch (err) {
       console.error("[MissionStepGraph] skip error:", err);
     }
+  };
+
+  // Demande confirmation avant le POST skip.
+  const handleSkip = (stepId: string) => {
+    setPendingSkipStepId(stepId);
+  };
+
+  const handleConfirmSkip = async () => {
+    if (!pendingSkipStepId) return;
+    const id = pendingSkipStepId;
+    setPendingSkipStepId(null);
+    await performSkip(id);
   };
 
   const eta = estimateRemainingSecs(plan);
@@ -171,6 +188,17 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
       {plan.steps.length === 0 && (
         <p className="t-11 font-light text-text-faint">Pas encore de step planifié.</p>
       )}
+
+      {/* Confirmation avant skip — action définitive */}
+      <ConfirmModal
+        open={pendingSkipStepId !== null}
+        title="Sauter cette étape ?"
+        description="Cette action est définitive et ne peut pas être annulée."
+        confirmLabel="Sauter"
+        variant="danger"
+        onConfirm={() => void handleConfirmSkip()}
+        onCancel={() => setPendingSkipStepId(null)}
+      />
     </section>
   );
 }

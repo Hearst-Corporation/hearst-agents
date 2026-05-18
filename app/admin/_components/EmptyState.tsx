@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 
 interface Props {
   title: string;
@@ -39,6 +40,7 @@ export default function EmptyState({
         setSeeding(false);
         return;
       }
+      toast.success("Données générées.");
       router.refresh();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Erreur réseau");

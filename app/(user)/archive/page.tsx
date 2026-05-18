@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const dynamic = "force-dynamic";
 
 const tabs = ["Tout", "Threads", "Assets", "Missions"] as const;
@@ -6,6 +8,12 @@ export default async function ArchivePage() {
   return (
     <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
       <div className="max-w-4xl mx-auto">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 t-13 text-white/40 hover:text-white mb-4"
+        >
+          ← Cockpit
+        </Link>
         <div className="mb-8">
           <h1 className="text-2xl font-semibold tracking-tight">Archive</h1>
           <p className="mt-1 text-sm text-white/50">Threads et assets de plus de 7 jours</p>

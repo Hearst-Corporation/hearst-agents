@@ -239,8 +239,8 @@ export default function NewAgentPage() {
         open={confirmCancelOpen}
         title="Quitter sans enregistrer ?"
         description="Le brouillon de l'agent sera perdu."
-        confirmLabel="Quitter"
-        cancelLabel="Continuer l'édition"
+        confirmLabel="Abandonner"
+        cancelLabel="Rester"
         variant="danger"
         onConfirm={confirmCancel}
         onCancel={() => setConfirmCancelOpen(false)}

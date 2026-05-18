@@ -75,9 +75,13 @@ export function ChatMissionRunInline() {
         method: "POST",
         credentials: "include",
       });
-      const data = (await res.json()) as { ok?: boolean; runId?: string; error?: string };
-      if (!res.ok || !data.ok) {
-        const message = data.error ?? `Échec (HTTP ${res.status})`;
+      const data = (await res.json().catch(() => null)) as {
+        ok?: boolean;
+        runId?: string;
+        error?: string;
+      } | null;
+      if (!res.ok || !data || !data.ok) {
+        const message = data?.error ?? `Échec (HTTP ${res.status})`;
         if (mountedRef.current) setLastError(message);
         toast.error("Lancement impossible", message);
         return;

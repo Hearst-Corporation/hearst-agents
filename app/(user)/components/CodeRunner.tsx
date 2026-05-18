@@ -19,9 +19,12 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
   const [result, setResult] = useState<CodeOutput | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
+    setLoading(true);
+    setFetchError(null);
     fetch(storageUrl)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -42,14 +45,25 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
     return () => {
       cancelled = true;
     };
-  }, [storageUrl]);
+  }, [storageUrl, retryCount]);
 
   if (loading) {
     return <p className="t-13 font-light text-text-muted">Chargement des résultats…</p>;
   }
   if (fetchError || !result) {
     return (
-      <p className="t-13 text-(--danger)">{fetchError ?? "Impossible de charger les résultats"}</p>
+      <div className="flex flex-col items-center gap-2 py-4">
+        <p className="t-13 text-(--danger)">
+          {fetchError ?? "Impossible de charger les résultats"}
+        </p>
+        <button
+          type="button"
+          onClick={() => setRetryCount((n) => n + 1)}
+          className="t-13 text-(--accent-teal) hover:underline focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
+        >
+          Réessayer
+        </button>
+      </div>
     );
   }
 

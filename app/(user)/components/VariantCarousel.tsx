@@ -15,7 +15,8 @@
  */
 
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
 import { Action } from "./ui";
 
@@ -46,6 +47,7 @@ export function VariantCarousel({ assetId, sourceText, defaultKind }: VariantCar
   const [activeKind, setActiveKind] = useState<AssetVariantKind>(defaultKind ?? "audio");
   const [generating, setGenerating] = useState<AssetVariantKind | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const fetchErrorCount = useRef(0);
 
   const fetchVariants = useCallback(async () => {
     try {
@@ -55,10 +57,16 @@ export function VariantCarousel({ assetId, sourceText, defaultKind }: VariantCar
       if (!res.ok) return;
       const data = await res.json();
       if (Array.isArray(data.variants)) {
+        fetchErrorCount.current = 0;
         setVariants(data.variants as AssetVariant[]);
       }
-    } catch {
-      // silent — re-tenté au prochain poll
+    } catch (err) {
+      fetchErrorCount.current += 1;
+      console.error("VariantCarousel fetch error:", err);
+      if (fetchErrorCount.current >= 3) {
+        toast.error("Impossible de charger les variantes. Vérifiez votre connexion.");
+        fetchErrorCount.current = 0;
+      }
     }
   }, [assetId]);
 

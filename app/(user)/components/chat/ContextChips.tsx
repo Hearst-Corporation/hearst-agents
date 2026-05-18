@@ -9,15 +9,37 @@
  *   `{ id, kind }` ; les autres lots peuvent l'écouter pour focaliser
  *   l'élément lié (asset, mission, rapport…).
  * - Click sur la croix → retire le chip via `removeChip`.
+ *   Un undo inline (4 s) permet de rétablir le chip retiré par erreur.
  */
 
+import { useRef, useState } from "react";
+import type { ContextChip } from "@/stores/chat-context";
 import { useChatContext } from "@/stores/chat-context";
 
 export function ContextChips() {
   const chips = useChatContext((s) => s.chips);
   const removeChip = useChatContext((s) => s.removeChip);
+  const addChip = useChatContext((s) => s.addChip);
 
-  if (chips.length === 0) return null;
+  // Undo suppression chip : stocke temporairement le dernier chip retiré.
+  const [undoChip, setUndoChip] = useState<ContextChip | null>(null);
+  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleRemove = (chip: ContextChip) => {
+    removeChip(chip.id);
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    setUndoChip(chip);
+    undoTimerRef.current = setTimeout(() => setUndoChip(null), 4000);
+  };
+
+  const handleUndo = () => {
+    if (!undoChip) return;
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    addChip(undoChip);
+    setUndoChip(null);
+  };
+
+  if (chips.length === 0 && !undoChip) return null;
 
   return (
     <div data-testid="context-chips" className="flex flex-row flex-wrap gap-2 mb-3">
@@ -45,7 +67,7 @@ export function ContextChips() {
           </button>
           <button
             type="button"
-            onClick={() => removeChip(chip.id)}
+            onClick={() => handleRemove(chip)}
             aria-label={`Retirer ${chip.label}`}
             className="text-text-faint hover:text-(--danger) transition-colors flex items-center justify-center"
             data-testid={`context-chip-remove-${chip.id}`}
@@ -64,6 +86,23 @@ export function ContextChips() {
           </button>
         </span>
       ))}
+
+      {/* Undo pill — visible 4 s après suppression */}
+      {undoChip && (
+        <span
+          className="inline-flex items-center gap-2 rounded-pill border border-(--border-shell) bg-surface-1"
+          style={{ padding: "var(--space-2) var(--space-3)" }}
+        >
+          <span className="t-11 font-light text-text-ghost">{undoChip.label} retiré.</span>
+          <button
+            type="button"
+            onClick={handleUndo}
+            className="t-11 font-medium text-text-muted hover:text-text-soft transition-colors"
+          >
+            Rétablir
+          </button>
+        </span>
+      )}
     </div>
   );
 }
