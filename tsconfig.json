@@ -33,5 +33,5 @@
     "/tmp/hearst-os-next/dev/types/**/*.ts",
     ".next/dev/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "electron", "lib/hom", "docs/spatial/_BACKUP_*"]
+  "exclude": ["node_modules", "electron", "lab", "lib/hom", "docs/spatial/_BACKUP_*"]
 }
