@@ -63,7 +63,11 @@ let cachedChromium: ChromiumLike | null | undefined;
 async function loadChromium(): Promise<ChromiumLike | null> {
   if (cachedChromium !== undefined) return cachedChromium;
   try {
-    const mod: unknown = await import("playwright-core");
+    // Spécifier typé `string` (pas littéral) : playwright-core est une dep
+    // transitive optionnelle, non hoistée en pnpm strict → tsc ne doit pas
+    // exiger sa résolution au build Vercel. import(spec:string) = Promise<any>.
+    const playwrightCoreSpecifier: string = "playwright-core";
+    const mod: unknown = await import(playwrightCoreSpecifier);
     const m = mod as { chromium?: ChromiumLike };
     cachedChromium = m.chromium ?? null;
     return cachedChromium;
