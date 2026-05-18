@@ -21,6 +21,7 @@ import type { KgEdge, KgNode } from "@/lib/memory/kg";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
+import { VISION_EASE } from "./types";
 
 // ── Démo dev-only ─────────────────────────────────────────────────────────────
 
@@ -151,8 +152,6 @@ const DEMO_GRAPH: { nodes: KgNode[]; edges: KgEdge[] } = {
 };
 
 // ── Variants ─────────────────────────────────────────────────────────────────
-
-const VISION_EASE = [0.22, 1, 0.36, 1] as const;
 
 const CONTAINER_VARIANTS = {
   hidden: { opacity: 0, y: 12 },

@@ -7,8 +7,7 @@ import type { AmbientSignal, AmbientSignalKind } from "@/lib/cockpit/ambient-sig
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
-
-const VISION_EASE = [0.22, 1, 0.36, 1] as const;
+import { VISION_EASE } from "./types";
 
 const SECTION_VARIANTS = {
   hidden: { opacity: 0, y: 12 },

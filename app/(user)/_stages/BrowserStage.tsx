@@ -20,6 +20,7 @@ import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { STAGE_REGISTRY } from "./registry";
 import type { RailItem } from "./types";
+import { VISION_EASE } from "./types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -67,8 +68,6 @@ const DEMO_STEPS: BrowserStep[] = [
 ];
 
 // ── Constantes / variants ────────────────────────────────────────────────────
-
-const VISION_EASE = [0.22, 1, 0.36, 1] as const;
 
 const CONTAINER_VARIANTS = {
   hidden: { opacity: 0, y: 12 },
