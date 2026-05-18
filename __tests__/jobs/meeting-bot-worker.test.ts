@@ -29,7 +29,7 @@ vi.mock("@/lib/capabilities/providers/recall-ai", async () => {
   };
 });
 
-vi.mock("@/lib/capabilities/providers/deepgram", () => ({
+vi.mock("@/lib/capabilities/providers/kimi-extractor", () => ({
   extractActionItems: mocks.extractActionItems,
 }));
 
@@ -79,7 +79,7 @@ describe("worker meeting-bot — finalisation", () => {
     });
 
     const { getTranscript } = await import("@/lib/capabilities/providers/recall-ai");
-    const { extractActionItems } = await import("@/lib/capabilities/providers/deepgram");
+    const { extractActionItems } = await import("@/lib/capabilities/providers/kimi-extractor");
     const { storeAsset, loadAssetById } = await import("@/lib/assets/types");
 
     const detail = await getTranscript("bot-1");

@@ -6,21 +6,12 @@
  * jour avec VIP flag + special requests, departures du jour avec late
  * checkout. Bar chart : revenue by source (direct/OTA/corporate/group).
  *
- * Sources : "pms" (placeholder Composio — pas de connecteur réel encore).
- * En MVP les données sont injectées par le runtime via mock-data.ts. Le
- * Spec reste valide Zod parce que les sources/transforms sont des stubs
- * inertes ; le rendu UI consomme les `props.data` inline sur les blocks
- * (fallback prévu par le schéma pour primitives V2 ; pour V1 on passe par
- * `props.data` que les blocks tolèrent en sample mode).
+ * Sources : "pms" (Composio — PMS_* actions prêtes, connecteur à configurer).
+ * Aucun connecteur PMS branché : les données seront injectées par le runtime
+ * dès qu'un PMS (Mews/Cloudbeds/Opera) est connecté depuis les paramètres.
  */
 
 import type { ReportSpec } from "@/lib/reports/spec/schema";
-import {
-  getMockArrivals,
-  getMockDepartures,
-  getMockKpiSnapshot,
-  getMockRevenueBySource,
-} from "@/lib/verticals/hospitality/mock-data";
 
 export const HOSPITALITY_DAILY_BRIEF_ID = "00000000-0000-4000-8000-700000000001";
 
@@ -163,14 +154,14 @@ export function buildHospitalityDailyBrief(scope: ReportSpec["scope"]): ReportSp
 export const HOSPITALITY_DAILY_BRIEF_REQUIRED_APPS = ["pms"] as const;
 
 /**
- * Sample data generator — utilisé en démo (pas de connecteur PMS) et
- * potentiellement par les tests pour valider les blocks.
+ * Sample data — retourne des structures vides (aucun connecteur PMS configuré).
+ * Utilisé par les tests pour valider la forme des blocks.
  */
 export function buildHospitalityDailyBriefSampleData() {
   return {
-    pms_arrivals: getMockArrivals(),
-    pms_departures: getMockDepartures(),
-    pms_revenue: getMockRevenueBySource(),
-    pms_kpi_snapshot: [getMockKpiSnapshot()],
+    pms_arrivals: [],
+    pms_departures: [],
+    pms_revenue: [],
+    pms_kpi_snapshot: [],
   };
 }

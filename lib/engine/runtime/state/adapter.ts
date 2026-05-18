@@ -229,6 +229,81 @@ function mapDbStatus(s: string): PersistedRunRecord["status"] {
   return "running";
 }
 
+/**
+ * Hard-delete a run row from Supabase. Cascades to run_steps, run_logs,
+ * run_approvals, plans, action_plans, action_executions (ON DELETE CASCADE).
+ *
+ * Double-lock sur user_id : le service_role bypasse la RLS, le filtre SQL
+ * garantit qu'un utilisateur ne peut pas supprimer un run qui ne lui appartient
+ * pas, même en connaissant l'UUID (défense en profondeur — niveau DB).
+ *
+ * Gère le double-ID : metadata.runId (string v2) peut ≠ row.id (UUID Postgres).
+ * On résout d'abord l'UUID réel avant de supprimer.
+ */
+/** Regex acceptant un runId valide : UUID v4 ou identifiant alphanumérique + tirets/underscores (max 128 car.). */
+const VALID_RUN_ID_RE = /^[a-zA-Z0-9_-]{1,128}$/;
+
+export async function deleteRun(
+  runId: string,
+  userId: string,
+): Promise<{ ok: boolean; deleted: boolean; error?: string }> {
+  // Validation format runId avant tout accès DB (prévient l'injection PostgREST)
+  if (!VALID_RUN_ID_RE.test(runId)) {
+    return { ok: false, deleted: false, error: "invalid_run_id" };
+  }
+
+  const sb = db();
+  if (!sb) return { ok: false, deleted: false, error: "supabase_unavailable" };
+
+  try {
+    // Résolution UUID réel (le runId passé peut être le v2 string ID stocké dans metadata)
+    const { data: row, error: selectError } = await sb
+      .from("runs")
+      .select("id")
+      .or(`id.eq.${runId},metadata->>'runId'.eq.${runId}`)
+      .limit(1)
+      .maybeSingle();
+
+    if (selectError) {
+      log.error(
+        { op: "deleteRun", runId, userId, err: selectError.message },
+        "[RuntimeState] deleteRun select error",
+      );
+      return { ok: false, deleted: false, error: selectError.message };
+    }
+
+    if (!row) {
+      // Idempotent : run déjà absent
+      return { ok: true, deleted: false };
+    }
+
+    const uuidReal: string = row.id;
+
+    const { error, count } = await sb
+      .from("runs")
+      .delete({ count: "exact" })
+      .eq("id", uuidReal)
+      .eq("user_id", userId);
+
+    if (error) {
+      log.error(
+        { op: "deleteRun", runId, uuidReal, userId, err: error.message },
+        "[RuntimeState] deleteRun error",
+      );
+      return { ok: false, deleted: false, error: error.message };
+    }
+
+    return { ok: true, deleted: (count ?? 0) > 0 };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    log.error(
+      { op: "deleteRun", runId, userId, err: redactedError(err) },
+      "[RuntimeState] deleteRun exception",
+    );
+    return { ok: false, deleted: false, error: msg };
+  }
+}
+
 // ── Scheduled Missions ──────────────────────────────────────
 
 export async function saveScheduledMission(mission: PersistedScheduledMission): Promise<boolean> {

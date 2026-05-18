@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getRunById } from "@/lib/engine/runtime/runs/store";
-import { getRunById as getPersistedRun } from "@/lib/engine/runtime/state/adapter";
+import { getRunById, removeRun } from "@/lib/engine/runtime/runs/store";
+import { deleteRun, getRunById as getPersistedRun } from "@/lib/engine/runtime/state/adapter";
 import { normalizeRunEventsToTimeline } from "@/lib/engine/runtime/timeline/normalize";
 import { getPersistedRunEvents } from "@/lib/engine/runtime/timeline/persist";
 import { withScope } from "@/lib/platform/http/route-handler";
@@ -105,8 +105,11 @@ export const GET = withScope<{ id: string }>(
 );
 
 /**
- * DELETE /api/v2/runs/[id] — Stub : supprime un run de l'historique côté
- * client (la persistance Supabase n'expose pas encore de delete idempotent).
+ * DELETE /api/v2/runs/[id] — Supprime réellement le run en Supabase (cascade
+ * complète : run_steps, run_logs, run_approvals, plans, action_plans,
+ * action_executions) ET de la Map mémoire. Idempotent : run déjà absent → 200.
+ *
+ * Double-lock ownership : filtre user_id au niveau SQL (défense en profondeur).
  */
 export const DELETE = withScope<{ id: string }>(
   "DELETE /api/v2/runs/[id]",
@@ -123,15 +126,23 @@ export const DELETE = withScope<{ id: string }>(
 
       if (!run) {
         // Idempotence : déjà absent → 200, l'UI peut nettoyer son cache local.
-        return NextResponse.json({ ok: true, deleted: false });
+        return NextResponse.json({ ok: true, deleted: false, runId: id });
       }
 
       if (run.userId && run.userId !== scope.userId) {
         return NextResponse.json({ error: "run_not_found" }, { status: 404 });
       }
 
-      // Stub : pas de delete persistant pour l'instant.
-      return NextResponse.json({ ok: true, deleted: true, runId: id });
+      // Suppression Supabase (hard-delete avec cascade)
+      const result = await deleteRun(id, scope.userId);
+      if (!result.ok) {
+        return NextResponse.json({ error: "delete_failed", detail: result.error }, { status: 500 });
+      }
+
+      // Suppression mémoire best-effort (no-op si absent)
+      removeRun(id);
+
+      return NextResponse.json({ ok: true, deleted: result.deleted, runId: id });
     } catch (e) {
       console.error(`DELETE /api/v2/runs/${id}: uncaught`, e);
       return NextResponse.json({ error: "internal_error" }, { status: 500 });

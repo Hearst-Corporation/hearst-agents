@@ -2,43 +2,11 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-interface MetricCard {
-  id: string;
-  title: string;
-  value: string;
-  trend: string;
-  positive: boolean;
-}
-
 interface WorkflowCard {
   id: string;
   title: string;
   description: string;
 }
-
-const METRICS: MetricCard[] = [
-  {
-    id: "revpar",
-    title: "RevPAR hebdo",
-    value: "148,50 €",
-    trend: "+4,2 %",
-    positive: true,
-  },
-  {
-    id: "occ",
-    title: "Taux d'occupation",
-    value: "78 %",
-    trend: "-1,5 %",
-    positive: false,
-  },
-  {
-    id: "sat",
-    title: "Satisfaction client",
-    value: "4,6 / 5",
-    trend: "+0,3",
-    positive: true,
-  },
-];
 
 const WORKFLOWS: WorkflowCard[] = [
   {
@@ -65,8 +33,9 @@ export default async function HospitalityPage() {
         >
           ← Cockpit
         </Link>
-        <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl px-4 py-3 mb-8 text-sm text-amber-300/80">
-          Mode démo · Connecteurs PMS bientôt disponibles. Données simulées.
+        <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 mb-8 text-sm text-white/50">
+          Aucun connecteur PMS configuré — les indicateurs s'afficheront une fois un PMS (Mews /
+          Cloudbeds / Opera) connecté.
         </div>
 
         <div className="mb-10">
@@ -74,30 +43,22 @@ export default async function HospitalityPage() {
           <p className="mt-1 text-white/50 text-sm">Cockpit vertical hôtellerie</p>
         </div>
 
+        {/* KPI — empty state honnête, aucun chiffre fictif */}
         <div className="mb-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
-            Rapports recommandés
+            Indicateurs clés
           </h2>
-          <div className="flex gap-4">
-            {METRICS.map((m) => (
-              <div
-                key={m.id}
-                className="flex-1 bg-white/5 border border-white/8 rounded-2xl p-5 hover:border-white/15 transition-colors"
-              >
-                <p className="text-xs text-white/40 mb-2">{m.title}</p>
-                <p className="text-2xl font-semibold text-amber-400">{m.value}</p>
-                <p
-                  className={`text-xs mt-1 font-medium ${
-                    m.positive ? "text-emerald-400" : "text-red-400"
-                  }`}
-                >
-                  {m.trend} vs sem. précédente
-                </p>
-              </div>
-            ))}
+          <div className="flex items-center justify-center bg-white/5 border border-white/8 rounded-2xl p-10 text-center">
+            <div>
+              <p className="text-sm font-medium text-white/50">Aucune donnée</p>
+              <p className="text-xs text-white/30 mt-1 max-w-xs">
+                Connectez un PMS pour afficher RevPAR, taux d'occupation et satisfaction client.
+              </p>
+            </div>
           </div>
         </div>
 
+        {/* Workflows — capacités à venir, boutons désactivés proprement */}
         <div className="mb-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
             Workflows
@@ -106,7 +67,7 @@ export default async function HospitalityPage() {
             {WORKFLOWS.map((w) => (
               <div
                 key={w.id}
-                className="flex items-center gap-5 bg-white/5 border border-white/8 rounded-2xl px-5 py-4 hover:border-white/15 transition-colors"
+                className="flex items-center gap-5 bg-white/5 border border-white/8 rounded-2xl px-5 py-4"
               >
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm">{w.title}</p>
@@ -114,25 +75,28 @@ export default async function HospitalityPage() {
                 </div>
                 <button
                   type="button"
-                  aria-label={`Activer ${w.title}`}
-                  className="shrink-0 text-xs px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-400 rounded-xl transition-colors"
+                  disabled
+                  aria-disabled="true"
+                  title="Bientôt disponible — nécessite un connecteur PMS"
+                  className="shrink-0 text-xs px-4 py-2 bg-white/5 border border-white/10 text-white/25 rounded-xl cursor-not-allowed"
                 >
-                  Activer
+                  Bientôt disponible
                 </button>
               </div>
             ))}
           </div>
         </div>
 
+        {/* Persona — description des capacités, bouton désactivé */}
         <div>
           <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
             Persona
           </h2>
-          <div className="bg-white/5 border border-white/8 rounded-2xl p-6 hover:border-white/15 transition-colors">
+          <div className="bg-white/5 border border-white/8 rounded-2xl p-6">
             <div className="flex items-center justify-between gap-6">
               <div>
                 <p className="font-semibold text-base">Concierge IA</p>
-                <p className="text-xs text-amber-400 mt-0.5 font-medium">Spécialisé hôtellerie</p>
+                <p className="text-xs text-white/40 mt-0.5 font-medium">Spécialisé hôtellerie</p>
                 <p className="text-sm text-white/45 mt-2 leading-relaxed max-w-lg">
                   Agent conversationnel entraîné sur les données hôtelières. Répond aux questions
                   sur les tarifs, disponibilités et packages. Adapte son ton au standing de
@@ -141,10 +105,12 @@ export default async function HospitalityPage() {
               </div>
               <button
                 type="button"
-                aria-label="Ouvrir Concierge IA"
-                className="shrink-0 text-sm px-5 py-2.5 bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl transition-colors"
+                disabled
+                aria-disabled="true"
+                title="Bientôt disponible — nécessite un connecteur PMS"
+                className="shrink-0 text-sm px-5 py-2.5 bg-white/5 border border-white/10 text-white/25 rounded-xl cursor-not-allowed"
               >
-                Ouvrir
+                Bientôt disponible
               </button>
             </div>
           </div>

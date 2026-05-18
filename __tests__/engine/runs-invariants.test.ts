@@ -1,10 +1,10 @@
 /**
- * Feature 3 — RUNS : invariants LRU store + normalizeRunEventsToTimeline + DELETE stub.
+ * Feature 3 — RUNS : invariants LRU store + normalizeRunEventsToTimeline + DELETE.
  *
  * Tests P2 :
  *  1. LRU store : 501 runs → le 1er run est évincé (max 500)
  *  2. normalizeRunEventsToTimeline déterministe : même input → même output
- *  3. DELETE stub : retourne { ok: true } sans DELETE Supabase (stub idempotent)
+ *  3. DELETE : idempotent (run absent → 200), et supprime réellement via deleteRun
  */
 
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -23,6 +23,7 @@ vi.mock("@/lib/platform/auth/scope", () => ({
 
 vi.mock("@/lib/engine/runtime/state/adapter", () => ({
   getRunById: vi.fn().mockResolvedValue(null),
+  deleteRun: vi.fn(async () => ({ ok: true, deleted: true })),
 }));
 
 vi.mock("@/lib/engine/runtime/timeline/persist", () => ({
@@ -135,7 +136,7 @@ describe("normalizeRunEventsToTimeline — déterminisme", () => {
   });
 });
 
-// ── Test 3 : DELETE stub — { ok: true } sans DELETE Supabase ─
+// ── Test 3 : DELETE — idempotent + suppression réelle via deleteRun ─
 
 describe("DELETE /api/v2/runs/[id] — stub idempotent", () => {
   it("run absent → retourne { ok: true, deleted: false } (idempotence)", async () => {
@@ -180,7 +181,7 @@ describe("DELETE /api/v2/runs/[id] — stub idempotent", () => {
     const res = await DELETE(req, { params: Promise.resolve({ id: "run-stub-test" }) });
     const body = (await res.json()) as { ok: boolean; deleted?: boolean; runId?: string };
 
-    // Stub : ok=true, deleted=true, mais PAS de delete Supabase
+    // deleteRun est mocké (retourne { ok: true, deleted: true }) — ownership vérifié par withScope
     expect(body.ok).toBe(true);
     expect(body.deleted).toBe(true);
     expect(body.runId).toBe("run-stub-test");

@@ -48,7 +48,7 @@ export async function extractActionItems(
 
   return chatWithCircuitBreaker<ActionItem[]>({
     tenantId,
-    context: "deepgram/extract-action-items",
+    context: "kimi/extract-action-items",
     chatRequest: {
       model: KIMI_MODELS.HAIKU,
       max_tokens: 1024,

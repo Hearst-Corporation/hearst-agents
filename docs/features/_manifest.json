@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T07:00:41.533Z",
+  "generatedAt": "2026-05-18T09:48:44.097Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1789,
+    "testsExistants": 1794,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
     "files": 331,
-    "cases": 3022,
+    "cases": 3027,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -1837,8 +1837,8 @@
         "I-7. Évaluateur d'expressions sans `eval`",
         "I-8. Tool inconnu → échec explicite"
       ],
-      "testsExistantsCount": 34,
-      "testsOnDisk": 34,
+      "testsExistantsCount": 39,
+      "testsOnDisk": 39,
       "testFilesOnDisk": 4,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,

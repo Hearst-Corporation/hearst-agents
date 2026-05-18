@@ -1,8 +1,28 @@
 /**
  * Template hospitality — Dispatch service request guest.
  * Webhook (in-app messaging / front desk app) → classify priority (Haiku)
- * → si urgent → Slack alert manager, sinon routing standard → update PMS
- * status → output ticket asset.
+ * → si urgent → Slack alert manager, sinon routing standard
+ * → asset ticket (TOUJOURS émis — le dispatch a bien eu lieu)
+ * → update PMS status (best-effort, skip si PMS non configuré)
+ *   → edge error → out_pms_update_skipped (avertissement honnête).
+ *
+ * Invariant : le node `out` (ticket de traçabilité) ne dépend pas de
+ * l'output de `update_pms`. Il est placé avant dans le flux et ne lit
+ * que les données du trigger et de la classification — deux sources
+ * disponibles même quand le PMS n'est pas configuré.
+ *
+ * Chemin nominal (PMS branché) :
+ *   alert_manager | route_normal → out → update_pms → (terminé)
+ *
+ * Chemin dégradé (PMS non configuré, update_pms onError:skip) :
+ *   alert_manager | route_normal → out → update_pms (skip)
+ *   → out_pms_update_skipped (issue warning honnête)
+ *
+ * Supporté par executor.ts selectNextEdges :
+ *   - stepFailed=true  → seules les edges condition==="error" sont empruntées
+ *     (ligne 293-294) → out_pms_update_skipped atteint.
+ *   - stepFailed=false → edges sans condition suivies → terminal (rien après
+ *     update_pms succès, workflow_completed normalement).
  */
 
 import type { WorkflowGraph } from "../../types";
@@ -67,19 +87,10 @@ export function serviceRequestDispatchTemplate(): WorkflowGraph {
         },
         position: { x: 840, y: 340 },
       },
-      {
-        id: "update_pms",
-        kind: "tool_call",
-        label: "Update PMS status",
-        config: {
-          tool: "pms_update_request_status",
-          args: {
-            requestId: "${trigger_webhook.id}",
-            status: "dispatched",
-          },
-        },
-        position: { x: 1100, y: 220 },
-      },
+      // ── Asset ticket (TOUJOURS produit — dispatch réel confirmé) ──────────
+      // Ne lit que trigger_webhook et classify_priority, disponibles
+      // indépendamment du PMS. Placé avant update_pms pour garantir
+      // l'émission du ticket même si la mise à jour PMS échoue.
       {
         id: "out",
         kind: "output",
@@ -93,7 +104,44 @@ export function serviceRequestDispatchTemplate(): WorkflowGraph {
             text: "${trigger_webhook.text}",
           },
         },
+        position: { x: 1100, y: 220 },
+      },
+      // ── Update PMS (best-effort, skip si PMS non configuré) ───────────────
+      {
+        id: "update_pms",
+        kind: "tool_call",
+        label: "Update PMS status",
+        config: {
+          tool: "pms_update_request_status",
+          args: {
+            requestId: "${trigger_webhook.id}",
+            status: "dispatched",
+          },
+        },
+        onError: "skip",
         position: { x: 1360, y: 220 },
+      },
+      // ── Chemin d'erreur PMS ────────────────────────────────────────────────
+      // Émis uniquement quand update_pms échoue (PMS non configuré).
+      // Aucune donnée fictive — statut opérationnel explicite.
+      // Calqué sur out_pms_missing de guest-arrival-prep pour cohérence.
+      {
+        id: "out_pms_update_skipped",
+        kind: "output",
+        label: "Statut PMS non mis à jour — PMS non configuré",
+        config: {
+          payload: {
+            kind: "issue",
+            severity: "warning",
+            title: "Statut PMS non mis à jour — aucun connecteur PMS configuré",
+            message:
+              "Le ticket de service a bien été créé et le dispatch Slack a eu lieu. " +
+              "La mise à jour du statut dans le PMS a échoué car aucun connecteur " +
+              "PMS n'est configuré. Configurez un connecteur PMS dans les intégrations " +
+              "pour activer la synchronisation automatique.",
+          },
+        },
+        position: { x: 1620, y: 380 },
       },
     ],
     edges: [
@@ -111,11 +159,21 @@ export function serviceRequestDispatchTemplate(): WorkflowGraph {
         target: "route_normal",
         condition: "false",
       },
-      { id: "e5", source: "alert_manager", target: "update_pms" },
-      { id: "e6", source: "route_normal", target: "update_pms" },
-      { id: "e7", source: "update_pms", target: "out" },
+      // Slack dispatch → ticket (toujours)
+      { id: "e5", source: "alert_manager", target: "out" },
+      { id: "e6", source: "route_normal", target: "out" },
+      // Ticket → update PMS (best-effort)
+      { id: "e7", source: "out", target: "update_pms" },
+      // Chemin d'erreur PMS — emprunté par executor quand update_pms throw
+      // (stepFailed=true → selectNextEdges retourne uniquement condition==="error")
+      {
+        id: "e_pms_error",
+        source: "update_pms",
+        target: "out_pms_update_skipped",
+        condition: "error",
+      },
     ],
     startNodeId: "trigger_webhook",
-    version: 1,
+    version: 2,
   };
 }

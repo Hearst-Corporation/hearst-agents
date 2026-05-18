@@ -77,20 +77,19 @@ describe("hospitality specs — sample data generators", () => {
     }
   });
 
-  it("revpar sample data fournit pms_revpar_30d (30 points) + revenue_source", () => {
+  it("revpar sample data retourne la shape attendue (PMS non configuré → tableaux vides)", () => {
     const sample = buildHospitalityRevparSampleData();
-    expect(sample.pms_revpar_30d.length).toBe(30);
-    expect(sample.pms_revenue_source.length).toBeGreaterThan(0);
-    expect(sample.pms_revpar_30d[0]).toHaveProperty("date");
-    expect(sample.pms_revpar_30d[0]).toHaveProperty("revpar");
+    // Shape présente, valeurs vides : PMS non configuré
+    expect(sample).toHaveProperty("pms_revpar_30d");
+    expect(sample).toHaveProperty("pms_revenue_source");
+    expect(sample.pms_revpar_30d).toEqual([]);
+    expect(sample.pms_revenue_source).toEqual([]);
   });
 
-  it("guest satisfaction sample data fournit lignes par canal", () => {
+  it("guest satisfaction sample data retourne la shape attendue (PMS non configuré → tableau vide)", () => {
     const sample = buildHospitalityGuestSatisfactionSampleData();
-    expect(sample.guest_satisfaction.length).toBeGreaterThan(0);
-    sample.guest_satisfaction.forEach((row) => {
-      expect(row).toHaveProperty("channel");
-      expect(row).toHaveProperty("nps");
-    });
+    // Shape présente, valeur vide : PMS non configuré
+    expect(sample).toHaveProperty("guest_satisfaction");
+    expect(sample.guest_satisfaction).toHaveLength(0);
   });
 });

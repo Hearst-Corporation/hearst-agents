@@ -9,7 +9,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { loadAssetById } from "@/lib/assets/types";
-import { extractActionItems } from "@/lib/capabilities/providers/deepgram";
+import { extractActionItems } from "@/lib/capabilities/providers/kimi-extractor";
 import {
   deleteBot,
   getBotStatus,

@@ -48,32 +48,33 @@ describe("workflow handlers registry", () => {
     expect((res.output as { errorCode?: string }).errorCode).toBe("tool_not_implemented");
   });
 
-  it("pms_list_arrivals_today retourne source=demo + count", async () => {
+  it("pms_list_arrivals_today → pms_not_configured (contrat honnête)", async () => {
     const res = await executeWorkflowTool("pms_list_arrivals_today", {}, CTX);
-    expect(res.success).toBe(true);
-    const out = res.output as { source: string; count: number; arrivals: unknown[] };
-    expect(out.source).toBe("demo");
-    expect(out.count).toBe(out.arrivals.length);
-    expect(out.count).toBeGreaterThan(0);
+    expect(res.success).toBe(false);
+    expect(res.error).toBe("pms_not_configured");
+    const out = res.output as { pmsProvider: null; reason: string };
+    expect(out.pmsProvider).toBeNull();
+    expect(typeof out.reason).toBe("string");
   });
 
-  it("pms_update_request_status sans requestId → error", async () => {
+  it("pms_update_request_status sans requestId → error validation", async () => {
     const res = await executeWorkflowTool("pms_update_request_status", { status: "done" }, CTX);
     expect(res.success).toBe(false);
     expect(res.error).toContain("requestId manquant");
   });
 
-  it("pms_update_request_status nominal retourne source=demo", async () => {
+  it("pms_update_request_status avec requestId valide → pms_not_configured", async () => {
     const res = await executeWorkflowTool(
       "pms_update_request_status",
       { requestId: "r1", status: "dispatched" },
       CTX,
     );
-    expect(res.success).toBe(true);
-    const out = res.output as { source: string; requestId: string; status: string };
-    expect(out.source).toBe("demo");
+    expect(res.success).toBe(false);
+    expect(res.error).toBe("pms_not_configured");
+    const out = res.output as { pmsProvider: null; requestId: string; reason: string };
+    expect(out.pmsProvider).toBeNull();
     expect(out.requestId).toBe("r1");
-    expect(out.status).toBe("dispatched");
+    expect(typeof out.reason).toBe("string");
   });
 
   it("slack_send_message en preview ne touche pas Composio", async () => {

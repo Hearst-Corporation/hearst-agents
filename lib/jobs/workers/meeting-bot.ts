@@ -1,24 +1,23 @@
 /**
- * Worker meeting-bot — Recall.ai + Deepgram extraction.
+ * Worker meeting-bot — Recall.ai + extraction Kimi (action items).
  *
  * Lifecycle :
  *  1. Le bot est déjà créé par /api/v2/meetings/start (createMeetingBot
  *     synchrone). Le worker ne fait que le suivi long.
  *  2. Polling toutes les POLL_INTERVAL_MS pour récupérer transcript partiel
  *     + status. À chaque transcript stable (>30s sans changement), on
- *     appelle extractActionItems (Haiku) en lazy update.
+ *     appelle extractActionItems (Kimi Haiku) en lazy update.
  *  3. Quand status === "done" ou "call_ended" : transcript final + action
  *     items finaux + fusion dans l'asset placeholder créé par la route start.
  *  4. Cleanup : deleteBot au plus tard après TIMEOUT_MS (2h).
  *
  * Sans RECALL_API_KEY le worker throw au premier poll — la route /start
  * a déjà filtré ce cas, donc le worker ne devrait jamais tourner sans clé
- * en pratique. Sans DEEPGRAM_API_KEY (clé déjà utilisée côté Recall via le
- * provider managed), extractActionItems retourne [] en silence.
+ * en pratique. Sans KIMI_API_KEY, extractActionItems retourne [] en silence.
  */
 
 import { type Asset, loadAssetById, storeAsset } from "@/lib/assets/types";
-import { extractActionItems } from "@/lib/capabilities/providers/deepgram";
+import { extractActionItems } from "@/lib/capabilities/providers/kimi-extractor";
 import {
   deleteBot,
   getBotStatus,

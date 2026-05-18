@@ -3,11 +3,10 @@
  *
  * Décompose RevPAR = occupancy × ADR. Trends 30 jours, comparaison vs
  * période précédente, breakdown par segment (direct / OTA / corporate /
- * group). Sources : "pms" placeholder. Sample data dans mock-data.ts.
+ * group). Sources : "pms" (Composio — connecteur à configurer). Aucune donnée fictive.
  */
 
 import type { ReportSpec } from "@/lib/reports/spec/schema";
-import { getMockRevenueBySource, getMockRevpar30d } from "@/lib/verticals/hospitality/mock-data";
 
 export const HOSPITALITY_REVPAR_ID = "00000000-0000-4000-8000-700000000002";
 
@@ -119,9 +118,13 @@ export function buildHospitalityRevpar(scope: ReportSpec["scope"]): ReportSpec {
 
 export const HOSPITALITY_REVPAR_REQUIRED_APPS = ["pms"] as const;
 
+/**
+ * Sample data — retourne des structures vides (aucun connecteur PMS configuré).
+ * Utilisé par les tests pour valider la forme des blocks.
+ */
 export function buildHospitalityRevparSampleData() {
   return {
-    pms_revpar_30d: getMockRevpar30d(),
-    pms_revenue_source: getMockRevenueBySource(),
+    pms_revpar_30d: [],
+    pms_revenue_source: [],
   };
 }

@@ -286,8 +286,14 @@ export async function enrichWithConnectionStatus(
 
   // Server-side: use unified reconciler directly.
   // tenantId/workspaceId doivent être passés par le caller via requireScope().
-  const tenantId = scope?.tenantId ?? process.env.HEARST_TENANT_ID ?? "";
-  const workspaceId = scope?.workspaceId ?? process.env.HEARST_WORKSPACE_ID ?? "";
+  const tenantId =
+    scope?.tenantId ??
+    (process.env.NODE_ENV !== "production" ? process.env.HEARST_TENANT_ID : undefined) ??
+    "";
+  const workspaceId =
+    scope?.workspaceId ??
+    (process.env.NODE_ENV !== "production" ? process.env.HEARST_WORKSPACE_ID : undefined) ??
+    "";
   if (!tenantId || !workspaceId) {
     console.error(
       "[Catalog] enrichWithConnectionStatus appelé sans scope — connections indisponibles",

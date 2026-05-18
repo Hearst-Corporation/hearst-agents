@@ -28,6 +28,11 @@ export function getAllRuns(limit = 50): RunRecord[] {
   return all.slice(0, limit);
 }
 
+/** Remove a single run from the in-memory store. No-op if absent. */
+export function removeRun(id: string): void {
+  runs.delete(id);
+}
+
 /** Wipe every run from the in-memory store. Server-only cleanup. */
 export function clearAllRuns(): void {
   runs.clear();

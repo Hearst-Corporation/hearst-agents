@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { ACTION_ITEMS_SYSTEM_PROMPT } from "@/lib/capabilities/providers/deepgram";
+import { ACTION_ITEMS_SYSTEM_PROMPT } from "@/lib/capabilities/providers/kimi-extractor";
 import { DAILY_BRIEF_SYSTEM_PROMPT } from "@/lib/daily-brief/generate";
 import { INBOX_PRIORITY_SYSTEM_PROMPT } from "@/lib/inbox/inbox-brief";
 import { BRIEFING_SYSTEM_PROMPT } from "@/lib/memory/briefing";

@@ -1,12 +1,12 @@
 /**
  * Hospitality Guest Satisfaction — NPS, reviews, complaints recovery.
  *
- * Sources mockées : surveys post-stay, Google reviews, TripAdvisor, app
- * messaging in-stay. Aggregate par canal + complaints + recovery rate.
+ * Sources : surveys post-stay, Google reviews, TripAdvisor, app messaging
+ * in-stay (Composio — connecteur à configurer). Aggregate par canal +
+ * complaints + recovery rate.
  */
 
 import type { ReportSpec } from "@/lib/reports/spec/schema";
-import { getMockSatisfaction } from "@/lib/verticals/hospitality/mock-data";
 
 export const HOSPITALITY_GUEST_SATISFACTION_ID = "00000000-0000-4000-8000-700000000003";
 
@@ -121,8 +121,12 @@ export function buildHospitalityGuestSatisfaction(scope: ReportSpec["scope"]): R
 
 export const HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS = ["pms"] as const;
 
+/**
+ * Sample data — retourne une structure vide (aucun connecteur PMS configuré).
+ * Utilisé par les tests pour valider la forme des blocks.
+ */
 export function buildHospitalityGuestSatisfactionSampleData() {
   return {
-    guest_satisfaction: getMockSatisfaction(),
+    guest_satisfaction: [],
   };
 }

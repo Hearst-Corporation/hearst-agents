@@ -126,7 +126,7 @@ export interface WeeklyDigestSlackPayload {
   blocks: SlackTextBlock[];
 }
 
-const COCKPIT_URL = "https://hearst.app/cockpit";
+const COCKPIT_URL = `${process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXTAUTH_URL ?? "https://hearst.app"}/cockpit`;
 const MAX_MISSIONS_DISPLAYED = 5;
 
 function formatCurrency(value: number): string {

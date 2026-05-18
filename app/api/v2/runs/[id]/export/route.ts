@@ -1,8 +1,13 @@
 /**
- * GET /api/v2/runs/[id]/export — Stub : retourne le run + timeline en JSON
- * avec un Content-Disposition `attachment` pour déclencher un téléchargement
- * côté navigateur. Phase A : pas de format trace formel (otel/json-line) —
- * on sérialise simplement la même payload que GET /api/v2/runs/[id].
+ * GET /api/v2/runs/[id]/export — Exporte le run sous le format trace versionné
+ * `hearst.run-trace/v1`. Déclenche un téléchargement côté navigateur via
+ * Content-Disposition attachment (RFC 6266).
+ *
+ * Format trace v1 :
+ *   { schema, exportedAt, run, spans, raw: { events, timeline } }
+ *
+ * Les spans sont les events ordonnés chronologiquement, mappés en
+ * { ts, type, label, data }.
  */
 
 import { type NextRequest, NextResponse } from "next/server";
@@ -19,6 +24,42 @@ function safeFilename(name: string): string {
   return String(name)
     .replace(/[\r\n"\\]/g, "_")
     .slice(0, 200);
+}
+
+/** Extrait un timestamp stable depuis un event (ms epoch ou ISO string) */
+function eventTs(event: RunEvent): number {
+  // Les events peuvent porter ts (number) ou timestamp (string/number)
+  const e = event as unknown as Record<string, unknown>;
+  if (typeof e.ts === "number") return e.ts;
+  if (typeof e.timestamp === "number") return e.timestamp;
+  if (typeof e.timestamp === "string") {
+    const parsed = Date.parse(e.timestamp);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
+}
+
+/** Mappe un RunEvent en span trace v1 */
+function toSpan(event: RunEvent): { ts: number; type: string; label: string; data: unknown } {
+  const e = event as unknown as Record<string, unknown>;
+  const ts = eventTs(event);
+  const type = (typeof e.type === "string" ? e.type : "unknown") as string;
+
+  // Label lisible : name > label > type
+  const label =
+    (typeof e.name === "string" ? e.name : null) ??
+    (typeof e.label === "string" ? e.label : null) ??
+    type;
+
+  // data = tout sauf les champs déjà représentés
+  const { type: _t, name: _n, label: _l, ts: _ts, timestamp: _stamp, ...rest } = e;
+  void _t;
+  void _n;
+  void _l;
+  void _ts;
+  void _stamp;
+
+  return { ts, type, label, data: rest };
 }
 
 export const runtime = "nodejs";
@@ -69,7 +110,14 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
     const timeline = events.length > 0 ? normalizeRunEventsToTimeline({ runId: id, events }) : [];
 
+    // Tri stable des events par timestamp croissant
+    const sortedEvents = [...events].sort((a, b) => eventTs(a) - eventTs(b));
+
+    const exportedAt = Date.now();
+
     const payload = {
+      schema: "hearst.run-trace/v1" as const,
+      exportedAt,
       run: {
         id: run.id,
         userId: run.userId,
@@ -83,15 +131,18 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
         createdAt: run.createdAt,
         completedAt: run.completedAt,
         assets: run.assets,
+        metrics: run.metrics,
       },
-      timeline,
-      events,
-      exportedAt: Date.now(),
+      spans: sortedEvents.map(toSpan),
+      raw: {
+        events,
+        timeline,
+      },
     };
 
     const body = JSON.stringify(payload, null, 2);
     // F-055: Safe filename with UTF-8 RFC 6266 encoding
-    const safeName = safeFilename(`run-${id}.json`);
+    const safeName = safeFilename(`run-trace-${id}.json`);
     const encoded = encodeURIComponent(safeName);
     const disposition = `attachment; filename="${safeName}"; filename*=UTF-8''${encoded}`;
     return new NextResponse(body, {

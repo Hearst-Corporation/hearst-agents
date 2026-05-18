@@ -31,7 +31,10 @@ function createStorageProvider(
       }
       return new LocalStorageProvider({
         basePath: config.local.basePath,
-        publicBaseUrl: config.local.publicBaseUrl || "http://localhost:9000/assets",
+        publicBaseUrl:
+          config.local.publicBaseUrl ||
+          process.env.ASSET_PUBLIC_BASE_URL ||
+          "http://localhost:9000/assets",
       });
     }
 
@@ -68,7 +71,7 @@ function createStorageProvider(
 
       const hot = new LocalStorageProvider({
         basePath: config.local.basePath,
-        publicBaseUrl: "http://localhost:9000", // Internal only for hybrid
+        publicBaseUrl: process.env.ASSET_PUBLIC_BASE_URL ?? "http://localhost:9000", // Internal only for hybrid
       });
 
       const cold = new R2StorageProvider({
@@ -105,12 +108,17 @@ export function initGlobalStorage(config: StorageConfig): void {
 
 export function getGlobalStorage(): StorageProvider {
   if (!globalStorage) {
-    // Fallback to local dev storage
-    console.warn("[Storage] Global storage not initialized, using local dev");
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        "[Storage] Global storage not initialized in production — initGlobalStorage() must be called at boot",
+      );
+    }
+    // Dev/test: fallback to local storage, URL derived from env
+    console.warn("[Storage] Global storage not initialized, using local dev fallback");
     globalStorage = createStorageProvider("local", {
       local: {
         basePath: ".runtime-assets",
-        publicBaseUrl: "http://localhost:9000/assets",
+        publicBaseUrl: process.env.ASSET_PUBLIC_BASE_URL ?? "http://localhost:9000/assets",
       },
     });
   }
