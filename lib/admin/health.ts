@@ -767,8 +767,6 @@ async function checkComposio(): Promise<ServiceCheck> {
   return fromHttp("Composio", "connectors", res);
 }
 
-// Stream D : PDL gardé (1 call site actif via enrichCompany). Hume reste TODO.
-
 /**
  * Liste ordonnée des checks. L'ordre dicte l'affichage du dashboard quand
  * on n'a pas de tri secondaire.

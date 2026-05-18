@@ -83,9 +83,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "plan_not_awaiting_approval", id }, { status: 404 });
   }
 
-  console.log(
-    `[ApproveStep] plan ${id} step ${body.stepId} ${body.skip ? "skipped" : "approved"} (user ${redactId(scope.userId)})`,
-  );
+  if (process.env.NODE_ENV !== "production") {
+    console.log(
+      `[ApproveStep] plan ${id} step ${body.stepId} ${body.skip ? "skipped" : "approved"} (user ${redactId(scope.userId)})`,
+    );
+  }
 
   return NextResponse.json({
     ok: true,

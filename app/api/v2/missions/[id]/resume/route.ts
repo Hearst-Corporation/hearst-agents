@@ -71,9 +71,11 @@ export async function POST(
       runtimeMission.enabled = true;
       await updateScheduledMission(missionId, { enabled: true });
 
-      console.log(
-        `[MissionsAPI] Runtime mission resumed: ${missionId} (user: ${redactId(scope.userId)})`,
-      );
+      if (process.env.NODE_ENV !== "production") {
+        console.log(
+          `[MissionsAPI] Runtime mission resumed: ${missionId} (user: ${redactId(scope.userId)})`,
+        );
+      }
 
       return NextResponse.json({
         success: true,
@@ -101,9 +103,11 @@ export async function POST(
       }
 
       await updateScheduledMission(missionId, { enabled: true });
-      console.log(
-        `[MissionsAPI] Persisted mission resumed: ${missionId} (user: ${redactId(scope.userId)})`,
-      );
+      if (process.env.NODE_ENV !== "production") {
+        console.log(
+          `[MissionsAPI] Persisted mission resumed: ${missionId} (user: ${redactId(scope.userId)})`,
+        );
+      }
 
       return NextResponse.json({
         success: true,
@@ -136,7 +140,9 @@ export async function POST(
         return NextResponse.json({ error: "Failed to resume mission" }, { status: 500 });
       }
 
-      console.log(`[MissionsAPI] Planner mission resumed: ${missionId}`);
+      if (process.env.NODE_ENV !== "production") {
+        console.log(`[MissionsAPI] Planner mission resumed: ${missionId}`);
+      }
 
       return NextResponse.json({
         success: true,

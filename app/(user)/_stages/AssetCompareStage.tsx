@@ -98,7 +98,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
         controls
         muted
         playsInline
-        className="w-full rounded-[10px] max-h-[200px] object-cover bg-black/40"
+        className="w-full rounded-(--radius-card) max-h-[200px] object-cover bg-black/40"
       />
     );
   }
@@ -109,13 +109,13 @@ function AssetPreview({ asset }: { asset: Asset }) {
       <img
         src={ref}
         alt={asset.title}
-        className="w-full rounded-[10px] max-h-[200px] object-cover bg-black/40"
+        className="w-full rounded-(--radius-card) max-h-[200px] object-cover bg-black/40"
       />
     );
   }
 
   return (
-    <div className="w-full h-[140px] rounded-[10px] bg-(--surface) border border-(--line-strong) flex items-center justify-center">
+    <div className="w-full h-[140px] rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
       <span className="t-11 text-(--text-decor-25)">{asset.kind}</span>
     </div>
   );
@@ -227,7 +227,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[320px] rounded-xl overflow-hidden bg-black/30 border border-(--line-strong) cursor-col-resize select-none"
+      className="relative w-full h-[var(--height-compare-viewer)] rounded-xl overflow-hidden bg-black/30 border border-(--line-strong) cursor-col-resize select-none"
       onMouseDown={(e) => {
         dragging.current = true;
         updateFromEvent(e.clientX);
@@ -277,7 +277,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
 
       {/* Poignée centrale */}
       <div
-        className="absolute top-1/2 w-[28px] h-[28px] rounded-full bg-white/90 border-2 border-white/50 flex items-center justify-center pointer-events-none shadow-[0_2px_8px_rgb(0_0_0/0.4)] -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 w-7 h-7 rounded-full bg-white/90 border-2 border-white/50 flex items-center justify-center pointer-events-none shadow-[0_2px_8px_rgb(0_0_0/0.4)] -translate-x-1/2 -translate-y-1/2"
         style={{ left: `${sliderX}%` }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -467,7 +467,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
           {[0, 1].map((i) => (
             <div
               key={i}
-              className="animate-pulse flex-[0_0_calc(50%-8px)] h-[320px] bg-(--surface-2) rounded-2xl"
+              className="animate-pulse flex-[0_0_calc(50%-8px)] h-[var(--height-compare-viewer)] bg-(--surface-2) rounded-2xl"
             />
           ))}
         </div>

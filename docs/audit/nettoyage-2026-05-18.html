@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Nettoyage codebase Hearst OS — Hearst OS</title>
+<title>Nettoyage codebase — Hearst OS</title>
 <style>
   :root {
     --bg: #0a0a0a;
@@ -81,331 +81,415 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>Nettoyage codebase Hearst OS</h1>
+    <h1>Nettoyage codebase</h1>
     <div class="meta">
-      <span><b>Date</b> 2026-05-18 02:33</span>
+      <span><b>Date</b> 2026-05-18 05:07</span>
       <span><b>Branche</b> main</span>
-      <span><b>Commit</b> 20b48f0a</span>
+      <span><b>Commit</b> 2659d8c2</span>
       <span><b>Scope</b> repo entier</span>
     </div>
   </header>
 
   <section class="kpis">
-    <div class="kpi accent"><div class="kpi-value">19</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi accent"><div class="kpi-value">30</div><div class="kpi-label">Findings</div></div>
     <div class="kpi p0"><div class="kpi-value">0</div><div class="kpi-label">P0 — critique</div></div>
-    <div class="kpi p1"><div class="kpi-value">8</div><div class="kpi-label">P1 — important</div></div>
-    <div class="kpi p2"><div class="kpi-value">14</div><div class="kpi-label">P2 — dette</div></div>
-    <div class="kpi accent"><div class="kpi-value">4.3</div><div class="kpi-label">Score /10</div></div>
+    <div class="kpi p1"><div class="kpi-value">12</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">18</div><div class="kpi-label">P2 — dette</div></div>
+    
   </section>
 
   
-    <section class="block">
-      <h2>Quick wins</h2>
-      <ol class="quick-wins">
-        <li>
-              <span class="qw-title"></span>
-              
-              
-            </li><li>
-              <span class="qw-title"></span>
-              
-              
-            </li><li>
-              <span class="qw-title"></span>
-              
-              
-            </li><li>
-              <span class="qw-title"></span>
-              
-              
-            </li>
-      </ol>
-    </section>
 
   <section class="block">
     <h2>Détails par section</h2>
     
     <details class="section" open>
       <summary>
-        <span class="section-name">Exports orphelins (knip)</span>
-        <span class="section-agent">agent-1</span>
+        <span class="section-name">Exports orphelins</span>
+        
         <span class="section-counts">
           
-          
+          <span class="badge badge-p1">6</span>
           <span class="badge badge-p2">4</span>
         </span>
       </summary>
-      <p class="section-summary">50 fichiers avec exports orphelins détectés par knip — 80% faux positifs (barrel re-exports, imports dynamiques). Vrais candidats : composants UI barrel + spatial.</p>
+      
       <div class="findings">
         
-    <div class="finding sev-p2">
+    <div class="finding sev-p1">
       <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Barrel UI : 7 re-exports dont certains non consommés</span>
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Suite spatial-safe entière orpheline (5 dossiers)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/index.ts:11">app/(user)/components/ui/index.ts:11</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>RailSection, ScreenShell, SectionHeader, CardSkeleton, RowSkeleton, FieldError, ValidatedForm</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier si importés via chemin direct plutôt que depuis ui/index.ts</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/components/spatial-safe/ + hooks/spatial-safe/ + lib/spatial-safe/ + providers/spatial-safe/ + styles/spatial-safe">components/spatial-safe/ + hooks/spatial-safe/ + lib/spatial-safe/ + providers/spatial-safe/ + styles/spatial-safe/</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Fichiers de backup/sauvegarde jamais importés en production. CLAUDE.md dit lecture-seule — supprimer uniquement avec accord Adrien.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Parser de contenu legacy orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/assets/content-parser.ts">lib/assets/content-parser.ts</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Jamais importé dans le codebase. Utility obsolète.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Traductions FR orphelines</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/i18n/fr.ts">lib/i18n/fr.ts</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Système i18n partiellement abandonné. Fichier jamais utilisé.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">getLangfuse() jamais importé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts:87:87">lib/observability/langfuse.ts:87:87</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Fonction exportée mais non consommée. API interne legacy.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">assertLangfuseReadyAsync() jamais importé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts:106:106">lib/observability/langfuse.ts:106:106</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Assertion jamais consommée. Candidat suppression.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">DUAL_APP_GROUPS jamais utilisé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/agents/dual-apps.ts:19:19">lib/agents/dual-apps.ts:19:19</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Constante de configuration orpheline, feature legacy.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">getLangfuse + assertLangfuseReadyAsync orphelins</span>
+        <span class="finding-title">ToastHost — export named + default en doublon</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/observability/langfuse.ts:87">lib/observability/langfuse.ts:87</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>2 exports non consommés</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier usage conditionnel. Si morts → supprimer.</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ui/ToastHost.tsx:197:197">app/(user)/components/ui/ToastHost.tsx:197:197</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Double export du même composant. Unifier.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">16 utilitaires LLM agrégateur — faux positif probable</span>
+        <span class="finding-title">SECRET_MIN_LENGTH dupliqué dans approvals + signed-url</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/llm/index.ts:2">lib/llm/index.ts:2</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>chatWithProfile, streamChatWithProfile, smartChat re-exports</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Confirmer si orchestrateur importe directement. Barrel peut-être superflu.</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/approvals.ts:34:34">lib/missions/approvals.ts:34:34</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Constante dupliquée. Extraire dans un fichier shared/constants.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">19 constantes catalog — faux positif knip (accès dynamique CATALOG[id])</span>
+        <span class="finding-title">LocalStorageProvider &amp; R2StorageProvider jamais utilisés</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/reports/catalog/index.ts:366">lib/reports/catalog/index.ts:366</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>CUSTOMER_360_ID, DEAL_TO_CASH_ID, etc.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Ne pas toucher. Faux positif confirmé.</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/assets/storage/index.ts:16:16">lib/engine/runtime/assets/storage/index.ts:16:16</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Classes de storage orphelines. Architecture changée ou non finalisée.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">invalidateOAuthExpiryCache jamais appelé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-oauth-expiry.ts:86:86">app/hooks/use-oauth-expiry.ts:86:86</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Export jamais consommé en production.</span></div>
     </div>
       </div>
     </details>
     <details class="section" open>
       <summary>
-        <span class="section-name">Dead code TypeScript</span>
-        <span class="section-agent">agent-2</span>
+        <span class="section-name">Magic numbers &amp; styles résiduels</span>
+        
         <span class="section-counts">
           
           <span class="badge badge-p1">5</span>
-          <span class="badge badge-p2">3</span>
+          <span class="badge badge-p2">5</span>
         </span>
       </summary>
-      <p class="section-summary">~500 lignes de code mort. Composants exportés jamais importés : ChatMessages, 11 GhostIcons, PreviewPane, CockpitOrbitView, MissionConversation, RunProgressBanner, KgQueryBar, usePollingEffect. ExtractSchemaModal = faux positif (utilisé dans BrowserStage).</p>
+      
       <div class="findings">
         
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">11 icônes Ghost exportées jamais importées</span>
+        <span class="finding-title">px-[18px] py-[14px] — réapparaît 5× dans les stages</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ghost-icons.tsx:28">app/(user)/components/ghost-icons.tsx:28</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>GhostIconX, GhostIconChevronRight, GhostIconPlay, GhostIconPencil, GhostIconTrash, GhostIconAlert, GhostIconCheck, GhostIconMenu, GhostIconInfo, GhostIconCamera, GhostIconTarget</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer le fichier entier</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MissionStage.tsx:281:281">app/(user)/_stages/MissionStage.tsx:281:281</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;px-[18px] py-[14px] ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>p-[18px] → p-5 (20px proche) ou token --space-5 (18px n'existe pas dans l'échelle)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>18px et 14px non-standard, présents dans 5 fichiers. Tokeniser ou aligner sur px-5/py-3.5.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">ChatMessages (~140 lignes) exporté jamais importé</span>
+        <span class="finding-title">p-[18px] — réapparaît dans AssetCompare + BrowserStage</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatMessages.tsx:140">app/(user)/components/ChatMessages.tsx:140</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function ChatMessages(...)</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier usage dans ChatStage. Si mort → supprimer.</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx:147:147">app/(user)/_stages/AssetCompareStage.tsx:147:147</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>p-[18px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner sur p-5 (20px) ou ajouter --space-4.5 (18px) à l'échelle</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern récurrent sans token dédié.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">CockpitOrbitView vestige ancien cockpit</span>
+        <span class="finding-title">gap-[14px] — réapparaît 3× dans les stages</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/cockpit/orbital/CockpitOrbitView.tsx:14">app/(user)/components/cockpit/orbital/CockpitOrbitView.tsx:14</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function CockpitOrbitView({ data })</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MissionStage.tsx:319:319">app/(user)/_stages/MissionStage.tsx:319:319</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gap-[14px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>gap-3.5 (la classe existe dans Tailwind v4 = 14px)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>gap-3.5 est un alias valide. Remplacement direct.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">MissionConversation exporté jamais importé</span>
+        <span class="finding-title">px-[9px] py-[3px] — badge non-standard</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/mission/MissionConversation.tsx:45">app/(user)/components/mission/MissionConversation.tsx:45</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function MissionConversation({ missionId, onRunTriggered })</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier si remplacé par MissionStage. Si oui → supprimer.</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MissionStage.tsx:322:322">app/(user)/_stages/MissionStage.tsx:322:322</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>px-[9px] py-[3px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>px-2 py-0.5 ou créer classe .badge-pill</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>9px et 3px sont hors grille 4px.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">PreviewPane + ExecResultItem type orphelins</span>
+        <span class="finding-title">rounded-[10px] — réapparaît 3× dans AssetCompare</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/artifact/PreviewPane.tsx:40">app/(user)/components/artifact/PreviewPane.tsx:40</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function PreviewPane(...) + export type ExecResultItem</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier dans ArtifactStage. Si mort → supprimer.</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx:101:101">app/(user)/_stages/AssetCompareStage.tsx:101:101</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-[10px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>rounded-xl (12px) ou créer --radius-card dans globals.css</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>10px n'est pas dans l'échelle radius.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">RunProgressBanner exporté jamais importé</span>
+        <span class="finding-title">h-[320px] — hauteur compare viewer hardcodée</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/RunProgressBanner.tsx:16">app/(user)/components/RunProgressBanner.tsx:16</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function RunProgressBanner()</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx:230:230">app/(user)/_stages/AssetCompareStage.tsx:230:230</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>h-[320px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer --height-compare-viewer: 320px dans globals.css</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Apparaît 2× dans AssetCompare. Token CSS dédié.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">KgQueryBar exporté jamais importé</span>
+        <span class="finding-title">w-[28px] h-[28px] — slider handle</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/kg/KgQueryBar.tsx:20">app/(user)/components/kg/KgQueryBar.tsx:20</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function KgQueryBar(...)</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier si intégré inline dans KGStage. Si mort → supprimer.</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetCompareStage.tsx:280:280">app/(user)/_stages/AssetCompareStage.tsx:280:280</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>w-[28px] h-[28px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>w-7 h-7 (= 28px en Tailwind)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>w-7 existe et vaut 28px. Remplacement direct sans perte de précision.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">usePollingEffect hook exporté jamais importé</span>
+        <span class="finding-title">h-[300px] — skeleton KG loader</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/hooks/use-polling-effect.ts:30">app/hooks/use-polling-effect.ts:30</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function usePollingEffect(callback, intervalMs, deps?, options?)</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer — BrowserStage utilise setInterval direct</code></div>
-      
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/KGStage.tsx:682:682">app/(user)/_stages/KGStage.tsx:682:682</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>h-[300px]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>h-72 (= 288px proche) ou --height-skeleton-lg: 300px</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Skeleton height. Standardiser avec token.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">style={{ fontWeight: 300 }} non dynamique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/hearst-card/[userId]/[yearMonth]/page.tsx:87:87">app/hearst-card/[userId]/[yearMonth]/page.tsx:87:87</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ fontWeight: 300 }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;font-light&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>fontWeight statique en inline style. Tailwind font-light = 300.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">style={{ fontWeight: 400 }} non dynamique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/public/hearst-card/[token]/page.tsx:220:220">app/public/hearst-card/[token]/page.tsx:220:220</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ fontWeight: 400 }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;font-normal&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>fontWeight statique. font-normal = 400.</span></div>
     </div>
       </div>
     </details>
     <details class="section" open>
       <summary>
-        <span class="section-name">Magic numbers &amp; inline styles</span>
-        <span class="section-agent">agent-3</span>
+        <span class="section-name">TODO/FIXME obsolètes</span>
+        
         <span class="section-counts">
           
           <span class="badge badge-p1">1</span>
           <span class="badge badge-p2">4</span>
         </span>
       </summary>
-      <p class="section-summary">~40 violations DS. Principaux : template email 10+ hex, monthly-card-view constantes hex, inline styles admin. Dynamiques (width%, grid calculés) = acceptables.</p>
+      
       <div class="findings">
         
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Template email HTML : 10+ couleurs hex hardcodées</span>
+        <span class="finding-title">3× TODO SSE backend — /api/v2/browser/sessions/[id]/steps (bloquant feature)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/missions/approvals.ts:343">lib/missions/approvals.ts:343</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>background:#0b0d0f; color:#e8e8e8; background:#2db8a8 (boutons)</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Externaliser template → composant JSX ou HTML séparé avec variables CSS inline</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/BrowserStage.tsx:416,442,448:416">app/(user)/_stages/BrowserStage.tsx:416,442,448:416</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Triplet de dépendances SSE non implémentées. Feature BrowserStage en mode mock.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Couleurs hex card gradient (#0a1f24, #020608)</span>
+        <span class="finding-title">TODO assets store — 18 jours (OBSOLÈTE)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx:29">lib/cockpit/monthly-card-view.tsx:29</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>const COLOR_BG_TOP = &quot;#0a1f24&quot;; const COLOR_BG_BOTTOM = &quot;#020608&quot;</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Tokens globals.css : var(--card-bg-top), var(--card-bg-bottom)</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/missions/export-job.ts:140:140">lib/engine/runtime/missions/export-job.ts:140:140</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dépend de lib/engine/runtime/assets/ non encore implémenté. À reprioriser ou supprimer.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Accent teal #5fb6a8 ≠ var(--accent-teal) #4a8b86 — dérive DS</span>
+        <span class="finding-title">TODO Phase B R2 upload (1 jour)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/cockpit/monthly-card-view.tsx:34">lib/cockpit/monthly-card-view.tsx:34</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>const COLOR_ACCENT = &quot;#5fb6a8&quot;</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par var(--accent-teal) pour cohérence</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/DocumentParseModal.tsx:187:187">app/(user)/components/DocumentParseModal.tsx:187:187</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Phase A = mock, Phase B = R2 natif. Planifier ou accepter le mock.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">maxWidth: 80% inline hors token</span>
+        <span class="finding-title">TODO Hume doublon — 2 occurrences identiques (3 jours)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/ChatWindow.tsx:119">app/admin/_components/ChatWindow.tsx:119</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>style={{ maxWidth: &quot;80%&quot; }}</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Tailwind max-w-[80%] ou var(--chat-msg-max-width)</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/admin/health.ts:17,770:17">lib/admin/health.ts:17,770:17</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Doublon de contexte Hume/PDL. Supprimer l'un, statuer sur Hume.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Page HTML dev-login : 5 styles inline hardcodés (dev only)</span>
+        <span class="finding-title">TODO web_search format multi-provider (2 jours)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/api/auth/dev-login/route.ts:29">app/api/auth/dev-login/route.ts:29</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>background:#000; color:#4A8B86;</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>P3 — dev only, faible priorité. Passer en template si refacto.</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts:398:398">lib/engine/runtime/delegate/api.ts:398:398</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Incompatibilité format tool entre Anthropic/OpenAI/Kimi. Décision d'architecture nécessaire.</span></div>
     </div>
       </div>
     </details>
     <details class="section" open>
       <summary>
-        <span class="section-name">Dettes lint (Biome)</span>
-        <span class="section-agent">agent-4</span>
+        <span class="section-name">Dettes lint &amp; qualité code</span>
+        
         <span class="section-counts">
           
-          
-          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">4</span>
         </span>
       </summary>
-      <p class="section-summary">0 issue sur 949 fichiers. Biome propre.</p>
-      <div class="findings">
-        <div class="empty">Aucun finding.</div>
-      </div>
-    </details>
-    <details class="section" open>
-      <summary>
-        <span class="section-name">TODO/FIXME obsolètes</span>
-        <span class="section-agent">agent-5</span>
-        <span class="section-counts">
-          
-          
-          <span class="badge badge-p2">2</span>
-        </span>
-      </summary>
-      <p class="section-summary">0 marqueur stale (&gt; 90 jours). 8 TODO récents légitimes : dépendances backend (BrowserStage SSE), phases futures (DocumentParseModal Phase B), décisions archi (Hume), incompatibilités provider.</p>
-      <div class="findings">
-        
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">TODO SSE backend /api/v2/browser/sessions/[id]/steps — GARDER</span>
-        
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/BrowserStage.tsx:534">app/(user)/_stages/BrowserStage.tsx:534</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Squelette polling prêt, route non créée</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Garder. Brancher à la création de la route.</code></div>
       
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">setInterval() sans cleanup explicite (risque leak)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/BrowserStage.tsx:456:456">app/(user)/_stages/BrowserStage.tsx:456:456</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Polling sans return cleanup dans useEffect. Risque interval fantôme si unmount rapide.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">TODO web_search format Anthropic incompatible OpenAI/Kimi — GARDER</span>
+        <span class="finding-title">9 fichiers API avec console.log() non filtrés par NODE_ENV</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/lib/engine/runtime/delegate/api.ts:398">lib/engine/runtime/delegate/api.ts:398</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Feature désactivée</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Garder. Incompatibilité documentée.</code></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/api/v2/assets/route.ts (+ 8 fichiers API)">app/api/v2/assets/route.ts (+ 8 fichiers API)</a></div>
       
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Logs debug en production. Filtrer avec process.env.NODE_ENV === 'development'.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">14 composants React &gt; 500 lignes (max: 804 CockpitXClient)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx (+ 13 composants)">app/(user)/cockpit-x/CockpitXClient.tsx (+ 13 composants)</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Difficile à maintenir. Split container/presentational ou extraction hooks.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">5 fichiers avec ':any' ou 'as any'</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/ChatInput.tsx (+ 4 fichiers)">app/(user)/components/chat-input/ChatInput.tsx (+ 4 fichiers)</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bypass typage TypeScript. Risques bugs runtime imprédictibles.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">31 fichiers avec console.warn() sans logging structuré</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/ (31 fichiers)">app/ (31 fichiers)</a></div>
+      
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Traçabilité faible en production. Migrer vers logger Sentry/observability.</span></div>
     </div>
       </div>
     </details>
@@ -416,20 +500,20 @@
       <h2>Plan de remédiation</h2>
       <div class="plan-grid">
         <div class="plan-batch">
-              <h3>Batch 1 — Dead code sûr</h3>
-              <ul><li>Supprimer app/(user)/components/ghost-icons.tsx</li><li>Supprimer app/(user)/components/cockpit/orbital/CockpitOrbitView.tsx</li><li>Supprimer app/(user)/components/RunProgressBanner.tsx</li><li>Supprimer app/hooks/use-polling-effect.ts</li><li>Vérifier + supprimer MissionConversation.tsx si non utilisé</li><li>Vérifier + supprimer ChatMessages.tsx si non utilisé dans ChatStage</li><li>Vérifier + supprimer artifact/PreviewPane.tsx si non utilisé dans ArtifactStage</li></ul>
+              <h3>Batch 1 — Quick wins (30 min)</h3>
+              <ul><li>gap-[14px] → gap-3.5 (remplacement direct, 3 fichiers)</li><li>w-[28px] h-[28px] → w-7 h-7 (remplacement direct)</li><li>style={{ fontWeight: 300 }} → className='font-light' (2 fichiers)</li><li>Supprimer doublon TODO Hume dans lib/admin/health.ts:770</li><li>Unifier export ToastHost (supprimer le doublon named/default)</li></ul>
             </div><div class="plan-batch">
-              <h3>Batch 2 — Magic numbers → tokens DS</h3>
-              <ul><li>monthly-card-view.tsx : #5fb6a8 → var(--accent-teal)</li><li>monthly-card-view.tsx : #0a1f24/#020608 → tokens globals.css</li><li>ChatWindow.tsx : maxWidth 80% → max-w-[80%]</li><li>approvals.ts : externaliser template email (couleurs → CSS vars inline)</li></ul>
+              <h3>Batch 2 — Tokens CSS + orphelins safe (1h)</h3>
+              <ul><li>Ajouter --height-compare-viewer: 320px dans globals.css → h-[320px] dans AssetCompare</li><li>Ajouter --radius-card: 10px dans globals.css → rounded-[10px] dans AssetCompare</li><li>Supprimer lib/i18n/fr.ts (orphelin confirmé)</li><li>Supprimer lib/assets/content-parser.ts (orphelin confirmé)</li><li>Consolider SECRET_MIN_LENGTH → lib/constants/auth.ts</li><li>Supprimer DUAL_APP_GROUPS si feature abandonnée</li></ul>
             </div><div class="plan-batch">
-              <h3>Batch 3 — Barrel exports &amp; vérifications</h3>
-              <ul><li>lib/llm/index.ts : vérifier si barrel utilisé ou imports directs</li><li>lib/observability/langfuse.ts : getLangfuse + assertLangfuseReadyAsync</li><li>app/(user)/components/kg/KgQueryBar.tsx : vérifier usage KGStage</li><li>artifact/PreviewPane.tsx : ExecResultItem → rendre interne</li></ul>
+              <h3>Batch 3 — Qualité code (2h)</h3>
+              <ul><li>Ajouter return cleanup dans useEffect setInterval BrowserStage:456</li><li>Wrapper console.log API routes dans if (process.env.NODE_ENV !== 'production')</li><li>Éliminer ':any' dans les 5 fichiers identifiés</li><li>Déprécier getLangfuse() + assertLangfuseReadyAsync() ou brancher sur l'existant</li><li>Statuer sur spatial-safe : conserver comme backup ou supprimer (accord Adrien requis)</li></ul>
             </div>
       </div>
     </section>
 
   <footer>
-    Hearst OS · 2026-05-18 02:33
+    Hearst OS · 2026-05-18 05:07
   </footer>
 </div>
 </body>

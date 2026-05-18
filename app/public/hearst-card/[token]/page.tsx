@@ -146,7 +146,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
           justifyContent: "center",
         }}
       >
-        <h1 className="t-28" style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}>
+        <h1 className="t-28 font-light" style={{ letterSpacing: "var(--tracking-tight)" }}>
           Carte indisponible
         </h1>
         <p className="t-13" style={{ color: "var(--text-soft)", marginTop: "var(--space-4)" }}>
@@ -217,9 +217,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
           >
             H
           </div>
-          <span className="t-15" style={{ fontWeight: 400 }}>
-            Hearst OS
-          </span>
+          <span className="t-15 font-normal">Hearst OS</span>
         </Link>
         <span
           className="t-11"

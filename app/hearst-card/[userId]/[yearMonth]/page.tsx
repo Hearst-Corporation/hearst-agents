@@ -84,7 +84,7 @@ export default async function HearstCardPage({ params, searchParams }: PageProps
             minHeight: "100vh",
           }}
         >
-          <h1 style={{ fontWeight: 300 }}>Connexion requise</h1>
+          <h1 className="font-light">Connexion requise</h1>
           <p>Connectez-vous pour voir votre Hearst Card.</p>
         </main>
       );

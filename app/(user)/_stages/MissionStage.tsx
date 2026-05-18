@@ -316,7 +316,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
   return (
     <header className="flex flex-col gap-2">
       <p className="t-13 text-(--text-ghost)">Demande active</p>
-      <h1 className="t-30 font-medium tracking-tight flex items-center gap-[14px]">
+      <h1 className="t-30 font-medium tracking-tight flex items-center gap-3.5">
         {mission.name}
         <span
           className="inline-flex items-center gap-1.5 t-11 px-[9px] py-[3px] rounded-full"

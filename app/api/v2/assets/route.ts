@@ -121,9 +121,11 @@ export async function POST(req: NextRequest) {
 
   storeAsset(asset);
 
-  console.log(
-    `[POST /api/v2/assets] Created asset: ${asset.id} (${type} → ${asset.kind}) for user ${redactId(scope.userId)}`,
-  );
+  if (process.env.NODE_ENV !== "production") {
+    console.log(
+      `[POST /api/v2/assets] Created asset: ${asset.id} (${type} → ${asset.kind}) for user ${redactId(scope.userId)}`,
+    );
+  }
 
   return NextResponse.json(
     {

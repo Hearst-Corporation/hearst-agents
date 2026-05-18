@@ -131,6 +131,8 @@
   --space-48: 224px;
 
   /* ── Layout tokens (composants spécifiques) ── */
+  --radius-card: 10px; /* Radius card preview (AssetCompare) */
+  --height-compare-viewer: 320px; /* Hauteur viewer AssetCompare */
   --width-drawer-min: 320px;
   --width-drawer-max: 520px;
   --max-height-notification-popover: clamp(200px, 40vh, 400px);
