@@ -171,7 +171,9 @@ describe("ReportEditor — reset", () => {
     };
     rerender(<ReportEditor spec={modifiedSpec} onChange={onChange} />);
 
+    // Spec modifié → dirty → Reset ouvre une ConfirmModal (action destructive).
     fireEvent.click(screen.getByTestId("report-editor-reset"));
+    fireEvent.click(screen.getByTestId("confirm-modal-confirm"));
 
     expect(onChange).toHaveBeenCalledTimes(1);
     const reset = onChange.mock.calls[0][0] as ReportSpec;
@@ -419,7 +421,10 @@ describe("ReportEditor — load template", () => {
       expect(screen.getByTestId("report-editor-load-list")).toBeTruthy();
     });
 
-    expect(fetchMock).toHaveBeenCalledWith("/api/reports/templates");
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/reports/templates",
+      expect.objectContaining({ signal: expect.anything() }),
+    );
   });
 
   it("affiche 'Aucun template' si liste vide", async () => {
@@ -464,6 +469,7 @@ describe("ReportEditor — load template", () => {
 
     await waitFor(() => screen.getByTestId("report-editor-load-list"));
 
+    // Spec non modifié (non dirty) → chargement direct, sans ConfirmModal.
     await act(async () => {
       fireEvent.click(screen.getByTestId("report-editor-load-item-tpl-uuid-1"));
     });
@@ -474,7 +480,10 @@ describe("ReportEditor — load template", () => {
       expect(loaded.meta.title).toBe("Spec depuis template");
     });
 
-    expect(fetchMock).toHaveBeenCalledWith("/api/reports/templates/tpl-uuid-1");
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/reports/templates/tpl-uuid-1",
+      expect.objectContaining({ signal: expect.anything() }),
+    );
   });
 
   it("ferme la liste au clic 'Fermer'", async () => {

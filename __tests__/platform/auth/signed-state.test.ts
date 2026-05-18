@@ -36,7 +36,10 @@ describe("signOAuthState / verifyOAuthState (F-006)", () => {
     const state = signOAuthState(payload);
 
     expect(typeof state).toBe("string");
-    expect(state).toContain(".");
+    // Format AES-256-GCM compact : base64url(iv ‖ ciphertext ‖ tag), pas de
+    // séparateur '.' (l'ancien format HMAC body.sig a été durci en chiffré).
+    expect(state).not.toContain(".");
+    expect(state).toMatch(/^[A-Za-z0-9_-]+$/);
 
     const decoded = verifyOAuthState<typeof payload>(state);
     expect(decoded).not.toBeNull();

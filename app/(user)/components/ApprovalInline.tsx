@@ -112,7 +112,7 @@ export function ApprovalInline({
           style={{
             background: isLocked
               ? "color-mix(in srgb, var(--bg) 50%, transparent)"
-              : "rgb(0 0 0 / 0.30)",
+              : "var(--overlay-scrim-soft)",
             cursor: isLocked ? "wait" : "default",
             transitionDuration: "var(--duration-medium, 200ms)",
           }}

@@ -147,7 +147,7 @@ describe("F002 — ai-pipeline circuit breaker wiring", () => {
     expect(mocks.streamTextMock).not.toHaveBeenCalled();
   });
 
-  it("appelle isOpen avec provider=kimi et tenantId", async () => {
+  it("appelle isOpen avec provider=anthropic et tenantId", async () => {
     mocks.isOpen.mockReturnValue(true);
     const engine = makeEngine();
     const bus = makeEventBus();
@@ -159,6 +159,6 @@ describe("F002 — ai-pipeline circuit breaker wiring", () => {
       workspaceId: "ws-1",
     });
 
-    expect(mocks.isOpen).toHaveBeenCalledWith("kimi", "tenant-abc");
+    expect(mocks.isOpen).toHaveBeenCalledWith("anthropic", "tenant-abc");
   });
 });

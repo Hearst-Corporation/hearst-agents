@@ -168,7 +168,9 @@ describe("AlertingSettings — suppression webhook", () => {
 
     await waitFor(() => screen.getByText("https://hook.example.com/test"));
 
+    // Suppression webhook → ConfirmModal (cascade automations, Stream B/T-B4).
     fireEvent.click(screen.getByText("Supprimer"));
+    fireEvent.click(screen.getByTestId("confirm-modal-confirm"));
 
     await waitFor(() => {
       expect(screen.queryByText("https://hook.example.com/test")).toBeNull();

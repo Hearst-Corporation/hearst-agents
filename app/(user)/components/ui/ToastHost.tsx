@@ -49,17 +49,17 @@ const TONE_VAR: Record<ToastType, string> = {
 };
 
 const TONE_SURFACE: Record<ToastType, string> = {
-  success: "var(--color-success-bg, rgba(45, 197, 88, 0.10))",
-  error: "var(--danger-surface, rgba(255, 51, 51, 0.12))",
-  warning: "var(--warn-surface, rgba(255, 204, 0, 0.12))",
-  info: "var(--accent-teal-surface, rgba(74, 139, 134, 0.08))",
+  success: "var(--color-success-bg)",
+  error: "var(--danger-surface)",
+  warning: "var(--warn-surface)",
+  info: "var(--accent-teal-surface)",
 };
 
 const TONE_BORDER: Record<ToastType, string> = {
-  success: "var(--color-success-border, rgba(45, 197, 88, 0.25))",
-  error: "rgba(255, 51, 51, 0.32)",
-  warning: "rgba(255, 204, 0, 0.32)",
-  info: "var(--accent-teal-border, rgba(74, 139, 134, 0.25))",
+  success: "var(--color-success-border)",
+  error: "var(--danger-border)",
+  warning: "var(--warn-border)",
+  info: "var(--accent-teal-border)",
 };
 
 interface ToastCardProps {
@@ -110,15 +110,15 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
         display: "flex",
         alignItems: "flex-start",
         gap: "var(--space-3)",
-        minWidth: "280px",
-        maxWidth: "380px",
+        minWidth: "var(--toast-min-width)",
+        maxWidth: "var(--toast-max-width)",
         padding: "var(--space-3) var(--space-4)",
         borderRadius: "var(--radius-md)",
         background: TONE_SURFACE[type],
         border: `1px solid ${TONE_BORDER[type]}`,
         backdropFilter: "blur(20px) saturate(140%)",
         WebkitBackdropFilter: "blur(20px) saturate(140%)",
-        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.32)",
+        boxShadow: "var(--shadow-toast)",
         color: "var(--text)",
         pointerEvents: "auto",
       }}
@@ -180,7 +180,7 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
           transition: "background 120ms ease, color 120ms ease",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(255, 255, 255, 0.06)";
+          e.currentTarget.style.background = "var(--toast-close-hover-bg)";
           e.currentTarget.style.color = "var(--text)";
         }}
         onMouseLeave={(e) => {

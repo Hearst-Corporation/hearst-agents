@@ -268,6 +268,9 @@
   /* Overlay scrim — fond modal/drawer derrière. Valeur identique en dark
    * et light : on assombrit toujours par rapport au contenu source. */
   --overlay-scrim: rgba(0, 0, 0, 0.4);
+  /* Variante allégée — scrim non bloquant (ex: ApprovalInline prominent
+   * non verrouillé), laisse plus voir le contenu sous-jacent. */
+  --overlay-scrim-soft: rgba(0, 0, 0, 0.3);
   --text-on-accent-teal: #000000;
   --card-flat-bg: rgba(255, 255, 255, 0.02);
   --card-flat-border: rgba(255, 255, 255, 0.06);
@@ -288,7 +291,15 @@
   --warn-surface-soft: color-mix(in srgb, var(--warn) 6%, transparent);
   --danger-surface: color-mix(in srgb, var(--danger) 12%, transparent);
   --danger-surface-soft: color-mix(in srgb, var(--danger) 6%, transparent);
+  --danger-border: color-mix(in srgb, var(--danger) 32%, transparent);
+  --warn-border: color-mix(in srgb, var(--warn) 32%, transparent);
   --quarantine-surface: color-mix(in srgb, var(--accent-llm) 14%, transparent);
+
+  /* ─── ToastHost — surface notifications (bottom-right stack) ──── */
+  --toast-min-width: 280px;
+  --toast-max-width: 380px;
+  --toast-close-hover-bg: rgba(255, 255, 255, 0.06);
+  --shadow-toast: 0 8px 32px rgba(0, 0, 0, 0.32);
 
   /* ─── Hearst Connect — Radius scale ─────────────────────────── */
   --radius-xs: 4px;
