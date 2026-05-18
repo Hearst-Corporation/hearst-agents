@@ -24,6 +24,7 @@
  * Tokens uniquement (CLAUDE.md §1).
  */
 
+import { useHubMode } from "@hearst/hub-sdk";
 import type { ReactNode } from "react";
 import type { Crumb } from "../Breadcrumb";
 import { PageHeader } from "../PageHeader";
@@ -56,6 +57,16 @@ interface ScreenShellProps {
   // Contenu principal — rendu seulement si !loading et !empty
   children?: ReactNode;
 
+  // Chrome interne (PageHeader + bande stats).
+  // - non fourni (défaut) : dérivé du contrat hub-mode — header affiché en
+  //   standalone, masqué quand l'app tourne embarquée dans le hub Hearst
+  //   (window.hearstHub / ?hub=1 / session). Détection client-only SSR-safe
+  //   déléguée à useHubMode() (useSyncExternalStore, zéro setState in effect).
+  // - `true` / `false` : override explicite par l'écran appelant.
+  // Le masquage se fait ICI, au composant — jamais via CSS global ni layout
+  // racine. Quand masqué, le conteneur de contenu occupe tout le cadre.
+  showHeader?: boolean;
+
   // Background du shell.
   // - `surface` (défaut) = `var(--surface)` — Stage canvas, identique au cockpit
   //   (post-Spotlight 2026-05-10 : noir absolu). Toutes les pages héritent
@@ -80,9 +91,15 @@ export function ScreenShell({
   loadingVariant = "rows",
   empty,
   children,
+  showHeader,
   background = "surface",
   testId,
 }: ScreenShellProps) {
+  // Contrat hub-mode : sans window.hearstHub ni ?hub=1, isHub === false →
+  // comportement strictement identique à aujourd'hui (no-op standalone).
+  const { isHub } = useHubMode();
+  const effectiveShowHeader = showHeader ?? !isHub;
+
   const bg =
     background === "surface"
       ? "var(--surface)"
@@ -98,15 +115,17 @@ export function ScreenShell({
       className="flex-1 flex flex-col min-h-0 overflow-hidden"
       style={{ background: bg }}
     >
-      <PageHeader
-        title={title}
-        subtitle={subtitle}
-        breadcrumb={breadcrumb}
-        back={back}
-        actions={actions}
-      />
+      {effectiveShowHeader && (
+        <PageHeader
+          title={title}
+          subtitle={subtitle}
+          breadcrumb={breadcrumb}
+          back={back}
+          actions={actions}
+        />
+      )}
 
-      {stats && (
+      {effectiveShowHeader && stats && (
         <div
           className="flex items-center shrink-0 border-b"
           style={{

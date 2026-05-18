@@ -82,6 +82,7 @@
     "@aws-sdk/s3-request-presigner": "^3.1037.0",
     "@composio/core": "^0.10.0",
     "@e2b/code-interpreter": "^2.4.1",
+    "@hearst/hub-sdk": "file:/Users/adrienbeyondcrypto/Dev/Hearst Corporation /packages/hub-sdk",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@sentry/nextjs": "^10.51.0",
