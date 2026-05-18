@@ -276,6 +276,7 @@ function DemoBadge() {
 }
 
 function EmptyState() {
+  const setMode = useStageStore((s) => s.setMode);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -286,6 +287,7 @@ function EmptyState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        gap: "var(--space-5)",
         padding: "80px 0",
         textAlign: "center",
       }}
@@ -293,13 +295,22 @@ function EmptyState() {
       <p
         className="t-15"
         style={{
-          color: "rgba(255,255,255,0.45)",
+          color: "var(--text-faint)",
           maxWidth: "440px",
           lineHeight: 1.6,
         }}
       >
-        Aucune demande. Demande à l&apos;agent d&apos;en créer une.
+        Aucune mission récurrente. Demande à l&apos;agent d&apos;en créer une — par exemple « résume
+        mes emails chaque matin ».
       </p>
+      <button
+        type="button"
+        onClick={() => setMode({ mode: "chat" })}
+        className="cockpit-action"
+        style={{ maxWidth: "260px" }}
+      >
+        <span className="ca-label">Demander à l&apos;agent</span>
+      </button>
     </motion.div>
   );
 }

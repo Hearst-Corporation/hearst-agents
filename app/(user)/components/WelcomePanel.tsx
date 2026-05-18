@@ -35,6 +35,23 @@ export function WelcomePanel() {
     setCommandeurOpen(true, { prefilledQuery: "artefact " });
   };
 
+  // Parcours guidé — l'utilisateur arrive sur un cockpit vide sans savoir
+  // par où commencer. On expose les 3 étapes du happy path canonique
+  // (connecter → demander → planifier) avec des navigations existantes.
+  const openConnections = () => {
+    setStageMode({ mode: "connections" });
+  };
+
+  const openMissions = () => {
+    setStageMode({ mode: "mission" });
+  };
+
+  const GUIDED_PATH = [
+    { step: "1", label: "Connecter une app (Gmail, Slack…)", action: openConnections },
+    { step: "2", label: "Demander un brief ou une recherche", action: newBrief },
+    { step: "3", label: "Programmer une mission récurrente", action: openMissions },
+  ];
+
   const QUICK_ACTIONS = [
     { label: "Brief du jour", action: newBrief },
     { label: "Lancer une recherche", action: focusInput },
@@ -50,6 +67,26 @@ export function WelcomePanel() {
           padding: activeThreadId ? "var(--space-12)" : "0 var(--space-12) var(--space-12)",
         }}
       >
+        {!activeThreadId && (
+          <>
+            <p
+              className="t-13 font-medium"
+              style={{ color: "var(--text-l1)", marginBottom: "var(--space-4)" }}
+            >
+              Premier parcours
+            </p>
+            <div style={{ marginBottom: "var(--space-8)" }}>
+              {GUIDED_PATH.map((a) => (
+                <button key={a.step} type="button" onClick={a.action} className="cockpit-action">
+                  <span className="ca-label">
+                    <span style={{ color: "var(--text-faint)" }}>{a.step}.</span> {a.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
         <p
           className="t-13 font-medium"
           style={{
