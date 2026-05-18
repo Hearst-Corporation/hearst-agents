@@ -62,8 +62,7 @@ const RUN_KIND_MAX_DURATION_MS: Record<RunKind, number> = {
 
 /** Cutoff variants : pas de kind exploitable → on garde un global prudent. */
 const VARIANT_STALE_CUTOFF_MS =
-  Math.max(...Object.values(JOB_QUEUE_CONFIGS).map((c) => c.maxDurationMs)) +
-  STALE_MARGIN_MS;
+  Math.max(...Object.values(JOB_QUEUE_CONFIGS).map((c) => c.maxDurationMs)) + STALE_MARGIN_MS;
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
@@ -87,10 +86,7 @@ export async function GET(req: Request) {
   // Une requête UPDATE par kind, chacune avec son propre cutoff =
   // durée attendue du kind + marge. Fail-soft : l'échec d'un kind
   // n'empêche pas les autres ni la réponse 200.
-  for (const [kind, maxMs] of Object.entries(RUN_KIND_MAX_DURATION_MS) as [
-    RunKind,
-    number,
-  ][]) {
+  for (const [kind, maxMs] of Object.entries(RUN_KIND_MAX_DURATION_MS) as [RunKind, number][]) {
     const cutoffIso = new Date(now - (maxMs + STALE_MARGIN_MS)).toISOString();
     try {
       const { data, error } = await sb
@@ -106,10 +102,7 @@ export async function GET(req: Request) {
         .select("id");
 
       if (error) {
-        console.error(
-          `[reap-stale-runs] runs update failed (kind=${kind}):`,
-          error.message,
-        );
+        console.error(`[reap-stale-runs] runs update failed (kind=${kind}):`, error.message);
       } else {
         reapedRuns += data?.length ?? 0;
       }
@@ -119,9 +112,7 @@ export async function GET(req: Request) {
   }
 
   // ── 2. asset_variants bloqués en 'generating' ─────────────────────
-  const variantCutoffIso = new Date(
-    now - VARIANT_STALE_CUTOFF_MS,
-  ).toISOString();
+  const variantCutoffIso = new Date(now - VARIANT_STALE_CUTOFF_MS).toISOString();
   try {
     const { data, error } = await sb
       .from("asset_variants")

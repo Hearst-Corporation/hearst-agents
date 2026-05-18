@@ -2,7 +2,5 @@
   "framework": "nextjs",
   "installCommand": "pnpm install --frozen-lockfile && rm -rf node_modules/electron node_modules/electron-builder node_modules/@electron",
   "buildCommand": "pnpm run build",
-  "crons": [
-    { "path": "/api/cron/reap-stale-runs", "schedule": "*/5 * * * *" }
-  ]
+  "crons": [{ "path": "/api/cron/reap-stale-runs", "schedule": "*/5 * * * *" }]
 }

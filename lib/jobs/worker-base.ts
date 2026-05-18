@@ -41,9 +41,7 @@ import type { JobKind, JobPayload, JobResult } from "./types";
  * autres kinds — c'est lui qui corrige le bug P1-5 originel (handler qui
  * hang sans auto-terminaison, ex appel provider bloqué).
  */
-const SELF_TERMINATING_KINDS: ReadonlySet<JobKind> = new Set<JobKind>([
-  "meeting-bot",
-]);
+const SELF_TERMINATING_KINDS: ReadonlySet<JobKind> = new Set<JobKind>(["meeting-bot"]);
 
 export interface WorkerContext<P extends JobPayload = JobPayload> {
   /** BullMQ job — useful pour `job.updateProgress()`. */
@@ -119,10 +117,7 @@ export function startWorker<P extends JobPayload>(
           jobKind: handler.kind,
           description: `${handler.kind} via ${result.providerUsed}`,
         }).catch((err) => {
-          console.error(
-            `[Jobs] settle_credits failed for ${handler.kind} job ${job.id}:`,
-            err,
-          );
+          console.error(`[Jobs] settle_credits failed for ${handler.kind} job ${job.id}:`, err);
         });
       }
 
@@ -141,9 +136,7 @@ export function startWorker<P extends JobPayload>(
       const timeoutPromise = new Promise<never>((_, reject) => {
         timeoutHandle = setTimeout(() => {
           reject(
-            new UnrecoverableError(
-              `${handler.kind} job timed out after ${config.maxDurationMs}ms`,
-            ),
+            new UnrecoverableError(`${handler.kind} job timed out after ${config.maxDurationMs}ms`),
           );
         }, config.maxDurationMs);
       });
