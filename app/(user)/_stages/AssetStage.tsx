@@ -16,6 +16,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { EmptyState } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -112,6 +113,22 @@ const SECTION_VARIANTS = {
 const VIDEO_RE = /\.(mp4|webm|mov)(\?|$)/i;
 const IMAGE_RE = /\.(jpg|jpeg|png|gif|webp|avif)(\?|$)/i;
 
+/**
+ * Normalise la réponse brute du fetch selon le mode :
+ *   - focalAssetId non null → endpoint single-asset : { asset: {...} } (wrapped)
+ *   - focalAssetId null     → endpoint liste        : { assets: [...] }
+ *
+ * Retourne toujours un tableau d'ApiAsset (vide si données absentes/malformées).
+ */
+export function parseAssetFetchResult(data: unknown, focalAssetId: string | null): ApiAsset[] {
+  if (focalAssetId) {
+    // Single-asset endpoint: { asset: {...} } (wrapped) ; liste: { assets: [...] }
+    const asset = (data as { asset?: ApiAsset }).asset;
+    return asset?.id ? [asset] : [];
+  }
+  return (data as { assets?: ApiAsset[] }).assets ?? [];
+}
+
 /** Mappe un Asset V2 vers un slot typé video/image avec statut dérivé. */
 function apiToAsset(api: ApiAsset, idx: number): AssetItem {
   const ref = api.contentRef ?? "";
@@ -170,30 +187,17 @@ function LoadingGrid() {
 
 function EmptyAssetState() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "80px 0",
-        textAlign: "center",
+    <EmptyState
+      title="Aucun asset généré"
+      description="Lance une mission ou demande à l'agent de créer un asset."
+      cta={{
+        label: "Générer un asset",
+        onClick: () =>
+          useStageStore.getState().setCommandeurOpen(true, {
+            prefilledQuery: "Générer un nouvel asset",
+          }),
       }}
-    >
-      <p
-        className="t-15"
-        style={{
-          color: "rgba(255,255,255,0.45)",
-          maxWidth: "440px",
-          lineHeight: 1.6,
-        }}
-      >
-        Aucun asset généré. Lance une mission ou demande à l'agent.
-      </p>
-    </motion.div>
+    />
   );
 }
 
@@ -351,14 +355,7 @@ export function AssetStage({ mode }: { mode: string }) {
       })
       .then((data) => {
         if (cancelled) return;
-        // Single-asset endpoint retourne directement l'objet, pas {assets: [...]}
-        const list: ApiAsset[] = focalAssetId
-          ? data && (data as ApiAsset).id
-            ? [data as ApiAsset]
-            : []
-          : Array.isArray((data as ApiAssetsResponse).assets)
-            ? (data as ApiAssetsResponse).assets
-            : [];
+        const list = parseAssetFetchResult(data, focalAssetId);
         setAssets(list.slice(0, 4).map((a, i) => apiToAsset(a, i)));
         setLoading(false);
       })

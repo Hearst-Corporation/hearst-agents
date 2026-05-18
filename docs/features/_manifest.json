@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T00:28:57.175Z",
+  "generatedAt": "2026-05-18T01:04:35.096Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1799,
+    "testsExistants": 1789,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 333,
-    "cases": 3035,
+    "files": 331,
+    "cases": 3020,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -212,9 +212,9 @@
         "I-17. ChatDock injecte `attached_asset_ids` depuis `attachedAssets`",
         "I-18. ApprovalInline pour writes — flow obligatoire"
       ],
-      "testsExistantsCount": 231,
-      "testsOnDisk": 231,
-      "testFilesOnDisk": 30,
+      "testsExistantsCount": 228,
+      "testsOnDisk": 228,
+      "testFilesOnDisk": 29,
       "testsDocExistants": 23,
       "testsManquantsCount": 27,
       "testGap": "moyen",
@@ -800,9 +800,9 @@
         "I-9. Redirect après submit → toujours `/`",
         "I-10. Hospitalité → persona concierge"
       ],
-      "testsExistantsCount": 56,
-      "testsOnDisk": 56,
-      "testFilesOnDisk": 9,
+      "testsExistantsCount": 49,
+      "testsOnDisk": 49,
+      "testFilesOnDisk": 8,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
