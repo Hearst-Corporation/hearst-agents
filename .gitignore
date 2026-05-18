@@ -28,6 +28,8 @@
 /gcp-*.png
 /spatial-*.png
 /dashboard*.png
+/nav-*.png
+/stage-*.png
 /screenshot.js
 
 # Documents générés à la racine (audits, exports, captures)

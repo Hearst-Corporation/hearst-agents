@@ -2,7 +2,7 @@
 
 import { useNavigationStore } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
-import { CockpitHero } from "./stages/CockpitHero";
+import { CockpitHero } from "./CockpitHero";
 
 /**
  * WelcomePanel — Empty state du ChatStage (mode="chat" sans messages).
