@@ -2,7 +2,7 @@
 -- Migration 0090 — Persistance conversations ChatKimi (cockpit rail droit)
 --
 -- Crée cockpit_chats + cockpit_messages avec RLS par user.
--- FK sur auth.users(id) (convention projet — cf. 0081_user_theme_preferences).
+-- FK sur public.users(id) (convention projet — cf. 0073, 0087, 0088, etc.).
 -- Politiques symétriques select/insert/update/delete (all = 4 policies).
 -- Le service_role (lib/platform/db/supabase.ts) contourne le RLS côté API.
 --
@@ -15,7 +15,7 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS public.cockpit_chats (
   id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id     uuid        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id     uuid        NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
   title       text,
   created_at  timestamptz NOT NULL DEFAULT now(),
   updated_at  timestamptz NOT NULL DEFAULT now()
@@ -55,7 +55,7 @@ COMMENT ON TABLE public.cockpit_chats IS
 CREATE TABLE IF NOT EXISTS public.cockpit_messages (
   id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
   chat_id     uuid        NOT NULL REFERENCES public.cockpit_chats(id) ON DELETE CASCADE,
-  user_id     uuid        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id     uuid        NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
   role        text        NOT NULL CHECK (role IN ('user', 'assistant', 'system')),
   content     text        NOT NULL,
   created_at  timestamptz NOT NULL DEFAULT now()
