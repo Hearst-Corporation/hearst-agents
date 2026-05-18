@@ -118,11 +118,12 @@ async function renderPngViaPlaywright(renderUrl: string): Promise<Buffer | null>
   let chromium: unknown;
   try {
     // Tente d'abord playwright-core (pas de download bundle), puis playwright.
-    // Spécifiers non-littéraux : ces modules sont des devDeps optionnelles,
-    // absentes du runtime serverless prod (skip PNG gracieux). L'indirection
-    // évite que `tsc` exige la résolution du module au build Vercel.
-    const playwrightCoreSpecifier = "playwright-core";
-    const playwrightSpecifier = "playwright";
+    // Spécifiers typés `string` (pas littéral) : ces modules sont des devDeps
+    // optionnelles absentes du runtime serverless prod (skip PNG gracieux).
+    // L'annotation `: string` élargit le type → `import(spec)` est Promise<any>,
+    // tsc n'exige plus la résolution du module au build Vercel (pnpm strict).
+    const playwrightCoreSpecifier: string = "playwright-core";
+    const playwrightSpecifier: string = "playwright";
     const mod =
       (await import(playwrightCoreSpecifier).catch(() => null)) ??
       (await import(playwrightSpecifier).catch(() => null));
