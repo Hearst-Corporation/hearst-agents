@@ -14,6 +14,10 @@ import { defaultRateLimiter } from "./rate-limiter";
 import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "./timeout";
 import type { ChatRequest, ChatResponse, LLMProvider, StreamChunk } from "./types";
 
+// Benchmark HyperCLI 2026-05-18 : non-streaming 360ms vs streaming 630ms sur 15 tokens.
+// En dessous de ce seuil, on court-circuite vers l'API non-streaming.
+const STREAM_SHORT_THRESHOLD_TOKENS = 80;
+
 export class KimiProvider implements LLMProvider {
   readonly name = "kimi";
   private client: OpenAI;
@@ -26,6 +30,7 @@ export class KimiProvider implements LLMProvider {
         this.client = new OpenAI({
           apiKey: "test-placeholder",
           baseURL: process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
+          maxRetries: 0, // router.retryWithBackoff couvre la connexion initiale ; mid-stream 429 non-retryable de toute façon
         });
         return;
       }
@@ -34,6 +39,7 @@ export class KimiProvider implements LLMProvider {
     this.client = new OpenAI({
       apiKey,
       baseURL: process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
+      maxRetries: 0,
     });
   }
 
@@ -80,6 +86,24 @@ export class KimiProvider implements LLMProvider {
   }
 
   async *streamChat(req: ChatRequest): AsyncGenerator<StreamChunk> {
+    // Court-circuit : appel non-streaming pour les réponses courtes (max_tokens ≤ STREAM_SHORT_THRESHOLD_TOKENS).
+    if (
+      req.max_tokens !== undefined &&
+      req.max_tokens > 0 &&
+      req.max_tokens <= STREAM_SHORT_THRESHOLD_TOKENS
+    ) {
+      const res = await this.chat(req);
+      if (res.content) yield { delta: res.content, done: false };
+      yield {
+        delta: "",
+        done: true,
+        cost_usd: res.cost_usd,
+        tokens_in: res.tokens_in,
+        tokens_out: res.tokens_out,
+      };
+      return;
+    }
+
     const timeoutMs = req.timeoutMs ?? STREAM_TIMEOUT_MS;
     const signal = makeAbortSignal(timeoutMs, req.signal);
 
