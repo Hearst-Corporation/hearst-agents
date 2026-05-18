@@ -118,9 +118,14 @@ async function renderPngViaPlaywright(renderUrl: string): Promise<Buffer | null>
   let chromium: unknown;
   try {
     // Tente d'abord playwright-core (pas de download bundle), puis playwright.
+    // Spécifiers non-littéraux : ces modules sont des devDeps optionnelles,
+    // absentes du runtime serverless prod (skip PNG gracieux). L'indirection
+    // évite que `tsc` exige la résolution du module au build Vercel.
+    const playwrightCoreSpecifier = "playwright-core";
+    const playwrightSpecifier = "playwright";
     const mod =
-      (await import("playwright-core").catch(() => null)) ??
-      (await import("playwright").catch(() => null));
+      (await import(playwrightCoreSpecifier).catch(() => null)) ??
+      (await import(playwrightSpecifier).catch(() => null));
     if (!mod) {
       console.warn("[hearst-card] playwright non installé — skip PNG render");
       return null;
