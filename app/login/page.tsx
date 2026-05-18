@@ -194,11 +194,32 @@ function LoginContent() {
 
         {/* Footer */}
         <div className="mt-6 flex items-center justify-center gap-4 t-11 text-(--text-ghost)">
-          <span>Confidentialité</span>
+          <a
+            href="https://hearstcorporation.io/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-(--text-muted) transition-colors"
+          >
+            Confidentialité
+          </a>
           <span className="text-(--text-ghost)">&middot;</span>
-          <span>Conditions</span>
+          <a
+            href="https://hearstcorporation.io/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-(--text-muted) transition-colors"
+          >
+            Conditions
+          </a>
           <span className="text-(--text-ghost)">&middot;</span>
-          <span>Aide</span>
+          <a
+            href="https://hearstcorporation.io/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-(--text-muted) transition-colors"
+          >
+            Aide
+          </a>
         </div>
       </div>
     </div>
