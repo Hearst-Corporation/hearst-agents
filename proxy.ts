@@ -304,7 +304,37 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     }
   }
 
-  return applyCorrelationId(NextResponse.next(), correlationId);
+  const response = applyCorrelationId(NextResponse.next(), correlationId);
+  return applyHubHeaders(response, req);
+}
+
+/* ── Mode Hub (?hub=1) ──────────────────────────────────────────────────────
+   Quand le produit est embarqué dans le hub Hearst, l'URL contient ?hub=1.
+   On relâche les headers de sécurité qui bloquent l'embed :
+   - Supprime X-Frame-Options
+   - Remplace frame-ancestors 'none' par les origines du hub
+   Cette section est appliquée en DERNIER sur chaque réponse.
+*/
+
+const HUB_ORIGINS = "'self' http://localhost:4200 https://hearst-corporation.vercel.app";
+
+function applyHubHeaders(response: NextResponse, request: NextRequest): NextResponse {
+  const isHub = request.nextUrl.searchParams.get("hub") === "1";
+  if (!isHub) return response;
+
+  // Relâcher frame-ancestors dans le CSP existant
+  const existingCsp = response.headers.get("Content-Security-Policy") || "";
+  if (existingCsp) {
+    const relaxed = existingCsp.replace(
+      /frame-ancestors\s+[^;]+/i,
+      `frame-ancestors ${HUB_ORIGINS}`,
+    );
+    response.headers.set("Content-Security-Policy", relaxed);
+  }
+  // Supprimer X-Frame-Options pour permettre l'embed
+  response.headers.delete("X-Frame-Options");
+
+  return response;
 }
 
 export const config = {

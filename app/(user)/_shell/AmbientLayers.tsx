@@ -17,6 +17,7 @@ export function AmbientLayers() {
     <>
       <div
         aria-hidden
+        data-ambient="halo"
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
@@ -26,6 +27,7 @@ export function AmbientLayers() {
       />
       <div
         aria-hidden
+        data-ambient="dots"
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           backgroundImage:
