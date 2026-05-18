@@ -36,6 +36,7 @@ import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
 import { computeCostUsd } from "@/lib/llm/pricing";
 import { isCircuitOpenFor } from "@/lib/llm/safe-chat";
+import { STREAM_CHUNK_WATCHDOG_MS, STREAM_TOOL_WATCHDOG_MS } from "@/lib/llm/timeout";
 import { generateBriefing } from "@/lib/memory/briefing";
 import { getKgContextForUser } from "@/lib/memory/kg-context";
 import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
@@ -767,6 +768,102 @@ export async function runAiPipeline(
   );
   const forceScheduleTool = (input.scheduleDirective ?? false) && !priorHasScheduleToolCall;
 
+  // P1-8 / P1-D — Watchdog DEUX PHASES. AbortController local combiné au
+  // signal utilisateur.
+  //
+  // Phase STREAMING DE TOKENS LLM (text-delta) : si Anthropic émet un chunk
+  // puis stalle, on abort au bout de STREAM_CHUNK_WATCHDOG_MS (15s) au lieu
+  // d'attendre maxDuration 120s (slot serverless bloqué). Un stall ici est
+  // ANORMAL → faux positif impossible.
+  //
+  // Phase EXÉCUTION OUTIL (entre event `tool-call` et event `tool-result`) :
+  // le SDK AI exécute la fonction execute() du tool EN INTERNE — AUCUN event
+  // ne circule sur fullStream pendant ce gap. C'est NORMAL. Réarmer le
+  // watchdog 15s ici tuerait tout web_search légitime (3 providers série,
+  // 60-90s) → faux positif CRITIQUE. On DÉSARME donc le watchdog token sur
+  // `tool-call` et on arme à la place un garde-fou tool plus long
+  // (STREAM_TOOL_WATCHDOG_MS=120s) clear sur `tool-result`. Cela couvre aussi
+  // le cas pathologique "tool-call sans jamais de tool-result" (tool qui hang
+  // vraiment) sans bloquer le slot indéfiniment.
+  //
+  // Le watchdog token n'est (ré)armé QUE sur `text-delta` (et au démarrage,
+  // pour couvrir le tout 1er chunk). N tool-calls successifs alternent
+  // proprement désarme/réarme via tool-call → tool-result → text-delta.
+  // Les deux timers sont systématiquement clear en finally.
+  const watchdogController = new AbortController();
+  let streamWatchdogTimer: ReturnType<typeof setTimeout> | null = null;
+  let toolWatchdogTimer: ReturnType<typeof setTimeout> | null = null;
+  let streamStalled = false;
+  let toolStalled = false;
+
+  const clearStreamWatchdog = () => {
+    if (streamWatchdogTimer) {
+      clearTimeout(streamWatchdogTimer);
+      streamWatchdogTimer = null;
+    }
+  };
+
+  const clearToolWatchdog = () => {
+    if (toolWatchdogTimer) {
+      clearTimeout(toolWatchdogTimer);
+      toolWatchdogTimer = null;
+    }
+  };
+
+  // Clear les DEUX timers — utilisé post-stream et en finally.
+  const clearAllWatchdogs = () => {
+    clearStreamWatchdog();
+    clearToolWatchdog();
+  };
+
+  const armStreamWatchdog = () => {
+    clearStreamWatchdog();
+    streamWatchdogTimer = setTimeout(() => {
+      streamStalled = true;
+      console.error(
+        `[AiPipeline] Stream stalled: no token chunk for ${STREAM_CHUNK_WATCHDOG_MS}ms ` +
+          `during LLM token streaming. Aborting run ${engine.id}.`,
+      );
+      watchdogController.abort(new Error(`stream_stalled_no_chunk_${STREAM_CHUNK_WATCHDOG_MS}ms`));
+    }, STREAM_CHUNK_WATCHDOG_MS);
+  };
+
+  // Garde-fou exécution outil. Armé sur `tool-call`, clear sur `tool-result`.
+  // Ne fire que si un tool ne renvoie JAMAIS de résultat (hang réel) ou
+  // dépasse 120s — pas sur une exécution série web_search normale (≤90s).
+  const armToolWatchdog = () => {
+    clearToolWatchdog();
+    toolWatchdogTimer = setTimeout(() => {
+      toolStalled = true;
+      console.error(
+        `[AiPipeline] Tool execution stalled: no tool-result for ${STREAM_TOOL_WATCHDOG_MS}ms. ` +
+          `A tool likely hung. Aborting run ${engine.id}.`,
+      );
+      watchdogController.abort(new Error(`tool_execution_stalled_${STREAM_TOOL_WATCHDOG_MS}ms`));
+    }, STREAM_TOOL_WATCHDOG_MS);
+  };
+
+  // Combine signal utilisateur (si présent) + watchdog. Abort de l'un ⇒ abort
+  // du stream. Pas de signal utilisateur ⇒ seul le watchdog pilote l'abort.
+  const combinedAbortController = new AbortController();
+  const propagateAbort = (reason?: unknown) => {
+    if (!combinedAbortController.signal.aborted) combinedAbortController.abort(reason);
+  };
+  if (input.abortSignal) {
+    if (input.abortSignal.aborted) {
+      propagateAbort(input.abortSignal.reason);
+    } else {
+      input.abortSignal.addEventListener("abort", () => propagateAbort(input.abortSignal?.reason));
+    }
+  }
+  if (watchdogController.signal.aborted) {
+    propagateAbort(watchdogController.signal.reason);
+  } else {
+    watchdogController.signal.addEventListener("abort", () =>
+      propagateAbort(watchdogController.signal.reason),
+    );
+  }
+
   // P0 — Retry + fallback : maxRetries=3 côté provider, fallback OpenAI
   // si l'erreur survient en amont (création du stream impossible).
   const runStream = () =>
@@ -778,7 +875,7 @@ export async function runAiPipeline(
       stopWhen: stepCountIs(10),
       temperature: 0.3,
       maxOutputTokens: 8000,
-      abortSignal: input.abortSignal,
+      abortSignal: combinedAbortController.signal,
       maxRetries: 3,
       ...(forceScheduleTool
         ? { toolChoice: { type: "tool" as const, toolName: "create_scheduled_mission" } }
@@ -856,9 +953,24 @@ export async function runAiPipeline(
     let runCostUsd = 0;
     let runCostWarned = false;
 
+    // P1-8 — arme le watchdog avant le 1er chunk (couvre aussi le cas où le
+    // 1er chunk lui-même n'arrive jamais après création du stream).
+    armStreamWatchdog();
+
     for await (const event of result.fullStream) {
+      // P1-D — PAS de réarmement aveugle ici. Le watchdog token n'est (ré)armé
+      // que sur `text-delta` (streaming de tokens LLM = phase où un stall est
+      // anormal). Sur `tool-call` on désarme le watchdog token et on bascule
+      // sur le garde-fou tool ; sur `tool-result` on clear le garde-fou tool.
+      // Voir le commentaire DEUX PHASES sur armStreamWatchdog plus haut.
       switch (event.type) {
         case "text-delta": {
+          // Le LLM streame des tokens : (ré)arme le watchdog token et coupe
+          // tout garde-fou tool encore actif (1er text-delta après un
+          // tool-result = le LLM a repris la main).
+          clearToolWatchdog();
+          armStreamWatchdog();
+
           assistantTextBuffer += event.text;
 
           streamingTokenCount += Math.max(1, Math.ceil(event.text.length / 3));
@@ -886,6 +998,14 @@ export async function runAiPipeline(
         }
 
         case "tool-call": {
+          // P1-D — On entre dans une phase d'exécution outil : le SDK va
+          // appeler execute() EN INTERNE, aucun event ne circulera sur
+          // fullStream tant que le tool n'a pas fini. Désarmer le watchdog
+          // token (sinon faux positif 15s sur web_search 3 providers série)
+          // et armer le garde-fou tool plus long (120s) à la place.
+          clearStreamWatchdog();
+          armToolWatchdog();
+
           toolCallNames.set(event.toolCallId, event.toolName);
 
           // Detect preview-mode write calls: write tool + _preview not explicitly false.
@@ -969,6 +1089,15 @@ export async function runAiPipeline(
         }
 
         case "tool-result": {
+          // P1-D — Le tool a renvoyé son résultat : coupe le garde-fou tool.
+          // On NE réarme PAS le watchdog token ici : soit le LLM enchaîne un
+          // nouveau tool-call (réarme garde-fou tool), soit il reprend le
+          // streaming de tokens (le prochain `text-delta` réarme le watchdog
+          // token). Cela tient sur N tools successifs. Placé en 1re ligne du
+          // case pour couvrir aussi les `break` anticipés (skipped / parse
+          // failure / out.ok === false).
+          clearToolWatchdog();
+
           if (skippedToolCalls.has(event.toolCallId)) break;
           const name = toolCallNames.get(event.toolCallId);
 
@@ -1137,6 +1266,10 @@ export async function runAiPipeline(
       }
     }
 
+    // P1-8 — stream terminé normalement : on désarme les watchdogs avant les
+    // awaits post-stream (usage/response) qui ne sont pas des chunks.
+    clearAllWatchdogs();
+
     // Track token usage (resolves after stream finishes)
     const usage = await result.usage;
     if (usage) {
@@ -1276,7 +1409,17 @@ export async function runAiPipeline(
     defaultCircuitBreaker.recordSuccess("anthropic", resolvedTenantId);
     await engine.complete();
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
+    // P1-8 / P1-D — si l'abort vient d'un watchdog, on remonte une erreur
+    // claire et explicite, traitée comme toute autre erreur stream. Deux
+    // causes distinctes : stall pendant le streaming de tokens (15s) ou
+    // tool qui ne renvoie jamais de résultat / hang > 120s.
+    const msg = streamStalled
+      ? `stream_stalled_no_chunk_${STREAM_CHUNK_WATCHDOG_MS}ms`
+      : toolStalled
+        ? `tool_execution_stalled_${STREAM_TOOL_WATCHDOG_MS}ms`
+        : err instanceof Error
+          ? err.message
+          : String(err);
     console.error("[AiPipeline] streamText failed:", msg);
     defaultCircuitBreaker.recordFailure(
       "anthropic",
@@ -1284,5 +1427,9 @@ export async function runAiPipeline(
       resolvedTenantId,
     );
     await engine.fail(msg);
+  } finally {
+    // P1-8 / P1-D — garantit qu'aucun timer watchdog (token NI tool) ne reste
+    // actif (chemin succès, erreur, ou abort utilisateur).
+    clearAllWatchdogs();
   }
 }

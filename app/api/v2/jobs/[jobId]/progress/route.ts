@@ -102,15 +102,79 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ jobI
       let stopped = false;
       let pollTimer: ReturnType<typeof setInterval> | null = null;
       let pingTimer: ReturnType<typeof setInterval> | null = null;
-      // Singleton QueueEvents — pas de close() ici (géré par queue-events-singleton)
+      // Singleton QueueEvents — pas de close() ici (géré par queue-events-singleton),
+      // mais on DOIT retirer nos propres listeners au close pour éviter une fuite :
+      // le singleton étant partagé, chaque connexion SSE empilerait sinon 3
+      // listeners (progress/completed/failed) jamais nettoyés
+      // → MaxListenersExceededWarning + fuite mémoire sous charge.
+      let qe: ReturnType<typeof getQueueEvents> | null = null;
       let lastProgress = -1;
+
+      // Handlers nommés (cf. closeAll) — déclarés ici pour partager `jobId`,
+      // `sendProgress`, `sendEvent`, `closeAll` du scope tout en restant
+      // référençables pour `qe.off(...)`.
+      const onProgress = ({ jobId: evJobId, data }: { jobId: string; data: unknown }) => {
+        if (evJobId !== jobId) return;
+        // BullMQ `data` peut être un nombre (progress %) ou un objet libre.
+        // Notre worker-base appelle `job.updateProgress(value)` puis
+        // `job.log(message)` séparément, donc ici on n'a que le %.
+        // Le label vient du poll fallback via `state` qui lit le job log
+        // si dispo, mais BullMQ ne l'expose pas trivialement — on se
+        // rabat sur des labels canoniques côté client en fonction du %.
+        if (typeof data === "number") {
+          sendProgress(data);
+        } else if (data && typeof data === "object" && "progress" in data) {
+          const obj = data as { progress?: number; label?: string };
+          if (typeof obj.progress === "number") sendProgress(obj.progress, obj.label);
+        }
+      };
+
+      const onCompleted = ({
+        jobId: evJobId,
+        returnvalue,
+      }: {
+        jobId: string;
+        returnvalue: unknown;
+      }) => {
+        if (evJobId !== jobId) return;
+        sendProgress(100);
+        let parsed: unknown = returnvalue;
+        if (typeof returnvalue === "string") {
+          try {
+            parsed = JSON.parse(returnvalue);
+          } catch {
+            parsed = returnvalue;
+          }
+        }
+        sendEvent("completed", { returnvalue: parsed });
+        closeAll();
+      };
+
+      const onFailed = ({
+        jobId: evJobId,
+        failedReason,
+      }: {
+        jobId: string;
+        failedReason?: string;
+      }) => {
+        if (evJobId !== jobId) return;
+        sendEvent("failed", { reason: failedReason ?? "unknown_error" });
+        closeAll();
+      };
 
       const closeAll = () => {
         if (stopped) return;
         stopped = true;
         if (pollTimer) clearInterval(pollTimer);
         if (pingTimer) clearInterval(pingTimer);
-        // QueueEvents singleton — ne pas close() ici, il est partagé entre connexions SSE
+        // QueueEvents singleton — ne pas close() ici, il est partagé entre
+        // connexions SSE. MAIS on retire nos 3 listeners (1 off par on) sinon
+        // ils restent attachés au singleton à vie → fuite mémoire.
+        if (qe) {
+          qe.off("progress", onProgress);
+          qe.off("completed", onCompleted);
+          qe.off("failed", onFailed);
+        }
         try {
           controller.close();
         } catch {
@@ -143,46 +207,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ jobI
       // 1. Subscribe BullMQ QueueEvents — singleton partagé, pas de leak Redis.
       // Le singleton est créé une seule fois par queueName (Pattern C).
       try {
-        const qe = getQueueEvents(queueName);
+        qe = getQueueEvents(queueName);
         if (qe) {
           await qe.waitUntilReady();
 
-          qe.on("progress", ({ jobId: evJobId, data }) => {
-            if (evJobId !== jobId) return;
-            // BullMQ `data` peut être un nombre (progress %) ou un objet libre.
-            // Notre worker-base appelle `job.updateProgress(value)` puis
-            // `job.log(message)` séparément, donc ici on n'a que le %.
-            // Le label vient du poll fallback via `state` qui lit le job log
-            // si dispo, mais BullMQ ne l'expose pas trivialement — on se
-            // rabat sur des labels canoniques côté client en fonction du %.
-            if (typeof data === "number") {
-              sendProgress(data);
-            } else if (data && typeof data === "object" && "progress" in data) {
-              const obj = data as { progress?: number; label?: string };
-              if (typeof obj.progress === "number") sendProgress(obj.progress, obj.label);
-            }
-          });
-
-          qe.on("completed", ({ jobId: evJobId, returnvalue }) => {
-            if (evJobId !== jobId) return;
-            sendProgress(100);
-            let parsed: unknown = returnvalue;
-            if (typeof returnvalue === "string") {
-              try {
-                parsed = JSON.parse(returnvalue);
-              } catch {
-                parsed = returnvalue;
-              }
-            }
-            sendEvent("completed", { returnvalue: parsed });
-            closeAll();
-          });
-
-          qe.on("failed", ({ jobId: evJobId, failedReason }) => {
-            if (evJobId !== jobId) return;
-            sendEvent("failed", { reason: failedReason ?? "unknown_error" });
-            closeAll();
-          });
+          qe.on("progress", onProgress);
+          qe.on("completed", onCompleted);
+          qe.on("failed", onFailed);
         }
       } catch (err) {
         console.error(`[GET /api/v2/jobs/${jobId}/progress] QueueEvents subscribe failed:`, err);

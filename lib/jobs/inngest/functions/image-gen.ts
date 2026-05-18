@@ -151,6 +151,16 @@ export const imageGenFunction = inngest.createFunction(
             error: "fal.ai returned no images",
           });
         }
+        // P1-6 — variante orpheline : sans génération réussie, la variante
+        // resterait 'generating'. On la passe 'failed' (idem catch global).
+        if (variantId) {
+          await step
+            .run("mark-variant-failed-no-images", async () => {
+              await updateVariant(variantId, { status: "failed" });
+              return null;
+            })
+            .catch(() => {});
+        }
         return {
           assetId: payload.assetId,
           variantId,
@@ -277,6 +287,18 @@ export const imageGenFunction = inngest.createFunction(
           status: "failed",
           error: err instanceof Error ? err.message : String(err),
         }).catch(() => {});
+      }
+      // P1-6 — Marquer aussi la variante en 'failed'. Sans ça la variante
+      // reste 'generating' indéfiniment → spinner UI infini côté asset.
+      // Même pattern de cleanup variant que video-gen (updateVariant status).
+      // Step isolé : si updateVariant échoue, on ne masque pas l'erreur run.
+      if (variantId) {
+        await step
+          .run("mark-variant-failed", async () => {
+            await updateVariant(variantId, { status: "failed" });
+            return null;
+          })
+          .catch(() => {});
       }
       throw err;
     }
