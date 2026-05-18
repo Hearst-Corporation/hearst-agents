@@ -299,7 +299,8 @@ export function ChatDock() {
         setStageMode({ mode: "chat", threadId });
       }
 
-      if (messages.length === 0) {
+      const currentMessages = useNavigationStore.getState().messages[threadId] ?? [];
+      if (currentMessages.length <= 1) {
         trackAnalytics("first_message_sent", { threadId });
         const raw = message.slice(0, 50);
         const name =

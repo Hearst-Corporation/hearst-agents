@@ -20,19 +20,30 @@ export function useConversationHistory(threadId: string | null) {
 
   useEffect(() => {
     if (!threadId) return;
-    // Ne charge pas si des messages sont déjà en mémoire
     if (messages && messages.length > 0) return;
-    // Ne recharge pas un thread déjà tenté dans cette session
     if (loadedRef.current.has(threadId)) return;
 
     loadedRef.current.add(threadId);
     setLoading(true);
     setError(null);
 
-    fetch(`/api/conversations/${threadId}/messages?limit=50`)
+    const capturedThreadId = threadId;
+    const controller = new AbortController();
+
+    fetch(`/api/conversations/${capturedThreadId}/messages?limit=50`, {
+      signal: controller.signal,
+    })
       .then((res) => {
         if (!res.ok) {
-          if (res.status === 403 || res.status === 404) return { messages: [] };
+          if (res.status === 403 || res.status === 404)
+            return {
+              messages: [] as Array<{
+                id: string;
+                role: "user" | "assistant";
+                content: string;
+                createdAt: string;
+              }>,
+            };
           throw new Error(`HTTP ${res.status}`);
         }
         return res.json() as Promise<{
@@ -46,7 +57,7 @@ export function useConversationHistory(threadId: string | null) {
       })
       .then(({ messages: loaded }) => {
         for (const msg of loaded) {
-          addMessageToThread(threadId, {
+          addMessageToThread(capturedThreadId, {
             id: msg.id,
             role: msg.role,
             content: msg.content,
@@ -54,11 +65,19 @@ export function useConversationHistory(threadId: string | null) {
         }
       })
       .catch((e: unknown) => {
+        if (e instanceof Error && e.name === "AbortError") {
+          loadedRef.current.delete(capturedThreadId);
+          return;
+        }
         setError(e instanceof Error ? e.message : "Erreur de chargement");
       })
       .finally(() => {
         setLoading(false);
       });
+
+    return () => {
+      controller.abort();
+    };
   }, [threadId, messages, addMessageToThread]);
 
   return { loading, error };

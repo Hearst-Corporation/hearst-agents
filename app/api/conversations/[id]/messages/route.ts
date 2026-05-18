@@ -20,7 +20,6 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   const db = requireServerSupabase();
 
-  // Vérifier que la conversation appartient à cet utilisateur
   const { count, error: countError } = await db
     .from("chat_messages")
     .select("id", { count: "exact", head: true })
@@ -35,7 +34,6 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
-  // Fetch les messages, filtrer les rôles 'tool', limiter le contenu
   const { data: rows, error: fetchError } = await db
     .from("chat_messages")
     .select("id, role, content, created_at")
