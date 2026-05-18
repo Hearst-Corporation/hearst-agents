@@ -144,7 +144,7 @@ const NODE_TYPE_COLORS: Record<string, string> = {
   company: "var(--accent-llm)",
   project: "var(--accent-agent)",
   decision: "var(--danger)",
-  commitment: "color-mix(in srgb, #8cc8ff 85%, transparent)",
+  commitment: "color-mix(in srgb, var(--dataviz-commitment) 85%, transparent)",
   topic: "var(--text-muted)",
 };
 function nodeColor(type: string): string {
@@ -263,8 +263,13 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             {/* Dot couleur type — background dynamique via color → conservé en style JS */}
             <span
               aria-hidden="true"
-              className="inline-block size-[6px] rounded-full shrink-0 align-middle mr-[5px]"
-              style={{ background: color }}
+              className="inline-block rounded-full shrink-0 align-middle"
+              style={{
+                width: "var(--size-dot)",
+                height: "var(--size-dot)",
+                marginRight: "var(--space-dot-gap)",
+                background: color,
+              }}
             />
             <div className="kg-chip">{node.label}</div>
           </div>

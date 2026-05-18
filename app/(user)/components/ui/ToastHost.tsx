@@ -129,7 +129,7 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
         style={{
           flexShrink: 0,
           marginTop: "var(--space-0-5)",
-          lineHeight: 1,
+          lineHeight: "var(--leading-flush)",
           color: TONE_VAR[type],
         }}
       >
@@ -176,7 +176,7 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
           border: "none",
           color: "var(--text-muted)",
           cursor: "pointer",
-          lineHeight: 1,
+          lineHeight: "var(--leading-flush)",
           transition: "background var(--duration-base) ease, color var(--duration-base) ease",
         }}
         onMouseEnter={(e) => {

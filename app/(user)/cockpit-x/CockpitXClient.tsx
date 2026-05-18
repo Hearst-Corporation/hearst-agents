@@ -256,7 +256,7 @@ function CockpitContent({
       style={{ maxWidth: "1600px" }}
     >
       {/* Contenu Principal - Alignement Editorial */}
-      <div className="relative z-10 flex flex-col w-full max-w-[620px] px-14 pt-16 pb-32">
+      <div className="relative z-10 flex flex-col w-full max-w-editorial-col px-14 pt-16 pb-32">
         {/* État d'erreur silencieux — affiché quand le refetch échoue */}
         {refetchState === "error" && (
           <div
@@ -772,7 +772,7 @@ function ModePlaceholder({
             <span className="ml-4 text-base font-normal text-(--text-ghost)">{def.hotkey}</span>
           ) : null}
         </h1>
-        <p className="max-w-[640px] text-base leading-normal text-(--text-muted)">
+        <p className="max-w-editorial-col text-base leading-normal text-(--text-muted)">
           Le composant Stage <code className="text-(--text-soft)">{mode}</code> sera branché en P5
           ou P6. Footer + railTitle alimentés par{" "}
           <code className="text-(--text-soft)">STAGE_REGISTRY</code>.

@@ -88,7 +88,10 @@ const SPEAKER_PALETTE = [
   { bg: "color-mix(in srgb, var(--accent-llm) 20%, transparent)", color: "var(--accent-llm)" },
   { bg: "var(--gold-surface)", color: "var(--gold)" },
   { bg: "var(--accent-teal-surface)", color: "var(--accent-teal)" },
-  { bg: "color-mix(in srgb, #ff7850 20%, transparent)", color: "#ff9060" },
+  {
+    bg: "color-mix(in srgb, var(--dataviz-speaker-warm-from) 20%, transparent)",
+    color: "var(--dataviz-speaker-warm-to)",
+  },
 ];
 
 function speakerColor(name: string) {
@@ -127,7 +130,7 @@ function EmptyMeetingState() {
         className="t-15"
         style={{
           color: "var(--text-faint)",
-          maxWidth: "440px",
+          maxWidth: "var(--width-prose-tight)",
           lineHeight: "var(--leading-relaxed)",
         }}
       >

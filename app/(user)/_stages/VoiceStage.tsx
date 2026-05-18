@@ -148,12 +148,12 @@ export function VoiceStage({ mode }: { mode: string }) {
         <div className="flex flex-col items-center" style={{ gap: "var(--space-2)" }}>
           <p className="t-15 font-medium text-[var(--text-muted)]">{PHASE_LABEL[phase]}</p>
           {error && (
-            <p className="t-12 font-light text-[var(--danger)] max-w-[420px] text-center">
+            <p className="t-12 font-light text-[var(--danger)] max-w-error-message text-center">
               {error}
             </p>
           )}
           {phase === "idle" && !error && (
-            <p className="t-12 font-light text-[var(--text-ghost)] max-w-[420px] text-center">
+            <p className="t-12 font-light text-[var(--text-ghost)] max-w-error-message text-center">
               Connexion à la session vocale… autorise le micro si demandé.
             </p>
           )}

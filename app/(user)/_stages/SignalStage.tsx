@@ -156,7 +156,7 @@ function SignalCard({
           <span
             aria-hidden
             className="t-15 shrink-0 text-[var(--text-ghost)]"
-            style={{ lineHeight: 1, marginTop: "2px" }}
+            style={{ lineHeight: "var(--leading-flush)", marginTop: "2px" }}
           >
             {KIND_GLYPH[signal.kind]}
           </span>
@@ -338,7 +338,7 @@ export function SignalStage({ mode }: { mode: string }) {
         <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
           <span
             className="t-11 font-light text-[var(--text-ghost)] shrink-0"
-            style={{ width: "52px" }}
+            style={{ width: "var(--width-signal-label)" }}
           >
             Fenêtre
           </span>
@@ -356,7 +356,7 @@ export function SignalStage({ mode }: { mode: string }) {
         <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
           <span
             className="t-11 font-light text-[var(--text-ghost)] shrink-0"
-            style={{ width: "52px" }}
+            style={{ width: "var(--width-signal-label)" }}
           >
             Type
           </span>
@@ -422,7 +422,11 @@ export function SignalStage({ mode }: { mode: string }) {
         {/* Sidebar stats */}
         <aside
           className="hidden lg:flex flex-col shrink-0"
-          style={{ width: "136px", gap: "var(--space-6)", paddingTop: "var(--space-1)" }}
+          style={{
+            width: "var(--width-signal-stats)",
+            gap: "var(--space-6)",
+            paddingTop: "var(--space-1)",
+          }}
         >
           <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
             <span className="t-11 font-light text-[var(--text-ghost)]">Cumul</span>

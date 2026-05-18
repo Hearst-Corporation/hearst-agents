@@ -94,7 +94,7 @@ function EmptyArtifactState() {
         className="t-15"
         style={{
           color: "var(--text-faint)",
-          maxWidth: "440px",
+          maxWidth: "var(--width-prose-tight)",
           lineHeight: "var(--leading-relaxed)",
         }}
       >
@@ -182,7 +182,7 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
 function PreviewPanel() {
   return (
     <div className="flex flex-1 items-center justify-center" style={{ padding: "var(--space-6)" }}>
-      <div className="vision-glass flex max-w-[360px] flex-col items-center gap-4 rounded-xl p-8 text-center">
+      <div className="vision-glass flex max-w-empty-card flex-col items-center gap-4 rounded-xl p-8 text-center">
         <p className="text-base font-medium text-[var(--text-muted)]">Sandbox E2B</p>
         <p className="text-sm text-[var(--text-ghost)]">
           L&apos;exécution de code en sandbox n&apos;est pas encore disponible.

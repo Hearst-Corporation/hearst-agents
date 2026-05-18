@@ -98,7 +98,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
         controls
         muted
         playsInline
-        className="w-full rounded-(--radius-card) max-h-[200px] object-cover bg-black/40"
+        className="w-full rounded-(--radius-card) max-h-asset-preview-max object-cover bg-black/40"
       />
     );
   }
@@ -109,13 +109,13 @@ function AssetPreview({ asset }: { asset: Asset }) {
       <img
         src={ref}
         alt={asset.title}
-        className="w-full rounded-(--radius-card) max-h-[200px] object-cover bg-black/40"
+        className="w-full rounded-(--radius-card) max-h-asset-preview-max object-cover bg-black/40"
       />
     );
   }
 
   return (
-    <div className="w-full h-[140px] rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
+    <div className="w-full h-asset-preview rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
       <span className="t-11 text-(--text-decor-25)">{asset.kind}</span>
     </div>
   );
@@ -436,7 +436,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
         animate="show"
         className="flex flex-col items-center justify-center py-20 text-center w-full"
       >
-        <p className="t-15 text-(--text-faint) max-w-[400px] leading-relaxed">
+        <p className="t-15 text-(--text-faint) max-w-empty-message leading-relaxed">
           Sélectionne 2 assets depuis la liste pour les comparer.
         </p>
       </motion.section>

@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useState } from "react";
+import { EASE_VISION } from "@/lib/motion/easings";
 import type { RailItem } from "../_stages/types";
 import { ChatKimiPanel } from "./ChatKimiPanel";
 
@@ -15,7 +16,7 @@ const RAIL_ITEM_VARIANTS: Variants = {
   show: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.4, ease: EASE_VISION },
   },
 };
 
@@ -41,7 +42,7 @@ export function RightRail({ title, items }: RightRailProps) {
   return (
     <aside
       aria-label="Rail droit"
-      className="vision-rail-right preserve-3d relative z-rail hidden xl:flex xl:w-[260px] shrink-0 flex-col border-l border-line-strong bg-surface 2xl:w-[320px]"
+      className="vision-rail-right preserve-3d relative z-rail hidden xl:flex xl:w-rail-right-xl shrink-0 flex-col border-l border-line-strong bg-surface 2xl:w-rail-right-2xl"
     >
       {/* Onglets */}
       <div

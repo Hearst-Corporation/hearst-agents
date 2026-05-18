@@ -38,7 +38,7 @@ export function ConnectionsHub() {
   if (hub.loading) return <LoadingState />;
 
   return (
-    <section className="preserve-3d flex w-full max-w-[760px] flex-col 2xl:max-w-[820px] pb-12 animate-[fu_0.4s_ease-out_forwards]">
+    <section className="preserve-3d flex w-full max-w-connections-max flex-col 2xl:max-w-connections-max-2xl pb-12 animate-fade-up">
       <Header
         searchQuery={hub.searchQuery}
         onSearchChange={hub.setSearchQuery}
@@ -143,7 +143,7 @@ export function ConnectionsHub() {
 
 function DisabledState({ message }: { message: string | null }) {
   return (
-    <section className="preserve-3d flex w-full max-w-[760px] flex-col 2xl:max-w-[820px] items-center justify-center gap-4 py-24 animate-[fu_0.4s_ease-out_forwards]">
+    <section className="preserve-3d flex w-full max-w-connections-max flex-col 2xl:max-w-connections-max-2xl items-center justify-center gap-4 py-24 animate-[fu_0.4s_ease-out_forwards]">
       <p className="t-15 font-medium text-text-muted">Composio indisponible</p>
       <p className="t-13 text-text-soft max-w-md text-center leading-relaxed">
         {message ?? "Composio n'est pas configuré."}
@@ -158,7 +158,7 @@ function DisabledState({ message }: { message: string | null }) {
 
 function LoadingState() {
   return (
-    <section className="preserve-3d flex w-full max-w-[760px] flex-col 2xl:max-w-[820px] items-center justify-center gap-4 py-24 animate-[fu_0.4s_ease-out_forwards]">
+    <section className="preserve-3d flex w-full max-w-connections-max flex-col 2xl:max-w-connections-max-2xl items-center justify-center gap-4 py-24 animate-[fu_0.4s_ease-out_forwards]">
       <div className="halo-core" aria-hidden />
       <p className="t-11 font-light text-text-muted">Chargement des connexions…</p>
     </section>

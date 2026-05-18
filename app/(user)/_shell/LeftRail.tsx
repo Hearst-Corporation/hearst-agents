@@ -135,7 +135,7 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
           aria-hidden="true"
           className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r"
           style={{
-            width: "var(--space-0-5)",
+            width: "var(--width-indicator-thin)",
             height: "var(--space-5)",
             background: "var(--accent-teal)",
           }}
@@ -171,7 +171,7 @@ function Divider() {
       className="my-1 shrink-0"
       style={{
         width: "var(--space-6)",
-        height: "1px",
+        height: "var(--height-hairline)",
         background: "var(--border-default)",
       }}
     />
@@ -187,7 +187,7 @@ export function LeftRail() {
   const commandeurOpen = useStageStore((s) => s.commandeurOpen);
 
   return (
-    <aside aria-label="Navigation principale" className="relative z-rail h-full w-[88px] shrink-0">
+    <aside aria-label="Navigation principale" className="relative z-rail h-full w-rail shrink-0">
       <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center border-y-0 border-l-0 py-5">
         {/* Brand logo */}
         <div className="mb-3 flex size-8 items-center justify-center" aria-hidden>

@@ -174,14 +174,14 @@ function EmptyState() {
       transition={{ duration: 0.6, ease: VISION_EASE }}
       className="flex flex-col items-center justify-center gap-(--space-5) py-20 text-center"
     >
-      <p className="t-15 text-(--text-faint) max-w-[440px] leading-relaxed">
+      <p className="t-15 text-(--text-faint) max-w-prose-tight leading-relaxed">
         Aucune mission récurrente. Demande à l&apos;agent d&apos;en créer une — par exemple « résume
         mes emails chaque matin ».
       </p>
       <button
         type="button"
         onClick={() => setMode({ mode: "chat" })}
-        className="cockpit-action max-w-[260px]"
+        className="cockpit-action max-w-cockpit-action"
       >
         <span className="ca-label">Demander à l&apos;agent</span>
       </button>

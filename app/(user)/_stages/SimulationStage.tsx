@@ -422,7 +422,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                   className="t-11 font-mono text-[var(--text-ghost)] overflow-auto"
                   style={{
                     padding: "var(--space-3) var(--space-4)",
-                    maxHeight: "240px",
+                    maxHeight: "var(--max-height-sim-reasoning)",
                     whiteSpace: "pre-wrap",
                     lineHeight: "var(--leading-relaxed)",
                   }}
@@ -521,14 +521,18 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
 
       <div
         className="w-full"
-        style={{ height: "1px", background: "var(--border-shell)", position: "relative" }}
+        style={{
+          height: "var(--height-hairline)",
+          background: "var(--border-shell)",
+          position: "relative",
+        }}
       >
         <div
           style={{
             position: "absolute",
             top: 0,
             left: 0,
-            height: "1px",
+            height: "var(--height-hairline)",
             width: `${pct}%`,
             background: "var(--border-input)",
           }}

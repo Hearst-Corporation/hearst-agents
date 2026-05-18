@@ -193,8 +193,10 @@ function SessionFrame({
         {/* Indicateur live */}
         <div className="flex items-center gap-1.5">
           <motion.div
-            className="size-[5px] rounded-full"
+            className="rounded-full"
             style={{
+              width: "var(--size-dot-sm)",
+              height: "var(--size-dot-sm)",
               background: isActive ? "var(--accent-llm)" : "var(--text-decor-25)",
             }}
             animate={isActive ? { opacity: [1, 0.3, 1] } : { opacity: 1 }}
