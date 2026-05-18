@@ -144,6 +144,13 @@ export function useEventStream(active: boolean): void {
       }
     };
 
+    es.addEventListener("session_expired", () => {
+      es.close();
+      // Session expirée côté serveur — rechargement pour déclencher le flow
+      // d'authentification NextAuth (redirect login automatique).
+      window.location.reload();
+    });
+
     es.onerror = () => {
       // EventSource gère son auto-reconnect ; on laisse le browser faire.
     };

@@ -29,6 +29,8 @@ import type {
 
 const providers: Record<string, LLMProvider> = {};
 
+const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
+
 /** Clears cached LLM provider singletons (use in tests between cases / `vi.resetModules` alternative). */
 export function resetLlmProviderCache(): void {
   for (const k of Object.keys(providers)) {
@@ -152,7 +154,6 @@ export async function chatWithProfile(
     }
   }
 
-  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
   const wallclock = new AbortController();
   const wallclockTimer = setTimeout(
     () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
@@ -298,7 +299,6 @@ export async function* streamChatWithProfile(
     }
   }
 
-  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
   const wallclock = new AbortController();
   const wallclockTimer = setTimeout(
     () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
@@ -441,7 +441,6 @@ export async function smartChat(
 
   const chain = buildSmartChain(decision);
 
-  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
   const wallclock = new AbortController();
   const wallclockTimer = setTimeout(
     () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
@@ -595,7 +594,6 @@ export async function* smartStreamChat(
 
   const chain = buildSmartChain(decision);
 
-  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
   const wallclock = new AbortController();
   const wallclockTimer = setTimeout(
     () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),

@@ -56,7 +56,7 @@ export async function GET() {
               context: "GET /api/orchestrator/cc/stream [revalidation]",
             });
             if (error) {
-              send("session_expired", { message: "session_expired" });
+              send("session_expired", { type: "session_expired" });
               cleanup();
               return;
             }

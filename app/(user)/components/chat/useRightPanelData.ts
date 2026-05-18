@@ -117,6 +117,13 @@ export function useRightPanelData(): RightPanelDataState {
       }
     });
 
+    es.addEventListener("session_expired", () => {
+      es.close();
+      // Session expirée côté serveur — rechargement pour déclencher le flow
+      // d'authentification NextAuth.
+      window.location.reload();
+    });
+
     es.onerror = () => {};
 
     return () => {

@@ -70,9 +70,7 @@ export async function GET(req: NextRequest) {
           });
           // Re-check after async work — client may have disconnected during await
           if (stopped || req.signal.aborted) return;
-          const payload = JSON.stringify({
-            ...data,
-          });
+          const payload = JSON.stringify(data);
           enqueue(encoder.encode(`event: panel\ndata: ${payload}\n\n`));
         } catch (e) {
           if (stopped || req.signal.aborted) return;
@@ -110,7 +108,7 @@ export async function GET(req: NextRequest) {
           if (error) {
             enqueue(
               encoder.encode(
-                `event: session_expired\ndata: ${JSON.stringify({ message: "session_expired" })}\n\n`,
+                `event: session_expired\ndata: ${JSON.stringify({ type: "session_expired" })}\n\n`,
               ),
             );
             closeAll();

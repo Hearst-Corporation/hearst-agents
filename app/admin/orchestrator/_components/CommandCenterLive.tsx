@@ -34,6 +34,13 @@ export function CommandCenterLive({ initial }: { initial: CommandCenterState }) 
         setState(payload);
         setConnected(true);
       });
+      source.addEventListener("session_expired", () => {
+        source?.close();
+        source = null;
+        // Session expirée côté serveur — rechargement pour déclencher le flow
+        // d'authentification NextAuth.
+        window.location.reload();
+      });
       source.onerror = () => {
         setConnected(false);
         source?.close();

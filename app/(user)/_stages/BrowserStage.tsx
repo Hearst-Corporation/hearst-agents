@@ -563,11 +563,8 @@ export function BrowserStage({ mode }: { mode: string }) {
           credentials: "include",
         });
         if (!res.ok) return; // 404 ou autre → on ignore silencieusement
-        const data = (await res.json()) as { steps?: BrowserStep[] };
-        if (data.steps && Array.isArray(data.steps)) {
-          // TODO: setter à brancher quand le vrai endpoint sera disponible.
-          // setSteps(data.steps);
-        }
+        // TODO: brancher setSteps() quand /api/v2/browser/sessions/[id]/steps est dispo.
+        await res.json();
       } catch (err) {
         if ((err as Error).name === "AbortError") return;
         // Erreur réseau silencieuse — on laisse le polling continuer

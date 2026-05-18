@@ -78,7 +78,7 @@ function withHeartbeat(
               if (!session || currentUserId !== expectedUserId) {
                 controller.enqueue(
                   encoder.encode(
-                    `data: ${JSON.stringify({ ok: false, error: "session_expired" })}\n\n`,
+                    `event: session_expired\ndata: ${JSON.stringify({ type: "session_expired" })}\n\n`,
                   ),
                 );
                 controller.close();

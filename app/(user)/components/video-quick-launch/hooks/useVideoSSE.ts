@@ -47,7 +47,7 @@ export function useVideoSSE(): UseVideoSSEResult {
     close();
   }, [close]);
 
-  const subscribe = useCallback((jobId: string, providerUsed: Provider) => {
+  const subscribe = useCallback((jobId: string, _providerUsed: Provider) => {
     const url = `/api/v2/jobs/${encodeURIComponent(jobId)}/progress?kind=video-gen`;
     const es = new EventSource(url, { withCredentials: true });
     eventSourceRef.current = es;
@@ -62,7 +62,6 @@ export function useVideoSSE(): UseVideoSSEResult {
         if (typeof data.progress === "number") {
           setProgress(data.progress);
         }
-        void providerUsed;
       } catch {
         /* payload malformé — ignore */
       }
@@ -94,6 +93,14 @@ export function useVideoSSE(): UseVideoSSEResult {
       setPhase("error");
       es.close();
       eventSourceRef.current = null;
+    });
+
+    es.addEventListener("session_expired", () => {
+      es.close();
+      eventSourceRef.current = null;
+      // Session expirée côté serveur — rechargement pour déclencher le flow
+      // d'authentification NextAuth.
+      window.location.reload();
     });
 
     es.onerror = () => {

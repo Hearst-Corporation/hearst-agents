@@ -296,7 +296,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ jobI
             context: `GET /api/v2/jobs/${jobId}/progress [revalidation]`,
           });
           if (error) {
-            sendEvent("session_expired", { message: "session_expired" });
+            sendEvent("session_expired", { type: "session_expired" });
             closeAll();
           }
         } catch {

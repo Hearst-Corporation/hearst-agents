@@ -68,7 +68,9 @@ export async function GET(req: NextRequest) {
             context: "GET /api/admin/events-stream [revalidation]",
           });
           if (error) {
-            safeEnqueue(`data: ${JSON.stringify({ type: "session_expired" })}\n\n`);
+            safeEnqueue(
+              `event: session_expired\ndata: ${JSON.stringify({ type: "session_expired" })}\n\n`,
+            );
             closeAll();
           }
         } catch {
