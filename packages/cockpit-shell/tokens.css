@@ -1,0 +1,520 @@
+/* ============================================================
+   COCKPIT — design system maison (source: ~/.claude/assets/cockpit).
+   Tokens + classes .ct-* copiés verbatim depuis cockpit-template.html.
+   Ne jamais réinventer ces valeurs.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ct-bg-deep: #1A050B;
+  /* --ct-accent = couleur du produit actif (pilotée par ThemeAccent).
+     Les autres accents en dérivent → tout le chrome se recolore d'un coup. */
+  --ct-accent: #8A1538;
+  --ct-accent-maroon: color-mix(in srgb, var(--ct-accent) 70%, #1A050B);
+  --ct-accent-strong: color-mix(in srgb, var(--ct-accent) 78%, #ffffff);
+  --ct-accent-soft: color-mix(in srgb, var(--ct-accent) 18%, transparent);
+  --ct-border-accent: color-mix(in srgb, var(--ct-accent) 55%, transparent);
+
+  --ct-rail-left: 88px;
+  --ct-rail-right: 420px;
+
+  --ct-surface-0: rgba(255,255,255,0.02);
+  --ct-surface-1: rgba(255,255,255,0.04);
+  --ct-surface-2: rgba(255,255,255,0.06);
+  --ct-surface-3: rgba(255,255,255,0.09);
+
+  --ct-text-strong: #ffffff;
+  --ct-text-primary: rgba(245,245,245,0.92);
+  --ct-text-body: rgba(245,245,245,0.72);
+  --ct-text-muted: rgba(245,245,245,0.48);
+
+  --ct-border-soft: rgba(255,255,255,0.06);
+  --ct-border: rgba(255,255,255,0.10);
+  --ct-border-strong: rgba(255,255,255,0.16);
+
+  --ct-shadow-depth:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.45),
+    0 20px 60px -24px rgba(0,0,0,0.65);
+
+  --ct-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ct-dur-base: 180ms;
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--ct-bg-deep);
+}
+
+/* ── BANDE DE GLISSE FENÊTRE (Electron hiddenInset) ── */
+.ct-drag {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 32px;
+  z-index: 50;
+  -webkit-app-region: drag;
+  app-region: drag;
+  pointer-events: auto;
+}
+/* Les zones interactives priment toujours sur la glisse. */
+button, a, input, textarea, select, [role="button"], .ct-product-host {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+
+/* ── ROOT ── */
+.ct-root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  color: var(--ct-text-primary);
+}
+
+/* ── FONDS ── */
+.ct-ambient-deep { position: absolute; inset: 0; z-index: 0; background: var(--ct-bg-deep); }
+.ct-ambient-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, var(--ct-accent-maroon) 0%, transparent 70%);
+}
+
+/* ── LAYOUT ── */
+.ct-panels-row {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── RAIL GAUCHE ── */
+.ct-rail-left {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+  width: var(--ct-rail-left);
+  height: 100%;
+  background: var(--ct-surface-2);
+  border-right: 1px solid var(--ct-border-strong);
+  backdrop-filter: blur(60px) saturate(110%) brightness(105%);
+  -webkit-backdrop-filter: blur(60px) saturate(110%) brightness(105%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+}
+.ct-spacer { flex: 1; min-height: 16px; }
+.ct-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--ct-surface-3);
+  color: var(--ct-text-strong);
+  font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  cursor: default; border: none;
+}
+
+/* ── RAIL ACCORDÉON — lanceur de suite ── */
+.ct-rail-left {
+  transition: width var(--ct-dur-base) var(--ct-ease),
+    opacity var(--ct-dur-base) var(--ct-ease);
+}
+.ct-rail-left.launcher {
+  width: clamp(208px, 15vw, 260px);
+  align-items: stretch;
+  padding: clamp(20px, 2.4vh, 32px) clamp(12px, 0.8vw, 16px);
+}
+.ct-rail-top {
+  appearance: none; font: inherit; cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--ct-surface-2);
+  border-radius: 12px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px; margin-bottom: 14px;
+  width: 100%;
+  transition: border-color var(--ct-dur-base) var(--ct-ease),
+    background var(--ct-dur-base) var(--ct-ease);
+}
+.ct-rail-left:not(.launcher) .ct-rail-top {
+  flex-direction: column; gap: 4px;
+  padding: 8px 0; background: transparent;
+}
+.ct-rail-top:hover { border-color: color-mix(in srgb, var(--p-color) 55%, transparent); }
+.ct-rail-top-badge {
+  width: 46px; height: 46px; flex-shrink: 0;
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; letter-spacing: .03em;
+  color: var(--p-color, var(--ct-text-strong));
+  background: color-mix(in srgb, var(--p-color) 16%, var(--ct-surface-3));
+  border: 1px solid color-mix(in srgb, var(--p-color) 50%, transparent);
+}
+.ct-rail-top-name {
+  font-size: clamp(13px, 1vw, 15.5px); font-weight: 700;
+  color: var(--ct-text-strong);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ct-rail-left:not(.launcher) .ct-rail-top-name {
+  font-size: 9px; font-weight: 700; color: var(--ct-text-muted);
+  max-width: 72px; text-align: center;
+}
+.ct-rail-list {
+  display: flex; flex-direction: column;
+  gap: clamp(6px, 1.1vh, 14px);
+  width: 100%; overflow-y: auto; padding: 6px 0;
+}
+.ct-rail-list::-webkit-scrollbar { width: 0; }
+.ct-rail-row {
+  appearance: none; font: inherit; cursor: pointer;
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; padding: clamp(10px, 1.3vh, 16px) 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ct-text-muted);
+  transition: color var(--ct-dur-base) var(--ct-ease),
+    background var(--ct-dur-base) var(--ct-ease),
+    border-color var(--ct-dur-base) var(--ct-ease);
+}
+.ct-rail-row:hover { color: var(--p-color); }
+.ct-rail-row.active { color: var(--p-color); }
+.ct-rail-row-icon { display: flex; flex-shrink: 0; color: var(--p-color); }
+.ct-rail-row-name {
+  flex: 1; text-align: left;
+  font-size: clamp(13px, 0.95vw, 15px); font-weight: 600;
+  color: var(--ct-text-body);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ct-rail-row:hover .ct-rail-row-name,
+.ct-rail-row.active .ct-rail-row-name { color: var(--ct-text-strong); }
+.ct-rail-row-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: .04em;
+  color: var(--p-color); opacity: .8;
+}
+
+/* ── CHAT — contexte produit ── */
+.ct-rail-right-title {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.ct-chat-ctx-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
+}
+.ct-chat-ctx-name {
+  color: var(--ct-text-muted); font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+/* ── CENTRE ── */
+.ct-center-panel {
+  position: relative;
+  flex: 1;
+  min-width: 520px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.ct-page-area { flex: 1; min-height: 0; overflow-y: auto; padding: 32px 40px 80px; }
+.ct-product-frame { flex: 1; min-height: 0; position: relative; overflow: hidden; background: var(--ct-bg-deep); }
+.ct-product-host { position: absolute; inset: 0; }
+.ct-product-embed { width: 100%; height: 100%; border: 0; display: block; background: var(--ct-bg-deep); position: absolute; inset: 0; }
+
+/* ── EMBED — overlay chargement / non démarré ── */
+.ct-embed-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px; padding: 40px;
+  text-align: center;
+  background:
+    radial-gradient(420px 280px at 50% 38%, color-mix(in srgb, var(--pc) 16%, transparent), transparent 70%),
+    var(--ct-bg-deep);
+}
+.ct-embed-spinner {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 3px solid var(--ct-border);
+  border-top-color: var(--pc, var(--ct-accent-strong));
+  animation: ct-spin 0.8s linear infinite;
+}
+@keyframes ct-spin { to { transform: rotate(360deg); } }
+.ct-embed-badge {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800; letter-spacing: 0.04em;
+  color: var(--pc);
+  background: color-mix(in srgb, var(--pc) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pc) 55%, transparent);
+}
+.ct-embed-title { font-size: 15px; font-weight: 600; color: var(--ct-text-strong); }
+.ct-embed-sub {
+  font-size: 12.5px; color: var(--ct-text-muted); max-width: 460px; line-height: 1.6;
+}
+.ct-embed-sub code {
+  background: var(--ct-surface-2); padding: 1px 6px; border-radius: 5px;
+  font-size: 11px; color: var(--ct-text-body);
+}
+.ct-embed-actions { display: flex; gap: 10px; margin-top: 6px; }
+.ct-embed-btn {
+  appearance: none; cursor: pointer; text-decoration: none;
+  font: inherit; font-size: 12px; font-weight: 600;
+  padding: 9px 18px; border-radius: 9999px;
+  color: var(--ct-text-primary);
+  background: var(--ct-surface-2);
+  border: 1px solid var(--ct-border-strong);
+  transition: background var(--ct-dur-base) var(--ct-ease),
+    border-color var(--ct-dur-base) var(--ct-ease);
+}
+.ct-embed-btn:hover { background: var(--ct-surface-3); }
+.ct-embed-btn.primary {
+  color: var(--pc);
+  border-color: color-mix(in srgb, var(--pc) 60%, transparent);
+  background: color-mix(in srgb, var(--pc) 14%, transparent);
+}
+
+/* ── BOTTOM BAR ── */
+.ct-bottom-bar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: max-content;
+  max-width: calc(100% - 48px);
+  padding: 12px 28px;
+  border-radius: 9999px;
+  background: var(--ct-surface-2);
+  border: 1px solid var(--ct-border-strong);
+  backdrop-filter: blur(60px) saturate(110%) brightness(105%);
+  -webkit-backdrop-filter: blur(60px) saturate(110%) brightness(105%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    inset 0 -1px 0 rgba(0,0,0,0.5),
+    0 20px 60px -20px rgba(0,0,0,0.6);
+}
+.ct-bottom-bar-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 20px; }
+.ct-bottom-label { font-size: 12px; font-weight: 500; color: var(--ct-text-body); white-space: nowrap; }
+.ct-seg-track {
+  display: flex; align-items: center;
+  padding: 4px;
+  background: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+  border-radius: 9999px;
+}
+.ct-seg-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--ct-text-primary);
+  padding: 8px 16px;
+  font-size: 12px; font-weight: 500;
+  font-family: inherit;
+  border-radius: 9999px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background var(--ct-dur-base) var(--ct-ease), color var(--ct-dur-base) var(--ct-ease);
+}
+.ct-seg-btn:hover { background: rgba(255,255,255,0.05); }
+.ct-seg-btn.active {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.9);
+}
+.ct-seg-btn.primary {
+  background: var(--ct-text-strong);
+  color: var(--ct-bg-deep);
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 var(--ct-text-strong), 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ── RAIL DROIT ── */
+.ct-rail-right {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+  width: var(--ct-rail-right);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--ct-surface-2);
+  border-left: 1px solid var(--ct-border-strong);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  transition: width var(--ct-dur-base) var(--ct-ease),
+    opacity var(--ct-dur-base) var(--ct-ease);
+}
+.ct-rail-right.collapsed { width: 48px; }
+/* Corps du chat masqué en CSS quand replié — ChatKimi reste monté (zéro perte de conversation) */
+.ct-rail-right.collapsed .ct-rail-right-body { display: none; }
+.ct-rail-right-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 20px 12px;
+  border-bottom: 1px solid var(--ct-border);
+}
+/* Replié : 48px de large — recentre le toggle (28px) dans la poignée 48px sans débordement */
+.ct-rail-right.collapsed .ct-rail-right-header {
+  padding: 10px 0;
+  justify-content: center;
+}
+.ct-rail-right-title {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ct-text-muted);
+  white-space: nowrap;
+}
+.ct-rail-right-btn {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--ct-surface-2);
+  border: 1px solid var(--ct-border);
+  color: var(--ct-text-body);
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1; font-family: inherit;
+}
+.ct-rail-right-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; min-height: 0; }
+
+/* ── COMPOSANTS DE PAGE ── */
+.ct-eyebrow {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ct-text-muted);
+  margin-bottom: 8px;
+}
+.ct-title {
+  font-size: 28px; font-weight: 800;
+  color: var(--ct-text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.ct-sub { font-size: 13px; color: var(--ct-text-muted); margin-bottom: 32px; }
+.ct-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.ct-kpi-card {
+  background: var(--ct-surface-1);
+  border: 1px solid var(--ct-border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  box-shadow: var(--ct-shadow-depth);
+  min-width: 0;
+}
+.ct-kpi-card.accent {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--ct-accent-strong) 18%, transparent) 0%,
+      color-mix(in srgb, var(--ct-accent-strong) 4%, transparent) 100%),
+    var(--ct-surface-2);
+  border-color: var(--ct-border-accent);
+}
+.ct-kpi-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ct-text-muted);
+}
+.ct-kpi-value { font-size: 28px; font-weight: 800; color: var(--ct-text-primary); letter-spacing: -0.02em; }
+.ct-card {
+  background: var(--ct-surface-1);
+  border: 1px solid var(--ct-border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--ct-shadow-depth);
+}
+.ct-card-title {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ct-text-muted);
+  margin-bottom: 12px;
+}
+.ct-card-body { font-size: 13px; color: var(--ct-text-body); line-height: 1.6; }
+.ct-placeholder { font-size: 12px; color: var(--ct-text-muted); font-style: italic; line-height: 1.6; }
+
+/* ── CHAT KIMI ── */
+/* ct-chat-root doit être flex-column pour que ct-chat-list (flex:1) pousse ct-chat-form vers le bas */
+.ct-chat-root { display: flex; flex-direction: column; flex: 1; min-height: 0; height: 100%; }
+.ct-chat-actionbar { display: flex; justify-content: flex-end; padding-bottom: 8px; }
+.ct-chat-newbtn { appearance: none; font: inherit; font-size: 11px; font-weight: 600; cursor: pointer; background: var(--ct-surface-2); border: 1px solid var(--ct-border); border-radius: 8px; color: var(--ct-text-muted); padding: 4px 10px; transition: color 120ms; }
+.ct-chat-newbtn:hover { color: var(--ct-text-primary); }
+.ct-chat-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; }
+.ct-chat-msg { font-size: 13px; line-height: 1.6; border-radius: 12px; padding: 12px 14px; white-space: pre-wrap; word-break: break-word; }
+.ct-chat-msg.user { background: var(--ct-surface-3); color: var(--ct-text-primary); align-self: flex-end; max-width: 90%; }
+.ct-chat-msg.assistant { background: var(--ct-surface-1); color: var(--ct-text-body); align-self: flex-start; max-width: 95%; border: 1px solid var(--ct-border-soft); }
+.ct-chat-msg.assistant code { background: rgba(0,0,0,0.35); padding: 1px 5px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 12px; }
+.ct-chat-form { display: flex; gap: 8px; padding-top: 12px; border-top: 1px solid var(--ct-border); }
+.ct-chat-input {
+  flex: 1;
+  background: var(--ct-surface-0);
+  border: 1px solid var(--ct-border);
+  border-radius: 10px;
+  color: var(--ct-text-primary);
+  padding: 10px 12px;
+  font-size: 13px; font-family: inherit;
+  resize: none;
+  outline: none;
+}
+.ct-chat-input:focus { border-color: var(--ct-border-accent); }
+.ct-chat-send {
+  background: var(--ct-accent);
+  color: var(--ct-text-strong);
+  border: none;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.ct-chat-send:disabled { opacity: 0.5; cursor: default; }
+.ct-chat-error { font-size: 12px; color: var(--ct-accent-strong); margin: 8px 0; }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
+
+/* ── MODE IMMERSIF (produit actif) ──
+   Les rails du hub glissent de côté pour laisser le produit occuper
+   tout l'écran. Le produit affiche ses propres rails dans son iframe. */
+.ct-immersif .ct-rail-left {
+  width: 0;
+  opacity: 0;
+  border-right: none;
+  overflow: hidden;
+}
+.ct-immersif .ct-rail-right {
+  width: 0;
+  opacity: 0;
+  border-left: none;
+  overflow: hidden;
+}
+.ct-immersif .ct-bottom-bar {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ct-dur-base) var(--ct-ease);
+}
+/* En mode immersif, pousser le contenu sous la bande de glisse (.ct-drag = 32px fixed).
+   padding-top sur .ct-product-frame n'affecte pas les enfants position:absolute —
+   on override top directement sur les deux éléments absolus. */
+.ct-immersif .ct-product-host,
+.ct-immersif .ct-embed-overlay {
+  top: 32px;
+}

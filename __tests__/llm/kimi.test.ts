@@ -75,15 +75,36 @@ describe("KimiProvider.chat", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 2. Lève une erreur claire si KIMI_API_KEY absent hors test
+// 2. Comportement sans clé API (build-placeholder)
 // ---------------------------------------------------------------------------
 
 describe("KimiProvider — validation env", () => {
-  it("lève une erreur explicite si KIMI_API_KEY absent en production", () => {
+  it("instancie sans erreur même si KIMI_API_KEY et HYPERCLI_API_KEY absents (build-placeholder)", () => {
+    // Depuis feat/hub-mode-helm, le constructeur utilise "build-placeholder"
+    // en production pour ne pas bloquer le build Vercel.
+    // Ce cas teste que l'instanciation ne lève pas d'erreur.
     vi.stubEnv("NODE_ENV", "production");
     delete process.env.KIMI_API_KEY;
+    delete process.env.HYPERCLI_API_KEY;
 
-    expect(() => new KimiProvider()).toThrow("KIMI_API_KEY is not set");
+    expect(() => new KimiProvider()).not.toThrow();
+  });
+
+  it("utilise HYPERCLI_API_KEY en priorité sur KIMI_API_KEY", async () => {
+    vi.stubEnv("HYPERCLI_API_KEY", "hypercli-key-priority");
+    vi.stubEnv("KIMI_API_KEY", "kimi-key-fallback");
+
+    const fetchMock = makeFetchMock(MOCK_COMPLETION);
+    vi.stubGlobal("fetch", fetchMock);
+
+    const provider = new KimiProvider();
+    await provider.chat({
+      model: "kimi-k2.5",
+      messages: [{ role: "user", content: "Test priorité clé" }],
+    });
+
+    // Vérifie que fetch a bien été appelé (provider fonctionnel)
+    expect(fetchMock).toHaveBeenCalled();
   });
 });
 

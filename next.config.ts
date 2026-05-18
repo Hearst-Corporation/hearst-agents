@@ -3,20 +3,6 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
-/**
- * Détecte si la requête vient du hub Hearst (embarqué en webview/iframe).
- * Le hub injecte ?hub=1 dans l'URL du produit.
- */
-function isHubRequest(source?: string): boolean {
-  if (!source) return false;
-  try {
-    const u = new URL(source);
-    return u.searchParams.get("hub") === "1";
-  } catch {
-    return false;
-  }
-}
-
 /* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ──
    En développement local, on relâche frame-ancestors et X-Frame-Options
    pour permettre l'embed dans le hub Hearst (localhost:4200).

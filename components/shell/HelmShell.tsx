@@ -10,6 +10,7 @@
 
 import { CockpitShell } from "@hearst/cockpit-shell";
 import type { ReactNode } from "react";
+import { HelmBottomBar } from "./HelmBottomBar";
 
 const HELM_PRODUCTS = [
   { id: "helm", name: "Hearst OS", short: "OS", color: "#8A1538" },
@@ -17,7 +18,7 @@ const HELM_PRODUCTS = [
 
 export function HelmShell({ children }: { children: ReactNode }) {
   return (
-    <CockpitShell products={HELM_PRODUCTS} appId="helm">
+    <CockpitShell products={HELM_PRODUCTS} appId="helm" bottomBar={<HelmBottomBar />}>
       {children}
     </CockpitShell>
   );

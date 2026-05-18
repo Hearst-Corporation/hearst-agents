@@ -1,0 +1,31 @@
+{
+  "name": "@hearst/hub-sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Hearst Hub SDK — interface standardisée consommée par les 12 produits Hearst. Zéro dépendance au hub (spin-off-able).",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tokens.css": "./src/tokens.css"
+  },
+  "files": [
+    "dist",
+    "src/tokens.css",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "typescript": "^5.4.0"
+  }
+}

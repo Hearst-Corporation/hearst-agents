@@ -25,6 +25,7 @@
       "!lib/spatial-safe",
       "!providers/spatial-safe",
       "!styles/spatial-safe",
+      "!packages",
       "!pnpm-lock.yaml",
       "!*.snap",
       "!**/*.html",

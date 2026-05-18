@@ -1,0 +1,43 @@
+/* ============================================================
+   @hearst/hub-sdk — tokens.css
+   Source unique du design system Cockpit.
+   Copié verbatim depuis app/cockpit.css — ne pas modifier ici,
+   modifier la source et régénérer.
+   ============================================================ */
+
+:root {
+  --ct-bg-deep: #1A050B;
+  /* --ct-accent = couleur du produit actif (pilotée par ThemeAccent).
+     Les autres accents en dérivent → tout le chrome se recolore d'un coup. */
+  --ct-accent: #8A1538;
+  --ct-accent-maroon: color-mix(in srgb, var(--ct-accent) 70%, #1A050B);
+  --ct-accent-strong: color-mix(in srgb, var(--ct-accent) 78%, #ffffff);
+  --ct-accent-soft: color-mix(in srgb, var(--ct-accent) 18%, transparent);
+  --ct-border-accent: color-mix(in srgb, var(--ct-accent) 55%, transparent);
+
+  --ct-rail-left: 88px;
+  --ct-rail-right: 420px;
+
+  --ct-surface-0: rgba(255,255,255,0.02);
+  --ct-surface-1: rgba(255,255,255,0.04);
+  --ct-surface-2: rgba(255,255,255,0.06);
+  --ct-surface-3: rgba(255,255,255,0.09);
+
+  --ct-text-strong: #ffffff;
+  --ct-text-primary: rgba(245,245,245,0.92);
+  --ct-text-body: rgba(245,245,245,0.72);
+  --ct-text-muted: rgba(245,245,245,0.48);
+  --ct-text-faint: rgba(245,245,245,0.40);
+
+  --ct-border-soft: rgba(255,255,255,0.06);
+  --ct-border: rgba(255,255,255,0.10);
+  --ct-border-strong: rgba(255,255,255,0.16);
+
+  --ct-shadow-depth:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.45),
+    0 20px 60px -24px rgba(0,0,0,0.65);
+
+  --ct-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ct-dur-base: 180ms;
+}

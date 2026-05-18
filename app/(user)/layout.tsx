@@ -8,7 +8,7 @@ import { MobileBottomNav } from "@/app/(user)/components/MobileBottomNav";
 import { VideoQuickLaunch } from "@/app/(user)/components/VideoQuickLaunch";
 import { VoicePulse } from "@/app/(user)/components/voice/VoicePulse";
 import { useGlobalHotkeys } from "@/app/hooks/use-global-hotkeys";
-import { HelmShell } from "@/components/shell/HelmShell";
+
 import { useFocusMode } from "@/stores/focus-mode";
 import { useVoiceStore } from "@/stores/voice";
 
@@ -108,24 +108,22 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
   useGlobalHotkeys();
   return (
     <SessionProvider>
-      <HelmShell>
-        <div
-          className="h-screen w-full overflow-hidden antialiased"
-          style={{
-            background: "var(--bg, var(--ct-bg-deep))",
-            color: "var(--text, var(--ct-text-primary))",
-          }}
-        >
-          {children}
-          <Commandeur />
-          <VideoQuickLaunch />
-          <VoiceMount />
-          <FocusBadge />
-          <MobileBottomNav />
-          <FocusModeStyles />
-          <HubModeStyles />
-        </div>
-      </HelmShell>
+      <div
+        className="h-screen w-full overflow-hidden antialiased"
+        style={{
+          background: "var(--bg)",
+          color: "var(--text)",
+        }}
+      >
+        {children}
+        <Commandeur />
+        <VideoQuickLaunch />
+        <VoiceMount />
+        <FocusBadge />
+        <MobileBottomNav />
+        <FocusModeStyles />
+        <HubModeStyles />
+      </div>
     </SessionProvider>
   );
 }
