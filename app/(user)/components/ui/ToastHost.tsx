@@ -125,10 +125,10 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
     >
       <span
         aria-hidden="true"
+        className="t-14"
         style={{
           flexShrink: 0,
           marginTop: "var(--space-0-5)",
-          fontSize: "14px",
           lineHeight: 1,
           color: TONE_VAR[type],
         }}
@@ -137,10 +137,10 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
       </span>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
+          className="t-13"
           style={{
-            fontWeight: 500,
-            fontSize: "13px",
-            lineHeight: 1.4,
+            fontWeight: "var(--weight-medium)",
+            lineHeight: "var(--leading-base)",
             color: "var(--text-l0, var(--text))",
           }}
         >
@@ -148,10 +148,10 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
         </div>
         {message ? (
           <div
+            className="t-13"
             style={{
               marginTop: "var(--space-1)",
-              fontSize: "12px",
-              lineHeight: 1.4,
+              lineHeight: "var(--leading-base)",
               color: "var(--text-muted)",
             }}
           >
@@ -163,6 +163,7 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
         type="button"
         onClick={() => onDismiss(id)}
         aria-label="Fermer la notification"
+        className="t-14"
         style={{
           flexShrink: 0,
           width: "var(--space-5)",
@@ -175,9 +176,8 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
           border: "none",
           color: "var(--text-muted)",
           cursor: "pointer",
-          fontSize: "14px",
           lineHeight: 1,
-          transition: "background 120ms ease, color 120ms ease",
+          transition: "background var(--duration-base) ease, color var(--duration-base) ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = "var(--toast-close-hover-bg)";

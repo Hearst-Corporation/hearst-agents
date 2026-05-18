@@ -21,8 +21,8 @@ export function AmbientLayers() {
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 38% 32% at 50% 42%, rgba(255, 255, 255, 0.10), transparent 70%)",
-          filter: "blur(50px)",
+            "radial-gradient(ellipse 38% 32% at 50% 42%, color-mix(in srgb, var(--foreground) 10%, transparent), transparent 70%)",
+          filter: "var(--blur-lg)",
         }}
       />
       <div
@@ -31,13 +31,13 @@ export function AmbientLayers() {
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           backgroundImage:
-            "radial-gradient(circle, rgba(94, 229, 195, 0.32) 0.8px, transparent 1.4px)",
+            "radial-gradient(circle, color-mix(in srgb, var(--accent-teal) 32%, transparent) 0.8px, transparent 1.4px)",
           backgroundSize: "26px 26px",
           backgroundPosition: "0 0",
           maskImage:
-            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, rgba(0,0,0,0.5) 50%, transparent 90%)",
+            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, color-mix(in srgb, black 50%, transparent) 50%, transparent 90%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, rgba(0,0,0,0.5) 50%, transparent 90%)",
+            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, color-mix(in srgb, black 50%, transparent) 50%, transparent 90%)",
           opacity: 0.65,
         }}
       />

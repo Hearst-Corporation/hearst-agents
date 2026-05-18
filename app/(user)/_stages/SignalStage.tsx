@@ -221,7 +221,7 @@ function SignalSkeleton() {
           key={i}
           className="animate-pulse"
           style={{
-            height: "72px",
+            height: "var(--space-17)",
             background: "var(--surface-1)",
             border: "1px solid var(--border-shell)",
             borderRadius: "var(--radius-md)",

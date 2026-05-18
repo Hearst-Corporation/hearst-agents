@@ -154,6 +154,8 @@
   --size-touch-target: 44px;
   /** Demi-step entre --space-2 (8px) et --space-3 (12px) — padding interne RowActions. */
   --space-2-5: 10px;
+  /** Demi-step entre --space-4 (16px) et --space-5 (20px) — px-[18px] latéral (4× usages). */
+  --space-4-5: 18px;
 
   /* ─── Skeleton lines — hauteurs typographiques pour blocs animate-pulse ─── */
   --skeleton-line-xs: 13px; /* t-13 — labels, captions */
@@ -227,7 +229,8 @@
   /* ─── Tracking — valeurs intermédiaires ────────────────────── */
   --tracking-snug: 0.1em; /* Entre caption (0.08) et wide (0.12) — RunTimeline */
   --tracking-body: 0.15em; /* Entre label (0.14) et stretch (0.18) — corps de chat */
-  --tracking-label: 0.22em; /* Tous les labels uppercase Ghost Lumineux — token unique */
+  /* NOTE: --tracking-label 0.22em ici était une valeur erronée (doublon avec --tracking-section).
+   * La valeur canonique 0.14em est dans le bloc letter-spacing scale ci-dessous. */
 
   /* ─── Ghost Lumineux — 3 couches matière ──────────────────── */
   --layer-1: rgba(255, 255, 255, 0.012); /* surface presque invisible */
@@ -305,6 +308,7 @@
 
   /* ─── Hearst Connect — Radius scale ─────────────────────────── */
   --radius-xs: 4px;
+  --radius-2xs: 6px; /* Entre xs (4) et sm (8) — rounded-[6px] (2× AssetCompare/MissionListStage) */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -343,6 +347,8 @@
   --tracking-editorial: -0.035em; /* H1 éditorial serré — cockpit greeting, wordmark */
   --tracking-hairline: 0.02em;
   --tracking-subtle: 0.03em;
+  --tracking-eyebrow-soft: 0.04em; /* Eyebrow discret — 4× tracking-[.04em] (KGStage, BrowserStage) */
+  --tracking-eyebrow: 0.06em; /* Eyebrow medium — 1× tracking-[.06em] */
   --tracking-caption: 0.08em;
   --tracking-wide: 0.12em;
   --tracking-label: 0.14em;
@@ -357,11 +363,11 @@
   --leading-tight: 1.05;
   --leading-snug: 1.2;
   --leading-base: 1.45;
-  --leading-relaxed: 1.6;
-  --leading-loose: 1.8;
-  
   --leading-body-tight: 1.5;
+  --leading-comfortable: 1.55; /* Entre body-tight (1.5) et relaxed (1.6) — 4× leading-[1.55] */
+  --leading-relaxed: 1.6;
   --leading-body: 1.7;
+  --leading-loose: 1.8;
 
   /* ─── Hearst Connect — Motion ───────────────────────────────── */
   --duration-fast: 75ms;
@@ -373,6 +379,7 @@
   --duration-emphasis: 300ms;
   --ease-vision: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-vision: 400ms;
+  --duration-long: 500ms; /* Transitions longues — 6× duration-500 (opacités, entrées de page) */
   /* Ligne tête de lecture timeline admin (glow discret). */
   --shadow-playhead-accent-teal: 0 0 6px var(--accent-teal);
 
@@ -1223,6 +1230,7 @@
 
 @theme inline {
   /* Hearst Connect — radius (rounded-xs, rounded-pill, ...) */
+  --radius-2xs: var(--radius-2xs);
   --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -1236,6 +1244,7 @@
   --spacing-2: var(--space-2);
   --spacing-3: var(--space-3);
   --spacing-4: var(--space-4);
+  --spacing-4-5: var(--space-4-5);
   --spacing-5: var(--space-5);
   --spacing-6: var(--space-6);
   --spacing-8: var(--space-8);
@@ -1260,30 +1269,44 @@
 
   /* Hearst Connect — tracking scale (tracking-tight, tracking-display, …) */
   --tracking-tight: var(--tracking-tight);
+  --tracking-editorial: var(--tracking-editorial);
   --tracking-hairline: var(--tracking-hairline);
   --tracking-subtle: var(--tracking-subtle);
+  --tracking-eyebrow-soft: var(--tracking-eyebrow-soft);
+  --tracking-eyebrow: var(--tracking-eyebrow);
   --tracking-caption: var(--tracking-caption);
   --tracking-wide: var(--tracking-wide);
+  --tracking-label: var(--tracking-label);
   --tracking-stretch: var(--tracking-stretch);
   --tracking-display: var(--tracking-display);
+  --tracking-section: var(--tracking-section);
   --tracking-banner: var(--tracking-banner);
   --tracking-marquee: var(--tracking-marquee);
   --tracking-brand: var(--tracking-brand);
-  --tracking-section: var(--tracking-section);
-  --tracking-label: var(--tracking-label);
   --tracking-snug: var(--tracking-snug);
   --tracking-body: var(--tracking-body);
+
+  /* Hearst Connect — leading scale */
+  --leading-comfortable: var(--leading-comfortable);
+  --leading-body-tight: var(--leading-body-tight);
+  --leading-body: var(--leading-body);
+
+  /* Hearst Connect — duration scale */
   --duration-fast: var(--duration-fast);
   --duration-base: var(--duration-base);
   --duration-slow: var(--duration-slow);
   --duration-emphasis: var(--duration-emphasis);
+  --duration-vision: var(--duration-vision);
+  --duration-long: var(--duration-long);
   --ease-spring: var(--ease-spring);
   --ease-standard: var(--ease-standard);
   --ease-out-soft: var(--ease-out-soft);
+  --ease-vision: var(--ease-vision);
 
   --font-satoshi: "Satoshi Variable", "Satoshi", sans-serif;
   --font-sans: "Satoshi Variable", "Satoshi", sans-serif;
-  --font-mono: "Satoshi Variable", "Satoshi", sans-serif;
+  /* Vraie pile mono système — pour CodeEditor, snippets URL, log paths */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* Hearst Connect — surfaces & accent (Tailwind utilities `bg-background`,
    * `bg-surface`, `bg-rail`, `text-cyan-accent`, etc.) */
@@ -1326,6 +1349,37 @@
   --color-gold: var(--gold);
   --color-accent-llm: var(--accent-llm);
   --color-accent-agent: var(--accent-agent);
+
+  /* ─── Z-index sémantique — mapping Tailwind z-N → tokens --z-* ──────────
+   * Permet à T3 de remplacer z-0/z-10/z-20/z-30/z-40/z-50 par classes sémantiques.
+   * Note Tailwind v4 : ces surcharges remplacent les utilitaires z-N natifs.
+   * Pour éviter la collision, utiliser les classes sémantiques .z-elev-* ci-dessous
+   * quand on veut être explicite, ou continuer avec z-N si la valeur est exacte. */
+  --z-base: var(--z-base);
+  --z-noise: var(--z-noise);
+  --z-sticky: var(--z-sticky);
+  --z-rail: var(--z-rail);
+  --z-pulsebar: var(--z-pulsebar);
+  --z-dropdown: var(--z-dropdown);
+  --z-backdrop: var(--z-backdrop);
+  --z-modal: var(--z-modal);
+  --z-modal-stack: var(--z-modal-stack);
+  --z-toast: var(--z-toast);
+  --z-overlay: var(--z-overlay);
+
+  /* ─── Text size — mapping Tailwind text-N → valeurs Hearst DS ─────────────
+   * Les classes Tailwind text-xs/sm/base/lg/xl/2xl/3xl sont conservées mais
+   * leurs valeurs pointent sur les tailles Hearst (alignées avec .t-N).
+   * Mapping : text-xs≈t-11, text-sm≈t-13, text-base≈t-15, text-lg≈t-18,
+   *           text-xl≈t-20, text-2xl≈t-26, text-3xl≈t-30 */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 26px;
+  --text-3xl: 30px;
+  --text-4xl: 34px;
 
 }
 

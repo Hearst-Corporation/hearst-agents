@@ -85,36 +85,36 @@ function badgeTokens(mission: ApiMission): {
 
   if (isError)
     return {
-      bg: "rgba(255,80,80,0.1)",
-      border: "1px solid rgba(255,120,120,0.35)",
-      color: "rgba(255,140,140,0.9)",
+      bg: "var(--danger-surface-soft)",
+      border: "1px solid var(--danger-border)",
+      color: "var(--danger)",
       pulse: false,
     };
   if (isApproval)
     return {
-      bg: "rgba(212,175,55,0.1)",
-      border: "1px solid rgba(212,175,55,0.35)",
-      color: "rgba(212,175,55,0.9)",
+      bg: "var(--gold-surface)",
+      border: "1px solid var(--gold-border)",
+      color: "var(--gold)",
       pulse: false,
     };
   if (isSuccess)
     return {
-      bg: "rgba(255,255,255,0.06)",
-      border: "1px solid rgba(255,255,255,0.1)",
-      color: "rgba(255,255,255,0.45)",
+      bg: "var(--card-flat-bg)",
+      border: "1px solid var(--line-strong)",
+      color: "var(--text-faint)",
       pulse: false,
     };
   if (isRunning)
     return {
-      bg: "rgba(94,229,195,0.1)",
-      border: "1px solid rgba(94,229,195,0.3)",
-      color: "rgba(94,229,195,0.85)",
+      bg: "var(--accent-teal-surface)",
+      border: "1px solid var(--accent-teal-border)",
+      color: "var(--accent-teal)",
       pulse: true,
     };
   return {
-    bg: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "rgba(255,255,255,0.35)",
+    bg: "var(--card-flat-bg)",
+    border: "1px solid var(--line-strong)",
+    color: "var(--text-l2)",
     pulse: false,
   };
 }
@@ -158,7 +158,7 @@ function ErrorBanner({ error }: { error: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
+      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-comfortable"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
     </motion.div>
@@ -246,14 +246,14 @@ function MissionCard({
       </div>
 
       {/* Input preview */}
-      <p className="t-13 text-(--text-faint) leading-[1.5] overflow-hidden text-ellipsis whitespace-nowrap">
+      <p className="t-13 text-(--text-faint) leading-body-tight overflow-hidden text-ellipsis whitespace-nowrap">
         {mission.input.slice(0, 120)}
       </p>
 
       {/* Meta : date + schedule */}
       <div className="flex items-center gap-4 t-11 text-(--text-decor-25)">
         <span>{formatDate(mission.createdAt)}</span>
-        <span className="text-white/15">·</span>
+        <span className="text-(--text-l3)">·</span>
         <span>{humanCron(mission.schedule)}</span>
       </div>
     </motion.div>
@@ -333,7 +333,7 @@ export function MissionListStage({ mode }: { mode: string }) {
           <p className="t-13 text-(--text-ghost)">Toutes les demandes</p>
           <h1 className="t-30 font-medium tracking-tight text-(--text-soft)">Demandes</h1>
           {STAGE_REGISTRY.mission.tagline && (
-            <p className="t-13 text-(--text-faint) leading-[1.5]">
+            <p className="t-13 text-(--text-faint) leading-body-tight">
               {STAGE_REGISTRY.mission.tagline}
             </p>
           )}

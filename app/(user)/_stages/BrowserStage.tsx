@@ -87,14 +87,14 @@ function stepStateLabel(status: StepStatus): string {
 function stepDotColor(status: StepStatus): string {
   switch (status) {
     case "done":
-      return "rgba(94,229,195,0.85)";
+      return "var(--accent-teal)";
     case "running":
-      return "rgba(140,100,255,0.9)";
+      return "var(--accent-llm)";
     case "error":
-      return "rgba(255,80,80,0.85)";
+      return "var(--danger)";
     case "pending":
     default:
-      return "rgba(255,255,255,0.2)";
+      return "var(--text-decor-25)";
   }
 }
 
@@ -150,7 +150,7 @@ function ErrorState({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
+      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-comfortable"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur session</strong> — {message}
     </motion.div>
@@ -175,7 +175,11 @@ function SessionFrame({
         {/* Traffic lights */}
         <div className="flex gap-1.5">
           {(
-            ["rgba(255,90,90,0.45)", "rgba(255,188,58,0.45)", "rgba(94,229,195,0.45)"] as const
+            [
+              "color-mix(in srgb, var(--danger) 45%, transparent)",
+              "color-mix(in srgb, var(--gold) 45%, transparent)",
+              "color-mix(in srgb, var(--accent-teal) 45%, transparent)",
+            ] as const
           ).map((bg, i) => (
             <span key={i} className="size-2.5 rounded-full" style={{ background: bg }} />
           ))}
@@ -191,7 +195,7 @@ function SessionFrame({
           <motion.div
             className="size-[5px] rounded-full"
             style={{
-              background: isActive ? "rgba(140,100,255,0.9)" : "rgba(255,255,255,0.2)",
+              background: isActive ? "var(--accent-llm)" : "var(--text-decor-25)",
             }}
             animate={isActive ? { opacity: [1, 0.3, 1] } : { opacity: 1 }}
             transition={isActive ? { repeat: Infinity, duration: 1, ease: "easeInOut" } : {}}
@@ -237,8 +241,12 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       layout
       className="flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] transition-[opacity,background] duration-300 ease-[ease]"
       style={{
-        background: isRunning ? "rgba(140,100,255,0.06)" : "transparent",
-        border: isRunning ? "1px solid rgba(140,100,255,0.15)" : "1px solid rgba(255,255,255,0.04)",
+        background: isRunning
+          ? "color-mix(in srgb, var(--accent-llm) 6%, transparent)"
+          : "transparent",
+        border: isRunning
+          ? "1px solid color-mix(in srgb, var(--accent-llm) 15%, transparent)"
+          : "1px solid var(--border-soft)",
         opacity: isPending ? 0.4 : 1,
       }}
     >
@@ -247,36 +255,36 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
         className="size-6 rounded-full flex items-center justify-center t-11 font-semibold shrink-0"
         style={{
           background: stepDotColor(step.status),
-          color: isDone || isRunning || isError ? "rgba(0,0,0,0.85)" : "rgba(255,255,255,0.3)",
+          color: isDone || isRunning || isError ? "var(--bg)" : "var(--text-l3)",
         }}
       >
         {isDone ? "✓" : isError ? "✕" : isRunning ? "…" : index + 1}
       </div>
 
       {/* Label */}
-      <div className="flex-1 t-13 text-(--text-soft) leading-[1.45]">{step.label}</div>
+      <div className="flex-1 t-13 text-(--text-soft) leading-base">{step.label}</div>
 
       {/* Badge état — ternaires imbriquées 4 niveaux, bloc préservé inline */}
       <div
         style={{
           padding: "3px 9px",
-          borderRadius: "9999px",
-          fontSize: "11px",
-          fontWeight: 500,
+          borderRadius: "var(--radius-pill)",
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-medium)",
           background: isError
-            ? "rgba(255,80,80,0.12)"
+            ? "var(--danger-surface-soft)"
             : isRunning
-              ? "rgba(140,100,255,0.15)"
+              ? "color-mix(in srgb, var(--accent-llm) 15%, transparent)"
               : isDone
-                ? "rgba(255,255,255,0.05)"
+                ? "var(--surface-1)"
                 : "transparent",
           color: isError
-            ? "rgba(255,140,140,0.9)"
+            ? "var(--danger)"
             : isRunning
-              ? "rgba(140,100,255,0.9)"
+              ? "var(--accent-llm)"
               : isDone
-                ? "rgba(255,255,255,0.35)"
-                : "rgba(255,255,255,0.2)",
+                ? "var(--text-l2)"
+                : "var(--text-l3)",
         }}
       >
         {stepStateLabel(step.status)}
@@ -479,14 +487,14 @@ export function BrowserStage({ mode }: { mode: string }) {
     >
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 text-(--text-decor-25) tracking-[.04em]">
+        <p className="t-13 text-(--text-decor-25) tracking-eyebrow-soft">
           Browserbase · Stagehand · navigateur cloud
         </p>
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
-            <h1 className="t-28 font-medium tracking-[-.02em]">Session active</h1>
+            <h1 className="t-28 font-medium tracking-tight">Session active</h1>
             {STAGE_REGISTRY.browser.tagline && (
-              <p className="t-13 text-(--text-ghost) leading-[1.5]">
+              <p className="t-13 text-(--text-ghost) leading-body-tight">
                 {STAGE_REGISTRY.browser.tagline}
               </p>
             )}
@@ -508,7 +516,7 @@ export function BrowserStage({ mode }: { mode: string }) {
 
       {/* Steps Stagehand */}
       <div className="flex flex-col gap-1">
-        <p className="t-11 text-(--text-decor-25) mb-2 tracking-[.04em]">
+        <p className="t-11 text-(--text-decor-25) mb-2 tracking-eyebrow-soft">
           {steps.length > 0
             ? `Étapes Stagehand — ${doneCount(steps)} / ${steps.length}`
             : "Étapes Stagehand — en attente de données"}

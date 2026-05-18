@@ -81,14 +81,14 @@ function UserAvatar() {
         src={image}
         alt={name}
         className="size-9 rounded-full object-cover"
-        style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)" }}
+        style={{ boxShadow: "var(--shadow-inset-highlight)" }}
       />
     );
   }
   return (
     <div
       className="flex size-9 items-center justify-center rounded-full bg-white/15 text-sm text-white"
-      style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)" }}
+      style={{ boxShadow: "var(--shadow-inset-highlight)" }}
       aria-label={`Session ${name}`}
       title={name}
     >
@@ -131,7 +131,7 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
           aria-hidden="true"
           className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r"
           style={{
-            width: "3px",
+            width: "var(--space-0-5)",
             height: "var(--space-5)",
             background: "var(--accent-teal)",
           }}

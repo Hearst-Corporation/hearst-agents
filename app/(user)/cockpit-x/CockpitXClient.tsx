@@ -271,12 +271,12 @@ function CockpitContent({
         )}
         {/* Top Left - Ancrage système */}
         <header className="flex flex-col gap-1 mb-20">
-          <div className="t-10 uppercase tracking-[0.2em] text-white/30 font-mono font-bold">
+          <div className="t-10 uppercase tracking-display text-white/30 font-mono font-bold">
             {todayLabel}
           </div>
           <div className="flex items-center gap-2 mt-1">
             <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-pulse" />
-            <span className="t-9 uppercase tracking-[0.2em] text-white/30 font-bold">
+            <span className="t-9 uppercase tracking-display text-white/30 font-bold">
               En écoute
             </span>
           </div>
@@ -284,7 +284,7 @@ function CockpitContent({
 
         {/* Focus - Accueil & Arbitrage */}
         <div className="flex flex-col gap-4 mb-20">
-          <h1 className="t-64 leading-[1.1] font-light tracking-[-0.04em] text-white/90">
+          <h1 className="t-64 leading-tight font-light tracking-editorial text-white/90">
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
           </h1>
           <p className="t-20 font-light text-white/55">
@@ -304,7 +304,7 @@ function CockpitContent({
               {/* EXÉCUTION ACTIVE */}
               <div className="flex flex-col">
                 <div className="border-t border-white/5 pt-4 mb-6">
-                  <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
+                  <h2 className="t-10 uppercase tracking-display font-bold text-white/30">
                     Exécution active
                   </h2>
                 </div>
@@ -317,7 +317,7 @@ function CockpitContent({
                       onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
                       className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                     >
-                      <span className="t-18 text-white/80 group-hover:text-white transition-colors duration-500">
+                      <span className="t-18 text-white/80 group-hover:text-white transition-colors duration-long">
                         {row.name}
                       </span>
                       {row.detail && <span className="t-15 text-white/45">{row.detail}</span>}
@@ -333,7 +333,7 @@ function CockpitContent({
               {factoryRows.length > 1 && (
                 <div className="flex flex-col">
                   <div className="border-t border-white/5 pt-4 mb-6">
-                    <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
+                    <h2 className="t-10 uppercase tracking-display font-bold text-white/30">
                       En file
                     </h2>
                   </div>
@@ -346,7 +346,7 @@ function CockpitContent({
                         onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
                         className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                       >
-                        <span className="t-15 text-white/50 group-hover:text-white transition-colors duration-500">
+                        <span className="t-15 text-white/50 group-hover:text-white transition-colors duration-long">
                           {row.name}
                         </span>
                       </button>
@@ -361,7 +361,7 @@ function CockpitContent({
           {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
             <div className="flex flex-col">
               <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">Radar</h2>
+                <h2 className="t-10 uppercase tracking-display font-bold text-white/30">Radar</h2>
               </div>
               <div className="flex flex-col gap-6">
                 {watch.inbox.kind === "items" &&
@@ -373,7 +373,7 @@ function CockpitContent({
                       onClick={() => openCommandeur("brief inbox")}
                       className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                     >
-                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
+                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-long">
                         {it.title}
                       </span>
                       <span className="t-14 text-white/45">{it.summary}</span>
@@ -388,7 +388,7 @@ function CockpitContent({
                       onClick={() => openCommandeur("agenda du jour")}
                       className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                     >
-                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
+                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-long">
                         Prochain engagement : {ev.title}
                       </span>
                       <span className="t-10 uppercase font-mono text-white/25 mt-1">{ev.when}</span>
@@ -402,7 +402,7 @@ function CockpitContent({
           {proposals.length > 0 && (
             <div className="flex flex-col">
               <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
+                <h2 className="t-10 uppercase tracking-display font-bold text-white/30">
                   Initiatives
                 </h2>
               </div>
@@ -415,7 +415,7 @@ function CockpitContent({
                     onClick={() => openCommandeur(p.title)}
                     className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                   >
-                    <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
+                    <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-long">
                       {p.title}
                     </span>
                     <span className="t-14 text-white/45">{p.description}</span>
@@ -764,7 +764,7 @@ function ModePlaceholder({
           Shell visionOS · stage non câblé
         </p>
         <h1
-          className="font-medium leading-[1.1] tracking-tight text-white"
+          className="font-medium leading-tight tracking-tight text-white"
           style={{ fontSize: "var(--text-display)" }}
         >
           {def.label}

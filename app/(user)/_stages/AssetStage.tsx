@@ -125,9 +125,9 @@ function LoadingGrid() {
           className="animate-pulse"
           style={{
             aspectRatio: "16 / 9",
-            borderRadius: "var(--radius-xl, 18px)",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: "var(--radius-xl)",
+            background: "var(--surface-row-hover)",
+            border: "1px solid var(--line-strong)",
           }}
         />
       ))}
@@ -158,16 +158,19 @@ function ErrorBanner({ error }: { error: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
       style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
+        padding: "var(--space-3-5) var(--space-4-5)",
+        borderRadius: "var(--radius-md)",
+        background: "var(--danger-surface-soft)",
+        borderLeft: "2px solid var(--danger-border)",
+        color: "var(--danger)",
+        fontSize: "var(--text-sm)",
+        lineHeight: "var(--leading-comfortable)",
       }}
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> — {error}
+      <strong style={{ color: "var(--danger)", fontWeight: "var(--weight-semibold)" }}>
+        Erreur
+      </strong>{" "}
+      — {error}
     </motion.div>
   );
 }
@@ -178,15 +181,15 @@ function AssetSlot({ asset, index }: { asset: AssetItem; index: number }) {
   const isError = asset.status === "error";
 
   const statusBg = isError
-    ? "rgba(255,80,80,0.18)"
+    ? "var(--danger-surface)"
     : isRunning
-      ? "rgba(94,229,195,0.18)"
-      : "rgba(255,255,255,0.10)";
+      ? "var(--accent-teal-surface)"
+      : "var(--surface-icon-tile)";
   const statusColor = isError
-    ? "rgba(255,140,140,0.92)"
+    ? "var(--danger)"
     : isRunning
-      ? "rgba(94,229,195,0.92)"
-      : "rgba(255,255,255,0.78)";
+      ? "var(--accent-teal)"
+      : "var(--text-muted)";
 
   return (
     <div className={`slot${isReady ? " loaded" : ""}`}>
@@ -232,17 +235,17 @@ function AssetSlot({ asset, index }: { asset: AssetItem; index: number }) {
       <div
         style={{
           position: "absolute",
-          top: "10px",
-          left: "10px",
-          zIndex: 5,
+          top: "var(--space-2-5)",
+          left: "var(--space-2-5)",
+          zIndex: "var(--z-noise)",
           display: "inline-block",
           padding: "3px 9px",
-          borderRadius: "9999px",
-          background: "rgba(255,255,255,0.12)",
-          fontSize: "10px",
-          fontWeight: 600,
-          letterSpacing: "0.04em",
-          color: "white",
+          borderRadius: "var(--radius-pill)",
+          background: "var(--ghost-modal-top)",
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-semibold)",
+          letterSpacing: "var(--tracking-eyebrow-soft)",
+          color: "var(--text)",
         }}
       >
         {`V${index}`}
@@ -252,15 +255,15 @@ function AssetSlot({ asset, index }: { asset: AssetItem; index: number }) {
       <div
         style={{
           position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          zIndex: 5,
-          padding: "4px 10px",
-          borderRadius: "9999px",
+          bottom: "var(--space-2-5)",
+          right: "var(--space-2-5)",
+          zIndex: "var(--z-noise)",
+          padding: "var(--space-1) var(--space-2-5)",
+          borderRadius: "var(--radius-pill)",
           background: statusBg,
           color: statusColor,
-          fontSize: "11px",
-          fontWeight: 500,
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-medium)",
         }}
       >
         {statusLabel(asset.status)}
@@ -345,12 +348,12 @@ export function AssetStage({ mode }: { mode: string }) {
       className="preserve-3d flex w-full flex-col gap-16"
     >
       {/* Header */}
-      <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+      <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
         <p
           style={{
-            fontSize: "12px",
-            letterSpacing: "0.04em",
-            color: "rgba(255,255,255,0.35)",
+            fontSize: "var(--text-xs)",
+            letterSpacing: "var(--tracking-eyebrow-soft)",
+            color: "var(--text-l2)",
           }}
         >
           {loading
@@ -361,16 +364,28 @@ export function AssetStage({ mode }: { mode: string }) {
                 ? "Aucun asset"
                 : `${total} asset${total > 1 ? "s" : ""} · ${readyCount} prêt${readyCount > 1 ? "s" : ""}`}
         </p>
-        <h1 style={{ fontSize: "32px", fontWeight: 500, letterSpacing: "-0.02em" }}>
+        <h1
+          style={{
+            fontSize: "var(--text-4xl)",
+            fontWeight: "var(--weight-medium)",
+            letterSpacing: "var(--tracking-tight)",
+          }}
+        >
           {loading ? "Chargement des assets" : total === 0 ? "Génération média" : "Assets"}
         </h1>
         {STAGE_REGISTRY.asset.tagline && (
-          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+          <p
+            style={{
+              fontSize: "var(--text-sm)",
+              color: "var(--text-faint)",
+              lineHeight: "var(--leading-body-tight)",
+            }}
+          >
             {STAGE_REGISTRY.asset.tagline}
           </p>
         )}
         {total > 0 && (
-          <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
+          <p style={{ fontSize: "var(--text-base)", color: "var(--text-muted)" }}>
             {assets.map((a) => a.tag).join(" · ")}
           </p>
         )}
@@ -399,8 +414,8 @@ export function AssetStage({ mode }: { mode: string }) {
         <p
           style={{
             textAlign: "center",
-            fontSize: "13px",
-            color: "rgba(255,255,255,0.4)",
+            fontSize: "var(--text-sm)",
+            color: "var(--text-faint)",
           }}
         >
           {readyCount === total

@@ -140,15 +140,15 @@ const toSVG = (cx: number, cy: number, w = 760, h = 440) => ({
 // ── Node type color ───────────────────────────────────────────────────────────
 // Données fonctionnelles — conservées en JS (couleurs sémantiques par type de nœud)
 const NODE_TYPE_COLORS: Record<string, string> = {
-  person: "rgba(94,229,195,0.85)",
-  company: "rgba(200,160,255,0.85)",
-  project: "rgba(255,200,80,0.85)",
-  decision: "rgba(255,140,100,0.85)",
-  commitment: "rgba(140,200,255,0.85)",
-  topic: "rgba(200,200,200,0.7)",
+  person: "var(--accent-teal)",
+  company: "var(--accent-llm)",
+  project: "var(--accent-agent)",
+  decision: "var(--danger)",
+  commitment: "color-mix(in srgb, #8cc8ff 85%, transparent)",
+  topic: "var(--text-muted)",
 };
 function nodeColor(type: string): string {
-  return NODE_TYPE_COLORS[type] ?? "rgba(255,255,255,0.65)";
+  return NODE_TYPE_COLORS[type] ?? "var(--text-muted)";
 }
 
 // ── Sub-composants ────────────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ function ErrorBanner({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
+      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-comfortable"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {message}
     </motion.div>
@@ -231,7 +231,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
               y2={to.y}
               className={`kg-line${visEdges[edge.id] ? " draw" : ""}`}
               // stroke dynamique conditionnel — conservé en style JS
-              style={isHot ? { stroke: "rgba(94,229,195,0.45)", strokeWidth: 1.5 } : undefined}
+              style={isHot ? { stroke: "var(--accent-teal-border)", strokeWidth: 1.5 } : undefined}
             />
           );
         })}
@@ -317,7 +317,7 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
               style={{ background: color }}
             />
             <span className="t-13 text-(--text-soft) flex-1">{node.label}</span>
-            <span className="t-11 text-(--text-ghost) uppercase tracking-[.06em]">{node.type}</span>
+            <span className="t-11 text-(--text-ghost) uppercase tracking-eyebrow">{node.type}</span>
             <span className="t-11 text-(--text-decor-25)">
               {count} liaison{count !== 1 ? "s" : ""}
             </span>
@@ -356,8 +356,8 @@ function DetailPanel({
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-1">{node.type}</p>
-          <h3 className="t-18 font-medium tracking-[-.015em] text-(--text-soft)">{node.label}</h3>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-caption mb-1">{node.type}</p>
+          <h3 className="t-18 font-medium tracking-tight text-(--text-soft)">{node.label}</h3>
         </div>
         <button
           type="button"
@@ -372,7 +372,7 @@ function DetailPanel({
       {/* Liaisons */}
       {linkedEdges.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">
+          <p className="t-11 text-(--text-ghost) uppercase tracking-caption mb-2">
             Liaisons ({linkedEdges.length})
           </p>
           <div className="flex flex-col gap-1">
@@ -395,7 +395,7 @@ function DetailPanel({
       {/* Propriétés */}
       {propEntries.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">Propriétés</p>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-caption mb-2">Propriétés</p>
           <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
               <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
@@ -505,10 +505,10 @@ export function KGStage({ mode }: KGStageProps) {
     >
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 uppercase tracking-[.08em] text-(--text-ghost)">
+        <p className="t-13 uppercase tracking-caption text-(--text-ghost)">
           {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
         </p>
-        <h1 className="t-30 font-medium tracking-[-.02em]">
+        <h1 className="t-30 font-medium tracking-tight">
           {loading ? "Knowledge Graph" : headerTitle}
         </h1>
         {!loading && !error && nodes.length > 0 && (

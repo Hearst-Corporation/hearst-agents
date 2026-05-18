@@ -163,7 +163,9 @@ function AssetPane({
           <AssetPreview asset={asset} />
 
           {asset.summary && (
-            <p className="t-13 text-(--text-ghost) leading-[1.55] line-clamp-3">{asset.summary}</p>
+            <p className="t-13 text-(--text-ghost) leading-comfortable line-clamp-3">
+              {asset.summary}
+            </p>
           )}
 
           <div className="flex flex-wrap gap-1.5">

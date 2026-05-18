@@ -84,17 +84,17 @@ function useElapsed(startRef: React.MutableRefObject<number | null>): string {
 
 /** Couleur avatar pseudo-stable par nom de speaker. */
 const SPEAKER_PALETTE = [
-  { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" },
-  { bg: "rgba(140,100,255,.2)", color: "rgba(187, 158, 255, 1)" },
-  { bg: "rgba(255,188,58,.2)", color: "rgba(255, 188, 58, 1)" },
-  { bg: "rgba(94,229,195,.2)", color: "rgba(94,229,195,.9)" },
-  { bg: "rgba(255,120,80,.2)", color: "rgba(255, 144, 96, 1)" },
+  { bg: "var(--border-subtle)", color: "var(--text-soft)" },
+  { bg: "color-mix(in srgb, var(--accent-llm) 20%, transparent)", color: "var(--accent-llm)" },
+  { bg: "var(--gold-surface)", color: "var(--gold)" },
+  { bg: "var(--accent-teal-surface)", color: "var(--accent-teal)" },
+  { bg: "color-mix(in srgb, #ff7850 20%, transparent)", color: "#ff9060" },
 ];
 
 function speakerColor(name: string) {
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
-  const fallback = { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" };
+  const fallback = { bg: "var(--border-subtle)", color: "var(--text-soft)" };
   return SPEAKER_PALETTE[Math.abs(hash) % SPEAKER_PALETTE.length] ?? fallback;
 }
 
@@ -119,13 +119,17 @@ function EmptyMeetingState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 0",
+        padding: "var(--space-20) 0",
         textAlign: "center",
       }}
     >
       <p
         className="t-15"
-        style={{ color: "rgba(255,255,255,0.45)", maxWidth: "440px", lineHeight: 1.6 }}
+        style={{
+          color: "var(--text-faint)",
+          maxWidth: "440px",
+          lineHeight: "var(--leading-relaxed)",
+        }}
       >
         Lance ou rejoins un meeting pour voir le transcript en direct.
       </p>
@@ -135,15 +139,15 @@ function EmptyMeetingState() {
 
 function LoadingSkeleton() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       {[1, 2, 3].map((i) => (
         <div
           key={i}
           className="animate-pulse"
           style={{
-            height: "56px",
-            borderRadius: "12px",
-            background: "rgba(255,255,255,0.05)",
+            height: "var(--space-14)",
+            borderRadius: "var(--radius-md)",
+            background: "var(--surface-icon-tile)",
           }}
         />
       ))}
@@ -158,17 +162,19 @@ function ErrorBanner({ message }: { message: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
       style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
+        padding: "var(--space-3-5) var(--space-4-5)",
+        borderRadius: "var(--radius-md)",
+        background: "var(--danger-surface-soft)",
+        borderLeft: "2px solid var(--danger-border)",
+        color: "var(--danger)",
+        fontSize: "var(--text-sm)",
+        lineHeight: "var(--leading-comfortable)",
       }}
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
-      {message}
+      <strong style={{ color: "var(--danger)", fontWeight: "var(--weight-semibold)" }}>
+        Erreur
+      </strong>{" "}
+      — {message}
     </motion.div>
   );
 }
@@ -182,40 +188,42 @@ function TranscriptBubble({ seg, index }: { seg: Segment; index: number }) {
       variants={BUBBLE_VARIANTS}
       initial="hidden"
       animate="visible"
-      style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}
+      style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}
     >
       {/* Avatar */}
       <div
         style={{
           flexShrink: 0,
-          width: "32px",
-          height: "32px",
+          width: "var(--size-avatar-sm)",
+          height: "var(--size-avatar-sm)",
           borderRadius: "50%",
           background: bg,
           color,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "12px",
-          fontWeight: 600,
-          marginTop: "2px",
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-semibold)",
+          marginTop: "var(--space-0-5)",
         }}
       >
         {speakerInitial(seg.speaker)}
       </div>
       {/* Body */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "3px", flex: 1 }}>
-        <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
-          <span style={{ fontSize: "12px", fontWeight: 600, color }}>{name || "Intervenant"}</span>
-          <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-0-5)", flex: 1 }}>
+        <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "baseline" }}>
+          <span style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-semibold)", color }}>
+            {name || "Intervenant"}
+          </span>
+          <span style={{ fontSize: "var(--text-xs)", color: "var(--text-l2)" }}>
             {fmtTime(seg.start)}
           </span>
         </div>
         <p
           style={{
-            fontSize: "14px",
-            color: "rgba(255,255,255,0.82)",
-            lineHeight: 1.55,
+            fontSize: "var(--text-base)",
+            color: "var(--text-soft)",
+            lineHeight: "var(--leading-comfortable)",
             margin: 0,
           }}
         >
@@ -233,45 +241,51 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
-        padding: "16px 20px",
-        borderRadius: "14px",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        gap: "var(--space-2)",
+        padding: "var(--space-4) var(--space-5)",
+        borderRadius: "var(--radius-md)",
+        background: "var(--surface-row-hover)",
+        border: "1px solid var(--line-strong)",
       }}
     >
       <p
         style={{
-          fontSize: "11px",
-          fontWeight: 600,
-          color: "rgba(255,255,255,0.4)",
-          letterSpacing: ".06em",
-          marginBottom: "4px",
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-semibold)",
+          color: "var(--text-faint)",
+          letterSpacing: "var(--tracking-eyebrow)",
+          marginBottom: "var(--space-1)",
         }}
       >
         Actions requises
       </p>
       {items.map((item, i) => (
-        <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+        <div key={i} style={{ display: "flex", gap: "var(--space-2-5)", alignItems: "flex-start" }}>
           <span
             style={{
-              marginTop: "2px",
-              width: "16px",
-              height: "16px",
-              borderRadius: "4px",
-              border: "1.5px solid rgba(94,229,195,0.45)",
+              marginTop: "var(--space-0-5)",
+              width: "var(--space-4)",
+              height: "var(--space-4)",
+              borderRadius: "var(--radius-xs)",
+              border: "1.5px solid var(--accent-teal-border)",
               flexShrink: 0,
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           />
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-            <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-0-5)" }}>
+            <span
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--text-soft)",
+                lineHeight: "var(--leading-body-tight)",
+              }}
+            >
               {item.action}
             </span>
             {(item.owner || item.deadline) && (
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
+              <span style={{ fontSize: "var(--text-xs)", color: "var(--text-l2)" }}>
                 {[item.owner, item.deadline].filter(Boolean).join(" · ")}
               </span>
             )}
@@ -415,14 +429,14 @@ export function MeetingStage({ mode }: { mode: string }) {
 
       {/* Content */}
       {meetingId && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
           {/* Header */}
-          <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
             <p
               style={{
-                fontSize: "12px",
-                color: "rgba(255,255,255,0.35)",
-                letterSpacing: ".06em",
+                fontSize: "var(--text-xs)",
+                color: "var(--text-l2)",
+                letterSpacing: "var(--tracking-eyebrow)",
               }}
             >
               {data
@@ -431,12 +445,12 @@ export function MeetingStage({ mode }: { mode: string }) {
             </p>
             <h1
               style={{
-                fontSize: "28px",
-                fontWeight: 500,
-                letterSpacing: "-.02em",
+                fontSize: "var(--text-3xl)",
+                fontWeight: "var(--weight-medium)",
+                letterSpacing: "var(--tracking-tight)",
                 display: "flex",
                 alignItems: "center",
-                gap: "14px",
+                gap: "var(--space-3-5)",
                 flexWrap: "wrap",
               }}
             >
@@ -446,21 +460,21 @@ export function MeetingStage({ mode }: { mode: string }) {
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "6px",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    color: "rgba(255,90,90,0.9)",
-                    padding: "4px 10px",
-                    borderRadius: "9999px",
-                    background: "rgba(255,80,80,0.12)",
+                    gap: "var(--space-1-5)",
+                    fontSize: "var(--text-xs)",
+                    fontWeight: "var(--weight-medium)",
+                    color: "var(--danger)",
+                    padding: "var(--space-1) var(--space-2-5)",
+                    borderRadius: "var(--radius-pill)",
+                    background: "var(--danger-surface-soft)",
                   }}
                 >
                   <motion.span
                     style={{
-                      width: "5px",
-                      height: "5px",
+                      width: "var(--size-dot)",
+                      height: "var(--size-dot)",
                       borderRadius: "50%",
-                      background: "rgba(255,90,90,0.9)",
+                      background: "var(--danger)",
                       display: "inline-block",
                     }}
                     animate={{ opacity: [1, 0.3, 1] }}
@@ -472,12 +486,12 @@ export function MeetingStage({ mode }: { mode: string }) {
               {data && !live && (
                 <span
                   style={{
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    color: "rgba(255,255,255,0.45)",
-                    padding: "4px 10px",
-                    borderRadius: "9999px",
-                    background: "rgba(255,255,255,0.06)",
+                    fontSize: "var(--text-xs)",
+                    fontWeight: "var(--weight-medium)",
+                    color: "var(--text-faint)",
+                    padding: "var(--space-1) var(--space-2-5)",
+                    borderRadius: "var(--radius-pill)",
+                    background: "var(--card-flat-bg)",
                   }}
                 >
                   Terminé
@@ -485,7 +499,7 @@ export function MeetingStage({ mode }: { mode: string }) {
               )}
             </h1>
             {data && (
-              <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.45)" }}>
+              <p style={{ fontSize: "var(--text-base)", color: "var(--text-faint)" }}>
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length}{" "}
                 speaker
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length !== 1
@@ -506,7 +520,7 @@ export function MeetingStage({ mode }: { mode: string }) {
           {/* Transcript */}
           <AnimatePresence initial={false}>
             {segments.length > 0 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
                 {segments.map((seg, idx) => (
                   <TranscriptBubble key={`${seg.speaker}-${seg.start}`} seg={seg} index={idx} />
                 ))}

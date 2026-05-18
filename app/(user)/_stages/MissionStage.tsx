@@ -207,7 +207,7 @@ function ErrorBanner({ error }: { error: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
+      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-comfortable"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
     </motion.div>
@@ -221,26 +221,26 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
   const isApproval = mission.lastRunStatus === "awaiting_approval";
 
   const badgeBg = isError
-    ? "rgba(255,80,80,0.1)"
+    ? "var(--danger-surface-soft)"
     : isApproval
-      ? "rgba(212,175,55,0.1)"
+      ? "var(--gold-surface)"
       : isRunning
-        ? "rgba(94,229,195,0.1)"
-        : "rgba(255,255,255,0.06)";
+        ? "var(--accent-teal-surface)"
+        : "var(--card-flat-bg)";
   const badgeBorder = isError
-    ? "1px solid rgba(255,120,120,0.35)"
+    ? "1px solid var(--danger-border)"
     : isApproval
-      ? "1px solid rgba(212,175,55,0.35)"
+      ? "1px solid var(--gold-border)"
       : isRunning
-        ? "1px solid rgba(94,229,195,0.3)"
-        : "1px solid rgba(255,255,255,0.1)";
+        ? "1px solid var(--accent-teal-border)"
+        : "1px solid var(--line-strong)";
   const badgeColor = isError
-    ? "rgba(255,140,140,0.9)"
+    ? "var(--danger)"
     : isApproval
-      ? "rgba(212,175,55,0.9)"
+      ? "var(--gold)"
       : isRunning
-        ? "rgba(94,229,195,0.85)"
-        : "rgba(255,255,255,0.45)";
+        ? "var(--accent-teal)"
+        : "var(--text-faint)";
 
   return (
     <header className="flex flex-col gap-2">
@@ -506,7 +506,7 @@ export function MissionStage({ mode }: { mode: string }) {
           {/* Suivi de la demande (jalons dérivés du statut — pas les vraies steps
               d'exécution agent ; celles-ci viendront du run output) */}
           <div className="flex flex-col gap-2">
-            <p className="t-11 text-(--text-faint) tracking-[0.04em]">Suivi de la demande</p>
+            <p className="t-11 text-(--text-faint) tracking-eyebrow-soft">Suivi de la demande</p>
             <div className="mtl">
               <AnimatePresence initial={false}>
                 {steps.map((step, idx) => (

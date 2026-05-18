@@ -112,7 +112,7 @@ export function VoiceStage({ mode }: { mode: string }) {
       >
         <div
           className="relative flex items-center justify-center"
-          style={{ width: "160px", height: "160px" }}
+          style={{ width: "var(--space-32)", height: "var(--space-32)" }}
         >
           <motion.div
             aria-hidden
@@ -120,8 +120,8 @@ export function VoiceStage({ mode }: { mode: string }) {
             animate={{ scale: active ? haloScale : 1, opacity: active ? 0.5 : 0.15 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
             style={{
-              width: "160px",
-              height: "160px",
+              width: "var(--space-32)",
+              height: "var(--space-32)",
               background:
                 phase === "error"
                   ? "color-mix(in srgb, var(--danger) 30%, transparent)"
@@ -131,8 +131,8 @@ export function VoiceStage({ mode }: { mode: string }) {
           <div
             className="rounded-full border"
             style={{
-              width: "120px",
-              height: "120px",
+              width: "var(--space-24)",
+              height: "var(--space-24)",
               borderColor:
                 phase === "error"
                   ? "var(--danger)"
@@ -186,7 +186,11 @@ export function VoiceStage({ mode }: { mode: string }) {
           <div
             ref={scrollRef}
             className="flex flex-col"
-            style={{ gap: "var(--space-3)", maxHeight: "320px", overflowY: "auto" }}
+            style={{
+              gap: "var(--space-3)",
+              maxHeight: "var(--height-compare-viewer)",
+              overflowY: "auto",
+            }}
           >
             {transcript.map((entry) => {
               const isUser = entry.role === "user";

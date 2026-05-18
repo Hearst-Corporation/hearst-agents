@@ -104,18 +104,20 @@ export function Toggle({
           background: checked ? "var(--accent-teal)" : "var(--surface-2)",
           border: `1px solid ${checked ? "var(--accent-teal)" : "var(--border-default)"}`,
           alignItems: "center",
-          padding: "2px",
+          padding: "var(--space-0-5)",
           transition: `background var(--duration-base) var(--ease-standard)`,
           flexShrink: 0,
         }}
       >
         <span
           style={{
-            width: "calc(var(--space-4) - 6px)",
-            height: "calc(var(--space-4) - 6px)",
+            width: "calc(var(--space-4) - var(--space-1-5))",
+            height: "calc(var(--space-4) - var(--space-1-5))",
             borderRadius: "var(--radius-pill)",
             background: "var(--text)",
-            transform: checked ? "translateX(calc(var(--space-4) - 2px))" : "translateX(0)",
+            transform: checked
+              ? "translateX(calc(var(--space-4) - var(--space-0-5)))"
+              : "translateX(0)",
             transition: `transform var(--duration-base) var(--ease-spring)`,
           }}
         />
@@ -210,7 +212,7 @@ export function SignalBadge({ type }: { type: keyof typeof SIGNAL_SEVERITY | "*"
           color: "var(--accent-teal)",
           border: "1px solid var(--accent-teal-border)",
           borderRadius: "var(--radius-xs)",
-          padding: "1px var(--space-1)",
+          padding: "var(--space-0-5) var(--space-1)",
           letterSpacing: "var(--tracking-caption)",
         }}
       >

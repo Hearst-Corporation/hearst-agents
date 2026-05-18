@@ -107,13 +107,13 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
         style={{
           alignSelf: "flex-end",
           maxWidth: "80%",
-          padding: "14px 20px",
-          borderRadius: "16px",
-          background: "rgba(255,255,255,0.06)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          fontSize: "14px",
-          color: "rgba(255,255,255,0.92)",
-          lineHeight: 1.55,
+          padding: "var(--space-3-5) var(--space-5)",
+          borderRadius: "var(--radius-lg)",
+          background: "var(--card-flat-bg)",
+          border: "1px solid var(--border-input)",
+          fontSize: "var(--text-base)",
+          color: "var(--text-soft)",
+          lineHeight: "var(--leading-comfortable)",
           whiteSpace: "pre-wrap",
           wordBreak: "break-word",
         }}
@@ -139,8 +139,8 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
           className="animate-pulse"
           style={{
             display: "inline-block",
-            marginLeft: "2px",
-            color: "rgba(94,229,195,0.75)",
+            marginLeft: "var(--space-0-5)",
+            color: "var(--accent-teal)",
           }}
         >
           ▊
@@ -157,31 +157,31 @@ function ToolCallCard({ tc }: { tc: ToolCall }) {
 
   // Couleurs mono pill : teal sourd pour running, blanc sourd sinon, rouge pour erreur
   const miniBg = isError
-    ? "rgba(255,80,80,0.15)"
+    ? "var(--danger-surface)"
     : isRunning
-      ? "rgba(94,229,195,0.15)"
-      : "rgba(255,255,255,0.08)";
+      ? "var(--accent-teal-surface)"
+      : "var(--border-input)";
   const miniColor = isError
-    ? "rgba(255,140,140,0.9)"
+    ? "var(--danger)"
     : isRunning
-      ? "rgba(94,229,195,0.85)"
-      : "rgba(255,255,255,0.85)";
+      ? "var(--accent-teal)"
+      : "var(--text-soft)";
 
   // Badge état
   const stateBg = isError
-    ? "rgba(255,80,80,0.15)"
+    ? "var(--danger-surface)"
     : isRunning
-      ? "rgba(94,229,195,0.15)"
+      ? "var(--accent-teal-surface)"
       : isDone
-        ? "rgba(255,255,255,0.05)"
+        ? "var(--surface-1)"
         : "transparent";
   const stateColor = isError
-    ? "rgba(255,140,140,0.9)"
+    ? "var(--danger)"
     : isRunning
-      ? "rgba(94,229,195,0.85)"
+      ? "var(--accent-teal)"
       : isDone
-        ? "rgba(255,255,255,0.45)"
-        : "rgba(255,255,255,0.35)";
+        ? "var(--text-faint)"
+        : "var(--text-l2)";
 
   return (
     <motion.div
@@ -201,12 +201,12 @@ function ToolCallCard({ tc }: { tc: ToolCall }) {
       <div
         className="t-state"
         style={{
-          padding: "4px 10px",
-          borderRadius: "9999px",
+          padding: "var(--space-1) var(--space-2-5)",
+          borderRadius: "var(--radius-pill)",
           background: stateBg,
           color: stateColor,
-          fontSize: "11px",
-          fontWeight: 500,
+          fontSize: "var(--text-xs)",
+          fontWeight: "var(--weight-medium)",
         }}
       >
         {toolStateLabel(tc.state)}
@@ -240,21 +240,21 @@ function StreamingPlaceholder() {
       style={{
         display: "flex",
         alignItems: "center",
-        gap: "10px",
-        padding: "12px 16px",
-        borderRadius: "12px",
-        background: "rgba(94,229,195,0.06)",
-        borderLeft: "2px solid rgba(94,229,195,0.45)",
-        color: "rgba(255,255,255,0.7)",
-        fontSize: "13px",
-        lineHeight: 1.55,
+        gap: "var(--space-2-5)",
+        padding: "var(--space-3) var(--space-4)",
+        borderRadius: "var(--radius-md)",
+        background: "var(--accent-teal-surface)",
+        borderLeft: "2px solid var(--accent-teal-border)",
+        color: "var(--text-muted)",
+        fontSize: "var(--text-sm)",
+        lineHeight: "var(--leading-comfortable)",
         maxWidth: "fit-content",
       }}
     >
       <span
         aria-hidden="true"
         className="animate-pulse"
-        style={{ color: "rgba(94,229,195,0.85)", fontSize: "14px" }}
+        style={{ color: "var(--accent-teal)", fontSize: "var(--text-base)" }}
       >
         ●
       </span>
@@ -270,16 +270,19 @@ function ErrorBanner({ error }: { error: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
       style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
+        padding: "var(--space-3-5) var(--space-4-5)",
+        borderRadius: "var(--radius-md)",
+        background: "var(--danger-surface-soft)",
+        borderLeft: "2px solid var(--danger-border)",
+        color: "var(--danger)",
+        fontSize: "var(--text-sm)",
+        lineHeight: "var(--leading-comfortable)",
       }}
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> — {error}
+      <strong style={{ color: "var(--danger)", fontWeight: "var(--weight-semibold)" }}>
+        Erreur
+      </strong>{" "}
+      — {error}
     </motion.div>
   );
 }
@@ -342,7 +345,7 @@ export function ChatStage({ mode }: { mode: string }) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-16"
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
         {isEmpty && <EmptyChatState />}
 
         {!isEmpty && messages.map((msg, idx) => <ChatBubble key={msg.id} msg={msg} index={idx} />)}
