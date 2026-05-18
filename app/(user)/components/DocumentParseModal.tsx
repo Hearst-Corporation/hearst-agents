@@ -16,10 +16,12 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { z } from "zod";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
+import { FieldError, ValidatedForm } from "./ui/ValidatedForm";
 
 export interface DocumentParseModalProps {
   open: boolean;
@@ -27,6 +29,10 @@ export interface DocumentParseModalProps {
   onClose: () => void;
   onSuccess?: (jobId: string) => void;
 }
+
+const documentParseSchema = z.object({
+  fileUrl: z.string().url("URL invalide — http(s) attendu"),
+});
 
 const MIME_OPTIONS: Array<{ value: string; label: string }> = [
   { value: "application/pdf", label: "PDF" },
@@ -97,23 +103,8 @@ export function DocumentParseModal({
 
   if (!open) return null;
 
-  function isValidUrl(u: string): boolean {
-    try {
-      const parsed = new URL(u);
-      return parsed.protocol === "https:" || parsed.protocol === "http:";
-    } catch {
-      return false;
-    }
-  }
-
-  async function handleSubmit() {
+  async function submitDocument({ fileUrl: url }: { fileUrl: string }) {
     if (status === "submitting") return;
-    const url = fileUrl.trim();
-    if (!isValidUrl(url)) {
-      setStatus("error");
-      setErrorMsg("URL invalide — http(s) attendu");
-      return;
-    }
     setStatus("submitting");
     setErrorMsg(null);
     try {
@@ -122,7 +113,7 @@ export function DocumentParseModal({
         headers: { "content-type": "application/json" },
         credentials: "include",
         body: JSON.stringify({
-          fileUrl: url,
+          fileUrl: url.trim(),
           mimeType,
           fileName: fileName.trim() || undefined,
           threadId,
@@ -202,107 +193,114 @@ export function DocumentParseModal({
           </p>
         </div>
 
-        <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-light text-text-faint">URL du fichier</span>
-          <input
-            ref={inputRef}
-            type="url"
-            value={fileUrl}
-            onChange={(e) => setFileUrl(e.target.value)}
-            placeholder="https://…/document.pdf"
-            data-testid="document-parse-modal-url"
-            className="t-13 font-light text-text"
-            style={{
-              padding: "var(--space-2) var(--space-3)",
-              background: "var(--surface-2)",
-              border: "1px solid var(--border-shell)",
-              borderRadius: "var(--radius-xs)",
-              outline: "none",
-            }}
-            disabled={submitting}
-          />
-        </label>
+        <ValidatedForm schema={documentParseSchema} onValid={submitDocument}>
+          {({ errors, submitting: validating, handleSubmit: validateAndSubmit }) => (
+            <>
+              <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+                <span className="t-11 font-light text-text-faint">URL du fichier</span>
+                <input
+                  ref={inputRef}
+                  type="url"
+                  value={fileUrl}
+                  onChange={(e) => setFileUrl(e.target.value)}
+                  placeholder="https://…/document.pdf"
+                  data-testid="document-parse-modal-url"
+                  className="t-13 font-light text-text"
+                  style={{
+                    padding: "var(--space-2) var(--space-3)",
+                    background: "var(--surface-2)",
+                    border: "1px solid var(--border-shell)",
+                    borderRadius: "var(--radius-xs)",
+                    outline: "none",
+                  }}
+                  disabled={submitting}
+                />
+                <FieldError name="fileUrl" errors={errors} />
+              </label>
 
-        <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "1fr 1fr",
-            gap: "var(--space-3)",
-          }}
-        >
-          <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-            <span className="t-11 font-light text-text-faint">Type</span>
-            <select
-              value={mimeType}
-              onChange={(e) => setMimeType(e.target.value)}
-              data-testid="document-parse-modal-mime"
-              className="t-13 font-light text-text"
-              style={{
-                padding: "var(--space-2) var(--space-3)",
-                background: "var(--surface-2)",
-                border: "1px solid var(--border-shell)",
-                borderRadius: "var(--radius-xs)",
-                outline: "none",
-              }}
-              disabled={submitting}
-            >
-              {MIME_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-            <span className="t-11 font-light text-text-faint">Nom (optionnel)</span>
-            <input
-              type="text"
-              value={fileName}
-              onChange={(e) => setFileName(e.target.value)}
-              placeholder="Mon document"
-              data-testid="document-parse-modal-name"
-              className="t-13 font-light text-text"
-              style={{
-                padding: "var(--space-2) var(--space-3)",
-                background: "var(--surface-2)",
-                border: "1px solid var(--border-shell)",
-                borderRadius: "var(--radius-xs)",
-                outline: "none",
-              }}
-              disabled={submitting}
-            />
-          </label>
-        </div>
+              <div
+                className="grid"
+                style={{
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "var(--space-3)",
+                }}
+              >
+                <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+                  <span className="t-11 font-light text-text-faint">Type</span>
+                  <select
+                    value={mimeType}
+                    onChange={(e) => setMimeType(e.target.value)}
+                    data-testid="document-parse-modal-mime"
+                    className="t-13 font-light text-text"
+                    style={{
+                      padding: "var(--space-2) var(--space-3)",
+                      background: "var(--surface-2)",
+                      border: "1px solid var(--border-shell)",
+                      borderRadius: "var(--radius-xs)",
+                      outline: "none",
+                    }}
+                    disabled={submitting}
+                  >
+                    {MIME_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+                  <span className="t-11 font-light text-text-faint">Nom (optionnel)</span>
+                  <input
+                    type="text"
+                    value={fileName}
+                    onChange={(e) => setFileName(e.target.value)}
+                    placeholder="Mon document"
+                    data-testid="document-parse-modal-name"
+                    className="t-13 font-light text-text"
+                    style={{
+                      padding: "var(--space-2) var(--space-3)",
+                      background: "var(--surface-2)",
+                      border: "1px solid var(--border-shell)",
+                      borderRadius: "var(--radius-xs)",
+                      outline: "none",
+                    }}
+                    disabled={submitting}
+                  />
+                </label>
+              </div>
 
-        {errorMsg && (
-          <p className="t-11 font-light text-(--danger)" style={{ margin: 0 }}>
-            {errorMsg}
-          </p>
-        )}
+              {errorMsg && (
+                <p className="t-11 font-light text-(--danger)" style={{ margin: 0 }}>
+                  {errorMsg}
+                </p>
+              )}
 
-        <div className="flex items-center justify-end" style={{ gap: "var(--space-2)" }}>
-          <Action
-            variant="secondary"
-            tone="neutral"
-            size="sm"
-            onClick={handleClose}
-            disabled={submitting}
-            testId="document-parse-modal-cancel"
-          >
-            Annuler
-          </Action>
-          <Action
-            variant="primary"
-            tone="brand"
-            size="sm"
-            onClick={handleSubmit}
-            disabled={!fileUrl.trim()}
-            loading={submitting}
-            testId="document-parse-modal-submit"
-          >
-            Parser
-          </Action>
-        </div>
+              <div className="flex items-center justify-end" style={{ gap: "var(--space-2)" }}>
+                <Action
+                  variant="secondary"
+                  tone="neutral"
+                  size="sm"
+                  onClick={handleClose}
+                  disabled={submitting || validating}
+                  testId="document-parse-modal-cancel"
+                >
+                  Annuler
+                </Action>
+                <Action
+                  variant="primary"
+                  tone="brand"
+                  size="sm"
+                  onClick={() => void validateAndSubmit({ fileUrl })}
+                  disabled={!fileUrl.trim()}
+                  loading={submitting || validating}
+                  testId="document-parse-modal-submit"
+                >
+                  Parser
+                </Action>
+              </div>
+            </>
+          )}
+        </ValidatedForm>
       </div>
     </div>
   );

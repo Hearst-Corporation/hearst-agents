@@ -12,3 +12,4 @@ export { RailSection } from "./RailSection";
 export { ScreenShell } from "./ScreenShell";
 export { SectionHeader } from "./SectionHeader";
 export { CardSkeleton, RowSkeleton } from "./Skeleton";
+export { FieldError, ValidatedForm } from "./ValidatedForm";
