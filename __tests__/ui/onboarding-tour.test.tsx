@@ -50,7 +50,7 @@ describe("OnboardingTour", () => {
     expect(screen.getByText(/Branche tes outils en un clic/)).toBeTruthy();
     fireEvent.click(screen.getByTestId("onboarding-next"));
     // Slide 3
-    expect(screen.getByText(/Lance ta première mission/)).toBeTruthy();
+    expect(screen.getAllByText(/Lance ta première demande/).length).toBeGreaterThan(0);
   });
 
   it("ferme et persiste le flag à la fin (clic 'Démarrer')", async () => {
@@ -93,7 +93,7 @@ describe("OnboardingTour", () => {
     fireEvent.keyDown(window, { key: "ArrowRight" });
     expect(screen.getByText(/Branche tes outils en un clic/)).toBeTruthy();
     fireEvent.keyDown(window, { key: "Enter" });
-    expect(screen.getByText(/Lance ta première mission/)).toBeTruthy();
+    expect(screen.getAllByText(/Lance ta première demande/).length).toBeGreaterThan(0);
   });
 
   it("forceOpen override le flag localStorage", () => {

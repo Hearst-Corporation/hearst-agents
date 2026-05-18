@@ -740,16 +740,6 @@ export function KGStage({ mode }: KGStageProps) {
     };
   }, [selectedDisplayNode, displayNodes, displayEdges, clusters]);
 
-  // Sync kg slice dans le store
-  useEffect(() => {
-    // On ne dispose pas des KgNode bruts ici (on a des DisplayNode), donc
-    // on met à jour setKg avec les infos disponibles
-    useStageData.getState().setKg({
-      graph: { nodes: [], edges: [] }, // store vide — les DisplayNodes sont suffisants pour le Stage
-      selectedNode: null,
-    });
-  }, []);
-
   const isEmpty = !loading && !error && displayNodes.length === 0;
   const headerTitle = selectedDisplayNode
     ? `${selectedDisplayNode.label} — nœud central`

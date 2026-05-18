@@ -90,6 +90,9 @@ const STEP_VARIANTS = {
 // Étapes Stagehand — alimentées par SSE futur (/api/v2/browser/[id]/steps).
 // En attendant, le tableau reste vide ; l'UI affiche un état "en attente".
 
+/** Tableau vide stable (référence module) — évite un nouveau tableau par render. */
+const EMPTY_STEPS: BrowserStep[] = [];
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function stepStateLabel(status: StepStatus): string {
@@ -468,7 +471,7 @@ export function BrowserStage({ mode }: { mode: string }) {
   const [fetchState, setFetchState] = useState<FetchState>("idle");
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [steps] = useState<BrowserStep[]>(demoActive ? DEMO_STEPS : []);
+  const steps: BrowserStep[] = demoActive ? DEMO_STEPS : EMPTY_STEPS;
   const [currentUrl, setCurrentUrl] = useState<string>("");
   const [autoMode, setAutoMode] = useState(true);
   const [captureTs, setCaptureTs] = useState<string | null>(null);

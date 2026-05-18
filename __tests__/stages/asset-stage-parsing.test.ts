@@ -36,4 +36,14 @@ describe("parseAssetFetchResult", () => {
     const result = parseAssetFetchResult(data, null);
     expect(result).toHaveLength(2);
   });
+
+  it("null → tableau vide (null-guard)", () => {
+    const result = parseAssetFetchResult(null, "x");
+    expect(result).toHaveLength(0);
+  });
+
+  it("undefined → tableau vide (null-guard)", () => {
+    const result = parseAssetFetchResult(undefined, null);
+    expect(result).toHaveLength(0);
+  });
 });

@@ -121,8 +121,8 @@ const IMAGE_RE = /\.(jpg|jpeg|png|gif|webp|avif)(\?|$)/i;
  * Retourne toujours un tableau d'ApiAsset (vide si données absentes/malformées).
  */
 export function parseAssetFetchResult(data: unknown, focalAssetId: string | null): ApiAsset[] {
+  if (data == null || typeof data !== "object") return [];
   if (focalAssetId) {
-    // Single-asset endpoint: { asset: {...} } (wrapped) ; liste: { assets: [...] }
     const asset = (data as { asset?: ApiAsset }).asset;
     return asset?.id ? [asset] : [];
   }

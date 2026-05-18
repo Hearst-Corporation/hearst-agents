@@ -430,7 +430,6 @@ function ApprovalBar({
       <button className="vision-btn-primary appr-btn" disabled={approving} onClick={handleApprove}>
         {approving ? "Approbation…" : "Approuver tout"}
       </button>
-      {/* TODO(P5): scroll-to-steps ou drawer de relai étape par étape */}
     </div>
   );
 }
