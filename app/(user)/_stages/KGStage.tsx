@@ -266,7 +266,7 @@ const toSVG = (cx: number, cy: number, w = 760, h = 440) => ({
 });
 
 // ── Node type color ───────────────────────────────────────────────────────────
-
+// Données fonctionnelles — conservées en JS (couleurs sémantiques par type de nœud)
 const NODE_TYPE_COLORS: Record<string, string> = {
   person: "rgba(94,229,195,0.85)",
   company: "rgba(200,160,255,0.85)",
@@ -303,18 +303,9 @@ function ErrorBanner({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
+      className="px-[18px] py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
-      {message}
+      <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {message}
     </motion.div>
   );
 }
@@ -352,7 +343,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
       <svg
         viewBox="0 0 760 440"
         preserveAspectRatio="none"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+        className="absolute inset-0 size-full"
         aria-hidden="true"
       >
         {edges.map((edge) => {
@@ -367,6 +358,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
               x2={to.x}
               y2={to.y}
               className={`kg-line${visEdges[edge.id] ? " draw" : ""}`}
+              // stroke dynamique conditionnel — conservé en style JS
               style={isHot ? { stroke: "rgba(94,229,195,0.45)", strokeWidth: 1.5 } : undefined}
             />
           );
@@ -376,6 +368,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
       {/* Nœuds */}
       {nodes.map((node) => {
         const isSelected = selectedNode === node.id;
+        // color = dynamique via nodeColor(node.type) → conservé en style JS
         const color = nodeColor(node.type);
         return (
           <div
@@ -383,8 +376,9 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             role="button"
             tabIndex={0}
             aria-pressed={isSelected}
-            className={`kg-node${node.center ? " center" : ""}${visNodes[node.id] ? " vis" : ""}${isSelected ? " sel" : ""}`}
-            style={{ left: `${node.cx}%`, top: `${node.cy}%`, cursor: "pointer" }}
+            className={`kg-node${node.center ? " center" : ""}${visNodes[node.id] ? " vis" : ""}${isSelected ? " sel" : ""} cursor-pointer`}
+            // left/top = positions dynamiques du graphe → conservés en style JS
+            style={{ left: `${node.cx}%`, top: `${node.cy}%` }}
             onClick={() => onSelectNode(isSelected ? null : node.id)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -394,19 +388,11 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             }}
             title={`${node.label} (${node.type})`}
           >
-            {/* Dot couleur type */}
+            {/* Dot couleur type — background dynamique via color → conservé en style JS */}
             <span
               aria-hidden="true"
-              style={{
-                display: "inline-block",
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: color,
-                marginRight: 5,
-                flexShrink: 0,
-                verticalAlign: "middle",
-              }}
+              className="inline-block size-[6px] rounded-full shrink-0 align-middle mr-[5px]"
+              style={{ background: color }}
             />
             <div className="kg-chip">{node.label}</div>
           </div>
@@ -427,10 +413,11 @@ interface ListViewProps {
 
 function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+    <div className="flex flex-col gap-1">
       {nodes.map((node) => {
         const count = edgeCountForNode(node.id, edges);
         const isSelected = selectedNode === node.id;
+        // color = dynamique via nodeColor(node.type) → conservé en style JS
         const color = nodeColor(node.type);
         return (
           <div
@@ -445,36 +432,21 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
                 onSelectNode(isSelected ? null : node.id);
               }
             }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              padding: "10px 14px",
-              borderRadius: "10px",
-              background: isSelected ? "rgba(94,229,195,0.07)" : "rgba(255,255,255,0.03)",
-              border: `1px solid ${isSelected ? "rgba(94,229,195,0.2)" : "rgba(255,255,255,0.06)"}`,
-              cursor: "pointer",
-              transition: "background 0.15s, border-color 0.15s",
-            }}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] cursor-pointer transition-[background,border-color] border ${
+              isSelected
+                ? "bg-(--accent-teal)/7 border-(--accent-teal)/20"
+                : "bg-(--surface-1) border-(--line-strong)"
+            }`}
           >
+            {/* Dot couleur type — background dynamique → conservé en style JS */}
             <span
               aria-hidden="true"
-              style={{ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }}
+              className="size-2 rounded-full shrink-0"
+              style={{ background: color }}
             />
-            <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.88)", flex: 1 }}>
-              {node.label}
-            </span>
-            <span
-              style={{
-                fontSize: "11px",
-                color: "rgba(255,255,255,0.35)",
-                textTransform: "uppercase",
-                letterSpacing: ".06em",
-              }}
-            >
-              {node.type}
-            </span>
-            <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)" }}>
+            <span className="t-13 text-(--text-soft) flex-1">{node.label}</span>
+            <span className="t-11 text-(--text-ghost) uppercase tracking-[.06em]">{node.type}</span>
+            <span className="t-11 text-(--text-decor-25)">
               {count} liaison{count !== 1 ? "s" : ""}
             </span>
           </div>
@@ -507,62 +479,19 @@ function DetailPanel({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 8 }}
       transition={{ duration: 0.3, ease: VISION_EASE }}
-      style={{
-        padding: "20px",
-        borderRadius: "14px",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "16px",
-      }}
+      className="p-5 rounded-xl bg-(--bg-elev) border border-white/8 flex flex-col gap-4"
     >
       {/* Header */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-          gap: "12px",
-        }}
-      >
+      <div className="flex items-start justify-between gap-3">
         <div>
-          <p
-            style={{
-              fontSize: "11px",
-              color: "rgba(255,255,255,0.35)",
-              textTransform: "uppercase",
-              letterSpacing: ".08em",
-              marginBottom: "4px",
-            }}
-          >
-            {node.type}
-          </p>
-          <h3
-            style={{
-              fontSize: "18px",
-              fontWeight: 500,
-              letterSpacing: "-.015em",
-              color: "rgba(255,255,255,0.92)",
-            }}
-          >
-            {node.label}
-          </h3>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-1">{node.type}</p>
+          <h3 className="t-18 font-medium tracking-[-.015em] text-(--text-soft)">{node.label}</h3>
         </div>
         <button
           type="button"
           onClick={onClose}
           aria-label="Fermer le panneau"
-          style={{
-            background: "rgba(255,255,255,0.06)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: "8px",
-            color: "rgba(255,255,255,0.5)",
-            cursor: "pointer",
-            fontSize: "14px",
-            padding: "4px 10px",
-            flexShrink: 0,
-          }}
+          className="bg-white/6 border border-white/10 rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
         >
           ✕
         </button>
@@ -571,35 +500,19 @@ function DetailPanel({
       {/* Liaisons */}
       {linkedEdges.length > 0 && (
         <div>
-          <p
-            style={{
-              fontSize: "11px",
-              color: "rgba(255,255,255,0.35)",
-              textTransform: "uppercase",
-              letterSpacing: ".08em",
-              marginBottom: "8px",
-            }}
-          >
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">
             Liaisons ({linkedEdges.length})
           </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+          <div className="flex flex-col gap-1">
             {linkedEdges.slice(0, 6).map((e) => {
               const other = e.fromId === node.id ? e.to : e.from;
               return (
                 <div
                   key={e.id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    padding: "6px 10px",
-                    borderRadius: "8px",
-                    background: "rgba(255,255,255,0.03)",
-                    fontSize: "12px",
-                  }}
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13"
                 >
-                  <span style={{ color: "rgba(255,255,255,0.4)", flex: 1 }}>{e.type}</span>
-                  <span style={{ color: "rgba(255,255,255,0.75)" }}>{other.label}</span>
+                  <span className="text-(--text-faint) flex-1">{e.type}</span>
+                  <span className="text-(--text-muted)">{other.label}</span>
                 </div>
               );
             })}
@@ -610,32 +523,12 @@ function DetailPanel({
       {/* Propriétés */}
       {propEntries.length > 0 && (
         <div>
-          <p
-            style={{
-              fontSize: "11px",
-              color: "rgba(255,255,255,0.35)",
-              textTransform: "uppercase",
-              letterSpacing: ".08em",
-              marginBottom: "8px",
-            }}
-          >
-            Propriétés
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">Propriétés</p>
+          <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
-              <div
-                key={k}
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  padding: "5px 10px",
-                  borderRadius: "8px",
-                  background: "rgba(255,255,255,0.03)",
-                  fontSize: "12px",
-                }}
-              >
-                <span style={{ color: "rgba(255,255,255,0.35)", minWidth: "80px" }}>{k}</span>
-                <span style={{ color: "rgba(255,255,255,0.7)", wordBreak: "break-all" }}>
+              <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
+                <span className="text-(--text-ghost) min-w-[80px]">{k}</span>
+                <span className="text-(--text-muted) break-all">
                   {String(v).length > 80 ? `${String(v).slice(0, 77)}…` : String(v)}
                 </span>
               </div>
@@ -770,22 +663,15 @@ export function KGStage({ mode }: KGStageProps) {
       )}
 
       {/* Header */}
-      <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            textTransform: "uppercase",
-            letterSpacing: ".08em",
-            color: "rgba(255,255,255,.35)",
-          }}
-        >
+      <header className="flex flex-col gap-2">
+        <p className="t-13 uppercase tracking-[.08em] text-(--text-ghost)">
           {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
         </p>
-        <h1 style={{ fontSize: "30px", fontWeight: 500, letterSpacing: "-.02em" }}>
+        <h1 className="t-30 font-medium tracking-[-.02em]">
           {loading ? "Knowledge Graph" : headerTitle}
         </h1>
         {!loading && !error && displayNodes.length > 0 && (
-          <p style={{ fontSize: "14px", color: "rgba(255,255,255,.5)" }}>
+          <p className="t-14 text-(--text-faint)">
             {displayEdges.length} liaison{displayEdges.length !== 1 ? "s" : ""}
             {clusters > 1 ? ` · ${clusters} cluster${clusters > 1 ? "s" : ""}` : ""}
           </p>
@@ -803,7 +689,7 @@ export function KGStage({ mode }: KGStageProps) {
 
       {/* Contenu principal */}
       {!loading && !error && displayNodes.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div className="flex flex-col gap-5">
           {/* Vue Graph ou Liste */}
           {viewMode === "graph" ? (
             <GraphView
@@ -834,30 +720,17 @@ export function KGStage({ mode }: KGStageProps) {
           </AnimatePresence>
 
           {/* Footer toggle */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "4px",
-              padding: "8px 0",
-            }}
-          >
+          <div className="flex justify-center gap-1 py-2">
             {(["graph", "list"] as ViewMode[]).map((m) => (
               <button
                 key={m}
                 type="button"
                 onClick={() => setViewMode(m)}
-                style={{
-                  padding: "6px 16px",
-                  borderRadius: "8px",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  cursor: "pointer",
-                  border: `1px solid ${viewMode === m ? "rgba(94,229,195,0.3)" : "rgba(255,255,255,0.08)"}`,
-                  background: viewMode === m ? "rgba(94,229,195,0.08)" : "transparent",
-                  color: viewMode === m ? "rgba(94,229,195,0.85)" : "rgba(255,255,255,0.4)",
-                  transition: "all 0.15s",
-                }}
+                className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border ${
+                  viewMode === m
+                    ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
+                    : "border-white/8 bg-transparent text-(--text-faint)"
+                }`}
               >
                 {m === "graph" ? "Graphe" : "Liste"}
               </button>

@@ -139,16 +139,7 @@ function doneCount(steps: BrowserStep[]): number {
 
 function DemoBanner() {
   return (
-    <div
-      className="t-9 font-mono uppercase tracking-wide"
-      style={{
-        alignSelf: "flex-start",
-        color: "var(--text-faint)",
-        background: "var(--surface-1)",
-        padding: "var(--space-1) var(--space-3)",
-        borderRadius: "var(--radius-pill, 9999px)",
-      }}
-    >
+    <div className="t-9 self-start font-mono uppercase tracking-wide text-(--text-faint) bg-(--surface-1) py-(--space-1) px-(--space-3) rounded-full">
       Démo · données fictives (dev)
     </div>
   );
@@ -174,22 +165,10 @@ function LoadingState() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-        padding: "40px 0",
-        color: "rgba(255,255,255,0.4)",
-        fontSize: "13px",
-      }}
+      className="flex items-center gap-2.5 py-10 text-(--text-ghost) t-13"
     >
       <motion.div
-        style={{
-          width: "6px",
-          height: "6px",
-          borderRadius: "50%",
-          background: "rgba(140,100,255,0.9)",
-        }}
+        className="size-1.5 rounded-full bg-(--accent-llm)/90"
         animate={{ opacity: [1, 0.3, 1] }}
         transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
       />
@@ -204,18 +183,9 @@ function ErrorState({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
+      className="px-[18px] py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur session</strong> —{" "}
-      {message}
+      <strong className="text-(--danger)/95 font-semibold">Erreur session</strong> — {message}
     </motion.div>
   );
 }
@@ -232,114 +202,53 @@ function SessionFrame({
   const isActive = sessionInfo?.status === "RUNNING" || sessionInfo?.status === "running";
 
   return (
-    <div
-      style={{
-        borderRadius: "14px",
-        overflow: "hidden",
-        border: "1px solid rgba(255,255,255,0.07)",
-        background: "rgba(255,255,255,0.02)",
-      }}
-    >
+    <div className="rounded-xl overflow-hidden border border-(--line-strong) bg-(--surface)">
       {/* Barre navigateur */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          padding: "10px 16px",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-          background: "rgba(255,255,255,0.03)",
-        }}
-      >
+      <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-(--line-strong) bg-(--bg-soft)">
         {/* Traffic lights */}
-        <div style={{ display: "flex", gap: "6px" }}>
+        <div className="flex gap-1.5">
           {(
             ["rgba(255,90,90,0.45)", "rgba(255,188,58,0.45)", "rgba(94,229,195,0.45)"] as const
           ).map((bg, i) => (
-            <span
-              key={i}
-              style={{ width: "10px", height: "10px", borderRadius: "50%", background: bg }}
-            />
+            <span key={i} className="size-2.5 rounded-full" style={{ background: bg }} />
           ))}
         </div>
 
         {/* URL pill */}
-        <div
-          style={{
-            flex: 1,
-            padding: "5px 12px",
-            borderRadius: "8px",
-            background: "rgba(255,255,255,0.05)",
-            fontSize: "12px",
-            color: "rgba(255,255,255,0.45)",
-            fontFamily: "monospace",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
+        <div className="flex-1 px-3 py-1.5 rounded-lg bg-(--surface-2) t-13 text-(--text-faint) font-mono truncate">
           🔒 {url || `session:${sessionId.slice(0, 8)}…`}
         </div>
 
         {/* Indicateur live */}
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <div className="flex items-center gap-1.5">
           <motion.div
+            className="size-[5px] rounded-full"
             style={{
-              width: "5px",
-              height: "5px",
-              borderRadius: "50%",
               background: isActive ? "rgba(140,100,255,0.9)" : "rgba(255,255,255,0.2)",
             }}
             animate={isActive ? { opacity: [1, 0.3, 1] } : { opacity: 1 }}
             transition={isActive ? { repeat: Infinity, duration: 1, ease: "easeInOut" } : {}}
           />
-          <span style={{ fontSize: "10px", color: "rgba(140,100,255,0.85)" }}>
+          <span className="t-10 text-(--accent-llm)/85">
             {isActive ? "Session active" : "Inactif"}
           </span>
         </div>
       </div>
 
       {/* Viewport — placeholder aspect-video, PAS d'iframe (XSS / cross-origin) */}
-      <div
-        style={{
-          aspectRatio: "16 / 9",
-          background: "rgba(0,0,0,0.2)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "10px",
-        }}
-      >
+      <div className="aspect-video bg-black/20 flex flex-col items-center justify-center gap-2.5">
         {isActive ? (
           <>
             <motion.div
-              style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                background: "rgba(140,100,255,0.75)",
-              }}
+              className="size-2 rounded-full bg-(--accent-llm)/75"
               animate={{ opacity: [1, 0.25, 1], scale: [1, 1.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
             />
-            <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.35)" }}>
-              Session Browserbase active
-            </span>
-            <span
-              style={{
-                fontSize: "11px",
-                color: "rgba(255,255,255,0.2)",
-                fontFamily: "monospace",
-              }}
-            >
-              {sessionId.slice(0, 16)}…
-            </span>
+            <span className="t-13 text-(--text-ghost)">Session Browserbase active</span>
+            <span className="t-11 text-(--text-decor-25) font-mono">{sessionId.slice(0, 16)}…</span>
           </>
         ) : (
-          <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.25)" }}>
-            Session inactive
-          </span>
+          <span className="t-13 text-(--text-decor-25)">Session inactive</span>
         )}
       </div>
     </div>
@@ -359,43 +268,28 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       initial="hidden"
       animate="visible"
       layout
+      className="flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] transition-[opacity,background] duration-300 ease-[ease]"
       style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "12px",
-        padding: "10px 14px",
-        borderRadius: "10px",
         background: isRunning ? "rgba(140,100,255,0.06)" : "transparent",
         border: isRunning ? "1px solid rgba(140,100,255,0.15)" : "1px solid rgba(255,255,255,0.04)",
         opacity: isPending ? 0.4 : 1,
-        transition: "opacity 0.3s ease, background 0.3s ease",
       }}
     >
       {/* Numéro / check */}
       <div
+        className="size-6 rounded-full flex items-center justify-center t-11 font-semibold shrink-0"
         style={{
-          width: "24px",
-          height: "24px",
-          borderRadius: "50%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           background: stepDotColor(step.status),
           color: isDone || isRunning || isError ? "rgba(0,0,0,0.85)" : "rgba(255,255,255,0.3)",
-          fontSize: "11px",
-          fontWeight: 600,
-          flexShrink: 0,
         }}
       >
         {isDone ? "✓" : isError ? "✕" : isRunning ? "…" : index + 1}
       </div>
 
       {/* Label */}
-      <div style={{ flex: 1, fontSize: "13px", color: "rgba(255,255,255,0.8)", lineHeight: 1.45 }}>
-        {step.label}
-      </div>
+      <div className="flex-1 t-13 text-(--text-soft) leading-[1.45]">{step.label}</div>
 
-      {/* Badge état */}
+      {/* Badge état — ternaires imbriquées 4 niveaux, bloc préservé inline */}
       <div
         style={{
           padding: "3px 9px",
@@ -426,27 +320,16 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
 
 function ModeToggle({ auto, onToggle }: { auto: boolean; onToggle: () => void }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-      <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)" }}>
+    <div className="flex items-center gap-2">
+      <span className="t-13 text-(--text-ghost)">
         {auto ? "Mode automatique" : "Mode pas-à-pas"}
       </span>
       <button
         type="button"
         onClick={onToggle}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "6px",
-          padding: "5px 12px",
-          borderRadius: "8px",
-          border: "1px solid rgba(255,255,255,0.1)",
-          background: auto ? "rgba(140,100,255,0.12)" : "rgba(255,255,255,0.05)",
-          color: auto ? "rgba(140,100,255,0.9)" : "rgba(255,255,255,0.45)",
-          fontSize: "12px",
-          fontWeight: 500,
-          cursor: "pointer",
-          transition: "background 0.2s ease, color 0.2s ease",
-        }}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-(--line) t-13 font-medium cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-(--accent-llm)/50 focus-visible:outline-none ${
+          auto ? "bg-(--accent-llm)/12 text-(--accent-llm)" : "bg-white/5 text-(--text-faint)"
+        }`}
       >
         {auto ? "Auto" : "Pas-à-pas"}
       </button>
@@ -645,23 +528,15 @@ export function BrowserStage({ mode }: { mode: string }) {
       {demoActive && <DemoBanner />}
 
       {/* Header */}
-      <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            color: "rgba(255,255,255,0.3)",
-            letterSpacing: ".04em",
-          }}
-        >
+      <header className="flex flex-col gap-2">
+        <p className="t-13 text-(--text-decor-25) tracking-[.04em]">
           Browserbase · Stagehand · navigateur cloud
         </p>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-            <h1 style={{ fontSize: "28px", fontWeight: 500, letterSpacing: "-.02em" }}>
-              Session active
-            </h1>
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-1">
+            <h1 className="t-28 font-medium tracking-[-.02em]">Session active</h1>
             {STAGE_REGISTRY.browser.tagline && (
-              <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+              <p className="t-13 text-(--text-ghost) leading-[1.5]">
                 {STAGE_REGISTRY.browser.tagline}
               </p>
             )}
@@ -682,15 +557,8 @@ export function BrowserStage({ mode }: { mode: string }) {
       )}
 
       {/* Steps Stagehand */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        <p
-          style={{
-            fontSize: "11px",
-            color: "rgba(255,255,255,0.3)",
-            marginBottom: "8px",
-            letterSpacing: ".04em",
-          }}
-        >
+      <div className="flex flex-col gap-1">
+        <p className="t-11 text-(--text-decor-25) mb-2 tracking-[.04em]">
           {steps.length > 0
             ? `Étapes Stagehand — ${doneCount(steps)} / ${steps.length}`
             : "Étapes Stagehand — en attente de données"}
@@ -702,7 +570,7 @@ export function BrowserStage({ mode }: { mode: string }) {
             ))}
           </AnimatePresence>
         ) : (
-          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.25)", padding: "8px 0" }}>
+          <p className="t-13 text-(--text-decor-25) py-2">
             Les étapes s&apos;afficheront ici quand la session Browserbase transmettra des
             événements.
           </p>
