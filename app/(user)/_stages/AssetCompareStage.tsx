@@ -117,7 +117,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
 
   return (
     <div className="w-full h-[140px] rounded-[10px] bg-(--surface) border border-(--line-strong) flex items-center justify-center">
-      <span className="text-[11px] text-(--text-decor-25)">{asset.kind}</span>
+      <span className="t-11 text-(--text-decor-25)">{asset.kind}</span>
     </div>
   );
 }
@@ -125,8 +125,8 @@ function AssetPreview({ asset }: { asset: Asset }) {
 function MetaChip({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5 px-[10px] py-[6px] bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
-      <span className="text-[10px] text-(--text-decor-25) font-medium">{label}</span>
-      <span className="truncate text-[12px] text-(--text-muted)" title={value}>
+      <span className="t-10 text-(--text-decor-25) font-medium">{label}</span>
+      <span className="truncate t-13 text-(--text-muted)" title={value}>
         {value}
       </span>
     </div>
@@ -147,28 +147,24 @@ function AssetPane({
   return (
     <div className="flex-[0_0_calc(50%-8px)] min-w-0 flex flex-col gap-3 p-[18px] bg-(--surface-2) border border-(--line-strong) rounded-2xl">
       <header className="flex items-center justify-between gap-2">
-        <span className="text-[11px] font-semibold text-(--text-faint)">{label}</span>
+        <span className="t-11 font-semibold text-(--text-faint)">{label}</span>
         {asset && (
-          <span className="text-[10px] text-(--text-decor-25)">
-            {formatCreatedAt(asset.createdAt)}
-          </span>
+          <span className="t-10 text-(--text-decor-25)">{formatCreatedAt(asset.createdAt)}</span>
         )}
       </header>
 
       {isError || asset === null ? (
-        <p className="text-[12px] text-(--danger)/70">Asset introuvable</p>
+        <p className="t-13 text-(--danger)/70">Asset introuvable</p>
       ) : (
         <>
-          <h3 className="truncate text-[14px] font-semibold text-(--text-soft)" title={asset.title}>
+          <h3 className="truncate t-14 font-semibold text-(--text-soft)" title={asset.title}>
             {asset.title}
           </h3>
 
           <AssetPreview asset={asset} />
 
           {asset.summary && (
-            <p className="text-[12px] text-(--text-ghost) leading-[1.55] line-clamp-3">
-              {asset.summary}
-            </p>
+            <p className="t-13 text-(--text-ghost) leading-[1.55] line-clamp-3">{asset.summary}</p>
           )}
 
           <div className="flex flex-wrap gap-1.5">
@@ -249,7 +245,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
             draggable={false}
           />
         ) : (
-          <span className="text-[12px] text-(--text-decor-25)">{assetA?.title ?? "Gauche"}</span>
+          <span className="t-13 text-(--text-decor-25)">{assetA?.title ?? "Gauche"}</span>
         )}
       </div>
 
@@ -258,7 +254,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
         className="absolute inset-0 flex items-center justify-center"
         style={{
           clipPath: `inset(0 0 0 ${sliderX}%)`,
-          background: hasImages ? "transparent" : "rgba(255,255,255,0.03)",
+          background: hasImages ? "transparent" : "var(--surface-1)",
         }}
       >
         {hasImages ? (
@@ -270,7 +266,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
             draggable={false}
           />
         ) : (
-          <span className="text-[12px] text-(--text-decor-25)">{assetB?.title ?? "Droite"}</span>
+          <span className="t-13 text-(--text-decor-25)">{assetB?.title ?? "Droite"}</span>
         )}
       </div>
 
@@ -282,7 +278,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
 
       {/* Poignée centrale */}
       <div
-        className="absolute top-1/2 w-[28px] h-[28px] rounded-full bg-white/90 border-2 border-white/50 flex items-center justify-center pointer-events-none shadow-[0_2px_8px_rgba(0,0,0,0.4)] -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 w-[28px] h-[28px] rounded-full bg-white/90 border-2 border-white/50 flex items-center justify-center pointer-events-none shadow-[0_2px_8px_rgb(0_0_0/0.4)] -translate-x-1/2 -translate-y-1/2"
         style={{ left: `${sliderX}%` }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -296,10 +292,10 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
       </div>
 
       {/* Labels latéraux */}
-      <div className="absolute bottom-2 left-[10px] text-[10px] font-semibold text-(--text-muted) bg-black/50 px-2 py-0.5 rounded-[6px] pointer-events-none">
+      <div className="absolute bottom-2 left-[10px] t-10 font-semibold text-(--text-muted) bg-black/50 px-2 py-0.5 rounded-[6px] pointer-events-none">
         Gauche
       </div>
-      <div className="absolute bottom-2 right-[10px] text-[10px] font-semibold text-(--text-muted) bg-black/50 px-2 py-0.5 rounded-[6px] pointer-events-none">
+      <div className="absolute bottom-2 right-[10px] t-10 font-semibold text-(--text-muted) bg-black/50 px-2 py-0.5 rounded-[6px] pointer-events-none">
         Droite
       </div>
     </div>
@@ -459,8 +455,8 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
       {/* En-tête */}
       <div className="flex items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h2 className="text-[22px] font-semibold text-(--text-soft)">Comparer</h2>
-          <p className="text-[13px] text-(--text-ghost)">
+          <h2 className="t-20 font-semibold text-(--text-soft)">Comparer</h2>
+          <p className="t-13 text-(--text-ghost)">
             2 assets — {viewMode === "split" ? "vue divisée" : "vue superposée"}
           </p>
         </div>
@@ -494,7 +490,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
             onClick={() => setViewMode(v)}
             aria-pressed={viewMode === v}
             className={[
-              "px-4 py-[5px] rounded-full border text-[12px] font-medium cursor-pointer transition-all duration-200 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
+              "px-4 py-[5px] rounded-full border t-13 font-medium cursor-pointer transition-all duration-200 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
               viewMode === v
                 ? "border-white/28 bg-white/8 text-(--text-soft)"
                 : "border-white/10 bg-transparent text-(--text-ghost)",

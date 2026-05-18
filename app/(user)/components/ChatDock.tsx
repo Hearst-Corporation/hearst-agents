@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
+import { useConversationHistory } from "@/hooks/use-conversation-history";
 import type { Message } from "@/lib/core/types";
 import { getAllServices } from "@/lib/integrations/catalog";
 import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
@@ -139,6 +140,8 @@ export function ChatDock() {
   const addThread = useNavigationStore((s) => s.addThread);
   const updateMessageInThread = useNavigationStore((s) => s.updateMessageInThread);
   const updateThreadName = useNavigationStore((s) => s.updateThreadName);
+
+  useConversationHistory(activeThreadId);
 
   const addEvent = useRuntimeStore((s) => s.addEvent);
   const startRun = useRuntimeStore((s) => s.startRun);

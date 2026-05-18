@@ -410,13 +410,14 @@ export default function MetricsPage() {
                       <WebhookStatusBadge status={wh.lastStatus} />
                     </span>
                     <span>
-                      <button
+                      <Action
+                        variant="ghost"
+                        size="sm"
                         onClick={() => handleTestWebhook(wh.id)}
                         disabled={testingWebhook === wh.id}
-                        className="t-10 px-(--space-3) py-(--space-1) rounded-(--radius-sm) border border-(--border-shell) text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors disabled:opacity-40"
                       >
                         {testingWebhook === wh.id ? "…" : "Tester"}
-                      </button>
+                      </Action>
                     </span>
                   </div>
                 ))}

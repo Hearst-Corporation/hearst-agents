@@ -239,7 +239,7 @@ function ErrorBanner({ error }: { error: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 text-[13px] leading-[1.55]"
+      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
     </motion.div>
@@ -310,13 +310,13 @@ function MissionCard({
     >
       {/* Ligne principale : nom + badge */}
       <div className="flex items-center gap-3">
-        <span className="text-[15px] font-medium text-(--text-soft) flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+        <span className="t-15 font-medium text-(--text-soft) flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
           {mission.name}
         </span>
 
         {/* Badge statut — JS-computed colors kept in style */}
         <span
-          className="inline-flex items-center gap-[5px] text-[11px] px-[9px] py-[3px] rounded-full shrink-0"
+          className="inline-flex items-center gap-[5px] t-11 px-[9px] py-[3px] rounded-full shrink-0"
           style={{
             background: badge.bg,
             border: badge.border,
@@ -335,12 +335,12 @@ function MissionCard({
       </div>
 
       {/* Input preview */}
-      <p className="text-[13px] text-(--text-faint) leading-[1.5] overflow-hidden text-ellipsis whitespace-nowrap">
+      <p className="t-13 text-(--text-faint) leading-[1.5] overflow-hidden text-ellipsis whitespace-nowrap">
         {mission.input.slice(0, 120)}
       </p>
 
       {/* Meta : date + schedule */}
-      <div className="flex items-center gap-4 text-[11px] text-(--text-decor-25)">
+      <div className="flex items-center gap-4 t-11 text-(--text-decor-25)">
         <span>{formatDate(mission.createdAt)}</span>
         <span className="text-white/15">·</span>
         <span>{humanCron(mission.schedule)}</span>
@@ -425,10 +425,10 @@ export function MissionListStage({ mode }: { mode: string }) {
       {/* Header */}
       <header className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
-          <p className="text-[12px] text-(--text-ghost)">Toutes les demandes</p>
-          <h1 className="text-[32px] font-medium tracking-tight text-(--text-soft)">Demandes</h1>
+          <p className="t-13 text-(--text-ghost)">Toutes les demandes</p>
+          <h1 className="t-30 font-medium tracking-tight text-(--text-soft)">Demandes</h1>
           {STAGE_REGISTRY.mission.tagline && (
-            <p className="text-[13px] text-(--text-faint) leading-[1.5]">
+            <p className="t-13 text-(--text-faint) leading-[1.5]">
               {STAGE_REGISTRY.mission.tagline}
             </p>
           )}
@@ -437,7 +437,7 @@ export function MissionListStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={handleNewMission}
-          className="px-4 py-2 rounded-[10px] bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) text-[13px] font-medium cursor-pointer transition-[background] duration-150"
+          className="px-4 py-2 rounded-[10px] bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-150"
         >
           Nouvelle demande
         </button>

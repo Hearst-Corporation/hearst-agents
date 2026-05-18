@@ -279,7 +279,7 @@ function ErrorBanner({ error }: { error: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 text-[13px] leading-[1.55]"
+      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
     </motion.div>
@@ -316,11 +316,11 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
 
   return (
     <header className="flex flex-col gap-2">
-      <p className="text-[12px] text-(--text-ghost)">Demande active</p>
-      <h1 className="text-[32px] font-medium tracking-tight flex items-center gap-[14px]">
+      <p className="t-13 text-(--text-ghost)">Demande active</p>
+      <h1 className="t-30 font-medium tracking-tight flex items-center gap-[14px]">
         {mission.name}
         <span
-          className="inline-flex items-center gap-1.5 text-[11px] px-[9px] py-[3px] rounded-full"
+          className="inline-flex items-center gap-1.5 t-11 px-[9px] py-[3px] rounded-full"
           style={{
             background: badgeBg,
             border: badgeBorder,
@@ -337,7 +337,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
           {status}
         </span>
       </h1>
-      <p className="text-[14px] text-(--text-faint)">{mission.input.slice(0, 120)}</p>
+      <p className="t-14 text-(--text-faint)">{mission.input.slice(0, 120)}</p>
     </header>
   );
 }
@@ -550,7 +550,7 @@ export function MissionStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={() => setMode({ mode: "mission" })}
-          className="inline-flex items-center gap-1.5 text-[13px] text-(--text-faint) hover:text-(--text-soft) bg-transparent border-0 cursor-pointer p-0 -mb-2 transition-colors duration-150"
+          className="inline-flex items-center gap-1.5 t-13 text-(--text-faint) hover:text-(--text-soft) bg-transparent border-0 cursor-pointer p-0 -mb-2 transition-colors duration-150"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path
