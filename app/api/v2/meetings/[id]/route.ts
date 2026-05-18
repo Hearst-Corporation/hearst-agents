@@ -8,6 +8,7 @@
  */
 
 import { type NextRequest, NextResponse } from "next/server";
+import { loadAssetById } from "@/lib/assets/types";
 import { extractActionItems } from "@/lib/capabilities/providers/deepgram";
 import {
   deleteBot,
@@ -17,12 +18,54 @@ import {
   RecallAiUnavailableError,
   stopBot,
 } from "@/lib/capabilities/providers/recall-ai";
+import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { redactId } from "@/lib/utils/redact";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type ActionItem = { action: string; owner?: string; deadline?: string };
+
+/**
+ * IDOR guard (P1-1) — vérifie que le meeting (botId Recall == asset.id,
+ * persisté par POST /api/v2/meetings/start) appartient bien au scope appelant.
+ *
+ * Le botId est passé tel quel à Recall ; sans ce check n'importe quel user
+ * authentifié pourrait lire le transcript/vidéo d'un autre tenant ou tuer
+ * son bot. On charge l'asset et on exige tenantId ET userId identiques.
+ *
+ * Retour `false` => le caller doit répondre 404 (PAS 403 : éviter de
+ * confirmer l'existence du botId — info disclosure).
+ */
+async function verifyMeetingOwnership(
+  id: string,
+  scope: { tenantId: string; userId: string },
+  action: string,
+): Promise<boolean> {
+  const asset = await loadAssetById(id);
+
+  const ownerMatch =
+    !!asset &&
+    asset.provenance.tenantId === scope.tenantId &&
+    asset.provenance.userId === scope.userId;
+
+  if (!ownerMatch) {
+    logger.warn(
+      {
+        event: "idor_attempt",
+        action,
+        meetingId: id,
+        userId: redactId(scope.userId),
+        tenantId: redactId(scope.tenantId),
+        assetFound: !!asset,
+      },
+      "Meeting IDOR attempt blocked",
+    );
+  }
+
+  return ownerMatch;
+}
 
 async function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
   return Promise.race<T>([p, new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms))]);
@@ -43,6 +86,12 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string
 
   if (!id) {
     return NextResponse.json({ error: "meeting_id_required" }, { status: 400 });
+  }
+
+  // IDOR guard AVANT tout appel Recall — asset introuvable ou cross-tenant
+  // => 404 (pas 403, anti info-disclosure).
+  if (!(await verifyMeetingOwnership(id, scope, "read"))) {
+    return NextResponse.json({ error: "meeting_not_found" }, { status: 404 });
   }
 
   if (!isRecallAiConfigured()) {
@@ -109,6 +158,12 @@ export async function DELETE(_req: NextRequest, ctx: { params: Promise<{ id: str
 
   if (!id) {
     return NextResponse.json({ error: "meeting_id_required" }, { status: 400 });
+  }
+
+  // IDOR guard AVANT tout appel Recall — empêche un autre tenant/user de
+  // stopper/supprimer un bot qui ne lui appartient pas. 404 anti-disclosure.
+  if (!(await verifyMeetingOwnership(id, scope, "delete"))) {
+    return NextResponse.json({ error: "meeting_not_found" }, { status: 404 });
   }
 
   if (!isRecallAiConfigured()) {
