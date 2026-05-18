@@ -14,7 +14,7 @@ export default function AdminTopbar({ onMenuClick, env }: Props) {
   const current = activeItem(pathname ?? "");
 
   return (
-    <header className="shrink-0 h-(--height-topbar) flex items-center gap-(--space-3) px-(--space-5) border-b border-line bg-surface relative z-10">
+    <header className="shrink-0 h-(--height-topbar) flex items-center gap-(--space-3) px-(--space-5) border-b border-line bg-surface relative z-sticky">
       <button
         type="button"
         onClick={onMenuClick}

@@ -71,9 +71,9 @@ export function ThemePicker({ themes }: Props) {
               type="button"
               onClick={() => pick(t.slug)}
               aria-pressed={isActive}
-              className={`group relative text-left bg-(--bg-elev) rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${
+              className={`group relative text-left bg-(--bg-elev) rounded-2xl overflow-hidden border transition-all duration-slow hover:-translate-y-0.5 ${
                 isActive
-                  ? "border-(--accent) shadow-[0_0_0_1px_var(--accent)]"
+                  ? "border-(--accent) ring-1 ring-(--accent)"
                   : "border-(--border) hover:border-(--text-muted)"
               }`}
             >

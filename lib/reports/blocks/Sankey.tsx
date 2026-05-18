@@ -41,7 +41,7 @@ export function Sankey({ nodes, links, height = 280 }: SankeyProps) {
   if (!nodes || nodes.length === 0 || !links || links.length === 0) {
     return (
       <div
-        className="t-9 font-mono uppercase tracking-[0.2em] text-[var(--text-faint)]"
+        className="t-9 font-mono uppercase tracking-display text-[var(--text-faint)]"
         style={{ padding: "var(--space-6)" }}
         role="img"
         aria-label="Sankey vide"

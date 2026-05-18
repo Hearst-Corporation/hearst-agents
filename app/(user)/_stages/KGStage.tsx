@@ -304,7 +304,7 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
                 onSelectNode(isSelected ? null : node.id);
               }
             }}
-            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] cursor-pointer transition-[background,border-color] border ${
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-card cursor-pointer transition-[background,border-color] border ${
               isSelected
                 ? "bg-(--accent-teal)/7 border-(--accent-teal)/20"
                 : "bg-(--surface-1) border-(--line-strong)"
@@ -399,7 +399,7 @@ function DetailPanel({
           <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
               <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
-                <span className="text-(--text-ghost) min-w-[80px]">{k}</span>
+                <span className="text-(--text-ghost) min-w-20">{k}</span>
                 <span className="text-(--text-muted) break-all">
                   {String(v).length > 80 ? `${String(v).slice(0, 77)}…` : String(v)}
                 </span>
@@ -520,7 +520,7 @@ export function KGStage({ mode }: KGStageProps) {
       </header>
 
       {/* Loading skeleton */}
-      {loading && <div className="h-[300px] animate-pulse rounded-xl bg-white/5" />}
+      {loading && <div className="h-75 animate-pulse rounded-xl bg-white/5" />}
 
       {/* Error */}
       {!loading && error && <ErrorBanner message={error} />}

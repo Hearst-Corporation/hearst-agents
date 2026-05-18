@@ -87,8 +87,12 @@ function UserAvatar() {
   }
   return (
     <div
-      className="flex size-9 items-center justify-center rounded-full bg-white/15 text-sm text-white"
-      style={{ boxShadow: "var(--shadow-inset-highlight)" }}
+      className="flex size-9 items-center justify-center rounded-full text-sm"
+      style={{
+        background: "var(--bg-elev, var(--ct-surface-2))",
+        color: "var(--text, var(--ct-text-strong))",
+        boxShadow: "var(--shadow-inset-highlight)",
+      }}
       aria-label={`Session ${name}`}
       title={name}
     >
@@ -121,8 +125,8 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
       aria-label={tooltip}
       aria-current={active ? "page" : undefined}
       title={tooltip}
-      className={`group relative flex size-11 items-center justify-center rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] ${
-        active ? "text-white" : "text-(--text-ghost) hover:text-(--text-soft)"
+      className={`group relative flex size-11 items-center justify-center rounded-xl transition-all duration-slow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] ${
+        active ? "text-(--ct-text-strong)" : "text-(--text-ghost) hover:text-(--text-soft)"
       }`}
       style={{ background: active ? "var(--surface-1)" : "transparent" }}
     >
@@ -183,7 +187,7 @@ export function LeftRail() {
   const commandeurOpen = useStageStore((s) => s.commandeurOpen);
 
   return (
-    <aside aria-label="Navigation principale" className="relative z-20 h-full w-[88px] shrink-0">
+    <aside aria-label="Navigation principale" className="relative z-rail h-full w-[88px] shrink-0">
       <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center border-y-0 border-l-0 py-5">
         {/* Brand logo */}
         <div className="mb-3 flex size-8 items-center justify-center" aria-hidden>

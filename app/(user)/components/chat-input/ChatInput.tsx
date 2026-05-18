@@ -137,7 +137,7 @@ export function ChatInput({
       className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out] flex justify-center pb-12"
     >
       <div
-        className="relative flex items-center group transition-colors duration-500 border-b border-white/10 focus-within:border-white/30"
+        className="relative flex items-center group transition-colors duration-long border-b border-white/10 focus-within:border-white/30"
         style={{
           background: "transparent",
           padding: "var(--space-2) 0",

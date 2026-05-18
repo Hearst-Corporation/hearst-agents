@@ -239,7 +239,7 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       initial="hidden"
       animate="visible"
       layout
-      className="flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] transition-[opacity,background] duration-300 ease-[ease]"
+      className="flex items-center gap-3 px-3.5 py-2.5 rounded-card transition-[opacity,background] duration-emphasis ease-standard"
       style={{
         background: isRunning
           ? "color-mix(in srgb, var(--accent-llm) 6%, transparent)"

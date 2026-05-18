@@ -46,7 +46,13 @@ export type ShellProps = {
 
 export function Shell({ centerContent, railTitle, railItems, composer }: ShellProps) {
   return (
-    <div className="perspective-scene relative flex h-screen w-screen overflow-hidden bg-black text-white">
+    <div
+      className="perspective-scene relative flex h-screen w-screen overflow-hidden"
+      style={{
+        background: "var(--bg, var(--ct-bg-deep))",
+        color: "var(--text, var(--ct-text-primary))",
+      }}
+    >
       <AmbientLayers />
       <LeftRail />
 
@@ -62,7 +68,7 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
           {/* Fade noir bas — masque le texte qui défile sous le composer */}
           <div
             aria-hidden
-            className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-32"
+            className="pointer-events-none absolute right-0 bottom-0 left-0 z-sticky h-32"
             style={{
               background:
                 "linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 40%, transparent 100%)",
@@ -72,7 +78,7 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
           {/* Composer chat — remplace le FloatingFooter (P8) */}
           {composer && (
             <div
-              className="absolute right-0 bottom-0 left-0 z-25 pointer-events-none flex justify-center"
+              className="absolute right-0 bottom-0 left-0 z-pulsebar pointer-events-none flex justify-center"
               style={{
                 paddingBottom: "var(--space-6)",
               }}

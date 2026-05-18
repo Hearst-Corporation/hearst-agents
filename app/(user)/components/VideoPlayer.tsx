@@ -157,7 +157,7 @@ export function VideoPlayer({ variant }: VideoPlayerProps) {
               type="button"
               onClick={togglePiP}
               title="Afficher en Picture-in-Picture"
-              className={`t-11 transition-colors duration-150 ${
+              className={`t-11 transition-colors duration-base ${
                 isPiP ? "text-(--accent-teal)" : "text-(--text-faint) hover:text-(--accent-teal)"
               }`}
             >

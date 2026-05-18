@@ -248,7 +248,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
       <h1 className="t-30 font-medium tracking-tight flex items-center gap-3.5">
         {mission.name}
         <span
-          className="inline-flex items-center gap-1.5 t-11 px-[9px] py-[3px] rounded-full"
+          className="inline-flex items-center gap-1.5 t-11 px-2.5 py-1 rounded-full"
           style={{
             background: badgeBg,
             border: badgeBorder,
@@ -257,7 +257,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
         >
           {isRunning && (
             <motion.span
-              className="w-[5px] h-[5px] rounded-full bg-(--accent-teal)/85 inline-block"
+              className="size-1.5 rounded-full bg-(--accent-teal)/85 inline-block"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
             />
@@ -474,7 +474,7 @@ export function MissionStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={() => setMode({ mode: "mission" })}
-          className="inline-flex items-center gap-1.5 t-13 text-(--text-faint) hover:text-(--text-soft) bg-transparent border-0 cursor-pointer p-0 -mb-2 transition-colors duration-150"
+          className="inline-flex items-center gap-1.5 t-13 text-(--text-faint) hover:text-(--text-soft) bg-transparent border-0 cursor-pointer p-0 -mb-2 transition-colors duration-base"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path

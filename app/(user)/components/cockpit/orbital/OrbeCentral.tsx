@@ -53,7 +53,7 @@ export function OrbeCentral() {
           height: 200,
           borderRadius: "50%",
           position: "relative",
-          zIndex: 1,
+          zIndex: "var(--z-noise)",
         }}
       />
 

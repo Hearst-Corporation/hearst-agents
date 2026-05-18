@@ -79,7 +79,7 @@ function ExportMenu({ reportId, title }: { reportId: string; title?: string }) {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-10"
+          className="absolute right-0 z-dropdown"
           style={{
             top: "calc(100% + var(--space-2))",
             background: "var(--card-flat-bg)",
@@ -482,7 +482,7 @@ function PopoverShell({
       role="dialog"
       aria-modal="true"
       aria-label={title}
-      className="absolute right-0 z-20"
+      className="absolute right-0 z-modal"
       style={{
         top: "calc(100% + var(--space-3))",
         background: "var(--card-flat-bg)",

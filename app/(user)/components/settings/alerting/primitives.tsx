@@ -247,7 +247,7 @@ export function SignalBadge({ type }: { type: keyof typeof SIGNAL_SEVERITY | "*"
         color: c.color,
         border: `1px solid ${c.border}`,
         borderRadius: "var(--radius-xs)",
-        padding: "1px var(--space-1)",
+        padding: "var(--space-0-5) var(--space-1)",
         letterSpacing: "var(--tracking-caption)",
       }}
     >

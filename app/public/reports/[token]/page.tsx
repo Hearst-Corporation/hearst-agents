@@ -133,7 +133,7 @@ function BrandedHeader() {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: 10,
+        zIndex: "var(--z-sticky)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

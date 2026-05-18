@@ -217,7 +217,7 @@ function MissionCard({
           onClick();
         }
       }}
-      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-white/7 border border-(--line-strong) cursor-pointer transition-[background] duration-150 flex flex-col gap-2"
+      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-white/7 border border-(--line-strong) cursor-pointer transition-[background] duration-base flex flex-col gap-2"
     >
       {/* Ligne principale : nom + badge */}
       <div className="flex items-center gap-3">
@@ -227,7 +227,7 @@ function MissionCard({
 
         {/* Badge statut — JS-computed colors kept in style */}
         <span
-          className="inline-flex items-center gap-[5px] t-11 px-[9px] py-[3px] rounded-full shrink-0"
+          className="inline-flex items-center gap-1 t-11 px-2.5 py-1 rounded-full shrink-0"
           style={{
             background: badge.bg,
             border: badge.border,
@@ -236,7 +236,7 @@ function MissionCard({
         >
           {badge.pulse && (
             <motion.span
-              className="w-[5px] h-[5px] rounded-full bg-(--accent-teal)/85 inline-block"
+              className="size-1.5 rounded-full bg-(--accent-teal)/85 inline-block"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
             />
@@ -342,7 +342,7 @@ export function MissionListStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={handleNewMission}
-          className="px-4 py-2 rounded-[10px] bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-150"
+          className="px-4 py-2 rounded-card bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-base"
         >
           Nouvelle demande
         </button>

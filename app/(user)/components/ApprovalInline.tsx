@@ -108,7 +108,7 @@ export function ApprovalInline({
       {prominent && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-40 pointer-events-none transition-opacity"
+          className="fixed inset-0 z-backdrop pointer-events-none transition-opacity"
           style={{
             background: isLocked
               ? "color-mix(in srgb, var(--bg) 50%, transparent)"
@@ -122,7 +122,7 @@ export function ApprovalInline({
         ref={cardRef}
         role="region"
         aria-labelledby={labelId}
-        className={`border-l-2 border-(--accent-teal) ${prominent ? "relative z-50" : ""}`}
+        className={`border-l-2 border-(--accent-teal) ${prominent ? "relative z-modal" : ""}`}
         style={{
           background: "var(--accent-teal-surface)",
           padding: "var(--space-3) var(--space-4)",

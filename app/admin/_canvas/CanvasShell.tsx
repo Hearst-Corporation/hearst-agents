@@ -114,7 +114,7 @@ export default function CanvasShell() {
       {/* Contenu principal — masqué sous lg */}
       <div className="hidden lg:flex flex-col flex-1 min-h-0 overflow-hidden">
         {/* Action strip */}
-        <header className="flex items-center justify-between gap-(--space-4) px-(--space-6) py-(--space-2) border-b border-line bg-surface shrink-0 relative z-20">
+        <header className="flex items-center justify-between gap-(--space-4) px-(--space-6) py-(--space-2) border-b border-line bg-surface shrink-0 relative z-sticky">
           <span className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint truncate">
             {statusText}
           </span>
@@ -171,7 +171,7 @@ export default function CanvasShell() {
               <FlowCanvas />
 
               {showIdleHint && (
-                <div className="absolute top-(--space-8) left-1/2 -translate-x-1/2 pointer-events-none z-10">
+                <div className="absolute top-(--space-8) left-1/2 -translate-x-1/2 pointer-events-none z-dropdown">
                   <div className="whitespace-nowrap rounded-(--radius-pill) border border-(--accent-teal)/35 bg-(--surface)/95 backdrop-blur-md px-(--space-5) py-(--space-2) t-11 text-(--accent-teal) shadow-(--shadow-md)">
                     Active le live ↑ · clique un stage pour sa fiche
                   </div>

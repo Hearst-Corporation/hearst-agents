@@ -45,7 +45,7 @@ export function Radar({ axes, series, height = 320, rings = 4 }: RadarProps) {
   if (!axes || axes.length === 0 || !series || series.length === 0) {
     return (
       <div
-        className="t-9 font-mono uppercase tracking-[0.2em] text-[var(--text-faint)]"
+        className="t-9 font-mono uppercase tracking-display text-[var(--text-faint)]"
         style={{ padding: "var(--space-6)" }}
         role="img"
         aria-label="Radar vide"

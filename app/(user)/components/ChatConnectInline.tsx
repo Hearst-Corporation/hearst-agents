@@ -120,7 +120,7 @@ export function ChatConnectInline() {
         <span className="text-text-ghost">·</span>
         <span className="text-text-faint">{request.app}</span>
       </div>
-      <p className="t-13 text-text-soft leading-[1.5] mb-3">{request.reason}</p>
+      <p className="t-13 text-text-soft leading-body-tight mb-3">{request.reason}</p>
 
       {lastError && (
         <div className="mb-3 border border-(--danger)/40 bg-(--danger)/[0.06] px-3 py-2 t-11 text-(--danger)">
@@ -131,7 +131,7 @@ export function ChatConnectInline() {
                 ? "Auth config manquante"
                 : "Échec"}
           </div>
-          <div className="text-text-soft leading-[1.45]">{lastError.message}</div>
+          <div className="text-text-soft leading-base">{lastError.message}</div>
           <a
             href={`https://app.composio.dev/app/${encodeURIComponent(request.app)}`}
             target="_blank"

@@ -49,7 +49,7 @@ export function Bar({
   if (!data || data.length === 0) {
     return (
       <div
-        className="t-9 font-mono uppercase tracking-[0.2em] text-[var(--text-faint)]"
+        className="t-9 font-mono uppercase tracking-display text-[var(--text-faint)]"
         style={{ padding: "var(--space-6)" }}
       >
         Aucune donnée

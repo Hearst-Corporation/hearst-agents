@@ -148,7 +148,7 @@ export function ProviderChip({
           role="tooltip"
           // max-w borne le tooltip à la viewport pour éviter overflow horizontal
           // quand le chip est près du bord droit (collision detection minimaliste, sans JS).
-          className="absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 max-w-[min(calc(100vw-var(--space-8)),20rem)] whitespace-nowrap overflow-hidden text-ellipsis rounded-md border border-(--border-shell) bg-[var(--rail)] px-2 py-1 t-9 font-mono text-text-muted shadow-[var(--shadow-card)]"
+          className="absolute left-1/2 top-full z-dropdown mt-1 -translate-x-1/2 max-w-[min(calc(100vw-var(--space-8)),20rem)] whitespace-nowrap overflow-hidden text-ellipsis rounded-md border border-(--border-shell) bg-rail px-2 py-1 t-9 font-mono text-text-muted shadow-[var(--shadow-card)]"
         >
           <span className="text-text">{displayLabel}</span>
           <span className="ml-2">⌛ {formatLatency(latencyMs)}</span>

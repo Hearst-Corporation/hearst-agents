@@ -75,12 +75,12 @@ function HubModeStyles() {
       .vision-btn-glass {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        background: rgba(255,255,255,0.08) !important;
+        background: var(--border-input) !important;
       }
       .orbital-chip {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        background: rgba(255,255,255,0.06) !important;
+        background: var(--line-strong) !important;
       }
       .halo-core-badge[data-mode="dark"] {
         backdrop-filter: none !important;
@@ -89,7 +89,7 @@ function HubModeStyles() {
       .ghost-overlay-backdrop {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        background: rgba(10,10,10,0.85) !important;
+        background: color-mix(in srgb, var(--mat-400) 85%, transparent) !important;
       }
       .kg-chip {
         backdrop-filter: none !important;
@@ -107,7 +107,13 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
   useGlobalHotkeys();
   return (
     <SessionProvider>
-      <div className="h-screen w-full overflow-hidden bg-black text-white antialiased">
+      <div
+        className="h-screen w-full overflow-hidden antialiased"
+        style={{
+          background: "var(--bg, var(--ct-bg-deep))",
+          color: "var(--text, var(--ct-text-primary))",
+        }}
+      >
         {children}
         <Commandeur />
         <VideoQuickLaunch />

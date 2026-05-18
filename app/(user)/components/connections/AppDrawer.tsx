@@ -45,7 +45,7 @@ export function AppDrawer({
   return (
     <>
       <div
-        className="fixed inset-0 z-40"
+        className="fixed inset-0 z-backdrop"
         style={{ background: "var(--overlay-scrim)" }}
         onClick={onClose}
         aria-hidden
@@ -54,7 +54,7 @@ export function AppDrawer({
         role="dialog"
         aria-modal="true"
         aria-label={app.name}
-        className="fixed right-0 top-0 bottom-0 w-full max-w-md z-50 flex flex-col border-l panel-enter"
+        className="fixed right-0 top-0 bottom-0 w-full max-w-md z-modal flex flex-col border-l panel-enter"
         style={{ background: "var(--bg-elev)", borderColor: "var(--border-shell)" }}
       >
         {/* Header — close + status badge, fixe en haut */}
