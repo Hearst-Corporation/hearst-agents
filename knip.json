@@ -1,5 +1,8 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
+  "paths": {
+    "@/*": ["./*"]
+  },
   "entry": [
     "next.config.{js,ts,mjs}",
     "middleware.ts",
@@ -11,6 +14,10 @@
     "app/**/error.{ts,tsx}",
     "app/**/not-found.{ts,tsx}",
     "app/**/global-error.{ts,tsx}",
+    "app/**/default.{ts,tsx}",
+    "app/**/template.{ts,tsx}",
+    "app/**/{sitemap,robots,manifest}.{ts,tsx}",
+    "app/**/{opengraph-image,twitter-image,icon,apple-icon}.{ts,tsx}",
     "electron/main.ts",
     "electron/preload.ts",
     "scripts/**/*.{ts,mjs,js}",
@@ -19,13 +26,37 @@
     "__tests__/**/*.test.{ts,tsx}",
     "e2e/**/*.spec.{ts,tsx}"
   ],
+  "project": [
+    "app/**/*.{ts,tsx}",
+    "lib/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
+    "hooks/**/*.{ts,tsx}",
+    "stores/**/*.{ts,tsx}",
+    "providers/**/*.{ts,tsx}",
+    "scripts/**/*.{ts,mjs,js}",
+    "electron/**/*.ts"
+  ],
   "ignore": [
     "dist/**",
     ".next/**",
+    "out/**",
+    "coverage/**",
+    "playwright-report/**",
+    "test-results/**",
+    "docs/**",
+    "graphify-out/**",
+    "lab/**",
+    "**/*.d.ts",
     "lib/database.types.ts",
     "lib/hom/**",
     "app/admin/orchestrator/**",
-    "app/api/orchestrator/**"
+    "app/api/orchestrator/**",
+    "app/spatial-safe/**",
+    "components/spatial-safe/**",
+    "hooks/spatial-safe/**",
+    "lib/spatial-safe/**",
+    "styles/spatial-safe/**",
+    "providers/spatial-safe/**"
   ],
   "ignoreDependencies": ["@types/*", "eslint-*", "prettier-*", "playwright-core"],
   "ignoreBinaries": ["lsof", "xattr", "unset", "tsx"]
