@@ -9,6 +9,9 @@
  * dans `./registry.ts` — ce fichier garde uniquement les types.
  */
 
+/** Cubic-bezier partagé par toutes les animations visionOS des stages. */
+export const VISION_EASE = [0.22, 1, 0.36, 1] as const;
+
 import type { StageMode } from "@/stores/stage";
 
 export type StageKey = StageMode;

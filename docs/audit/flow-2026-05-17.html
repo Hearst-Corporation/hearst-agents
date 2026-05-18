@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>QA Flows utilisateur — Hearst OS</title>
+<title>QA Flows — Nav LeftRail + entrée Stages — Hearst OS</title>
 <style>
   :root {
     --bg: #0a0a0a;
@@ -81,21 +81,21 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>QA Flows utilisateur</h1>
+    <h1>QA Flows — Nav LeftRail + entrée Stages</h1>
     <div class="meta">
-      <span><b>Date</b> 2026-05-17 03:24</span>
+      <span><b>Date</b> 2026-05-17 23:21</span>
       <span><b>Branche</b> main</span>
-      <span><b>Commit</b> 608ec3dd</span>
-      <span><b>Scope</b> complet</span>
+      <span><b>Commit</b> 0f246555</span>
+      <span><b>Scope</b> nav + Stages first-use</span>
     </div>
   </header>
 
   <section class="kpis">
-    <div class="kpi accent"><div class="kpi-value">42</div><div class="kpi-label">Findings</div></div>
-    <div class="kpi p0"><div class="kpi-value">2</div><div class="kpi-label">P0 — critique</div></div>
-    <div class="kpi p1"><div class="kpi-value">26</div><div class="kpi-label">P1 — important</div></div>
-    <div class="kpi p2"><div class="kpi-value">14</div><div class="kpi-label">P2 — dette</div></div>
-    <div class="kpi accent"><div class="kpi-value">0</div><div class="kpi-label">Score /10</div></div>
+    <div class="kpi accent"><div class="kpi-value">16</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">0</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">7</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">12</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">5.3</div><div class="kpi-label">Score /10</div></div>
   </section>
 
   
@@ -131,508 +131,207 @@
     
     <details class="section" open>
       <summary>
-        <span class="section-name">Navigation &amp; Flow</span>
+        <span class="section-name">Navigation &amp; Stage Entry</span>
         <span class="section-agent">agent-1</span>
         <span class="section-counts">
-          <span class="badge badge-p0">1</span>
-          <span class="badge badge-p1">5</span>
-          <span class="badge badge-p2">5</span>
-        </span>
-      </summary>
-      <p class="section-summary">Novice piégé dans /admin/agents/new sans bouton retour (P0). Avancé perd le contexte sur les pages detail (/admin/agents/[id], /orchestrator/runs/[id]) sans breadcrumb. Wording 'Retour' incohérent à travers AdminSidebar / PageHeader / Link custom. ChatDock manque un CTA fermeture explicite. Trois systèmes de retour coexistent sans unification.</p>
-      <div class="findings">
-        
-    <div class="finding sev-p0">
-      <div class="finding-head">
-        <span class="badge badge-p0">P0</span>
-        <span class="finding-title">Novice bloqué : pas de bouton retour sur la création agent</span>
-        <span class="status">0 escape path</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agents/new/page.tsx:56">app/admin/agents/new/page.tsx:56</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Formulaire création agent sans bouton Annuler/Retour ni lien vers /admin/agents. Seul le Submit fonctionne.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter bouton 'Annuler' (router.back() ou Link href='/admin/agents') en symétrie avec le bouton submit.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Novice qui veut abandonner est piégé sauf Alt+← — abandon probable.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Pas de lien retour depuis run detail vers liste</span>
-        <span class="status">detail page, 0 breadcrumb</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/runs/[id]/page.tsx:1">app/admin/orchestrator/runs/[id]/page.tsx:1</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Page detail run sans &lt;PageHeader back={...}&gt; ni &lt;Link&gt; vers /admin/orchestrator/runs.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter &lt;PageHeader back={{ href: '/admin/orchestrator/runs', label: 'Tous les runs' }} /&gt;.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Deep-link force browser back, perte state si form dirty.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Agent detail sans sortie claire</span>
-        <span class="status">detail page, 0 nav up</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agents/[id]/page.tsx:1">app/admin/agents/[id]/page.tsx:1</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Drill agent → page detail sans bouton retour, breadcrumb ou lien parent.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter &lt;PageHeader back={{ href: '/admin/agents', label: 'Tous les agents' }} /&gt;.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Avancé en analyse drift doit cliquer hors-page ou Alt+← — perte scroll context.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Wording 'Retour au workspace' incohérent</span>
-        <span class="status">3+ variantes wording</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/health/page.tsx:555">app/admin/health/page.tsx:555</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>AdminSidebar : 'Retour au workspace' vs PageHeader : 'Retour Agent Driven Dev', 'Retour Agents'.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Normaliser : pattern &lt;PageHeader back={{ href, label }} /&gt; global.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur rapide habitué Cmd+K casse sur longs labels hors-pattern.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Pas de bouton fermeture explicite du ChatDock</span>
-        <span class="status">modal-like, 0 visible close</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx:244">app/(user)/components/ChatDock.tsx:244</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>router.push('/') existe mais pas de button 'Fermer Chat' visible.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter un X ou '← Retour cockpit' au-dessus du ChatInput.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Novice piégé en chat ne voit pas comment revenir au stage.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">HomShell anchor sans chevron retour</span>
-        <span class="status">HomShell anchor orphelin</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/orchestrator/runs/[id]/page.tsx:18">app/admin/orchestrator/runs/[id]/page.tsx:18</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>&lt;HomShell current='/admin/orchestrator/runs'&gt; rend la sidebar mais aucun chevron retour dans PageHeader.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>PageHeader doit inclure back={{ href, label }} pour cohérence avec agent-driven-dev/[id].</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Inconsistance confuse entre flow paths.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Bouton 'Fermer' style varie entre modales</span>
-        <span class="status">3 modal close patterns</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/analytics/page.tsx:212">app/admin/analytics/page.tsx:212</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>analytics : 'Fermer' transparent. NodeDetailPanel : icon-only X. Missions builder : pas de close visible.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Standardiser : icon-only X (PageHeader pattern) ou 'Retour' label chevron.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>QA voit 3 patterns différents — pas de confiance.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Form création agent sans 'Annuler' symétrique</span>
-        <span class="status">form, 1 button only</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agents/new/page.tsx:177">app/admin/agents/new/page.tsx:177</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>1 submit, 0 secondary action.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter &lt;button type='button' onClick={() =&gt; router.back()}&gt;Annuler&lt;/button&gt;.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur rapide en batch creation voudrait annuler sans valider.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Double anchor sidebar + breadcrumb confuse le point d'entrée</span>
-        <span class="status">2 nav systems, 1 page</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agent-driven-dev/page.tsx:290">app/admin/agent-driven-dev/page.tsx:290</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Page mère sans PageHeader breadcrumb. AdminSidebar affiche 'Retour au workspace'. Feature detail a Link custom.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Unifier : PageHeader avec breadcrumb [Admin → Agent Driven Dev].</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Avancé multi-level voit 3 systèmes pointant vers /admin.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Mission builder wizard sans step-nav ni retour</span>
-        <span class="status">wizard, 0 visual steps</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/missions/builder/page.tsx:1">app/(user)/missions/builder/page.tsx:1</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Routes vers CockpitXClient openNewMission=true sans current step, progress bar ou 'Quitter'.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Step indicator '2 / 5' + 'Quitter la création' qui clear openNewMission.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Créatif multi-step sans sens de progression — peut perdre draft.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">getCockpitToday fail-soft sans feedback user</span>
-        <span class="status">1 silent fallback</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/page.tsx:28">app/(user)/page.tsx:28</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>console.error logs stderr mais pas de UI toast/banner si RSC prefetch échoue.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Si initialCockpitData=null, render avec isLoading=true + error banner.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>User confond home vide avec broken state.</span></div>
-    </div>
-      </div>
-    </details>
-    <details class="section" open>
-      <summary>
-        <span class="section-name">Product Logic</span>
-        <span class="section-agent">agent-2</span>
-        <span class="section-counts">
-          <span class="badge badge-p0">1</span>
-          <span class="badge badge-p1">8</span>
-          <span class="badge badge-p2">5</span>
-        </span>
-      </summary>
-      <p class="section-summary">Flow message/approve à 1 clic (optimal). Mais ApprovalInline crée des points de non-retour sans undo (P0 critique). Reset/Load template (ReportEditor), cadence edit (MissionStage), reset simulation (SimulationStage) manquent de garde-fous unsaved-changes. Webhook delete (settings) sans confirmation. Assets et missions bien protégés (overflow + confirm). Attachment lifecycle (auto-clear post-send) safe.</p>
-      <div class="findings">
-        
-    <div class="finding sev-p0">
-      <div class="finding-head">
-        <span class="badge badge-p0">P0</span>
-        <span class="finding-title">Approuver écriture en base — aucune undo possible</span>
-        <span class="status">Data loss risk irréversible</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ApprovalInline.tsx:43">app/(user)/components/ApprovalInline.tsx:43</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Approuver → POST /api/missions/{id}/steps/{stepId}/approve, aucun rollback ni warning post.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Afficher warning post-approval 'Cette écriture est définitive' OU soft-delete (mark approvable again).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Une fois approuvée, écriture Salesforce/Slack/Google irrévocable. Novice peut penser 'valider' vs 'envoyer'.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Éditer cadence mission — ESC discard silencieux</span>
-        <span class="status">2 clics, warning missing</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/MissionStage.tsx:374">app/(user)/components/stages/MissionStage.tsx:374</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Annuler closes inline editor, cadenceDraft discarded sans warning.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>if (cadenceDraft !== original) → 'Modifications non enregistrées?'</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur peut croire ESC = save. Créatif perd cron complexe.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Load template — replace spec sans discard warning</span>
-        <span class="status">2+ clics, no unsaved check</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/ReportEditor.tsx:149">app/(user)/components/reports/ReportEditor.tsx:149</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>loadTemplateSpec(id) → onChange(data.spec) directly, current spec lost.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>ConfirmModal 'Load template? Your current spec will be replaced.' si spec !== initialSpec.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Créatif perd 20min d'édition blocks par clic accidentel.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Reset simulation — 1 clic, lose scenarios + reasoning</span>
-        <span class="status">1 clic destructive</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SimulationStage.tsx:104">app/(user)/_stages/SimulationStage.tsx:104</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>reset() → setPhase('idle'), setScenarios([]), setReasoning(null) — no confirm.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>ConfirmModal 'Restart simulation? All results will be lost.' (reasoning 30-50s).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur peut click reset par erreur. Scenarios+reasoning valuable.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Reset rapport blocks — 1 clic destructive</span>
-        <span class="status">1 clic, destructive without guard</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/reports/ReportEditor.tsx:101">app/(user)/components/reports/ReportEditor.tsx:101</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>reset() → onChange(initialSpec) directly, all block changes reverted.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>ConfirmModal 'Restaurer layout initial?' si spec has local changes.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>User peut click Reset par erreur après 10min d'édition.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Delete mission — overflow + confirm (acceptable)</span>
-        <span class="status">3 clics — safe</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/MissionStage.tsx:264">app/(user)/components/stages/MissionStage.tsx:264</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Overflow → delete → ConfirmModal. 3 clics.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Garder 2-level protection. Vérifier confirm seule pour mission simple.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Acceptable car destructive, zero data loss.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Asset delete — overflow + ConfirmModal (safe)</span>
-        <span class="status">3 clics, safe</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/stages/asset-stage/AssetStage.tsx:116">app/(user)/components/stages/asset-stage/AssetStage.tsx:116</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>setConfirmDelete(true) → ConfirmModal → DELETE /api/v2/assets/{id}.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Garder. Consider asset.kind-specific warnings ('generated image cannot be regenerated').</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Asset deletion permanent. 2-layer acceptable.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Retirer asset attaché — 1 clic, no confirm</span>
-        <span class="status">1 clic, light UX</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/AttachedAssetChips.tsx:50">app/(user)/components/chat-input/AttachedAssetChips.tsx:50</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>onRemove(assetId) direct au clic ×, no warning.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Consider inline undo (toast + undo action 3s) si data perte perçue grave.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Novice peut confondre 'retirer attachment' vs 'retirer du message envoyé'.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">ConfirmModal — focus Cancel + ESC safe (excellent pattern)</span>
-        <span class="status">Safe ✓</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ConfirmModal.tsx:56">app/(user)/components/ConfirmModal.tsx:56</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>autoFocus=false → cancelBtn focused, Escape calls onCancel only if !loading.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Pattern exemplaire à garder.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Default safe prevent fat-finger delete. Loading lock prevents state zombie.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Webhook delete — 1 clic dispatch sans confirm</span>
-        <span class="status">1 clic, moderate risk</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/settings/alerting/WebhooksSection.tsx:68">app/(user)/components/settings/alerting/WebhooksSection.tsx:68</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>dispatch({ type: 'REMOVE_WEBHOOK', index: idx }) direct.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>ConfirmModal pour suppression webhook (config deletion notable).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Webhook deletion peut casser automations. Novice peut croire = disable temporaire.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Remove variable simulation — 1 clic (acceptable)</span>
-        <span class="status">1 clic, non-critical</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SimulationStage.tsx:262">app/(user)/_stages/SimulationStage.tsx:262</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>removeVariable(idx) → filter out. Ephemeral, no persist.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>OK pour variable list, mais clarifier UX 'remove from input'.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Variables sont ephemeral, low risk.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Command palette — action exec sans toast</span>
-        <span class="status">Nice-to-have</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/Commandeur.tsx:237">app/(user)/components/Commandeur.tsx:237</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>row.perform() called, dialog closes, no 'Action X performed' toast.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Toast 'Mission créée', 'Stage changé à Chat' après setOpen(false).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur ne sait pas si action a exécuté. Novice besoin confirmation.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Pending state locks buttons (correct pattern)</span>
-        <span class="status">Safe ✓</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ApprovalInline.tsx:57">app/(user)/components/ApprovalInline.tsx:57</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>pending='approve'|'skip'|null → all disabled except active.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Pattern correct. Edit reste enabled pendant Approve pending.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Prevent double-submit. Créatif peut Edit mid-approval.</span></div>
-    </div>
-    <div class="finding sev-p2">
-      <div class="finding-head">
-        <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Onboarding Tour stepwise — non-blocking</span>
-        <span class="status">Safe ✓</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/OnboardingTour.tsx:60">app/(user)/components/OnboardingTour.tsx:60</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>5 steps, onClick → setStep+1, ESC close + no warning.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Garder tel quel — non-destructive (peut reprendre n'importe quand).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Non-blocking UX d'accueil. Aucune donnée à perdre.</span></div>
-    </div>
-      </div>
-    </details>
-    <details class="section" open>
-      <summary>
-        <span class="section-name">Interaction &amp; Feedback</span>
-        <span class="section-agent">agent-3</span>
-        <span class="section-counts">
           
-          <span class="badge badge-p1">13</span>
+          <span class="badge badge-p1">5</span>
           <span class="badge badge-p2">4</span>
         </span>
       </summary>
-      <p class="section-summary">ChatDock SSE + flows doc/report exposent 13 P1 : erreurs silencieuses (analytics, SSE parse), feedback absent (document-parse, comments, image-gen), retry UX manquante (no inline retry, no countdown), modal a11y (PopoverShell focus restore), offline handling absent. ImageGen ephemeral messages (4s) perdus en background. SSE errors HTTP génériques sans contexte (401 vs 429 vs 500).</p>
+      <p class="section-summary">Le LeftRail refondu ouvre correctement chaque Stage (routes raccourcis OK, payloads idle sans crash). MAIS tous les Stages data-bound affichent un empty state TEXTE uniquement ('Lance une mission ou demande à l'agent') sans bouton CTA, sauf MissionListStage / VoiceStage / SimulationStage. L'utilisateur clique un Stage → écran 'vide' → doit deviner qu'il faut passer par le chat. C'est la cause exacte du ressenti 'pas d'UI montée'.</p>
       <div class="findings">
         
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Erreur réseau silencieuse dans ChatWindow SSE</span>
-        <span class="status">Critique mode admin</span>
+        <span class="finding-title">BrowserStage : empty state sans bouton de démarrage</span>
+        <span class="status">Clics: 3+ (rail → Browser → lire → ⌘K/chat)</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/ChatWindow.tsx:68">app/admin/_components/ChatWindow.tsx:68</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>catch { setMessages([...prev, { role: 'assistant', content: 'Erreur de connexion.' }]); } — message générique.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Capturer le type (AbortError, timeout, HTTP status) : 'Connexion perdue. Vérifiez réseau ou réessayez.'</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>QA ne peut pas diagnostiquer. Novice suppose app cassée. Pas de retry auto.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/BrowserStage.tsx:111">app/(user)/_stages/BrowserStage.tsx:111</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Aucune session active. Lance une mission de navigation ou demande à l'agent.' — texte seul, sessionId vide au clic LeftRail.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bouton 'Démarrer une session navigation' → setCommandeurOpen(true, { prefilledQuery: 'Démarrer une session Browserbase' }).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Browser est un Stage à fort potentiel. Écran vide sans action = invisible. Le user clique l'icône, attend de pouvoir faire qqch, on l'envoie ailleurs.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Analytics fetch échoue silencieusement</span>
-        <span class="status">Observabilité dégradée</span>
+        <span class="finding-title">AssetStage : pas de chemin de génération inline</span>
+        <span class="status">Clics: 3+</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx:112">app/(user)/components/ChatDock.tsx:112</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>fetch('/api/analytics', ...).catch(() =&gt; {}) — erreur ignorée.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>console.warn dev minimum. Queue locale ou retry sur 5xx.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Analytics perdues. QA ne peut vérifier first_message_sent, run_completed.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/AssetStage.tsx:121">app/(user)/_stages/AssetStage.tsx:121</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Aucun asset généré. Lance une mission ou demande à l'agent.' — galerie read-only, aucun bouton.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bouton 'Générer un asset' → Commandeur preset OU dialog prompt rapide.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Asset est output-only. Le user qui veut explorer la génération n'a aucun point d'entrée self-service.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Doc-parse success sans confirmation visuelle</span>
-        <span class="status">Risque double-soumission</span>
+        <span class="finding-title">KGStage : graphe vide sans bootstrap</span>
+        <span class="status">Clics: 3+</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/DocumentParseModal.tsx:126">app/(user)/components/DocumentParseModal.tsx:126</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>onSuccess + resetState + onClose — modal ferme immédiat, pas de toast.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Avant onClose, toast.success('Document enqueued, parsing in progress…').</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Novice pense rien ne s'est passé. Clic accidentel duplique soumission.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/KGStage.tsx:155">app/(user)/_stages/KGStage.tsx:155</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Le graphe de connaissance est vide. Lance une mission ou connecte des sources.' — pas de bouton.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Boutons 'Connecter une source' (→ Connexions) + 'Ouvrir le chat'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>KG est passif, 100% dépendant des missions. Écran blanc + 'demande à l'agent' = cul-de-sac perçu.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Erreur share report sans contexte actionnable</span>
-        <span class="status">Bloquant partage</span>
+        <span class="finding-title">MeetingStage : pas de join/start visible</span>
+        <span class="status">Clics: 3+</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ReportActions.tsx:128">app/(user)/components/ReportActions.tsx:128</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>catch (e) { setError(e.message || 'network_error'); } — message technique.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Retry button + contexte : 'Failed to share (network issue). Retry?' + isLoading.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur ne sait pas si bug client, réseau ou API.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MeetingStage.tsx:112">app/(user)/_stages/MeetingStage.tsx:112</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Lance ou rejoins un meeting pour voir le transcript en direct.' — texte seul.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bouton 'Rejoindre un meeting' (coller ID/URL) ou 'Démarrer'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Stage consumer de session live. 1er usage = écran blanc sans self-serve.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">PopoverShell focus trap incomplet — pas de restore focus</span>
-        <span class="status">A11y critique</span>
+        <span class="finding-title">Stages à ID requis : pas de feedback 'prêt, en attente'</span>
+        <span class="status">Feedback manquant</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ReportActions.tsx:443">app/(user)/components/ReportActions.tsx:443</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>closeBtnRef.focus() au mount, pas de restoration trigger au close.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Sauvegarder document.activeElement au open, restaurer au close (useModalA11y).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Keyboard-only : focus perdu au close. UX cassée.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">SSE fetch HTTP sans diff 4xx/5xx actionable</span>
-        <span class="status">Diagnostic lent</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx:327">app/(user)/components/ChatDock.tsx:327</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>if (!res.ok) errorMsg = `Erreur serveur: ${res.status}` — code seulement.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>401/403 → 'Auth expired, re-login'. 429 → 'Rate limited, retry in Xs'. 5xx → 'Server issue'.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>QA ne sait pas si auth, rate limit ou outage.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Max reconnect sans offline detection</span>
-        <span class="status">No offline recovery</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx:415">app/(user)/components/ChatDock.tsx:415</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>errorMsg = 'Connexion perdue après plusieurs tentatives. Réessaie.' — no offline flag, no retry button.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>navigator.onLine + 'You appear offline. Reconnect and retry?' + auto-trigger once online.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur offline ne sait pas si attendre auto-retry.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Promise.all fetch error sans diff asset vs variants</span>
-        <span class="status">Opacité debug</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/ArtifactStage.tsx:321">app/(user)/_stages/ArtifactStage.tsx:321</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>if (!assetRes.ok) setErrorMsg; else if (variantsRes.ok) — mix success/fail.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Log both separately : 'Asset: OK, Variants: FAIL (optional)'. Partial state if possible.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Dev debugge blind. Pas clair d'après message userfacing.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">SSE parse error skipped silently</span>
-        <span class="status">Observabilité nulle</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/_components/ChatWindow.tsx:62">app/admin/_components/ChatWindow.tsx:62</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>} catch { // skip } — JSON event ignoré, pas loggé.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>console.warn('[ChatWindow SSE] Parse error:', line, err).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Admin debugge pourquoi events manquent. Aucune trace.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Comment save sans toast succès</span>
-        <span class="status">Confirmation absente</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ReportActions.tsx:257">app/(user)/components/ReportActions.tsx:257</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>onSuccess sans toast.success() visible.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>toast.success('Comment saved') après mutation.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>QA : saved or not? Novice clique deux fois par doute.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Fetch mission sans loader visible &gt;300ms</span>
-        <span class="status">Latence perceptuelle</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MissionStage.tsx:458">app/(user)/_stages/MissionStage.tsx:458</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>&lt;LoadingSkeleton/&gt; peut tarder si latence &gt;300ms avant rendu initial.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Délai 300ms min avant loader, ou subtle loader dès fetch start.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Créatif attend sans feedback. Pense app gelée. Resoumet.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">ConfirmModal lock Escape silencieux pendant loading</span>
-        <span class="status">Polish blocage</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ConfirmModal.tsx:56">app/(user)/components/ConfirmModal.tsx:56</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>loading &amp;&amp; closeOnEscape=true → Escape ignoré. Correct mais pas de visual feedback.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>aria-disabled='true' sur backdrop + visual hint (opacity, lock icon).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>User press Escape, rien. Pense app freeze.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Retry erreur sans bouton inline</span>
-        <span class="status">Retry overhead</span>
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/FocalRetryButton.tsx:125">app/(user)/components/FocalRetryButton.tsx:125</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>catch + toast.error + ferme → user clique second bouton 'Réessayer'.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>toast.error('…', { action: { label: 'Retry', onClick: handleRetry } }).</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Opérateur cherche bouton again. Friction x2.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:83">app/(user)/cockpit-x/CockpitXClient.tsx:83</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>mission/asset/browser/meeting ouvrent avec ID vide → empty state immédiat, aucun hint 'Stage prêt, crée depuis le chat'.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Micro-indication contextuelle (ContextRail/shellData) : 'Stage prêt — démarre depuis le chat ou ⌘K'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Empty state sans contexte se confond avec un bug (exactement le ressenti remonté).</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Submit '…' sans aria-busy</span>
-        <span class="status">A11y et UX</span>
+        <span class="finding-title">ChatStage : hint texte, zone interactive en bas (ChatDock)</span>
+        <span class="status">Friction légère</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/ChatInput.tsx:117">app/(user)/components/chat-input/ChatInput.tsx:117</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>disabled={loading || !input.trim()}, {loading ? '…' : 'Envoyer'} — no aria-busy, no spinner.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>aria-busy={isRunning} + petit spinner animé.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>QA ne voit pas si bouton disabled ou slow. Novice clique plusieurs fois.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/ChatStage.tsx:85">app/(user)/_stages/ChatStage.tsx:85</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Pose une question, lance une mission, ou laisse l'agent veiller.' — la zone de saisie est le ChatDock en bas, pas évident.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Lien visuel vers le composer (flèche/focus auto) ou CTA 'Poser une question'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le user ne voit pas immédiatement où taper.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Backoff retry sans countdown UI</span>
-        <span class="status">Visibilité retry</span>
+        <span class="finding-title">ArtifactStage : pas de génération inline</span>
+        <span class="status">Clics: 3+</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx:405">app/(user)/components/ChatDock.tsx:405</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Log 'Reconnexion SSE (tentative 1/3)…' — pas de countdown ou progress.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Visual countdown 'Retrying in 2s…' + spinner ou progress ring.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>User ne sait pas si app reessaie ou arrêté.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/ArtifactStage.tsx:79">app/(user)/_stages/ArtifactStage.tsx:79</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Lance une mission qui génère un artifact ou demande à l'agent.' — pas de bouton.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bouton 'Ouvrir le chat' / Commandeur preset.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Output-driven mais zéro chemin d'exploration directe.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Image gen success disparaît après 4s</span>
-        <span class="status">Feedback fragile</span>
+        <span class="finding-title">MissionStage (détail) : renvoi indirect vers chat</span>
+        <span class="status">Friction</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/useInlineGen.ts:55">app/(user)/components/chat-input/hooks/useInlineGen.ts:55</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>setImageGenMessage('Image queued…') + setTimeout 4000 → vanish auto.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>toast.success() au lieu state ephemeral.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Créatif regarde ailleurs 2s, miss feedback. Resoumet.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MissionStage.tsx:180">app/(user)/_stages/MissionStage.tsx:180</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Aucune demande en cours. Demande à l'agent de t'aider depuis le chat.' — texte pur.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bouton 'Ouvrir le chat' → setMode({mode:'chat'}).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Transition inter-Stage non outillée.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Upload error disparaît après 5s</span>
-        <span class="status">Error fragile</span>
+        <span class="finding-title">payloadFor() envoie ID vide — comportement non expliqué au user</span>
+        <span class="status">Doc gap</span>
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/chat-input/hooks/usePdfUpload.ts:48">app/(user)/components/chat-input/hooks/usePdfUpload.ts:48</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>setTimeout 5000 → setUploadError(null) — error ephemeral.</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>toast.error() persistant, garder state pour retry.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>User regarde ailleurs, miss erreur. Croit PDF uploadé.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_shell/LeftRail.tsx:54">app/(user)/_shell/LeftRail.tsx:54</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>missionId/assetId/sessionId = '' → Stages rendent leur empty state, cohérent en code mais muet pour l'utilisateur.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Hint visible à l'entrée Stage (cf. P1 status-indicator).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Architecture saine mais ressenti = bug.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Product Logic — Stage first-use</span>
+        <span class="section-agent">agent-2</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">3</span>
+        </span>
+      </summary>
+      <p class="section-summary">Conflit de philosophie : la nouvelle nav expose les 12 Stages cliquables, mais le paradigme cockpit est 'l'agent ouvre les Stages avec contexte'. Résultat : la plupart des Stages ouverts manuellement sont vides et renvoient vers l'agent. SimulationStage est le seul gold standard (form-first, self-serve, confirm destructif). VoiceStage = empty state honnête avec fallback. Recommandation : soit doter chaque empty state d'un CTA self-serve, soit assumer le paradigme agent et indiquer 'ouvre depuis le chat'.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Conflit : nav expose 12 Stages, paradigme = agent-driven</span>
+        <span class="status">Dette de philosophie</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_shell/LeftRail.tsx:54">app/(user)/_shell/LeftRail.tsx:54</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>LeftRail + ⌘K donnent accès 1-clic à tous les Stages. payloadFor() renvoie IDs vides → empty states 'demande à l'agent'. L'affordance (cliquable) contredit la fonctionnalité (vide).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Choisir : (A) chaque Stage a un chemin de création self-serve, OU (B) garder paradigme agent + empty states avec CTA explicite 'Démarrer depuis le chat / ⌘K'. Le hybride actuel = confusion.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le user clique Browser parce que l'icône est là, tombe sur 'aucune session', conclut que c'est cassé. Exactement le ticket remonté.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">MissionListStage : bouton créer présent en header mais pas dans l'empty state</span>
+        <span class="status">Clics: 3 → 1</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/MissionListStage.tsx:180">app/(user)/_stages/MissionListStage.tsx:180</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Empty state texte 'Demande à l'agent d'en créer une'. Le bouton 'Nouvelle demande' existe dans le header (l.434) mais pas exposé dans le vide central.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Dupliquer le CTA 'Créer une première demande' dans l'EmptyState (appelle handleNewMission()).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le pattern existe déjà, il suffit de l'exposer là où l'œil tombe.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Perte de contexte au switch de Stage via LeftRail</span>
+        <span class="status">À inventorier</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages:1">app/(user)/_stages/:1</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Chaque Stage possède son state local (useState). Switch LeftRail → setMode → ancien Stage unmount → state perdu. SimulationStage persiste via useStageData (bon), les autres non audités.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit : tout Stage avec saisie non sauvée (textareas, forms) doit persister dans useStageData et restaurer au remount. Pattern SimulationStage à généraliser.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>User tape un scénario → va voir Browser → revient → saisie perdue. Mauvais pour les inputs longs.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">✓ SimulationStage : référence form-first self-serve</span>
+        <span class="status">Clics: 2</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SimulationStage.tsx:216">app/(user)/_stages/SimulationStage.tsx:216</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>phase='idle' rend le form complet (scénario + variables + 'Lancer'). Zéro dépendance externe.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Garder. Modèle à dupliquer pour les autres Stages créables.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Ouvre → tape → lance. Friction zéro. C'est ce que les autres devraient viser.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">✓ VoiceStage : empty state honnête + fallback</span>
+        <span class="status">Clics: 2</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/VoiceStage.tsx:51">app/(user)/_stages/VoiceStage.tsx:51</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'Mode voix non disponible' + explication + bouton 'Ouvrir le chat texte'.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Garder. Template pour features non prêtes.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dit clairement quoi, pourquoi, et offre le next-best. Pas de tromperie.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SignalStage : pas de message d'empty state explicite</span>
+        <span class="status">Clics: 1</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SignalStage.tsx:236">app/(user)/_stages/SignalStage.tsx:236</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>signals.length===0 → skeleton + filtres visibles, pas de message clair.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>'Aucun signal détecté. Les alertes apparaissent quand une anomalie est repérée.' + lien Mission.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Read-only par design mais clarté à améliorer.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">✓ SimulationStage : confirm sur reset destructif</span>
+        <span class="status">Clics: 2</span>
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_stages/SimulationStage.tsx:119">app/(user)/_stages/SimulationStage.tsx:119</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>reset() ouvre ConfirmModal si scenarios/reasoning présents (30-50s de calcul protégés).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Garder. Référence de pattern confirmation.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Perte de minutes de travail protégée par modal.</span></div>
     </div>
       </div>
     </details>
@@ -643,20 +342,17 @@
       <h2>Plan de remédiation</h2>
       <div class="plan-grid">
         <div class="plan-batch">
-              <h3>P0 — flows cassés (2 items)</h3>
-              <ul><li>app/admin/agents/new/page.tsx: ajouter bouton 'Annuler' (router.back) en symétrie du Submit</li><li>app/(user)/components/ApprovalInline.tsx: warning post-approval 'Cette écriture est définitive' OU soft-delete pour rendre les writes Salesforce/Slack reversibles</li></ul>
+              <h3>P1 — friction notable (décider la direction)</h3>
+              <ul><li>TRANCHER la philosophie : (A) chaque Stage = CTA self-serve dans l'empty state, OU (B) paradigme agent assumé avec hint explicite 'ouvre depuis le chat'. Recommandation : (A) light — chaque empty state gagne 1 bouton qui ouvre ⌘K préfiltré (cohérent avec le paradigme agent SANS laisser l'user devant un mur)</li><li>Empty states Browser / Asset / KG / Meeting / MissionStage détail : ajouter bouton CTA actionnable</li><li>MissionListStage : exposer le bouton créer dans l'EmptyState</li><li>Audit persistance state inter-Stage (généraliser le pattern useStageData de SimulationStage)</li><li>Indicateur d'entrée Stage (ContextRail) quand ouvert sans contexte</li></ul>
             </div><div class="plan-batch">
-              <h3>P1 — friction notable (26 items)</h3>
-              <ul><li>Navigation : breadcrumb / PageHeader.back uniformes sur /admin/agents/[id], /admin/orchestrator/runs/[id], /admin/agent-driven-dev</li><li>Wording : normaliser 'Retour &lt;destination&gt;' partout (AdminSidebar, PageHeader, Link custom)</li><li>ChatDock : ajouter close CTA visible, différencier HTTP status SSE (401/429/5xx), offline detection (navigator.onLine), countdown retry</li><li>ReportEditor : ConfirmModal sur Reset (l.101) et Load template (l.149) si spec dirty</li><li>MissionStage : unsaved-changes warning sur Annuler cadence (l.374)</li><li>SimulationStage : ConfirmModal sur Reset (l.104) — perte scenarios+reasoning 30-50s</li><li>Feedback succès : toast sur DocumentParseModal, ReportActions (share + comment), MissionStage fetch loader &gt;300ms</li><li>Erreurs silencieuses : logger ChatDock analytics catch (l.112), ChatWindow SSE parse (l.62), ArtifactStage Promise.all (l.321), FocalRetryButton (inline retry action)</li><li>Modal a11y : PopoverShell focus restore (l.443), ConfirmModal visual hint pendant loading (l.56)</li></ul>
-            </div><div class="plan-batch">
-              <h3>P2 — polish UX (14 items)</h3>
-              <ul><li>Standardiser bouton 'Fermer' modales (icon-only X partout)</li><li>Mission builder wizard : step indicator + 'Quitter la création'</li><li>Commandeur : toast post-action ('Mission créée', 'Stage changé')</li><li>WebhooksSection : ConfirmModal sur delete webhook</li><li>ChatInput : aria-busy sur submit pendant pending</li><li>useInlineGen / usePdfUpload : migrer ephemeral state → toast persistant</li><li>page.tsx : error banner si initialCockpitData null (RSC prefetch échoué)</li></ul>
+              <h3>P2 — polish</h3>
+              <ul><li>ChatStage : guider vers le composer (focus/CTA)</li><li>ArtifactStage : bouton ouvrir chat/Commandeur</li><li>SignalStage : message empty state explicite</li><li>Documenter VoiceStage + SimulationStage comme templates d'empty state</li></ul>
             </div>
       </div>
     </section>
 
   <footer>
-    Hearst OS · 2026-05-17 03:24
+    Hearst OS · 2026-05-17 23:21
   </footer>
 </div>
 </body>
