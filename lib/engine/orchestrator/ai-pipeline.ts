@@ -37,7 +37,7 @@ import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
 import { getRetrievedMemoryForUser } from "@/lib/memory/retrieval-context";
 import { appendModelMessages, getRecentModelMessages } from "@/lib/memory/store";
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import { startTrace } from "@/lib/observability/langfuse";
+import { flushLangfuse, startTrace } from "@/lib/observability/langfuse";
 import { getDefaultPersona, getPersonaById, getPersonaForSurface } from "@/lib/personas/store";
 import { getApplicableReports } from "@/lib/reports/catalog";
 import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
@@ -895,6 +895,7 @@ export async function runAiPipeline(
   if (isCircuitOpenFor("anthropic", resolvedTenantId)) {
     const msg = "[AiPipeline] Circuit breaker OPEN pour anthropic — requête annulée";
     console.error(msg);
+    langfuseTrace?.update({ output: { status: "aborted", reason: "circuit_breaker_open" } });
     await engine.fail(msg);
     return;
   }
@@ -1438,5 +1439,8 @@ export async function runAiPipeline(
     // P1-8 / P1-D — garantit qu'aucun timer watchdog (token NI tool) ne reste
     // actif (chemin succès, erreur, ou abort utilisateur).
     clearAllWatchdogs();
+    // F-039 — flush Langfuse sur tous les chemins de sortie (succès, erreur,
+    // abort watchdog). Cap 2 s pour ne pas bloquer le slot serverless.
+    await flushLangfuse(2000);
   }
 }

@@ -183,6 +183,7 @@ export async function chatWithProfile(
             max_tokens: overrides?.max_tokens ?? profile.max_tokens,
             top_p: overrides?.top_p ?? profile.top_p,
             timeoutMs: overrides?.timeoutMs,
+            signal: wallclock.signal,
           }),
         );
 
@@ -297,63 +298,85 @@ export async function* streamChatWithProfile(
     }
   }
 
+  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
+  const wallclock = new AbortController();
+  const wallclockTimer = setTimeout(
+    () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
+    MAX_AGENT_LOOP_MS,
+  );
+
   let lastError: Error | null = null;
 
-  for (const profile of chain) {
-    if (defaultCircuitBreaker.isOpen(profile.provider, tenantId)) {
-      logger.debug({ provider: profile.provider }, "[router] circuit open, skipping");
-      continue;
-    }
+  try {
+    for (const profile of chain) {
+      if (wallclock.signal.aborted) {
+        throw wallclock.signal.reason instanceof Error
+          ? wallclock.signal.reason
+          : new Error("agent_loop_wallclock_exceeded");
+      }
+      if (defaultCircuitBreaker.isOpen(profile.provider, tenantId)) {
+        logger.debug({ provider: profile.provider }, "[router] circuit open, skipping");
+        continue;
+      }
 
-    try {
-      const provider = getProvider(profile.provider);
-      const stream = await retryWithBackoff(() =>
-        Promise.resolve(
-          provider.streamChat({
-            model: profile.model,
-            messages,
-            temperature: overrides?.temperature ?? profile.temperature,
-            max_tokens: overrides?.max_tokens ?? profile.max_tokens,
-            top_p: overrides?.top_p ?? profile.top_p,
-            stream: true,
-            timeoutMs: overrides?.timeoutMs,
-          }),
-        ),
-      );
+      try {
+        const provider = getProvider(profile.provider);
+        const stream = await retryWithBackoff(() =>
+          Promise.resolve(
+            provider.streamChat({
+              model: profile.model,
+              messages,
+              temperature: overrides?.temperature ?? profile.temperature,
+              max_tokens: overrides?.max_tokens ?? profile.max_tokens,
+              top_p: overrides?.top_p ?? profile.top_p,
+              stream: true,
+              timeoutMs: overrides?.timeoutMs,
+              signal: wallclock.signal,
+            }),
+          ),
+        );
 
-      let first = true;
-      for await (const chunk of stream) {
-        if (first) {
-          yield { ...chunk, profile_used: `${profile.provider}/${profile.model}` };
-          first = false;
-        } else {
-          yield chunk;
+        let first = true;
+        for await (const chunk of stream) {
+          if (wallclock.signal.aborted) {
+            throw wallclock.signal.reason instanceof Error
+              ? wallclock.signal.reason
+              : new Error("agent_loop_wallclock_exceeded");
+          }
+          if (first) {
+            yield { ...chunk, profile_used: `${profile.provider}/${profile.model}` };
+            first = false;
+          } else {
+            yield chunk;
+          }
         }
-      }
 
-      defaultCircuitBreaker.recordSuccess(profile.provider, tenantId);
-      return;
-    } catch (e) {
-      lastError = e instanceof Error ? e : new Error(String(e));
-      const wasClosedBefore =
-        defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
-      defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
-      if (
-        wasClosedBefore &&
-        defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN"
-      ) {
-        defaultMetrics.incrementCounter("circuit_breaker_trip");
+        defaultCircuitBreaker.recordSuccess(profile.provider, tenantId);
+        return;
+      } catch (e) {
+        lastError = e instanceof Error ? e : new Error(String(e));
+        const wasClosedBefore =
+          defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
+        defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
+        if (
+          wasClosedBefore &&
+          defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN"
+        ) {
+          defaultMetrics.incrementCounter("circuit_breaker_trip");
+        }
+        const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
+        defaultMetrics.recordError({ provider: profile.provider, errorCode: errCode });
+        logger.error(
+          { err: lastError, provider: profile.provider, model: profile.model },
+          "[router] stream failed, trying fallback",
+        );
       }
-      const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
-      defaultMetrics.recordError({ provider: profile.provider, errorCode: errCode });
-      logger.error(
-        { err: lastError, provider: profile.provider, model: profile.model },
-        "[router] stream failed, trying fallback",
-      );
     }
-  }
 
-  throw lastError ?? new Error("All providers in fallback chain failed");
+    throw lastError ?? new Error("All providers in fallback chain failed");
+  } finally {
+    clearTimeout(wallclockTimer);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -451,6 +474,7 @@ export async function smartChat(
             max_tokens: opts.max_tokens,
             top_p: opts.top_p,
             timeoutMs: opts.timeoutMs,
+            signal: wallclock.signal,
           }),
         );
 
@@ -571,75 +595,97 @@ export async function* smartStreamChat(
 
   const chain = buildSmartChain(decision);
 
+  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
+  const wallclock = new AbortController();
+  const wallclockTimer = setTimeout(
+    () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
+    MAX_AGENT_LOOP_MS,
+  );
+
   let lastError: Error | null = null;
   let attemptIndex = 0;
 
-  for (const attempt of chain) {
-    if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
-      logger.debug({ provider: attempt.provider }, "[router] circuit open, skipping");
-      attemptIndex++;
-      continue;
-    }
-
-    try {
-      const provider = getProvider(attempt.provider);
-      const stream = await retryWithBackoff(() =>
-        Promise.resolve(
-          provider.streamChat({
-            model: attempt.model,
-            messages: opts.messages,
-            temperature: opts.temperature,
-            max_tokens: opts.max_tokens,
-            top_p: opts.top_p,
-            stream: true,
-            timeoutMs: opts.timeoutMs,
-          }),
-        ),
-      );
-
-      if (attemptIndex > 0 && opts.tracer) {
-        await traceFallback(opts.tracer, attempt, attemptIndex, chain[0], lastError?.message);
+  try {
+    for (const attempt of chain) {
+      if (wallclock.signal.aborted) {
+        throw wallclock.signal.reason instanceof Error
+          ? wallclock.signal.reason
+          : new Error("agent_loop_wallclock_exceeded");
+      }
+      if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
+        logger.debug({ provider: attempt.provider }, "[router] circuit open, skipping");
+        attemptIndex++;
+        continue;
       }
 
-      let first = true;
-      for await (const chunk of stream) {
-        if (first) {
-          yield { ...chunk, decision, profile_used: `${attempt.provider}/${attempt.model}` };
-          first = false;
-        } else {
-          yield chunk;
+      try {
+        const provider = getProvider(attempt.provider);
+        const stream = await retryWithBackoff(() =>
+          Promise.resolve(
+            provider.streamChat({
+              model: attempt.model,
+              messages: opts.messages,
+              temperature: opts.temperature,
+              max_tokens: opts.max_tokens,
+              top_p: opts.top_p,
+              stream: true,
+              timeoutMs: opts.timeoutMs,
+              signal: wallclock.signal,
+            }),
+          ),
+        );
+
+        if (attemptIndex > 0 && opts.tracer) {
+          await traceFallback(opts.tracer, attempt, attemptIndex, chain[0], lastError?.message);
         }
-      }
 
-      defaultCircuitBreaker.recordSuccess(attempt.provider, opts.tenantId);
-      return;
-    } catch (e) {
-      lastError = e instanceof Error ? e : new Error(String(e));
-      const wasClosedBefore =
-        defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
-      defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
-      if (
-        wasClosedBefore &&
-        defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN"
-      ) {
-        defaultMetrics.incrementCounter("circuit_breaker_trip");
+        let first = true;
+        for await (const chunk of stream) {
+          if (wallclock.signal.aborted) {
+            throw wallclock.signal.reason instanceof Error
+              ? wallclock.signal.reason
+              : new Error("agent_loop_wallclock_exceeded");
+          }
+          if (first) {
+            yield { ...chunk, decision, profile_used: `${attempt.provider}/${attempt.model}` };
+            first = false;
+          } else {
+            yield chunk;
+          }
+        }
+
+        defaultCircuitBreaker.recordSuccess(attempt.provider, opts.tenantId);
+        return;
+      } catch (e) {
+        lastError = e instanceof Error ? e : new Error(String(e));
+        const wasClosedBefore =
+          defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
+        defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
+        if (
+          wasClosedBefore &&
+          defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN"
+        ) {
+          defaultMetrics.incrementCounter("circuit_breaker_trip");
+        }
+        const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
+        defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
+        logger.error(
+          {
+            err: lastError,
+            provider: attempt.provider,
+            model: attempt.model,
+            attempt: attemptIndex + 1,
+          },
+          "[router] smart-stream failed, trying fallback",
+        );
+        attemptIndex++;
       }
-      const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
-      defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
-      logger.error(
-        {
-          err: lastError,
-          provider: attempt.provider,
-          model: attempt.model,
-          attempt: attemptIndex + 1,
-        },
-        "[router] smart-stream failed, trying fallback",
-      );
-      attemptIndex++;
     }
-  }
 
-  throw lastError ?? new Error("All models in smart chain failed");
+    throw lastError ?? new Error("All models in smart chain failed");
+  } finally {
+    clearTimeout(wallclockTimer);
+  }
 }
 
 function buildDecision(
