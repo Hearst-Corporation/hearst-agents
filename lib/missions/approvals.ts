@@ -21,6 +21,7 @@
 
 import crypto, { randomUUID } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { SECRET_MIN_LENGTH } from "@/lib/constants/security";
 import { isTransactionalEmailEnabled, sendTransactionalEmail } from "@/lib/email/transactional";
 import type { ApprovalMode } from "@/lib/engine/runtime/missions/types";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
@@ -30,8 +31,6 @@ import { escapeHtml } from "@/lib/utils/escape-html";
 
 /** TTL d'une session d'approbation : 7 jours. */
 export const APPROVAL_TTL_HOURS = 168;
-/** Longueur minimale du secret HMAC. */
-export const SECRET_MIN_LENGTH = 32;
 
 const HMAC_ALG = "sha256";
 const TOKEN_SEPARATOR = ".";

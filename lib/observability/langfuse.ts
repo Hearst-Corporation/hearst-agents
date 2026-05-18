@@ -78,37 +78,11 @@ export function startTrace(name: string, metadata?: Record<string, unknown>) {
   return client.trace({ name, metadata });
 }
 
-/**
- * Alias fail-soft de getLangfuseClient().
- * Retourne le client Langfuse si les clés sont présentes, null sinon.
- * Ne throw jamais — même en production.
- * Utilisé par le health check admin (assertLangfuseReady async).
- */
-export function getLangfuse(): Langfuse | null {
-  try {
-    return getClient();
-  } catch {
-    return null;
-  }
-}
-
+/** Hard-fail en production si les clés Langfuse sont absentes. No-op hors prod. */
 export function assertLangfuseReady(): void {
   if (process.env.NODE_ENV !== "production") return;
   // getClient() throws en prod si clés absentes — comportement voulu
   getClient();
-}
-
-/**
- * Vérifie que Langfuse est correctement configuré.
- * Utilisé par le health check admin.
- * Fail-soft : ne throw jamais.
- */
-export async function assertLangfuseReadyAsync(): Promise<{ ok: boolean; reason?: string }> {
-  const client = getLangfuse();
-  if (!client) {
-    return { ok: false, reason: "LANGFUSE_PUBLIC_KEY or LANGFUSE_SECRET_KEY not set" };
-  }
-  return { ok: true };
 }
 
 /**

@@ -56,9 +56,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ run
 
   // MVP : log audit-only. Aucun resume automatique tant que la persistance
   // du workflow state n'est pas livrée. Voir docstring du fichier.
-  console.log(
-    `[ApproveNode] runId=${runId} nodeId=${body.nodeId} decision=${body.decision} user=${redactId(scope.userId)}`,
-  );
+  if (process.env.NODE_ENV !== "production") {
+    console.log(
+      `[ApproveNode] runId=${runId} nodeId=${body.nodeId} decision=${body.decision} user=${redactId(scope.userId)}`,
+    );
+  }
 
   return NextResponse.json({
     ok: true,

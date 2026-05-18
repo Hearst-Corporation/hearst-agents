@@ -231,9 +231,11 @@ export async function GET(_req: NextRequest) {
 
     // Log for debugging
     const connectedCount = services.filter((s) => s.connectionStatus === "connected").length;
-    console.log(
-      `[UserConnections] User ${redactId(scope.userId)}: ${connectedCount}/${services.length} connected`,
-    );
+    if (process.env.NODE_ENV !== "production") {
+      console.log(
+        `[UserConnections] User ${redactId(scope.userId)}: ${connectedCount}/${services.length} connected`,
+      );
+    }
 
     // Reports applicables au user vu ses connexions (ready/partial seulement).
     // Le RightPanel les transforme en suggestions dans la section Assets.

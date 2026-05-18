@@ -36,9 +36,11 @@ export async function GET() {
     // par cette requête + le nombre de missions retournées. Permet de comparer
     // ce que reçoit Chrome user vs Playwright et identifier la divergence.
     // À retirer après résolution.
-    console.log(
-      `[diag/cockpit-today] scope=user:${redactId(scope.userId)} tenant:${scope.tenantId} workspace:${scope.workspaceId} → missionsRunning=${payload.missionsRunning?.length ?? 0}`,
-    );
+    if (process.env.NODE_ENV !== "production") {
+      console.log(
+        `[diag/cockpit-today] scope=user:${redactId(scope.userId)} tenant:${scope.tenantId} workspace:${scope.workspaceId} → missionsRunning=${payload.missionsRunning?.length ?? 0}`,
+      );
+    }
 
     return NextResponse.json({
       ...payload,

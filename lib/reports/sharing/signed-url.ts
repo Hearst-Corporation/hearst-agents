@@ -16,13 +16,14 @@
  */
 
 import crypto from "node:crypto";
+import { SECRET_MIN_LENGTH } from "@/lib/constants/security";
 
 // ── Constantes (pas de magic numbers ailleurs) ───────────────
 
 export const TTL_MAX_HOURS = 168; // 7 jours
 export const TTL_DEFAULT_HOURS = 24;
 export const TTL_MIN_HOURS = 1;
-export const SECRET_MIN_LENGTH = 32;
+export { SECRET_MIN_LENGTH };
 export const SHARE_RATE_LIMIT_PER_HOUR = 30; // par user
 
 const HMAC_ALG = "sha256";
