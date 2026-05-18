@@ -37,6 +37,7 @@ import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
 import { getRetrievedMemoryForUser } from "@/lib/memory/retrieval-context";
 import { appendModelMessages, getRecentModelMessages } from "@/lib/memory/store";
 import type { TenantScope } from "@/lib/multi-tenant/types";
+import { startTrace } from "@/lib/observability/langfuse";
 import { getDefaultPersona, getPersonaById, getPersonaForSurface } from "@/lib/personas/store";
 import { getApplicableReports } from "@/lib/reports/catalog";
 import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
@@ -426,6 +427,16 @@ export async function runAiPipeline(
     await engine.fail(msg);
     return;
   }
+
+  // F-039 — Langfuse top-level trace (no-op if LANGFUSE_SECRET_KEY absent)
+  const langfuseTrace = startTrace("runAiPipeline", {
+    userId: redactId(input.userId),
+    surface: input.surface,
+    domain: input.domain,
+    runId: engine.id,
+    conversationId: input.conversationId,
+  });
+
   // tenantId et workspaceId sont garantis non-vides à partir d'ici.
   const resolvedTenantId: string = input.tenantId;
   const resolvedWorkspaceId: string = input.workspaceId;
@@ -1402,6 +1413,7 @@ export async function runAiPipeline(
 
     defaultCircuitBreaker.recordSuccess("anthropic", resolvedTenantId);
     await engine.complete();
+    langfuseTrace?.update({ output: { status: "completed", runId: engine.id } });
   } catch (err) {
     // P1-8 / P1-D — si l'abort vient d'un watchdog, on remonte une erreur
     // claire et explicite, traitée comme toute autre erreur stream. Deux
@@ -1420,6 +1432,7 @@ export async function runAiPipeline(
       err instanceof Error ? err : new Error(msg),
       resolvedTenantId,
     );
+    langfuseTrace?.update({ output: { status: "failed", error: msg, runId: engine.id } });
     await engine.fail(msg);
   } finally {
     // P1-8 / P1-D — garantit qu'aucun timer watchdog (token NI tool) ne reste

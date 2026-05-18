@@ -14,6 +14,8 @@ export const runtime = "nodejs";
 
 const PANEL_INTERVAL_MS = 1000;
 const PING_INTERVAL_MS = 25000;
+// Re-validation de session toutes les 30s pour couper le stream si la session expire.
+const SESSION_REVALIDATION_INTERVAL_MS = 30_000;
 
 export async function GET(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "GET /api/v2/right-panel/stream" });
@@ -32,12 +34,14 @@ export async function GET(req: NextRequest) {
       let stopped = false;
       let panelTimer: ReturnType<typeof setInterval> | null = null;
       let pingTimer: ReturnType<typeof setInterval> | null = null;
+      let sessionTimer: ReturnType<typeof setInterval> | null = null;
 
       const closeAll = () => {
         if (stopped) return;
         stopped = true;
         if (panelTimer) clearInterval(panelTimer);
         if (pingTimer) clearInterval(pingTimer);
+        if (sessionTimer) clearInterval(sessionTimer);
         try {
           controller.close();
         } catch {
@@ -94,6 +98,27 @@ export async function GET(req: NextRequest) {
         }
         enqueue(encoder.encode(":\n\n"));
       }, PING_INTERVAL_MS);
+
+      // Re-validation périodique de la session — coupe le stream si la session
+      // expire ou est révoquée pendant une connexion longue.
+      sessionTimer = setInterval(async () => {
+        if (stopped || req.signal.aborted) return;
+        try {
+          const { error } = await requireScope({
+            context: "GET /api/v2/right-panel/stream [revalidation]",
+          });
+          if (error) {
+            enqueue(
+              encoder.encode(
+                `event: session_expired\ndata: ${JSON.stringify({ message: "session_expired" })}\n\n`,
+              ),
+            );
+            closeAll();
+          }
+        } catch {
+          // Fail-open : ne pas casser le stream sur une erreur de revalidation transitoire.
+        }
+      }, SESSION_REVALIDATION_INTERVAL_MS);
     },
   });
 

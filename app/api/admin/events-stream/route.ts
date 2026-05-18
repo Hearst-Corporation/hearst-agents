@@ -1,9 +1,14 @@
 import type { NextRequest } from "next/server";
 import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { globalRunBus } from "@/lib/events/global-bus";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+// Re-validation de session toutes les 30s (2 heartbeats) pour couper le
+// stream si la session admin expire en cours de connexion.
+const SESSION_REVALIDATION_INTERVAL_MS = 30_000;
 
 export async function GET(req: NextRequest) {
   const guard = await requireAdmin("GET /api/admin/events-stream", {
@@ -16,11 +21,27 @@ export async function GET(req: NextRequest) {
 
   const stream = new ReadableStream({
     start(controller) {
+      let stopped = false;
+
       const safeEnqueue = (chunk: string) => {
+        if (stopped) return;
         try {
           controller.enqueue(encoder.encode(chunk));
         } catch {
           // controller closed, ignored
+        }
+      };
+
+      const closeAll = () => {
+        if (stopped) return;
+        stopped = true;
+        clearInterval(heartbeat);
+        clearInterval(sessionCheck);
+        unsubscribe();
+        try {
+          controller.close();
+        } catch {
+          // already closed
         }
       };
 
@@ -38,14 +59,25 @@ export async function GET(req: NextRequest) {
         safeEnqueue(`: ping\n\n`);
       }, 15000);
 
-      const cleanup = () => {
-        clearInterval(heartbeat);
-        unsubscribe();
+      // Re-validation périodique de la session — ferme le stream si la session
+      // admin expire ou est révoquée pendant une connexion longue.
+      const sessionCheck = setInterval(async () => {
+        if (stopped || req.signal.aborted) return;
         try {
-          controller.close();
+          const { error } = await requireScope({
+            context: "GET /api/admin/events-stream [revalidation]",
+          });
+          if (error) {
+            safeEnqueue(`data: ${JSON.stringify({ type: "session_expired" })}\n\n`);
+            closeAll();
+          }
         } catch {
-          // already closed
+          // Fail-open : ne pas casser le stream sur une erreur de revalidation transitoire.
         }
+      }, SESSION_REVALIDATION_INTERVAL_MS);
+
+      const cleanup = () => {
+        closeAll();
       };
 
       req.signal.addEventListener("abort", cleanup);

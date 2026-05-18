@@ -1,7 +1,10 @@
 import type { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { orchestrate } from "@/lib/engine/orchestrator";
 import { ensureSchedulerStarted } from "@/lib/engine/runtime/missions/scheduler-init";
+import { MAX_MESSAGES_PER_CONVERSATION } from "@/lib/memory/store";
+import { authOptions } from "@/lib/platform/auth/options";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -21,8 +24,17 @@ const HEARTBEAT_INTERVAL_MS = 20_000;
  * proxies (Cloudflare, Vercel, nginx) qui ferment les sockets idle au-delà
  * de ~30s. Belt-and-suspenders avec le heartbeat interne au SSEAdapter :
  * ce wrapper est le dernier rempart au niveau du Response.
+ *
+ * Re-validation de session toutes les SESSION_REVALIDATION_CHUNKS chunks
+ * (léger : NextAuth utilise le cache JWT côté serveur). Ferme le stream si
+ * la session expire en cours de run.
  */
-function withHeartbeat(stream: ReadableStream<Uint8Array>): ReadableStream<Uint8Array> {
+const SESSION_REVALIDATION_CHUNKS = 20;
+
+function withHeartbeat(
+  stream: ReadableStream<Uint8Array>,
+  expectedUserId: string,
+): ReadableStream<Uint8Array> {
   const encoder = new TextEncoder();
   const reader = stream.getReader();
   let heartbeatTimer: ReturnType<typeof setInterval> | null = null;
@@ -45,17 +57,49 @@ function withHeartbeat(stream: ReadableStream<Uint8Array>): ReadableStream<Uint8
         }
       }, HEARTBEAT_INTERVAL_MS);
 
+      let chunkCount = 0;
+
       try {
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
+
+          chunkCount++;
+          // Re-validation de session périodique — pas de latence si session valide
+          // (NextAuth lit le JWT depuis le cookie, pas de DB round-trip).
+          if (chunkCount % SESSION_REVALIDATION_CHUNKS === 0) {
+            try {
+              const session = await getServerSession(authOptions);
+              const sessionUserId = (session as unknown as Record<string, unknown>)?.userId as
+                | string
+                | undefined;
+              const userIdFromUser = (session?.user as { id?: string } | undefined)?.id;
+              const currentUserId = sessionUserId ?? userIdFromUser ?? null;
+              if (!session || currentUserId !== expectedUserId) {
+                controller.enqueue(
+                  encoder.encode(
+                    `data: ${JSON.stringify({ ok: false, error: "session_expired" })}\n\n`,
+                  ),
+                );
+                controller.close();
+                return;
+              }
+            } catch {
+              // Fail-open : ne pas interrompre le stream sur une erreur transitoire de session.
+            }
+          }
+
           controller.enqueue(value);
         }
       } catch (err) {
         controller.error(err);
       } finally {
         stopHeartbeat();
-        controller.close();
+        try {
+          controller.close();
+        } catch {
+          // already closed
+        }
       }
     },
     cancel() {
@@ -134,6 +178,8 @@ export async function POST(req: NextRequest) {
 
   const db = requireServerSupabase();
 
+  const cappedHistory = (parsed.data.history ?? []).slice(-MAX_MESSAGES_PER_CONVERSATION);
+
   const stream = orchestrate(db, {
     userId: scope.userId,
     message: parsed.data.message,
@@ -141,7 +187,7 @@ export async function POST(req: NextRequest) {
     surface: parsed.data.surface,
     threadId: parsed.data.thread_id,
     focalContext: parsed.data.focal_context,
-    conversationHistory: parsed.data.history,
+    conversationHistory: cappedHistory.length > 0 ? cappedHistory : undefined,
     attachedAssetIds: validatedAssetIds,
     personaId: parsed.data.persona_id,
     // missionId n'est pas accepté depuis le chat public — ownership validé via /api/v2/missions/[id]/run
@@ -150,7 +196,7 @@ export async function POST(req: NextRequest) {
     max_cost_usd: PRICE_CAP_USD,
   });
 
-  return new Response(withHeartbeat(stream), {
+  return new Response(withHeartbeat(stream, scope.userId), {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",

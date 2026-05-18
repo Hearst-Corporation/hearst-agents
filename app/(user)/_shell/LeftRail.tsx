@@ -100,13 +100,20 @@ function UserAvatar() {
 interface RailButtonProps {
   label: string;
   hint?: string;
+  tagline?: string;
   active?: boolean;
   onClick: () => void;
   children: React.ReactNode;
 }
 
-function RailButton({ label, hint, active, onClick, children }: RailButtonProps) {
-  const tooltip = hint ? `${label} · ${hint}` : label;
+function RailButton({ label, hint, tagline, active, onClick, children }: RailButtonProps) {
+  const tooltip = hint
+    ? tagline
+      ? `${label} · ${hint} · ${tagline}`
+      : `${label} · ${hint}`
+    : tagline
+      ? `${label} · ${tagline}`
+      : label;
   return (
     <button
       type="button"
@@ -204,6 +211,7 @@ export function LeftRail() {
                     key={key}
                     label={def.navLabel}
                     hint={def.hotkey}
+                    tagline={def.tagline}
                     active={currentMode === key}
                     onClick={() => setMode(payloadFor(key))}
                   >

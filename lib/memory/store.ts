@@ -24,7 +24,7 @@ import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getRedis } from "@/lib/platform/redis/client";
 import type { ChatMessageMemory, ConversationMemory } from "./types";
 
-const MAX_MESSAGES_PER_CONVERSATION = 24;
+export const MAX_MESSAGES_PER_CONVERSATION = 24;
 const WAL_TTL_SECONDS = 3600; // 1h — fenêtre suffisante pour drainer vers Supabase
 const walKey = (conversationId: string) => `wal:msg:${conversationId}`;
 const walModelKey = (conversationId: string) => `wal:msgmodel:${conversationId}`;

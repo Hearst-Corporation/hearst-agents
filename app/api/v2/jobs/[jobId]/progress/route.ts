@@ -59,6 +59,8 @@ const querySchema = z.object({
 
 const POLL_FALLBACK_MS = 1_500;
 const PING_INTERVAL_MS = 25_000;
+// Re-validation de session toutes les 30s — coupe le stream si la session expire.
+const SESSION_REVALIDATION_INTERVAL_MS = 30_000;
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ jobId: string }> }) {
   const { jobId } = await params;
@@ -102,6 +104,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ jobI
       let stopped = false;
       let pollTimer: ReturnType<typeof setInterval> | null = null;
       let pingTimer: ReturnType<typeof setInterval> | null = null;
+      let sessionTimer: ReturnType<typeof setInterval> | null = null;
       // Singleton QueueEvents — pas de close() ici (géré par queue-events-singleton),
       // mais on DOIT retirer nos propres listeners au close pour éviter une fuite :
       // le singleton étant partagé, chaque connexion SSE empilerait sinon 3
@@ -167,6 +170,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ jobI
         stopped = true;
         if (pollTimer) clearInterval(pollTimer);
         if (pingTimer) clearInterval(pingTimer);
+        if (sessionTimer) clearInterval(sessionTimer);
         // QueueEvents singleton — ne pas close() ici, il est partagé entre
         // connexions SSE. MAIS on retire nos 3 listeners (1 off par on) sinon
         // ils restent attachés au singleton à vie → fuite mémoire.
@@ -282,6 +286,23 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ jobI
         }
         enqueue(encoder.encode(":\n\n"));
       }, PING_INTERVAL_MS);
+
+      // 5. Re-validation périodique de la session — coupe le stream si la session
+      //    expire ou est révoquée pendant un job long (video-gen, etc.).
+      sessionTimer = setInterval(async () => {
+        if (stopped || req.signal.aborted) return;
+        try {
+          const { error } = await requireScope({
+            context: `GET /api/v2/jobs/${jobId}/progress [revalidation]`,
+          });
+          if (error) {
+            sendEvent("session_expired", { message: "session_expired" });
+            closeAll();
+          }
+        } catch {
+          // Fail-open : ne pas interrompre un job long sur une erreur transitoire de session.
+        }
+      }, SESSION_REVALIDATION_INTERVAL_MS);
     },
   });
 

@@ -18,6 +18,7 @@ import { EmptyState } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { STAGE_REGISTRY } from "./registry";
 import type { RailItem } from "./types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -528,7 +529,59 @@ export function BrowserStage({ mode }: { mode: string }) {
     return () => ctrl.abort();
   }, [sessionId, demoActive]);
 
-  // Steps : en attente de SSE /api/v2/browser/[id]/steps.
+  // Polling des steps Stagehand — déclenché uniquement sur une vraie session
+  // (demoActive === false). S'arrête si la session passe dans un état terminal.
+  // TODO: dépend SSE backend — la route /api/v2/browser/sessions/[id]/steps
+  //   n'existe pas encore. Le squelette est prêt ; remplacer le no-op par le
+  //   vrai fetch dès que le backend l'expose.
+  useEffect(() => {
+    if (!realSessionId) return;
+
+    // États terminaux : le polling s'arrête dès qu'un de ces statuts est détecté.
+    const TERMINAL_STATUSES = new Set([
+      "completed",
+      "error",
+      "closed",
+      "COMPLETED",
+      "ERROR",
+      "CLOSED",
+    ]);
+
+    const controller = new AbortController();
+
+    const poll = async () => {
+      // Guard terminal : si la session est déjà dans un état final, on s'arrête.
+      if (sessionInfo && TERMINAL_STATUSES.has(sessionInfo.status)) {
+        controller.abort();
+        return;
+      }
+
+      try {
+        // TODO: dépend SSE backend — no-op si 404 (route non encore créée).
+        const res = await fetch(`/api/v2/browser/sessions/${realSessionId}/steps`, {
+          signal: controller.signal,
+          credentials: "include",
+        });
+        if (!res.ok) return; // 404 ou autre → on ignore silencieusement
+        const data = (await res.json()) as { steps?: BrowserStep[] };
+        if (data.steps && Array.isArray(data.steps)) {
+          // TODO: setter à brancher quand le vrai endpoint sera disponible.
+          // setSteps(data.steps);
+        }
+      } catch (err) {
+        if ((err as Error).name === "AbortError") return;
+        // Erreur réseau silencieuse — on laisse le polling continuer
+      }
+    };
+
+    const interval = setInterval(poll, 5000);
+    void poll(); // appel immédiat
+
+    return () => {
+      clearInterval(interval);
+      controller.abort();
+    };
+  }, [realSessionId, sessionInfo]);
 
   // Push ContextRail
   useEffect(() => {
@@ -607,9 +660,16 @@ export function BrowserStage({ mode }: { mode: string }) {
           Browserbase · Stagehand · navigateur cloud
         </p>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <h1 style={{ fontSize: "28px", fontWeight: 500, letterSpacing: "-.02em" }}>
-            Session active
-          </h1>
+          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+            <h1 style={{ fontSize: "28px", fontWeight: 500, letterSpacing: "-.02em" }}>
+              Session active
+            </h1>
+            {STAGE_REGISTRY.browser.tagline && (
+              <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+                {STAGE_REGISTRY.browser.tagline}
+              </p>
+            )}
+          </div>
           <ModeToggle auto={autoMode} onToggle={handleToggleMode} />
         </div>
       </header>

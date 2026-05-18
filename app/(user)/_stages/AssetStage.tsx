@@ -20,6 +20,7 @@ import { EmptyState } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { STAGE_REGISTRY } from "./registry";
 import type { RailItem } from "./types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -434,6 +435,11 @@ export function AssetStage({ mode }: { mode: string }) {
         <h1 style={{ fontSize: "32px", fontWeight: 500, letterSpacing: "-0.02em" }}>
           {loading ? "Chargement des assets" : total === 0 ? "Génération média" : "Assets"}
         </h1>
+        {STAGE_REGISTRY.asset.tagline && (
+          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+            {STAGE_REGISTRY.asset.tagline}
+          </p>
+        )}
         {total > 0 && (
           <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
             {displayAssets.map((a) => a.tag).join(" · ")}

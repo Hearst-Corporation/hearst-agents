@@ -34,6 +34,8 @@ export type StageDef = {
   key: StageKey;
   label: string;
   navLabel: string;
+  /** Phrase courte FR décrivant ce que fait le Stage (tooltip + sous-titre). */
+  tagline?: string;
   hotkey?: string;
   footer: FooterConfig;
   railTitle: string;

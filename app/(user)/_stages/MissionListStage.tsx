@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { STAGE_REGISTRY } from "./registry";
 import type { RailItem } from "./types";
 
 // ── Variants ─────────────────────────────────────────────────────────────────
@@ -531,6 +532,11 @@ export function MissionListStage({ mode }: { mode: string }) {
           >
             Demandes
           </h1>
+          {STAGE_REGISTRY.mission.tagline && (
+            <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+              {STAGE_REGISTRY.mission.tagline}
+            </p>
+          )}
         </div>
 
         <button

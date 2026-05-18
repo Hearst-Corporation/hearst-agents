@@ -152,108 +152,124 @@ export async function chatWithProfile(
     }
   }
 
+  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
+  const wallclock = new AbortController();
+  const wallclockTimer = setTimeout(
+    () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
+    MAX_AGENT_LOOP_MS,
+  );
+
   let lastError: Error | null = null;
 
-  for (const profile of chain) {
-    if (defaultCircuitBreaker.isOpen(profile.provider)) {
-      logger.debug({ provider: profile.provider }, "[router] circuit open, skipping");
-      continue;
-    }
+  try {
+    for (const profile of chain) {
+      if (wallclock.signal.aborted) {
+        throw wallclock.signal.reason instanceof Error
+          ? wallclock.signal.reason
+          : new Error("agent_loop_wallclock_exceeded");
+      }
+      if (defaultCircuitBreaker.isOpen(profile.provider)) {
+        logger.debug({ provider: profile.provider }, "[router] circuit open, skipping");
+        continue;
+      }
 
-    try {
-      const provider = getProvider(profile.provider);
-      const response = await retryWithBackoff(() =>
-        provider.chat({
+      try {
+        const provider = getProvider(profile.provider);
+        const response = await retryWithBackoff(() =>
+          provider.chat({
+            model: profile.model,
+            messages,
+            temperature: overrides?.temperature ?? profile.temperature,
+            max_tokens: overrides?.max_tokens ?? profile.max_tokens,
+            top_p: overrides?.top_p ?? profile.top_p,
+            timeoutMs: overrides?.timeoutMs,
+          }),
+        );
+
+        response.cost_usd = computeCost(
+          response.tokens_in,
+          response.tokens_out,
+          profile.cost_per_1k_in,
+          profile.cost_per_1k_out,
+        );
+
+        if (profile.max_cost_per_run && response.cost_usd > profile.max_cost_per_run) {
+          throw new CostLimitExceededError(
+            response.cost_usd,
+            profile.max_cost_per_run,
+            profile.provider,
+            profile.model,
+          );
+        }
+
+        if (userId) {
+          defaultRateLimiter.recordCall(userId, response.tokens_in + response.tokens_out);
+        }
+        defaultCircuitBreaker.recordSuccess(profile.provider, tenantId);
+        defaultMetrics.recordCall({
+          provider: profile.provider,
           model: profile.model,
-          messages,
-          temperature: overrides?.temperature ?? profile.temperature,
-          max_tokens: overrides?.max_tokens ?? profile.max_tokens,
-          top_p: overrides?.top_p ?? profile.top_p,
-          timeoutMs: overrides?.timeoutMs,
-        }),
-      );
-
-      response.cost_usd = computeCost(
-        response.tokens_in,
-        response.tokens_out,
-        profile.cost_per_1k_in,
-        profile.cost_per_1k_out,
-      );
-
-      if (profile.max_cost_per_run && response.cost_usd > profile.max_cost_per_run) {
-        throw new CostLimitExceededError(
-          response.cost_usd,
-          profile.max_cost_per_run,
-          profile.provider,
-          profile.model,
+          latencyMs: response.latency_ms,
+          tokensIn: response.tokens_in,
+          tokensOut: response.tokens_out,
+          cacheReadTokens: response.cache_read_tokens,
+          cacheCreationTokens: response.cache_creation_tokens,
+          costUsd: response.cost_usd,
+        });
+        if (tenantId) {
+          void persistRun({
+            tenantId,
+            userId: userId ?? null,
+            provider: profile.provider,
+            model: profile.model,
+            inputTokens: response.tokens_in,
+            outputTokens: response.tokens_out,
+            costUsd: response.cost_usd,
+            latencyMs: response.latency_ms,
+            status: "success",
+          });
+        }
+        return { ...response, profile_used: `${profile.provider}/${profile.model}` };
+      } catch (e) {
+        lastError = e instanceof Error ? e : new Error(String(e));
+        if (!(e instanceof CostLimitExceededError)) {
+          const wasClosedBefore =
+            defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
+          defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
+          if (
+            wasClosedBefore &&
+            defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN"
+          ) {
+            defaultMetrics.incrementCounter("circuit_breaker_trip");
+          }
+        }
+        const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
+        defaultMetrics.recordError({ provider: profile.provider, errorCode: errCode });
+        if (tenantId) {
+          void persistRun({
+            tenantId,
+            userId: userId ?? null,
+            provider: profile.provider,
+            model: profile.model,
+            inputTokens: 0,
+            outputTokens: 0,
+            costUsd: null,
+            latencyMs: 0,
+            status: "failed",
+            errorCode: errCode,
+          });
+        }
+        logger.error(
+          { err: lastError, provider: profile.provider, model: profile.model },
+          "[router] provider failed, trying fallback",
         );
       }
-
-      if (userId) {
-        defaultRateLimiter.recordCall(userId, response.tokens_in + response.tokens_out);
-      }
-      defaultCircuitBreaker.recordSuccess(profile.provider, tenantId);
-      defaultMetrics.recordCall({
-        provider: profile.provider,
-        model: profile.model,
-        latencyMs: response.latency_ms,
-        tokensIn: response.tokens_in,
-        tokensOut: response.tokens_out,
-        cacheReadTokens: response.cache_read_tokens,
-        cacheCreationTokens: response.cache_creation_tokens,
-        costUsd: response.cost_usd,
-      });
-      if (tenantId) {
-        void persistRun({
-          tenantId,
-          userId: userId ?? null,
-          provider: profile.provider,
-          model: profile.model,
-          inputTokens: response.tokens_in,
-          outputTokens: response.tokens_out,
-          costUsd: response.cost_usd,
-          latencyMs: response.latency_ms,
-          status: "success",
-        });
-      }
-      return { ...response, profile_used: `${profile.provider}/${profile.model}` };
-    } catch (e) {
-      lastError = e instanceof Error ? e : new Error(String(e));
-      if (!(e instanceof CostLimitExceededError)) {
-        const wasClosedBefore =
-          defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
-        defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
-        if (
-          wasClosedBefore &&
-          defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN"
-        ) {
-          defaultMetrics.incrementCounter("circuit_breaker_trip");
-        }
-      }
-      const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
-      defaultMetrics.recordError({ provider: profile.provider, errorCode: errCode });
-      if (tenantId) {
-        void persistRun({
-          tenantId,
-          userId: userId ?? null,
-          provider: profile.provider,
-          model: profile.model,
-          inputTokens: 0,
-          outputTokens: 0,
-          costUsd: null,
-          latencyMs: 0,
-          status: "failed",
-          errorCode: errCode,
-        });
-      }
-      logger.error(
-        { err: lastError, provider: profile.provider, model: profile.model },
-        "[router] provider failed, trying fallback",
-      );
     }
-  }
 
-  throw lastError ?? new Error("All providers in fallback chain failed");
+    throw lastError ?? new Error("All providers in fallback chain failed");
+  } finally {
+    clearTimeout(wallclockTimer);
+  }
 }
 
 export async function* streamChatWithProfile(
@@ -402,114 +418,130 @@ export async function smartChat(
 
   const chain = buildSmartChain(decision);
 
+  const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
+  const wallclock = new AbortController();
+  const wallclockTimer = setTimeout(
+    () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
+    MAX_AGENT_LOOP_MS,
+  );
+
   let lastError: Error | null = null;
   let attemptIndex = 0;
 
-  for (const attempt of chain) {
-    if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
-      logger.debug({ provider: attempt.provider }, "[router] circuit open, skipping");
-      attemptIndex++;
-      continue;
-    }
+  try {
+    for (const attempt of chain) {
+      if (wallclock.signal.aborted) {
+        throw wallclock.signal.reason instanceof Error
+          ? wallclock.signal.reason
+          : new Error("agent_loop_wallclock_exceeded");
+      }
+      if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
+        logger.debug({ provider: attempt.provider }, "[router] circuit open, skipping");
+        attemptIndex++;
+        continue;
+      }
 
-    try {
-      const provider = getProvider(attempt.provider);
-      const response = await retryWithBackoff(() =>
-        provider.chat({
-          model: attempt.model,
-          messages: opts.messages,
-          temperature: opts.temperature,
-          max_tokens: opts.max_tokens,
-          top_p: opts.top_p,
-          timeoutMs: opts.timeoutMs,
-        }),
-      );
-
-      if (opts.max_cost_per_run && response.cost_usd > opts.max_cost_per_run) {
-        throw new CostLimitExceededError(
-          response.cost_usd,
-          opts.max_cost_per_run,
-          attempt.provider,
-          attempt.model,
+      try {
+        const provider = getProvider(attempt.provider);
+        const response = await retryWithBackoff(() =>
+          provider.chat({
+            model: attempt.model,
+            messages: opts.messages,
+            temperature: opts.temperature,
+            max_tokens: opts.max_tokens,
+            top_p: opts.top_p,
+            timeoutMs: opts.timeoutMs,
+          }),
         );
-      }
 
-      if (opts.userId) {
-        defaultRateLimiter.recordCall(opts.userId, response.tokens_in + response.tokens_out);
-      }
-      defaultCircuitBreaker.recordSuccess(attempt.provider, opts.tenantId);
-      defaultMetrics.recordCall({
-        provider: attempt.provider,
-        model: attempt.model,
-        latencyMs: response.latency_ms,
-        tokensIn: response.tokens_in,
-        tokensOut: response.tokens_out,
-        cacheReadTokens: response.cache_read_tokens,
-        cacheCreationTokens: response.cache_creation_tokens,
-        costUsd: response.cost_usd,
-      });
-      if (opts.tenantId) {
-        void persistRun({
-          tenantId: opts.tenantId,
-          userId: opts.userId ?? null,
-          provider: attempt.provider,
-          model: attempt.model,
-          inputTokens: response.tokens_in,
-          outputTokens: response.tokens_out,
-          costUsd: response.cost_usd,
-          latencyMs: response.latency_ms,
-          status: "success",
-        });
-      }
-
-      if (attemptIndex > 0 && opts.tracer) {
-        await traceFallback(opts.tracer, attempt, attemptIndex, chain[0], lastError?.message);
-      }
-
-      return { ...response, decision };
-    } catch (e) {
-      lastError = e instanceof Error ? e : new Error(String(e));
-      if (!(e instanceof CostLimitExceededError)) {
-        const wasClosedBefore =
-          defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
-        defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
-        if (
-          wasClosedBefore &&
-          defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN"
-        ) {
-          defaultMetrics.incrementCounter("circuit_breaker_trip");
+        if (opts.max_cost_per_run && response.cost_usd > opts.max_cost_per_run) {
+          throw new CostLimitExceededError(
+            response.cost_usd,
+            opts.max_cost_per_run,
+            attempt.provider,
+            attempt.model,
+          );
         }
-      }
-      const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
-      defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
-      if (opts.tenantId) {
-        void persistRun({
-          tenantId: opts.tenantId,
-          userId: opts.userId ?? null,
-          provider: attempt.provider,
-          model: attempt.model,
-          inputTokens: 0,
-          outputTokens: 0,
-          costUsd: null,
-          latencyMs: 0,
-          status: "failed",
-          errorCode: errCode,
-        });
-      }
-      logger.error(
-        {
-          err: lastError,
-          provider: attempt.provider,
-          model: attempt.model,
-          attempt: attemptIndex + 1,
-        },
-        "[router] smart-chat failed, trying fallback",
-      );
-      attemptIndex++;
-    }
-  }
 
-  throw lastError ?? new Error("All models in smart chain failed");
+        if (opts.userId) {
+          defaultRateLimiter.recordCall(opts.userId, response.tokens_in + response.tokens_out);
+        }
+        defaultCircuitBreaker.recordSuccess(attempt.provider, opts.tenantId);
+        defaultMetrics.recordCall({
+          provider: attempt.provider,
+          model: attempt.model,
+          latencyMs: response.latency_ms,
+          tokensIn: response.tokens_in,
+          tokensOut: response.tokens_out,
+          cacheReadTokens: response.cache_read_tokens,
+          cacheCreationTokens: response.cache_creation_tokens,
+          costUsd: response.cost_usd,
+        });
+        if (opts.tenantId) {
+          void persistRun({
+            tenantId: opts.tenantId,
+            userId: opts.userId ?? null,
+            provider: attempt.provider,
+            model: attempt.model,
+            inputTokens: response.tokens_in,
+            outputTokens: response.tokens_out,
+            costUsd: response.cost_usd,
+            latencyMs: response.latency_ms,
+            status: "success",
+          });
+        }
+
+        if (attemptIndex > 0 && opts.tracer) {
+          await traceFallback(opts.tracer, attempt, attemptIndex, chain[0], lastError?.message);
+        }
+
+        return { ...response, decision };
+      } catch (e) {
+        lastError = e instanceof Error ? e : new Error(String(e));
+        if (!(e instanceof CostLimitExceededError)) {
+          const wasClosedBefore =
+            defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
+          defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
+          if (
+            wasClosedBefore &&
+            defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN"
+          ) {
+            defaultMetrics.incrementCounter("circuit_breaker_trip");
+          }
+        }
+        const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
+        defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
+        if (opts.tenantId) {
+          void persistRun({
+            tenantId: opts.tenantId,
+            userId: opts.userId ?? null,
+            provider: attempt.provider,
+            model: attempt.model,
+            inputTokens: 0,
+            outputTokens: 0,
+            costUsd: null,
+            latencyMs: 0,
+            status: "failed",
+            errorCode: errCode,
+          });
+        }
+        logger.error(
+          {
+            err: lastError,
+            provider: attempt.provider,
+            model: attempt.model,
+            attempt: attemptIndex + 1,
+          },
+          "[router] smart-chat failed, trying fallback",
+        );
+        attemptIndex++;
+      }
+    }
+
+    throw lastError ?? new Error("All models in smart chain failed");
+  } finally {
+    clearTimeout(wallclockTimer);
+  }
 }
 
 export async function* smartStreamChat(

@@ -40,6 +40,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "cockpit",
     label: "Accueil",
     navLabel: "Accueil",
+    tagline: "Vue d'ensemble de tes activités",
     hotkey: "⌘1",
     railTitle: "Aperçu du jour",
     footer: {
@@ -52,6 +53,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "chat",
     label: "Chat",
     navLabel: "Chat",
+    tagline: "Parle à l'agent et lance des missions",
     hotkey: "⌘2",
     railTitle: "Outils",
     footer: {
@@ -64,6 +66,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "asset",
     label: "Assets",
     navLabel: "Assets",
+    tagline: "Génère et compare tes visuels",
     hotkey: "⌘3",
     railTitle: "Paramètres",
     footer: {
@@ -76,6 +79,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "asset_compare",
     label: "Compare",
     navLabel: "Compare",
+    tagline: "Compare deux visuels côte à côte",
     railTitle: "Métriques",
     footer: {
       status: "Comparaison",
@@ -87,6 +91,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "browser",
     label: "Browser",
     navLabel: "Browser",
+    tagline: "Navigue le web avec l'agent",
     hotkey: "⌘4",
     railTitle: "Session",
     footer: {
@@ -99,6 +104,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "meeting",
     label: "Meeting",
     navLabel: "Meeting",
+    tagline: "Transcription live de tes réunions",
     hotkey: "⌘5",
     railTitle: "Action items",
     footer: {
@@ -111,6 +117,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "kg",
     label: "KG",
     navLabel: "KG",
+    tagline: "Graphe de connaissance de ton espace",
     hotkey: "⌘6",
     railTitle: "Propriétés",
     footer: {
@@ -123,6 +130,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "voice",
     label: "Voice",
     navLabel: "Voice",
+    tagline: "Interface vocale avec l'agent",
     hotkey: "⌘7",
     railTitle: "Session",
     footer: {
@@ -135,6 +143,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "simulation",
     label: "Sim",
     navLabel: "Sim",
+    tagline: "Lance des simulations scénarisées",
     hotkey: "⌘8",
     railTitle: "Variables",
     footer: {
@@ -147,6 +156,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "mission",
     label: "Mission",
     navLabel: "Mission",
+    tagline: "Suis l'avancement de tes demandes",
     hotkey: "⌘9",
     railTitle: "Étapes",
     footer: {
@@ -159,6 +169,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "artifact",
     label: "Artifact",
     navLabel: "Artifact",
+    tagline: "Accède aux livrables générés",
     hotkey: "⌘0",
     railTitle: "Sandbox",
     footer: {
@@ -171,6 +182,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "signal",
     label: "Signaux",
     navLabel: "Signaux",
+    tagline: "Alertes et anomalies détectées",
     railTitle: "Connecteurs",
     footer: {
       status: "0 critique · 0 actifs",
@@ -182,6 +194,7 @@ export const STAGE_REGISTRY: Record<StageKey, StageDef> = {
     key: "connections",
     label: "Connexions",
     navLabel: "Connexions",
+    tagline: "Connecteurs et intégrations",
     railTitle: "Intégrations",
     footer: {
       status: "Configuration",
