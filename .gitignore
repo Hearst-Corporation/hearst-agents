@@ -36,6 +36,10 @@
 /ARCHITECTURE-COMPLETE.pdf
 /docs/architecture/*.pdf
 
+# Rapports d'audit HTML générés (/audit-adrien, /adrien-auditer-*)
+# Artefacts générés, pas du code source.
+/docs/audit/*.html
+
 # Themes scrapés via /heist /skin — on garde tokens.css/json/meta/sandbox/assets
 # mais pas les screenshots HD ni le dump brut (lourds).
 /themes/*/raw.json
