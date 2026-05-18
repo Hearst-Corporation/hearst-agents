@@ -72,7 +72,9 @@
     "*.{md,css,yml,yaml}": []
   },
   "dependencies": {
+    "@hearst/cockpit-shell": "file:/tmp/hearst-cockpit-shell",
     "@ai-sdk/anthropic": "^3.0.71",
+    "dompurify": "^3.2.0",
     "@ai-sdk/openai": "^3.0.63",
     "@alloc/quick-lru": "^5.2.0",
     "@anthropic-ai/sdk": "^0.95.1",
@@ -82,7 +84,7 @@
     "@aws-sdk/s3-request-presigner": "^3.1037.0",
     "@composio/core": "^0.10.0",
     "@e2b/code-interpreter": "^2.4.1",
-    "@hearst/hub-sdk": "file:/Users/adrienbeyondcrypto/Dev/Hearst Corporation /packages/hub-sdk",
+    "@hearst/hub-sdk": "file:/tmp/hearst-hub-sdk",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@sentry/nextjs": "^10.51.0",
@@ -135,6 +137,7 @@
     "dotenv": "^17.4.2",
     "electron": "^41.5.1",
     "electron-builder": "^26.8.1",
+    "@types/dompurify": "^3.2.0",
     "esbuild": "^0.28.0",
     "jsdom": "^26.0.0",
     "knip": "^6.12.2",

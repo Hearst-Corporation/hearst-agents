@@ -38,9 +38,12 @@ importers:
       '@e2b/code-interpreter':
         specifier: ^2.4.1
         version: 2.4.2
+      '@hearst/cockpit-shell':
+        specifier: file:/tmp/hearst-cockpit-shell
+        version: file:../../../../../tmp/hearst-cockpit-shell(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(openai@6.37.0(ws@8.20.1)(zod@4.4.3))(react@19.2.4)
       '@hearst/hub-sdk':
-        specifier: file:/Users/adrienbeyondcrypto/Dev/Hearst Corporation /packages/hub-sdk
-        version: file:../Hearst Corporation /packages/hub-sdk(react@19.2.4)
+        specifier: file:/tmp/hearst-hub-sdk
+        version: file:../../../../../tmp/hearst-hub-sdk(react@19.2.4)
       '@react-three/drei':
         specifier: ^10.7.7
         version: 10.7.7(@react-three/fiber@9.6.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.184.0))(@types/react@19.2.14)(@types/three@0.184.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.184.0)
@@ -71,6 +74,9 @@ importers:
       cytoscape:
         specifier: ^3.33.2
         version: 3.33.3
+      dompurify:
+        specifier: ^3.2.0
+        version: 3.4.5
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
@@ -144,6 +150,9 @@ importers:
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@types/dompurify':
+        specifier: ^3.2.0
+        version: 3.2.0
       '@types/node':
         specifier: ^20
         version: 20.19.41
@@ -954,8 +963,15 @@ packages:
   '@hapi/topo@6.0.2':
     resolution: {integrity: sha512-KR3rD5inZbGMrHmgPxsJ9dbi6zEK+C3ZwUwTa+eMwWLz7oijWUTWD2pMSNNYJAU6Qq+65NkxXjqHr/7LM2Xkqg==}
 
-  '@hearst/hub-sdk@file:../Hearst Corporation /packages/hub-sdk':
-    resolution: {directory: ../Hearst Corporation /packages/hub-sdk, type: directory}
+  '@hearst/cockpit-shell@file:../../../../../tmp/hearst-cockpit-shell':
+    resolution: {directory: ../../../../../tmp/hearst-cockpit-shell, type: directory}
+    peerDependencies:
+      next: '>=15'
+      openai: '>=4'
+      react: '>=18'
+
+  '@hearst/hub-sdk@file:../../../../../tmp/hearst-hub-sdk':
+    resolution: {directory: ../../../../../tmp/hearst-hub-sdk, type: directory}
     peerDependencies:
       react: '>=18'
 
@@ -2798,6 +2814,10 @@ packages:
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
+  '@types/dompurify@3.2.0':
+    resolution: {integrity: sha512-Fgg31wv9QbLDA0SpTOXO3MaxySc4DKGLi8sna4/Utjo4r3ZRPdCt4UQee8BWr+Q5z21yifghREPJGYaEOEIACg==}
+    deprecated: This is a stub types definition. dompurify provides its own type definitions, so you do not need this installed.
+
   '@types/draco3d@1.4.10':
     resolution: {integrity: sha512-AX22jp8Y7wwaBgAixaSvkoG4M/+PlAcm3Qs4OW8yT9DM4xUpWKeFhLueTAyZF39pviAdcDdeJoACapiAceqNcw==}
 
@@ -2888,6 +2908,9 @@ packages:
 
   '@types/three@0.184.1':
     resolution: {integrity: sha512-6q4VdiqVsrTRqmk62/BnlcAvIrnDM0zf2ZDVKI5kZiniWrSaOHaQzmbp+BNzoggc/8tgW412pL//wZIxu2PPTA==}
+
+  '@types/trusted-types@2.0.7':
+    resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
   '@types/verror@1.10.11':
     resolution: {integrity: sha512-RlDm9K7+o5stv0Co8i8ZRGxDbrTxhJtgjqjFyVh/tXQyl/rYtTKlnTvZ88oSTeYREWurwx20Js4kTuKCsFkUtg==}
@@ -3667,6 +3690,9 @@ packages:
 
   dom-accessibility-api@0.5.16:
     resolution: {integrity: sha512-X7BJ2yElsnOJ30pZF4uIIDfBEVgF4XEBxL9Bxhy6dnrm5hkzqmsWHGTiHqRiITNhMyFLyAiWndIJP7Z1NTteDg==}
+
+  dompurify@3.4.5:
+    resolution: {integrity: sha512-OrwIBKsdNSVEeubdJ1HBv/wNENRM9ytAVCv7YXt//A3vPdVMNuACRqK9mXCGCBW2ln7BT/A4X0jXHo2Gu89miA==}
 
   dotenv-expand@11.0.7:
     resolution: {integrity: sha512-zIHwmZPRshsCdpMDyVsqGmgyP0yT8GAgXUnkdAoJisxvf33k7yO6OuoKmcTGuXPWSsm8Oh88nZicRLA9Y0rUeA==}
@@ -6249,6 +6275,9 @@ packages:
     peerDependencies:
       zod: ^3.25.28 || ^4
 
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
@@ -7230,7 +7259,15 @@ snapshots:
     dependencies:
       '@hapi/hoek': 11.0.7
 
-  '@hearst/hub-sdk@file:../Hearst Corporation /packages/hub-sdk(react@19.2.4)':
+  '@hearst/cockpit-shell@file:../../../../../tmp/hearst-cockpit-shell(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(openai@6.37.0(ws@8.20.1)(zod@4.4.3))(react@19.2.4)':
+    dependencies:
+      dompurify: 3.4.5
+      next: 16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      openai: 6.37.0(ws@8.20.1)(zod@4.4.3)
+      react: 19.2.4
+      zod: 3.25.76
+
+  '@hearst/hub-sdk@file:../../../../../tmp/hearst-hub-sdk(react@19.2.4)':
     dependencies:
       react: 19.2.4
 
@@ -9165,6 +9202,10 @@ snapshots:
 
   '@types/deep-eql@4.0.2': {}
 
+  '@types/dompurify@3.2.0':
+    dependencies:
+      dompurify: 3.4.5
+
   '@types/draco3d@1.4.10': {}
 
   '@types/eslint-scope@3.7.7':
@@ -9273,6 +9314,9 @@ snapshots:
       '@types/webxr': 0.5.24
       fflate: 0.8.2
       meshoptimizer: 1.1.1
+
+  '@types/trusted-types@2.0.7':
+    optional: true
 
   '@types/verror@1.10.11':
     optional: true
@@ -10185,6 +10229,10 @@ snapshots:
       vscode-languageserver-types: 3.17.5
 
   dom-accessibility-api@0.5.16: {}
+
+  dompurify@3.4.5:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
 
   dotenv-expand@11.0.7:
     dependencies:
@@ -12898,6 +12946,8 @@ snapshots:
   zod-to-json-schema@3.25.2(zod@4.4.3):
     dependencies:
       zod: 4.4.3
+
+  zod@3.25.76: {}
 
   zod@4.4.3: {}
 

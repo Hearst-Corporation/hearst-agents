@@ -66,6 +66,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
 }
 
 const nextConfig: NextConfig = {
+  transpilePackages: ["@hearst/cockpit-shell"],
   // standalone requis pour Vercel — copie tous les fichiers runtime Next.js
   // (dont node-environment.js) dans le bundle. La taille était le problème
   // (590 MB → Electron) — désormais strippé via installCommand dans vercel.json.
@@ -104,7 +105,7 @@ export default process.env.SENTRY_AUTH_TOKEN && sentryProject && sentryOrg
       // Silencieux en build local, verbeux en CI
       silent: !process.env.CI,
       // Upload une plus grande surface de fichiers client pour de meilleures stack traces
-      widenClientUpload: true,
+      widenClientFileUpload: true,
       // Upload sourcemaps mais ne les serve pas publiquement
       sourcemaps: {
         deleteSourcemapsAfterUpload: true,

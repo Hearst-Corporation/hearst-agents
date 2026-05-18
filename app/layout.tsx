@@ -4,6 +4,8 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import "./globals.css";
+import "@hearst/cockpit-shell/tokens.css";
+import { HelmShell } from "@/components/HelmShell";
 import { ToastHost } from "./(user)/components/ui/ToastHost";
 import { NoiseLayer } from "./components/system/NoiseLayer";
 import { ThemeHydrator } from "./components/system/ThemeHydrator";
@@ -51,11 +53,13 @@ export default async function RootLayout({
          */}
       </head>
       <body className="h-full text-text overflow-hidden">
-        <div className="ghost-bg" />
-        <ThemeHydrator initial={themeCookie} />
-        {children}
-        <NoiseLayer />
-        <ToastHost />
+        <HelmShell>
+          <div className="ghost-bg" />
+          <ThemeHydrator initial={themeCookie} />
+          {children}
+          <NoiseLayer />
+          <ToastHost />
+        </HelmShell>
       </body>
     </html>
   );
