@@ -157,7 +157,7 @@ export default function RunWaterfall({
               onClick={() => onSpeedChange(s)}
               disabled={disabled}
               className={[
-                "t-10 px-(--space-2) py-(--space-1) rounded-(--radius-xs) transition-colors duration-(--duration-base) disabled:opacity-40 disabled:pointer-events-none",
+                "t-10 px-(--space-2) py-(--space-1) rounded-(--radius-xs) transition-colors duration-(--duration-base) disabled:opacity-40 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
                 speed === s
                   ? "bg-(--accent-teal)/15 text-(--accent-teal)"
                   : "text-text-muted hover:text-text hover:bg-surface",

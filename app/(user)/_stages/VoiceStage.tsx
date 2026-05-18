@@ -56,38 +56,20 @@ export function VoiceStage({ mode }: { mode: string }) {
       animate="show"
       className="preserve-3d flex w-full flex-col gap-16"
     >
-      <header style={{ textAlign: "center" }}>
-        <p
-          className="t-13"
-          style={{
-            letterSpacing: ".04em",
-            color: "rgba(255,255,255,.45)",
-          }}
-        >
-          Voice · Mode conversationnel
-        </p>
+      <header className="text-center">
+        <p className="t-13 tracking-[.04em] text-(--text-faint)">Voice · Mode conversationnel</p>
       </header>
 
-      <div
-        className="flex flex-col items-center gap-8"
-        style={{ padding: "48px 0", textAlign: "center" }}
-      >
+      <div className="flex flex-col items-center gap-8 py-12 text-center">
         {/* Sphère inactive */}
         <div
-          style={{
-            width: 120,
-            height: 120,
-            borderRadius: "50%",
-            border: "1px solid rgba(255,255,255,0.08)",
-            background: "rgba(255,255,255,0.02)",
-            opacity: 0.5,
-          }}
+          className="w-[120px] h-[120px] rounded-full border border-(--line-strong) bg-(--surface) opacity-50"
           aria-hidden="true"
         />
 
         <div className="flex flex-col gap-3">
-          <p className="t-15 font-medium text-[var(--text-muted)]">Mode voix non disponible</p>
-          <p className="t-13 text-[var(--text-ghost)] max-w-[400px] leading-relaxed">
+          <p className="t-15 font-medium text-(--text-muted)">Mode voix non disponible</p>
+          <p className="t-13 text-(--text-ghost) max-w-[400px] leading-relaxed">
             La session vocale temps réel n&apos;est pas encore branchée. Le chat texte couvre les
             mêmes intentions en attendant.
           </p>
@@ -96,13 +78,7 @@ export function VoiceStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={() => setStageMode({ mode: "chat" })}
-          className="vision-btn-primary t-12"
-          style={{
-            padding: "var(--space-2) var(--space-5)",
-            borderRadius: "var(--radius-pill)",
-            border: "none",
-            fontWeight: 500,
-          }}
+          className="vision-btn-primary t-12 px-(--space-5) py-(--space-2) rounded-(--radius-pill) border-0 font-medium"
         >
           Ouvrir le chat texte
         </button>

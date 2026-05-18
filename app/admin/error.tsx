@@ -2,6 +2,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 import { useEffect } from "react";
+import { Action } from "@/app/(user)/components/ui/Action";
 
 export default function AdminError({
   error,
@@ -17,13 +18,9 @@ export default function AdminError({
   return (
     <div className="flex h-full flex-col items-center justify-center gap-6 p-8 text-center">
       <p className="t-13 text-text-muted">Erreur dans le panneau admin.</p>
-      <button
-        type="button"
-        onClick={reset}
-        className="t-12 rounded-(--radius-sm) border border-(--border-shell) px-(--space-4) py-(--space-2) text-text-muted hover:text-text transition-colors"
-      >
+      <Action variant="secondary" tone="neutral" onClick={reset}>
         Réessayer
-      </button>
+      </Action>
     </div>
   );
 }

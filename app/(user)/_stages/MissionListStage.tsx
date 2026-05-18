@@ -225,13 +225,9 @@ function humanCron(cron: string): string {
 
 function LoadingSkeleton() {
   return (
-    <div className="flex flex-col gap-3">
+    <div role="status" aria-live="polite" aria-busy={true} className="flex flex-col gap-3">
       {[1, 2, 3].map((i) => (
-        <div
-          key={i}
-          className="h-20 animate-pulse rounded-[14px]"
-          style={{ background: "rgba(255,255,255,0.04)" }}
-        />
+        <div key={i} className="h-20 animate-pulse rounded-xl bg-(--surface-2)" />
       ))}
     </div>
   );
@@ -243,34 +239,16 @@ function ErrorBanner({ error }: { error: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
+      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 text-[13px] leading-[1.55]"
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> — {error}
+      <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
     </motion.div>
   );
 }
 
 function DemoBadge() {
   return (
-    <span
-      className="t-9 font-mono uppercase"
-      style={{
-        alignSelf: "flex-start",
-        padding: "var(--space-1) var(--space-2)",
-        borderRadius: "var(--radius-sm)",
-        background: "var(--surface-1)",
-        color: "var(--text-faint)",
-        letterSpacing: "0.06em",
-      }}
-    >
+    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[0.06em]">
       Démo · données fictives (dev)
     </span>
   );
@@ -283,32 +261,16 @@ function EmptyState() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "var(--space-5)",
-        padding: "80px 0",
-        textAlign: "center",
-      }}
+      className="flex flex-col items-center justify-center gap-(--space-5) py-20 text-center"
     >
-      <p
-        className="t-15"
-        style={{
-          color: "var(--text-faint)",
-          maxWidth: "440px",
-          lineHeight: 1.6,
-        }}
-      >
+      <p className="t-15 text-(--text-faint) max-w-[440px] leading-relaxed">
         Aucune mission récurrente. Demande à l&apos;agent d&apos;en créer une — par exemple « résume
         mes emails chaque matin ».
       </p>
       <button
         type="button"
         onClick={() => setMode({ mode: "chat" })}
-        className="cockpit-action"
-        style={{ maxWidth: "260px" }}
+        className="cockpit-action max-w-[260px]"
       >
         <span className="ca-label">Demander à l&apos;agent</span>
       </button>
@@ -325,7 +287,6 @@ function MissionCard({
   index: number;
   onClick: () => void;
 }) {
-  const [hovered, setHovered] = useState(false);
   const label = missionStatusLabel(mission);
   const badge = badgeTokens(mission);
 
@@ -345,60 +306,26 @@ function MissionCard({
           onClick();
         }
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        padding: "16px 20px",
-        borderRadius: "14px",
-        background: hovered ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        cursor: "pointer",
-        transition: "background 0.15s ease",
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-      }}
+      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-white/7 border border-(--line-strong) cursor-pointer transition-[background] duration-150 flex flex-col gap-2"
     >
       {/* Ligne principale : nom + badge */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <span
-          style={{
-            fontSize: "15px",
-            fontWeight: 500,
-            color: "rgba(255,255,255,0.9)",
-            flex: 1,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
+      <div className="flex items-center gap-3">
+        <span className="text-[15px] font-medium text-(--text-soft) flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
           {mission.name}
         </span>
 
-        {/* Badge statut */}
+        {/* Badge statut — JS-computed colors kept in style */}
         <span
+          className="inline-flex items-center gap-[5px] text-[11px] px-[9px] py-[3px] rounded-full shrink-0"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "5px",
-            fontSize: "11px",
-            padding: "3px 9px",
-            borderRadius: "9999px",
             background: badge.bg,
             border: badge.border,
             color: badge.color,
-            flexShrink: 0,
           }}
         >
           {badge.pulse && (
             <motion.span
-              style={{
-                width: "5px",
-                height: "5px",
-                borderRadius: "50%",
-                background: "rgba(94,229,195,0.85)",
-                display: "inline-block",
-              }}
+              className="w-[5px] h-[5px] rounded-full bg-(--accent-teal)/85 inline-block"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
             />
@@ -408,31 +335,14 @@ function MissionCard({
       </div>
 
       {/* Input preview */}
-      <p
-        style={{
-          fontSize: "13px",
-          color: "rgba(255,255,255,0.4)",
-          lineHeight: 1.5,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-        }}
-      >
+      <p className="text-[13px] text-(--text-faint) leading-[1.5] overflow-hidden text-ellipsis whitespace-nowrap">
         {mission.input.slice(0, 120)}
       </p>
 
       {/* Meta : date + schedule */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-          fontSize: "11px",
-          color: "rgba(255,255,255,0.3)",
-        }}
-      >
+      <div className="flex items-center gap-4 text-[11px] text-(--text-decor-25)">
         <span>{formatDate(mission.createdAt)}</span>
-        <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+        <span className="text-white/15">·</span>
         <span>{humanCron(mission.schedule)}</span>
       </div>
     </motion.div>
@@ -513,27 +423,12 @@ export function MissionListStage({ mode }: { mode: string }) {
       className="preserve-3d flex w-full flex-col gap-8"
     >
       {/* Header */}
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-          <p style={{ fontSize: "12px", color: "rgba(255,255,255,.35)" }}>Toutes les demandes</p>
-          <h1
-            style={{
-              fontSize: "32px",
-              fontWeight: 500,
-              letterSpacing: "-.02em",
-              color: "rgba(255,255,255,0.9)",
-            }}
-          >
-            Demandes
-          </h1>
+      <header className="flex items-center justify-between">
+        <div className="flex flex-col gap-1">
+          <p className="text-[12px] text-(--text-ghost)">Toutes les demandes</p>
+          <h1 className="text-[32px] font-medium tracking-tight text-(--text-soft)">Demandes</h1>
           {STAGE_REGISTRY.mission.tagline && (
-            <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
+            <p className="text-[13px] text-(--text-faint) leading-[1.5]">
               {STAGE_REGISTRY.mission.tagline}
             </p>
           )}
@@ -542,23 +437,7 @@ export function MissionListStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={handleNewMission}
-          style={{
-            padding: "8px 16px",
-            borderRadius: "10px",
-            background: "rgba(255,255,255,0.08)",
-            border: "1px solid rgba(255,255,255,0.12)",
-            color: "rgba(255,255,255,0.8)",
-            fontSize: "13px",
-            fontWeight: 500,
-            cursor: "pointer",
-            transition: "background 0.15s ease",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.13)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.08)";
-          }}
+          className="px-4 py-2 rounded-[10px] bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) text-[13px] font-medium cursor-pointer transition-[background] duration-150"
         >
           Nouvelle demande
         </button>
@@ -578,7 +457,7 @@ export function MissionListStage({ mode }: { mode: string }) {
 
       {/* Liste (données réelles ou démo dev) */}
       {!loading && !fetchError && displayMissions.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div className="flex flex-col gap-2">
           <AnimatePresence initial={false}>
             {displayMissions.map((mission, idx) => (
               <MissionCard

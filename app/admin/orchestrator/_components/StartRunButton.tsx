@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { Action } from "@/app/(user)/components/ui/Action";
 
 export function StartRunButton() {
   const router = useRouter();
@@ -32,14 +33,15 @@ export function StartRunButton() {
 
   return (
     <div className="space-y-(--space-3)">
-      <button
-        type="button"
+      <Action
+        variant="primary"
+        tone="brand"
         onClick={launch}
         disabled={isPending}
-        className="w-full px-(--space-4) py-(--space-3) rounded-(--radius-md) bg-(--accent-teal) text-(--text-on-accent-teal) t-13 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+        className="w-full"
       >
         {isPending ? "Run en cours…" : "Lancer un run"}
-      </button>
+      </Action>
       {error ? <p className="t-11 text-(--danger) font-mono">Erreur : {error}</p> : null}
       {lastRun ? (
         <p className="t-11 text-text-muted font-mono">

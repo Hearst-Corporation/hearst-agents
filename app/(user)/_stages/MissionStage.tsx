@@ -243,17 +243,7 @@ function humanCron(cron: string): string {
 
 function DemoBadge() {
   return (
-    <span
-      className="t-9 font-mono uppercase"
-      style={{
-        alignSelf: "flex-start",
-        padding: "var(--space-1) var(--space-2)",
-        borderRadius: "var(--radius-sm)",
-        background: "var(--surface-1)",
-        color: "var(--text-faint)",
-        letterSpacing: "0.06em",
-      }}
-    >
+    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[0.06em]">
       Démo · données fictives (dev)
     </span>
   );
@@ -289,17 +279,9 @@ function ErrorBanner({ error }: { error: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
+      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 text-[13px] leading-[1.55]"
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> — {error}
+      <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
     </motion.div>
   );
 }
@@ -333,34 +315,13 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
         : "rgba(255,255,255,0.45)";
 
   return (
-    <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-      <p
-        style={{
-          fontSize: "12px",
-          color: "rgba(255,255,255,.35)",
-        }}
-      >
-        Demande active
-      </p>
-      <h1
-        style={{
-          fontSize: "32px",
-          fontWeight: 500,
-          letterSpacing: "-.02em",
-          display: "flex",
-          alignItems: "center",
-          gap: "14px",
-        }}
-      >
+    <header className="flex flex-col gap-2">
+      <p className="text-[12px] text-(--text-ghost)">Demande active</p>
+      <h1 className="text-[32px] font-medium tracking-tight flex items-center gap-[14px]">
         {mission.name}
         <span
+          className="inline-flex items-center gap-1.5 text-[11px] px-[9px] py-[3px] rounded-full"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            fontSize: "11px",
-            padding: "3px 9px",
-            borderRadius: "9999px",
             background: badgeBg,
             border: badgeBorder,
             color: badgeColor,
@@ -368,13 +329,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
         >
           {isRunning && (
             <motion.span
-              style={{
-                width: "5px",
-                height: "5px",
-                borderRadius: "50%",
-                background: "rgba(94,229,195,0.85)",
-                display: "inline-block",
-              }}
+              className="w-[5px] h-[5px] rounded-full bg-(--accent-teal)/85 inline-block"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
             />
@@ -382,9 +337,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
           {status}
         </span>
       </h1>
-      <p style={{ fontSize: "14px", color: "rgba(255,255,255,.5)" }}>
-        {mission.input.slice(0, 120)}
-      </p>
+      <p className="text-[14px] text-(--text-faint)">{mission.input.slice(0, 120)}</p>
     </header>
   );
 }
@@ -477,8 +430,8 @@ function StepRow({
       variants={STEP_VARIANTS}
       initial="hidden"
       animate="visible"
-      className={rowClass}
-      style={{ opacity: isPending ? 0.35 : 1 }}
+      className={[rowClass, isPending ? "opacity-35 pointer-events-none" : ""].join(" ").trim()}
+      aria-disabled={isPending ? true : undefined}
     >
       <div className={nodeClass}>{isDone ? "✓" : isApproval ? "!" : isError ? "✕" : index + 1}</div>
       <div className="mtl-c">
@@ -597,24 +550,7 @@ export function MissionStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={() => setMode({ mode: "mission" })}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            fontSize: "13px",
-            color: "rgba(255,255,255,0.45)",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: "0",
-            marginBottom: "-8px",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.85)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.45)";
-          }}
+          className="inline-flex items-center gap-1.5 text-[13px] text-(--text-faint) hover:text-(--text-soft) bg-transparent border-0 cursor-pointer p-0 -mb-2 transition-colors duration-150"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path
@@ -648,16 +584,8 @@ export function MissionStage({ mode }: { mode: string }) {
 
           {/* Suivi de la demande (jalons dérivés du statut — pas les vraies steps
               d'exécution agent ; celles-ci viendront du run output) */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            <p
-              className="t-11"
-              style={{
-                color: "rgba(255,255,255,0.4)",
-                letterSpacing: "0.04em",
-              }}
-            >
-              Suivi de la demande
-            </p>
+          <div className="flex flex-col gap-2">
+            <p className="t-11 text-(--text-faint) tracking-[0.04em]">Suivi de la demande</p>
             <div className="mtl">
               <AnimatePresence initial={false}>
                 {steps.map((step, idx) => (

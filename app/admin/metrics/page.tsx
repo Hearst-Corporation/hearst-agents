@@ -8,6 +8,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
+import { Action } from "@/app/(user)/components/ui/Action";
 import type { CircuitState } from "@/lib/llm/circuit-breaker";
 import type { MetricsSnapshot, ProviderMetrics } from "@/lib/llm/metrics";
 import type { CustomWebhook } from "@/lib/webhooks/types";
@@ -215,12 +216,9 @@ export default function MetricsPage() {
       {/* En-tête */}
       <div className="flex items-center justify-between mb-(--space-8)">
         <h1 className="t-24 font-light text-text">Métriques système</h1>
-        <button
-          onClick={fetchAll}
-          className="t-13 text-text-faint hover:text-text transition-colors px-(--space-3) py-(--space-1) rounded-(--radius-sm) border border-(--border-shell) hover:border-(--border-soft)"
-        >
+        <Action variant="secondary" tone="neutral" size="sm" onClick={fetchAll}>
           Rafraîchir
-        </button>
+        </Action>
       </div>
 
       {/* Erreur globale */}

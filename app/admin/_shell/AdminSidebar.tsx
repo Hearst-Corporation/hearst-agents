@@ -142,7 +142,7 @@ export default function AdminSidebar({
           onClick={() => signOut({ callbackUrl: "/login" })}
           title={collapsed ? `${userLabel} — Se déconnecter` : "Se déconnecter"}
           className={[
-            "flex items-center rounded-(--radius-sm) hover:bg-(--surface-1) transition-colors duration-(--duration-fast) ease-(--ease-standard) group",
+            "flex items-center rounded-(--radius-sm) hover:bg-(--surface-1) transition-colors duration-(--duration-fast) ease-(--ease-standard) group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--danger)/50",
             collapsed
               ? "justify-center size-(--space-10)"
               : "w-full gap-(--space-3) px-(--space-3) py-(--space-2)",

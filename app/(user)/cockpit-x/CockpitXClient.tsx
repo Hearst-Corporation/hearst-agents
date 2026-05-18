@@ -781,7 +781,7 @@ function ModePlaceholder({
       style={{ maxWidth: "1600px", margin: "0 auto" }}
     >
       <header className="flex flex-col gap-4">
-        <p className="text-base font-medium text-[rgba(255,255,255,0.5)]">
+        <p className="text-base font-medium text-(--text-faint)">
           Shell visionOS · stage non câblé
         </p>
         <h1
@@ -790,15 +790,13 @@ function ModePlaceholder({
         >
           {def.label}
           {def.hotkey ? (
-            <span className="ml-4 text-base font-normal text-[rgba(255,255,255,0.4)]">
-              {def.hotkey}
-            </span>
+            <span className="ml-4 text-base font-normal text-(--text-ghost)">{def.hotkey}</span>
           ) : null}
         </h1>
-        <p className="max-w-[640px] text-base leading-normal text-[rgba(255,255,255,0.7)]">
-          Le composant Stage <code className="text-[rgba(255,255,255,0.85)]">{mode}</code> sera
-          branché en P5 ou P6. Footer + railTitle alimentés par{" "}
-          <code className="text-[rgba(255,255,255,0.85)]">STAGE_REGISTRY</code>.
+        <p className="max-w-[640px] text-base leading-normal text-(--text-muted)">
+          Le composant Stage <code className="text-(--text-soft)">{mode}</code> sera branché en P5
+          ou P6. Footer + railTitle alimentés par{" "}
+          <code className="text-(--text-soft)">STAGE_REGISTRY</code>.
         </p>
       </header>
     </motion.section>

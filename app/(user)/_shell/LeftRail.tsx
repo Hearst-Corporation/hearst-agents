@@ -87,7 +87,7 @@ function UserAvatar() {
   }
   return (
     <div
-      className="flex size-9 items-center justify-center rounded-full bg-[rgba(255,255,255,0.15)] text-sm text-white"
+      className="flex size-9 items-center justify-center rounded-full bg-white/15 text-sm text-white"
       style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)" }}
       aria-label={`Session ${name}`}
       title={name}
@@ -122,7 +122,7 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
       aria-current={active ? "page" : undefined}
       title={tooltip}
       className={`group relative flex size-11 items-center justify-center rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] ${
-        active ? "text-white" : "text-[rgba(255,255,255,0.38)] hover:text-[rgba(255,255,255,0.9)]"
+        active ? "text-white" : "text-(--text-ghost) hover:text-(--text-soft)"
       }`}
       style={{ background: active ? "var(--surface-1)" : "transparent" }}
     >

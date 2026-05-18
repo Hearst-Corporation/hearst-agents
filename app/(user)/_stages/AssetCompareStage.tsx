@@ -99,13 +99,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
         controls
         muted
         playsInline
-        style={{
-          width: "100%",
-          borderRadius: "10px",
-          maxHeight: "200px",
-          objectFit: "cover",
-          background: "rgba(0,0,0,0.4)",
-        }}
+        className="w-full rounded-[10px] max-h-[200px] object-cover bg-black/40"
       />
     );
   }
@@ -116,58 +110,23 @@ function AssetPreview({ asset }: { asset: Asset }) {
       <img
         src={ref}
         alt={asset.title}
-        style={{
-          width: "100%",
-          borderRadius: "10px",
-          maxHeight: "200px",
-          objectFit: "cover",
-          background: "rgba(0,0,0,0.4)",
-        }}
+        className="w-full rounded-[10px] max-h-[200px] object-cover bg-black/40"
       />
     );
   }
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "140px",
-        borderRadius: "10px",
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.06)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)" }}>{asset.kind}</span>
+    <div className="w-full h-[140px] rounded-[10px] bg-(--surface) border border-(--line-strong) flex items-center justify-center">
+      <span className="text-[11px] text-(--text-decor-25)">{asset.kind}</span>
     </div>
   );
 }
 
 function MetaChip({ label, value }: { label: string; value: string }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "2px",
-        padding: "6px 10px",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.07)",
-        borderRadius: "8px",
-        minWidth: 0,
-        flex: "1 1 auto",
-      }}
-    >
-      <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", fontWeight: 500 }}>
-        {label}
-      </span>
-      <span
-        className="truncate"
-        style={{ fontSize: "12px", color: "rgba(255,255,255,0.7)" }}
-        title={value}
-      >
+    <div className="flex flex-col gap-0.5 px-[10px] py-[6px] bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
+      <span className="text-[10px] text-(--text-decor-25) font-medium">{label}</span>
+      <span className="truncate text-[12px] text-(--text-muted)" title={value}>
         {value}
       </span>
     </div>
@@ -186,68 +145,33 @@ function AssetPane({
   const meta = extractMeta(asset);
 
   return (
-    <div
-      style={{
-        flex: "0 0 calc(50% - 8px)",
-        minWidth: 0,
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        padding: "18px",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        borderRadius: "16px",
-      }}
-    >
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "8px",
-        }}
-      >
-        <span style={{ fontSize: "11px", fontWeight: 600, color: "rgba(255,255,255,0.5)" }}>
-          {label}
-        </span>
+    <div className="flex-[0_0_calc(50%-8px)] min-w-0 flex flex-col gap-3 p-[18px] bg-(--surface-2) border border-(--line-strong) rounded-2xl">
+      <header className="flex items-center justify-between gap-2">
+        <span className="text-[11px] font-semibold text-(--text-faint)">{label}</span>
         {asset && (
-          <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.25)" }}>
+          <span className="text-[10px] text-(--text-decor-25)">
             {formatCreatedAt(asset.createdAt)}
           </span>
         )}
       </header>
 
       {isError || asset === null ? (
-        <p style={{ fontSize: "12px", color: "rgba(255,100,100,0.7)" }}>Asset introuvable</p>
+        <p className="text-[12px] text-(--danger)/70">Asset introuvable</p>
       ) : (
         <>
-          <h3
-            className="truncate"
-            style={{ fontSize: "14px", fontWeight: 600, color: "rgba(255,255,255,0.88)" }}
-            title={asset.title}
-          >
+          <h3 className="truncate text-[14px] font-semibold text-(--text-soft)" title={asset.title}>
             {asset.title}
           </h3>
 
           <AssetPreview asset={asset} />
 
           {asset.summary && (
-            <p
-              style={{
-                fontSize: "12px",
-                color: "rgba(255,255,255,0.38)",
-                lineHeight: 1.55,
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            >
+            <p className="text-[12px] text-(--text-ghost) leading-[1.55] line-clamp-3">
               {asset.summary}
             </p>
           )}
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+          <div className="flex flex-wrap gap-1.5">
             {meta.model && <MetaChip label="Modèle" value={meta.model} />}
             {meta.resolution && <MetaChip label="Résolution" value={meta.resolution} />}
             {meta.duration && <MetaChip label="Durée" value={meta.duration} />}
@@ -308,56 +232,32 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
   return (
     <div
       ref={containerRef}
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "320px",
-        borderRadius: "14px",
-        overflow: "hidden",
-        background: "rgba(0,0,0,0.3)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        cursor: "col-resize",
-        userSelect: "none",
-      }}
+      className="relative w-full h-[320px] rounded-xl overflow-hidden bg-black/30 border border-(--line-strong) cursor-col-resize select-none"
       onMouseDown={(e) => {
         dragging.current = true;
         updateFromEvent(e.clientX);
       }}
     >
       {/* Couche gauche (A) — plein */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="absolute inset-0 flex items-center justify-center">
         {hasImages ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={previewA}
             alt={assetA?.title ?? "Gauche"}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            className="w-full h-full object-cover"
             draggable={false}
           />
         ) : (
-          <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>
-            {assetA?.title ?? "Gauche"}
-          </span>
+          <span className="text-[12px] text-(--text-decor-25)">{assetA?.title ?? "Gauche"}</span>
         )}
       </div>
 
       {/* Couche droite (B) — clippée à droite du slider */}
       <div
+        className="absolute inset-0 flex items-center justify-center"
         style={{
-          position: "absolute",
-          inset: 0,
           clipPath: `inset(0 0 0 ${sliderX}%)`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           background: hasImages ? "transparent" : "rgba(255,255,255,0.03)",
         }}
       >
@@ -366,48 +266,24 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
           <img
             src={previewB}
             alt={assetB?.title ?? "Droite"}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            className="w-full h-full object-cover"
             draggable={false}
           />
         ) : (
-          <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>
-            {assetB?.title ?? "Droite"}
-          </span>
+          <span className="text-[12px] text-(--text-decor-25)">{assetB?.title ?? "Droite"}</span>
         )}
       </div>
 
       {/* Ligne diviseur */}
       <div
-        style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: `${sliderX}%`,
-          width: "2px",
-          background: "rgba(255,255,255,0.55)",
-          transform: "translateX(-50%)",
-          pointerEvents: "none",
-        }}
+        className="absolute top-0 bottom-0 w-[2px] bg-white/55 -translate-x-1/2 pointer-events-none"
+        style={{ left: `${sliderX}%` }}
       />
 
       {/* Poignée centrale */}
       <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: `${sliderX}%`,
-          transform: "translate(-50%, -50%)",
-          width: "28px",
-          height: "28px",
-          borderRadius: "50%",
-          background: "rgba(255,255,255,0.9)",
-          border: "2px solid rgba(255,255,255,0.5)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          pointerEvents: "none",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
-        }}
+        className="absolute top-1/2 w-[28px] h-[28px] rounded-full bg-white/90 border-2 border-white/50 flex items-center justify-center pointer-events-none shadow-[0_2px_8px_rgba(0,0,0,0.4)] -translate-x-1/2 -translate-y-1/2"
+        style={{ left: `${sliderX}%` }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <path
@@ -420,36 +296,10 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
       </div>
 
       {/* Labels latéraux */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "8px",
-          left: "10px",
-          fontSize: "10px",
-          fontWeight: 600,
-          color: "rgba(255,255,255,0.7)",
-          background: "rgba(0,0,0,0.5)",
-          padding: "2px 8px",
-          borderRadius: "6px",
-          pointerEvents: "none",
-        }}
-      >
+      <div className="absolute bottom-2 left-[10px] text-[10px] font-semibold text-(--text-muted) bg-black/50 px-2 py-0.5 rounded-[6px] pointer-events-none">
         Gauche
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "8px",
-          right: "10px",
-          fontSize: "10px",
-          fontWeight: 600,
-          color: "rgba(255,255,255,0.7)",
-          background: "rgba(0,0,0,0.5)",
-          padding: "2px 8px",
-          borderRadius: "6px",
-          pointerEvents: "none",
-        }}
-      >
+      <div className="absolute bottom-2 right-[10px] text-[10px] font-semibold text-(--text-muted) bg-black/50 px-2 py-0.5 rounded-[6px] pointer-events-none">
         Droite
       </div>
     </div>
@@ -587,20 +437,9 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
         variants={SECTION_VARIANTS}
         initial="hidden"
         animate="show"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "80px 0",
-          textAlign: "center",
-          width: "100%",
-        }}
+        className="flex flex-col items-center justify-center py-20 text-center w-full"
       >
-        <p
-          className="t-15"
-          style={{ color: "rgba(255,255,255,0.4)", maxWidth: "400px", lineHeight: 1.6 }}
-        >
+        <p className="t-15 text-(--text-faint) max-w-[400px] leading-relaxed">
           Sélectionne 2 assets depuis la liste pour les comparer.
         </p>
       </motion.section>
@@ -618,19 +457,10 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
       className="preserve-3d flex w-full flex-col gap-8"
     >
       {/* En-tête */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "space-between",
-          gap: "16px",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-          <h2 style={{ fontSize: "22px", fontWeight: 600, color: "rgba(255,255,255,0.9)" }}>
-            Comparer
-          </h2>
-          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.38)" }}>
+      <div className="flex items-end justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <h2 className="text-[22px] font-semibold text-(--text-soft)">Comparer</h2>
+          <p className="text-[13px] text-(--text-ghost)">
             2 assets — {viewMode === "split" ? "vue divisée" : "vue superposée"}
           </p>
         </div>
@@ -638,22 +468,16 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
 
       {/* Zone principale */}
       {isLoading ? (
-        <div style={{ display: "flex", gap: "16px" }}>
+        <div className="flex gap-4">
           {[0, 1].map((i) => (
             <div
               key={i}
-              className="animate-pulse"
-              style={{
-                flex: "0 0 calc(50% - 8px)",
-                height: "320px",
-                background: "rgba(255,255,255,0.04)",
-                borderRadius: "16px",
-              }}
+              className="animate-pulse flex-[0_0_calc(50%-8px)] h-[320px] bg-(--surface-2) rounded-2xl"
             />
           ))}
         </div>
       ) : viewMode === "split" ? (
-        <div style={{ display: "flex", gap: "16px", alignItems: "stretch" }}>
+        <div className="flex gap-4 items-stretch">
           <AssetPane asset={assetA} label="Gauche" isError={errorA} />
           <AssetPane asset={assetB} label="Droite" isError={errorB} />
         </div>
@@ -662,35 +486,19 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
       )}
 
       {/* Footer toggle Split / Overlay */}
-      <footer
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "8px",
-          paddingTop: "4px",
-        }}
-      >
+      <footer className="flex items-center justify-center gap-2 pt-1">
         {(["split", "overlay"] as const).map((v) => (
           <button
             key={v}
             type="button"
             onClick={() => setViewMode(v)}
             aria-pressed={viewMode === v}
-            style={{
-              padding: "5px 16px",
-              borderRadius: "20px",
-              border:
-                viewMode === v
-                  ? "1px solid rgba(255,255,255,0.28)"
-                  : "1px solid rgba(255,255,255,0.1)",
-              background: viewMode === v ? "rgba(255,255,255,0.08)" : "transparent",
-              color: viewMode === v ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.35)",
-              fontSize: "12px",
-              fontWeight: 500,
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-            }}
+            className={[
+              "px-4 py-[5px] rounded-full border text-[12px] font-medium cursor-pointer transition-all duration-200 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
+              viewMode === v
+                ? "border-white/28 bg-white/8 text-(--text-soft)"
+                : "border-white/10 bg-transparent text-(--text-ghost)",
+            ].join(" ")}
           >
             {v === "split" ? "Vue divisée" : "Vue superposée"}
           </button>
