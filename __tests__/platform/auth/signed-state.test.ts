@@ -63,8 +63,13 @@ describe("signOAuthState / verifyOAuthState (F-006)", () => {
     const { signOAuthState, verifyOAuthState } = await import("@/lib/platform/auth/signed-state");
     const state = signOAuthState({ v: "v", u: "u", t: "t", w: "w" });
 
-    // Corrompt le dernier caractère de la signature
-    const corrupted = state.slice(0, -1) + (state.endsWith("A") ? "B" : "A");
+    // Corrompt un octet au milieu de l'auth tag GCM (16 derniers octets = ~22 chars base64url).
+    // On cible l'avant-dernier groupe complet (pos -8) pour éviter les bits de padding
+    // du dernier char base64url qui peuvent être non-significatifs.
+    const pos = state.length - 8;
+    const char = state[pos];
+    const replacement = char === "A" ? "B" : "A";
+    const corrupted = state.slice(0, pos) + replacement + state.slice(pos + 1);
     expect(verifyOAuthState(corrupted)).toBeNull();
   });
 

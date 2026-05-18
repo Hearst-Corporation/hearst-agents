@@ -12,7 +12,11 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   const { id } = await params;
   const { searchParams } = new URL(request.url);
-  const limit = Math.min(Number(searchParams.get("limit") ?? "50"), 200);
+  const rawLimit = Number(searchParams.get("limit") ?? "50");
+  const limit = Math.min(
+    Number.isFinite(rawLimit) && rawLimit > 0 ? Math.floor(rawLimit) : 50,
+    200,
+  );
 
   const db = requireServerSupabase();
 
@@ -28,21 +32,6 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   }
 
   if (count === null || count === 0) {
-    // Aucun message pour cet user dans cette conversation
-    // 0 → soit conversation inexistante (404), soit accès refusé (403)
-    // On distingue en vérifiant si la conversation existe pour un autre user
-    const { count: globalCount, error: globalErr } = await db
-      .from("chat_messages")
-      .select("id", { count: "exact", head: true })
-      .eq("conversation_id", id);
-
-    if (globalErr) {
-      return NextResponse.json({ error: "db_error" }, { status: 500 });
-    }
-
-    if (globalCount && globalCount > 0) {
-      return NextResponse.json({ error: "forbidden" }, { status: 403 });
-    }
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
@@ -63,7 +52,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const messages = (rows ?? []).map((row) => ({
     id: row.id,
     role: row.role as "user" | "assistant",
-    content: row.content.slice(0, 5000),
+    content: (row.content ?? "").slice(0, 5000),
     createdAt: row.created_at,
   }));
 
