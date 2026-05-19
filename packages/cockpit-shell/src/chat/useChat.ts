@@ -107,6 +107,13 @@ function makeThinkStripper() {
 // Hook
 // ---------------------------------------------------------------------------
 
+const WELCOME_MSG: DisplayMessage = {
+  id: "welcome",
+  role: "assistant",
+  content: "Bonjour ! Je suis Kimi K2.6, votre assistant Hearst. Comment puis-je vous aider aujourd'hui ?",
+  createdAt: 0,
+};
+
 export function useChat(opts?: UseChatOptions): UseChatReturn {
   const {
     apiEndpoint = "/api/cockpit-chat",
@@ -116,6 +123,7 @@ export function useChat(opts?: UseChatOptions): UseChatReturn {
     productId = null,
   } = opts ?? {};
 
+  // Démarre vide côté SSR pour éviter le mismatch DOMPurify (window absent).
   const [messages, setMessages] = useState<DisplayMessage[]>([]);
   const [streaming, setStreaming] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -130,24 +138,52 @@ export function useChat(opts?: UseChatOptions): UseChatReturn {
   const messagesRef = useRef(messages);
   messagesRef.current = messages;
 
-  // Charge l'historique au mount si persistance + chatId fourni.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only
+  // Synchronise chatId local avec celui passé en prop (changement depuis l'historique).
   useEffect(() => {
-    if (!persistence || !chatId) return;
+    setChatId(initialChatId ?? null);
+  }, [initialChatId]);
+
+  // Charge les messages quand chatId change :
+  //   - via la persistance custom si fournie
+  //   - sinon via l'endpoint API /api/cockpit-chats/[id]
+  //   - aucun chatId → message de bienvenue.
+  useEffect(() => {
     let cancelled = false;
-    persistence
-      .loadMessages(chatId)
-      .then((loaded) => {
-        if (!cancelled) setMessages(loaded);
-      })
-      .catch(() => {
-        /* persistance KO : on reste en mémoire locale */
-      });
-    return () => {
-      cancelled = true;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    if (!chatId) {
+      setMessages([WELCOME_MSG]);
+      return;
+    }
+
+    if (persistence) {
+      persistence
+        .loadMessages(chatId)
+        .then((loaded) => {
+          if (!cancelled) setMessages(loaded.length > 0 ? loaded : [WELCOME_MSG]);
+        })
+        .catch(() => {
+          if (!cancelled) setMessages([WELCOME_MSG]);
+        });
+    } else {
+      fetch(`/api/cockpit-chats/${chatId}`, { cache: "no-store" })
+        .then((r) => r.ok ? r.json() : Promise.reject())
+        .then((data: { messages?: Array<{ id: string; role: string; content: string; created_at: string }> }) => {
+          if (cancelled) return;
+          const loaded: DisplayMessage[] = (data.messages ?? []).map((m) => ({
+            id: m.id,
+            role: m.role as "user" | "assistant",
+            content: m.content,
+            createdAt: new Date(m.created_at).getTime(),
+          }));
+          setMessages(loaded.length > 0 ? loaded : [WELCOME_MSG]);
+        })
+        .catch(() => {
+          if (!cancelled) setMessages([WELCOME_MSG]);
+        });
+    }
+
+    return () => { cancelled = true; };
+  }, [chatId, persistence]);
 
   // Annule tout stream au démontage + marque le composant comme démonté.
   useEffect(() => {
@@ -161,7 +197,7 @@ export function useChat(opts?: UseChatOptions): UseChatReturn {
   const reset = useCallback(() => {
     abortRef.current?.abort();
     pendingRef.current = false;
-    setMessages([]);
+    setMessages([WELCOME_MSG]);
     setError(null);
     setStreaming(false);
     setChatId(null);
@@ -212,6 +248,12 @@ export function useChat(opts?: UseChatOptions): UseChatReturn {
 
       const stripThink = makeThinkStripper();
 
+      // Modèle override depuis les réglages locaux (whitelistés côté serveur).
+      const modelOverride =
+        typeof window !== "undefined"
+          ? window.localStorage.getItem("cockpit:chat-model") ?? undefined
+          : undefined;
+
       try {
         const resp = await fetch(apiEndpoint, {
           method: "POST",
@@ -221,6 +263,7 @@ export function useChat(opts?: UseChatOptions): UseChatReturn {
             message: trimmed,
             messages: history,
             productId: productId ?? undefined,
+            model: modelOverride,
           }),
           signal: controller.signal,
         });

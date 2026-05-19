@@ -1,6 +1,6 @@
 {
   "name": "@hearst/cockpit-shell",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shell Cockpit Hearst — RailLeft + CenterPanel + RailRight + ChatKimi + tokens. Consommé par les 13 apps.",
   "type": "module",
   "main": "./dist/index.js",

@@ -21,7 +21,14 @@ import {
   getSnapshot,
   getServerSnapshot,
 } from "../stores/activeProductStore";
+import {
+  subscribe as subActiveChat,
+  getSnapshot as getActiveChat,
+  getServerSnapshot as getActiveChatSSR,
+  setActiveChat,
+} from "../stores/activeChatStore";
 import { useCockpit } from "../shell/context";
+import { HearstMark } from "../shell/HearstMark";
 import type { ChatMessage } from "./types";
 import { useChat } from "./useChat";
 
@@ -98,12 +105,19 @@ export function ChatKimi({ productName, productColor }: ChatKimiProps = {}) {
     getSnapshot,
     getServerSnapshot,
   );
+  const activeChat = useSyncExternalStore(
+    subActiveChat,
+    getActiveChat,
+    getActiveChatSSR,
+  );
   const { chatConfig } = useCockpit();
 
   const { messages, streaming, error, sendMessage, reset } = useChat({
     apiEndpoint: chatConfig.apiEndpoint ?? "/api/cockpit-chat",
     persistence: chatConfig.persistence,
     productId: activeProduct,
+    chatId: activeChat,
+    onChatId: (id) => setActiveChat(id),
   });
 
   // Auto-scroll
@@ -113,6 +127,7 @@ export function ChatKimi({ productName, productColor }: ChatKimiProps = {}) {
   }, [messages]);
 
   const newConversation = useCallback(() => {
+    setActiveChat(null);
     reset();
     setInput("");
   }, [reset]);
@@ -171,18 +186,34 @@ export function ChatKimi({ productName, productColor }: ChatKimiProps = {}) {
           </p>
         )}
 
-        {messages.map((msg) => (
-          <MessageBubble
-            key={msg.id}
-            msg={msg}
-            isStreamingThis={
-              streaming &&
-              msg.role === "assistant" &&
-              msg === messages[messages.length - 1]
-            }
-            accent={accent}
-          />
-        ))}
+        {messages.map((msg) => {
+          // Cache la bulle assistant vide en attente de stream — on affiche
+          // uniquement le logo H (ct-chat-thinking) à la place.
+          if (msg.role === "assistant" && msg.content === "") return null;
+          return (
+            <MessageBubble
+              key={msg.id}
+              msg={msg}
+              isStreamingThis={
+                streaming &&
+                msg.role === "assistant" &&
+                msg === messages[messages.length - 1]
+              }
+              accent={accent}
+            />
+          );
+        })}
+
+        {/* Indicateur de réflexion : logo H sous la dernière bulle assistant pendant le streaming */}
+        {streaming && (
+          <div
+            className="ct-chat-thinking active"
+            aria-label="L'assistant réfléchit"
+            style={{ color: accent }}
+          >
+            <HearstMark size={18} />
+          </div>
+        )}
 
         {error && (
           <div className="ct-chat-error">
@@ -219,9 +250,28 @@ export function ChatKimi({ productName, productColor }: ChatKimiProps = {}) {
           className="ct-chat-send"
           disabled={!input.trim() || streaming}
           aria-label="Envoyer"
-          style={{ background: input.trim() && !streaming ? accent : undefined }}
+          style={input.trim() && !streaming ? { background: accent } : undefined}
         >
-          {streaming ? "…" : "↑"}
+          {streaming ? (
+            <span className="ct-chat-send-dots">
+              <span /><span /><span />
+            </span>
+          ) : (
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="12" y1="19" x2="12" y2="5" />
+              <polyline points="5 12 12 5 19 12" />
+            </svg>
+          )}
         </button>
       </form>
     </div>

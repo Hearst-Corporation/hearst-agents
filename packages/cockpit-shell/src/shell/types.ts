@@ -53,9 +53,4 @@ export interface CockpitShellProps {
    * laissent cette prop vide.
    */
   renderActiveProduct?: (activeId: string) => ReactNode;
-  /**
-   * Contenu contextuel injecté dans la bottom bar, à côté du label produit.
-   * Permet à chaque app de passer sa propre navigation par page (ex. CanvasBottomBar).
-   */
-  bottomBar?: ReactNode;
 }

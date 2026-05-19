@@ -50,4 +50,11 @@ function toggle(): void {
   notifyAll();
 }
 
-export { subscribe, getSnapshot, getServerSnapshot, toggle };
+function forceOpen(): void {
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(LS_KEY, "1");
+  }
+  notifyAll();
+}
+
+export { subscribe, getSnapshot, getServerSnapshot, toggle, forceOpen };

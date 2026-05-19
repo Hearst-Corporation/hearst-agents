@@ -87,11 +87,6 @@ interface CockpitShellProps {
      * laissent cette prop vide.
      */
     renderActiveProduct?: (activeId: string) => ReactNode;
-    /**
-     * Contenu contextuel injecté dans la bottom bar, à côté du label produit.
-     * Permet à chaque app de passer sa propre navigation par page (ex. CanvasBottomBar).
-     */
-    bottomBar?: ReactNode;
 }
 
 /**
@@ -100,11 +95,8 @@ interface CockpitShellProps {
  * Enveloppe l'app : Rail gauche + centre + rail droit (chat Kimi). En mode
  * « immersif » (produit autre que `appId` actif) les rails du hub glissent
  * pour laisser le produit occuper l'écran (transition CSS).
- *
- * `<ProductBottomBar />` est hissée hors de `.ct-panels-row` pour passer
- * au-dessus des `<webview>` Electron (qui ignorent le z-index CSS du renderer).
  */
-declare function CockpitShell({ children, products, appId, chatConfig, renderActiveProduct, bottomBar, }: CockpitShellProps): react_jsx_runtime.JSX.Element;
+declare function CockpitShell({ children, products, appId, chatConfig, renderActiveProduct, }: CockpitShellProps): react_jsx_runtime.JSX.Element;
 
 /**
  * Rail gauche — accordéon lanceur de la suite Hearst.
@@ -133,15 +125,6 @@ declare function RailLeft(): react_jsx_runtime.JSX.Element;
 declare function CenterPanel({ children, renderProduct }: CenterPanelProps): react_jsx_runtime.JSX.Element;
 
 declare function RailRight(): react_jsx_runtime.JSX.Element;
-
-/**
- * Bottom bar contextualisée : reflète le produit actif (nom + accent).
- * Sur l'app hôte (appId), garde le libellé par défaut.
- * `bottomBar` : contenu contextuel injecté par l'app (ex. nav par page).
- */
-declare function ProductBottomBar({ bottomBar }: {
-    bottomBar?: ReactNode;
-}): react_jsx_runtime.JSX.Element;
 
 /**
  * ThemeAccent — recolore tout le chrome Cockpit (chat, bottom bar, anneaux,
@@ -225,6 +208,17 @@ interface ChatKimiProps {
 }
 declare function ChatKimi({ productName, productColor }?: ChatKimiProps): react_jsx_runtime.JSX.Element;
 
+interface ChatSettingsProps {
+    productName?: string;
+    productColor?: string;
+}
+declare function ChatSettings({ productName, productColor }?: ChatSettingsProps): react_jsx_runtime.JSX.Element;
+
+interface ChatHistoryProps {
+    productColor?: string;
+}
+declare function ChatHistory({ productColor }?: ChatHistoryProps): react_jsx_runtime.JSX.Element;
+
 /** Message affiché dans la liste (identique à ChatMessage). */
 type DisplayMessage = ChatMessage;
 interface UseChatOptions {
@@ -293,6 +287,7 @@ declare function setActive(id: string): void;
  */
 type Listener$1 = () => void;
 declare function subscribe$1(cb: Listener$1): () => void;
+declare function forceOpen(): void;
 
 /**
  * launcherStore.ts
@@ -303,4 +298,4 @@ declare function subscribe$1(cb: Listener$1): () => void;
 type Listener = () => void;
 declare function subscribe(cb: Listener): () => void;
 
-export { Card, CenterPanel, type CenterPanelProps, type ChatConfig, ChatKimi, type ChatMessage, type ChatPersistence, type CockpitProduct, CockpitShell, type CockpitShellProps, type DisplayMessage, Eyebrow, HearstMark, type HubContext, KpiCard, KpiGrid, ProductBottomBar, RailLeft, RailRight, Sub, ThemeAccent, Title, type UseChatOptions, type UseChatReturn, attachHubBridge, getSnapshot as getActiveProduct, pushContext, setActive as setActiveProduct, setDefaultActive, subscribe$2 as subscribeActiveProduct, subscribe as subscribeLauncher, subscribe$1 as subscribeRailRight, useChat, useCockpit };
+export { Card, CenterPanel, type CenterPanelProps, type ChatConfig, ChatHistory, ChatKimi, type ChatMessage, type ChatPersistence, ChatSettings, type CockpitProduct, CockpitShell, type CockpitShellProps, type DisplayMessage, Eyebrow, HearstMark, type HubContext, KpiCard, KpiGrid, RailLeft, RailRight, Sub, ThemeAccent, Title, type UseChatOptions, type UseChatReturn, attachHubBridge, forceOpen as forceOpenRailRight, getSnapshot as getActiveProduct, pushContext, setActive as setActiveProduct, setDefaultActive, subscribe$2 as subscribeActiveProduct, subscribe as subscribeLauncher, subscribe$1 as subscribeRailRight, useChat, useCockpit };

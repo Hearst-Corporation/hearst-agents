@@ -13,7 +13,6 @@ export { CockpitShell } from "./shell/CockpitShell";
 export { RailLeft } from "./shell/RailLeft";
 export { CenterPanel } from "./shell/CenterPanel";
 export { RailRight } from "./shell/RailRight";
-export { ProductBottomBar } from "./shell/ProductBottomBar";
 export { ThemeAccent } from "./shell/ThemeAccent";
 export { HearstMark } from "./shell/HearstMark";
 export { useCockpit } from "./shell/context";
@@ -27,6 +26,8 @@ export type {
 
 // Chat
 export { ChatKimi } from "./chat/ChatKimi";
+export { ChatSettings } from "./chat/ChatSettings";
+export { ChatHistory } from "./chat/ChatHistory";
 export { useChat } from "./chat/useChat";
 export type { UseChatOptions, UseChatReturn, DisplayMessage } from "./chat/useChat";
 export type { ChatPersistence, ChatMessage, ChatConfig } from "./chat/types";
@@ -48,5 +49,5 @@ export {
   getSnapshot as getActiveProduct,
   setActive as setActiveProduct,
 } from "./stores/activeProductStore";
-export { subscribe as subscribeRailRight } from "./stores/railOpenStore";
+export { subscribe as subscribeRailRight, forceOpen as forceOpenRailRight } from "./stores/railOpenStore";
 export { subscribe as subscribeLauncher } from "./stores/launcherStore";
