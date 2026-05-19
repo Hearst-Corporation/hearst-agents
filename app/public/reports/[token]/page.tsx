@@ -133,7 +133,7 @@ function BrandedHeader() {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: 10,
+        zIndex: "var(--z-sticky)" as unknown as number,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -163,7 +163,13 @@ function BrandedHeader() {
           priority
         />
       </Link>
-      <span className="t-11" style={{ color: "var(--text-faint)", fontWeight: 300 }}>
+      <span
+        className="t-11"
+        style={{
+          color: "var(--text-faint)",
+          fontWeight: "var(--weight-light)" as unknown as number,
+        }}
+      >
         Rapport partagé via Hearst OS
       </span>
     </header>
@@ -199,7 +205,7 @@ function CtaFooter() {
         <h2
           className="t-28"
           style={{
-            fontWeight: 300,
+            fontWeight: "var(--weight-light)" as unknown as number,
             color: "var(--text)",
             letterSpacing: "var(--tracking-tight)",
             margin: 0,
@@ -230,7 +236,7 @@ function CtaFooter() {
             color: "var(--text-on-accent, var(--text))",
             textDecoration: "none",
             borderRadius: "var(--radius-pill, 9999px)",
-            fontWeight: 500,
+            fontWeight: "var(--weight-medium)" as unknown as number,
             marginTop: "var(--space-2)",
             transition: "background 200ms ease, transform 200ms ease",
           }}
@@ -268,7 +274,7 @@ function MinimalFooter() {
         className="t-9"
         style={{
           color: "var(--text-faint)",
-          fontWeight: 300,
+          fontWeight: "var(--weight-light)" as unknown as number,
           margin: 0,
         }}
       >
@@ -314,7 +320,10 @@ export default async function PublicReportPage({ params }: PageProps) {
         >
           <h1
             className="t-28"
-            style={{ fontWeight: "var(--weight-light)", letterSpacing: "var(--tracking-tight)" }}
+            style={{
+              fontWeight: "var(--weight-light)" as unknown as number,
+              letterSpacing: "var(--tracking-tight)",
+            }}
           >
             Lien indisponible
           </h1>
@@ -420,7 +429,9 @@ export default async function PublicReportPage({ params }: PageProps) {
                     color: "var(--text)",
                   }}
                 >
-                  <strong style={{ fontWeight: 500 }}>{b.label ?? b.id}</strong>{" "}
+                  <strong style={{ fontWeight: "var(--weight-medium)" as unknown as number }}>
+                    {b.label ?? b.id}
+                  </strong>{" "}
                   <span className="t-11" style={{ color: "var(--text-faint)" }}>
                     ({b.type})
                   </span>

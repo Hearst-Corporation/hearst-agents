@@ -162,7 +162,7 @@ export default async function PublicApprovalPage({ params, searchParams }: PageP
           <h1
             className="t-28"
             style={{
-              fontWeight: "var(--weight-light)",
+              fontWeight: "var(--weight-light)" as unknown as number,
               letterSpacing: "var(--tracking-tight)",
               margin: 0,
             }}
@@ -355,7 +355,7 @@ function BrandedHeader() {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: 10,
+        zIndex: "var(--z-sticky)" as unknown as number,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -385,7 +385,13 @@ function BrandedHeader() {
           priority
         />
       </Link>
-      <span className="t-11" style={{ color: "var(--text-faint)", fontWeight: 300 }}>
+      <span
+        className="t-11"
+        style={{
+          color: "var(--text-faint)",
+          fontWeight: "var(--weight-light)" as unknown as number,
+        }}
+      >
         Approbation collaborative
       </span>
     </header>
@@ -406,7 +412,7 @@ function MinimalFooter() {
         className="t-9"
         style={{
           color: "var(--text-faint)",
-          fontWeight: 300,
+          fontWeight: "var(--weight-light)" as unknown as number,
           margin: 0,
         }}
       >
