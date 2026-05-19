@@ -280,7 +280,7 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
   const meta = TAB_META[activeTab];
 
   return (
-    <div className="border-t border-[var(--surface-2)] pt-8">
+    <div className="border-t border-(--surface-2) pt-8">
       <header className="flex items-baseline justify-between mb-6">
         <span className="t-13 font-medium text-(--text-l1)">Formats alternatifs</span>
         <div className="flex items-center gap-2">

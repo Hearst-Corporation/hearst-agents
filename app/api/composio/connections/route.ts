@@ -12,12 +12,12 @@ import {
   isComposioConfigured,
   listConnections,
 } from "@/lib/connectors/composio";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export async function GET() {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
+  const { scope, error } = await requireScope({ context: "GET /api/composio/connections" });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
   if (!isComposioConfigured()) {
@@ -39,6 +39,6 @@ export async function GET() {
     );
   }
 
-  const connections = await listConnections(userId);
+  const connections = await listConnections(scope.userId);
   return NextResponse.json({ ok: true, connections });
 }

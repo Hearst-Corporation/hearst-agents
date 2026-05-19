@@ -9,6 +9,8 @@ import {
   selectModel,
 } from "../decisions/model-selector";
 import type { RunTracer } from "../engine/runtime/tracer";
+import { startTrace } from "../observability/langfuse";
+import { redactForLangfuse } from "../observability/langfuse-redact";
 import { AnthropicProvider } from "./anthropic";
 import { defaultCircuitBreaker } from "./circuit-breaker";
 import { ComposerProvider } from "./composer";
@@ -78,6 +80,23 @@ function isTransientError(err: unknown): boolean {
   return /\b(429|500|502|503|504)\b/.test(err.message);
 }
 
+/**
+ * F21 — Throttle proactif avant un call provider (happy path).
+ *
+ * Consomme `defaultRateLimiter.getNextDelay()` (qui encapsule
+ * `shouldThrottle`) pour différer le call quand le budget rate-limit
+ * du provider est bas / épuisé, et éviter un 429 prévisible.
+ * Cap par `proactiveDelayCapMs` côté rate-limiter — pas d'attente
+ * non-bornée. Ne touche pas aux retries internes (retryWithBackoff).
+ */
+async function applyProactiveThrottle(provider: string): Promise<void> {
+  const waitMs = defaultRateLimiter.getNextDelay(provider);
+  if (waitMs > 0) {
+    defaultMetrics.incrementCounter("rate_limit_hit");
+    await new Promise((r) => setTimeout(r, waitMs));
+  }
+}
+
 async function retryWithBackoff<T>(fn: () => Promise<T>, maxRetries = 3): Promise<T> {
   let attempt = 0;
   while (true) {
@@ -91,6 +110,54 @@ async function retryWithBackoff<T>(fn: () => Promise<T>, maxRetries = 3): Promis
       await new Promise((r) => setTimeout(r, base + jitter));
     }
   }
+}
+
+/**
+ * F20 — Trace Langfuse fail-soft pour les entrées router hors RunTracer.
+ *
+ * `startTrace()` retourne `null` en dev sans clés (no-op) et un client en
+ * prod. On redacte input/output via `redactForLangfuse` avant envoi. Aucun
+ * nouveau client Langfuse n'est créé ici — on réutilise le singleton global.
+ * Toute erreur de tracing est avalée : l'observabilité ne casse jamais le run.
+ */
+type RouterTraceHandle = {
+  fail(err: unknown): void;
+  succeed(meta: Record<string, unknown>): void;
+};
+
+function startRouterTrace(
+  name: string,
+  input: unknown,
+  metadata: Record<string, unknown>,
+): RouterTraceHandle {
+  let trace: ReturnType<typeof startTrace> = null;
+  try {
+    trace = startTrace(name, metadata);
+    trace?.update({ input: redactForLangfuse(input) });
+  } catch {
+    trace = null;
+  }
+  return {
+    fail(err: unknown) {
+      try {
+        trace?.update({
+          output: redactForLangfuse({
+            status: "failed",
+            error: err instanceof Error ? err.message : String(err),
+          }),
+        });
+      } catch {
+        /* fail-soft : tracing ne casse jamais le run */
+      }
+    },
+    succeed(meta: Record<string, unknown>) {
+      try {
+        trace?.update({ output: redactForLangfuse({ status: "success", ...meta }) });
+      } catch {
+        /* fail-soft */
+      }
+    },
+  };
 }
 
 export async function resolveModelProfile(
@@ -154,6 +221,12 @@ export async function chatWithProfile(
     }
   }
 
+  const trace = startRouterTrace(
+    "router.chatWithProfile",
+    { profileId, messages },
+    { userId: userId ?? null, tenantId: tenantId ?? null, profileId },
+  );
+
   const wallclock = new AbortController();
   const wallclockTimer = setTimeout(
     () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
@@ -175,6 +248,7 @@ export async function chatWithProfile(
       }
 
       try {
+        await applyProactiveThrottle(profile.provider);
         const provider = getProvider(profile.provider);
         const response = await retryWithBackoff(() =>
           provider.chat({
@@ -231,6 +305,13 @@ export async function chatWithProfile(
             status: "success",
           });
         }
+        trace.succeed({
+          profile_used: `${profile.provider}/${profile.model}`,
+          tokens_in: response.tokens_in,
+          tokens_out: response.tokens_out,
+          cost_usd: response.cost_usd,
+          latency_ms: response.latency_ms,
+        });
         return { ...response, profile_used: `${profile.provider}/${profile.model}` };
       } catch (e) {
         lastError = e instanceof Error ? e : new Error(String(e));
@@ -269,6 +350,10 @@ export async function chatWithProfile(
     }
 
     throw lastError ?? new Error("All providers in fallback chain failed");
+  } catch (e) {
+    // Tous chemins d'échec (boucle épuisée, wallclock abort, throttle) → trace fail.
+    trace.fail(e);
+    throw e;
   } finally {
     clearTimeout(wallclockTimer);
   }
@@ -320,6 +405,7 @@ export async function* streamChatWithProfile(
       }
 
       try {
+        await applyProactiveThrottle(profile.provider);
         const provider = getProvider(profile.provider);
         const stream = await retryWithBackoff(() =>
           Promise.resolve(
@@ -441,6 +527,17 @@ export async function smartChat(
 
   const chain = buildSmartChain(decision);
 
+  const trace = startRouterTrace(
+    "router.smartChat",
+    { goal, messages: opts.messages },
+    {
+      userId: opts.userId ?? null,
+      tenantId: opts.tenantId ?? null,
+      goal,
+      selected: `${decision.selected_provider}/${decision.selected_model}`,
+    },
+  );
+
   const wallclock = new AbortController();
   const wallclockTimer = setTimeout(
     () => wallclock.abort(new Error("agent_loop_wallclock_exceeded")),
@@ -464,6 +561,7 @@ export async function smartChat(
       }
 
       try {
+        await applyProactiveThrottle(attempt.provider);
         const provider = getProvider(attempt.provider);
         const response = await retryWithBackoff(() =>
           provider.chat({
@@ -518,6 +616,14 @@ export async function smartChat(
           await traceFallback(opts.tracer, attempt, attemptIndex, chain[0], lastError?.message);
         }
 
+        trace.succeed({
+          selected: `${attempt.provider}/${attempt.model}`,
+          attempt_index: attemptIndex,
+          tokens_in: response.tokens_in,
+          tokens_out: response.tokens_out,
+          cost_usd: response.cost_usd,
+          latency_ms: response.latency_ms,
+        });
         return { ...response, decision };
       } catch (e) {
         lastError = e instanceof Error ? e : new Error(String(e));
@@ -562,6 +668,9 @@ export async function smartChat(
     }
 
     throw lastError ?? new Error("All models in smart chain failed");
+  } catch (e) {
+    trace.fail(e);
+    throw e;
   } finally {
     clearTimeout(wallclockTimer);
   }
@@ -617,6 +726,7 @@ export async function* smartStreamChat(
       }
 
       try {
+        await applyProactiveThrottle(attempt.provider);
         const provider = getProvider(attempt.provider);
         const stream = await retryWithBackoff(() =>
           Promise.resolve(

@@ -89,7 +89,7 @@ export function EnrichmentPreviewModal({
               value={manualPrompt}
               onChange={(e) => setManualPrompt(e.target.value)}
               rows={4}
-              className="px-3 py-2 t-13 font-light text-text bg-[var(--surface-1)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] focus:border-(--accent-teal) outline-none transition-colors resize-y"
+              className="px-3 py-2 t-13 font-light text-text bg-(--surface-1) border border-(--border-shell) hover:border-(--accent-teal-border-hover) focus:border-(--accent-teal) outline-none transition-colors resize-y"
             />
           </div>
         )}

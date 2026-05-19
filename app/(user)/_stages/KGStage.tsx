@@ -144,7 +144,7 @@ const NODE_TYPE_COLORS: Record<string, string> = {
   company: "var(--accent-llm)",
   project: "var(--accent-agent)",
   decision: "var(--danger)",
-  commitment: "color-mix(in srgb, var(--dataviz-commitment) 85%, transparent)",
+  commitment: "var(--dataviz-commitment)",
   topic: "var(--text-muted)",
 };
 function nodeColor(type: string): string {
@@ -356,7 +356,7 @@ function DetailPanel({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 8 }}
       transition={{ duration: 0.3, ease: VISION_EASE }}
-      className="p-5 rounded-xl bg-(--bg-elev) border border-white/8 flex flex-col gap-4"
+      className="p-5 rounded-xl bg-(--bg-elev) border border-(--line-strong) flex flex-col gap-4"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
@@ -368,7 +368,7 @@ function DetailPanel({
           type="button"
           onClick={onClose}
           aria-label="Fermer le panneau"
-          className="bg-white/6 border border-white/10 rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
+          className="bg-(--surface-2) border border-(--line-strong) rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
         >
           ✕
         </button>
@@ -525,7 +525,7 @@ export function KGStage({ mode }: KGStageProps) {
       </header>
 
       {/* Loading skeleton */}
-      {loading && <div className="h-75 animate-pulse rounded-xl bg-white/5" />}
+      {loading && <div className="h-75 animate-pulse rounded-xl bg-(--surface-icon-tile)" />}
 
       {/* Error */}
       {!loading && error && <ErrorBanner message={error} />}
@@ -575,7 +575,7 @@ export function KGStage({ mode }: KGStageProps) {
                 className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border ${
                   viewMode === m
                     ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
-                    : "border-white/8 bg-transparent text-(--text-faint)"
+                    : "border-(--line-strong) bg-transparent text-(--text-faint)"
                 }`}
               >
                 {m === "graph" ? "Graphe" : "Liste"}

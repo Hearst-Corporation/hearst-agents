@@ -19,12 +19,16 @@ export default async function ArchivePage() {
           <p className="mt-1 text-sm text-white/50">Threads et assets de plus de 7 jours</p>
         </div>
 
-        <input
-          type="search"
-          aria-label="Rechercher dans l'archive"
-          placeholder="Rechercher dans l'archive…"
-          className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 w-full text-sm outline-none focus:border-white/30 transition-colors mb-6"
-        />
+        <div title="Recherche bientôt disponible">
+          <input
+            type="search"
+            aria-label="Rechercher dans l'archive"
+            aria-disabled="true"
+            disabled
+            placeholder="Recherche bientôt disponible"
+            className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 w-full text-sm outline-none transition-colors mb-6 disabled:cursor-not-allowed disabled:text-white/30 disabled:placeholder:text-white/25"
+          />
+        </div>
 
         <div role="tablist" className="flex items-center gap-1 mb-8">
           {tabs.map((tab) => (
@@ -33,10 +37,13 @@ export default async function ArchivePage() {
               type="button"
               role="tab"
               aria-selected={tab === "Tout"}
+              aria-disabled="true"
+              disabled
+              title="À venir"
               className={
                 tab === "Tout"
-                  ? "px-4 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-white"
-                  : "px-4 py-1.5 rounded-lg text-sm text-white/40 hover:text-white/70 hover:bg-white/5 transition-colors"
+                  ? "px-4 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-white cursor-not-allowed"
+                  : "px-4 py-1.5 rounded-lg text-sm text-white/40 cursor-not-allowed"
               }
             >
               {tab}

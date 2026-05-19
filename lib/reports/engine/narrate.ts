@@ -10,6 +10,10 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { defaultRateLimiter } from "@/lib/llm/rate-limiter";
+import { startTrace } from "@/lib/observability/langfuse";
+import { redactForLangfuse } from "@/lib/observability/langfuse-redact";
 import { formatFewShotBlock, NARRATION_FEWSHOT_FR } from "@/lib/prompts/examples";
 import type { NarrationSpec, ReportSpec } from "@/lib/reports/spec/schema";
 import type { RenderPayload } from "./render-blocks";

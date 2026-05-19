@@ -123,9 +123,7 @@ export function VoiceStage({ mode }: { mode: string }) {
               width: "var(--space-32)",
               height: "var(--space-32)",
               background:
-                phase === "error"
-                  ? "color-mix(in srgb, var(--danger) 30%, transparent)"
-                  : "color-mix(in srgb, var(--accent-teal) 30%, transparent)",
+                phase === "error" ? "var(--danger-surface)" : "var(--accent-teal-surface)",
             }}
           />
           <div

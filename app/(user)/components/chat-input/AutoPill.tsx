@@ -20,7 +20,7 @@ export function AutoPill() {
         borderRadius: "var(--radius-pill)",
         border: `1px solid ${voiceActive ? "var(--accent-teal-border)" : "var(--border-soft)"}`,
         background: voiceActive ? "var(--accent-teal-bg-active)" : "transparent",
-        color: voiceActive ? "var(--accent-teal)" : "var(--text-l2)",
+        color: voiceActive ? "var(--accent-teal)" : "var(--text-muted)",
       }}
     >
       {voiceActive && (

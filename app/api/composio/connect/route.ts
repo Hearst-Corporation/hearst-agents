@@ -11,7 +11,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { initiateConnection, isComposioConfigured } from "@/lib/connectors/composio";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 const bodySchema = z.object({
   appName: z.string().min(1).max(64),
@@ -19,9 +19,9 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
+  const { scope, error } = await requireScope({ context: "POST /api/composio/connect" });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
   if (!isComposioConfigured()) {
@@ -46,7 +46,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const result = await initiateConnection(userId, parsed.data.appName, parsed.data.redirectUri);
+  const result = await initiateConnection(
+    scope.userId,
+    parsed.data.appName,
+    parsed.data.redirectUri,
+  );
   if (!result.ok) {
     return NextResponse.json(
       {

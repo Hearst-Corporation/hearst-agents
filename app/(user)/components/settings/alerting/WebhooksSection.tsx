@@ -51,7 +51,7 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
-                  fontFamily: "monospace",
+                  fontFamily: "var(--font-mono)",
                 }}
               >
                 {wh.url}

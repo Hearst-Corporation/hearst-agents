@@ -195,7 +195,7 @@ function LoadingSkeleton() {
   return (
     <div className="flex flex-col gap-3">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="h-14 animate-pulse rounded-xl bg-white/5" />
+        <div key={i} className="h-14 animate-pulse rounded-xl bg-(--surface-icon-tile)" />
       ))}
     </div>
   );

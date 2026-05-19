@@ -60,21 +60,21 @@ function ChatKimiPanelStyles() {
       }
 
       .vision-kimi-panel .ct-chat-newbtn {
-        font-size: 11px;
-        font-weight: 500;
+        font-size: var(--ct-font-size-sm);
+        font-weight: var(--ct-font-weight-medium);
         letter-spacing: 0.08em;
         color: var(--text-faint);
         background: transparent;
         border: 1px solid var(--line-strong);
-        border-radius: 6px;
-        padding: 4px 10px;
+        border-radius: var(--ct-radius-sm);
+        padding: var(--space-1) var(--space-2-5);
         cursor: pointer;
         transition: color 0.2s ease, border-color 0.2s ease;
       }
 
       .vision-kimi-panel .ct-chat-newbtn:hover {
         color: var(--text-muted);
-        border-color: rgba(255, 255, 255, 0.15);
+        border-color: var(--surface-3, var(--ct-surface-3));
       }
 
       /* ── Liste des messages ────────────────────────────────────── */
@@ -90,7 +90,7 @@ function ChatKimiPanelStyles() {
       }
 
       .vision-kimi-panel .ct-chat-list::-webkit-scrollbar {
-        width: 4px;
+        width: var(--space-1);
       }
 
       .vision-kimi-panel .ct-chat-list::-webkit-scrollbar-track {
@@ -99,12 +99,12 @@ function ChatKimiPanelStyles() {
 
       .vision-kimi-panel .ct-chat-list::-webkit-scrollbar-thumb {
         background: var(--line-strong);
-        border-radius: 2px;
+        border-radius: var(--ct-radius-xs);
       }
 
       /* ── Placeholder vide ─────────────────────────────────────── */
       .vision-kimi-panel .ct-placeholder {
-        font-size: 12px;
+        font-size: var(--ct-font-size-sm);
         line-height: 1.6;
         color: var(--text-ghost);
         padding: var(--space-3);
@@ -127,9 +127,9 @@ function ChatKimiPanelStyles() {
       .vision-kimi-panel .ct-chat-msg.user > div {
         background: var(--surface-2);
         border: 1px solid var(--line-strong);
-        border-radius: 10px 10px 2px 10px;
+        border-radius: var(--ct-radius-md) var(--ct-radius-md) var(--ct-radius-xs) var(--ct-radius-md);
         padding: var(--space-2) var(--space-3);
-        font-size: 13px;
+        font-size: var(--ct-font-size-base);
         color: var(--text-soft);
         line-height: 1.5;
         max-width: 90%;
@@ -142,9 +142,9 @@ function ChatKimiPanelStyles() {
       .vision-kimi-panel .ct-chat-msg.assistant > div {
         background: transparent;
         border: 1px solid var(--line);
-        border-radius: 2px 10px 10px 10px;
+        border-radius: var(--ct-radius-xs) var(--ct-radius-md) var(--ct-radius-md) var(--ct-radius-md);
         padding: var(--space-2) var(--space-3);
-        font-size: 13px;
+        font-size: var(--ct-font-size-base);
         color: var(--text-muted);
         line-height: 1.6;
         max-width: 100%;
@@ -154,12 +154,12 @@ function ChatKimiPanelStyles() {
       /* Markdown dans les réponses assistant */
       .vision-kimi-panel .ct-chat-msg.assistant pre {
         margin: var(--space-2) 0;
-        border-radius: 6px;
+        border-radius: var(--ct-radius-sm);
         overflow-x: auto;
       }
 
       .vision-kimi-panel .ct-chat-msg.assistant code {
-        font-size: 11px;
+        font-size: var(--ct-font-size-sm);
       }
 
       .vision-kimi-panel .ct-chat-msg.assistant ul {
@@ -168,21 +168,21 @@ function ChatKimiPanelStyles() {
 
       .vision-kimi-panel .ct-chat-msg.assistant strong {
         color: var(--text-soft);
-        font-weight: 600;
+        font-weight: var(--weight-semibold);
       }
 
       /* ── Typing indicator ─────────────────────────────────────── */
       .vision-kimi-panel .ct-chat-typing {
         display: flex;
-        gap: 4px;
+        gap: var(--space-1);
         align-items: center;
         padding: var(--space-2) var(--space-3);
       }
 
       .vision-kimi-panel .ct-chat-typing span {
         display: inline-block;
-        width: 5px;
-        height: 5px;
+        width: var(--space-1-5);
+        height: var(--space-1-5);
         border-radius: 50%;
         background: var(--accent-teal);
         opacity: 0.6;
@@ -205,10 +205,10 @@ function ChatKimiPanelStyles() {
       /* ── Curseur de streaming ─────────────────────────────────── */
       .vision-kimi-panel .ct-chat-cursor {
         display: inline-block;
-        width: 2px;
-        height: 14px;
-        border-radius: 1px;
-        margin-left: 2px;
+        width: var(--space-0-5);
+        height: var(--ct-font-size-base);
+        border-radius: var(--ct-radius-xs);
+        margin-left: var(--space-0-5);
         vertical-align: middle;
         animation: vision-kimi-blink 1s step-end infinite;
       }
@@ -224,18 +224,18 @@ function ChatKimiPanelStyles() {
         flex-direction: column;
         gap: var(--space-1);
         padding: var(--space-2) var(--space-3);
-        border: 1px solid rgba(255, 51, 51, 0.2);
-        border-radius: 8px;
-        background: rgba(255, 51, 51, 0.05);
+        border: 1px solid color-mix(in srgb, var(--danger) 20%, transparent);
+        border-radius: var(--ct-radius-input);
+        background: color-mix(in srgb, var(--danger) 5%, transparent);
       }
 
       .vision-kimi-panel .ct-chat-error > p {
-        font-size: 12px;
-        color: rgba(255, 100, 100, 0.9);
+        font-size: var(--ct-font-size-sm);
+        color: var(--danger);
       }
 
       .vision-kimi-panel .ct-chat-retry {
-        font-size: 11px;
+        font-size: var(--ct-font-size-sm);
         color: var(--text-faint);
         background: transparent;
         border: none;
@@ -263,9 +263,9 @@ function ChatKimiPanelStyles() {
         flex: 1;
         background: var(--surface-1);
         border: 1px solid var(--line-strong);
-        border-radius: 8px;
+        border-radius: var(--ct-radius-input);
         padding: var(--space-2) var(--space-3);
-        font-size: 13px;
+        font-size: var(--ct-font-size-base);
         color: var(--text-soft);
         resize: none;
         line-height: 1.5;
@@ -279,7 +279,7 @@ function ChatKimiPanelStyles() {
       }
 
       .vision-kimi-panel .ct-chat-input:focus {
-        border-color: rgba(74, 139, 134, 0.4);
+        border-color: color-mix(in srgb, var(--accent-teal) 40%, transparent);
         box-shadow: var(--shadow-input-focus);
       }
 
@@ -290,13 +290,13 @@ function ChatKimiPanelStyles() {
 
       .vision-kimi-panel .ct-chat-send {
         flex-shrink: 0;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
+        width: var(--space-8);
+        height: var(--space-8);
+        border-radius: var(--ct-radius-input);
         border: 1px solid var(--line-strong);
         background: transparent;
         color: var(--text-faint);
-        font-size: 16px;
+        font-size: var(--ct-font-size-md);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -305,8 +305,8 @@ function ChatKimiPanelStyles() {
       }
 
       .vision-kimi-panel .ct-chat-send:not(:disabled):hover {
-        border-color: rgba(74, 139, 134, 0.5);
-        color: white;
+        border-color: color-mix(in srgb, var(--accent-teal) 50%, transparent);
+        color: var(--text-soft);
       }
 
       .vision-kimi-panel .ct-chat-send:disabled {

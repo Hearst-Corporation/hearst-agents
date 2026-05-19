@@ -86,7 +86,7 @@ export function EditorToolbar({
         <span
           data-testid="report-editor-save-feedback"
           className="t-9 font-mono uppercase"
-          style={{ color: "var(--red)" }}
+          style={{ color: "var(--danger)" }}
         >
           Erreur sauvegarde
         </span>
@@ -117,7 +117,7 @@ export function EditorToolbar({
         <span
           data-testid="report-editor-load-feedback"
           className="t-9 font-mono uppercase"
-          style={{ color: "var(--red)" }}
+          style={{ color: "var(--danger)" }}
         >
           Erreur chargement
         </span>

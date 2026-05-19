@@ -55,7 +55,7 @@ export function VariantEmptyState({
               value={videoProvider}
               onChange={(e) => setVideoProvider(e.target.value === "heygen" ? "heygen" : "runway")}
               disabled={generating}
-              className="px-3 py-2 t-13 font-light text-text bg-[var(--card-flat-bg)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2 t-13 font-light text-text bg-(--card-flat-bg) border border-(--border-shell) hover:border-(--accent-teal-border-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="runway">Runway (text-to-video)</option>
               <option value="heygen">HeyGen (avatar)</option>

@@ -32,7 +32,7 @@ export function AmbientLayers() {
         style={{
           backgroundImage:
             "radial-gradient(circle, color-mix(in srgb, var(--accent-teal) 32%, transparent) 0.8px, transparent 1.4px)",
-          backgroundSize: "26px 26px",
+          backgroundSize: "var(--space-6-5) var(--space-6-5)",
           backgroundPosition: "0 0",
           maskImage:
             "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, color-mix(in srgb, black 50%, transparent) 50%, transparent 90%)",

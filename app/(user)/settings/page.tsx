@@ -28,31 +28,73 @@ const sections: Array<
 
 export default async function SettingsPage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl font-semibold tracking-tight">Réglages</h1>
-          <p className="mt-1 text-sm text-white/50">Préférences, alerting, profil</p>
+    <div
+      className="min-h-screen w-full overflow-y-auto"
+      style={{
+        background: "var(--surface)",
+        color: "var(--text)",
+        padding: "var(--space-10) var(--space-6)",
+      }}
+    >
+      <div style={{ maxWidth: "var(--width-center-max, 56rem)", margin: "0 auto" }}>
+        <div style={{ marginBottom: "var(--space-8)" }}>
+          <h1
+            className="t-24"
+            style={{
+              fontWeight: "var(--ct-font-weight-semibold, 600)",
+              letterSpacing: "var(--tracking-tight)",
+              color: "var(--text)",
+            }}
+          >
+            Réglages
+          </h1>
+          <p className="t-13" style={{ marginTop: "var(--space-1)", color: "var(--text-muted)" }}>
+            Préférences, alerting, profil
+          </p>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
           {sections.map((section) => {
             const inner = (
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">{section.label}</span>
+                  <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+                    <span
+                      className="t-13"
+                      style={{
+                        fontWeight: "var(--ct-font-weight-medium, 500)",
+                        color: "var(--text)",
+                      }}
+                    >
+                      {section.label}
+                    </span>
                     {section.disabled && (
-                      <span className="t-10 font-medium px-1.5 py-0.5 rounded bg-white/10 text-white/40 uppercase tracking-wide">
+                      <span
+                        className="t-10"
+                        style={{
+                          fontWeight: "var(--ct-font-weight-medium, 500)",
+                          padding: "var(--space-0-5) var(--space-1-5)",
+                          borderRadius: "var(--ct-radius-sm, var(--radius-sm))",
+                          background: "var(--surface-2)",
+                          color: "var(--text-faint)",
+                          textTransform: "uppercase",
+                          letterSpacing: "var(--tracking-wide)",
+                        }}
+                      >
                         Bientôt
                       </span>
                     )}
                   </div>
-                  <p className="mt-0.5 text-xs text-white/40">{section.description}</p>
+                  <p
+                    className="t-11"
+                    style={{ marginTop: "var(--space-0-5)", color: "var(--text-faint)" }}
+                  >
+                    {section.description}
+                  </p>
                 </div>
                 {!section.disabled && (
                   <svg
-                    className="text-white/30"
+                    style={{ color: "var(--text-faint)" }}
                     width="16"
                     height="16"
                     viewBox="0 0 16 16"
@@ -75,7 +117,13 @@ export default async function SettingsPage() {
               return (
                 <div
                   key={section.label}
-                  className="border border-white/10 rounded-xl p-4 opacity-50 cursor-not-allowed"
+                  style={{
+                    border: "1px solid var(--border-default)",
+                    borderRadius: "var(--ct-radius-lg, var(--radius-md))",
+                    padding: "var(--space-4)",
+                    opacity: 0.5,
+                    cursor: "not-allowed",
+                  }}
                 >
                   {inner}
                 </div>
@@ -86,7 +134,23 @@ export default async function SettingsPage() {
               <Link
                 key={section.label}
                 href={section.href}
-                className="border border-white/10 rounded-xl p-4 hover:border-white/20 transition-colors"
+                style={{
+                  border: "1px solid var(--border-default)",
+                  borderRadius: "var(--ct-radius-lg, var(--radius-md))",
+                  padding: "var(--space-4)",
+                  display: "block",
+                  transition: `border-color var(--duration-base) var(--ease-standard)`,
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                    "var(--border-strong, var(--border-default))";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                    "var(--border-default)";
+                }}
               >
                 {inner}
               </Link>

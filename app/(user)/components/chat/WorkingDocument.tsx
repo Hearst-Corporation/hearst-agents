@@ -125,7 +125,7 @@ export function WorkingDocument() {
           style={{
             color: "var(--text)",
             minHeight: "var(--space-16)",
-            fontFamily: "var(--font-satoshi), system-ui, sans-serif",
+            fontFamily: "var(--font-satoshi)",
           }}
           aria-label="Contenu du document"
           placeholder="Le contenu du block apparaîtra ici…"

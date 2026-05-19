@@ -83,7 +83,7 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
                         color: "var(--text-soft)",
                         border: "1px solid var(--border-default)",
                         borderRadius: "var(--radius-xs)",
-                        padding: "1px var(--space-2)",
+                        padding: "var(--space-0-5) var(--space-2)",
                       }}
                     >
                       {r}

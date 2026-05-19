@@ -13,7 +13,7 @@
  * Best-effort : un échec d'agrégation ne casse jamais le flow LLM.
  */
 
-import * as Sentry from "@sentry/nextjs";
+import { captureException } from "@sentry/nextjs";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -66,7 +66,7 @@ export async function incrementTenantUsage(event: UsageEvent): Promise<void> {
     if (error) throw error;
   } catch (err) {
     // Best-effort : log mais ne propage pas
-    Sentry.captureException(err, {
+    captureException(err, {
       tags: { component: "usage-tracker" },
     });
     if (process.env.NODE_ENV !== "production") {

@@ -12,12 +12,12 @@ import {
   isComposioConfigured,
   listAvailableApps,
 } from "@/lib/connectors/composio";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export async function GET() {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
+  const { scope, error } = await requireScope({ context: "GET /api/composio/apps" });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: error.status });
   }
   if (!isComposioConfigured()) {
     return NextResponse.json(

@@ -28,6 +28,7 @@ import {
   setActiveChat,
 } from "../stores/activeChatStore";
 import { useCockpit } from "../shell/context";
+import { DEFAULT_PRODUCT_COLOR } from "../shell/tokens";
 import { HearstMark } from "../shell/HearstMark";
 import type { ChatMessage } from "./types";
 import { useChat } from "./useChat";
@@ -159,7 +160,7 @@ export function ChatKimi({ productName, productColor }: ChatKimiProps = {}) {
     sendMessage(lastUser.content);
   }, [messages, sendMessage]);
 
-  const accent = productColor ?? "var(--ct-accent, #8A1538)";
+  const accent = productColor ?? `var(--ct-accent, ${DEFAULT_PRODUCT_COLOR})`;
 
   return (
     <div className="ct-chat-root">

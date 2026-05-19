@@ -57,6 +57,17 @@ const nextConfig: NextConfig = {
   // Requiert babel-plugin-react-compiler en devDep. Composants violant les Rules of React
   // peuvent être exclus via reactCompiler: { compilationMode: 'annotation' } + directive "use memo".
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "*.supabase.co" },
+      { protocol: "https", hostname: "*.supabase.in" },
+      { protocol: "https", hostname: "gravatar.com" },
+      { protocol: "https", hostname: "*.gravatar.com" },
+      { protocol: "https", hostname: "*.r2.cloudflarestorage.com" },
+      { protocol: "https", hostname: "lh3.googleusercontent.com" },
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
+  },
   // Pin la racine workspace pour que Turbopack n'aille pas la déduire
   // depuis un package.json plus haut dans l'arbo (ex. ~/package.json).
   turbopack: {

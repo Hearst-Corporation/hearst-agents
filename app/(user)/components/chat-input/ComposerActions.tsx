@@ -67,8 +67,8 @@ export function ComposerActions({
             : audioGenStatus === "error"
               ? "text-(--danger)"
               : input.trim()
-                ? "text-(--text-l2) hover:text-(--accent-teal)"
-                : "text-(--text-l3) cursor-not-allowed"
+                ? "text-text-muted hover:text-(--accent-teal)"
+                : "text-text-faint cursor-not-allowed"
         }`}
       >
         <svg
@@ -99,8 +99,8 @@ export function ComposerActions({
             : codeExecStatus === "error"
               ? "text-(--danger)"
               : input.trim()
-                ? "text-(--text-l2) hover:text-(--accent-teal)"
-                : "text-(--text-l3) cursor-not-allowed"
+                ? "text-text-muted hover:text-(--accent-teal)"
+                : "text-text-faint cursor-not-allowed"
         }`}
       >
         <svg
@@ -133,8 +133,8 @@ export function ComposerActions({
             : imageGenStatus === "error"
               ? "text-(--danger)"
               : input.trim()
-                ? "text-(--text-l2) hover:text-(--accent-teal)"
-                : "text-(--text-l3) cursor-not-allowed"
+                ? "text-text-muted hover:text-(--accent-teal)"
+                : "text-text-faint cursor-not-allowed"
         }`}
       >
         <svg
@@ -161,8 +161,8 @@ export function ComposerActions({
         data-testid="chat-input-document-parse"
         className={`transition-colors duration-base ${
           isRunning
-            ? "text-(--text-l3) cursor-not-allowed"
-            : "text-(--text-l2) hover:text-(--accent-teal)"
+            ? "text-text-faint cursor-not-allowed"
+            : "text-text-muted hover:text-(--accent-teal)"
         }`}
       >
         <svg
@@ -192,7 +192,7 @@ export function ComposerActions({
             ? "text-(--warn) animate-pulse"
             : attachment
               ? "text-(--accent-teal)"
-              : "text-(--text-l2) hover:text-(--accent-teal)"
+              : "text-text-muted hover:text-(--accent-teal)"
         }`}
       >
         <svg
@@ -210,7 +210,7 @@ export function ComposerActions({
       </button>
       {isRunning ? (
         <div className="w-5 h-5 flex items-center justify-center shrink-0">
-          <div className="w-3 h-3 border border-(--border-subtle) border-t-[var(--accent-teal)] rounded-full animate-spin" />
+          <div className="w-3 h-3 border border-(--border-subtle) border-t-(--accent-teal) rounded-full animate-spin" />
         </div>
       ) : (
         <button
@@ -221,7 +221,7 @@ export function ComposerActions({
           className={`transition-colors duration-base ${
             input.trim()
               ? "text-(--accent-teal)"
-              : "text-(--text-l3) cursor-not-allowed hover:text-(--text-l2)"
+              : "text-text-faint cursor-not-allowed hover:text-text-muted"
           }`}
           title="Envoyer"
         >

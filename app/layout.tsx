@@ -38,6 +38,8 @@ export default async function RootLayout({
   return (
     <html lang="fr" className="dark h-full antialiased" data-theme={themeCookie}>
       <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&display=swap"
           rel="stylesheet"

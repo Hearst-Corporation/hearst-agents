@@ -146,7 +146,10 @@ export function FocalRetryButton({
     }
   };
 
-  const baseClasses = compact ? "px-4 py-2 t-11 font-medium" : "px-8 py-4 t-13 font-medium";
+  const basePadding = compact
+    ? { padding: "var(--space-2) var(--space-4)" }
+    : { padding: "var(--space-4) var(--space-8)" };
+  const baseClasses = compact ? "t-11 font-medium" : "t-13 font-medium";
 
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
@@ -158,7 +161,7 @@ export function FocalRetryButton({
           className ||
           `${baseClasses} bg-(--accent-teal) text-[var(--text-on-accent-teal)] transition-[background-color,opacity,box-shadow] duration-(--duration-emphasis) disabled:opacity-50 disabled:cursor-not-allowed`
         }
-        style={{ boxShadow: "var(--shadow-card-hover)" }}
+        style={{ boxShadow: "var(--shadow-card-hover)", ...(!className ? basePadding : {}) }}
         title={isRetrying ? "Réessai en cours…" : "Réessayer l'opération"}
         aria-describedby={lastError ? "focal-retry-error" : undefined}
       >

@@ -383,8 +383,8 @@ export function SignalStage({ mode }: { mode: string }) {
               className="t-13 font-light text-[var(--danger)]"
               style={{
                 padding: "var(--space-4) var(--space-5)",
-                background: "color-mix(in srgb, var(--danger) 6%, transparent)",
-                borderLeft: "2px solid color-mix(in srgb, var(--danger) 35%, transparent)",
+                background: "var(--danger-surface-soft)",
+                borderLeft: "2px solid var(--danger-border)",
                 borderRadius: "var(--radius-sm)",
               }}
             >

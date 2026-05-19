@@ -102,7 +102,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
       <header className="flex items-center" style={{ gap: "var(--space-3)" }}>
         <span className="t-11 font-medium text-(--accent-teal)">PROVENANCE</span>
         <span
-          className="rounded-pill bg-[var(--text-ghost)]"
+          className="rounded-pill bg-(--text-ghost)"
           style={{ width: "var(--space-1)", height: "var(--space-1)" }}
         />
         <span className="t-11 font-light text-text-faint">
@@ -310,7 +310,7 @@ function LineageMiniGraph({ currentTitle, parentIds, onOpenParent }: LineageMini
                   y={yParent + nodeHeight / 2 + 3}
                   fill="var(--text-muted)"
                   fontSize={10}
-                  fontFamily="ui-monospace, monospace"
+                  fontFamily="var(--font-mono)"
                   textAnchor="middle"
                 >
                   {pid.slice(0, 8)}
@@ -335,7 +335,7 @@ function LineageMiniGraph({ currentTitle, parentIds, onOpenParent }: LineageMini
             y={(totalHeight - nodeHeight) / 2 + nodeHeight / 2 + 3}
             fill="var(--accent-teal)"
             fontSize={10}
-            fontFamily="ui-monospace, monospace"
+            fontFamily="var(--font-mono)"
             textAnchor="middle"
           >
             {currentTitle.slice(0, 14)}

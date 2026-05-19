@@ -34,7 +34,7 @@ export function VariantTab({
         ? "bg-(--warn) animate-pulse"
         : effectiveStatus === "failed"
           ? "bg-(--danger)"
-          : "bg-[var(--text-ghost)]";
+          : "bg-(--text-ghost)";
 
   return (
     <button

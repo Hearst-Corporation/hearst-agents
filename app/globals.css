@@ -118,6 +118,7 @@
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
+  --space-6-5: 26px; /* dot-pitch identitaire AmbientLayers — entre --space-6 (24) et --space-8 (32) */
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
@@ -186,6 +187,8 @@
   --width-popover: clamp(300px, 22vw, 380px);
   
   --width-quick-launch: 400px;
+  /** Largeur max du conteneur Cockpit X (hub plein écran). */
+  --width-cockpit-x: 1600px;
   /** Sidebar stats du SignalBoardStage (Q3-B). Largeur fixe pour le panneau
    * latéral droit avec cumul + répartition par kind. */
   --width-signal-sidebar: 280px;

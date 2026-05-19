@@ -143,7 +143,7 @@ function BatchRunCard({ run, delayMs }: { run: BatchVariantRun; delayMs: number 
           <span
             aria-hidden
             className="text-(--accent-teal) font-light leading-none"
-            style={{ fontSize: "2rem" }}
+            style={{ fontSize: "var(--space-8)" }}
           >
             ✓
           </span>
@@ -152,7 +152,7 @@ function BatchRunCard({ run, delayMs }: { run: BatchVariantRun; delayMs: number 
           <span
             aria-hidden
             className="text-(--danger) font-light leading-none"
-            style={{ fontSize: "2rem" }}
+            style={{ fontSize: "var(--space-8)" }}
           >
             ×
           </span>

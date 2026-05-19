@@ -218,7 +218,7 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
               borderRadius: "var(--radius-xs)",
               background: "var(--card-flat-bg)",
               color: "var(--text)",
-              fontFamily: "monospace",
+              fontFamily: "var(--font-mono)",
             }}
           />
           {expiresAt && (

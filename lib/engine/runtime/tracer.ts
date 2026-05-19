@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/nextjs";
+import { captureException, captureMessage } from "@sentry/nextjs";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { flushLangfuse } from "@/lib/observability/langfuse";
 import { logger } from "@/lib/observability/logger";
@@ -202,7 +202,7 @@ export class RunTracer {
           { run_id: this.runId, cost_usd: this.totalCost, budget_usd: this.costBudget.budget_usd },
           "[cost-sentinel] budget exceeded",
         );
-        Sentry.captureMessage("[cost-sentinel] budget exceeded", {
+        captureMessage("[cost-sentinel] budget exceeded", {
           level: "error",
           tags: {
             feature: "cost-sentinel",
@@ -296,7 +296,7 @@ export class RunTracer {
       }
     } catch (err) {
       // Cas improbable (flushLangfuse fail-soft) — capture pour observabilité.
-      Sentry.captureException(err instanceof Error ? err : new Error(String(err)), {
+      captureException(err instanceof Error ? err : new Error(String(err)), {
         tags: { subsystem: "tracer", operation: "langfuse_flush" },
       });
       console.warn(
@@ -342,7 +342,7 @@ export class RunTracer {
   private emitEvent(kind: RunEventKind, data: Record<string, unknown>) {
     if (kind === "cost:warning") {
       logger.warn({ run_id: this.runId, ...data }, "[cost-sentinel] budget warning");
-      Sentry.captureMessage("[cost-sentinel] budget warning", {
+      captureMessage("[cost-sentinel] budget warning", {
         level: "warning",
         tags: {
           feature: "cost-sentinel",

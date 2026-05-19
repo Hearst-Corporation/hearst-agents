@@ -269,7 +269,8 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       {/* Badge état — ternaires imbriquées 4 niveaux, bloc préservé inline */}
       <div
         style={{
-          padding: "3px 9px",
+          /* 3px×9px → px-2 py-0.5 Tailwind (delta ≤1px) */
+          padding: "var(--space-0-5) var(--space-2)",
           borderRadius: "var(--radius-pill)",
           fontSize: "var(--text-xs)",
           fontWeight: "var(--weight-medium)",

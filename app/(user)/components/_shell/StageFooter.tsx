@@ -43,8 +43,9 @@ function useStatusText() {
 
 function StatusPill() {
   const status = useStatusText();
-  const dotColor = status.error ? "var(--text-l1)" : "white";
-  const shadow = "none";
+  const dotColor = status.error
+    ? "var(--text-l1)"
+    : "var(--ct-text-on-accent, var(--text-on-accent-teal))";
 
   return (
     <output
@@ -61,7 +62,6 @@ function StatusPill() {
           height: "var(--space-1-5)",
           borderRadius: "var(--radius-pill)",
           background: dotColor,
-          boxShadow: shadow,
         }}
       />
       <span className="t-11 font-medium text-text-faint">{status.label}</span>

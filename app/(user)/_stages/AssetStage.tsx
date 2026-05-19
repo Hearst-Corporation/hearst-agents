@@ -239,7 +239,8 @@ function AssetSlot({ asset, index }: { asset: AssetItem; index: number }) {
           left: "var(--space-2-5)",
           zIndex: "var(--z-noise)",
           display: "inline-block",
-          padding: "3px 9px",
+          /* 3px×9px → delta ≤1px : 2px/8px est le plus proche via tokens */
+          padding: "var(--space-0-5) var(--space-2)",
           borderRadius: "var(--radius-pill)",
           background: "var(--ghost-modal-top)",
           fontSize: "var(--text-xs)",

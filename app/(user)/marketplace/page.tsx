@@ -94,21 +94,26 @@ export default async function MarketplacePage() {
         </div>
 
         <div className="flex items-center gap-3 mb-8">
-          <input
-            type="text"
-            placeholder="Rechercher un template…"
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition-colors"
-            disabled
-          />
+          <div className="flex-1" title="Recherche en cours de développement">
+            <input
+              type="text"
+              placeholder="Recherche (bientôt)"
+              title="Recherche en cours de développement"
+              aria-disabled="true"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition-colors disabled:cursor-not-allowed disabled:text-white/30"
+              disabled
+            />
+          </div>
           <div className="flex items-center gap-1">
             {(["Tout", "Workflow", "Rapport", "Persona"] as const).map((filter) => (
               <button
                 key={filter}
                 type="button"
-                className={`px-3.5 py-2 rounded-lg text-sm transition-colors ${
-                  filter === "Tout"
-                    ? "bg-white/10 text-white"
-                    : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                disabled
+                aria-disabled="true"
+                title="À venir"
+                className={`px-3.5 py-2 rounded-lg text-sm cursor-not-allowed ${
+                  filter === "Tout" ? "bg-white/10 text-white" : "text-white/40"
                 }`}
               >
                 {filter}

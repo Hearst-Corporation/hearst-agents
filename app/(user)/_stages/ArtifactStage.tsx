@@ -195,7 +195,7 @@ function PreviewPanel() {
 function VersionsList({ versions }: { versions: VersionRow[] }) {
   if (versions.length === 0) {
     return (
-      <div className="flex-1" style={{ padding: "14px 16px" }}>
+      <div className="flex-1" style={{ padding: "var(--space-3-5) var(--space-4)" }}>
         <p style={{ fontSize: "var(--text-sm)", color: "var(--text-l3)" }}>
           Aucune version disponible.
         </p>
@@ -203,7 +203,7 @@ function VersionsList({ versions }: { versions: VersionRow[] }) {
     );
   }
   return (
-    <div style={{ padding: "14px 16px" }}>
+    <div style={{ padding: "var(--space-3-5) var(--space-4)" }}>
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
         {versions.map((v, i) => (
           <div

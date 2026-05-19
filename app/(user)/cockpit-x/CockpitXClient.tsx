@@ -253,7 +253,7 @@ function CockpitContent({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="preserve-3d flex w-full flex-col mx-auto flex-1 relative min-h-screen"
-      style={{ maxWidth: "1600px" }}
+      style={{ maxWidth: "var(--width-cockpit-x)" }}
     >
       {/* Contenu Principal - Alignement Editorial */}
       <div className="relative z-10 flex flex-col w-full max-w-editorial-col px-14 pt-16 pb-32">
@@ -757,7 +757,7 @@ function ModePlaceholder({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="preserve-3d flex w-full flex-col gap-16"
-      style={{ maxWidth: "1600px", margin: "0 auto" }}
+      style={{ maxWidth: "var(--width-cockpit-x)", margin: "0 auto" }}
     >
       <header className="flex flex-col gap-4">
         <p className="text-base font-medium text-(--text-faint)">

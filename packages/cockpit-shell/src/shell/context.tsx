@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 import type { CockpitProduct } from "./types";
 import type { ChatConfig } from "../chat/types";
+import { DEFAULT_PRODUCT_COLOR } from "./tokens";
 
 export interface CockpitContextValue {
   products: CockpitProduct[];
@@ -16,7 +17,7 @@ const HUB_FALLBACK: CockpitProduct = {
   id: "hub",
   name: "Hearst Corporation",
   short: "HC",
-  color: "#8A1538",
+  color: DEFAULT_PRODUCT_COLOR,
 };
 
 export const CockpitContext = createContext<CockpitContextValue>({

@@ -217,7 +217,7 @@ function MissionCard({
           onClick();
         }
       }}
-      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-white/7 border border-(--line-strong) cursor-pointer transition-[background] duration-base flex flex-col gap-2"
+      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-(--surface-row-hover) border border-(--line-strong) cursor-pointer transition-[background] duration-base flex flex-col gap-2"
     >
       {/* Ligne principale : nom + badge */}
       <div className="flex items-center gap-3">
@@ -342,7 +342,7 @@ export function MissionListStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={handleNewMission}
-          className="px-4 py-2 rounded-card bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-base"
+          className="px-4 py-2 rounded-card bg-(--surface-2) hover:bg-(--surface-row-hover) border border-(--line-strong) text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-base"
         >
           Nouvelle demande
         </button>

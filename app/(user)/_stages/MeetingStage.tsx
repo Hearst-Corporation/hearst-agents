@@ -85,11 +85,11 @@ function useElapsed(startRef: React.MutableRefObject<number | null>): string {
 /** Couleur avatar pseudo-stable par nom de speaker. */
 const SPEAKER_PALETTE = [
   { bg: "var(--border-subtle)", color: "var(--text-soft)" },
-  { bg: "color-mix(in srgb, var(--accent-llm) 20%, transparent)", color: "var(--accent-llm)" },
+  { bg: "var(--mono-surface)", color: "var(--accent-llm)" },
   { bg: "var(--gold-surface)", color: "var(--gold)" },
   { bg: "var(--accent-teal-surface)", color: "var(--accent-teal)" },
   {
-    bg: "color-mix(in srgb, var(--dataviz-speaker-warm-from) 20%, transparent)",
+    bg: "var(--surface-2)",
     color: "var(--dataviz-speaker-warm-to)",
   },
 ];

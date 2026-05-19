@@ -145,14 +145,29 @@ function FocalContent({
   const isLive = focal.status === "composing" || focal.status === "delivering";
   return (
     <div className="w-full">
-      <header className="flex items-center justify-between mb-10 pb-6 border-b border-[var(--surface-2)]">
-        <div className="flex items-center gap-6">
+      <header
+        className="flex items-center justify-between border-b"
+        style={{
+          marginBottom: "var(--space-10)",
+          paddingBottom: "var(--space-6)",
+          borderColor: "var(--surface-2)",
+        }}
+      >
+        <div className="flex items-center" style={{ gap: "var(--space-6)" }}>
           <span
-            className={`w-2 h-2 rounded-pill ${STATUS_COLORS[focal.status]} ${isLive ? "animate-pulse" : ""}`}
+            className={`rounded-pill ${STATUS_COLORS[focal.status]} ${isLive ? "animate-pulse" : ""}`}
+            style={{ width: "var(--space-2)", height: "var(--space-2)" }}
           />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center" style={{ gap: "var(--space-4)" }}>
             <span className="t-13 font-medium text-(--text-l1)">{TYPE_LABELS[focal.type]}</span>
-            <span className="w-1 h-1 rounded-pill bg-[var(--text-ghost)]" />
+            <span
+              className="rounded-pill"
+              style={{
+                width: "var(--space-1)",
+                height: "var(--space-1)",
+                background: "var(--text-ghost)",
+              }}
+            />
             <span
               className={`t-13 font-light ${focal.status === "awaiting_approval" ? "text-(--warn)" : focal.status === "failed" ? "text-(--danger)" : "text-text-faint"}`}
             >
@@ -166,8 +181,8 @@ function FocalContent({
       </header>
 
       <h1
-        className="t-28 font-medium text-text mb-10 tracking-tight"
-        style={{ lineHeight: "var(--leading-snug)" }}
+        className="t-28 font-medium text-text tracking-tight"
+        style={{ lineHeight: "var(--leading-snug)", marginBottom: "var(--space-10)" }}
       >
         {focal.title}
       </h1>
@@ -185,11 +200,23 @@ function FocalContent({
       )}
 
       {focal.sections && focal.sections.length > 0 && (
-        <div className="mt-16 space-y-10">
+        <div
+          className="flex flex-col"
+          style={{ marginTop: "var(--space-16)", gap: "var(--space-10)" }}
+        >
           {focal.sections.map((section, i) => (
-            <div key={i} className="border-t border-[var(--surface-2)] pt-8">
+            <div
+              key={i}
+              className="border-t"
+              style={{ borderColor: "var(--surface-2)", paddingTop: "var(--space-8)" }}
+            >
               {section.heading && (
-                <h3 className="t-13 font-medium text-(--text-l1) mb-4">{section.heading}</h3>
+                <h3
+                  className="t-13 font-medium text-(--text-l1)"
+                  style={{ marginBottom: "var(--space-4)" }}
+                >
+                  {section.heading}
+                </h3>
               )}
               <div className="t-15 leading-(--leading-body) text-text-muted font-normal">
                 {section.body}
@@ -200,14 +227,31 @@ function FocalContent({
       )}
 
       {error && (
-        <div className="mt-8 p-4 bg-(--danger)/5 border-l-2 border-(--danger) t-13 font-light text-(--danger)">
+        <div
+          className="border-l-2 border-(--danger) t-13 font-light text-(--danger)"
+          style={{
+            marginTop: "var(--space-8)",
+            padding: "var(--space-4)",
+            background: "color-mix(in srgb, var(--danger) 5%, transparent)",
+          }}
+        >
           {error}
         </div>
       )}
 
       {sourceAssetId && (previewLoading || previewContent) && (
-        <div className="mt-12 pt-8 border-t border-[var(--surface-2)]">
-          <div className="flex items-baseline gap-3 mb-4">
+        <div
+          className="border-t"
+          style={{
+            marginTop: "var(--space-12)",
+            paddingTop: "var(--space-8)",
+            borderColor: "var(--surface-2)",
+          }}
+        >
+          <div
+            className="flex items-baseline"
+            style={{ gap: "var(--space-3)", marginBottom: "var(--space-4)" }}
+          >
             <span className="t-13 font-medium text-(--text-l1)">Aperçu</span>
             {previewLoading && <span className="t-11 font-light text-text-faint">Chargement…</span>}
           </div>
@@ -218,8 +262,13 @@ function FocalContent({
               title={focal.title}
               srcDoc={previewContent}
               sandbox="allow-same-origin"
-              className="w-full rounded-sm border border-[var(--surface-2)] bg-[var(--surface-1)]"
-              style={{ height: "var(--space-32)", minHeight: "var(--height-focal-min)" }}
+              className="w-full rounded-sm"
+              style={{
+                border: "1px solid var(--surface-2)",
+                background: "var(--surface-1)",
+                height: "var(--space-32)",
+                minHeight: "var(--height-focal-min)",
+              }}
             />
           ) : previewContent ? (
             <ResearchReportArticle content={previewContent} />
@@ -228,7 +277,7 @@ function FocalContent({
       )}
 
       {sourceAssetId && (
-        <div className="mt-12">
+        <div style={{ marginTop: "var(--space-12)" }}>
           <AssetVariantTabs
             assetId={sourceAssetId}
             sourceText={focal.body ?? focal.summary ?? focal.title}
@@ -236,8 +285,18 @@ function FocalContent({
         </div>
       )}
 
-      <footer className="mt-12 pt-8 border-t border-[var(--surface-2)] flex items-center justify-between">
-        <div className="flex items-center gap-6 t-11 font-light text-text-faint">
+      <footer
+        className="flex items-center justify-between border-t"
+        style={{
+          marginTop: "var(--space-12)",
+          paddingTop: "var(--space-8)",
+          borderColor: "var(--surface-2)",
+        }}
+      >
+        <div
+          className="flex items-center t-11 font-light text-text-faint"
+          style={{ gap: "var(--space-6)" }}
+        >
           {focal.wordCount ? <span>{focal.wordCount} mots</span> : null}
           {focal.provider ? <span>Source · {focal.provider}</span> : null}
         </div>
@@ -308,7 +367,12 @@ export function FocalStage({ compact = false }: FocalStageProps = {}) {
     return (
       <div className="flex-1 flex items-center justify-center min-h-0">
         <div className="text-center relative z-10">
-          <span className="block t-34 text-(--accent-teal) opacity-30 mb-8 animate-pulse">◉</span>
+          <span
+            className="block t-34 text-(--accent-teal) opacity-30 animate-pulse"
+            style={{ marginBottom: "var(--space-8)" }}
+          >
+            ◉
+          </span>
           <p className="t-11 font-light text-text-faint">Waiting_For_Data</p>
         </div>
       </div>
@@ -316,17 +380,23 @@ export function FocalStage({ compact = false }: FocalStageProps = {}) {
   }
 
   if (compact) {
-    // Padding compact aligné sur ChatStage (px-12 py-8) pour éviter tout saut.
+    // Padding compact aligné sur ChatStage pour éviter tout saut.
     return (
-      <div className="max-w-none px-12 py-8 bg-[var(--bg-soft)]">
+      <div
+        className="max-w-none"
+        style={{
+          background: "var(--bg-soft)",
+          padding: "var(--space-8) var(--space-12)",
+        }}
+      >
         <FocalContent focal={focal} onActionComplete={handleActionComplete} />
       </div>
     );
   }
 
   return (
-    <div className="h-full w-full bg-[var(--bg-soft)]">
-      <div className="max-w-4xl mx-auto px-12 py-12 min-h-full">
+    <div className="h-full w-full" style={{ background: "var(--bg-soft)" }}>
+      <div className="max-w-4xl mx-auto min-h-full" style={{ padding: "var(--space-12)" }}>
         <FocalContent focal={focal} onActionComplete={handleActionComplete} />
       </div>
     </div>

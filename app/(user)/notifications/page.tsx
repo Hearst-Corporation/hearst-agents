@@ -13,7 +13,10 @@ export default async function NotificationsPage() {
           </div>
           <button
             type="button"
-            className="text-xs text-white/40 hover:text-white/70 transition-colors mt-1.5"
+            disabled
+            aria-disabled="true"
+            title="À venir"
+            className="text-xs text-white/25 mt-1.5 cursor-not-allowed"
           >
             Tout marquer comme lu
           </button>
@@ -26,10 +29,13 @@ export default async function NotificationsPage() {
               type="button"
               role="tab"
               aria-selected={tab === "Tout"}
+              aria-disabled="true"
+              disabled
+              title="À venir"
               className={
                 tab === "Tout"
-                  ? "px-4 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-white"
-                  : "px-4 py-1.5 rounded-lg text-sm text-white/40 hover:text-white/70 hover:bg-white/5 transition-colors"
+                  ? "px-4 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-white cursor-not-allowed"
+                  : "px-4 py-1.5 rounded-lg text-sm text-white/40 cursor-not-allowed"
               }
             >
               {tab}

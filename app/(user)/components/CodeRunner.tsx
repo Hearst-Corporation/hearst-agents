@@ -118,8 +118,11 @@ export function CodeRunner({ variant }: CodeRunnerProps) {
   const isFailed = variant.status === "failed";
 
   return (
-    <div className="border border-[var(--surface-2)] rounded-md bg-surface-1 p-6">
-      <header className="flex items-center mb-4">
+    <div
+      className="border rounded-md bg-surface-1"
+      style={{ borderColor: "var(--surface-2)", padding: "var(--space-6)" }}
+    >
+      <header className="flex items-center" style={{ marginBottom: "var(--space-4)" }}>
         <div className="flex items-center gap-3">
           <span
             className={`rounded-pill ${

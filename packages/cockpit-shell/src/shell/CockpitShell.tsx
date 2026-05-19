@@ -9,6 +9,7 @@ import {
   setActive,
 } from "../stores/activeProductStore";
 import { CockpitContext } from "./context";
+import { DEFAULT_PRODUCT_COLOR } from "./tokens";
 import { RailLeft } from "./RailLeft";
 import { CenterPanel } from "./CenterPanel";
 import { RailRight } from "./RailRight";
@@ -54,7 +55,7 @@ export function CockpitShell({
       id: "hub",
       name: "Hearst Corporation",
       short: "HC",
-      color: "#8A1538",
+      color: DEFAULT_PRODUCT_COLOR,
     };
     return {
       products,
