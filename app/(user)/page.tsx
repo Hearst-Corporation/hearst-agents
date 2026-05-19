@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { Card, Eyebrow, KpiCard, KpiGrid, Sub, Title } from "@hearst/cockpit-shell";
 import { useSession } from "next-auth/react";
-import { Eyebrow, Title, Sub, KpiGrid, KpiCard, Card } from "@hearst/cockpit-shell";
+import { useEffect, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 export const dynamic = "force-dynamic";
@@ -54,46 +54,67 @@ export default function HomePage() {
         if (!cancelled) setRefetchState("error");
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const runningCount = data ? data.missionsRunning.filter((m) => m.status === "running").length : 0;
   const recentCount = data ? data.missionsRunning.length : 0;
-  const missionsValue = runningCount > 0 ? String(runningCount) : recentCount > 0 ? String(recentCount) : "0";
+  const missionsValue =
+    runningCount > 0 ? String(runningCount) : recentCount > 0 ? String(recentCount) : "0";
 
   const agendaCount = data ? data.agenda.length : 0;
-  const inboxItems = data ? data.inbox.brief?.items.length ?? 0 : 0;
+  const inboxItems = data ? (data.inbox.brief?.items.length ?? 0) : 0;
   const suggCount = data ? data.suggestions.length : 0;
 
-  const factoryRows = data ? data.missionsRunning.slice(0, 5).map((m) => ({
-    id: m.id,
-    missionId: m.id,
-    name: m.name,
-    status: m.status,
-    when: m.lastRunAt ? formatAgo(m.lastRunAt) : "—",
-    detail: m.status === "failed" && m.lastError
-      ? m.lastError.slice(0, 80) + (m.lastError.length > 80 ? "…" : "")
-      : m.status === "running" && m.runningSince
-        ? `démarrée ${formatAgo(m.runningSince)}`
-        : null,
-  })) : [];
-
-  const inboxItemsList = data && data.inbox.brief
-    ? data.inbox.brief.items.slice(0, 3).map((it) => ({ id: it.id, title: it.title, summary: it.summary }))
+  const factoryRows = data
+    ? data.missionsRunning.slice(0, 5).map((m) => ({
+        id: m.id,
+        missionId: m.id,
+        name: m.name,
+        status: m.status,
+        when: m.lastRunAt ? formatAgo(m.lastRunAt) : "—",
+        detail:
+          m.status === "failed" && m.lastError
+            ? m.lastError.slice(0, 80) + (m.lastError.length > 80 ? "…" : "")
+            : m.status === "running" && m.runningSince
+              ? `démarrée ${formatAgo(m.runningSince)}`
+              : null,
+      }))
     : [];
+
+  const inboxItemsList =
+    data && data.inbox.brief
+      ? data.inbox.brief.items
+          .slice(0, 3)
+          .map((it) => ({ id: it.id, title: it.title, summary: it.summary }))
+      : [];
 
   const agendaItemsList = data
-    ? data.agenda.slice(0, 3).map((ev) => ({ id: ev.id, title: ev.title, when: formatTime(ev.startsAt) }))
+    ? data.agenda
+        .slice(0, 3)
+        .map((ev) => ({ id: ev.id, title: ev.title, when: formatTime(ev.startsAt) }))
     : [];
 
-  const proposals = data ? data.suggestions.slice(0, 3).map((s) => ({
-    id: s.id,
-    title: s.title,
-    description: s.description,
-  })) : [];
+  const proposals = data
+    ? data.suggestions.slice(0, 3).map((s) => ({
+        id: s.id,
+        title: s.title,
+        description: s.description,
+      }))
+    : [];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 24, padding: "24px 32px", maxWidth: 1200 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 24,
+        padding: "24px 32px",
+        maxWidth: 1200,
+      }}
+    >
       <div>
         <Eyebrow>Hearst Helm</Eyebrow>
         <Title>{firstName ? `Bonjour, ${firstName}.` : "Bonjour."}</Title>
@@ -101,8 +122,8 @@ export default function HomePage() {
           {runningCount > 0
             ? `${missionsValue} exécutions en cours.`
             : recentCount > 0
-            ? `${recentCount} missions récentes.`
-            : "Aucune décision urgente requise."}
+              ? `${recentCount} missions récentes.`
+              : "Aucune décision urgente requise."}
         </Sub>
       </div>
 
@@ -148,9 +169,18 @@ export default function HomePage() {
                   {row.name}
                 </span>
                 {row.detail && (
-                  <span style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>{row.detail}</span>
+                  <span style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>
+                    {row.detail}
+                  </span>
                 )}
-                <span style={{ fontSize: 10, fontFamily: "monospace", color: "var(--ct-text-faint)", marginTop: 2 }}>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontFamily: "monospace",
+                    color: "var(--ct-text-faint)",
+                    marginTop: 2,
+                  }}
+                >
                   {row.when}
                 </span>
               </div>
@@ -166,14 +196,26 @@ export default function HomePage() {
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {inboxItemsList.map((it) => (
-                <div key={it.id} style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>{it.title}</div>
-                  <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>{it.summary}</div>
+                <div
+                  key={it.id}
+                  style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}
+                >
+                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>
+                    {it.title}
+                  </div>
+                  <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>
+                    {it.summary}
+                  </div>
                 </div>
               ))}
               {agendaItemsList.map((ev) => (
-                <div key={ev.id} style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>{ev.title}</div>
+                <div
+                  key={ev.id}
+                  style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}
+                >
+                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>
+                    {ev.title}
+                  </div>
                   <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>{ev.when}</div>
                 </div>
               ))}
@@ -187,9 +229,16 @@ export default function HomePage() {
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {proposals.map((p) => (
-                <div key={p.id} style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>{p.title}</div>
-                  <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>{p.description}</div>
+                <div
+                  key={p.id}
+                  style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}
+                >
+                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>
+                    {p.title}
+                  </div>
+                  <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>
+                    {p.description}
+                  </div>
                 </div>
               ))}
             </div>
