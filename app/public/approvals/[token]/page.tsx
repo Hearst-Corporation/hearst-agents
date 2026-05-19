@@ -161,7 +161,11 @@ export default async function PublicApprovalPage({ params, searchParams }: PageP
         >
           <h1
             className="t-28"
-            style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)", margin: 0 }}
+            style={{
+              fontWeight: "var(--weight-light)",
+              letterSpacing: "var(--tracking-tight)",
+              margin: 0,
+            }}
           >
             Approbation indisponible
           </h1>
@@ -205,7 +209,7 @@ export default async function PublicApprovalPage({ params, searchParams }: PageP
           <h1
             className="t-28"
             style={{
-              fontWeight: 400,
+              fontWeight: "var(--weight-regular)" as unknown as number,
               letterSpacing: "var(--tracking-tight)",
               color: "var(--text)",
               margin: 0,
@@ -351,7 +355,7 @@ function BrandedHeader() {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: "var(--z-sticky)",
+        zIndex: 10,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

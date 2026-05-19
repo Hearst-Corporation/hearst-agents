@@ -133,7 +133,7 @@ function BrandedHeader() {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: "var(--z-sticky)",
+        zIndex: 10,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -312,7 +312,10 @@ export default async function PublicReportPage({ params }: PageProps) {
             minHeight: "60vh",
           }}
         >
-          <h1 className="t-28" style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}>
+          <h1
+            className="t-28"
+            style={{ fontWeight: "var(--weight-light)", letterSpacing: "var(--tracking-tight)" }}
+          >
             Lien indisponible
           </h1>
           <p className="t-13" style={{ color: "var(--text-soft)", marginTop: "var(--space-3)" }}>
@@ -341,7 +344,7 @@ export default async function PublicReportPage({ params }: PageProps) {
           <h1
             className="t-34"
             style={{
-              fontWeight: 400,
+              fontWeight: "var(--weight-regular)" as unknown as number,
               letterSpacing: "var(--tracking-tight)",
               color: "var(--text)",
               margin: 0,

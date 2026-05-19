@@ -210,7 +210,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontWeight: 600,
+              fontWeight: "var(--weight-semibold)" as unknown as number,
               color: "var(--surface)",
             }}
             className="t-15"
