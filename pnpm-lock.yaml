@@ -39,8 +39,8 @@ importers:
         specifier: ^2.4.1
         version: 2.4.2
       '@hearst/cockpit-shell':
-        specifier: workspace:*
-        version: link:packages/cockpit-shell
+        specifier: file:./hearst-cockpit-shell-0.2.0.tgz
+        version: file:hearst-cockpit-shell-0.2.0.tgz(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(openai@6.37.0(ws@8.20.1)(zod@4.4.3))(react@19.2.4)
       '@hearst/hub-sdk':
         specifier: workspace:*
         version: link:packages/hub-sdk
@@ -1162,6 +1162,14 @@ packages:
 
   '@hapi/topo@6.0.2':
     resolution: {integrity: sha512-KR3rD5inZbGMrHmgPxsJ9dbi6zEK+C3ZwUwTa+eMwWLz7oijWUTWD2pMSNNYJAU6Qq+65NkxXjqHr/7LM2Xkqg==}
+
+  '@hearst/cockpit-shell@file:hearst-cockpit-shell-0.2.0.tgz':
+    resolution: {integrity: sha512-Q+Y8joIzvmK2I4HSifBewb9uXz16nN8MpF0j1e4lqYk/y5Goj0H6v/3M+bYVXMMWjuF0F5A4+0TjZiZV/a7Pbg==, tarball: file:hearst-cockpit-shell-0.2.0.tgz}
+    version: 0.2.0
+    peerDependencies:
+      next: '>=15'
+      openai: '>=4'
+      react: '>=18'
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -6596,6 +6604,9 @@ packages:
     peerDependencies:
       zod: ^3.25.28 || ^4
 
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
@@ -7654,6 +7665,14 @@ snapshots:
   '@hapi/topo@6.0.2':
     dependencies:
       '@hapi/hoek': 11.0.7
+
+  '@hearst/cockpit-shell@file:hearst-cockpit-shell-0.2.0.tgz(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(openai@6.37.0(ws@8.20.1)(zod@4.4.3))(react@19.2.4)':
+    dependencies:
+      dompurify: 3.4.5
+      next: 16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      openai: 6.37.0(ws@8.20.1)(zod@4.4.3)
+      react: 19.2.4
+      zod: 3.25.76
 
   '@img/colour@1.1.0':
     optional: true
@@ -13482,6 +13501,8 @@ snapshots:
   zod-to-json-schema@3.25.2(zod@4.4.3):
     dependencies:
       zod: 4.4.3
+
+  zod@3.25.76: {}
 
   zod@4.4.3: {}
 

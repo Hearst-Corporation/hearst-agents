@@ -48,6 +48,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@hearst/cockpit-shell"],
+  devIndicators: false,
   // standalone requis pour Vercel — copie tous les fichiers runtime Next.js
   // (dont node-environment.js) dans le bundle. La taille était le problème
   // (590 MB → Electron) — désormais strippé via installCommand dans vercel.json.
