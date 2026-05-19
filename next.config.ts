@@ -1,32 +1,15 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === "development";
-
-/* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ──
+/* ── F-078: Sécurité HTTP headers (HSTS, X-Frame, Permissions-Policy) ──
    Embed autorisé depuis le hub Hearst Cockpit (localhost:4200/4201 + Vercel).
    Pas de X-Frame-Options : il bloque toute embed cross-origin et ne supporte
-   pas de whitelist — le CSP frame-ancestors le remplace. */
+   pas de whitelist — le CSP frame-ancestors le remplace.
+   NOTE : le Content-Security-Policy (avec frame-ancestors) est désormais géré
+   dans proxy.ts via nonce dynamique par requête (suppression 'unsafe-inline'
+   sur script-src, F-078). Les autres headers de sécurité restent ici. */
 function buildSecurityHeaders(): Array<{ key: string; value: string }> {
-  const allowEmbed = true;
-
-  const csp = [
-    "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' 'wasm-unsafe-eval'" : ""} https://*.sentry.io https://cloud.langfuse.com https://unpkg.com`,
-    "worker-src 'self' blob:",
-    "child-src 'self' blob:",
-    "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
-    "img-src 'self' data: https: blob:",
-    "media-src 'self' data: https: blob:",
-    "font-src 'self' data: https://cdn.fontshare.com",
-    "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io https://api.hypercli.com https://prod.spline.design https://*.spline.design https://unpkg.com",
-    "frame-ancestors 'self' http://localhost:4200 http://localhost:4201 https://hearst-corporation.vercel.app",
-    "base-uri 'self'",
-    "form-action 'self'",
-  ].join("; ");
-
-  const headers: Array<{ key: string; value: string }> = [
-    { key: "Content-Security-Policy", value: csp },
+  return [
     {
       key: "Strict-Transport-Security",
       value: "max-age=63072000; includeSubDomains",
@@ -37,13 +20,10 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
       key: "Permissions-Policy",
       value: "camera=(), microphone=(self), geolocation=(), interest-cohort=()",
     },
+    // X-Frame-Options délibérément absent : l'embed hub est géré via
+    // frame-ancestors dans le CSP dynamique (proxy.ts). X-Frame-Options ne
+    // supporte pas de whitelist et bloquerait l'embed cross-origin.
   ];
-
-  if (!allowEmbed) {
-    headers.push({ key: "X-Frame-Options", value: "DENY" });
-  }
-
-  return headers;
 }
 
 const nextConfig: NextConfig = {

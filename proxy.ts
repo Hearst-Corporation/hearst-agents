@@ -1,5 +1,5 @@
 /**
- * Next.js Proxy — Global Auth Guard + Arcjet Edge Protection
+ * Next.js Proxy — Global Auth Guard + Arcjet Edge Protection + CSP Nonce
  *
  * Canonical request guard for Next.js 16 / Turbopack.
  * It runs before route handlers and enforces:
@@ -7,10 +7,17 @@
  * 2. Authentication (session or API key)
  * 3. Public path exemptions
  * 4. Explicit dev bypass only
+ * 5. CSP nonce-based (F-078) — supprime 'unsafe-inline' sur script-src en prod
  *
  * F-022 : env.server validation est effectuée en lazy import (dans proxy())
  * plutôt qu'à l'import statique. Un throw au boot ne crash plus le middleware
  * Vercel Edge — il produit une 500 loguée à la première requête.
+ *
+ * F-078 (CSP nonce) : le Content-Security-Policy est construit ici avec un
+ * nonce unique par requête. 'unsafe-inline' est supprimé de script-src en prod
+ * et remplacé par 'nonce-${nonce}' + 'strict-dynamic'. Le nonce est posé sur
+ * les request headers (x-nonce) pour que Next.js l'injecte dans ses scripts
+ * bootstrap, et sur les response headers (Content-Security-Policy).
  */
 
 import { randomUUID, timingSafeEqual } from "node:crypto";
@@ -18,6 +25,49 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
 import { aj, ajLlmJobs, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
+
+const isDev = process.env.NODE_ENV === "development";
+
+/* ── F-078: CSP nonce-based ───────────────────────────────────────────────────
+   Construit la directive CSP complète avec un nonce unique par requête.
+
+   NOTES SUR LES CHOIX :
+   - script-src PROD : 'nonce-${nonce}' + 'strict-dynamic' remplacent
+     'unsafe-inline'. 'strict-dynamic' propage la confiance aux scripts chargés
+     dynamiquement par les scripts noncés (pattern requis pour React / Next.js).
+   - script-src DEV : 'unsafe-eval' + 'wasm-unsafe-eval' conservés pour le HMR
+     Next.js (Fast Refresh nécessite eval). 'unsafe-inline' retiré même en dev.
+   - style-src 'unsafe-inline' conservé volontairement : les attributs
+     style={{}} React inline ne sont pas couvrables par nonce/hash (limitation
+     spec CSP3 — les nonces ne s'appliquent pas aux attributs style, seulement
+     aux balises <style>). Cible du durcissement = script-src uniquement.
+*/
+function buildCsp(nonce: string, dev: boolean): string {
+  const scriptSrc = dev
+    ? `'self' 'nonce-${nonce}' 'unsafe-eval' 'wasm-unsafe-eval' https://*.sentry.io https://cloud.langfuse.com https://unpkg.com`
+    : `'self' 'nonce-${nonce}' 'strict-dynamic' https://*.sentry.io https://cloud.langfuse.com https://unpkg.com`;
+
+  return [
+    "default-src 'self'",
+    `script-src ${scriptSrc}`,
+    "worker-src 'self' blob:",
+    "child-src 'self' blob:",
+    // style-src 'unsafe-inline' conservé volontairement : les attributs
+    // style={{}} React inline ne sont pas couvrables par nonce/hash (limitation
+    // spec CSP3). Cible du durcissement = script-src uniquement.
+    "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
+    "img-src 'self' data: https: blob:",
+    "media-src 'self' data: https: blob:",
+    "font-src 'self' data: https://cdn.fontshare.com",
+    "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io https://api.hypercli.com https://prod.spline.design https://*.spline.design https://unpkg.com",
+    "frame-ancestors 'self' http://localhost:4200 http://localhost:4201 https://hearst-corporation.vercel.app",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ]
+    .join("; ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
 
 const PUBLIC_PATHS = [
   "/login",
@@ -209,8 +259,33 @@ function applyCorrelationId(response: NextResponse, correlationId: string): Next
   return response;
 }
 
+/**
+ * F-078 : Pose le CSP nonce sur la response HTTP.
+ * Doit être appelé sur TOUTES les responses retournées par proxy() pour que le
+ * navigateur reçoive bien le header Content-Security-Policy.
+ * (Les responses JSON/redirect ne servent pas de page HTML mais on les couvre
+ * quand même — ça ne cause aucun problème et c'est plus sûr.)
+ */
+function applyCsp(response: NextResponse, csp: string): NextResponse {
+  response.headers.set("Content-Security-Policy", csp);
+  return response;
+}
+
 export async function proxy(req: NextRequest): Promise<NextResponse> {
-  // Générer ou réutiliser le correlation-id en premier — avant auth, avant Arcjet
+  // F-078 : Générer le nonce CSP en tout premier — avant toute chose.
+  // Web Crypto global (crypto.getRandomValues) : disponible Node 20+ ET Edge runtime.
+  // btoa + String.fromCharCode produisent un nonce base64 opaque sans Buffer ni node:crypto.
+  const nonceBytes = crypto.getRandomValues(new Uint8Array(16));
+  const nonce = btoa(String.fromCharCode(...nonceBytes));
+  const csp = buildCsp(nonce, isDev);
+
+  // Cloner les headers de la requête pour y injecter le nonce et le CSP.
+  // Next.js lit x-nonce pour nonce-er automatiquement ses scripts bootstrap.
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set("x-nonce", nonce);
+  requestHeaders.set("Content-Security-Policy", csp);
+
+  // Générer ou réutiliser le correlation-id — avant auth, avant Arcjet
   const correlationId = req.headers.get("x-correlation-id") ?? randomUUID();
   // F-022 : env validation lazily, une seule fois, sans crasher le boot.
   // env.server.ts est un side-effect module (pas d'exports) : on l'importe
@@ -239,15 +314,21 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   const jwtToken = !STATIC_RE.test(path) && !isDevBypassEnabled() ? await resolveToken(req) : null;
   const userId = extractUserIdFromToken(jwtToken);
 
+  // Raccourci : construit une response "next()" qui propage les request headers
+  // augmentés (x-nonce + CSP sur la requête) vers les Server Components.
+  function nextWithNonce(): NextResponse {
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+
   // 1. Arcjet check sur les routes sensibles (avant auth pour bloquer
   // les attaques sans consommer de ressources auth).
   if (isArcjetProtected(path)) {
     const denied = await applyArcjet(req, userId);
-    if (denied) return applyCorrelationId(denied, correlationId);
+    if (denied) return applyCsp(applyCorrelationId(denied, correlationId), csp);
   }
 
   if (isPublic(path)) {
-    return applyCorrelationId(NextResponse.next(), correlationId);
+    return applyCsp(applyCorrelationId(nextWithNonce(), correlationId), csp);
   }
 
   if (path.startsWith("/api/")) {
@@ -255,40 +336,47 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     // isDevBypassEnabled() inclut un guard isProductionLike() qui refuse en prod.
     if (isDevBypassEnabled()) {
       console.log(`[Proxy] Dev bypass active — ${path}`);
-      return applyCorrelationId(NextResponse.next(), correlationId);
+      return applyCsp(applyCorrelationId(nextWithNonce(), correlationId), csp);
     }
 
     // 3. CSRF Origin check (F-052) — après dev bypass (dev local peut skip).
     if (!isCsrfSafe(req)) {
       console.warn(`[Proxy] CSRF origin mismatch — ${req.method} ${path}`);
-      return applyCorrelationId(
-        NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 }),
-        correlationId,
+      return applyCsp(
+        applyCorrelationId(
+          NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 }),
+          correlationId,
+        ),
+        csp,
       );
     }
 
     if (hasValidApiKey(req)) {
-      return applyCorrelationId(NextResponse.next(), correlationId);
+      return applyCsp(applyCorrelationId(nextWithNonce(), correlationId), csp);
     }
 
     // Réutilise jwtToken déjà décodé (was: hasSession(req) → getToken() again).
     if (jwtToken != null) {
-      return applyCorrelationId(NextResponse.next(), correlationId);
+      return applyCsp(applyCorrelationId(nextWithNonce(), correlationId), csp);
     }
 
     console.warn(`[Proxy] Unauthorized API access — ${path}`);
-    return applyCorrelationId(
-      NextResponse.json({ error: "unauthorized" }, { status: 401 }),
-      correlationId,
+    return applyCsp(
+      applyCorrelationId(
+        NextResponse.json({ error: "unauthorized" }, { status: 401 }),
+        correlationId,
+      ),
+      csp,
     );
   }
 
   if (jwtToken == null) {
-    if (isDevBypassEnabled()) return applyCorrelationId(NextResponse.next(), correlationId);
+    if (isDevBypassEnabled())
+      return applyCsp(applyCorrelationId(nextWithNonce(), correlationId), csp);
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("callbackUrl", path);
     console.log(`[Proxy] Redirecting unauthenticated user to login — ${path}`);
-    return applyCorrelationId(NextResponse.redirect(loginUrl), correlationId);
+    return applyCsp(applyCorrelationId(NextResponse.redirect(loginUrl), correlationId), csp);
   }
 
   // Session présente mais refreshToken Google absent → token pas en base,
@@ -300,11 +388,11 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
       signinUrl.searchParams.set("callbackUrl", path);
       signinUrl.searchParams.set("reason", "token_missing");
       console.warn(`[Proxy] Session without refreshToken — forcing re-auth — ${path}`);
-      return applyCorrelationId(NextResponse.redirect(signinUrl), correlationId);
+      return applyCsp(applyCorrelationId(NextResponse.redirect(signinUrl), correlationId), csp);
     }
   }
 
-  const response = applyCorrelationId(NextResponse.next(), correlationId);
+  const response = applyCsp(applyCorrelationId(nextWithNonce(), correlationId), csp);
   return applyHubHeaders(response, req);
 }
 
@@ -337,6 +425,23 @@ function applyHubHeaders(response: NextResponse, request: NextRequest): NextResp
   return response;
 }
 
+/**
+ * Matcher :
+ * - Inclut /api (auth guard obligatoire sur les routes API — voir proxy() ci-dessus)
+ * - Exclut /_next/static et /_next/image (assets statiques)
+ * - Exclut /monitoring (tunnel Sentry via tunnelRoute, ne pas interrompre)
+ * - Exclut favicon.ico et extensions de fichiers statiques courants
+ * - Exclut les requêtes prefetch (next-router-prefetch / purpose: prefetch)
+ */
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon\\.ico).*)"],
+  matcher: [
+    {
+      source:
+        "/((?!_next/static|_next/image|monitoring|favicon\\.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?)$).*)",
+      missing: [
+        { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "purpose", value: "prefetch" },
+      ],
+    },
+  ],
 };
