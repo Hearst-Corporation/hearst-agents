@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ConfirmModal } from "../ConfirmModal";
 import { Action } from "../ui";
 import { AppLogo } from "./AppLogo";
 import {
@@ -37,6 +38,7 @@ export function AppDrawer({
   const { app, connectedAccount } = state;
   const isConnected = !!connectedAccount;
   const [showAll, setShowAll] = useState(false);
+  const [confirmingDisconnect, setConfirmingDisconnect] = useState(false);
 
   const totalActions = actions?.length ?? 0;
   const visibleActions = showAll ? (actions ?? []) : (actions ?? []).slice(0, ACTIONS_PREVIEW);
@@ -118,8 +120,9 @@ export function AppDrawer({
             <Action
               variant="secondary"
               tone="danger"
-              onClick={onDisconnect}
+              onClick={() => setConfirmingDisconnect(true)}
               loading={busy}
+              disabled={busy}
               className="w-full"
             >
               {`Déconnecter ${app.name}`}
@@ -139,6 +142,21 @@ export function AppDrawer({
           )}
         </div>
       </aside>
+
+      <ConfirmModal
+        open={confirmingDisconnect}
+        variant="danger"
+        title={`Déconnecter ${app.name} ?`}
+        description="Les automatisations Hearst qui dépendent de ce service s'arrêteront immédiatement. Tu pourras le reconnecter à tout moment."
+        confirmLabel="Déconnecter"
+        cancelLabel="Annuler"
+        loading={busy}
+        onCancel={() => setConfirmingDisconnect(false)}
+        onConfirm={() => {
+          setConfirmingDisconnect(false);
+          onDisconnect?.();
+        }}
+      />
     </>
   );
 }
