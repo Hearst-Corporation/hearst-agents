@@ -40,18 +40,16 @@ vi.mock("@/lib/platform/db/supabase", () => ({
       // findPath n'utilise que .eq(user_id).eq(tenant_id).
       const builder = {
         _filters: {} as Record<string, unknown>,
+        _pendingTenantResolve: false as boolean,
         select() {
           return this;
         },
         eq(col: string, val: unknown) {
           this._filters[col] = val;
           if (col === "tenant_id") {
-            // Dernière clause attendue → on résout la query.
-            mockState.calls++;
-            const filtered = rows.filter(
-              (r) => r.user_id === this._filters.user_id && r.tenant_id === this._filters.tenant_id,
-            );
-            return Promise.resolve({ data: filtered, error: null });
+            // Marque que le prochain .limit() doit résoudre la query.
+            this._pendingTenantResolve = true;
+            return this;
           }
           if (col === "id") {
             // findPath case fromId === toId → getNode → .eq(id).maybeSingle
@@ -64,6 +62,16 @@ vi.mock("@/lib/platform/db/supabase", () => ({
             return {
               maybeSingle: () => Promise.resolve({ data: target ?? null, error: null }),
             };
+          }
+          return this;
+        },
+        limit(_n: number) {
+          if (this._pendingTenantResolve) {
+            mockState.calls++;
+            const filtered = rows.filter(
+              (r) => r.user_id === this._filters.user_id && r.tenant_id === this._filters.tenant_id,
+            );
+            return Promise.resolve({ data: filtered, error: null });
           }
           return this;
         },

@@ -69,7 +69,10 @@ async function loadActiveUsersWithSlack(): Promise<ActiveUserScope[]> {
   if (!sb) return [];
 
   // Récupère users + tenant principal.
-  const { data: usersData, error: usersErr } = await sb.from("users").select("id, tenant_ids");
+  const { data: usersData, error: usersErr } = await sb
+    .from("users")
+    .select("id, tenant_ids")
+    .limit(10000);
   if (usersErr || !usersData) {
     await reportError("loadActiveUsersWithSlack:users", usersErr ?? new Error("no data"));
     return [];

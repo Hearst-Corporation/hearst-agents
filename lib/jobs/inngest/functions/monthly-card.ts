@@ -58,7 +58,7 @@ async function loadActiveUsers(): Promise<ActiveUserScope[]> {
   const sb = getServerSupabase();
   if (!sb) return [];
 
-  const { data, error } = await sb.from("users").select("id, tenant_ids");
+  const { data, error } = await sb.from("users").select("id, tenant_ids").limit(10000);
   if (error || !data) {
     await reportError("loadActiveUsers", error ?? new Error("no data"));
     return [];

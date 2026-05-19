@@ -540,7 +540,7 @@ async function runPipeline(
           if (userExplicitlyMentioned) {
             // The user named the app — surface the OAuth card via the canonical
             // event the AI pipeline already uses, so the UI shows
-            // `ChatConnectInline` instead of a hard run failure.
+            // the inline connect card instead of a hard run failure.
             const userMessage =
               providerReq?.userMessage ?? getBlockedReasonForProviders(providersToCheck);
 

@@ -54,6 +54,9 @@ vi.mock("@/lib/platform/db/supabase", () => ({
             this._rows = this._rows.filter((r) => (r as Record<string, unknown>)[col] === val);
             return this;
           },
+          limit(_n: number) {
+            return this;
+          },
           then(resolve: (v: { data: unknown[]; error: null }) => void) {
             resolve({ data: this._rows, error: null });
           },

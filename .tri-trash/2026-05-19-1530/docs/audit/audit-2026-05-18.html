@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Audit transversal — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Audit transversal</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-18 14:38</span>
+      <span><b>Branche</b> feat/hub-mode-helm</span>
+      <span><b>Commit</b> 5ec100c9</span>
+      <span><b>Scope</b> complet</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">18</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">0</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">4</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">9</div><div class="kpi-label">P2 — dette</div></div>
+    
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title">Mémoïser le dirty-check JSON.stringify (admin/agents/new)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agents/new/page.tsx">app/admin/agents/new/page.tsx</a>
+              <span class="qw-effort">S</span>
+            </li><li>
+              <span class="qw-title">Pré-calculer les previews JSON.stringify hors map (admin/settings)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/settings/page.tsx">app/admin/settings/page.tsx</a>
+              <span class="qw-effort">S</span>
+            </li><li>
+              <span class="qw-title">Forcer postcss &gt;=8.5.10 effectivement résolu</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json">package.json</a>
+              <span class="qw-effort">S</span>
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Sécurité</span>
+        <span class="section-agent">OWASP</span>
+        <span class="section-counts">
+          
+          
+          <span class="badge badge-p2">2</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SUPABASE_SERVICE_ROLE_KEY lu dans un server component non marqué</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/public/approvals/[token]/page.tsx:72">app/public/approvals/[token]/page.tsx:72</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const key = process.env.SUPABASE_SERVICE_ROLE_KEY;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire la requête Supabase dans lib/server-only/ ou marquer 'use server' explicitement.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Safe au runtime (async server component) mais sans frontière explicite : si un mainteneur ajoute 'use client' ou extrait la fonction, le secret fuit côté client.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Route observability lit LANGFUSE_*_KEY sans guard d'auth visible dans le handler</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/api/admin/health/observability/route.ts:33">app/api/admin/health/observability/route.ts:33</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const publicKey = process.env.LANGFUSE_PUBLIC_KEY; const secretKey = process.env.LANGFUSE_SECRET_KEY;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Wrapper avec withAdmin() ou appeler requireAdmin() en tête de handler pour rendre la protection visible et résistante aux régressions de middleware.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si la route perd sa protection externe, les clés Langfuse deviennent lisibles publiquement. Guard explicite = défense en profondeur.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Performance</span>
+        <span class="section-agent">perf</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Dirty-check via double JSON.stringify à chaque render</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/agents/new/page.tsx:38">app/admin/agents/new/page.tsx:38</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const isDirty = JSON.stringify(form) !== JSON.stringify(initialFormRef.current);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Mémoïser : const isDirty = useMemo(() =&gt; JSON.stringify(form) !== JSON.stringify(initialFormRef.current), [form]);</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Sérialise deux objets form de façon synchrone à chaque render, sans mémoïsation — bloque le main thread pour rien quand le form n'a pas changé.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">JSON.stringify dans le corps de map() sans mémoïsation</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/settings/page.tsx:90">app/admin/settings/page.tsx:90</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>? JSON.stringify(s.value).slice(0, 40)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Pré-calculer les previews dans un useMemo([entries]) avant le map.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Sérialise chaque valeur de setting à chaque render — O(n) parsing par frame sur une page qui peut avoir 20+ entrées.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">requestBody = JSON.stringify({...}) recréé à chaque tentative de stream</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/components/ChatDock.tsx:346">app/(user)/components/ChatDock.tsx:346</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const requestBody = JSON.stringify({ message, surface, thread_id: threadId, ... });</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Construire requestBody une seule fois hors de la closure de retry (MAX_RECONNECT_ATTEMPTS=3).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Sérialisé jusqu'à 3x par message en cas de reconnexion, valeurs stables.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Object.entries().map() sur providers/services sans mémoïsation (page 555 LOC, polling 30s)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/admin/health/page.tsx:416">app/admin/health/page.tsx:416</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>{Object.entries(llmHealth.providers).map(([name, p]) =&gt; &lt;div key={name}...&gt;)}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire les listes dérivées dans useMemo si providers/services volumineux ou rafraîchis souvent.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>3 map() majeurs recalculés à chaque render + refresh polling toutes les 30s.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Context value object recréé inline (zone spatial-safe — lecture seule, note only)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/providers/spatial-safe/SpatialMouseProvider.tsx:41">providers/spatial-safe/SpatialMouseProvider.tsx:41</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;SpatialMouseContext.Provider value={{ rawX, rawY, smoothX, smoothY }}&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Note documentaire : zone /spatial-safe verrouillée (CLAUDE.md). À corriger uniquement lors d'une future version validée par Adrien, pas par un agent.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Value object recréé -&gt; tous les consumers re-render. Signalé mais NON corrigeable : spatial-safe est read-only absolu pour les agents.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">&lt;img&gt; natif au lieu de next/image</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/_shell/LeftRail.tsx:190">app/(user)/_shell/LeftRail.tsx:190</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;img src=&quot;/hearst-h.svg&quot; alt=&quot;&quot; className=&quot;size-7 opacity-90&quot; /&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Logo SVG figé (CLAUDE.md : logo intouchable). Garder &lt;img&gt; ici est acceptable — incohérence mineure de pattern uniquement.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Impact nul (SVG statique). Signalé pour cohérence, fix non prioritaire.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Architecture</span>
+        <span class="section-agent">ADD</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">3</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">HubMode — code production (CSS injecté + @hearst/hub-sdk) sans spec docs/features/</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/layout.tsx:3">app/(user)/layout.tsx:3</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>import { useHubMode } from '@hearst/hub-sdk'; function HubModeStyles() { const { isHub } = useHubMode(); ... inject &lt;style&gt; }</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer docs/features/hub-mode.md (surface publique, invariants, dépendance @hearst/hub-sdk, évolutions autorisées) + entrée _manifest.json AVANT merge de feat/hub-mode-helm sur main.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Branche feature légitime, mais hub-mode injecte du CSS global et masque rails/ambient sans contrat ADD. Merge sans spec = feature non verrouillée = pas de contrat de stabilité.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">FocusModeStyles + HubModeStyles : deux injecteurs CSS sans règle de conflit documentée</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/layout.tsx:55">app/(user)/layout.tsx:55</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;FocusModeStyles /&gt; masque .vision-rail-right ; &lt;HubModeStyles /&gt; masque les deux rails + backdrop-filter:none</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Documenter dans la spec hub-mode le comportement quand focusMode.enabled &amp;&amp; isHub (ordre HTML = dernier &lt;style&gt; gagne, à expliciter).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Deux composants injectent du CSS depuis des sources d'état différentes ; collision possible non spécifiée -&gt; surprise en test.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@hearst/hub-sdk en dépendance file:// vers chemin OS absolu externe</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/layout.tsx:66">app/(user)/layout.tsx:66</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>package.json: '@hearst/hub-sdk': 'file:/.../Hearst Corporation/packages/hub-sdk'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Documenter le contrat useHubMode() (signature, type de isHub, SSR safety, fallback si window absent) dans la spec hub-mode.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>File dep vers chemin externe = fragile ; un changement d'API hub-sdk casse HubModeStyles silencieusement sans contrat documenté.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Suppression Spline + section Aura 3D — CONFORME cockpit.md I-6 (aucune violation)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:40">app/(user)/cockpit-x/CockpitXClient.tsx:40</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Avant: const Spline = dynamic(...) ; &lt;Spline scene=...&gt; — Après: supprimé</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aucune action. Implante l'invariant I-6 (pivot v1.5 : pas de 3D décoratif).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Modification AUTORISÉE car elle applique un invariant verrouillé existant au lieu de le contredire.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Dépendances</span>
+        <span class="section-agent">deps</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">PostCSS 8.4.31 — CVE-2026-41305 XSS via &lt;/style&gt; ; override configuré mais version installée non conforme</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json:121">package.json:121</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>postcss 8.4.31 (via next), override ciblé &gt;=8.5.10 non appliqué</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Forcer la résolution &gt;=8.5.10 (vérifier le bloc overrides/pnpm.overrides, relancer install, contrôler npm ls postcss).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>PostCSS 8.5.5+ corrige l'échappement &lt;/style&gt; au stringify. Override déclaré mais version réellement installée = 8.4.31 -&gt; protection inopérante. CVSS 6.1.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">React 19.2.4 -&gt; 19.2.6 (patch)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json:74">package.json:74</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>react 19.2.4</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bump 19.2.6 (low risk, bugfixes/perf).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Retard patch sur le flux React 19, sans risque.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@anthropic-ai/sdk 0.95.2 -&gt; 0.96.0</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json:78">package.json:78</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>@anthropic-ai/sdk 0.95.2</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Bump 0.96.0 (SDK LLM cœur, dernières features/correctifs API).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Intégration LLM principale, retard mineur.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Retards majeurs non bloquants : TypeScript 5-&gt;6, Electron 41-&gt;42, jsdom 26-&gt;29, @types/node 20-&gt;25</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json:136">package.json:136</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>typescript 5.9.3, electron 41.6.1, jsdom 26.1.0, @types/node 20.19.41</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Évaluer cas par cas (Electron 42 = Chromium 133 patché en priorité sécurité ; TS6/jsdom29 = vérifier compat suite de tests).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pas bloquant mais Electron en retard = patchs Chromium sécurité manqués sur l'app desktop.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">depcheck faux positifs (aucune action)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/package.json:74">package.json:74</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>@ai-sdk/openai, cytoscape, react-cytoscapejs, pino-pretty, @tailwindcss/postcss, tailwindcss, wait-on signalés inutilisés</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aucune suppression — tous utilisés (imports lib/, graphe de connaissances, transport logger, config build, scripts npm).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Analyse statique depcheck rate les usages indirects (config build, scripts, transports). Documenté pour éviter une purge erronée.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Lockfile synchronisé (statut OK)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/hearst-os/pnpm-lock.yaml:1">pnpm-lock.yaml:1</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>pnpm-lock.yaml en phase avec package.json, git status clean</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aucune action.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pas de désynchro détectée.</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>P0 critiques</h3>
+              <ul><li>Aucun P0 détecté</li></ul>
+            </div><div class="plan-batch">
+              <h3>P1 cohérence</h3>
+              <ul><li>PostCSS : rendre l'override &gt;=8.5.10 effectif (CVE-2026-41305) et vérifier npm/pnpm ls</li><li>HubMode : créer docs/features/hub-mode.md + entrée _manifest.json AVANT merge feat/hub-mode-helm</li><li>Mémoïser les deux JSON.stringify de render (admin/agents/new + admin/settings)</li></ul>
+            </div><div class="plan-batch">
+              <h3>P2 dettes</h3>
+              <ul><li>Guards d'auth explicites en tête de handler (observability route)</li><li>Extraire SUPABASE_SERVICE_ROLE_KEY vers lib/server-only/</li><li>requestBody ChatDock construit une seule fois (hors retry)</li><li>Mémoïser maps page health (polling 30s)</li><li>Documenter priorité CSS FocusMode/HubMode + contrat @hearst/hub-sdk</li><li>Bumps mineurs : react 19.2.6, @anthropic-ai/sdk 0.96.0 ; évaluer Electron 42</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-18 14:38
+  </footer>
+</div>
+</body>
+</html>

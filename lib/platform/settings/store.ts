@@ -109,6 +109,7 @@ export async function getAllSettings(
     }
   }
 
+  query = query.limit(500);
   const { data, error } = await query;
 
   if (error) {

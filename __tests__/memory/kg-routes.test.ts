@@ -87,6 +87,8 @@ vi.mock("@/lib/platform/db/supabase", () => ({
                 ...builder,
                 eq: vi.fn(() => ({
                   ...builder,
+                  // getGraph: select→eq→eq→limit(2000) → résout avec mockNodes
+                  limit: vi.fn().mockResolvedValue({ data: mockNodes, error: null }),
                   ilike: vi.fn(() => ({
                     limit: vi.fn().mockResolvedValue({ data: mockNodes, error: null }),
                   })),
@@ -107,7 +109,10 @@ vi.mock("@/lib/platform/db/supabase", () => ({
               ...builder,
               eq: vi.fn(() => ({
                 ...builder,
-                eq: vi.fn().mockResolvedValue({ data: mockEdges, error: null }),
+                eq: vi.fn(() => ({
+                  ...builder,
+                  limit: vi.fn().mockResolvedValue({ data: mockEdges, error: null }),
+                })),
               })),
             })),
           };

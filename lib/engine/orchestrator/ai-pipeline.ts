@@ -119,7 +119,7 @@ const anthropic = createAnthropic({
  * OAuth connect card when the user asks for an action on an unconnected app.
  *
  * The execute() callback emits `app_connect_required` on the eventBus; the
- * ChatConnectInline component picks this up and renders the connect card.
+ * The inline connect card UI picks this up and renders it in the chat.
  */
 function buildRequestConnectionTool(
   engine: RunEngine,

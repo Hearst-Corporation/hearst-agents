@@ -22,13 +22,19 @@ describe("CSP & Security Headers (F-078)", () => {
     }
   });
 
-  it("should prohibit frame embedding (X-Frame-Options: DENY)", async () => {
-    // X-Frame-Options: DENY bloque l'inclusion en iframe
+  it("should prohibit unauthorized frame embedding via CSP frame-ancestors", async () => {
+    // X-Frame-Options est intentionnellement absent (allowEmbed = true pour embed Cockpit).
+    // La protection est assurée par CSP frame-ancestors avec whitelist explicite.
     const config = nextConfig as any;
     if (typeof config.headers === "function") {
       const headersResult = await config.headers();
-      const xFrameHeader = headersResult[0]?.headers?.find((h: any) => h.key === "X-Frame-Options");
-      expect(xFrameHeader?.value).toBe("DENY");
+      const cspHeader = headersResult[0]?.headers?.find(
+        (h: any) => h.key === "Content-Security-Policy",
+      );
+      expect(cspHeader).toBeDefined();
+      expect(cspHeader?.value).toContain("frame-ancestors");
+      expect(cspHeader?.value).toMatch(/frame-ancestors[^;]*'self'/);
+      expect(cspHeader?.value).not.toMatch(/frame-ancestors\s+\*/);
     }
   });
 

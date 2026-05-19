@@ -222,7 +222,9 @@ describe("Platform Settings", () => {
       ];
 
       mockSelect.mockReturnValueOnce({
-        eq: vi.fn().mockResolvedValueOnce({ data: mockData, error: null }),
+        eq: vi.fn().mockReturnThis(),
+        is: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValueOnce({ data: mockData, error: null }),
       });
 
       const result = await getAllSettings(mockDb, "feature_flags");
@@ -246,7 +248,9 @@ describe("Platform Settings", () => {
       ];
 
       mockSelect.mockReturnValueOnce({
-        eq: vi.fn().mockResolvedValueOnce({ data: mockData, error: null }),
+        eq: vi.fn().mockReturnThis(),
+        is: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValueOnce({ data: mockData, error: null }),
       });
 
       const result = await getAllSettings(mockDb, undefined, tenantId);
@@ -257,7 +261,9 @@ describe("Platform Settings", () => {
 
     it("returns empty array and logs error on database failure", async () => {
       mockSelect.mockReturnValueOnce({
-        eq: vi.fn().mockResolvedValueOnce({ data: null, error: { message: "DB error" } }),
+        eq: vi.fn().mockReturnThis(),
+        is: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValueOnce({ data: null, error: { message: "DB error" } }),
       });
 
       const result = await getAllSettings(mockDb, "feature_flags");

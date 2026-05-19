@@ -1,7 +1,7 @@
 /**
  * Tool catalog — UI metadata for tools that the agent invokes at runtime.
  *
- * Lives outside `ChatToolStream` so the same labels can be reused by other
+ * Lives outside the chat dock so the same labels can be reused by other
  * UI surfaces (action receipts, tool-surface chips, run history). Keep this
  * file as the single source of truth for tool icon + FR label + read/write
  * classification.

@@ -103,3 +103,6 @@ next-env.d.ts
 /supabase/.branches/
 SERVICES.md
 docs/api-config/SERVICES.md
+
+# Local tarballs (workspace deps moved to workspace:*)
+/hearst-*.tgz

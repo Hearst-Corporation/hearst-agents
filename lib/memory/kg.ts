@@ -512,8 +512,18 @@ export async function getGraph(scope: KgScope): Promise<KgGraph> {
 
   const [{ data: nodes, error: nodesError }, { data: edges, error: edgesError }] =
     await Promise.all([
-      sb.from("kg_nodes").select("*").eq("user_id", scope.userId).eq("tenant_id", scope.tenantId),
-      sb.from("kg_edges").select("*").eq("user_id", scope.userId).eq("tenant_id", scope.tenantId),
+      sb
+        .from("kg_nodes")
+        .select("*")
+        .eq("user_id", scope.userId)
+        .eq("tenant_id", scope.tenantId)
+        .limit(2000),
+      sb
+        .from("kg_edges")
+        .select("*")
+        .eq("user_id", scope.userId)
+        .eq("tenant_id", scope.tenantId)
+        .limit(2000),
     ]);
 
   if (nodesError) throw new Error(`[kg] getGraph nodes failed: ${nodesError.message}`);

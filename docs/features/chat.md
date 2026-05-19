@@ -22,12 +22,7 @@ Le chat n'est pas qu'un fil de messages : il **exécute** des actions (Composio,
 ### Composants UI Chat principaux
 - [ChatDock.tsx](../../app/(user)/components/ChatDock.tsx) — orchestrateur SSE (POST `/api/orchestrate`, parse line-by-line, push events au runtime store)
 - [ChatInput.tsx](../../app/(user)/components/ChatInput.tsx) — saisie : textarea, @mention typeahead, attachments (drag-drop assets), persona switcher, génération inline (image/audio/code/document)
-- [ChatMessages.tsx](../../app/(user)/components/ChatMessages.tsx) — rendu user/assistant avec parsing `<think>`, blocks éditoriaux, ChatAssetCard pour assetRef, ConfirmActionChips, inline action cards
-- [ChatToolStream.tsx](../../app/(user)/components/ChatToolStream.tsx) — live tool calls (running + completed, color-coded read/write)
-- [ChatActionReceipts.tsx](../../app/(user)/components/ChatActionReceipts.tsx) — receipts persistants des writes complétées (utilise `lastRunId`, pas `currentRunId`)
-- [ChatAssetCard.tsx](../../app/(user)/components/ChatAssetCard.tsx) — carte asset inline (click → setFocal + setStageMode asset)
-- [ChatConnectInline.tsx](../../app/(user)/components/ChatConnectInline.tsx) — carte "Connexion requise" (POST `/api/composio/connect` → redirect)
-- [ChatMissionRunInline.tsx](../../app/(user)/components/ChatMissionRunInline.tsx) — carte "Lancer mission ?" (POST `/api/v2/missions/[id]/run`)
+- [ChatMessages.tsx](../../app/(user)/components/ChatMessages.tsx) — rendu user/assistant avec parsing `<think>`, blocks éditoriaux, ConfirmActionChips, inline action cards
 - [ApprovalInline.tsx](../../app/(user)/components/ApprovalInline.tsx) — approval inline pour step write en attente
 
 ### Composants chat/ (éditorial)
@@ -37,7 +32,6 @@ Le chat n'est pas qu'un fil de messages : il **exécute** des actions (Composio,
 - [chat/ContextChips.tsx](../../app/(user)/components/chat/ContextChips.tsx) — chips contexte au-dessus de ChatInput
 - [chat/ConversationHeader.tsx](../../app/(user)/components/chat/ConversationHeader.tsx) — barre fixe titre éditable + lastActivity
 - [chat/WorkingDocument.tsx](../../app/(user)/components/chat/WorkingDocument.tsx) — panneau side-by-side du chat (slide-in 200ms, max width `min(50%, 720px)`)
-- [chat/chat-tool-stream-reducer.ts](../../app/(user)/components/chat/chat-tool-stream-reducer.ts) — `reduceToolEvents()` + `selectCompletedWrites()`
 
 ### Stage
 - [stages/ChatStage.tsx](../../app/(user)/components/stages/ChatStage.tsx) — layout split (ChatMessages + WorkingDocument optionnel + FocalStage embed compact). Hotkey ⌘B toggle WorkingDocument. **Cf [docs/features/stage.md](stage.md) pour le routing global**.
@@ -112,8 +106,8 @@ Toutes les events suivent : `data: {"type":"...", "run_id":"...", ...}\n\n`
 | `stage_request` | `{ stage: StagePayload }` (force change de mode UI — passe par tool override guard 10s du stage store) |
 | `tool_call_started` | `{ step_id, tool, providerId?, timestamp }` |
 | `tool_call_completed` | `{ step_id, tool, latencyMs?, costUSD?, providerId?, providerLabel? }` |
-| `app_connect_required` | `{ app, reason }` (consommé par ChatConnectInline) |
-| `mission_run_request` | `{ mission_id, mission_name, schedule_label?, match_kind }` (consommé par ChatMissionRunInline) |
+| `app_connect_required` | `{ app, reason }` |
+| `mission_run_request` | `{ mission_id, mission_name, schedule_label?, match_kind }` |
 | `approval_requested` | `{ stepId, preview, kind, providerId? }` (consommé par ApprovalInline) |
 | `clarification_requested` | (set coreState `awaiting_clarification`) |
 | `run_completed` | (set coreState `processing` puis `idle` 500ms après) |
@@ -144,18 +138,6 @@ In-process `Map<runId, AbortController>`. Module-scope.
 - `write-intent.ts` : `WRITE_VERBS_FR/EN` ("envoie", "créé", "send"…) sauf si `READ_HEDGES` ("résume", "liste"…) → influence le prompt
 - `schedule-intent.ts` : `RECURRING_PATTERNS` ("tous les matins", "every week"…) sauf `ONE_SHOT_PATTERNS` ("une fois", "demain à 14h") → injecte forcing directive
 
-### Reducer tool stream (`chat-tool-stream-reducer.ts`)
-
-```ts
-reduceToolEvents(events, runId) → ToolCallEntry[]
-selectCompletedWrites(events, runId) → ToolCallEntry[]
-```
-
-- Walk events oldest-first (l'array runtime est newest-first)
-- **Dedupe par `stepId`** : un seul `ToolCallEntry` par step (le `tool_call_completed` merge dans l'entry du `tool_call_started`)
-- Status : `running` | `completed`
-- Kind : `read` | `write`
-
 ### Runtime store (`stores/runtime.ts`)
 
 | Champ | Détail |
@@ -163,7 +145,7 @@ selectCompletedWrites(events, runId) → ToolCallEntry[]
 | `events: StreamEvent[]` | Newest-first, **cap 50** |
 | `coreState` | `idle | connecting | streaming | processing | error | awaiting_approval | awaiting_clarification` |
 | `currentRunId` | Run en cours, null entre runs |
-| `lastRunId` | **Persiste après run end** (utilisé par ChatActionReceipts, ChatConnectInline, ChatMissionRunInline) |
+| `lastRunId` | **Persiste après run end** (disponible après fin de run pour les composants inline) |
 | `abortController` | AbortController du run en cours |
 | `currentPlan` | PlanState multi-step (legacy planner B1, optionnel) |
 
@@ -246,9 +228,6 @@ Click "Expand" sur un block émet `window.dispatchEvent(new CustomEvent("chat:ex
    ↓
 [useRuntimeStore subscribers re-render]
    ├─ ChatMessages (text_delta accumulés dans assistantBuffer)
-   ├─ ChatToolStream (reduceToolEvents)
-   ├─ ChatActionReceipts (selectCompletedWrites avec lastRunId)
-   ├─ ChatConnectInline / ChatMissionRunInline (lastRunId)
    └─ Stage store (stage_request → setModeFromTool guard 10s)
 ```
 
@@ -344,9 +323,9 @@ Si tu migres vers Redis-backed registry (multi-instance), update spec + plan de 
 
 Si tu modifies le cap ou l'ordre, tous les selectors et reducers vont casser. Le reducer `reduceToolEvents` walk **oldest-first** (inverse l'array).
 
-### I-10. ChatActionReceipts utilise `lastRunId` (pas `currentRunId`)
+### I-10. Composants inline utilisent `lastRunId` (pas `currentRunId`)
 
-Critique : les receipts doivent persister **après** la fin du run. ChatConnectInline et ChatMissionRunInline aussi.
+Critique : les cartes inline (connexion requise, lancement mission) doivent persister **après** la fin du run.
 
 Refactor qui basculerait vers `currentRunId` = bug silencieux : les cards disparaîtraient à la fin du run.
 
@@ -413,7 +392,7 @@ Quand le LLM tente une action `kind === "write"` sans confirmation, le backend �
 | Safety gate insuffisant | Hostile content passe | Patterns à enrichir progressivement, monitoring nécessaire |
 | Mass action 50+ via tools individuels | Cap n'est pas appliqué par tool, seulement intent | Connector write-guard ([connections.md](connections.md) à venir) double sécurité |
 | `stage_request` ignoré (guard 10s) | UX agent semble "ne pas répondre" visuellement | Acceptable, l'utilisateur a la priorité (cf [stage.md](stage.md)) |
-| ChatDock perd un event SSE (race condition reader/decoder) | Tool call orphelin, action_items manquantes | `chat-tool-stream-reducer` dédupe ; LogPersister garde la trace serveur |
+| ChatDock perd un event SSE (race condition reader/decoder) | Tool call orphelin, action_items manquantes | LogPersister garde la trace serveur |
 | WorkingDocument fermé accidentellement | Brouillon perdu | Volatile par design ; CTA "Sauvegarder comme asset" pour persist explicite |
 | Anthropic API key invalide / quota | Run failed, error event | Toast + analytics ; pas de fallback automatique vers OpenAI |
 | Approval bypass (UI bug) | Write exécuté sans confirmation | Connector write-guard côté backend ([auth I-3](auth.md), [connections]) double sécurité |
@@ -435,7 +414,6 @@ Quand le LLM tente une action `kind === "write"` sans confirmation, le backend �
 - [`__tests__/orchestrator/provider-routing.test.ts`](../../__tests__/orchestrator/provider-routing.test.ts)
 - [`__tests__/orchestrator/schedule-tool.test.ts`](../../__tests__/orchestrator/schedule-tool.test.ts)
 - [`__tests__/orchestrator/write-intent.test.ts`](../../__tests__/orchestrator/write-intent.test.ts)
-- [`__tests__/ui/chat-tool-stream-reducer.test.ts`](../../__tests__/ui/chat-tool-stream-reducer.test.ts) — `reduceToolEvents`, `selectCompletedWrites`
 - [`__tests__/stores/chat-context.test.ts`](../../__tests__/stores/chat-context.test.ts) — chips CRUD + persist
 - [`__tests__/stores/working-document.test.ts`](../../__tests__/stores/working-document.test.ts) — open/close/update
 - [`__tests__/stores/runtime.test.ts`](../../__tests__/stores/runtime.test.ts) — events cap 50, coreState transitions
@@ -470,11 +448,6 @@ Quand le LLM tente une action `kind === "write"` sans confirmation, le backend �
 - Test ConfirmActionChips déclenche bonne action
 - Test compact mode (focal visible)
 - Test scroll auto sur new message
-
-**ChatToolStream / ChatActionReceipts** :
-- Test que receipts utilisent bien `lastRunId` (pas `currentRunId`) — anti-régression
-- Test dedupe par stepId avec multiple `tool_call_started`/`completed` mêlés
-- Test rendering provider chip (latency + cost)
 
 **Approval flow** :
 - Test ApprovalInline render → POST resume → `tool_call_completed` reçu

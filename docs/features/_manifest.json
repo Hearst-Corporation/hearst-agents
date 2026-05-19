@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T11:12:18.340Z",
+  "generatedAt": "2026-05-19T11:36:23.431Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -11,7 +11,7 @@
   "totals": {
     "invariants": 524,
     "testsExistants": 1780,
-    "testsManquants": 242,
+    "testsManquants": 239,
     "orphans": 13
   },
   "actualTests": {
@@ -202,7 +202,7 @@
         "I-7. Tools assemblés — 12 catégories",
         "I-8. Abort registry — pattern figé",
         "I-9. `runtime.events` cap 50, newest-first",
-        "I-10. ChatActionReceipts utilise `lastRunId` (pas `currentRunId`)",
+        "I-10. Composants inline utilisent `lastRunId` (pas `currentRunId`)",
         "I-11. `stage_request` event respecte le tool override guard",
         "I-12. Tool stream dedupe par stepId",
         "I-13. WorkingDocument volatile, pas de persist",
@@ -215,8 +215,8 @@
       "testsExistantsCount": 214,
       "testsOnDisk": 214,
       "testFilesOnDisk": 28,
-      "testsDocExistants": 23,
-      "testsManquantsCount": 27,
+      "testsDocExistants": 22,
+      "testsManquantsCount": 24,
       "testGap": "moyen",
       "orphansCount": 0
     },

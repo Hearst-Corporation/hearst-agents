@@ -47,7 +47,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
 }
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@hearst/cockpit-shell"],
+  transpilePackages: ["@hearst/cockpit-shell", "@hearst/hub-sdk"],
   devIndicators: false,
   // standalone requis pour Vercel — copie tous les fichiers runtime Next.js
   // (dont node-environment.js) dans le bundle. La taille était le problème
@@ -61,6 +61,15 @@ const nextConfig: NextConfig = {
   // depuis un package.json plus haut dans l'arbo (ex. ~/package.json).
   turbopack: {
     root: import.meta.dirname,
+  },
+  experimental: {
+    optimizePackageImports: [
+      "framer-motion",
+      "zustand",
+      "@supabase/supabase-js",
+      "zod",
+      "lucide-react",
+    ],
   },
   async headers() {
     return [
