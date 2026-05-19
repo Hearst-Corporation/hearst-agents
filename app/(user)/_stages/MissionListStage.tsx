@@ -221,7 +221,7 @@ function MissionCard({
     >
       {/* Ligne principale : nom + badge */}
       <div className="flex items-center gap-3">
-        <span className="t-15 font-medium text-(--text-soft) flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+        <span className="t-15 font-medium text-(--text-soft) flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">
           {mission.name}
         </span>
 

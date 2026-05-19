@@ -1456,6 +1456,17 @@
    * Note Tailwind v4 : ces surcharges remplacent les utilitaires z-N natifs.
    * Pour éviter la collision, utiliser les classes sémantiques .z-elev-* ci-dessous
    * quand on veut être explicite, ou continuer avec z-N si la valeur est exacte. */
+  --z-base: var(--z-base);
+  --z-noise: var(--z-noise);
+  --z-sticky: var(--z-sticky);
+  --z-rail: var(--z-rail);
+  --z-pulsebar: var(--z-pulsebar);
+  --z-dropdown: var(--z-dropdown);
+  --z-backdrop: var(--z-backdrop);
+  --z-modal: var(--z-modal);
+  --z-modal-stack: var(--z-modal-stack);
+  --z-toast: var(--z-toast);
+  --z-overlay: var(--z-overlay);
 
   /* ─── Text size — mapping Tailwind text-N → valeurs Hearst DS ─────────────
    * Les classes Tailwind text-xs/sm/base/lg/xl/2xl/3xl sont conservées mais

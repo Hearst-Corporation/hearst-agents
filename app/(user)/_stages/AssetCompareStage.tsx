@@ -229,7 +229,8 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[var(--height-compare-viewer)] rounded-xl overflow-hidden bg-black/30 border border-(--line-strong) cursor-col-resize select-none"
+      className="relative w-full rounded-xl overflow-hidden bg-black/30 border border-(--line-strong) cursor-col-resize select-none"
+      style={{ height: "var(--height-compare-viewer, 320px)" }}
       onMouseDown={(e) => {
         dragging.current = true;
         updateFromEvent(e.clientX);
@@ -469,7 +470,8 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
           {[0, 1].map((i) => (
             <div
               key={i}
-              className="animate-pulse flex-[0_0_calc(50%-8px)] h-[var(--height-compare-viewer)] bg-(--surface-2) rounded-2xl"
+              className="animate-pulse flex-[0_0_calc(50%-8px)] bg-(--surface-2) rounded-2xl"
+              style={{ height: "var(--height-compare-viewer, 320px)" }}
             />
           ))}
         </div>

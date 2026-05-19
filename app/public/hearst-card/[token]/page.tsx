@@ -210,7 +210,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontWeight: "var(--weight-semibold)" as unknown as number,
+              fontWeight: "var(--weight-semibold)",
               color: "var(--surface)",
             }}
             className="t-15"
@@ -294,7 +294,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
               color: "var(--text)",
               border: "1px solid var(--border-subtle)",
               textDecoration: "none",
-              fontWeight: 500,
+              fontWeight: "var(--weight-medium)" as unknown as number,
             }}
           >
             Télécharger PNG
@@ -315,7 +315,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
         <h2
           className="t-28"
           style={{
-            fontWeight: 300,
+            fontWeight: "var(--weight-light)" as unknown as number,
             letterSpacing: "var(--tracking-tight)",
             margin: 0,
           }}
@@ -343,7 +343,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
             color: "var(--text)",
             textDecoration: "none",
             borderRadius: "var(--radius-pill, 9999px)",
-            fontWeight: 500,
+            fontWeight: "var(--weight-medium)" as unknown as number,
           }}
         >
           Créer mon cockpit →
@@ -392,7 +392,7 @@ function CopyLinkButton() {
           color: "var(--text)",
           border: "none",
           cursor: "pointer",
-          fontWeight: 500,
+          fontWeight: "var(--weight-medium)" as unknown as number,
         }}
       >
         Copier le lien
