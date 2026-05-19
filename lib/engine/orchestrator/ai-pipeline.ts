@@ -381,10 +381,7 @@ function buildCreateArtifactTool(
           userId: ctx.userId,
           runId: engine.id,
           modelUsed: ORCHESTRATOR_MODEL,
-          // Stored as `provenance.type` so adapter.mapKindToType picks it
-          // up as the originalType (priorité absolue dans le mapping).
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ...({ type: displayType } as any),
+          type: displayType,
         },
         createdAt: Date.now(),
         contentRef: args.content,

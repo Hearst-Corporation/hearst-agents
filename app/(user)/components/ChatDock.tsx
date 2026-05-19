@@ -248,6 +248,8 @@ export function ChatDock() {
     if (!useServicesStore.getState().loaded) {
       loadConnections();
     }
+    // loadConnections est déclarée dans le corps du useEffect (pas une dep externe).
+    // baseServices est une constante module-level stable. toast est un import stable.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, router.replace, setStoreServices, setStoreLoaded, services.length, pathname]);
 
