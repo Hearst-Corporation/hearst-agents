@@ -12,6 +12,7 @@ export function AppLogo({ app, size = 16 }: { app: ComposioApp; size?: number })
   if (app.logo?.startsWith("http")) {
     return (
       <span className={wrapperClass} style={{ width: size, height: size }}>
+        {/* Source dynamique OAuth Composio (URLs peuvent être mortes) → gardé en <img>. alt="" valide : logo décoratif, nom affiché à côté. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={app.logo}

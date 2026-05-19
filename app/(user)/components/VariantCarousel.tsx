@@ -134,7 +134,7 @@ export function VariantCarousel({ assetId, sourceText, defaultKind }: VariantCar
   return (
     <section
       data-testid="variant-carousel"
-      className="border-t border-[var(--surface-2)]"
+      className="border-t border-(--surface-2)"
       style={{ paddingTop: "var(--space-6)", marginTop: "var(--space-6)" }}
       aria-label="Variants alternatifs"
     >
@@ -250,6 +250,7 @@ function VariantThumbnail({ variant, kind }: { variant?: AssetVariant; kind: Ass
   if (kind === "image") {
     return (
       <div style={baseStyle}>
+        {/* Source dynamique Supabase signed URL → gardé en <img> car dimensions réelles inconnues côté client. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={variant.storageUrl}

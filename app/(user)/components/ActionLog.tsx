@@ -150,6 +150,7 @@ export function ActionLog({
                   className="rounded-md overflow-hidden border border-(--border-soft)"
                   style={{ height: "var(--space-20)" }}
                 >
+                  {/* Source dynamique Playwright screenshot → gardé en <img> pour la sérialisation URL brute. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={a.screenshotUrl}

@@ -137,7 +137,7 @@ export function ChatInput({
       className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out] flex justify-center pb-12"
     >
       <div
-        className="relative flex items-center group transition-colors duration-long border-b border-white/10 focus-within:border-white/30"
+        className="relative flex items-center group transition-colors duration-long border-b border-(--border-subtle) focus-within:border-(--border-default)"
         style={{
           background: "transparent",
           padding: "var(--space-2) 0",
@@ -182,6 +182,7 @@ export function ChatInput({
             onFocus={() => setInputFocused(true)}
             onBlur={() => setInputFocused(false)}
             aria-busy={isRunning}
+            aria-label="Message à envoyer"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -200,14 +201,14 @@ export function ChatInput({
                 ? "Que devons-nous décider ? _"
                 : resolveModePlaceholder(stageMode, surface, placeholder)
             }
-            className="w-full bg-transparent border-none outline-none text-white/80 t-15 placeholder:text-white/30 font-light caret-white"
+            className="w-full bg-transparent border-none outline-none text-text t-15 placeholder:text-text-ghost font-light caret-(--accent-teal)"
           />
 
           {/* Spinner inline pendant un run actif (aria-busy parent). */}
           {isRunning && (
             <span
               aria-hidden="true"
-              className="animate-pulse text-white/40 t-15 font-light shrink-0"
+              className="animate-pulse text-text-faint t-15 font-light shrink-0"
               style={{ marginLeft: "var(--space-2)" }}
             >
               ⋯
