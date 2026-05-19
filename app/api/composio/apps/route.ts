@@ -15,7 +15,7 @@ import {
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export async function GET() {
-  const { scope, error } = await requireScope({ context: "GET /api/composio/apps" });
+  const { error } = await requireScope({ context: "GET /api/composio/apps" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }

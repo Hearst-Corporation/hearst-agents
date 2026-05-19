@@ -30,9 +30,21 @@ import type {
   ToolResultBlockParam,
   ToolUseBlock,
 } from "@anthropic-ai/sdk/resources/messages";
+import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { defaultRateLimiter } from "@/lib/llm/rate-limiter";
 import { fenceUntrusted, getSpotlightHeader } from "@/lib/memory/untrusted-fence";
+import { startTrace } from "@/lib/observability/langfuse";
+import { redactForLangfuse } from "@/lib/observability/langfuse-redact";
 import { assertSafeUrl, SsrfBlockedError } from "@/lib/security/ssrf-guard";
 import type { PlaywrightPage } from "./playwright-bridge";
+
+// OMNISCAN F09 : appel direct Anthropic justifié — ce module repose sur le
+// tool_use natif Anthropic (tools / tool_use / tool_result, MessageParam) avec
+// une boucle multi-tours stateful, non exprimable via l'API ChatRequest du
+// router. Conservé en direct MAIS instrumenté : circuit-breaker +
+// recordHeaders + trace Langfuse. Pas de persistRun : AgentLoopOptions n'a ni
+// tenantId ni userId et le brief interdit de casser la signature publique.
+const CB_PROVIDER = "anthropic";
 
 // ── Tool definitions (Anthropic schema) ──────────────────────
 
@@ -393,12 +405,29 @@ async function extractStructured(opts: ExtractStructuredOpts): Promise<unknown> 
     cleaned,
   ].join("\n");
 
-  const msg = await opts.anthropicClient.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 2000,
-    system,
-    messages: [{ role: "user", content: user }],
-  });
+  let msg;
+  try {
+    const { data, response } = await opts.anthropicClient.messages
+      .create({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 2000,
+        system,
+        messages: [{ role: "user", content: user }],
+      })
+      .withResponse();
+    msg = data;
+    defaultRateLimiter.recordHeaders(CB_PROVIDER, response.headers);
+    defaultCircuitBreaker.recordSuccess(CB_PROVIDER);
+  } catch (err) {
+    const e = err instanceof Error ? err : new Error(String(err));
+    defaultCircuitBreaker.recordFailure(
+      CB_PROVIDER,
+      e,
+      undefined,
+      (err as { status?: number }).status,
+    );
+    throw e;
+  }
   const textBlock = msg.content[0];
   const text = textBlock?.type === "text" ? textBlock.text.trim() : "";
   const m = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
@@ -432,8 +461,22 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopRes
     return result;
   }
 
+  if (defaultCircuitBreaker.isOpen(CB_PROVIDER)) {
+    result.aborted = true;
+    result.summary = "Circuit Anthropic ouvert — agent loop court-circuité.";
+    return result;
+  }
+
   const maxSteps = Math.max(1, Math.min(opts.maxSteps ?? 15, 30));
   const model = opts.model ?? "claude-sonnet-4-6";
+
+  let trace: ReturnType<typeof startTrace> = null;
+  try {
+    trace = startTrace("browser.agentLoop", { model, maxSteps });
+    trace?.update({ input: redactForLangfuse({ task: opts.task }) });
+  } catch {
+    trace = null;
+  }
 
   // On démarre la conversation avec le contexte page initial.
   const context = await buildContextMessage(opts.page);
@@ -459,16 +502,29 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopRes
 
     let response;
     try {
-      response = await client.messages.create({
-        model,
-        max_tokens: 1024,
-        system: SYSTEM_PROMPT,
-        tools: TOOLS,
-        messages,
-      });
+      const { data, response: httpResponse } = await client.messages
+        .create({
+          model,
+          max_tokens: 1024,
+          system: SYSTEM_PROMPT,
+          tools: TOOLS,
+          messages,
+        })
+        .withResponse();
+      response = data;
+      defaultRateLimiter.recordHeaders(CB_PROVIDER, httpResponse.headers);
+      defaultCircuitBreaker.recordSuccess(CB_PROVIDER);
     } catch (err) {
+      const e = err instanceof Error ? err : new Error(String(err));
+      const httpStatus = (err as { status?: number }).status;
+      defaultCircuitBreaker.recordFailure(CB_PROVIDER, e, undefined, httpStatus);
+      try {
+        trace?.update({ output: redactForLangfuse({ status: "failed", error: e.message }) });
+      } catch {
+        /* fail-soft */
+      }
       result.aborted = true;
-      result.summary = `Anthropic call failed: ${err instanceof Error ? err.message : String(err)}`;
+      result.summary = `Anthropic call failed: ${e.message}`;
       break;
     }
 
@@ -552,6 +608,19 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopRes
   if (!result.summary) {
     result.aborted = true;
     result.summary = `Agent loop a atteint le cap (${maxSteps} steps).`;
+  }
+
+  try {
+    trace?.update({
+      output: redactForLangfuse({
+        status: result.success ? "success" : "incomplete",
+        aborted: result.aborted,
+        steps: result.steps.length,
+        summary: result.summary,
+      }),
+    });
+  } catch {
+    /* fail-soft */
   }
 
   return result;

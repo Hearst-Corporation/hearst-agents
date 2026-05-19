@@ -89,24 +89,92 @@ export async function narrate(input: NarrateInput): Promise<NarrateResult | null
     };
   }
 
+  // OMNISCAN: appel direct justifié — Vercel AI SDK requis pour le prompt
+  // caching éphémère Anthropic (providerOptions.cacheControl), incompatible
+  // avec l'API ChatRequest du router (objectif coût <$0.05 du fichier).
+  // narrate() n'a ni tenantId ni userId dans sa signature publique (input =
+  // { spec, payload }) → pas de persistRun (metering nécessiterait de casser
+  // la signature). Instrumenté manuellement : circuit-breaker + rate-limit
+  // headers + trace Langfuse fail-soft.
+  const CB_PROVIDER = "anthropic";
+
+  if (defaultCircuitBreaker.isOpen(CB_PROVIDER)) {
+    return {
+      text: "[narration indisponible — circuit Anthropic ouvert]",
+      inputTokens: 0,
+      outputTokens: 0,
+      cached: false,
+    };
+  }
+
   const anthropic = createAnthropic({ apiKey });
 
   const systemPrompt = buildSystemPrompt(input.spec.meta.persona, narrationSpec);
   const userPrompt = buildUserPrompt(input.spec, input.payload);
 
-  const result = await generateText({
-    model: anthropic(NARRATE_MODEL),
-    system: {
-      role: "system" as const,
-      content: systemPrompt,
-      providerOptions: {
-        anthropic: { cacheControl: { type: "ephemeral" } },
+  let trace: ReturnType<typeof startTrace> = null;
+  try {
+    trace = startTrace("reports.narrate", {
+      persona: input.spec.meta.persona,
+      domain: input.spec.meta.domain,
+      mode: narrationSpec.mode,
+      style: narrationSpec.style,
+    });
+    trace?.update({ input: redactForLangfuse({ system: systemPrompt, user: userPrompt }) });
+  } catch {
+    trace = null;
+  }
+
+  let result: Awaited<ReturnType<typeof generateText>>;
+  try {
+    result = await generateText({
+      model: anthropic(NARRATE_MODEL),
+      system: {
+        role: "system" as const,
+        content: systemPrompt,
+        providerOptions: {
+          anthropic: { cacheControl: { type: "ephemeral" } },
+        },
       },
-    },
-    messages: [{ role: "user" as const, content: userPrompt }],
-    maxOutputTokens: narrationSpec.maxTokens,
-    temperature: 0.4,
-  });
+      messages: [{ role: "user" as const, content: userPrompt }],
+      maxOutputTokens: narrationSpec.maxTokens,
+      temperature: 0.4,
+    });
+  } catch (err) {
+    const e = err instanceof Error ? err : new Error(String(err));
+    const httpStatus =
+      (err as { statusCode?: number; status?: number }).statusCode ??
+      (err as { status?: number }).status;
+    defaultCircuitBreaker.recordFailure(CB_PROVIDER, e, undefined, httpStatus);
+    try {
+      trace?.update({
+        output: redactForLangfuse({ status: "failed", error: e.message }),
+      });
+    } catch {
+      /* fail-soft */
+    }
+    throw e;
+  }
+
+  defaultCircuitBreaker.recordSuccess(CB_PROVIDER);
+
+  const respHeaders = (result.response as { headers?: Record<string, string> } | undefined)
+    ?.headers;
+  if (respHeaders) {
+    defaultRateLimiter.recordHeaders(CB_PROVIDER, respHeaders);
+  }
+
+  try {
+    trace?.update({
+      output: redactForLangfuse({
+        status: "success",
+        inputTokens: result.usage?.inputTokens ?? 0,
+        outputTokens: result.usage?.outputTokens ?? 0,
+      }),
+    });
+  } catch {
+    /* fail-soft */
+  }
 
   return {
     text: result.text.trim(),

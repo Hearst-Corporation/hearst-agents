@@ -6,13 +6,13 @@
  * Claude for synthesis. All other agents use LLM-only execution.
  */
 
-import OpenAI from "openai";
 import { capabilityGuard } from "@/lib/capabilities/guard";
 import type { Domain } from "@/lib/capabilities/taxonomy";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import { readDriveFileContent, searchDriveFiles } from "@/lib/connectors/google/drive";
 import { searchEmails as searchGmail } from "@/lib/connectors/google/gmail";
 import { KIMI_MODELS } from "@/lib/llm/models";
+import { getProvider } from "@/lib/llm/router";
 import { getTokens } from "@/lib/platform/auth/tokens";
 import type { RunEngine } from "../engine";
 import type { StepActor } from "../engine/types";
@@ -325,10 +325,11 @@ async function executeAgentSync(
   stepId: string,
   input: DelegateInput,
 ): Promise<DelegateResult> {
-  const client = new OpenAI({
-    apiKey: process.env.KIMI_API_KEY!,
-    baseURL: "https://api.hypercli.com/v1",
-  });
+  // OMNISCAN F09 : ex-`new OpenAI({ baseURL: hypercli })` direct → routé via
+  // `getProvider("kimi")`. Même backend (Hypercli) + même modèle
+  // (KIMI_MODELS.HAIKU), mais gagne rate-limit headers, timeout et pricing
+  // gérés par le provider du router. I/O métier inchangée.
+  const kimi = getProvider("kimi");
   const userId = engine.getUserId();
 
   // ── Get connected providers for context ──
@@ -384,44 +385,24 @@ async function executeAgentSync(
     `[Delegate] agent=${input.agent} retrieval_mode=${input.retrieval_mode ?? "none"} provider=${providerPayload?.providerUsed ?? "none"} web_search=${useWebSearch}`,
   );
 
-  let text: string;
-  let usageTokens = { input_tokens: 0, output_tokens: 0 };
+  // NOTE web_search : le format tool Anthropic n'est pas compatible OpenAI/Kimi.
+  // `useWebSearch` reste tracé pour le log mais n'altère pas l'appel (parité
+  // avec le comportement pré-OMNISCAN où les 2 branches étaient identiques).
+  // TODO: réintroduire un web_search compatible Kimi quand dispo côté Hypercli.
+  const chatResponse = await kimi.chat({
+    model: KIMI_MODELS.HAIKU,
+    max_tokens: 4096,
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userContent },
+    ],
+  });
 
-  if (useWebSearch) {
-    const response = await client.chat.completions.create({
-      model: KIMI_MODELS.HAIKU,
-      max_tokens: 4096,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userContent },
-      ],
-      // TODO: web_search tool format Anthropic non compatible OpenAI/Kimi
-      // tools: [{ type: "function", function: { name: "web_search", description: "Search the web" } }],
-    });
-
-    text = response.choices[0]?.message?.content ?? "";
-
-    usageTokens = {
-      input_tokens: response.usage?.prompt_tokens ?? 0,
-      output_tokens: response.usage?.completion_tokens ?? 0,
-    };
-  } else {
-    const response = await client.chat.completions.create({
-      model: KIMI_MODELS.HAIKU,
-      max_tokens: 4096,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userContent },
-      ],
-    });
-
-    text = response.choices[0]?.message?.content ?? "";
-
-    usageTokens = {
-      input_tokens: response.usage?.prompt_tokens ?? 0,
-      output_tokens: response.usage?.completion_tokens ?? 0,
-    };
-  }
+  const text = chatResponse.content ?? "";
+  const usageTokens = {
+    input_tokens: chatResponse.tokens_in ?? 0,
+    output_tokens: chatResponse.tokens_out ?? 0,
+  };
 
   await engine.cost.track({
     input_tokens: usageTokens.input_tokens,
