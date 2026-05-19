@@ -1,6 +1,6 @@
 {
   "name": "@hearst/hub-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Hearst Hub SDK — interface standardisée consommée par les 12 produits Hearst. Zéro dépendance au hub (spin-off-able).",
   "main": "dist/index.js",

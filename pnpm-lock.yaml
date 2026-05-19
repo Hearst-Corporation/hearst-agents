@@ -42,8 +42,8 @@ importers:
         specifier: file:./hearst-cockpit-shell-0.2.0.tgz
         version: file:hearst-cockpit-shell-0.2.0.tgz(next@16.2.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.60.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(openai@6.37.0(ws@8.20.1)(zod@4.4.3))(react@19.2.4)
       '@hearst/hub-sdk':
-        specifier: workspace:*
-        version: link:packages/hub-sdk
+        specifier: file:./hearst-hub-sdk-0.2.0.tgz
+        version: file:hearst-hub-sdk-0.2.0.tgz(react@19.2.4)
       '@react-three/drei':
         specifier: ^10.7.7
         version: 10.7.7(@react-three/fiber@9.6.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.184.0))(@types/react@19.2.14)(@types/three@0.184.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.184.0)
@@ -1164,11 +1164,17 @@ packages:
     resolution: {integrity: sha512-KR3rD5inZbGMrHmgPxsJ9dbi6zEK+C3ZwUwTa+eMwWLz7oijWUTWD2pMSNNYJAU6Qq+65NkxXjqHr/7LM2Xkqg==}
 
   '@hearst/cockpit-shell@file:hearst-cockpit-shell-0.2.0.tgz':
-    resolution: {integrity: sha512-Q+Y8joIzvmK2I4HSifBewb9uXz16nN8MpF0j1e4lqYk/y5Goj0H6v/3M+bYVXMMWjuF0F5A4+0TjZiZV/a7Pbg==, tarball: file:hearst-cockpit-shell-0.2.0.tgz}
+    resolution: {integrity: sha512-9RIoEJLxfjH8UBYWv6b0QeVpABekQAreyziqJdXDwjobaWRB/hUqvwny2MbFD/MaXanZriGaxxcWR3SJe7Zm/g==, tarball: file:hearst-cockpit-shell-0.2.0.tgz}
     version: 0.2.0
     peerDependencies:
       next: '>=15'
       openai: '>=4'
+      react: '>=18'
+
+  '@hearst/hub-sdk@file:hearst-hub-sdk-0.2.0.tgz':
+    resolution: {integrity: sha512-i6AjjU5IzUu8dWlsvX5H1EA9SbONUxgs9scLMkppDRSuvfH3z/88xQkHTrfyuNgL4TfxP8dN6QwMflVl914fRQ==, tarball: file:hearst-hub-sdk-0.2.0.tgz}
+    version: 0.2.0
+    peerDependencies:
       react: '>=18'
 
   '@img/colour@1.1.0':
@@ -7673,6 +7679,10 @@ snapshots:
       openai: 6.37.0(ws@8.20.1)(zod@4.4.3)
       react: 19.2.4
       zod: 3.25.76
+
+  '@hearst/hub-sdk@file:hearst-hub-sdk-0.2.0.tgz(react@19.2.4)':
+    dependencies:
+      react: 19.2.4
 
   '@img/colour@1.1.0':
     optional: true
