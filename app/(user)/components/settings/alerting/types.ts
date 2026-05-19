@@ -19,6 +19,13 @@ export type TestState = "testing" | "ok" | "error";
 export interface State {
   prefs: AlertingPreferences;
   loading: boolean;
+  /**
+   * Erreur de chargement initial des préférences.
+   * Quand non-null, l'UI doit afficher un ErrorBanner et NE PAS exposer les
+   * sections de configuration — sinon le user peut sauvegarder un payload vide
+   * par-dessus ses préférences existantes (data loss).
+   */
+  loadError: string | null;
   saveStatus: SaveStatus;
   saveError: string | null;
   /** Formulaire webhook en cours d'ajout */
@@ -32,8 +39,9 @@ export interface State {
 }
 
 export type Action =
+  | { type: "LOAD_START" }
   | { type: "LOADED"; prefs: AlertingPreferences }
-  | { type: "LOAD_ERROR" }
+  | { type: "LOAD_ERROR"; message: string }
   | { type: "SAVE_START" }
   | { type: "SAVE_OK"; prefs: AlertingPreferences }
   | { type: "SAVE_ERROR"; message: string }
@@ -49,6 +57,7 @@ export type Action =
 export const INITIAL_STATE: State = {
   prefs: { webhooks: [] },
   loading: true,
+  loadError: null,
   saveStatus: "idle",
   saveError: null,
   newWebhook: { url: "", signalTypes: ["*"] },
@@ -60,15 +69,18 @@ export const INITIAL_STATE: State = {
 
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
+    case "LOAD_START":
+      return { ...state, loading: true, loadError: null };
     case "LOADED":
       return {
         ...state,
         loading: false,
+        loadError: null,
         prefs: action.prefs,
         emailInputRaw: action.prefs.email?.recipients.join(", ") ?? "",
       };
     case "LOAD_ERROR":
-      return { ...state, loading: false };
+      return { ...state, loading: false, loadError: action.message };
     case "SAVE_START":
       return { ...state, saveStatus: "saving", saveError: null };
     case "SAVE_OK":

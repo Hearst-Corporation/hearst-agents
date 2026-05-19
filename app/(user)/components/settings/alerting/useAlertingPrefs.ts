@@ -14,24 +14,38 @@ interface UseAlertingPrefs {
   dispatch: Dispatch<Action>;
   handleSave: (prefs: AlertingPreferences) => Promise<void>;
   testChannel: (channel: "webhook" | "slack" | "email", targetIndex?: number) => Promise<void>;
+  reloadPrefs: () => Promise<void>;
 }
 
 export function useAlertingPrefs(): UseAlertingPrefs {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   // ── Chargement initial ─────────────────────────────────────────────────
-  useEffect(() => {
-    fetch("/api/settings/alerting")
-      .then((r) => r.json())
-      .then((data: { prefs?: AlertingPreferences }) => {
-        if (data.prefs) {
-          dispatch({ type: "LOADED", prefs: data.prefs });
-        } else {
-          dispatch({ type: "LOAD_ERROR" });
-        }
-      })
-      .catch(() => dispatch({ type: "LOAD_ERROR" }));
+  const reloadPrefs = useCallback(async () => {
+    dispatch({ type: "LOAD_START" });
+    try {
+      const res = await fetch("/api/settings/alerting");
+      if (!res.ok) {
+        dispatch({ type: "LOAD_ERROR", message: `HTTP ${res.status}` });
+        return;
+      }
+      const data = (await res.json()) as { prefs?: AlertingPreferences };
+      if (data.prefs) {
+        dispatch({ type: "LOADED", prefs: data.prefs });
+      } else {
+        dispatch({ type: "LOAD_ERROR", message: "Réponse invalide du serveur" });
+      }
+    } catch (err) {
+      dispatch({
+        type: "LOAD_ERROR",
+        message: err instanceof Error ? err.message : "Erreur réseau",
+      });
+    }
   }, []);
+
+  useEffect(() => {
+    void reloadPrefs();
+  }, [reloadPrefs]);
 
   // ── Sauvegarde explicite ───────────────────────────────────────────────
   const handleSave = useCallback(async (prefs: AlertingPreferences) => {
@@ -87,5 +101,5 @@ export function useAlertingPrefs(): UseAlertingPrefs {
     [],
   );
 
-  return { state, dispatch, handleSave, testChannel };
+  return { state, dispatch, handleSave, testChannel, reloadPrefs };
 }
