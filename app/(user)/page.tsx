@@ -129,13 +129,13 @@ export default function HomePage() {
 
       {refetchState === "error" && (
         <div
+          className="t-11"
           style={{
             padding: "12px 16px",
             borderRadius: 8,
-            border: "1px solid var(--ct-border)",
-            background: "var(--ct-surface-1)",
-            fontSize: 12,
-            color: "var(--ct-text-secondary)",
+            border: "1px solid var(--line-strong)",
+            background: "var(--surface-1)",
+            color: "var(--text-soft)",
           }}
         >
           Impossible de rafraîchir les données. Affichage des dernières informations connues.
@@ -151,7 +151,9 @@ export default function HomePage() {
 
       <Card title="Exécution active">
         {factoryRows.length === 0 ? (
-          <p style={{ fontSize: 12, color: "var(--ct-text-secondary)" }}>Aucune mission active.</p>
+          <p className="t-11" style={{ color: "var(--text-soft)" }}>
+            Aucune mission active.
+          </p>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {factoryRows.map((row) => (
@@ -162,22 +164,22 @@ export default function HomePage() {
                   flexDirection: "column",
                   gap: 2,
                   padding: "8px 0",
-                  borderBottom: "1px solid var(--ct-border)",
+                  borderBottom: "1px solid var(--line-strong)",
                 }}
               >
-                <span style={{ fontSize: 13, fontWeight: 600, color: "var(--ct-text-primary)" }}>
+                <span className="t-13 font-semibold" style={{ color: "var(--text)" }}>
                   {row.name}
                 </span>
                 {row.detail && (
-                  <span style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>
+                  <span className="t-11" style={{ color: "var(--text-soft)" }}>
                     {row.detail}
                   </span>
                 )}
                 <span
+                  className="t-11"
                   style={{
-                    fontSize: 10,
                     fontFamily: "monospace",
-                    color: "var(--ct-text-faint)",
+                    color: "var(--text-faint)",
                     marginTop: 2,
                   }}
                 >
@@ -192,18 +194,20 @@ export default function HomePage() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
         <Card title="Radar">
           {inboxItemsList.length === 0 && agendaItemsList.length === 0 ? (
-            <p style={{ fontSize: 12, color: "var(--ct-text-secondary)" }}>Rien à signaler.</p>
+            <p className="t-11" style={{ color: "var(--text-soft)" }}>
+              Rien à signaler.
+            </p>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {inboxItemsList.map((it) => (
                 <div
                   key={it.id}
-                  style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}
+                  style={{ padding: "6px 0", borderBottom: "1px solid var(--line-strong)" }}
                 >
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>
+                  <div className="t-11 font-semibold" style={{ color: "var(--text)" }}>
                     {it.title}
                   </div>
-                  <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>
+                  <div className="t-11" style={{ color: "var(--text-soft)" }}>
                     {it.summary}
                   </div>
                 </div>
@@ -211,12 +215,14 @@ export default function HomePage() {
               {agendaItemsList.map((ev) => (
                 <div
                   key={ev.id}
-                  style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}
+                  style={{ padding: "6px 0", borderBottom: "1px solid var(--line-strong)" }}
                 >
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>
+                  <div className="t-11 font-semibold" style={{ color: "var(--text)" }}>
                     {ev.title}
                   </div>
-                  <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>{ev.when}</div>
+                  <div className="t-11" style={{ color: "var(--text-soft)" }}>
+                    {ev.when}
+                  </div>
                 </div>
               ))}
             </div>
@@ -225,18 +231,20 @@ export default function HomePage() {
 
         <Card title="Initiatives">
           {proposals.length === 0 ? (
-            <p style={{ fontSize: 12, color: "var(--ct-text-secondary)" }}>Aucune proposition.</p>
+            <p className="t-11" style={{ color: "var(--text-soft)" }}>
+              Aucune proposition.
+            </p>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {proposals.map((p) => (
                 <div
                   key={p.id}
-                  style={{ padding: "6px 0", borderBottom: "1px solid var(--ct-border)" }}
+                  style={{ padding: "6px 0", borderBottom: "1px solid var(--line-strong)" }}
                 >
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ct-text-primary)" }}>
+                  <div className="t-11 font-semibold" style={{ color: "var(--text)" }}>
                     {p.title}
                   </div>
-                  <div style={{ fontSize: 11, color: "var(--ct-text-secondary)" }}>
+                  <div className="t-11" style={{ color: "var(--text-soft)" }}>
                     {p.description}
                   </div>
                 </div>
