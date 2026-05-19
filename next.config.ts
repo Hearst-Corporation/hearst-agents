@@ -4,14 +4,11 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV === "development";
 
 /* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ──
-   En développement local, on relâche frame-ancestors et X-Frame-Options
-   pour permettre l'embed dans le hub Hearst (localhost:4200).
-   En production, les headers restent stricts (frame-ancestors 'none'). */
+   Embed autorisé depuis le hub Hearst Cockpit (localhost:4200/4201 + Vercel).
+   Pas de X-Frame-Options : il bloque toute embed cross-origin et ne supporte
+   pas de whitelist — le CSP frame-ancestors le remplace. */
 function buildSecurityHeaders(): Array<{ key: string; value: string }> {
-  // En dev local, le hub et les produits tournent sur localhost — on autorise
-  // l'embed pour faciliter le développement. En prod, le hub est sur Vercel
-  // et les produits doivent explicitement accepter l'embed via leur config.
-  const allowEmbed = isDev;
+  const allowEmbed = true;
 
   const csp = [
     "default-src 'self'",
@@ -23,9 +20,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
     "media-src 'self' data: https: blob:",
     "font-src 'self' data: https://cdn.fontshare.com",
     "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io https://api.hypercli.com https://prod.spline.design https://*.spline.design https://unpkg.com",
-    allowEmbed
-      ? "frame-ancestors 'self' http://localhost:4200 https://hearst-corporation.vercel.app"
-      : "frame-ancestors 'none'",
+    "frame-ancestors 'self' http://localhost:4200 http://localhost:4201 https://hearst-corporation.vercel.app",
     "base-uri 'self'",
     "form-action 'self'",
   ].join("; ");
