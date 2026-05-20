@@ -16,7 +16,7 @@ import { useServicesStore } from "@/stores/services";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { StageFooter } from "./_shell/StageFooter";
-import { ChatInput } from "./ChatInput";
+import { ChatInput } from "./chat-input/ChatInput";
 
 /**
  * Pousse un event SSE vers `useChatStageStore` en plus des écritures existantes

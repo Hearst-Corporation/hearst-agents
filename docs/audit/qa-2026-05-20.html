@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr" data-product="default">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QA UI/UX — Hearst OS — 2026-05-20</title>
+  <style>
+    :root {
+      --bg: #0e0f11; --surface: #16181c; --surface2: #1e2026; --border: #2a2d35;
+      --text: #e8eaf0; --muted: #7c8194;
+      --p0: #ef4444; --p0bg: rgba(239,68,68,.08);
+      --p1: #f59e0b; --p1bg: rgba(245,158,11,.08);
+      --p2: #3b82f6; --p2bg: rgba(59,130,246,.08);
+      --ok: #22c55e; --okbg: rgba(34,197,94,.08);
+      --accent: #8b1a2d; --r: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 13px; line-height: 1.6; }
+
+    header { background: linear-gradient(135deg, var(--accent) 0%, #3d0a14 100%); padding: 28px 40px; border-bottom: 1px solid var(--border); }
+    header h1 { font-size: 20px; font-weight: 700; letter-spacing: -.5px; }
+    header p { color: rgba(255,255,255,.6); font-size: 12px; margin-top: 4px; }
+    .scores { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+    .sc { background: rgba(0,0,0,.3); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 10px 18px; min-width: 110px; }
+    .sc .l { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: .6; }
+    .sc .v { font-size: 26px; font-weight: 800; margin-top: 2px; }
+    .v.score { color: #f59e0b; } .v.p0 { color: var(--p0); } .v.p1 { color: var(--p1); } .v.p2 { color: var(--p2); }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 28px 40px; }
+    .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .tab { padding: 7px 14px; font-size: 12px; font-weight: 500; cursor: pointer; border-radius: 6px 6px 0 0; color: var(--muted); border: 1px solid transparent; border-bottom: none; }
+    .tab.active { background: var(--surface); border-color: var(--border); color: var(--text); border-bottom-color: var(--surface); margin-bottom: -1px; }
+    .tab-content { display: none; } .tab-content.active { display: block; }
+
+    .finding { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 18px; margin-bottom: 8px; display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; }
+    .finding:hover { border-color: rgba(255,255,255,.13); }
+    .badge { display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; padding: 3px 6px; border-radius: 4px; letter-spacing: .5px; width: 32px; }
+    .badge.p0 { background: var(--p0bg); color: var(--p0); border: 1px solid var(--p0); }
+    .badge.p1 { background: var(--p1bg); color: var(--p1); border: 1px solid var(--p1); }
+    .badge.p2 { background: var(--p2bg); color: var(--p2); border: 1px solid var(--p2); }
+
+    .ft { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+    .fp { font-size: 11px; color: var(--muted); font-family: monospace; margin-bottom: 5px; }
+    .fd { font-size: 12px; color: rgba(232,234,240,.72); margin-bottom: 6px; }
+    .fm { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11px; }
+    .fm .mi { color: var(--muted); } .fm .mi strong { color: rgba(232,234,240,.8); }
+    .tag { font-size: 10px; font-family: monospace; background: var(--surface2); border: 1px solid var(--border); padding: 1px 5px; border-radius: 3px; color: var(--muted); }
+    code { font-family: monospace; font-size: 11px; background: var(--surface2); padding: 1px 4px; border-radius: 3px; }
+
+    .section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .ok-banner { background: var(--okbg); border: 1px solid var(--ok); border-radius: var(--r); padding: 10px 14px; font-size: 12px; color: var(--ok); margin-bottom: 8px; }
+    .summary-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 22px; margin-bottom: 22px; }
+    .summary-box h3 { font-size: 14px; margin-bottom: 10px; }
+    .summary-box ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .summary-box li { font-size: 12px; color: rgba(232,234,240,.72); padding-left: 14px; position: relative; }
+    .summary-box li::before { content: '→'; position: absolute; left: 0; color: var(--muted); }
+    .wins { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 22px; }
+    .win { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--ok); border-radius: var(--r); padding: 12px 14px; font-size: 12px; }
+    .win .wt { font-weight: 600; margin-bottom: 4px; }
+    .win .wd { color: rgba(232,234,240,.65); }
+    .bubble { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; font-size: 10px; padding: 1px 7px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>QA UI/UX — Hearst OS</h1>
+  <p>2026-05-20 · 3 agents Explore · App complète (exclus : spatial-safe)</p>
+  <div class="scores">
+    <div class="sc"><div class="l">Score</div><div class="v score">5.6/10</div></div>
+    <div class="sc"><div class="l">P0 Critique</div><div class="v p0">1</div></div>
+    <div class="sc"><div class="l">P1 Important</div><div class="v p1">18</div></div>
+    <div class="sc"><div class="l">P2 Mineur</div><div class="v p2">27</div></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="summary-box">
+    <h3>Problèmes systémiques identifiés</h3>
+    <ul>
+      <li><strong>Double système de boutons</strong> — <code>.vision-btn-*</code> (app user) vs <code>.ghost-btn-*</code> (admin) coexistent sans doc d'usage. <code>.appr-btn</code> hardcode <code>rgba(255,188,58,...)</code> hors palette.</li>
+      <li><strong>Spacing hors tokens</strong> — 7+ patterns <code>px-[18px]</code>, <code>py-[14px]</code>, <code>px-[9px]</code>, <code>gap-[5px]</code> ne mappent à aucun <code>--space-*</code> token. Répétés dans 5 stages sans variable.</li>
+      <li><strong>Border-radius incohérent</strong> — <code>rounded-[10px]</code> (5 occurrences), <code>rounded-[6px]</code>, <code>rounded-xl</code>, <code>rounded-(--token)</code> coexistent sans hiérarchie claire.</li>
+      <li><strong>Focus states insuffisants</strong> — MissionCard cliquable sans <code>focus-visible</code> perceptible. CanvasShell ring à 50% opacity trop subtil. Tooltip ProviderChip inaccessible au clavier.</li>
+      <li><strong>Tokens admin ≠ app</strong> — <code>--accent</code> (admin) ≠ <code>--accent-teal</code> (app). Double namespace non documenté.</li>
+      <li><strong>Opacités color off-scale</strong> — <code>/55</code>, <code>/8</code>, <code>/85</code> hardcodés sans tokens <code>--danger-bg</code>, <code>--danger-border</code>.</li>
+    </ul>
+  </div>
+
+  <div class="wins">
+    <div class="win"><div class="wt">Quick win #1</div><div class="wd">Supprimer <code>.appr-btn</code> rgba hardcodes → créer <code>--accent-gold</code> token + 1 classe unifiée</div></div>
+    <div class="win"><div class="wt">Quick win #2</div><div class="wd">Remplacer les 5× <code>rounded-[10px]</code> par <code>rounded-(--radius-md)</code> ou <code>rounded-lg</code> — 5 fichiers, 5 substitutions</div></div>
+    <div class="win"><div class="wt">Quick win #3</div><div class="wd">Ajouter <code>focus-visible:outline-2 focus-visible:outline-(--accent-teal)</code> aux MissionCards cliquables</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('layout')">Layout & Spacing <span class="bubble">14</span></div>
+    <div class="tab" onclick="showTab('states')">États & Interactions <span class="bubble">12</span></div>
+    <div class="tab" onclick="showTab('visual')">Cohérence Visuelle <span class="bubble">20</span></div>
+  </div>
+
+  <!-- TAB 1 : Layout & Spacing -->
+  <div id="tab-layout" class="tab-content active">
+    <div class="section-title">Layout & Alignment QA — Agent 1</div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">ErrorBanner spacing <code>px-[18px] py-[14px]</code> répété 4× sans token</div>
+        <div class="fp">app/(user)/_stages/MissionListStage.tsx:241 · MissionStage.tsx:281 · KGStage.tsx:306 · BrowserStage.tsx:186</div>
+        <div class="fd">18px et 14px ne mappent à aucun token (--space-4=16px, --space-5=20px). Copié-collé dans 4 stages sans variable partagée.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>px-(--space-5) py-(--space-3.5)</code> ou créer <code>--space-error-banner</code></div>
+          <div class="mi"><strong>Why:</strong> Si tokens mis à jour, les 4 banners restent désalignés</div>
+          <span class="tag">magic-spacing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Max-width layouts responsive hardcodés — 3 valeurs sans token</div>
+        <div class="fp">app/(user)/components/ConnectionsHub.tsx:41 (3×) · cockpit-x/CockpitXClient.tsx:259</div>
+        <div class="fd"><code>max-w-[760px]</code>, <code>max-w-[820px]</code>, <code>max-w-[620px]</code> — aucun token correspondant, incohérent avec <code>--width-center-max: 960px</code>.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>--width-hub-container: clamp(700px, 85vw, 760px)</code>, <code>--width-dialog-modal: clamp(580px, 85vw, 620px)</code></div>
+          <span class="tag">hardcoded-size</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Micro-spacing <code>px-[10px] py-[6px]</code> sur MetaChip hors scale</div>
+        <div class="fp">app/(user)/_stages/AssetCompareStage.tsx:126</div>
+        <div class="fd">10px ≠ --space-2 (8px) ni --space-3 (12px). Cohérence micro-spacing cassée sur chips.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>px-3 py-1.5</code> ou <code>px-(--space-2.5) py-(--space-1.5)</code></div>
+          <span class="tag">magic-spacing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Admin pages — 15+ <code>style={{ gridTemplateColumns }}</code> sans abstraction</div>
+        <div class="fp">app/admin/metrics/page.tsx · app/admin/health/page.tsx · app/admin/*.tsx</div>
+        <div class="fd">Inline styles bruts pour les grids admin. Aucune classe CSS réutilisable. Maintenance impossible.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Classes CSS <code>.admin-grid-3col</code>, <code>.admin-grid-2col</code> ou tokens <code>--admin-grid-*</code></div>
+          <span class="tag">inline-style</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Max-width prose — 4 valeurs différentes sans tokens</div>
+        <div class="fp">VoiceStage.tsx, AssetCompareStage.tsx, MissionListStage.tsx, ArtifactStage.tsx, CockpitXClient.tsx</div>
+        <div class="fd"><code>max-w-[400px]</code>, <code>max-w-[440px]</code>, <code>max-w-[360px]</code>, <code>max-w-[640px]</code> — 4 valeurs de lecture différentes sans variable.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>--width-prose-sm: 400px</code>, <code>--width-prose-md: 440px</code>, <code>--width-prose-lg: 640px</code></div>
+          <span class="tag">hardcoded-size</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Padding badge <code>px-[9px] py-[3px]</code> répété 2× hors scale</div>
+        <div class="fp">app/(user)/_stages/MissionListStage.tsx:318 · MissionStage.tsx:322</div>
+        <div class="fd">9px et 3px ne mappent à aucun token. Répété sans variable partagée.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>px-2 py-0.5</code> ou <code>px-(--space-2) py-(--space-0.5)</code></div>
+          <span class="tag">magic-spacing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft"><code>gap-[5px]</code> indicateur pulse répété 2× — hors scale</div>
+        <div class="fp">MissionListStage.tsx:327 · MissionStage.tsx:331</div>
+        <div class="fd">5px n'existe en aucun token. <code>w-[5px] h-[5px]</code> également hardcodé.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>gap-1.5</code> (6px natif TW) ou <code>--size-indicator: 5px</code></div>
+          <span class="tag">magic-spacing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Hauteur placeholder asset <code>h-[140px]</code> — aucun token</div>
+        <div class="fp">app/(user)/_stages/AssetCompareStage.tsx:118</div>
+        <div class="fd">140px n'existe en aucun token. Devrait être flexible ou tokenisé.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>--height-asset-placeholder: clamp(120px, 20vw, 160px)</code></div>
+          <span class="tag">hardcoded-size</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Max-height preview <code>max-h-[200px]</code> trop court vs viewer 320px</div>
+        <div class="fp">app/(user)/_stages/AssetCompareStage.tsx:101</div>
+        <div class="fd">200px vs <code>--height-compare-viewer: 320px</code> — preview image tronquée visuellement.</div>
+        <div class="fm"><span class="tag">hardcoded-size</span></div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Divider overlay slider <code>w-[2px]</code> — <code>--space-0.5</code> existe mais non utilisé</div>
+        <div class="fp">app/(user)/_stages/AssetCompareStage.tsx:274</div>
+        <div class="fd">Token <code>--space-0.5: 2px</code> existe. Non réutilisé ici.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>w-(--space-0.5)</code></div>
+          <span class="tag">hardcoded-size</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Rails gauche/droite avec widths hardcodées — <code>w-[88px]</code> / <code>xl:w-[260px]</code> / <code>2xl:w-[320px]</code></div>
+        <div class="fp">app/(user)/_shell/LeftRail.tsx:186 · RightRail.tsx:38</div>
+        <div class="fd">88px unique (ni 80px ni 96px), breakpoints responsive inline hardcodés.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>--rail-width-left: 88px</code>, <code>--rail-width-right: 260px</code>, <code>--rail-width-right-2xl: 320px</code></div>
+          <span class="tag">hardcoded-size</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2 : États & Interactions -->
+  <div id="tab-states" class="tab-content">
+    <div class="section-title">Interaction & States QA — Agent 2</div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">MissionCard cliquable sans <code>focus-visible</code> perceptible</div>
+        <div class="fp">app/(user)/_stages/MissionListStage.tsx:308</div>
+        <div class="fd"><code>role="button" tabIndex={0} onKeyDown</code> présents, mais pas d'outline ou ring visible au clavier. UX clavier dégradée.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent-teal)</code></div>
+          <span class="tag">missing-focus</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Tooltip ProviderChip — inaccessible au clavier (hover uniquement)</div>
+        <div class="fp">app/(user)/components/ProviderChip.tsx:146</div>
+        <div class="fd"><code>onMouseEnter/onMouseLeave</code> gèrent le tooltip. Aucun <code>focus-visible</code>. Utilisateur clavier ne voit pas le détail latence/coût.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Ajouter <code>tabindex={0}</code> + synchroniser tooltip avec focus/blur</div>
+          <span class="tag">missing-hover-focus</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Focus ring CanvasShell à 50% opacity — trop subtil</div>
+        <div class="fp">app/admin/_canvas/CanvasShell.tsx:128</div>
+        <div class="fd"><code>focus-visible:ring-(--accent-teal)/50</code> — contraste insuffisant en fond lumineux ou light mode.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>focus-visible:ring-(--accent-teal)/80</code> ou <code>focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent-teal)_60%,transparent)]</code></div>
+          <span class="tag">missing-focus</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">ChatWindow — loading initial sans skeleton</div>
+        <div class="fp">app/admin/_components/ChatWindow.tsx:133</div>
+        <div class="fd">Si <code>loading=true</code> et <code>messages.length===0</code>, container vide affiché. Aucun placeholder visuel.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Ajouter 3 lignes skeleton pulse quand <code>loading && messages.length < 2</code></div>
+          <span class="tag">missing-state</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Conteneur <code>overflow-hidden</code> avec sous-sections potentiellement plus grandes</div>
+        <div class="fp">app/admin/_canvas/CanvasShell.tsx:115</div>
+        <div class="fd"><code>flex-col flex-1 min-h-0 overflow-hidden</code> — si RunRail, Waterfall ou NodeDetailPanel déborde, contenu clippé sans scroll.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Vérifier que chaque sous-section a son propre <code>overflow-y-auto</code></div>
+          <span class="tag">scroll-nested</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">ConfirmModal — bouton loading sans <code>aria-live</code> explicite sur le spinner</div>
+        <div class="fp">app/(user)/components/ConfirmModal.tsx:86</div>
+        <div class="fd">Action component affiche <code>…</code> en loading mais l'écran de lecture ne sait pas que le traitement est en cours.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>role="status" aria-live="polite"</code> sur le texte du spinner</div>
+          <span class="tag">missing-aria-busy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">BrowserStage LoadingState — animation pulse sans <code>aria-live</code></div>
+        <div class="fp">app/(user)/_stages/BrowserStage.tsx:162</div>
+        <div class="fd">Motion div pulsant + texte "Connexion à la session…" sans <code>role="status" aria-live="polite"</code>.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>role="status" aria-live="polite" aria-label="Connexion en cours"</code></div>
+          <span class="tag">missing-state</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Admin page runs — empty state inline au lieu du composant EmptyState</div>
+        <div class="fp">app/admin/page.tsx:154</div>
+        <div class="fd"><code>runs.length === 0 ? &lt;p&gt;Aucun run.&lt;/p&gt;</code> — texte brut au lieu de <code>&lt;EmptyState /&gt;</code> réutilisable.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Utiliser <code>&lt;EmptyState /&gt;</code> déjà présent dans le codebase</div>
+          <span class="tag">missing-empty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">AdminSidebar — bouton "Sign out" sans <code>hover:</code> visible</div>
+        <div class="fp">app/admin/_shell/AdminSidebar.tsx:140</div>
+        <div class="fd">Bouton onClick sans classe hover. Affordance interactive absente.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>hover:bg-(--surface-1) transition-colors</code></div>
+          <span class="tag">missing-hover</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">ProviderChip tooltip — <code>z-30</code> hardcodé sans token z-index</div>
+        <div class="fp">app/(user)/components/ProviderChip.tsx:120</div>
+        <div class="fd"><code>z-30</code> hardcodé. Si un autre overlay utilise <code>z-30</code>, collision possible.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>z-(--z-tooltip)</code> ou token <code>--z-popover</code></div>
+          <span class="tag">position-absolute-no-z-index</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ok-banner">✓ ConfirmModal — focus trap complet (useModalA11y), Escape handling, backdrop click guard · Action component — états loading/disabled/focus-visible structurés · MissionListStage — LoadingSkeleton avec aria-live="polite" + role="status"</div>
+  </div>
+
+  <!-- TAB 3 : Visual Consistency -->
+  <div id="tab-visual" class="tab-content">
+    <div class="section-title">Visual Consistency QA — Agent 3</div>
+
+    <div class="finding">
+      <span class="badge p0">P0</span>
+      <div>
+        <div class="ft">Couleurs OAuth Google hardcodées en SVG — hors palette Hearst</div>
+        <div class="fp">app/login/page.tsx:40</div>
+        <div class="fd"><code>fill="#4285F4"</code>, <code>fill="#34A853"</code>, <code>fill="#FBBC05"</code>, <code>fill="#EA4335"</code> — couleurs de marque externe inline.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Extraire en <code>&lt;GoogleOAuthIcon /&gt;</code> ou tokens <code>--oauth-google-*</code> commentés</div>
+          <div class="mi"><strong>Why:</strong> Acceptable pour marque externe mais incohérent si refonte OAuth</div>
+          <span class="tag">hardcoded-color</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Double système boutons — <code>.vision-btn-*</code> (app) vs <code>.ghost-btn-*</code> (admin) sans doc</div>
+        <div class="fp">app/globals.css:2761 · app/globals.css:2790</div>
+        <div class="fd"><code>.vision-btn-primary { bg:#fff; color:#000 }</code> vs <code>.ghost-btn-solid { bg:transparent; color:var(--text) }</code>. Incohérence visuelle admin ↔ app.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Unifier en <code>.btn-primary</code>, <code>.btn-ghost</code>, <code>.btn-secondary</code> — documenter usage par zone</div>
+          <span class="tag">button-inconsistency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft"><code>.appr-btn</code> — rgba hardcodés hors palette, couleur différente de <code>--accent-agent</code></div>
+        <div class="fp">app/globals.css:3003</div>
+        <div class="fd"><code>rgba(255, 188, 58, 0.4/0.15/0.9)</code> — jaune légèrement différent de <code>--accent-agent: #fbbf24</code>. Impossible à themer.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>--accent-gold: #ffbc3a</code> → <code>border: 1px solid color-mix(in srgb, var(--accent-gold) 40%, transparent)</code></div>
+          <span class="tag">hardcoded-color</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft"><code>rounded-[10px]</code> — 5 occurrences hors palette radius</div>
+        <div class="fp">BrowserStage.tsx:271 · KGStage.tsx:435 · MissionListStage.tsx:439 · AssetCompareStage.tsx:294 (×2)</div>
+        <div class="fd">10px n'est pas dans la palette (<code>--radius-sm: 6px</code>, <code>rounded-xl: 12px</code>). Hiérarchie radius cassée.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>rounded-(--radius-md)</code> ou <code>rounded-lg</code> (8px natif TW)</div>
+          <span class="tag">hardcoded-radius</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Glow shadows avec rgba hardcodes au lieu de <code>color-mix()</code></div>
+        <div class="fp">app/globals.css:70</div>
+        <div class="fd"><code>--glow-cyan-sm: 0 0 30px rgba(74, 139, 134, 0.1)</code> — alors que <code>color-mix()</code> est utilisé lignes 63-67. Incohérence interne.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>0 0 30px color-mix(in srgb, var(--accent-teal) 10%, transparent)</code></div>
+          <span class="tag">hardcoded-shadow</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Box-shadow hover hardcodée — token <code>--glow-cyan-md</code> existe mais non réutilisé</div>
+        <div class="fp">app/globals.css:2304</div>
+        <div class="fd"><code>box-shadow: 0 0 24px rgba(74, 139, 134, 0.25)</code> au lieu de <code>var(--glow-cyan-md)</code>.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>box-shadow: var(--glow-cyan-md)</code></div>
+          <span class="tag">hardcoded-shadow</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Tokens admin <code>--accent</code> ≠ <code>--accent-teal</code> app — double namespace non documenté</div>
+        <div class="fp">app/admin/_components/ThemePicker.tsx:115 · app/(user)/components/*</div>
+        <div class="fd">Admin utilise <code>--accent</code> (purple/or), app utilise <code>--accent-teal</code>. Risque de cross-contamination.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Documenter le namespace ou unifier sous <code>--accent-primary</code></div>
+          <span class="tag">token-variable-mixed</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div>
+        <div class="ft">Bouton MissionStage — double classe incompatibles <code>vision-btn-primary appr-btn</code></div>
+        <div class="fp">app/(user)/_stages/MissionStage.tsx:382</div>
+        <div class="fd"><code>vision-btn-primary</code> (bg:#fff, color:#000) + <code>appr-btn</code> (bg:rgba(255,188,58,.15)) — styles incompatibles, cascade imprévisible.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Créer <code>.btn-gold</code> autonome</div>
+          <span class="tag">button-inconsistency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Opacités danger off-scale — <code>/55</code>, <code>/8</code>, <code>/85</code> sans tokens dédiés</div>
+        <div class="fp">app/(user)/_stages/MissionListStage.tsx:241 · MissionStage.tsx:281</div>
+        <div class="fd"><code>bg-(--danger)/8</code>, <code>border-(--danger)/55</code>, <code>text-(--danger)/85</code> — opacités non-standard (TW supporte 5, 10, 15, 20…)</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>--danger-bg: color-mix(in srgb, var(--danger) 8%, transparent)</code>, etc.</div>
+          <span class="tag">hardcoded-color-opacity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft"><code>.vision-btn-glass</code> — rgba hardcodes au lieu de tokens surface</div>
+        <div class="fp">app/globals.css:2770</div>
+        <div class="fd"><code>rgba(255, 255, 255, 0.05)</code> et <code>rgba(255, 255, 255, 0.12)</code> — tokens <code>--surface-1</code>, <code>--border-shell</code> proches mais non réutilisés.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>background: var(--surface-1); border: 1px solid var(--border-shell)</code></div>
+          <span class="tag">hardcoded-color</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Shadow draggable handle hardcodée — <code>shadow-[0_2px_8px_rgb(0_0_0/0.4)]</code></div>
+        <div class="fp">app/(user)/_stages/AssetCompareStage.tsx:280</div>
+        <div class="fd">Shadow personnalisée non alignée aux tokens <code>--shadow-card</code> / <code>--glow-*</code>.</div>
+        <div class="fm"><span class="tag">hardcoded-shadow</span></div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft"><code>data-kind</code> / <code>data-status</code> pour styling sans CSS selectors documentés</div>
+        <div class="fp">app/(user)/components/ChatToolStream.tsx:38 · StepCard.tsx:93</div>
+        <div class="fd">data-* attributes utilisés pour styling sans selectors <code>[data-status='pending']</code> documentés. Risque d'incohérence.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> Documenter les selectors CSS ou migrer vers className conditionnelle</div>
+          <span class="tag">data-attribute-inconsistency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Avatar circle <code>w-[120px] h-[120px]</code> — off-scale TW (base 4px)</div>
+        <div class="fp">app/(user)/_stages/VoiceStage.tsx:65</div>
+        <div class="fd">120px n'est pas multiple de 4px base TW. <code>w-32</code> = 128px natif.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>w-32 h-32</code> ou <code>--avatar-size-lg: 120px</code></div>
+          <span class="tag">hardcoded-size</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">VoiceStage — <code>vision-btn-primary</code> + tokens Tailwind + tokens CSS mélangés sur 1 bouton</div>
+        <div class="fp">app/(user)/_stages/VoiceStage.tsx:80</div>
+        <div class="fd"><code>vision-btn-primary t-12 px-(--space-5) py-(--space-2) rounded-(--radius-pill)</code> — 3 systèmes de styling sur 1 élément.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>.vision-btn-primary</code> doit définir padding/radius en interne</div>
+          <span class="tag">token-variable-mixed</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div>
+        <div class="ft">Noise layer <code>opacity-[0.03]</code> — non disponible en TW natif</div>
+        <div class="fp">app/components/system/NoiseLayer.tsx:10</div>
+        <div class="fd">TW natif n'a pas <code>opacity-[0.03]</code>. Décoratif mais hardcoded.</div>
+        <div class="fm">
+          <div class="mi"><strong>Suggested:</strong> <code>--noise-opacity: 0.03</code></div>
+          <span class="tag">hardcoded-opacity</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>

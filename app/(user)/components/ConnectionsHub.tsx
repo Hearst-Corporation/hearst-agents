@@ -7,9 +7,12 @@
 //  popup polling, postMessage listener) vit dans `useConnectionsHub` pour
 //  garder ce shell focalisé sur la composition visuelle.
 //
-//  Sous-composants UI dans `./connections/` :
-//   - ConnectionsList : Header, sections Connectés / Pour aller plus loin /
-//                        Catalogue, search results
+//  Sous-composants UI dans `./connections/_parts/` :
+//   - HeaderSection    : Header + SectionLabel (search globale, counters)
+//   - ConnectedStage   : grille des services connectés
+//   - OnboardingSection: onboarding stage (aucun connecté)
+//   - CatalogSection   : Wallpaper + CategoriesBar
+//   - SuggestionsSection / SearchResults
 //   - AppDrawer        : drawer modal app détail + actions du connecteur
 //   - AppLogo          : primitive logo (couleur native marque, fallback init)
 //
@@ -18,17 +21,13 @@
 //  Composio>native, etc.) sont préservés intégralement.
 // ============================================================================
 
+import { CategoriesBar, Wallpaper } from "./connections/_parts/CatalogSection";
+import { Stage } from "./connections/_parts/ConnectedStage";
+import { Header, SectionLabel } from "./connections/_parts/HeaderSection";
+import { OnboardingStage } from "./connections/_parts/OnboardingSection";
+import { SearchResultsSection } from "./connections/_parts/SearchResults";
+import { SuggestionsGrid } from "./connections/_parts/SuggestionsSection";
 import { AppDrawer } from "./connections/AppDrawer";
-import {
-  CategoriesBar,
-  Header,
-  OnboardingStage,
-  SearchResultsSection,
-  SectionLabel,
-  Stage,
-  SuggestionsGrid,
-  Wallpaper,
-} from "./connections/ConnectionsList";
 import { useConnectionsHub } from "./connections/use-connections-hub";
 
 export function ConnectionsHub() {
