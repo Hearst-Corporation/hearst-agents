@@ -13,6 +13,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -151,19 +152,30 @@ function useElapsed(startRef: React.MutableRefObject<number | null>): string {
   return fmtTime(sec);
 }
 
-/** Couleur avatar pseudo-stable par nom de speaker. */
-const SPEAKER_PALETTE = [
-  { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" },
-  { bg: "rgba(140,100,255,.2)", color: "rgba(187, 158, 255, 1)" },
-  { bg: "rgba(255,188,58,.2)", color: "rgba(255, 188, 58, 1)" },
-  { bg: "rgba(94,229,195,.2)", color: "rgba(94,229,195,.9)" },
-  { bg: "rgba(255,120,80,.2)", color: "rgba(255, 144, 96, 1)" },
+type SpeakerPaletteEntry = { avatarClass: string; nameClass: string };
+
+/** Couleur avatar pseudo-stable par nom de speaker (tokens DS). */
+const SPEAKER_PALETTE: SpeakerPaletteEntry[] = [
+  { avatarClass: "bg-(--surface-2) text-text", nameClass: "text-text" },
+  { avatarClass: "bg-(--accent-llm)/20 text-(--accent-llm)", nameClass: "text-(--accent-llm)" },
+  { avatarClass: "bg-(--gold-surface) text-(--gold)", nameClass: "text-(--gold)" },
+  {
+    avatarClass: "bg-(--accent-teal-surface) text-(--accent-teal)",
+    nameClass: "text-(--accent-teal)",
+  },
+  {
+    avatarClass: "bg-(--accent-agent)/20 text-(--accent-agent)",
+    nameClass: "text-(--accent-agent)",
+  },
 ];
 
-function speakerColor(name: string) {
+function speakerPalette(name: string): SpeakerPaletteEntry {
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
-  const fallback = { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" };
+  const fallback = SPEAKER_PALETTE[0] ?? {
+    avatarClass: "bg-(--surface-2) text-text",
+    nameClass: "text-text",
+  };
   return SPEAKER_PALETTE[Math.abs(hash) % SPEAKER_PALETTE.length] ?? fallback;
 }
 
@@ -200,18 +212,11 @@ function EmptyMeetingState() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "80px 0",
-        textAlign: "center",
-      }}
+      className="flex flex-col items-center justify-center py-20 text-center"
     >
       <p
-        className="t-15"
-        style={{ color: "rgba(255,255,255,0.45)", maxWidth: "440px", lineHeight: 1.6 }}
+        className="t-15 font-light text-text-faint leading-relaxed"
+        style={{ maxWidth: "var(--width-prose-narrow)" }}
       >
         Lance ou rejoins un meeting pour voir le transcript en direct.
       </p>
@@ -221,92 +226,36 @@ function EmptyMeetingState() {
 
 function LoadingSkeleton() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+    <div className="flex flex-col gap-3">
       {[1, 2, 3].map((i) => (
-        <div
-          key={i}
-          className="animate-pulse"
-          style={{
-            height: "56px",
-            borderRadius: "12px",
-            background: "rgba(255,255,255,0.05)",
-          }}
-        />
+        <div key={i} className="h-14 animate-pulse rounded-xl bg-(--surface-1)" />
       ))}
     </div>
   );
 }
 
-function ErrorBanner({ message }: { message: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
-    >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
-      {message}
-    </motion.div>
-  );
-}
-
 function TranscriptBubble({ seg, index }: { seg: Segment; index: number }) {
   const name = String(seg.speaker);
-  const { bg, color } = speakerColor(name);
+  const palette = speakerPalette(name);
   return (
     <motion.div
       custom={index}
       variants={BUBBLE_VARIANTS}
       initial="hidden"
       animate="visible"
-      style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}
+      className="flex gap-3 items-start"
     >
-      {/* Avatar */}
       <div
-        style={{
-          flexShrink: 0,
-          width: "32px",
-          height: "32px",
-          borderRadius: "50%",
-          background: bg,
-          color,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "12px",
-          fontWeight: 600,
-          marginTop: "2px",
-        }}
+        className={`flex shrink-0 size-8 rounded-full items-center justify-center t-11 font-semibold mt-0.5 ${palette.avatarClass}`}
       >
         {speakerInitial(seg.speaker)}
       </div>
-      {/* Body */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "3px", flex: 1 }}>
-        <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
-          <span style={{ fontSize: "12px", fontWeight: 600, color }}>{name || "Intervenant"}</span>
-          <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
-            {fmtTime(seg.start)}
-          </span>
+      <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+        <div className="flex gap-2 items-baseline">
+          <span className={`t-11 font-semibold ${palette.nameClass}`}>{name || "Intervenant"}</span>
+          <span className="t-9 text-text-ghost">{fmtTime(seg.start)}</span>
         </div>
-        <p
-          style={{
-            fontSize: "14px",
-            color: "rgba(255,255,255,0.82)",
-            lineHeight: 1.55,
-            margin: 0,
-          }}
-        >
-          {seg.text}
-        </p>
+        <p className="t-13 text-text-soft leading-relaxed m-0">{seg.text}</p>
       </div>
     </motion.div>
   );
@@ -315,49 +264,17 @@ function TranscriptBubble({ seg, index }: { seg: Segment; index: number }) {
 function ActionItemsList({ items }: { items: ActionItem[] }) {
   if (items.length === 0) return null;
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-        padding: "16px 20px",
-        borderRadius: "14px",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.07)",
-      }}
-    >
-      <p
-        style={{
-          fontSize: "11px",
-          fontWeight: 600,
-          color: "rgba(255,255,255,0.4)",
-          letterSpacing: ".06em",
-          marginBottom: "4px",
-        }}
-      >
+    <div className="flex flex-col gap-2 px-5 py-4 rounded-xl border border-(--line) bg-(--surface-1)">
+      <p className="t-9 font-semibold uppercase tracking-wide text-text-faint mb-1">
         Actions requises
       </p>
       {items.map((item, i) => (
-        <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-          <span
-            style={{
-              marginTop: "2px",
-              width: "16px",
-              height: "16px",
-              borderRadius: "4px",
-              border: "1.5px solid rgba(94,229,195,0.45)",
-              flexShrink: 0,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          />
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-            <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.82)", lineHeight: 1.5 }}>
-              {item.action}
-            </span>
+        <div key={i} className="flex gap-2.5 items-start">
+          <span className="mt-0.5 size-4 shrink-0 rounded-xs border-2 border-(--accent-teal-border) inline-flex" />
+          <div className="flex flex-col gap-0.5 min-w-0">
+            <span className="t-13 text-text-soft leading-relaxed">{item.action}</span>
             {(item.owner || item.deadline) && (
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
+              <span className="t-9 text-text-ghost">
                 {[item.owner, item.deadline].filter(Boolean).join(" · ")}
               </span>
             )}
@@ -515,56 +432,21 @@ export function MeetingStage({ mode }: { mode: string }) {
 
       {/* Content */}
       {meetingId && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+        <div className="flex flex-col gap-8">
           {demoActive && <DemoBanner />}
 
-          {/* Header */}
-          <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            <p
-              style={{
-                fontSize: "12px",
-                color: "rgba(255,255,255,0.35)",
-                letterSpacing: ".06em",
-              }}
-            >
+          <header className="flex flex-col gap-2">
+            <p className="t-11 uppercase tracking-wide text-text-ghost">
               {data
                 ? `Recall.ai · ${segments.length} segment${segments.length !== 1 ? "s" : ""}`
                 : "Connexion…"}
             </p>
-            <h1
-              style={{
-                fontSize: "28px",
-                fontWeight: 500,
-                letterSpacing: "-.02em",
-                display: "flex",
-                alignItems: "center",
-                gap: "14px",
-                flexWrap: "wrap",
-              }}
-            >
+            <h1 className="t-28 font-medium tracking-tight text-text flex items-center gap-3.5 flex-wrap">
               {data?.meetingId ?? meetingId}
               {live && (
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    color: "rgba(255,90,90,0.9)",
-                    padding: "4px 10px",
-                    borderRadius: "9999px",
-                    background: "rgba(255,80,80,0.12)",
-                  }}
-                >
+                <span className="inline-flex items-center gap-1.5 t-11 font-medium text-(--danger) px-2.5 py-1 rounded-pill bg-(--danger)/10">
                   <motion.span
-                    style={{
-                      width: "5px",
-                      height: "5px",
-                      borderRadius: "50%",
-                      background: "rgba(255,90,90,0.9)",
-                      display: "inline-block",
-                    }}
+                    className="inline-block size-(--size-dot) rounded-full bg-(--danger)"
                     animate={{ opacity: [1, 0.3, 1] }}
                     transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
                   />
@@ -572,22 +454,13 @@ export function MeetingStage({ mode }: { mode: string }) {
                 </span>
               )}
               {data && !live && (
-                <span
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    color: "rgba(255,255,255,0.45)",
-                    padding: "4px 10px",
-                    borderRadius: "9999px",
-                    background: "rgba(255,255,255,0.06)",
-                  }}
-                >
+                <span className="t-11 font-medium text-text-faint px-2.5 py-1 rounded-pill bg-(--surface-1)">
                   Terminé
                 </span>
               )}
             </h1>
             {data && (
-              <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.45)" }}>
+              <p className="t-13 text-text-faint">
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length}{" "}
                 speaker
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length !== 1
@@ -603,12 +476,12 @@ export function MeetingStage({ mode }: { mode: string }) {
           {loading && !data && <LoadingSkeleton />}
 
           {/* Error */}
-          {error && <ErrorBanner message={error} />}
+          {error && <StageErrorBanner message={error} />}
 
           {/* Transcript */}
           <AnimatePresence initial={false}>
             {segments.length > 0 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <div className="flex flex-col gap-5">
                 {segments.map((seg, idx) => (
                   <TranscriptBubble key={`${seg.speaker}-${seg.start}`} seg={seg} index={idx} />
                 ))}

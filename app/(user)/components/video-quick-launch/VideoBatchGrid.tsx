@@ -140,20 +140,12 @@ function BatchRunCard({ run, delayMs }: { run: BatchVariantRun; delayMs: number 
           />
         )}
         {isDone && !run.url && (
-          <span
-            aria-hidden
-            className="text-(--accent-teal) font-light leading-none"
-            style={{ fontSize: "2rem" }}
-          >
+          <span aria-hidden className="t-30 text-(--accent-teal) font-light leading-none">
             ✓
           </span>
         )}
         {isError && (
-          <span
-            aria-hidden
-            className="text-(--danger) font-light leading-none"
-            style={{ fontSize: "2rem" }}
-          >
+          <span aria-hidden className="t-30 text-(--danger) font-light leading-none">
             ×
           </span>
         )}

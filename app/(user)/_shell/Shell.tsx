@@ -33,6 +33,7 @@
 
 import type { ReactNode } from "react";
 import type { RailItem } from "../_stages/types";
+import { PulseBar } from "../components/PulseBar";
 import { AmbientLayers } from "./AmbientLayers";
 import { LeftRail } from "./LeftRail";
 import { RightRail } from "./RightRail";
@@ -48,41 +49,46 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
   return (
     <div className="perspective-scene relative flex h-screen w-screen overflow-hidden bg-black text-white">
       <AmbientLayers />
+
       <LeftRail />
 
-      {/* Right content area : Center scrollable + RightRail + FloatingFooter */}
-      <div className="preserve-3d relative z-10 flex flex-1 overflow-hidden">
-        {/* Main content area (Scrollable + Floating Footer ancré dessus) */}
-        <div className="preserve-3d relative flex flex-1 flex-col overflow-hidden">
-          {/* Centre scrollable — translateZ(-15px) pour profondeur subtile */}
-          <main className="vision-content-depth preserve-3d flex flex-1 justify-center overflow-y-auto px-6 pt-8 pb-48 lg:px-8 xl:px-10 2xl:px-16 2xl:pt-16 2xl:pb-56">
-            {centerContent}
-          </main>
+      {/* Zone principale : PulseBar (header) + centre scrollable + RightRail */}
+      <div className="preserve-3d relative z-10 flex min-w-0 flex-1 flex-col overflow-hidden">
+        <PulseBar />
 
-          {/* Fade noir bas — masque le texte qui défile sous le composer */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-32"
-            style={{
-              background:
-                "linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 40%, transparent 100%)",
-            }}
-          />
+        <div className="preserve-3d relative flex min-h-0 flex-1 overflow-hidden">
+          {/* Main content area (Scrollable + Floating Footer ancré dessus) */}
+          <div className="preserve-3d relative flex min-w-0 flex-1 flex-col overflow-hidden">
+            {/* Centre scrollable — translateZ(-15px) pour profondeur subtile */}
+            <main className="vision-content-depth preserve-3d flex flex-1 justify-center overflow-y-auto px-6 pt-6 pb-48 lg:px-8 xl:px-10 2xl:px-12 2xl:pb-56">
+              {centerContent}
+            </main>
 
-          {/* Composer chat — remplace le FloatingFooter (P8) */}
-          {composer && (
+            {/* Fade noir bas — masque le texte qui défile sous le composer */}
             <div
-              className="absolute right-0 bottom-0 left-0 z-25 pointer-events-none flex justify-center"
+              aria-hidden
+              className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-32"
               style={{
-                paddingBottom: "var(--space-6)",
+                background:
+                  "linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 40%, transparent 100%)",
               }}
-            >
-              <div className="pointer-events-auto w-full flex justify-center">{composer}</div>
-            </div>
-          )}
-        </div>
+            />
 
-        <RightRail title={railTitle} items={railItems} />
+            {/* Composer chat — remplace le FloatingFooter (P8) */}
+            {composer && (
+              <div
+                className="absolute right-0 bottom-0 left-0 z-25 pointer-events-none flex justify-center"
+                style={{
+                  paddingBottom: "var(--space-6)",
+                }}
+              >
+                <div className="pointer-events-auto w-full flex justify-center">{composer}</div>
+              </div>
+            )}
+          </div>
+
+          <RightRail title={railTitle} items={railItems} />
+        </div>
       </div>
     </div>
   );

@@ -52,6 +52,8 @@
   /* Accent colors */
   --cyan-accent: #4a8b86;
   --accent-teal: #4a8b86;
+  /* Liens / hover connections — teal assombri (70 % teal + 30 % noir). */
+  --accent-teal-deep: color-mix(in srgb, var(--accent-teal) 70%, #000000);
   --money: #4a8b86;
   --warn: #ffcc00;
   --danger: #ff3333;
@@ -192,6 +194,21 @@
   /** Sidebar stats du SignalBoardStage (Q3-B). Largeur fixe pour le panneau
    * latéral droit avec cumul + répartition par kind. */
   --width-signal-sidebar: 280px;
+  /** LeftRail — contrat layout Shell (88px, LOCKED). */
+  --width-rail-left: 88px;
+  /** RightRail — contexte stage (Shell.tsx gère l'offset ; cf. commentaire --ct-rail-*). */
+  --width-rail-right: 260px;
+  --width-rail-right-wide: 320px;
+  /** SignalStage — skeleton ligne + labels filtres. */
+  --height-signal-skeleton-row: 72px;
+  --width-signal-filter-label: 52px;
+  /** ConnectionsHub — colonne centrale stage /connections. */
+  --width-connections-max: 760px;
+  --width-connections-max-wide: 820px;
+  /** Empty states cockpit (compare, missions). */
+  --width-empty-hint: 400px;
+  --width-mission-empty-copy: 440px;
+  --width-mission-cta: 260px;
   /** Bloc prompt / code en page détail admin (scroll). */
   --height-admin-prompt-max: min(60dvh, var(--width-center-max));
   --height-topbar: 48px;
@@ -364,6 +381,7 @@
   --leading-tight: 1.05;
   --leading-snug: 1.2;
   --leading-base: 1.45;
+  --leading-normal: 1.5;
   --leading-relaxed: 1.6;
   --leading-loose: 1.8;
   
@@ -2819,7 +2837,15 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
 
   /* Keyframes partagées */
   @keyframes fu { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes pulseT { 0%, 100% { box-shadow: 0 0 0 0 rgba(94, 229, 195, 0); } 50% { box-shadow: 0 0 0 8px rgba(94, 229, 195, 0.1); } }
+  @keyframes pulseT {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-teal) 0%, transparent);
+    }
+    50% {
+      box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent-teal) 10%, transparent);
+    }
+  }
   @keyframes pulseG { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 188, 58, 0); } 50% { box-shadow: 0 0 0 8px rgba(255, 188, 58, 0.08); } }
   @keyframes sweep { 0% { transform: translateY(110%); } 100% { transform: translateY(-110%); } }
   @keyframes voring { 0% { transform: scale(0.65); opacity: 0.85; } 100% { transform: scale(1.4); opacity: 0; } }
@@ -2884,7 +2910,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     color: rgba(255, 255, 255, 0.4);
   }
   .t-state.done {
-    color: rgba(94, 229, 195, 0.85);
+    color: color-mix(in srgb, var(--accent-teal) 85%, transparent);
   }
   .t-state.run {
     color: rgba(255, 188, 58, 0.9);
@@ -3057,7 +3083,12 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   .slot .breath {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(94, 229, 195, 0) 0%, rgba(94, 229, 195, 0.10) 50%, rgba(94, 229, 195, 0) 100%);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--accent-teal) 0%, transparent) 0%,
+      color-mix(in srgb, var(--accent-teal) 10%, transparent) 50%,
+      color-mix(in srgb, var(--accent-teal) 0%, transparent) 100%
+    );
     animation: sweep 2.5s ease-in-out infinite;
   }
   .slot:nth-child(2) .breath { animation-delay: 0.6s; }
@@ -3208,7 +3239,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     transition: box-shadow 0.25s;
   }
   .br-btn.hot {
-    box-shadow: 0 0 0 4px rgba(94, 229, 195, 0.45);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-teal) 45%, transparent);
   }
   .br-steps {
     display: flex;
@@ -3251,8 +3282,8 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     color: white;
   }
   .br-step.run .br-sdot {
-    background: rgba(94, 229, 195, 0.1);
-    border-color: rgba(94, 229, 195, 0.5);
+    background: color-mix(in srgb, var(--accent-teal) 10%, transparent);
+    border-color: color-mix(in srgb, var(--accent-teal) 50%, transparent);
     animation: pulseT 1.4s ease-in-out infinite;
   }
 
@@ -3276,7 +3307,11 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(94, 229, 195, 0.22) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--accent-teal) 22%, transparent) 0%,
+      transparent 70%
+    );
     animation: voring 2.4s ease-in-out infinite;
   }
   .voice-ring.r2 {
@@ -3430,10 +3465,10 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     line-height: 1.55;
   }
   .mt-hi {
-    background: rgba(94, 229, 195, 0.15);
+    background: color-mix(in srgb, var(--accent-teal) 15%, transparent);
     padding: 1px 5px;
     border-radius: 4px;
-    border-bottom: 1px solid rgba(94, 229, 195, 0.45);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent-teal) 45%, transparent);
   }
   .mt-act {
     display: flex;
@@ -3466,7 +3501,11 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     position: relative;
     height: 460px;
     border-radius: 18px;
-    background: radial-gradient(ellipse at center, rgba(94, 229, 195, 0.03) 0%, transparent 70%);
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--accent-teal) 3%, transparent) 0%,
+      transparent 70%
+    );
     border: 1px solid rgba(255, 255, 255, 0.07);
     overflow: hidden;
   }

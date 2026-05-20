@@ -253,30 +253,36 @@ function CockpitContent({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="preserve-3d flex w-full flex-col mx-auto flex-1 relative min-h-screen"
-      style={{ maxWidth: "1600px" }}
+      style={{ maxWidth: "min(100%, 1600px)" }}
     >
       {/* Contenu Principal - Alignement Editorial */}
-      <div className="relative z-10 flex flex-col w-full max-w-[620px] px-14 pt-16 pb-32">
+      <div
+        className="relative z-10 flex flex-col w-full px-14 pt-16 pb-32"
+        style={{ maxWidth: "var(--width-prose-narrow)" }}
+      >
         {/* État d'erreur silencieux — affiché quand le refetch échoue */}
         {refetchState === "error" && (
           <div
             role="alert"
             aria-live="polite"
-            className="mb-8 rounded-(--radius-sm) border border-white/10 bg-white/5 px-(--space-4) py-(--space-3)"
+            className="mb-8 rounded-(--radius-sm) border border-(--border-shell) bg-(--surface-1) px-(--space-4) py-(--space-3)"
           >
-            <p className="t-13 text-white/60">
+            <p className="t-13 text-text-muted">
               Impossible de rafraîchir les données. Affichage des dernières informations connues.
             </p>
           </div>
         )}
         {/* Top Left - Ancrage système */}
         <header className="flex flex-col gap-1 mb-20">
-          <div className="t-10 uppercase tracking-[var(--tracking-display)] text-white/30 font-mono font-bold">
+          <div className="t-10 uppercase tracking-[var(--tracking-display)] text-text-ghost font-mono font-bold">
             {todayLabel}
           </div>
           <div className="flex items-center gap-2 mt-1">
-            <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-pulse" />
-            <span className="t-9 uppercase tracking-[var(--tracking-display)] text-white/30 font-bold">
+            <span
+              className="rounded-pill bg-(--accent-teal) animate-pulse shrink-0"
+              style={{ width: "var(--size-dot)", height: "var(--size-dot)" }}
+            />
+            <span className="t-9 uppercase tracking-[var(--tracking-display)] text-text-ghost font-bold">
               En écoute
             </span>
           </div>
@@ -284,10 +290,10 @@ function CockpitContent({
 
         {/* Focus - Accueil & Arbitrage */}
         <div className="flex flex-col gap-4 mb-20">
-          <h1 className="t-64 leading-[1.1] font-light tracking-[-0.04em] text-white/90">
+          <h1 className="t-64 leading-[1.1] font-light tracking-tight text-text">
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
           </h1>
-          <p className="t-20 font-light text-white/55">
+          <p className="t-20 font-light text-text-muted">
             {telemetry[0]?.value !== "0" && telemetry[0]?.value !== "—"
               ? `${telemetry[0].value} exécutions requièrent votre attention.`
               : telemetry[2]?.value !== "0" && telemetry[2]?.value !== "—"
@@ -303,8 +309,8 @@ function CockpitContent({
             <div className="flex flex-col gap-10">
               {/* EXÉCUTION ACTIVE */}
               <div className="flex flex-col">
-                <div className="border-t border-white/5 pt-4 mb-6">
-                  <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
+                <div className="border-t border-(--line) pt-4 mb-6">
+                  <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
                     Exécution active
                   </h2>
                 </div>
@@ -315,13 +321,13 @@ function CockpitContent({
                       type="button"
                       aria-label={`Mission ${row.name}, statut ${row.statusLabel}`}
                       onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
-                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
+                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
                     >
-                      <span className="t-18 text-white/80 group-hover:text-white transition-colors duration-500">
+                      <span className="t-18 text-text-soft group-hover:text-text transition-colors duration-(--duration-emphasis)">
                         {row.name}
                       </span>
-                      {row.detail && <span className="t-15 text-white/45">{row.detail}</span>}
-                      <span className="t-11 uppercase font-mono text-white/25 mt-1">
+                      {row.detail && <span className="t-15 text-text-faint">{row.detail}</span>}
+                      <span className="t-11 uppercase font-mono text-text-ghost mt-1">
                         Dernière activité — {row.when}
                       </span>
                     </button>
@@ -332,8 +338,8 @@ function CockpitContent({
               {/* EN FILE */}
               {factoryRows.length > 1 && (
                 <div className="flex flex-col">
-                  <div className="border-t border-white/5 pt-4 mb-6">
-                    <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
+                  <div className="border-t border-(--line) pt-4 mb-6">
+                    <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
                       En file
                     </h2>
                   </div>
@@ -344,9 +350,9 @@ function CockpitContent({
                         type="button"
                         aria-label={`Mission ${row.name}, statut ${row.statusLabel}`}
                         onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
-                        className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
+                        className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
                       >
-                        <span className="t-15 text-white/50 group-hover:text-white transition-colors duration-500">
+                        <span className="t-15 text-text-faint group-hover:text-text transition-colors duration-(--duration-emphasis)">
                           {row.name}
                         </span>
                       </button>
@@ -360,8 +366,8 @@ function CockpitContent({
           {/* RADAR (Inbox / Agenda) */}
           {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
             <div className="flex flex-col">
-              <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
+              <div className="border-t border-(--line) pt-4 mb-6">
+                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
                   Radar
                 </h2>
               </div>
@@ -373,12 +379,12 @@ function CockpitContent({
                       type="button"
                       aria-label={`Message : ${it.title}`}
                       onClick={() => openCommandeur("brief inbox")}
-                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
+                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
                     >
-                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
+                      <span className="t-15 text-text-muted group-hover:text-text transition-colors duration-(--duration-emphasis)">
                         {it.title}
                       </span>
-                      <span className="t-14 text-white/45">{it.summary}</span>
+                      <span className="t-14 text-text-faint">{it.summary}</span>
                     </button>
                   ))}
                 {watch.agenda.kind === "items" &&
@@ -388,12 +394,14 @@ function CockpitContent({
                       type="button"
                       aria-label={`Événement agenda : ${ev.title} à ${ev.when}`}
                       onClick={() => openCommandeur("agenda du jour")}
-                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
+                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
                     >
-                      <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
+                      <span className="t-15 text-text-muted group-hover:text-text transition-colors duration-(--duration-emphasis)">
                         Prochain engagement : {ev.title}
                       </span>
-                      <span className="t-10 uppercase font-mono text-white/25 mt-1">{ev.when}</span>
+                      <span className="t-10 uppercase font-mono text-text-ghost mt-1">
+                        {ev.when}
+                      </span>
                     </button>
                   ))}
               </div>
@@ -403,8 +411,8 @@ function CockpitContent({
           {/* INITIATIVES */}
           {proposals.length > 0 && (
             <div className="flex flex-col">
-              <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
+              <div className="border-t border-(--line) pt-4 mb-6">
+                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
                   Initiatives
                 </h2>
               </div>
@@ -417,10 +425,10 @@ function CockpitContent({
                     onClick={() => openCommandeur(p.title)}
                     className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
                   >
-                    <span className="t-15 text-white/70 group-hover:text-white transition-colors duration-500">
+                    <span className="t-15 text-text-muted group-hover:text-text transition-colors duration-(--duration-emphasis)">
                       {p.title}
                     </span>
-                    <span className="t-14 text-white/45">{p.description}</span>
+                    <span className="t-14 text-text-faint">{p.description}</span>
                   </button>
                 ))}
               </div>
@@ -759,22 +767,20 @@ function ModePlaceholder({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="preserve-3d flex w-full flex-col gap-16"
-      style={{ maxWidth: "1600px", margin: "0 auto" }}
+      style={{ maxWidth: "min(100%, 1600px)", margin: "0 auto" }}
     >
       <header className="flex flex-col gap-4">
-        <p className="text-base font-medium text-(--text-faint)">
-          Shell visionOS · stage non câblé
-        </p>
-        <h1
-          className="font-medium leading-[1.1] tracking-tight text-white"
-          style={{ fontSize: "var(--text-display)" }}
-        >
+        <p className="t-13 font-medium text-text-faint">Shell visionOS · stage non câblé</p>
+        <h1 className="t-48 font-medium leading-tight tracking-tight text-text">
           {def.label}
           {def.hotkey ? (
-            <span className="ml-4 text-base font-normal text-(--text-ghost)">{def.hotkey}</span>
+            <span className="ml-4 t-13 font-normal text-text-ghost">{def.hotkey}</span>
           ) : null}
         </h1>
-        <p className="max-w-[640px] text-base leading-normal text-(--text-muted)">
+        <p
+          className="t-15 font-light text-text-muted leading-relaxed"
+          style={{ maxWidth: "var(--width-prose-narrow)" }}
+        >
           Le composant Stage <code className="text-(--text-soft)">{mode}</code> sera branché en P5
           ou P6. Footer + railTitle alimentés par{" "}
           <code className="text-(--text-soft)">STAGE_REGISTRY</code>.

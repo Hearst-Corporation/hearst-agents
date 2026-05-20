@@ -1,6 +1,7 @@
-export const dynamic = "force-dynamic";
+"use client";
 
-import Link from "next/link";
+import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
+import { Action, FilterTabs, PanelCard, ScreenShell } from "@/app/(user)/components/ui";
 
 type StatusLabel = "publié" | "brouillon" | "archivé";
 type DomainLabel = "Performance" | "Audience" | "Revenue" | "Hôtellerie";
@@ -50,86 +51,63 @@ const REPORTS: Report[] = [
 ];
 
 const STATUS_STYLES: Record<StatusLabel, string> = {
-  publié: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
-  brouillon: "bg-amber-500/10 text-amber-400 border border-amber-500/20",
-  archivé: "bg-white/5 text-white/30 border border-white/10",
+  publié: "bg-(--color-success)/10 text-(--color-success) border border-(--color-success)/25",
+  brouillon: "bg-(--warn)/10 text-(--warn) border border-(--warn)/25",
+  archivé: "bg-(--surface-2) text-text-ghost border border-(--border-shell)",
 };
 
 const DOMAIN_STYLES: Record<DomainLabel, string> = {
-  Performance: "text-blue-400",
-  Audience: "text-violet-400",
-  Revenue: "text-emerald-400",
-  Hôtellerie: "text-amber-400",
+  Performance: "text-(--color-info)",
+  Audience: "text-(--accent-llm)",
+  Revenue: "text-(--color-success)",
+  Hôtellerie: "text-(--warn)",
 };
 
 const FILTERS = ["Tout", "Performance", "Audience", "Revenue", "Hôtellerie"] as const;
 
-export default async function ReportsPage() {
+export default function ReportsPage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-start justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight">Rapports</h1>
-            <p className="mt-1 text-white/50 text-sm">Bibliothèque · Analyse · Distributions</p>
-          </div>
-          <Link
-            href="/reports/studio"
-            className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black text-sm font-medium rounded-xl hover:bg-white/90 transition-colors"
-          >
-            Nouveau rapport →
-          </Link>
-        </div>
+    <StandalonePageFrame>
+      <ScreenShell
+        title="Rapports"
+        subtitle="Bibliothèque · Analyse · Distributions"
+        actions={
+          <Action variant="primary" tone="neutral" size="md" href="/reports/studio" iconRight="→">
+            Nouveau rapport
+          </Action>
+        }
+      >
+        <FilterTabs tabs={FILTERS} active="Tout" aria-label="Filtrer les rapports" />
 
-        <div className="flex items-center gap-1 mb-6">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              type="button"
-              className={`px-3.5 py-2 rounded-lg text-sm transition-colors ${
-                f === "Tout"
-                  ? "bg-white/10 text-white"
-                  : "text-white/40 hover:text-white/70 hover:bg-white/5"
-              }`}
-            >
-              {f}
-            </button>
+        <div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
+        >
+          {REPORTS.map((r) => (
+            <PanelCard key={r.id} hover className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span
+                  className={`t-9 font-medium rounded-pill ${STATUS_STYLES[r.status]}`}
+                  style={{ padding: "var(--space-1) var(--space-2-5)" }}
+                >
+                  {r.status.charAt(0).toUpperCase() + r.status.slice(1)}
+                </span>
+                <div
+                  className="flex items-center justify-center rounded-full bg-(--surface-2) t-11 font-medium text-text-muted"
+                  style={{ width: "var(--size-avatar-sm)", height: "var(--size-avatar-sm)" }}
+                >
+                  {r.authorInitials}
+                </div>
+              </div>
+              <div>
+                <p className="t-13 font-medium text-text">{r.title}</p>
+                <p className={`t-11 font-medium mt-1 ${DOMAIN_STYLES[r.domain]}`}>{r.domain}</p>
+              </div>
+              <p className="t-11 font-light text-text-ghost mt-auto">Mis à jour le {r.updatedAt}</p>
+            </PanelCard>
           ))}
         </div>
-
-        {REPORTS.length === 0 ? (
-          <div className="flex items-center justify-center h-48 text-white/25 text-sm">
-            Aucun rapport pour ce filtre
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-4">
-            {REPORTS.map((r) => (
-              <div
-                key={r.id}
-                className="bg-white/5 border border-white/8 rounded-2xl p-5 hover:border-white/15 transition-colors flex flex-col gap-3"
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_STYLES[r.status]}`}
-                  >
-                    {r.status.charAt(0).toUpperCase() + r.status.slice(1)}
-                  </span>
-                  <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-xs font-semibold text-white/70">
-                    {r.authorInitials}
-                  </div>
-                </div>
-                <div>
-                  <p className="font-medium text-sm">{r.title}</p>
-                  <p className={`text-xs mt-1 font-medium ${DOMAIN_STYLES[r.domain]}`}>
-                    {r.domain}
-                  </p>
-                </div>
-                <p className="text-xs text-white/30 mt-auto">Mis à jour le {r.updatedAt}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+      </ScreenShell>
+    </StandalonePageFrame>
   );
 }

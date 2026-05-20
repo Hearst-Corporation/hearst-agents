@@ -22,7 +22,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { EmptyState } from "@/app/(user)/components/ui";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -266,22 +266,9 @@ function LoadingSkeleton() {
   return (
     <div className="flex flex-col gap-3">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="h-14 animate-pulse rounded-xl bg-white/5" />
+        <div key={i} className="h-14 animate-pulse rounded-xl bg-(--surface-1)" />
       ))}
     </div>
-  );
-}
-
-function ErrorBanner({ error }: { error: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
-    >
-      <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
-    </motion.div>
   );
 }
 
@@ -291,27 +278,13 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
   const isError = mission.lastRunStatus === "failed" || mission.lastRunStatus === "blocked";
   const isApproval = mission.lastRunStatus === "awaiting_approval";
 
-  const badgeBg = isError
-    ? "rgba(255,80,80,0.1)"
+  const badgeClass = isError
+    ? "bg-(--danger)/10 border border-(--danger)/35 text-(--danger)"
     : isApproval
-      ? "rgba(212,175,55,0.1)"
+      ? "bg-(--gold-surface) border border-(--gold-border) text-(--gold)"
       : isRunning
-        ? "rgba(94,229,195,0.1)"
-        : "rgba(255,255,255,0.06)";
-  const badgeBorder = isError
-    ? "1px solid rgba(255,120,120,0.35)"
-    : isApproval
-      ? "1px solid rgba(212,175,55,0.35)"
-      : isRunning
-        ? "1px solid rgba(94,229,195,0.3)"
-        : "1px solid rgba(255,255,255,0.1)";
-  const badgeColor = isError
-    ? "rgba(255,140,140,0.9)"
-    : isApproval
-      ? "rgba(212,175,55,0.9)"
-      : isRunning
-        ? "rgba(94,229,195,0.85)"
-        : "rgba(255,255,255,0.45)";
+        ? "bg-(--accent-teal-surface) border border-(--accent-teal-border) text-(--accent-teal)"
+        : "bg-(--surface-1) border border-(--line) text-text-muted";
 
   return (
     <header className="flex flex-col gap-2">
@@ -319,12 +292,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
       <h1 className="t-30 font-medium tracking-tight flex items-center gap-3.5">
         {mission.name}
         <span
-          className="inline-flex items-center gap-1.5 t-11 px-2 py-0.5 rounded-full"
-          style={{
-            background: badgeBg,
-            border: badgeBorder,
-            color: badgeColor,
-          }}
+          className={`inline-flex items-center gap-1.5 t-11 px-2 py-0.5 rounded-full ${badgeClass}`}
         >
           {isRunning && (
             <motion.span
@@ -574,7 +542,7 @@ export function MissionStage({ mode }: { mode: string }) {
       {showLoader && <LoadingSkeleton />}
 
       {/* Erreur fetch */}
-      {!loading && fetchError && <ErrorBanner error={fetchError} />}
+      {!loading && fetchError && <StageErrorBanner message={fetchError} variant="emphasis" />}
 
       {/* Contenu mission (données réelles ou démo dev) */}
       {!loading && !fetchError && activeMission && (

@@ -16,7 +16,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { EmptyState } from "@/app/(user)/components/ui";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -172,13 +172,7 @@ function LoadingGrid() {
       {[0, 1, 2, 3].map((i) => (
         <div
           key={i}
-          className="animate-pulse"
-          style={{
-            aspectRatio: "16 / 9",
-            borderRadius: "var(--radius-xl, 18px)",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
+          className="animate-pulse aspect-video rounded-xl border border-(--line) bg-(--surface-1)"
         />
       ))}
     </div>
@@ -201,42 +195,14 @@ function EmptyAssetState() {
   );
 }
 
-function ErrorBanner({ error }: { error: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
-    >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> — {error}
-    </motion.div>
-  );
+function assetStatusClass(status: AssetItem["status"]): string {
+  if (status === "error") return "bg-(--danger)/18 text-(--danger)";
+  if (status === "running") return "bg-(--accent-teal-surface) text-(--accent-teal)";
+  return "bg-(--surface-2) text-text-soft";
 }
 
 function AssetSlot({ asset, index }: { asset: AssetItem; index: number }) {
   const isReady = asset.status === "ready";
-  const isRunning = asset.status === "running";
-  const isError = asset.status === "error";
-
-  const statusBg = isError
-    ? "rgba(255,80,80,0.18)"
-    : isRunning
-      ? "rgba(94,229,195,0.18)"
-      : "rgba(255,255,255,0.10)";
-  const statusColor = isError
-    ? "rgba(255,140,140,0.92)"
-    : isRunning
-      ? "rgba(94,229,195,0.92)"
-      : "rgba(255,255,255,0.78)";
 
   return (
     <div className={`slot${isReady ? " loaded" : ""}`}>
@@ -279,39 +245,12 @@ function AssetSlot({ asset, index }: { asset: AssetItem; index: number }) {
       )}
 
       {/* Badge variant haut gauche */}
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          left: "10px",
-          zIndex: 5,
-          display: "inline-block",
-          padding: "3px 9px",
-          borderRadius: "9999px",
-          background: "rgba(255,255,255,0.12)",
-          fontSize: "10px",
-          fontWeight: 600,
-          letterSpacing: "0.04em",
-          color: "white",
-        }}
-      >
+      <div className="absolute top-2.5 left-2.5 z-5 inline-block px-2 py-0.5 rounded-pill bg-(--surface-2) t-9 font-semibold tracking-wide text-text">
         {`V${index}`}
       </div>
 
-      {/* Pill statut bas-droite */}
       <div
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          zIndex: 5,
-          padding: "4px 10px",
-          borderRadius: "9999px",
-          background: statusBg,
-          color: statusColor,
-          fontSize: "11px",
-          fontWeight: 500,
-        }}
+        className={`absolute bottom-2.5 right-2.5 z-5 px-2.5 py-1 rounded-pill t-11 font-medium ${assetStatusClass(asset.status)}`}
       >
         {statusLabel(asset.status)}
       </div>
@@ -415,14 +354,8 @@ export function AssetStage({ mode }: { mode: string }) {
       )}
 
       {/* Header */}
-      <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <p
-          style={{
-            fontSize: "12px",
-            letterSpacing: "0.04em",
-            color: "rgba(255,255,255,0.35)",
-          }}
-        >
+      <header className="flex flex-col gap-2">
+        <p className="t-11 tracking-wide text-text-ghost">
           {loading
             ? "Chargement"
             : error
@@ -431,23 +364,19 @@ export function AssetStage({ mode }: { mode: string }) {
                 ? "Aucun asset"
                 : `${total} asset${total > 1 ? "s" : ""} · ${readyCount} prêt${readyCount > 1 ? "s" : ""}`}
         </p>
-        <h1 style={{ fontSize: "32px", fontWeight: 500, letterSpacing: "-0.02em" }}>
+        <h1 className="t-30 font-medium tracking-tight text-text">
           {loading ? "Chargement des assets" : total === 0 ? "Génération média" : "Assets"}
         </h1>
         {STAGE_REGISTRY.asset.tagline && (
-          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>
-            {STAGE_REGISTRY.asset.tagline}
-          </p>
+          <p className="t-13 text-text-faint leading-relaxed">{STAGE_REGISTRY.asset.tagline}</p>
         )}
         {total > 0 && (
-          <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
-            {displayAssets.map((a) => a.tag).join(" · ")}
-          </p>
+          <p className="t-13 text-text-muted">{displayAssets.map((a) => a.tag).join(" · ")}</p>
         )}
       </header>
 
       {/* Error */}
-      {error && <ErrorBanner error={error} />}
+      {error && <StageErrorBanner message={error} />}
 
       {/* Loading */}
       {loading && !error && <LoadingGrid />}
@@ -466,13 +395,7 @@ export function AssetStage({ mode }: { mode: string }) {
 
       {/* Footer */}
       {!loading && !error && total > 0 && (
-        <p
-          style={{
-            textAlign: "center",
-            fontSize: "13px",
-            color: "rgba(255,255,255,0.4)",
-          }}
-        >
+        <p className="text-center t-13 text-text-faint">
           {readyCount === total
             ? `${total} variant${total > 1 ? "s" : ""} prêt${total > 1 ? "s" : ""}`
             : `${readyCount} prêt${readyCount > 1 ? "s" : ""} · ${total - readyCount} en cours`}

@@ -81,14 +81,14 @@ function UserAvatar() {
         src={image}
         alt={name}
         className="size-9 rounded-full object-cover"
-        style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)" }}
+        style={{ boxShadow: "var(--shadow-inset-highlight)" }}
       />
     );
   }
   return (
     <div
-      className="flex size-9 items-center justify-center rounded-full bg-white/15 text-sm text-white"
-      style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2)" }}
+      className="flex size-9 items-center justify-center rounded-full bg-(--surface-icon-tile) t-13 text-text"
+      style={{ boxShadow: "var(--shadow-inset-highlight)" }}
       aria-label={`Session ${name}`}
       title={name}
     >
@@ -122,7 +122,7 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
       aria-current={active ? "page" : undefined}
       title={tooltip}
       className={`group relative flex size-11 items-center justify-center rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] ${
-        active ? "text-white" : "text-(--text-ghost) hover:text-(--text-soft)"
+        active ? "text-text" : "text-(--text-ghost) hover:text-(--text-soft)"
       }`}
       style={{ background: active ? "var(--surface-1)" : "transparent" }}
     >
@@ -131,7 +131,7 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
           aria-hidden="true"
           className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r"
           style={{
-            width: "3px",
+            width: "var(--space-1)",
             height: "var(--space-5)",
             background: "var(--accent-teal)",
           }}
@@ -183,7 +183,10 @@ export function LeftRail() {
   const commandeurOpen = useStageStore((s) => s.commandeurOpen);
 
   return (
-    <aside aria-label="Navigation principale" className="relative z-20 h-full w-[88px] shrink-0">
+    <aside
+      aria-label="Navigation principale"
+      className="relative z-20 h-full w-[var(--width-rail-left)] shrink-0 hidden md:block"
+    >
       <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center border-y-0 border-l-0 py-5">
         {/* Brand logo */}
         <div className="mb-3 flex size-8 items-center justify-center" aria-hidden>

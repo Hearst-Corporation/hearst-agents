@@ -1,6 +1,7 @@
-import Link from "next/link";
+"use client";
 
-export const dynamic = "force-dynamic";
+import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
+import { Action, PanelCard, ScreenShell, SectionEyebrow } from "@/app/(user)/components/ui";
 
 interface WorkflowCard {
   id: string;
@@ -23,99 +24,95 @@ const WORKFLOWS: WorkflowCard[] = [
   },
 ];
 
-export default async function HospitalityPage() {
+export default function HospitalityPage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
-      <div className="max-w-4xl mx-auto">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 t-13 text-white/40 hover:text-white mb-4"
-        >
-          ← Cockpit
-        </Link>
-        <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 mb-8 text-sm text-white/50">
-          Aucun connecteur PMS configuré — les indicateurs s'afficheront une fois un PMS (Mews /
-          Cloudbeds / Opera) connecté.
+    <StandalonePageFrame>
+      <ScreenShell
+        title="Hospitality"
+        subtitle="Cockpit vertical hôtellerie"
+        back={{ label: "Cockpit", href: "/" }}
+      >
+        <div style={{ marginBottom: "var(--space-8)", maxWidth: "var(--width-center-max)" }}>
+          <PanelCard className="t-13 font-light text-text-muted">
+            Aucun connecteur PMS configuré — les indicateurs s&apos;afficheront une fois un PMS
+            (Mews / Cloudbeds / Opera) connecté.
+          </PanelCard>
         </div>
 
-        <div className="mb-10">
-          <h1 className="text-3xl font-semibold tracking-tight">Hospitality</h1>
-          <p className="mt-1 text-white/50 text-sm">Cockpit vertical hôtellerie</p>
-        </div>
-
-        {/* KPI — empty state honnête, aucun chiffre fictif */}
-        <div className="mb-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
-            Indicateurs clés
-          </h2>
-          <div className="flex items-center justify-center bg-white/5 border border-white/8 rounded-2xl p-10 text-center">
+        <div style={{ maxWidth: "var(--width-center-max)" }}>
+          <SectionEyebrow id="kpi">Indicateurs clés</SectionEyebrow>
+          <PanelCard className="flex items-center justify-center text-center" padding="lg">
             <div>
-              <p className="text-sm font-medium text-white/50">Aucune donnée</p>
-              <p className="text-xs text-white/30 mt-1 max-w-xs">
-                Connectez un PMS pour afficher RevPAR, taux d'occupation et satisfaction client.
+              <p className="t-13 font-medium text-text-muted">Aucune donnée</p>
+              <p
+                className="t-11 font-light text-text-faint max-w-xs mx-auto"
+                style={{ marginTop: "var(--space-1)" }}
+              >
+                Connectez un PMS pour afficher RevPAR, taux d&apos;occupation et satisfaction
+                client.
               </p>
             </div>
-          </div>
-        </div>
+          </PanelCard>
 
-        {/* Workflows — capacités à venir, boutons désactivés proprement */}
-        <div className="mb-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
-            Workflows
-          </h2>
-          <div className="flex flex-col gap-3">
-            {WORKFLOWS.map((w) => (
-              <div
-                key={w.id}
-                className="flex items-center gap-5 bg-white/5 border border-white/8 rounded-2xl px-5 py-4"
-              >
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm">{w.title}</p>
-                  <p className="text-xs text-white/40 mt-0.5 leading-relaxed">{w.description}</p>
-                </div>
-                <button
-                  type="button"
-                  disabled
-                  aria-disabled="true"
-                  title="Bientôt disponible — nécessite un connecteur PMS"
-                  className="shrink-0 text-xs px-4 py-2 bg-white/5 border border-white/10 text-white/25 rounded-xl cursor-not-allowed"
-                >
-                  Bientôt disponible
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Persona — description des capacités, bouton désactivé */}
-        <div>
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
-            Persona
-          </h2>
-          <div className="bg-white/5 border border-white/8 rounded-2xl p-6">
-            <div className="flex items-center justify-between gap-6">
-              <div>
-                <p className="font-semibold text-base">Concierge IA</p>
-                <p className="text-xs text-white/40 mt-0.5 font-medium">Spécialisé hôtellerie</p>
-                <p className="text-sm text-white/45 mt-2 leading-relaxed max-w-lg">
-                  Agent conversationnel entraîné sur les données hôtelières. Répond aux questions
-                  sur les tarifs, disponibilités et packages. Adapte son ton au standing de
-                  l'établissement.
-                </p>
-              </div>
-              <button
-                type="button"
-                disabled
-                aria-disabled="true"
-                title="Bientôt disponible — nécessite un connecteur PMS"
-                className="shrink-0 text-sm px-5 py-2.5 bg-white/5 border border-white/10 text-white/25 rounded-xl cursor-not-allowed"
-              >
-                Bientôt disponible
-              </button>
+          <div style={{ marginTop: "var(--space-10)" }}>
+            <SectionEyebrow id="workflows">Workflows</SectionEyebrow>
+            <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+              {WORKFLOWS.map((w) => (
+                <PanelCard key={w.id} className="flex items-center gap-5">
+                  <div className="flex-1 min-w-0">
+                    <p className="t-13 font-medium text-text">{w.title}</p>
+                    <p
+                      className="t-11 font-light text-text-faint leading-relaxed"
+                      style={{ marginTop: "var(--space-0-5)" }}
+                    >
+                      {w.description}
+                    </p>
+                  </div>
+                  <Action
+                    variant="secondary"
+                    tone="neutral"
+                    size="sm"
+                    disabled
+                    aria-label="Bientôt disponible — nécessite un connecteur PMS"
+                  >
+                    Bientôt disponible
+                  </Action>
+                </PanelCard>
+              ))}
             </div>
           </div>
+
+          <div style={{ marginTop: "var(--space-10)" }}>
+            <SectionEyebrow id="persona">Persona</SectionEyebrow>
+            <PanelCard padding="lg">
+              <div
+                className="flex flex-col lg:flex-row lg:items-center justify-between"
+                style={{ gap: "var(--space-6)" }}
+              >
+                <div>
+                  <p className="t-15 font-medium text-text">Concierge IA</p>
+                  <p
+                    className="t-11 font-medium text-text-faint"
+                    style={{ marginTop: "var(--space-0-5)" }}
+                  >
+                    Spécialisé hôtellerie
+                  </p>
+                  <p
+                    className="t-13 font-light text-text-muted leading-relaxed max-w-lg"
+                    style={{ marginTop: "var(--space-2)" }}
+                  >
+                    Agent conversationnel entraîné sur les données hôtelières. Répond aux questions
+                    sur les tarifs, disponibilités et packages.
+                  </p>
+                </div>
+                <Action variant="secondary" tone="neutral" size="md" disabled>
+                  Bientôt disponible
+                </Action>
+              </div>
+            </PanelCard>
+          </div>
         </div>
-      </div>
-    </div>
+      </ScreenShell>
+    </StandalonePageFrame>
   );
 }

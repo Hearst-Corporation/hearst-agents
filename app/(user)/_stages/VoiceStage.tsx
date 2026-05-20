@@ -62,13 +62,17 @@ export function VoiceStage({ mode }: { mode: string }) {
       <div className="flex flex-col items-center gap-8 py-12 text-center">
         {/* Sphère inactive */}
         <div
-          className="w-[120px] h-[120px] rounded-full border border-(--line-strong) bg-(--surface) opacity-50"
+          className="rounded-full border border-(--line-strong) bg-(--surface) opacity-50 shrink-0"
+          style={{ width: "var(--space-24)", height: "var(--space-24)" }}
           aria-hidden="true"
         />
 
         <div className="flex flex-col gap-3">
           <p className="t-15 font-medium text-(--text-muted)">Mode voix non disponible</p>
-          <p className="t-13 text-(--text-ghost) max-w-[400px] leading-relaxed">
+          <p
+            className="t-13 text-(--text-ghost) leading-relaxed"
+            style={{ maxWidth: "var(--width-prose-narrow)" }}
+          >
             La session vocale temps réel n&apos;est pas encore branchée. Le chat texte couvre les
             mêmes intentions en attendant.
           </p>

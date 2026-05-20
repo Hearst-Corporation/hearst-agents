@@ -12,7 +12,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef } from "react";
-import { EmptyState } from "@/app/(user)/components/ui";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { type StreamingMessage, type ToolCall, useChatStageStore } from "@/stores/chat-stage";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -197,19 +197,8 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
         variants={BUBBLE_VARIANTS}
         initial="hidden"
         animate="visible"
-        style={{
-          alignSelf: "flex-end",
-          maxWidth: "80%",
-          padding: "14px 20px",
-          borderRadius: "16px",
-          background: "rgba(255,255,255,0.06)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          fontSize: "14px",
-          color: "rgba(255,255,255,0.92)",
-          lineHeight: 1.55,
-          whiteSpace: "pre-wrap",
-          wordBreak: "break-word",
-        }}
+        className="self-end max-w-[80%] rounded-2xl border border-(--border-shell) bg-(--surface-2) t-15 text-text leading-relaxed whitespace-pre-wrap break-words"
+        style={{ padding: "var(--space-3) var(--space-5)" }}
       >
         {msg.content}
       </motion.div>
@@ -222,20 +211,11 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
       variants={BUBBLE_VARIANTS}
       initial="hidden"
       animate="visible"
-      className="chat-ans"
-      style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+      className="chat-ans whitespace-pre-wrap break-words"
     >
       {msg.content}
       {msg.isStreaming && (
-        <span
-          aria-hidden="true"
-          className="animate-pulse"
-          style={{
-            display: "inline-block",
-            marginLeft: "2px",
-            color: "rgba(94,229,195,0.75)",
-          }}
-        >
+        <span aria-hidden="true" className="animate-pulse inline-block text-(--accent-teal) ml-0.5">
           ▊
         </span>
       )}
@@ -248,33 +228,19 @@ function ToolCallCard({ tc }: { tc: ToolCall }) {
   const isError = tc.state === "error";
   const isDone = tc.state === "done";
 
-  // Couleurs mono pill : teal sourd pour running, blanc sourd sinon, rouge pour erreur
-  const miniBg = isError
-    ? "rgba(255,80,80,0.15)"
+  const miniClass = isError
+    ? "bg-(--danger)/15 text-(--danger)"
     : isRunning
-      ? "rgba(94,229,195,0.15)"
-      : "rgba(255,255,255,0.08)";
-  const miniColor = isError
-    ? "rgba(255,140,140,0.9)"
-    : isRunning
-      ? "rgba(94,229,195,0.85)"
-      : "rgba(255,255,255,0.85)";
+      ? "bg-(--accent-teal-surface) text-(--accent-teal)"
+      : "bg-(--surface-2) text-text-soft";
 
-  // Badge état
-  const stateBg = isError
-    ? "rgba(255,80,80,0.15)"
+  const stateClass = isError
+    ? "bg-(--danger)/15 text-(--danger)"
     : isRunning
-      ? "rgba(94,229,195,0.15)"
+      ? "bg-(--accent-teal-surface) text-(--accent-teal)"
       : isDone
-        ? "rgba(255,255,255,0.05)"
-        : "transparent";
-  const stateColor = isError
-    ? "rgba(255,140,140,0.9)"
-    : isRunning
-      ? "rgba(94,229,195,0.85)"
-      : isDone
-        ? "rgba(255,255,255,0.45)"
-        : "rgba(255,255,255,0.35)";
+        ? "bg-(--surface-1) text-text-faint"
+        : "bg-transparent text-text-ghost";
 
   return (
     <motion.div
@@ -284,23 +250,14 @@ function ToolCallCard({ tc }: { tc: ToolCall }) {
       animate="visible"
       className="tcard"
     >
-      <div className="t-mini" style={{ background: miniBg, color: miniColor }}>
-        {monoCode(tc.name)}
-      </div>
+      <div className={`t-mini ${miniClass}`}>{monoCode(tc.name)}</div>
       <div className="t-body">
         <div className="t-name">{tc.name}</div>
         <div className="t-sub">{toolSubLine(tc)}</div>
       </div>
       <div
-        className="t-state"
-        style={{
-          padding: "4px 10px",
-          borderRadius: "9999px",
-          background: stateBg,
-          color: stateColor,
-          fontSize: "11px",
-          fontWeight: 500,
-        }}
+        className={`t-state t-9 font-medium rounded-pill ${stateClass}`}
+        style={{ padding: "var(--space-1) var(--space-2-5)" }}
       >
         {toolStateLabel(tc.state)}
       </div>
@@ -330,49 +287,13 @@ function StreamingPlaceholder() {
       transition={{ duration: 0.4, ease: VISION_EASE }}
       role="status"
       aria-live="polite"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-        padding: "12px 16px",
-        borderRadius: "12px",
-        background: "rgba(94,229,195,0.06)",
-        borderLeft: "2px solid rgba(94,229,195,0.45)",
-        color: "rgba(255,255,255,0.7)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-        maxWidth: "fit-content",
-      }}
+      className="flex items-center gap-2.5 rounded-xl border-l-2 border-(--accent-teal) bg-(--accent-teal-surface) t-13 text-text-muted leading-relaxed max-w-fit"
+      style={{ padding: "var(--space-3) var(--space-4)" }}
     >
-      <span
-        aria-hidden="true"
-        className="animate-pulse"
-        style={{ color: "rgba(94,229,195,0.85)", fontSize: "14px" }}
-      >
+      <span aria-hidden="true" className="animate-pulse text-(--accent-teal) t-15">
         ●
       </span>
       <span>L'agent prépare sa réponse</span>
-    </motion.div>
-  );
-}
-
-function ErrorBanner({ error }: { error: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
-    >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> — {error}
     </motion.div>
   );
 }
@@ -454,7 +375,7 @@ export function ChatStage({ mode }: { mode: string }) {
 
         {isStreamingSilent && <StreamingPlaceholder />}
 
-        {runState === "error" && runError && <ErrorBanner error={runError} />}
+        {runState === "error" && runError && <StageErrorBanner message={runError} />}
 
         <div ref={bottomRef} aria-hidden="true" />
       </div>

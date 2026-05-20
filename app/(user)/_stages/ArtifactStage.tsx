@@ -117,12 +117,20 @@ function buildStatusLabel(status: string | undefined): string {
   return status;
 }
 
-function buildStatusColor(status: string | undefined): string {
-  if (!status) return "rgba(255,255,255,0.3)";
-  if (status === "ready") return "rgba(160,255,160,0.65)";
-  if (status === "running" || status === "pending") return "rgba(255,200,80,0.7)";
-  if (status === "failed" || status === "error") return "rgba(255,120,120,0.65)";
-  return "rgba(255,255,255,0.3)";
+function buildStatusClass(status: string | undefined): string {
+  if (!status) return "text-text-ghost";
+  if (status === "ready") return "text-(--color-success)";
+  if (status === "running" || status === "pending") return "text-(--warn)";
+  if (status === "failed" || status === "error") return "text-(--danger)";
+  return "text-text-ghost";
+}
+
+function buildStatusDotClass(status: string | undefined): string {
+  if (!status) return "bg-text-ghost";
+  if (status === "ready") return "bg-(--color-success)";
+  if (status === "running" || status === "pending") return "bg-(--warn)";
+  if (status === "failed" || status === "error") return "bg-(--danger)";
+  return "bg-text-ghost";
 }
 
 // ── Sub-composants ─────────────────────────────────────────────────────────────
@@ -160,12 +168,8 @@ function EmptyArtifactState() {
       }}
     >
       <p
-        className="t-15"
-        style={{
-          color: "rgba(255,255,255,0.45)",
-          maxWidth: "440px",
-          lineHeight: 1.6,
-        }}
+        className="t-15 font-light text-text-faint leading-relaxed"
+        style={{ maxWidth: "var(--width-prose-narrow)" }}
       >
         Lance une mission qui génère un artifact ou demande à l'agent.
       </p>
@@ -188,12 +192,10 @@ function LoadingState() {
       }}
     >
       <span
-        className="inline-block rounded-full animate-pulse"
-        style={{ width: "6px", height: "6px", background: "rgba(94,229,195,0.6)" }}
+        className="inline-block rounded-pill bg-(--accent-teal) animate-pulse"
+        style={{ width: "var(--size-dot)", height: "var(--size-dot)" }}
       />
-      <span className="t-15" style={{ color: "rgba(255,255,255,0.35)" }}>
-        Chargement de l'artifact…
-      </span>
+      <span className="t-15 text-text-ghost">Chargement de l&apos;artifact…</span>
     </motion.div>
   );
 }
@@ -204,36 +206,19 @@ function ErrorState({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
-      }}
+      className="rounded-xl border-l-2 border-(--danger) bg-(--danger)/5 t-13 font-light text-(--danger) leading-relaxed"
+      style={{ padding: "var(--space-3) var(--space-4)" }}
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
-      {message}
+      <strong className="font-semibold">Erreur</strong> — {message}
     </motion.div>
   );
 }
 
 function CodeBlock({ code, language }: { code: string; language: string }) {
   return (
-    <div style={{ padding: "14px 16px" }}>
+    <div style={{ padding: "var(--space-3) var(--space-4)" }}>
       <pre
-        className="code-block"
-        style={{
-          margin: 0,
-          fontSize: "12px",
-          lineHeight: 1.7,
-          color: "rgba(255,255,255,0.65)",
-          fontFamily: "var(--font-mono, 'SF Mono', monospace)",
-          whiteSpace: "pre-wrap",
-          wordBreak: "break-word",
-        }}
+        className="code-block t-11 font-mono text-text-muted leading-relaxed whitespace-pre-wrap break-words m-0"
         aria-label={`Code ${language}`}
       >
         <code>{code}</code>
@@ -245,9 +230,12 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
 function PreviewPanel() {
   return (
     <div className="flex flex-1 items-center justify-center" style={{ padding: "var(--space-6)" }}>
-      <div className="vision-glass flex max-w-[360px] flex-col items-center gap-4 rounded-xl p-8 text-center">
-        <p className="text-base font-medium text-[var(--text-muted)]">Sandbox E2B</p>
-        <p className="text-sm text-[var(--text-ghost)]">
+      <div
+        className="vision-glass flex flex-col items-center gap-4 rounded-xl p-8 text-center"
+        style={{ maxWidth: "var(--width-prose-narrow)" }}
+      >
+        <p className="t-15 font-medium text-text-muted">Sandbox E2B</p>
+        <p className="t-13 font-light text-text-ghost">
           L&apos;exécution de code en sandbox n&apos;est pas encore disponible.
         </p>
       </div>
@@ -259,9 +247,7 @@ function VersionsList({ versions }: { versions: VersionRow[] }) {
   if (versions.length === 0) {
     return (
       <div className="flex-1" style={{ padding: "14px 16px" }}>
-        <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.3)" }}>
-          Aucune version disponible.
-        </p>
+        <p className="t-13 text-text-ghost">Aucune version disponible.</p>
       </div>
     );
   }
@@ -271,34 +257,16 @@ function VersionsList({ versions }: { versions: VersionRow[] }) {
         {versions.map((v, i) => (
           <div
             key={v.id}
-            style={{
-              padding: "10px 14px",
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "8px",
-            }}
+            className="flex items-center justify-between gap-2 rounded-lg border border-(--border-shell) bg-(--surface-1)"
+            style={{ padding: "var(--space-2-5) var(--space-3)" }}
           >
-            <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontWeight: 500 }}>
-              V{versions.length - i}
-            </span>
-            <span
-              style={{
-                fontSize: "11px",
-                fontFamily: "var(--font-mono, monospace)",
-                color: "rgba(255,255,255,0.3)",
-              }}
-            >
-              {v.id.slice(0, 8)}
-            </span>
-            <span style={{ fontSize: "11px", color: buildStatusColor(v.status) }}>
+            <span className="t-11 font-medium text-text-muted">V{versions.length - i}</span>
+            <span className="t-9 font-mono text-text-ghost">{v.id.slice(0, 8)}</span>
+            <span className={`t-9 ${buildStatusClass(v.status)}`}>
               {buildStatusLabel(v.status)}
             </span>
             {v.createdAt && (
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)" }}>
+              <span className="t-9 text-text-decor-25">
                 {new Date(v.createdAt).toLocaleDateString("fr-FR")}
               </span>
             )}
@@ -479,8 +447,8 @@ export function ArtifactStage({ mode }: { mode: string }) {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1.5">
-          <h2 className="text-2xl font-semibold text-white/90">{meta.title ?? "Artifact"}</h2>
-          <p className="text-sm text-white/40">
+          <h2 className="t-28 font-medium text-text">{meta.title ?? "Artifact"}</h2>
+          <p className="t-13 font-light text-text-faint">
             {meta.model ? `${meta.model} · ` : ""}E2B · preview live
           </p>
         </div>
@@ -489,14 +457,9 @@ export function ArtifactStage({ mode }: { mode: string }) {
         {meta.buildStatus && (
           <div className="flex items-center gap-2 shrink-0" style={{ paddingTop: "4px" }}>
             <span
-              className="inline-block rounded-full shrink-0"
-              style={{
-                width: "6px",
-                height: "6px",
-                background: buildStatusColor(meta.buildStatus),
-              }}
+              className={`inline-block size-(--size-dot) rounded-full shrink-0 ${buildStatusDotClass(meta.buildStatus)}`}
             />
-            <span style={{ fontSize: "12px", color: buildStatusColor(meta.buildStatus) }}>
+            <span className={`t-11 ${buildStatusClass(meta.buildStatus)}`}>
               {buildStatusLabel(meta.buildStatus)}
             </span>
           </div>
@@ -550,26 +513,12 @@ export function ArtifactStage({ mode }: { mode: string }) {
             className="flex gap-4"
           >
             {/* Éditeur code read-only */}
-            <div
-              className="flex flex-col flex-1 min-w-0"
-              style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "14px",
-                overflow: "hidden",
-              }}
-            >
+            <div className="flex flex-col flex-1 min-w-0 overflow-hidden rounded-xl border border-(--line)">
               {/* Tab bar éditeur */}
-              <div
-                className="flex items-center gap-2"
-                style={{
-                  padding: "8px 14px",
-                  borderBottom: "1px solid rgba(255,255,255,0.07)",
-                  background: "rgba(255,255,255,0.03)",
-                }}
-              >
-                <span className="text-xs font-medium text-white/60">{fileName}</span>
+              <div className="flex items-center gap-2 px-3.5 py-2 border-b border-(--line) bg-(--surface-1)">
+                <span className="t-11 font-medium text-text-muted">{fileName}</span>
                 {(meta.buildStatus === "running" || meta.buildStatus === "pending") && (
-                  <span className="text-xs text-yellow-300/60 animate-pulse">build en cours</span>
+                  <span className="t-11 text-(--warn) animate-pulse">build en cours</span>
                 )}
               </div>
 
@@ -580,46 +529,25 @@ export function ArtifactStage({ mode }: { mode: string }) {
                   className="flex-1 flex items-center justify-center"
                   style={{ padding: "var(--space-6)" }}
                 >
-                  <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.25)" }}>
-                    Aucun code disponible.
-                  </p>
+                  <p className="t-13 text-text-ghost">Aucun code disponible.</p>
                 </div>
               )}
             </div>
 
             {/* Preview / Versions selon tab */}
-            <div
-              className="flex flex-col flex-1 min-w-0"
-              style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "14px",
-                overflow: "hidden",
-              }}
-            >
+            <div className="flex flex-col flex-1 min-w-0 overflow-hidden rounded-xl border border-(--line)">
               {/* Footer tabs */}
-              <div
-                className="flex items-center gap-1"
-                style={{
-                  padding: "8px 14px",
-                  borderBottom: "1px solid rgba(255,255,255,0.07)",
-                  background: "rgba(255,255,255,0.03)",
-                }}
-              >
+              <div className="flex items-center gap-1 px-3.5 py-2 border-b border-(--line) bg-(--surface-1)">
                 {tabs.map((tab) => (
                   <button
                     key={tab.key}
                     type="button"
                     onClick={() => setActiveTab(tab.key)}
-                    className="text-xs font-medium transition-colors"
-                    style={{
-                      padding: "4px 10px",
-                      borderRadius: "20px",
-                      background: activeTab === tab.key ? "rgba(255,255,255,0.1)" : "transparent",
-                      color:
-                        activeTab === tab.key ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.35)",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
+                    className={`t-11 font-medium rounded-pill px-2.5 py-1 border-none cursor-pointer transition-colors ${
+                      activeTab === tab.key
+                        ? "bg-(--surface-2) text-text"
+                        : "bg-transparent text-text-ghost hover:text-text-muted"
+                    }`}
                   >
                     {tab.label}
                   </button>
@@ -657,9 +585,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
                         className="flex-1 flex items-center justify-center"
                         style={{ padding: "var(--space-6)" }}
                       >
-                        <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.25)" }}>
-                          Aucun code disponible.
-                        </p>
+                        <p className="t-13 text-text-ghost">Aucun code disponible.</p>
                       </div>
                     )}
                   </motion.div>
@@ -687,18 +613,13 @@ export function ArtifactStage({ mode }: { mode: string }) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span
-            className="inline-block rounded-full"
-            style={{
-              width: "6px",
-              height: "6px",
-              background: buildStatusColor(meta.buildStatus),
-            }}
+            className={`inline-block size-(--size-dot) rounded-full shrink-0 ${buildStatusDotClass(meta.buildStatus)}`}
           />
-          <span className="text-xs text-white/30">E2B sandbox · {meta.language ?? "python"}</span>
+          <span className="t-11 text-text-ghost">E2B sandbox · {meta.language ?? "python"}</span>
         </div>
 
         {artifactId && (
-          <span className="text-xs text-white/20 font-mono">{artifactId.slice(0, 8)}</span>
+          <span className="t-11 font-mono text-text-decor-25">{artifactId.slice(0, 8)}</span>
         )}
       </div>
     </motion.section>

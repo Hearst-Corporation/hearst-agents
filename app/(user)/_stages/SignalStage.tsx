@@ -41,7 +41,7 @@ const DEMO_SIGNALS: AmbientSignal[] = [
     kind: "oauth_expired",
     narration: "Connexion Google Drive expirée — reconnecter",
     detectedAt: new Date(Date.now() - 95 * 60_000).toISOString(),
-    ctaHref: "/apps",
+    ctaHref: "/connections",
     severity: "warning",
   },
   {
@@ -206,30 +206,21 @@ function SignalCard({
     >
       <header className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0 flex-1">
-          <span
-            aria-hidden
-            className="t-15 shrink-0 text-[var(--text-ghost)]"
-            style={{ lineHeight: 1, marginTop: "2px" }}
-          >
+          <span aria-hidden className="t-15 shrink-0 text-text-ghost leading-none mt-0.5">
             {KIND_GLYPH[signal.kind]}
           </span>
           <div className="flex flex-col min-w-0 flex-1 gap-1">
-            <p
-              className="t-13 text-[var(--text-muted)]"
-              style={{ lineHeight: "var(--leading-base)" }}
-            >
+            <p className="t-13 text-text-muted" style={{ lineHeight: "var(--leading-base)" }}>
               {signal.narration}
             </p>
             <div className="flex items-center gap-2">
-              <span className="t-9 font-mono text-[var(--text-ghost)]">
-                {KIND_LABEL[signal.kind]}
-              </span>
+              <span className="t-9 font-mono text-text-ghost">{KIND_LABEL[signal.kind]}</span>
               <span
                 aria-hidden
-                className="rounded-full bg-[var(--text-ghost)]"
+                className="rounded-full bg-text-ghost"
                 style={{ width: "var(--space-1)", height: "var(--space-1)" }}
               />
-              <span className="t-11 font-light text-[var(--text-ghost)]">
+              <span className="t-11 font-light text-text-ghost">
                 {formatRelative(signal.detectedAt, nowMs)}
               </span>
             </div>
@@ -241,7 +232,7 @@ function SignalCard({
         {signal.ctaHref && (
           <a
             href={signal.ctaHref}
-            className="t-11 font-light text-[var(--text-ghost)] hover:text-[var(--text-faint)] transition-colors inline-flex items-center gap-1 focus-visible:outline-none"
+            className="t-11 font-light text-text-ghost hover:text-text-faint transition-colors inline-flex items-center gap-1 focus-visible:outline-none"
             style={{ padding: "var(--space-1) var(--space-2)", borderRadius: "var(--radius-xs)" }}
           >
             Voir →
@@ -250,7 +241,7 @@ function SignalCard({
         <button
           type="button"
           onClick={onInvestigate}
-          className="t-11 font-light text-[var(--text-ghost)] hover:text-[var(--text-faint)] transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--border-input)]"
+          className="t-11 font-light text-text-ghost hover:text-text-faint transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
           style={{
             padding: "var(--space-1) var(--space-3)",
             background: "transparent",
@@ -272,13 +263,7 @@ function SignalSkeleton() {
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="animate-pulse"
-          style={{
-            height: "72px",
-            background: "var(--surface-1)",
-            border: "1px solid var(--border-shell)",
-            borderRadius: "var(--radius-md)",
-          }}
+          className="animate-pulse h-[var(--height-signal-skeleton-row)] bg-(--surface-1) border border-(--border-shell) rounded-(--radius-md)"
         />
       ))}
     </div>
@@ -398,9 +383,9 @@ export function SignalStage({ mode }: { mode: string }) {
 
       {/* Header */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <h2 className="t-28 font-light text-[var(--text)]">Signaux</h2>
+        <h2 className="t-28 font-light text-text">Signaux</h2>
         <p
-          className="t-13 font-light text-[var(--text-ghost)]"
+          className="t-13 font-light text-text-ghost"
           style={{ lineHeight: "var(--leading-base)" }}
         >
           Activité ambient — missions, connexions, briefings, vidéos.
@@ -410,10 +395,7 @@ export function SignalStage({ mode }: { mode: string }) {
       {/* Filtres */}
       <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
         <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-          <span
-            className="t-11 font-light text-[var(--text-ghost)] shrink-0"
-            style={{ width: "52px" }}
-          >
+          <span className="t-11 font-light text-text-ghost shrink-0 w-[var(--width-signal-filter-label)]">
             Fenêtre
           </span>
           <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
@@ -428,10 +410,7 @@ export function SignalStage({ mode }: { mode: string }) {
           </div>
         </div>
         <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-          <span
-            className="t-11 font-light text-[var(--text-ghost)] shrink-0"
-            style={{ width: "52px" }}
-          >
+          <span className="t-11 font-light text-text-ghost shrink-0 w-[var(--width-signal-filter-label)]">
             Type
           </span>
           <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
@@ -454,7 +433,7 @@ export function SignalStage({ mode }: { mode: string }) {
           {loading && <SignalSkeleton />}
           {!loading && error && (
             <div
-              className="t-13 font-light text-[var(--danger)]"
+              className="t-13 font-light text-(--danger)"
               style={{
                 padding: "var(--space-4) var(--space-5)",
                 background: "color-mix(in srgb, var(--danger) 6%, transparent)",
@@ -466,7 +445,7 @@ export function SignalStage({ mode }: { mode: string }) {
             </div>
           )}
           {!loading && !error && filtered.length === 0 && (
-            <p className="t-13 font-light text-[var(--text-ghost)]">
+            <p className="t-13 font-light text-text-ghost">
               {kindFilter === "all"
                 ? "Aucun signal sur cette fenêtre. L'agent veille."
                 : "Aucun signal de ce type sur cette fenêtre."}
@@ -499,24 +478,24 @@ export function SignalStage({ mode }: { mode: string }) {
           style={{ width: "136px", gap: "var(--space-6)", paddingTop: "var(--space-1)" }}
         >
           <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-            <span className="t-11 font-light text-[var(--text-ghost)]">Cumul</span>
-            <p className="t-28 font-light text-[var(--text)]">{stats.total}</p>
-            <p className="t-11 font-light text-[var(--text-ghost)]">
+            <span className="t-11 font-light text-text-ghost">Cumul</span>
+            <p className="t-28 font-light text-text">{stats.total}</p>
+            <p className="t-11 font-light text-text-ghost">
               signal{stats.total > 1 ? "aux" : ""} sur la fenêtre
             </p>
           </div>
           <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-            <span className="t-11 font-light text-[var(--text-ghost)]">Répartition</span>
+            <span className="t-11 font-light text-text-ghost">Répartition</span>
             {(Object.keys(stats.byKind) as Array<AmbientSignal["kind"]>).map((kind) => (
               <div
                 key={kind}
                 className="flex items-center justify-between"
                 style={{ gap: "var(--space-2)" }}
               >
-                <span className="t-11 font-light text-[var(--text-ghost)] truncate flex-1 min-w-0">
+                <span className="t-11 font-light text-text-ghost truncate flex-1 min-w-0">
                   {KIND_LABEL[kind]}
                 </span>
-                <span className="t-11 font-mono tabular-nums text-[var(--text-faint)] shrink-0">
+                <span className="t-11 font-mono tabular-nums text-text-faint shrink-0">
                   {stats.byKind[kind]}
                 </span>
               </div>

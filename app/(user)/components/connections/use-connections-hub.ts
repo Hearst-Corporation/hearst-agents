@@ -343,7 +343,7 @@ export function useConnectionsHub() {
           credentials: "include",
           body: JSON.stringify({
             appName: app.key,
-            redirectUri: `${window.location.origin}/apps?connected=${encodeURIComponent(app.key)}`,
+            redirectUri: `${window.location.origin}/connections?connected=${encodeURIComponent(app.key)}`,
           }),
         });
         const data = (await res.json()) as {
@@ -390,7 +390,7 @@ export function useConnectionsHub() {
           // Naviguer la popup vers l'URL OAuth. Si la popup a été bloquée
           // (popup === null), on retombe sur la nav de la fenêtre principale
           // — comportement de fallback acceptable, l'utilisateur revient via
-          // le redirectUri vers /apps?connected=slug.
+          // le redirectUri vers /connections?connected=slug.
           if (popup && !popup.closed) {
             popup.navigate(data.redirectUrl);
             useOAuthStore.getState().setStatus("active");

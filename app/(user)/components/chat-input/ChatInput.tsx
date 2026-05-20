@@ -137,7 +137,7 @@ export function ChatInput({
       className="relative w-full animate-[panel-slide-in-bottom_0.6s_ease-out] flex justify-center pb-12"
     >
       <div
-        className="relative flex items-center group transition-colors duration-500 border-b border-white/10 focus-within:border-white/30"
+        className="relative flex items-center group transition-colors duration-(--duration-emphasis) border-b border-(--line) focus-within:border-(--border-input)"
         style={{
           background: "transparent",
           padding: "var(--space-2) 0",
@@ -200,14 +200,14 @@ export function ChatInput({
                 ? "Que devons-nous décider ? _"
                 : resolveModePlaceholder(stageMode, surface, placeholder)
             }
-            className="w-full bg-transparent border-none outline-none text-white/80 t-15 placeholder:text-white/30 font-light caret-white"
+            className="w-full bg-transparent border-none outline-none text-text-soft t-15 placeholder:text-text-ghost font-light caret-(--accent-teal)"
           />
 
           {/* Spinner inline pendant un run actif (aria-busy parent). */}
           {isRunning && (
             <span
               aria-hidden="true"
-              className="animate-pulse text-white/40 t-15 font-light shrink-0"
+              className="animate-pulse text-text-ghost t-15 font-light shrink-0"
               style={{ marginLeft: "var(--space-2)" }}
             >
               ⋯

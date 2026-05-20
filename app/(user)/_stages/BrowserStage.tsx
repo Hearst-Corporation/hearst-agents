@@ -14,7 +14,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { EmptyState } from "@/app/(user)/components/ui";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -109,17 +109,17 @@ function stepStateLabel(status: StepStatus): string {
   }
 }
 
-function stepDotColor(status: StepStatus): string {
+function stepDotClass(status: StepStatus): string {
   switch (status) {
     case "done":
-      return "rgba(94,229,195,0.85)";
+      return "bg-(--accent-teal)";
     case "running":
-      return "rgba(140,100,255,0.9)";
+      return "bg-(--accent-llm)";
     case "error":
-      return "rgba(255,80,80,0.85)";
+      return "bg-(--danger)";
     case "pending":
     default:
-      return "rgba(255,255,255,0.2)";
+      return "bg-text-ghost/30";
   }
 }
 
@@ -179,19 +179,6 @@ function LoadingState() {
   );
 }
 
-function ErrorState({ message }: { message: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
-    >
-      <strong className="text-(--danger)/95 font-semibold">Erreur session</strong> — {message}
-    </motion.div>
-  );
-}
-
 function SessionFrame({
   sessionId,
   url,
@@ -209,11 +196,9 @@ function SessionFrame({
       <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-(--line-strong) bg-(--bg-soft)">
         {/* Traffic lights */}
         <div className="flex gap-1.5">
-          {(
-            ["rgba(255,90,90,0.45)", "rgba(255,188,58,0.45)", "rgba(94,229,195,0.45)"] as const
-          ).map((bg, i) => (
-            <span key={i} className="size-2.5 rounded-full" style={{ background: bg }} />
-          ))}
+          <span className="size-2.5 rounded-full bg-(--danger)/45" />
+          <span className="size-2.5 rounded-full bg-(--warn)/45" />
+          <span className="size-2.5 rounded-full bg-(--accent-teal)/45" />
         </div>
 
         {/* URL pill */}
@@ -224,10 +209,7 @@ function SessionFrame({
         {/* Indicateur live */}
         <div className="flex items-center gap-1.5">
           <motion.div
-            className="size-[5px] rounded-full"
-            style={{
-              background: isActive ? "rgba(140,100,255,0.9)" : "rgba(255,255,255,0.2)",
-            }}
+            className={`size-[5px] rounded-full ${isActive ? "bg-(--accent-llm)" : "bg-text-ghost/30"}`}
             animate={isActive ? { opacity: [1, 0.3, 1] } : { opacity: 1 }}
             transition={isActive ? { repeat: Infinity, duration: 1, ease: "easeInOut" } : {}}
           />
@@ -238,7 +220,7 @@ function SessionFrame({
       </div>
 
       {/* Viewport — placeholder aspect-video, PAS d'iframe (XSS / cross-origin) */}
-      <div className="aspect-video bg-black/20 flex flex-col items-center justify-center gap-2.5">
+      <div className="aspect-video bg-(--surface-1) flex flex-col items-center justify-center gap-2.5">
         {isActive ? (
           <>
             <motion.div
@@ -270,52 +252,35 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       initial="hidden"
       animate="visible"
       layout
-      className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg transition-[opacity,background] duration-300 ease-[ease]"
-      style={{
-        background: isRunning ? "rgba(140,100,255,0.06)" : "transparent",
-        border: isRunning ? "1px solid rgba(140,100,255,0.15)" : "1px solid rgba(255,255,255,0.04)",
-        opacity: isPending ? 0.4 : 1,
-      }}
+      className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg border transition-[opacity,background,border-color] duration-300 ease-[ease] ${
+        isRunning
+          ? "bg-(--accent-llm)/6 border-(--accent-llm)/15"
+          : "border-(--line) bg-transparent"
+      } ${isPending ? "opacity-40" : ""}`}
     >
-      {/* Numéro / check */}
       <div
-        className="size-6 rounded-full flex items-center justify-center t-11 font-semibold shrink-0"
-        style={{
-          background: stepDotColor(step.status),
-          color: isDone || isRunning || isError ? "rgba(0,0,0,0.85)" : "rgba(255,255,255,0.3)",
-        }}
+        className={`size-6 rounded-full flex items-center justify-center t-11 font-semibold shrink-0 ${stepDotClass(step.status)} ${
+          isDone || isRunning || isError ? "text-black/85" : "text-text-ghost"
+        }`}
       >
         {isDone ? "✓" : isError ? "✕" : isRunning ? "…" : index + 1}
       </div>
 
-      {/* Label */}
       <div className="flex-1 t-13 text-(--text-soft) leading-[1.45]">{step.label}</div>
 
-      {/* Badge état — ternaires imbriquées 4 niveaux, bloc préservé inline */}
-      <div
-        style={{
-          padding: "3px 9px",
-          borderRadius: "9999px",
-          fontSize: "11px",
-          fontWeight: 500,
-          background: isError
-            ? "rgba(255,80,80,0.12)"
+      <span
+        className={`t-11 font-medium px-2 py-0.5 rounded-pill shrink-0 ${
+          isError
+            ? "bg-(--danger)/10 text-(--danger)"
             : isRunning
-              ? "rgba(140,100,255,0.15)"
+              ? "bg-(--accent-llm)/15 text-(--accent-llm)"
               : isDone
-                ? "rgba(255,255,255,0.05)"
-                : "transparent",
-          color: isError
-            ? "rgba(255,140,140,0.9)"
-            : isRunning
-              ? "rgba(140,100,255,0.9)"
-              : isDone
-                ? "rgba(255,255,255,0.35)"
-                : "rgba(255,255,255,0.2)",
-        }}
+                ? "bg-(--surface-1) text-text-muted"
+                : "text-text-ghost"
+        }`}
       >
         {stepStateLabel(step.status)}
-      </div>
+      </span>
     </motion.div>
   );
 }
@@ -330,7 +295,7 @@ function ModeToggle({ auto, onToggle }: { auto: boolean; onToggle: () => void })
         type="button"
         onClick={onToggle}
         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-(--line) t-13 font-medium cursor-pointer transition-colors focus-visible:ring-1 focus-visible:ring-(--accent-llm)/50 focus-visible:outline-none ${
-          auto ? "bg-(--accent-llm)/12 text-(--accent-llm)" : "bg-white/5 text-(--text-faint)"
+          auto ? "bg-(--accent-llm)/12 text-(--accent-llm)" : "bg-(--surface-1) text-(--text-faint)"
         }`}
       >
         {auto ? "Auto" : "Pas-à-pas"}
@@ -551,7 +516,9 @@ export function BrowserStage({ mode }: { mode: string }) {
       {fetchState === "loading" && <LoadingState />}
 
       {/* Erreur fetch */}
-      {fetchState === "error" && fetchError && <ErrorState message={fetchError} />}
+      {fetchState === "error" && fetchError && (
+        <StageErrorBanner message={fetchError} title="Erreur session" variant="emphasis" />
+      )}
 
       {/* Frame navigateur */}
       {(fetchState === "ready" || fetchState === "idle") && (

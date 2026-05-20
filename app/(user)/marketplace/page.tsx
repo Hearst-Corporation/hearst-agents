@@ -1,6 +1,13 @@
-import Link from "next/link";
+"use client";
 
-export const dynamic = "force-dynamic";
+import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
+import {
+  Action,
+  FilterTabs,
+  PanelCard,
+  ScreenShell,
+  SearchField,
+} from "@/app/(user)/components/ui";
 
 type KindLabel = "workflow" | "rapport" | "persona";
 
@@ -65,96 +72,81 @@ const TEMPLATES: Template[] = [
 ];
 
 const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
-  workflow: { badge: "bg-blue-500/10 text-blue-400 border border-blue-500/20", label: "Workflow" },
+  workflow: {
+    badge: "bg-(--color-info)/10 text-(--color-info) border border-(--color-info)/25",
+    label: "Workflow",
+  },
   rapport: {
-    badge: "bg-violet-500/10 text-violet-400 border border-violet-500/20",
+    badge: "bg-(--accent-llm)/10 text-(--accent-llm) border border-(--accent-llm)/25",
     label: "Rapport",
   },
   persona: {
-    badge: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+    badge: "bg-(--accent-teal-surface) text-(--accent-teal) border border-(--accent-teal-border)",
     label: "Persona",
   },
 };
 
-export default async function MarketplacePage() {
+const FILTERS = ["Tout", "Workflow", "Rapport", "Persona"] as const;
+
+export default function MarketplacePage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
-      <div className="max-w-4xl mx-auto">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 t-13 text-white/40 hover:text-white mb-4"
+    <StandalonePageFrame>
+      <ScreenShell
+        title="Marketplace"
+        subtitle="Templates communautaires · workflows, rapports, personas"
+        back={{ label: "Cockpit", href: "/" }}
+      >
+        <div
+          className="flex flex-col sm:flex-row sm:items-center"
+          style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}
         >
-          ← Cockpit
-        </Link>
-        <div className="mb-8">
-          <h1 className="text-3xl font-semibold tracking-tight">Marketplace</h1>
-          <p className="mt-1 text-white/50 text-sm">
-            Templates communautaires · workflows, rapports, personas
-          </p>
+          <SearchField placeholder="Rechercher un template…" disabled className="flex-1" />
+          <FilterTabs tabs={FILTERS} active="Tout" aria-label="Filtrer par type" inline />
         </div>
 
-        <div className="flex items-center gap-3 mb-8">
-          <input
-            type="text"
-            placeholder="Rechercher un template…"
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition-colors"
-            disabled
-          />
-          <div className="flex items-center gap-1">
-            {(["Tout", "Workflow", "Rapport", "Persona"] as const).map((filter) => (
-              <button
-                key={filter}
-                type="button"
-                className={`px-3.5 py-2 rounded-lg text-sm transition-colors ${
-                  filter === "Tout"
-                    ? "bg-white/10 text-white"
-                    : "text-white/40 hover:text-white/70 hover:bg-white/5"
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-3 gap-4">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+          style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
+        >
           {TEMPLATES.map((t) => {
             const { badge, label } = KIND_STYLES[t.kind];
             return (
-              <div
-                key={t.id}
-                className="bg-white/5 border border-white/8 rounded-2xl p-5 hover:border-white/15 transition-colors flex flex-col gap-3"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${badge}`}>
-                    {label}
-                  </span>
-                </div>
+              <PanelCard key={t.id} hover className="flex flex-col gap-3">
+                <span
+                  className={`t-9 font-medium rounded-pill inline-flex w-fit ${badge}`}
+                  style={{ padding: "var(--space-1) var(--space-2-5)" }}
+                >
+                  {label}
+                </span>
                 <div>
-                  <p className="font-medium text-sm leading-snug">{t.title}</p>
-                  <p className="mt-1 text-white/45 text-xs leading-relaxed line-clamp-1">
+                  <p className="t-13 font-medium text-text leading-snug">{t.title}</p>
+                  <p
+                    className="t-11 font-light text-text-faint line-clamp-2"
+                    style={{ marginTop: "var(--space-1)" }}
+                  >
                     {t.description}
                   </p>
                 </div>
                 <div className="flex items-center justify-between mt-auto pt-1">
-                  <div className="text-xs text-white/30">
-                    <span className="text-white/50">{t.author}</span>
-                    <span className="mx-1.5">·</span>
-                    <span>{t.uses.toLocaleString("fr-FR")} utilisations</span>
-                  </div>
-                  <button
-                    type="button"
+                  <p className="t-11 font-light text-text-ghost">
+                    <span className="text-text-muted">{t.author}</span>
+                    <span style={{ margin: "0 var(--space-1-5)" }}>·</span>
+                    {t.uses.toLocaleString("fr-FR")} utilisations
+                  </p>
+                  <Action
+                    variant="secondary"
+                    tone="neutral"
+                    size="sm"
                     aria-label={`Installer ${t.title}`}
-                    className="text-xs px-3 py-1.5 bg-white/8 hover:bg-white/12 border border-white/10 rounded-lg transition-colors"
                   >
                     Installer
-                  </button>
+                  </Action>
                 </div>
-              </div>
+              </PanelCard>
             );
           })}
         </div>
-      </div>
-    </div>
+      </ScreenShell>
+    </StandalonePageFrame>
   );
 }

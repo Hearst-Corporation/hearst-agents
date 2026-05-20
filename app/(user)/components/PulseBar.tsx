@@ -269,10 +269,10 @@ export function PulseBar() {
 
         {connections && (
           <a
-            href="/apps"
+            href="/connections"
             className="hidden md:flex items-center hover:opacity-80 transition-opacity"
             style={{ gap: "var(--space-2)" }}
-            title={`${connections.connected}/${connections.total} services connectés — gérer dans /apps`}
+            title={`${connections.connected}/${connections.total} services connectés — gérer dans /connections`}
             data-testid="connections-meter"
           >
             <span

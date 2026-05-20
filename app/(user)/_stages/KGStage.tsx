@@ -15,7 +15,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
-import { EmptyState } from "@/app/(user)/components/ui";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
 import { useStageStore } from "@/stores/stage";
@@ -268,15 +268,15 @@ const toSVG = (cx: number, cy: number, w = 760, h = 440) => ({
 // ── Node type color ───────────────────────────────────────────────────────────
 // Données fonctionnelles — conservées en JS (couleurs sémantiques par type de nœud)
 const NODE_TYPE_COLORS: Record<string, string> = {
-  person: "rgba(94,229,195,0.85)",
-  company: "rgba(200,160,255,0.85)",
-  project: "rgba(255,200,80,0.85)",
-  decision: "rgba(255,140,100,0.85)",
-  commitment: "rgba(140,200,255,0.85)",
-  topic: "rgba(200,200,200,0.7)",
+  person: "var(--accent-teal)",
+  company: "var(--accent-llm)",
+  project: "var(--gold)",
+  decision: "var(--accent-agent)",
+  commitment: "var(--accent-teal)",
+  topic: "var(--text-faint)",
 };
 function nodeColor(type: string): string {
-  return NODE_TYPE_COLORS[type] ?? "rgba(255,255,255,0.65)";
+  return NODE_TYPE_COLORS[type] ?? "var(--text-muted)";
 }
 
 // ── Sub-composants ────────────────────────────────────────────────────────────
@@ -294,19 +294,6 @@ function EmptyKGState() {
             .setCommandeurOpen(true, { prefilledQuery: "Explorer mes données" }),
       }}
     />
-  );
-}
-
-function ErrorBanner({ message }: { message: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
-    >
-      <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {message}
-    </motion.div>
   );
 }
 
@@ -359,7 +346,14 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
               y2={to.y}
               className={`kg-line${visEdges[edge.id] ? " draw" : ""}`}
               // stroke dynamique conditionnel — conservé en style JS
-              style={isHot ? { stroke: "rgba(94,229,195,0.45)", strokeWidth: 1.5 } : undefined}
+              style={
+                isHot
+                  ? {
+                      stroke: "color-mix(in srgb, var(--accent-teal) 45%, transparent)",
+                      strokeWidth: 1.5,
+                    }
+                  : undefined
+              }
             />
           );
         })}
@@ -479,7 +473,7 @@ function DetailPanel({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 8 }}
       transition={{ duration: 0.3, ease: VISION_EASE }}
-      className="p-5 rounded-xl bg-(--bg-elev) border border-white/8 flex flex-col gap-4"
+      className="p-5 rounded-xl bg-(--bg-elev) border border-(--line-strong) flex flex-col gap-4"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
@@ -493,7 +487,7 @@ function DetailPanel({
           type="button"
           onClick={onClose}
           aria-label="Fermer le panneau"
-          className="bg-white/6 border border-white/10 rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
+          className="bg-(--surface-1) border border-(--line) rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
         >
           ✕
         </button>
@@ -531,7 +525,7 @@ function DetailPanel({
           <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
               <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
-                <span className="text-(--text-ghost) min-w-[80px]">{k}</span>
+                <span className="text-(--text-ghost) min-w-[var(--space-20)]">{k}</span>
                 <span className="text-(--text-muted) break-all">
                   {String(v).length > 80 ? `${String(v).slice(0, 77)}…` : String(v)}
                 </span>
@@ -683,10 +677,10 @@ export function KGStage({ mode }: KGStageProps) {
       </header>
 
       {/* Loading skeleton */}
-      {loading && <div className="min-h-[300px] animate-pulse rounded-xl bg-white/5" />}
+      {loading && <div className="min-h-[300px] animate-pulse rounded-xl bg-(--surface-1)" />}
 
       {/* Error */}
-      {!loading && error && <ErrorBanner message={error} />}
+      {!loading && error && <StageErrorBanner message={error} variant="emphasis" />}
 
       {/* Empty state */}
       {isEmpty && <EmptyKGState />}
@@ -733,7 +727,7 @@ export function KGStage({ mode }: KGStageProps) {
                 className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border ${
                   viewMode === m
                     ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
-                    : "border-white/8 bg-transparent text-(--text-faint)"
+                    : "border-(--line) bg-transparent text-(--text-faint)"
                 }`}
               >
                 {m === "graph" ? "Graphe" : "Liste"}

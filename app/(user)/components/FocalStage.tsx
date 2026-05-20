@@ -212,7 +212,11 @@ function FocalContent({
             {previewLoading && <span className="t-11 font-light text-text-faint">Chargement…</span>}
           </div>
           {previewContent && tryParseReportPayload(previewContent) ? (
-            <ReportLayout payload={tryParseReportPayload(previewContent)!} />
+            <ReportLayout
+              payload={tryParseReportPayload(previewContent)!}
+              assetId={sourceAssetId}
+              assetTitle={focal.title}
+            />
           ) : previewContent && isHtmlContent(previewContent) ? (
             <iframe
               title={focal.title}

@@ -1,6 +1,8 @@
-export const dynamic = "force-dynamic";
+"use client";
 
 import Link from "next/link";
+import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
+import { EmptyState, SectionEyebrow } from "@/app/(user)/components/ui";
 
 const BLOCS = [
   { id: "kpi", icon: "◈", label: "KPI" },
@@ -10,51 +12,75 @@ const BLOCS = [
   { id: "sep", icon: "—", label: "Séparateur" },
 ];
 
-export default async function StudioPage() {
+export default function StudioPage() {
   return (
-    <div className="h-screen w-full bg-black text-white overflow-hidden flex flex-col">
-      <div className="shrink-0 px-6 py-5 flex items-center gap-4 border-b border-white/8">
-        <Link
-          href="/reports"
-          className="text-sm text-white/40 hover:text-white/70 transition-colors"
+    <StandalonePageFrame>
+      <div
+        className="flex h-full min-h-0 flex-col overflow-hidden"
+        style={{ background: "var(--surface)" }}
+      >
+        <header
+          className="shrink-0 flex items-center border-b border-(--border-shell)"
+          style={{ gap: "var(--space-4)", padding: "var(--space-5) var(--space-6)" }}
         >
-          ← Rapports
-        </Link>
-        <span className="text-white/15">/</span>
-        <h1 className="text-xl font-semibold tracking-tight">Studio</h1>
-      </div>
+          <Link
+            href="/reports"
+            className="t-13 font-light text-text-faint hover:text-(--accent-teal) transition-colors"
+          >
+            ← Rapports
+          </Link>
+          <span className="text-text-ghost" aria-hidden>
+            /
+          </span>
+          <h1 className="t-20 font-medium tracking-tight text-text">Studio</h1>
+        </header>
 
-      <div className="flex-1 overflow-hidden flex gap-px">
-        <div className="w-64 shrink-0 border-r border-white/8 overflow-y-auto p-4 flex flex-col gap-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-2">
-            Blocs
-          </p>
-          {BLOCS.map((b) => (
-            <div
-              key={b.id}
-              className="flex items-center gap-3 px-3 py-2.5 bg-white/5 hover:bg-white/8 border border-white/8 rounded-xl transition-colors"
-            >
-              <span className="text-white/40 text-base w-5 text-center">{b.icon}</span>
-              <span className="text-sm text-white/70">{b.label}</span>
+        <div className="flex flex-1 min-h-0 overflow-hidden">
+          <aside
+            className="shrink-0 border-r border-(--border-shell) overflow-y-auto"
+            style={{ width: "var(--width-admin-sidebar)", padding: "var(--space-4)" }}
+          >
+            <SectionEyebrow id="blocs" className="!mb-2">
+              Blocs
+            </SectionEyebrow>
+            <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+              {BLOCS.map((b) => (
+                <div
+                  key={b.id}
+                  className="flex items-center rounded-xl border border-(--border-shell) bg-(--surface-1) hover:bg-(--surface-2) transition-colors cursor-default"
+                  style={{ gap: "var(--space-3)", padding: "var(--space-2-5) var(--space-3)" }}
+                >
+                  <span className="t-15 text-text-faint w-5 text-center" aria-hidden>
+                    {b.icon}
+                  </span>
+                  <span className="t-13 font-light text-text-muted">{b.label}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </aside>
 
-        <div className="flex-1 overflow-y-auto p-6 flex flex-col items-center justify-center">
-          <div className="text-center">
-            <p className="text-white/20 text-sm">Glisse des blocs ici</p>
-            <p className="text-white/12 text-xs mt-1">Le rapport se construira en temps réel</p>
-          </div>
-        </div>
+          <main
+            className="flex-1 overflow-y-auto flex flex-col items-center justify-center"
+            style={{ padding: "var(--space-6)" }}
+          >
+            <EmptyState
+              title="Glisse des blocs ici"
+              description="Le rapport se construira en temps réel"
+            />
+          </main>
 
-        <div className="w-64 shrink-0 border-l border-white/8 overflow-y-auto p-4 flex items-center justify-center">
-          <p className="text-xs text-white/20 text-center leading-relaxed">
-            Sélectionne un bloc
-            <br />
-            pour le configurer
-          </p>
+          <aside
+            className="shrink-0 border-l border-(--border-shell) overflow-y-auto flex items-center justify-center"
+            style={{ width: "var(--width-admin-sidebar)", padding: "var(--space-4)" }}
+          >
+            <p className="t-11 font-light text-text-ghost text-center leading-relaxed">
+              Sélectionne un bloc
+              <br />
+              pour le configurer
+            </p>
+          </aside>
         </div>
       </div>
-    </div>
+    </StandalonePageFrame>
   );
 }

@@ -125,35 +125,22 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
     >
       <span
         aria-hidden="true"
-        style={{
-          flexShrink: 0,
-          marginTop: "var(--space-0-5)",
-          fontSize: "14px",
-          lineHeight: 1,
-          color: TONE_VAR[type],
-        }}
+        className="t-15 shrink-0 leading-none"
+        style={{ marginTop: "var(--space-0-5)", color: TONE_VAR[type] }}
       >
         {ICON[type]}
       </span>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
-          style={{
-            fontWeight: 500,
-            fontSize: "13px",
-            lineHeight: 1.4,
-            color: "var(--text-l0, var(--text))",
-          }}
+          className="t-13 font-medium leading-snug"
+          style={{ color: "var(--text-l0, var(--text))" }}
         >
           {title}
         </div>
         {message ? (
           <div
-            style={{
-              marginTop: "var(--space-1)",
-              fontSize: "12px",
-              lineHeight: 1.4,
-              color: "var(--text-muted)",
-            }}
+            className="t-11 leading-snug"
+            style={{ marginTop: "var(--space-1)", color: "var(--text-muted)" }}
           >
             {message}
           </div>
@@ -163,6 +150,7 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
         type="button"
         onClick={() => onDismiss(id)}
         aria-label="Fermer la notification"
+        className="t-15 leading-none"
         style={{
           flexShrink: 0,
           width: "var(--space-5)",
@@ -175,8 +163,6 @@ function ToastCard({ id, type, title, message, onDismiss }: ToastCardProps) {
           border: "none",
           color: "var(--text-muted)",
           cursor: "pointer",
-          fontSize: "14px",
-          lineHeight: 1,
           transition: "background 120ms ease, color 120ms ease",
         }}
         onMouseEnter={(e) => {

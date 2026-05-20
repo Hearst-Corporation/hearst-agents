@@ -12,6 +12,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -72,12 +73,7 @@ function missionStatusLabel(mission: ApiMission): string {
   }
 }
 
-function badgeTokens(mission: ApiMission): {
-  bg: string;
-  border: string;
-  color: string;
-  pulse: boolean;
-} {
+function badgeClass(mission: ApiMission): { className: string; pulse: boolean } {
   const isError = mission.lastRunStatus === "failed" || mission.lastRunStatus === "blocked";
   const isApproval = mission.lastRunStatus === "awaiting_approval";
   const isSuccess = mission.lastRunStatus === "success";
@@ -85,36 +81,27 @@ function badgeTokens(mission: ApiMission): {
 
   if (isError)
     return {
-      bg: "rgba(255,80,80,0.1)",
-      border: "1px solid rgba(255,120,120,0.35)",
-      color: "rgba(255,140,140,0.9)",
+      className: "bg-(--danger)/10 border border-(--danger)/35 text-(--danger)",
       pulse: false,
     };
   if (isApproval)
     return {
-      bg: "rgba(212,175,55,0.1)",
-      border: "1px solid rgba(212,175,55,0.35)",
-      color: "rgba(212,175,55,0.9)",
+      className: "bg-(--gold-surface) border border-(--gold-border) text-(--gold)",
       pulse: false,
     };
   if (isSuccess)
     return {
-      bg: "rgba(255,255,255,0.06)",
-      border: "1px solid rgba(255,255,255,0.1)",
-      color: "rgba(255,255,255,0.45)",
+      className: "bg-(--surface-1) border border-(--line) text-text-muted",
       pulse: false,
     };
   if (isRunning)
     return {
-      bg: "rgba(94,229,195,0.1)",
-      border: "1px solid rgba(94,229,195,0.3)",
-      color: "rgba(94,229,195,0.85)",
+      className:
+        "bg-(--accent-teal-surface) border border-(--accent-teal-border) text-(--accent-teal)",
       pulse: true,
     };
   return {
-    bg: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "rgba(255,255,255,0.35)",
+    className: "bg-(--surface-1) border border-(--line) text-text-ghost",
     pulse: false,
   };
 }
@@ -232,19 +219,6 @@ function LoadingSkeleton() {
   );
 }
 
-function ErrorBanner({ error }: { error: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
-    >
-      <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
-    </motion.div>
-  );
-}
-
 function DemoBadge() {
   return (
     <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[0.06em]">
@@ -262,14 +236,14 @@ function EmptyState() {
       transition={{ duration: 0.6, ease: VISION_EASE }}
       className="flex flex-col items-center justify-center gap-(--space-5) py-20 text-center"
     >
-      <p className="t-15 text-(--text-faint) max-w-[440px] leading-relaxed">
+      <p className="t-15 text-(--text-faint) max-w-[var(--width-mission-empty-copy)] leading-relaxed">
         Aucune mission récurrente. Demande à l&apos;agent d&apos;en créer une — par exemple « résume
         mes emails chaque matin ».
       </p>
       <button
         type="button"
         onClick={() => setMode({ mode: "chat" })}
-        className="cockpit-action max-w-[260px]"
+        className="cockpit-action max-w-[var(--width-mission-cta)]"
       >
         <span className="ca-label">Demander à l&apos;agent</span>
       </button>
@@ -287,7 +261,7 @@ function MissionCard({
   onClick: () => void;
 }) {
   const label = missionStatusLabel(mission);
-  const badge = badgeTokens(mission);
+  const badge = badgeClass(mission);
 
   return (
     <motion.div
@@ -305,7 +279,7 @@ function MissionCard({
           onClick();
         }
       }}
-      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-white/7 border border-(--line-strong) cursor-pointer transition-[background] duration-150 flex flex-col gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent-teal)"
+      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-(--surface-1) border border-(--line-strong) cursor-pointer transition-[background] duration-150 flex flex-col gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent-teal)"
     >
       {/* Ligne principale : nom + badge */}
       <div className="flex items-center gap-3">
@@ -315,12 +289,7 @@ function MissionCard({
 
         {/* Badge statut — JS-computed colors kept in style */}
         <span
-          className="inline-flex items-center gap-1.5 t-11 px-2 py-0.5 rounded-full shrink-0"
-          style={{
-            background: badge.bg,
-            border: badge.border,
-            color: badge.color,
-          }}
+          className={`inline-flex items-center gap-1.5 t-11 px-2 py-0.5 rounded-full shrink-0 ${badge.className}`}
         >
           {badge.pulse && (
             <motion.span
@@ -341,7 +310,7 @@ function MissionCard({
       {/* Meta : date + schedule */}
       <div className="flex items-center gap-4 t-11 text-(--text-decor-25)">
         <span>{formatDate(mission.createdAt)}</span>
-        <span className="text-white/15">·</span>
+        <span className="text-text-decor-25">·</span>
         <span>{humanCron(mission.schedule)}</span>
       </div>
     </motion.div>
@@ -436,7 +405,7 @@ export function MissionListStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={handleNewMission}
-          className="px-4 py-2 rounded-lg bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-150"
+          className="px-4 py-2 rounded-lg bg-(--surface-2) hover:bg-(--surface-1) border border-(--line-strong) text-text-muted t-13 font-medium cursor-pointer transition-[background] duration-150"
         >
           Nouvelle demande
         </button>
@@ -449,7 +418,7 @@ export function MissionListStage({ mode }: { mode: string }) {
       {loading && <LoadingSkeleton />}
 
       {/* Erreur */}
-      {!loading && fetchError && <ErrorBanner error={fetchError} />}
+      {!loading && fetchError && <StageErrorBanner message={fetchError} variant="emphasis" />}
 
       {/* Empty state — prod, ou dev sans démo possible */}
       {!loading && !fetchError && missions.length === 0 && !showDemo && <EmptyState />}

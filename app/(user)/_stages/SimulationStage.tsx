@@ -218,7 +218,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
     >
       {/* Header */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <h2 className="t-28 font-light text-[var(--text)]">
+        <h2 className="t-28 font-light text-text">
           {phase === "idle"
             ? "Chambre de simulation"
             : phase === "running"
@@ -226,7 +226,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
               : "Scénarios"}
         </h2>
         <p
-          className="t-13 font-light text-[var(--text-ghost)]"
+          className="t-13 font-light text-text-ghost"
           style={{ lineHeight: "var(--leading-base)" }}
         >
           {phase === "idle"
@@ -241,13 +241,13 @@ export function SimulationStage({ mode = "simulation" }: Props) {
       {phase === "idle" && (
         <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
           <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-            <span className="t-11 font-light text-[var(--text-ghost)]">Scénario</span>
+            <span className="t-11 font-light text-text-ghost">Scénario</span>
             <textarea
               value={scenarioInput}
               onChange={(e) => setScenarioInput(e.target.value)}
               placeholder="ex: lancer une nouvelle ligne SaaS PME en Europe au Q3, budget 800k€"
               rows={4}
-              className="w-full bg-transparent t-13 font-light text-[var(--text-faint)] placeholder:text-[var(--text-ghost)] resize-y focus:outline-none focus:border-[var(--border-input)]"
+              className="w-full bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost resize-y focus:outline-none focus:border-(--border-input)"
               style={{
                 padding: "var(--space-3) var(--space-4)",
                 border: "1px solid var(--border-shell)",
@@ -261,11 +261,11 @@ export function SimulationStage({ mode = "simulation" }: Props) {
 
           <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
             <div className="flex items-center justify-between">
-              <span className="t-11 font-light text-[var(--text-ghost)]">Variables clés</span>
+              <span className="t-11 font-light text-text-ghost">Variables clés</span>
               <button
                 type="button"
                 onClick={() => addVariable()}
-                className="t-11 font-light text-[var(--text-ghost)] hover:text-[var(--text-faint)] transition-colors focus-visible:outline-none"
+                className="t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
                 style={{
                   padding: "var(--space-1) var(--space-3)",
                   border: "1px solid var(--border-shell)",
@@ -283,7 +283,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                     value={variable.key}
                     onChange={(e) => updateVariable(idx, { key: e.target.value })}
                     placeholder="Variable"
-                    className="flex-1 min-w-0 bg-transparent t-13 font-light text-[var(--text-faint)] placeholder:text-[var(--text-ghost)] focus:outline-none focus:border-[var(--border-input)]"
+                    className="flex-1 min-w-0 bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost focus:outline-none focus:border-(--border-input)"
                     style={{
                       padding: "var(--space-2) var(--space-3)",
                       border: "1px solid var(--border-shell)",
@@ -297,7 +297,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                     value={variable.value}
                     onChange={(e) => updateVariable(idx, { value: e.target.value })}
                     placeholder="Valeur"
-                    className="flex-1 min-w-0 bg-transparent t-13 font-light text-[var(--text-faint)] placeholder:text-[var(--text-ghost)] focus:outline-none focus:border-[var(--border-input)]"
+                    className="flex-1 min-w-0 bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost focus:outline-none focus:border-(--border-input)"
                     style={{
                       padding: "var(--space-2) var(--space-3)",
                       border: "1px solid var(--border-shell)",
@@ -310,7 +310,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                     type="button"
                     onClick={() => removeVariable(idx)}
                     disabled={variables.length === 1}
-                    className="t-15 text-[var(--text-ghost)] hover:text-[var(--danger)] transition-colors disabled:opacity-25 disabled:cursor-not-allowed focus-visible:outline-none"
+                    className="t-15 text-text-ghost hover:text-(--danger) transition-colors disabled:opacity-25 disabled:cursor-not-allowed focus-visible:outline-none"
                     style={{
                       width: "var(--space-6)",
                       height: "var(--space-6)",
@@ -338,11 +338,11 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                 borderRadius: "var(--radius-sm)",
               }}
             >
-              <span className="t-11 font-light text-[var(--text-ghost)]">Variable retirée.</span>
+              <span className="t-11 font-light text-text-ghost">Variable retirée.</span>
               <button
                 type="button"
                 onClick={handleUndoRemove}
-                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--text-faint)] transition-colors focus-visible:outline-none"
+                className="t-11 font-medium text-text-muted hover:text-text-faint transition-colors focus-visible:outline-none"
               >
                 Rétablir
               </button>
@@ -353,7 +353,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
             type="button"
             onClick={() => void launchSimulation()}
             disabled={!scenarioInput.trim()}
-            className="self-start t-13 font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--border-input)]"
+            className="self-start t-13 font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
             style={{
               padding: "var(--space-2-5) var(--space-6)",
               background: "var(--surface-2)",
@@ -382,15 +382,13 @@ export function SimulationStage({ mode = "simulation" }: Props) {
               aria-hidden
             />
             <span
-              className="t-13 font-light text-[var(--text-ghost)]"
+              className="t-13 font-light text-text-ghost"
               style={{ lineHeight: "var(--leading-snug)" }}
             >
               {scenarioInput}
             </span>
           </div>
-          <p className="t-11 font-light text-[var(--text-ghost)]">
-            DeepSeek R1 raisonne — 30-50 secondes
-          </p>
+          <p className="t-11 font-light text-text-ghost">DeepSeek R1 raisonne — 30-50 secondes</p>
         </div>
       )}
 
@@ -408,7 +406,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
               <button
                 type="button"
                 onClick={() => setThinkingOpen((o) => !o)}
-                className="w-full flex items-center justify-between t-11 font-light text-[var(--text-ghost)] hover:text-[var(--text-faint)] transition-colors focus-visible:outline-none"
+                className="w-full flex items-center justify-between t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
                 style={{
                   padding: "var(--space-3) var(--space-4)",
                   background: "var(--surface-1)",
@@ -419,7 +417,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
               </button>
               {thinkingOpen && (
                 <pre
-                  className="t-11 font-mono text-[var(--text-ghost)] overflow-auto"
+                  className="t-11 font-mono text-text-ghost overflow-auto"
                   style={{
                     padding: "var(--space-3) var(--space-4)",
                     maxHeight: "240px",
@@ -450,7 +448,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
               <button
                 type="button"
                 onClick={() => setStageMode({ mode: "asset", assetId })}
-                className="t-13 font-medium text-[var(--text-muted)] transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--border-input)]"
+                className="t-13 font-medium text-text-muted transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
                 style={{
                   padding: "var(--space-2) var(--space-5)",
                   background: "var(--surface-2)",
@@ -464,7 +462,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
             <button
               type="button"
               onClick={reset}
-              className="t-13 font-light text-[var(--text-ghost)] hover:text-[var(--text-faint)] transition-colors focus-visible:outline-none"
+              className="t-13 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
               style={{
                 padding: "var(--space-2) var(--space-5)",
                 border: "1px solid var(--border-shell)",
@@ -510,7 +508,7 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
       }}
     >
       <header className="flex items-start justify-between gap-4">
-        <h3 className="t-15 font-semibold text-[var(--text-muted)]">{scenario.name}</h3>
+        <h3 className="t-15 font-semibold text-text-muted">{scenario.name}</h3>
         <span
           className="t-11 font-mono tabular-nums shrink-0"
           style={{ color: pct >= 60 ? "var(--text-faint)" : "var(--text-ghost)" }}
@@ -537,7 +535,7 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
 
       {scenario.narrative && (
         <p
-          className="t-13 font-light text-[var(--text-ghost)]"
+          className="t-13 font-light text-text-ghost"
           style={{ lineHeight: "var(--leading-base)" }}
         >
           {scenario.narrative}
@@ -555,10 +553,10 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
         >
           {metricsEntries.map(([label, value]) => (
             <div key={label} className="flex items-baseline justify-between gap-3">
-              <dt className="t-9 font-mono text-[var(--text-ghost)] truncate flex-1 min-w-0">
+              <dt className="t-9 font-mono text-text-ghost truncate flex-1 min-w-0">
                 {label.replace(/_/g, " ")}
               </dt>
-              <dd className="t-13 font-mono text-[var(--text-faint)] shrink-0">{String(value)}</dd>
+              <dd className="t-13 font-mono text-text-faint shrink-0">{String(value)}</dd>
             </div>
           ))}
         </dl>

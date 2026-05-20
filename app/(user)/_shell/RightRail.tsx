@@ -35,9 +35,9 @@ export function RightRail({ title, items }: RightRailProps) {
   return (
     <aside
       aria-label="Contexte"
-      className="vision-rail-right preserve-3d relative z-20 hidden xl:flex xl:w-[260px] shrink-0 flex-col gap-2 border-l border-line-strong bg-surface px-5 py-10 2xl:w-[320px] 2xl:px-8 2xl:py-14"
+      className="vision-rail-right preserve-3d relative z-20 hidden xl:flex xl:w-[var(--width-rail-right)] shrink-0 flex-col gap-2 border-l border-line-strong bg-surface px-5 py-10 2xl:w-[var(--width-rail-right-wide)] 2xl:px-8 2xl:py-14"
     >
-      <h3 className="mb-3 pl-3 text-xs font-medium text-text-faint 2xl:mb-4 2xl:pl-4 2xl:text-sm">
+      <h3 className="mb-3 pl-3 t-9 font-medium text-text-faint 2xl:mb-4 2xl:pl-4 2xl:t-11">
         {title}
       </h3>
       <motion.div
@@ -48,7 +48,7 @@ export function RightRail({ title, items }: RightRailProps) {
         className="flex flex-col gap-2"
       >
         {items.length === 0 ? (
-          <p className="px-3 text-xs text-text-ghost 2xl:px-4 2xl:text-sm">
+          <p className="px-3 t-9 text-text-ghost 2xl:px-4 2xl:t-11">
             Aucun signal pour l&apos;instant.
           </p>
         ) : (
@@ -56,9 +56,9 @@ export function RightRail({ title, items }: RightRailProps) {
             <motion.div
               variants={RAIL_ITEM_VARIANTS}
               key={idx}
-              className={`flex flex-col gap-1 rounded-lg border p-3 text-sm transition-colors 2xl:p-4 2xl:text-base ${
+              className={`flex flex-col gap-1 rounded-lg border p-3 t-13 transition-colors 2xl:p-4 2xl:t-15 ${
                 item.hot
-                  ? "border-line-strong bg-bg-elev text-white"
+                  ? "border-line-strong bg-bg-elev text-text"
                   : "border-transparent text-text-muted"
               }`}
             >

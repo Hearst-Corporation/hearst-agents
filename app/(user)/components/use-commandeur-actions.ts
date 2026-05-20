@@ -105,7 +105,7 @@ export function useCommandeurActions({
         label: "Voir les apps connectées",
         hint: "Connecteurs OAuth",
         perform: () => {
-          router.push("/apps");
+          router.push("/connections");
           setOpen(false);
         },
       },

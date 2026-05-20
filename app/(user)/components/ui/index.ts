@@ -8,8 +8,13 @@
 export type { ActionSize, ActionTone, ActionVariant } from "./Action";
 export { Action } from "./Action";
 export { EmptyState } from "./EmptyState";
+export { FilterTabs } from "./FilterTabs";
+export { PanelCard } from "./PanelCard";
 export { RailSection } from "./RailSection";
 export { ScreenShell } from "./ScreenShell";
+export { SearchField } from "./SearchField";
+export { SectionEyebrow } from "./SectionEyebrow";
 export { SectionHeader } from "./SectionHeader";
 export { CardSkeleton, RowSkeleton } from "./Skeleton";
+export { StageErrorBanner } from "./StageErrorBanner";
 export { FieldError, ValidatedForm } from "./ValidatedForm";
