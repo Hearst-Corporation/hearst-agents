@@ -15,7 +15,7 @@
 
 import { useEffect } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
-import { Action } from "./ui";
+import { Action, ModalShell } from "./ui";
 
 export interface ConfirmModalProps {
   open: boolean;
@@ -78,15 +78,13 @@ export function ConfirmModal({
   const isDanger = variant === "danger";
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="confirm-modal-title"
-      data-testid="confirm-modal"
-      aria-disabled={loading ? "true" : undefined}
-      className="fixed inset-0 flex items-center justify-center"
-      style={{
-        zIndex: "var(--z-modal)" as unknown as number,
+    <ModalShell
+      open={open}
+      onClose={() => {
+        if (!loading) onCancel();
+      }}
+      labelledBy="confirm-modal-title"
+      backdropStyle={{
         // Backdrop : color-mix sur le shell ambient (--bg) pour rester token-only.
         // Pendant loading on assombrit un cran + curseur "wait" pour signaler
         // que la modale est verrouillée (Escape et click-outside ignorés).
@@ -95,12 +93,17 @@ export function ConfirmModal({
           : "color-mix(in srgb, var(--bg) 70%, transparent)",
         cursor: loading ? "wait" : undefined,
       }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget && !loading) onCancel();
+      a11yOptions={{
+        onClose: () => {
+          if (!loading) onCancel();
+        },
+        autoFocus: false,
       }}
     >
       <div
         ref={dialogRef}
+        data-testid="confirm-modal"
+        aria-disabled={loading ? "true" : undefined}
         className="flex flex-col"
         style={{
           minWidth: "var(--space-80, 320px)",
@@ -112,6 +115,7 @@ export function ConfirmModal({
           borderRadius: "var(--radius-md)",
           boxShadow: "var(--shadow-card-hover)",
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         <h2
           id="confirm-modal-title"
@@ -152,6 +156,6 @@ export function ConfirmModal({
           </Action>
         </div>
       </div>
-    </div>
+    </ModalShell>
   );
 }

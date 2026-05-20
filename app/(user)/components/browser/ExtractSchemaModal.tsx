@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
-import { Action } from "../ui";
+import { Action, ModalShell } from "../ui";
 import { FieldError, ValidatedForm } from "../ui/ValidatedForm";
 
 interface ExtractSchemaModalProps {
@@ -26,16 +26,6 @@ export function ExtractSchemaModal({ open, onClose, onSubmit, loading }: Extract
   const [instruction, setInstruction] = useState("");
   const [schemaText, setSchemaText] = useState(DEFAULT_SCHEMA);
   const [jsonError, setJsonError] = useState<string | null>(null);
-  const dialogRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
 
   if (!open) return null;
 
@@ -64,15 +54,8 @@ export function ExtractSchemaModal({ open, onClose, onSubmit, loading }: Extract
   };
 
   return (
-    <div
-      className="fixed inset-0 z-modal flex items-center justify-center px-4"
-      style={{ background: "var(--overlay-scrim)" }}
-      onClick={onClose}
-    >
+    <ModalShell open={open} onClose={onClose} className="px-4" a11yOptions={{ onClose: onClose }}>
       <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
         aria-label="Extraction structurée"
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-2xl flex flex-col gap-4 p-6 rounded-md border border-(--border-default)"
@@ -150,6 +133,6 @@ export function ExtractSchemaModal({ open, onClose, onSubmit, loading }: Extract
           )}
         </ValidatedForm>
       </div>
-    </div>
+    </ModalShell>
   );
 }

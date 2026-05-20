@@ -11,6 +11,7 @@
  */
 
 import type React from "react";
+import { ModalShell } from "@/app/(user)/components/ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 export interface EnrichmentPreviewModalProps {
@@ -44,19 +45,15 @@ export function EnrichmentPreviewModal({
   });
 
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center"
-      style={{
-        zIndex: "var(--z-modal)" as unknown as number,
-        backgroundColor: "var(--modal-backdrop)",
-      }}
-      onClick={onCancel}
+    <ModalShell
+      open={true}
+      onClose={onCancel}
+      labelledBy="enrichment-preview-title"
+      backdropStyle={{ background: "var(--modal-backdrop)" }}
+      a11yOptions={{ onClose: onCancel }}
     >
       <div
         ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="enrichment-preview-title"
         className="flex flex-col gap-6 max-w-2xl w-full mx-4 p-6 border border-(--border-shell)"
         style={{ backgroundColor: "var(--card-flat-bg)" }}
         onClick={(e) => e.stopPropagation()}
@@ -143,7 +140,7 @@ export function EnrichmentPreviewModal({
           )}
         </div>
       </div>
-    </div>
+    </ModalShell>
   );
 }
 

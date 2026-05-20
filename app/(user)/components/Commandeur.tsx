@@ -29,6 +29,7 @@ import { useNavigationStore } from "@/stores/navigation";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { AssetCompareModal } from "./AssetCompareModal";
 import { CommandeurResultRow } from "./CommandeurResultRow";
+import { ModalShell } from "./ui";
 import { type CommandRow, useCommandeurActions } from "./use-commandeur-actions";
 import { useCommandeurData } from "./use-commandeur-data";
 import { useCommandeurSections } from "./use-commandeur-sections";
@@ -200,21 +201,21 @@ export function Commandeur() {
 
   return (
     <>
-      <div
-        className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
-        style={{
-          zIndex: "var(--z-modal)" as unknown as number,
-          background: "var(--overlay-scrim)",
-          backdropFilter: "var(--blur-lg)",
-          WebkitBackdropFilter: "var(--blur-lg)",
-          paddingTop: "15vh",
+      <ModalShell
+        open={isOpen}
+        onClose={() => setOpen(false)}
+        align="top"
+        className="transition-opacity duration-(--duration-slow)"
+        a11yOptions={{
+          onClose: () => setOpen(false),
+          // Escape géré manuellement ci-dessus (capture phase) pour intercepter
+          // avant le textarea ChatDock. On désactive le handler interne du hook.
+          closeOnEscape: false,
+          autoFocus: true,
         }}
-        onClick={() => setOpen(false)}
       >
         <div
           ref={dialogRef}
-          role="dialog"
-          aria-modal="true"
           aria-label="Palette de commandes"
           className="w-full max-w-3xl overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
           style={{ background: "transparent" }}
@@ -270,7 +271,7 @@ export function Commandeur() {
             )}
           </div>
         </div>
-      </div>
+      </ModalShell>
       {compareModal}
     </>
   );

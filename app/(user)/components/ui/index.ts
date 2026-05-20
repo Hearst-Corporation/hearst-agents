@@ -8,6 +8,8 @@
 export type { ActionSize, ActionTone, ActionVariant } from "./Action";
 export { Action } from "./Action";
 export { EmptyState } from "./EmptyState";
+export type { ModalShellProps } from "./ModalShell";
+export { ModalShell } from "./ModalShell";
 export { RailSection } from "./RailSection";
 export { ScreenShell } from "./ScreenShell";
 export { SectionHeader } from "./SectionHeader";
