@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="fr" data-product="default">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit Qualité Code — 2026-05-20</title>
+  <style>
+    :root {
+      --bg: #0e0f11;
+      --surface: #16181c;
+      --surface2: #1e2026;
+      --border: #2a2d35;
+      --text: #e8eaf0;
+      --text-muted: #7c8194;
+      --p0: #ef4444;
+      --p0-bg: rgba(239,68,68,0.08);
+      --p1: #f59e0b;
+      --p1-bg: rgba(245,158,11,0.08);
+      --p2: #3b82f6;
+      --p2-bg: rgba(59,130,246,0.08);
+      --ok: #22c55e;
+      --ok-bg: rgba(34,197,94,0.08);
+      --accent: #8b1a2d;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.6; }
+    header { background: linear-gradient(135deg, var(--accent) 0%, #3d0a14 100%); padding: 32px 40px; border-bottom: 1px solid var(--border); }
+    header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+    header p { color: rgba(255,255,255,0.65); font-size: 13px; margin-top: 4px; }
+    .scores { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+    .score-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 12px 20px; min-width: 120px; }
+    .score-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; }
+    .score-card .value { font-size: 28px; font-weight: 800; margin-top: 2px; }
+    .value.p0 { color: var(--p0); }
+    .value.p1 { color: var(--p1); }
+    .value.p2 { color: var(--p2); }
+    .value.ok { color: var(--ok); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 32px 40px; }
+    .section { margin-bottom: 40px; }
+    .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .finding { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 10px; display: grid; grid-template-columns: auto 1fr auto; gap: 12px 16px; align-items: start; }
+    .finding:hover { border-color: rgba(255,255,255,0.15); }
+    .badge { display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px; min-width: 32px; }
+    .badge.p0 { background: var(--p0-bg); color: var(--p0); border: 1px solid var(--p0); }
+    .badge.p1 { background: var(--p1-bg); color: var(--p1); border: 1px solid var(--p1); }
+    .badge.p2 { background: var(--p2-bg); color: var(--p2); border: 1px solid var(--p2); }
+    .badge.ok { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+    .finding-body { min-width: 0; }
+    .finding-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .finding-path { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; }
+    .finding-desc { font-size: 13px; color: rgba(232,234,240,0.75); margin-bottom: 8px; }
+    .finding-meta { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; }
+    .meta-item { color: var(--text-muted); }
+    .meta-item strong { color: rgba(232,234,240,0.8); }
+    .rule-tag { font-size: 11px; font-family: monospace; background: var(--surface2); border: 1px solid var(--border); padding: 2px 6px; border-radius: 3px; color: var(--text-muted); white-space: nowrap; }
+    .summary-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; }
+    .summary-box h3 { font-size: 15px; margin-bottom: 12px; }
+    .summary-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .summary-box li { font-size: 13px; color: rgba(232,234,240,0.75); padding-left: 16px; position: relative; }
+    .summary-box li::before { content: '→'; position: absolute; left: 0; color: var(--text-muted); }
+    .tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: -1px; }
+    .tab { padding: 8px 16px; font-size: 13px; font-weight: 500; cursor: pointer; border-radius: 6px 6px 0 0; color: var(--text-muted); border: 1px solid transparent; border-bottom: none; transition: all 0.15s; }
+    .tab.active { background: var(--surface); border-color: var(--border); color: var(--text); border-bottom-color: var(--surface); margin-bottom: -1px; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .ok-banner { background: var(--ok-bg); border: 1px solid var(--ok); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--ok); margin-bottom: 10px; }
+    .count-bubble { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; font-size: 11px; padding: 2px 8px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Audit Qualité Code — Hearst OS</h1>
+  <p>2026-05-20 · 5 agents Explore · 958 fichiers analysés · 146 908 lignes</p>
+  <div class="scores">
+    <div class="score-card"><div class="label">P0 Critique</div><div class="value p0">4</div></div>
+    <div class="score-card"><div class="label">P1 Important</div><div class="value p1">11</div></div>
+    <div class="score-card"><div class="label">P2 Mineur</div><div class="value p2">18</div></div>
+    <div class="score-card"><div class="label">TODOs stale</div><div class="value ok">0</div></div>
+    <div class="score-card"><div class="label">any casts</div><div class="value p1">58+</div></div>
+    <div class="score-card"><div class="label">eslint-disable</div><div class="value p1">104</div></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="summary-box">
+    <h3>Dette principale</h3>
+    <ul>
+      <li><strong>Supabase types non générés</strong> — 35+ requêtes DB typées en <code>any</code>, cause racine de 80% des casts dangereux. Fix : <code>supabase gen types typescript</code> au build.</li>
+      <li><strong>172 exports orphelins + 6 dépendances inutilisées</strong> — React Three Fiber, Three.js, cytoscape toujours dans package.json.</li>
+      <li><strong>AI Pipeline 1446L monolithique</strong> — chemin critique, difficulté à tester unitairement, refactoring haute valeur.</li>
+      <li><strong>29 suppressions react-hooks</strong> — patterns SSE/polling répétés, consolidables en custom hooks.</li>
+      <li><strong>Zéro TODO obsolète (> 90 jours)</strong> — bonne discipline, tous les marqueurs datent de &lt; 5 jours.</li>
+    </ul>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('exports')">Exports Orphelins <span class="count-bubble">4 P0 + P1</span></div>
+    <div class="tab" onclick="showTab('deadcode')">Dead Code TypeScript <span class="count-bubble">P0/P1</span></div>
+    <div class="tab" onclick="showTab('lint')">Dettes Lint <span class="count-bubble">104 suppress.</span></div>
+    <div class="tab" onclick="showTab('todos')">TODOs / FIXME <span class="count-bubble">6 récents</span></div>
+    <div class="tab" onclick="showTab('complexity')">Complexité <span class="count-bubble">8 fichiers</span></div>
+  </div>
+
+  <!-- TAB: Exports Orphelins -->
+  <div id="tab-exports" class="tab-content active">
+
+    <div class="finding">
+      <span class="badge p0">P0</span>
+      <div class="finding-body">
+        <div class="finding-title">API Auth complète non consommée — 16 exports orphelins</div>
+        <div class="finding-path">lib/platform/auth/index.ts</div>
+        <div class="finding-desc">
+          <code>assertDevBypassNotInProduction</code>, <code>getUserId</code>, <code>requireScope</code>, <code>requireAuth</code>, <code>clearTokens</code>, <code>getTokenMeta</code>, <code>getTokens</code>, <code>isTokenExpired</code>, <code>recordAuthFailure</code>, <code>resetAuthFailures</code>, <code>revokeToken</code>, <code>saveTokens</code>, <code>setKeyProvider</code>, <code>touchLastUsed</code>, <code>resolveScope</code>, <code>getCurrentUserId</code>
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Vérifier si importés via sous-chemins (auth/tokens.ts, auth/session.ts) — si oui, corriger imports directs</div>
+          <div class="meta-item"><strong>Why:</strong> API publique auth — vérifier avant toute suppression</div>
+          <span class="rule-tag">orphan-export</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p0">P0</span>
+      <div class="finding-body">
+        <div class="finding-title">Infrastructure LLM — 15 exports orphelins</div>
+        <div class="finding-path">lib/llm/index.ts</div>
+        <div class="finding-desc">
+          <code>defaultCircuitBreaker</code>, <code>CircuitOpenError</code>, <code>CostLimitExceededError</code>, <code>LLMTimeoutError</code>, <code>RateLimitExceededError</code>, <code>defaultMetrics</code>, <code>getMetrics</code>, <code>LLMMetricsAggregator</code>, <code>chatWithProfile</code>, <code>loadFallbackChain</code>, <code>smartChat</code>, <code>streamChatWithProfile</code>, <code>resetLlmProviderCache</code>, <code>resolveModelProfile</code>, <code>defaultRateLimiter</code>
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Vérifier imports dynamiques et re-exports indirects</div>
+          <div class="meta-item"><strong>Why:</strong> Chemin critique LLM — probablement consommé dynamiquement</div>
+          <span class="rule-tag">orphan-export</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p0">P0</span>
+      <div class="finding-body">
+        <div class="finding-title">Zod Schemas rapports — 18 exports orphelins</div>
+        <div class="finding-path">lib/reports/spec/schema.ts</div>
+        <div class="finding-desc">
+          <code>REPORT_CADENCES</code>, <code>REPORT_CONFIDENTIALITY</code>, <code>PRIMITIVE_KINDS</code>, <code>waterfallDatumSchema</code>, <code>cohortRowSchema</code>, <code>heatmapPropsSchema</code>, <code>sankeyNodeSchema</code>, <code>sankeyLinkSchema</code>, <code>bulletRangeSchema</code>, <code>radarSeriesSchema</code>, <code>ganttTaskSchema</code>, <code>refreshSpecSchema</code>, <code>cacheTTLSchema</code>, <code>reportScopeSchema</code>, et 4 autres.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Ajouter à knip.json comme <code>@public</code> si utilisés par API externe</div>
+          <div class="meta-item"><strong>Why:</strong> Schemas Zod runtime — knip ne détecte pas l'usage dynamique</div>
+          <span class="rule-tag">orphan-export</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p0">P0</span>
+      <div class="finding-body">
+        <div class="finding-title">6 dépendances npm inutilisées dans package.json</div>
+        <div class="finding-path">package.json</div>
+        <div class="finding-desc">
+          <code>@ai-sdk/openai</code>, <code>@react-three/drei</code>, <code>@react-three/fiber</code>, <code>cytoscape</code>, <code>react-cytoscapejs</code>, <code>three</code> — aucune importation trouvée dans le codebase actif.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> <code>npm uninstall @react-three/drei @react-three/fiber three cytoscape react-cytoscapejs @ai-sdk/openai</code></div>
+          <div class="meta-item"><strong>Why:</strong> Ajoutent au bundle inutilement, allongent npm install, faussent les audits</div>
+          <span class="rule-tag">orphan-dep</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">Catalog constants — 19 exports orphelins</div>
+        <div class="finding-path">lib/reports/catalog/index.ts</div>
+        <div class="finding-desc">
+          <code>CUSTOMER_360_ID</code>, <code>DEAL_TO_CASH_ID</code>, <code>FINANCIAL_PNL_ID</code>, <code>HR_PEOPLE_ID</code>, <code>MARKETING_AARRR_ID</code>, et 14 autres constantes de configuration produit + <code>_REQUIRED_APPS</code>.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Marquer comme <code>@public</code> dans knip.json — constants métier probablement utilisées via dynamic imports</div>
+          <span class="rule-tag">orphan-export</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">API Settings — 11 exports orphelins</div>
+        <div class="finding-path">lib/platform/settings/index.ts</div>
+        <div class="finding-desc">
+          <code>getSettingValue</code>, <code>setSettingValue</code>, <code>getLimit</code>, <code>getThreshold</code>, <code>seedDefaults</code>, <code>setThreshold</code>, <code>getAllTenantSettings</code>, <code>getTenantFeatureFlag</code>, <code>getTenantLimit</code>, <code>resetTenantSettings</code>, <code>setTenantFeatureFlag</code>
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Vérifier les imports depuis app/ — corriger si importés via chemins directs plutôt que index</div>
+          <span class="rule-tag">orphan-export</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">206 fichiers détectés comme orphelins (backups spatial)</div>
+        <div class="finding-path">docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/ + lib/spatial-safe/</div>
+        <div class="finding-desc">
+          Backups physiques de la scène Spatial et constants spatial-safe (SCENE_CONFIG, MOTION_PRESETS, ORB_RADIUS, ORBITAL_DEFAULTS) sans consommateur actif détecté.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Zone read-only par CLAUDE.md — ne pas supprimer sans accord Adrien</div>
+          <span class="rule-tag">orphan-file</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: Dead Code TypeScript -->
+  <div id="tab-deadcode" class="tab-content">
+
+    <div class="finding">
+      <span class="badge p0">P0</span>
+      <div class="finding-body">
+        <div class="finding-title">Types DB critiques exportés sans consommateur — TablesInsert, TablesUpdate, Constants</div>
+        <div class="finding-path">lib/database.types.ts</div>
+        <div class="finding-desc">
+          Fichier Supabase auto-généré : <code>TablesInsert</code>, <code>TablesUpdate</code>, <code>Constants</code> exportés mais jamais importés dans l'app. Le fichier entier devrait être exempté de l'analyse car auto-généré.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Ajouter <code>lib/database.types.ts</code> à <code>.eslintignore</code> + knip ignore list</div>
+          <div class="meta-item"><strong>Why:</strong> Faux positif — fichier auto-généré ne doit pas être audité manuellement</div>
+          <span class="rule-tag">dead-type</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">28 fonctions utilitaires sans usage dans lib/domain/</div>
+        <div class="finding-path">lib/domain/index.ts + sous-modules</div>
+        <div class="finding-desc">
+          ts-prune détecte 28 exports non utilisés dans les modules domain : <code>slugify</code>, formatters, validators — probablement exportés pour API publique mais jamais consommés en interne.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Croiser avec knip — si confirmé orphelin, supprimer ou migrer vers un package utilitaire dédié</div>
+          <span class="rule-tag">dead-function</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">103 exports mineurs non critiques — composants UI, hooks, types</div>
+        <div class="finding-path">app/(user)/components/ui/index.ts + hooks/</div>
+        <div class="finding-desc">
+          <code>RailSection</code>, <code>ScreenShell</code>, <code>SectionHeader</code>, <code>CardSkeleton</code>, <code>RowSkeleton</code>, <code>FieldError</code>, <code>ValidatedForm</code> + 96 autres — importés depuis fichiers source directement plutôt que via index.ts.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Standardiser les imports → toujours via index.ts, ou supprimer les re-exports si inutiles</div>
+          <span class="rule-tag">dead-function</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: Dettes Lint -->
+  <div id="tab-lint" class="tab-content">
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">35+ requêtes Supabase typées as any — schema DB non généré</div>
+        <div class="finding-path">app/api/v2/ + lib/connectors/ + lib/personas/ + lib/webhooks/ + lib/jobs/workers/ + lib/reports/</div>
+        <div class="finding-desc">
+          Pattern dominant : <code>(sb.from('table' as any) as any).select()</code> dans 35+ fichiers. Cause racine : les types Supabase ne sont pas générés au build, forçant des casts dangereux sur toutes les requêtes DB.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> <code>supabase gen types typescript --project-id pjwyntugyswabgpavtyt > lib/database.types.ts</code> + supprimer tous les <code>as any</code> DB</div>
+          <div class="meta-item"><strong>Why:</strong> Column renames silencieux, breaking changes non détectés à la compile</div>
+          <span class="rule-tag">typescript-any</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">29 suppressions react-hooks/exhaustive-deps — patterns SSE/polling répétés</div>
+        <div class="finding-path">app/(user)/_stages/*.tsx + app/(user)/components/ + app/hooks/</div>
+        <div class="finding-desc">
+          MissionStage.tsx (532), SimulationStage.tsx (119, 207), ChatDock.tsx (251), ReportActions.tsx (290), Commandeur.tsx (113, 138), useVariantPolling.ts (76), useVideoBatchSSE.ts (166)... Pattern SSE/polling répété dans tous les stages, chaque instance bypassant les hooks rules.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Créer <code>useSSESubscription(url, onMessage)</code> + <code>usePolling(fn, interval)</code> custom hooks centralisés → éliminer 15+ eslint-disable</div>
+          <div class="meta-item"><strong>Why:</strong> Stale effects non détectés, risque régression sur deps changes</div>
+          <span class="rule-tag">hidden-lint</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">11 suppressions @next/next/no-img-element — images non optimisées</div>
+        <div class="finding-path">app/public/hearst-card/, app/(user)/_stages/AssetStage.tsx, AssetCompareStage.tsx, ImageViewer.tsx, VariantCarousel.tsx, AppLogo.tsx, QuickMentionRow.tsx</div>
+        <div class="finding-desc">
+          11 <code>&lt;img&gt;</code> raw utilisés à la place du composant Next.js Image — performance LCP dégradée, pas de lazy-load automatique, pas de resize responsive.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Créer <code>&lt;OptionalImage&gt;</code> HOC — <code>next/image</code> pour domaines connus (assets.hearst.io), fallback <code>&lt;img&gt;</code> pour externes</div>
+          <div class="meta-item"><strong>Why:</strong> LCP dégradé sur 3G, Core Web Vitals impactés</div>
+          <span class="rule-tag">hidden-lint</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">10 adapters engine castent les rows DB en any avant mapping</div>
+        <div class="finding-path">lib/engine/runtime/state/adapter.ts, lib/engine/runtime/assets/adapter.ts, lib/engine/runtime/timeline/persist.ts</div>
+        <div class="finding-desc">
+          Database row → domain object : les adapteurs engine utilisent <code>row: any</code> au lieu de types schéma. Empêche la détection de column renames lors des migrations DB.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Générer interfaces de rows depuis schema Supabase → supprimer <code>as any</code> dans les mappers</div>
+          <span class="rule-tag">typescript-any</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">5 casts loosely typed — objets complexes non interfacés</div>
+        <div class="finding-path">app/(user)/components/chat-input/ChatInput.tsx:179, lib/marketplace/store.ts:49, lib/admin/seed.ts:371-422, lib/assets/variants.ts:97, lib/engine/orchestrator/ai-pipeline.ts:386</div>
+        <div class="finding-desc">
+          Literals d'objets castés en <code>any</code> au lieu d'interfaces définies — typos dans les clés d'objets silencieusement validées.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Définir interfaces pour objets seed, payloads update, spread types</div>
+          <span class="rule-tag">typescript-any</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">1 bypass rules-of-hooks — hook conditionnel possible</div>
+        <div class="finding-path">app/(user)/components/report-layout/use-safe-session.ts:14</div>
+        <div class="finding-desc">
+          Instance unique de bypass <code>react-hooks/rules-of-hooks</code> — potentiellement un guard SSR qui appelle un hook conditionnellement.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Revoir le cas — si SSR-guard nécessaire, utiliser pattern <code>useEffect(() => { ... }, [])</code></div>
+          <span class="rule-tag">hidden-lint</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ok-banner">
+      ✓ Aucun @ts-ignore, @ts-expect-error, ou @ts-nocheck trouvé — bonne discipline de typage.
+    </div>
+
+  </div>
+
+  <!-- TAB: TODOs -->
+  <div id="tab-todos" class="tab-content">
+
+    <div class="ok-banner">
+      ✓ Zéro TODO/FIXME obsolète (&gt; 90 jours) — tous les marqueurs datent de &lt; 5 jours. Aucun nettoyage nécessaire.
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">SSE backend route non implémentée — 3 TODOs liés</div>
+        <div class="finding-path">app/(user)/_stages/BrowserStage.tsx:416, 442, 448</div>
+        <div class="finding-desc">
+          Dépendance sur <code>/api/v2/browser/sessions/[id]/steps</code> non encore créée. Code tolérant (no-op gracieux sur 404). <code>setSteps()</code> en attente d'endpoint.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Dernier commit:</strong> 2026-05-18 (2 jours)</div>
+          <div class="meta-item"><strong>Suggested:</strong> Implémenter la route SSE backend ou créer une issue GitHub si attente back-end</div>
+          <span class="rule-tag">stale-todo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">Phase B — upload natif R2 non implémenté</div>
+        <div class="finding-path">app/(user)/components/DocumentParseModal.tsx:187</div>
+        <div class="finding-desc">
+          TODO Phase B = upload natif (R2 → fileUrl auto). Actuellement URL string paste uniquement.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Dernier commit:</strong> 2026-05-18 (2 jours)</div>
+          <div class="meta-item"><strong>Suggested:</strong> Documenter dans backlog produit ou planifier comme évolution UI</div>
+          <span class="rule-tag">stale-todo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">Asset store stabilization — intégration en attente</div>
+        <div class="finding-path">lib/engine/runtime/missions/export-job.ts:140</div>
+        <div class="finding-desc">
+          TODO brancher sur <code>lib/engine/runtime/assets/</code> quand le store sera stabilisé. Throw explicite en attendant.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Dernier commit:</strong> 2026-05-15 (5 jours)</div>
+          <div class="meta-item"><strong>Suggested:</strong> Vérifier si lib/engine/runtime/assets/ est maintenant stable → brancher</div>
+          <span class="rule-tag">stale-todo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">web_search tool — incompatibilité multi-modèle (Anthropic/OpenAI/Kimi)</div>
+        <div class="finding-path">lib/engine/runtime/delegate/api.ts:398</div>
+        <div class="finding-desc">
+          Format tool Anthropic non compatible OpenAI/Kimi — code commenté en attente d'architecture décision sur la normalisation des tool specs.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Dernier commit:</strong> 2026-05-16 (4 jours)</div>
+          <div class="meta-item"><strong>Suggested:</strong> Créer couche adapter qui normalise les définitions de tools par provider</div>
+          <span class="rule-tag">stale-todo</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: Complexité -->
+  <div id="tab-complexity" class="tab-content">
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">AI Pipeline Orchestrator — 1 446 lignes, monolithe critique</div>
+        <div class="finding-path">lib/engine/orchestrator/ai-pipeline.ts</div>
+        <div class="finding-desc">
+          Mélange : streamText routing, tool execution, events, circuit breakers, metrics, tracing. Un changement = risque régression sur le pipeline entier. Logique d'erreur imbriquée ~9 niveaux.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Extraire <code>buildStreamContext()</code> (200L), <code>executeToolCall()</code> (150L), <code>publishEvents()</code> (100L), <code>recordMetrics()</code> (100L)</div>
+          <div class="meta-item"><strong>Effort:</strong> 3-4 jours</div>
+          <span class="rule-tag">excessive-complexity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">CockpitXClient — 806 lignes, composant monolithe</div>
+        <div class="finding-path">app/(user)/CockpitXClient.tsx (estimé)</div>
+        <div class="finding-desc">
+          Routage multi-stage, 9 stages lazy-loadés, gestion état partagée. Chaque rail-click passe par ce composant. Logique d'activation stage enchevêtrée avec le layout.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Extraire <code>useStageRouter()</code> hook — CockpitX = JSX + layout uniquement, stages auto-enregistrés via registry</div>
+          <div class="meta-item"><strong>Effort:</strong> 2 jours</div>
+          <span class="rule-tag">excessive-complexity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p1">P1</span>
+      <div class="finding-body">
+        <div class="finding-title">Report Schema — 880 lignes, 32 exports</div>
+        <div class="finding-path">lib/reports/spec/schema.ts</div>
+        <div class="finding-desc">
+          Centralise tous les schémas Zod (financiers, marché, opérationnel). 32 exports = responsabilité bavarde. Chaque consommateur reçoit une API trop large.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Découper par domaine → <code>schema-financial.ts</code> (10), <code>schema-market.ts</code> (8), <code>schema-operations.ts</code> (8) + index ré-export</div>
+          <div class="meta-item"><strong>Effort:</strong> 2-3 jours</div>
+          <span class="rule-tag">excessive-complexity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">Stage Components — 6 406 lignes totales, pattern dupliqué</div>
+        <div class="finding-path">app/(user)/_stages/*.tsx (12 fichiers)</div>
+        <div class="finding-desc">
+          Chaque stage (KG, Artifact, Browser, Mission...) répète le même boilerplate : fetch data + useState + render + stageStore updates. ~1 500-2 000 lignes de duplication sur 12 fichiers.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Créer <code>useStageFrame()</code> hook — chaque stage = 150-200L logique unique + 50L template</div>
+          <div class="meta-item"><strong>Effort:</strong> 4-5 jours</div>
+          <span class="rule-tag">excessive-complexity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">Health Monitor — 860 lignes, agrégateur monolithique</div>
+        <div class="finding-path">app/admin/health/page.tsx</div>
+        <div class="finding-desc">
+          DB checks + Redis latency + LLM probing + API health dans un seul fichier. Ajouter un check = modifier le monolithe.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Pattern <code>HealthProbe</code> interface — chaque probe dans son module, Health orchestre seulement</div>
+          <span class="rule-tag">excessive-complexity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">Capabilities Taxonomy — 930 lignes de constants statiques</div>
+        <div class="finding-path">lib/ (taxonomy)</div>
+        <div class="finding-desc">
+          ~500L de déclarations de capabilités. Testabilité faible, difficulté à naviguer.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Migrer data → JSON + typed loader. Ou fragmenter en <code>core-taxonomy.ts</code> + <code>integrations-taxonomy.ts</code></div>
+          <span class="rule-tag">excessive-complexity</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge p2">P2</span>
+      <div class="finding-body">
+        <div class="finding-title">860 lignes avec indentation > 5 niveaux dans app/ + lib/</div>
+        <div class="finding-path">app/ + lib/ (global)</div>
+        <div class="finding-desc">
+          860 occurrences de lignes indentées > 5 niveaux — indicateur de logique conditionnelle profondément imbriquée difficile à tester.
+        </div>
+        <div class="finding-meta">
+          <div class="meta-item"><strong>Suggested:</strong> Early returns, guard clauses, extraction de sous-fonctions</div>
+          <span class="rule-tag">excessive-complexity</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+
+</body>
+</html>

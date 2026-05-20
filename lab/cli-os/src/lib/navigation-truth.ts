@@ -230,13 +230,6 @@ export const STORES: StoreShape[] = [
     purpose: "Runs en cours (missions/browser/simulation) + plan lifecycle + SSE event stream.",
   },
   {
-    name: "useActiveSpace",
-    file: "stores/active-space.ts:78",
-    fields: ["activeSpaceId", "spaces"],
-    persisted: true,
-    purpose: "Espace de travail courant (personal/side-project/venture) + cookie sync server-side.",
-  },
-  {
     name: "useFocusMode",
     file: "stores/focus-mode.ts:40",
     fields: ["enabled", "toggle"],

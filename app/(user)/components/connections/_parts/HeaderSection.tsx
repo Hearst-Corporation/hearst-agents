@@ -1,22 +1,10 @@
 "use client";
 
 /**
- * ConnectionsList — barrel de re-exports pour les sections de
- * l'interface ConnectionsHub (F-11 verrouillé).
- *
- * Chaque groupe de composants est isolé dans _parts/ pour garder
- * les fichiers sous 300 lignes sans modifier la logique, les
- * contracts publics ou les invariants OAuth / write-guard.
+ * HeaderSection — composants courts header + label de section
+ * du ConnectionsHub (F-11 verrouillé). Anciennement hébergés dans
+ * `ConnectionsList.tsx` (barrel supprimé).
  */
-
-export { CategoriesBar, Wallpaper } from "./_parts/CatalogSection";
-// ─── Re-exports _parts ─────────────────────────────────────────
-export { Stage } from "./_parts/ConnectedStage";
-export { OnboardingStage } from "./_parts/OnboardingSection";
-export { SearchResultsSection } from "./_parts/SearchResults";
-export { SuggestionsGrid } from "./_parts/SuggestionsSection";
-
-// ─── Composants courts (ici directement) ──────────────────────
 
 // ─── Header sticky : search globale + counters inline ─────────
 
