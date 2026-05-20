@@ -11,6 +11,7 @@
 
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { EmptyState } from "@/app/(user)/components/ui";
 import type { Asset } from "@/lib/assets/types";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -434,11 +435,13 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
         variants={SECTION_VARIANTS}
         initial="hidden"
         animate="show"
-        className="flex flex-col items-center justify-center py-20 text-center w-full"
+        className="w-full"
       >
-        <p className="t-15 text-(--text-faint) max-w-[var(--width-empty-hint)] leading-relaxed">
-          Sélectionne 2 assets depuis la liste pour les comparer.
-        </p>
+        <EmptyState
+          title="Sélectionne 2 assets."
+          description="Choisis deux assets depuis la liste pour les comparer côte à côte."
+          className="max-w-[var(--width-empty-hint)] mx-auto"
+        />
       </motion.section>
     );
   }

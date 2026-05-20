@@ -13,7 +13,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { StageErrorBanner } from "@/app/(user)/components/ui";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -212,14 +212,12 @@ function EmptyMeetingState() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: VISION_EASE }}
-      className="flex flex-col items-center justify-center py-20 text-center"
     >
-      <p
-        className="t-15 font-light text-text-faint leading-relaxed"
-        style={{ maxWidth: "var(--width-prose-narrow)" }}
-      >
-        Lance ou rejoins un meeting pour voir le transcript en direct.
-      </p>
+      <EmptyState
+        title="Aucun meeting actif."
+        description="Lance ou rejoins un meeting pour voir le transcript en direct."
+        className="max-w-[var(--width-prose-narrow)] mx-auto"
+      />
     </motion.div>
   );
 }

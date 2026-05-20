@@ -1,5 +1,7 @@
 /**
- * E2E — Tool `run_mission` + UI inline `ChatMissionRunInline`.
+ * E2E — Tool `run_mission` (API guards + flow chat skip-ci).
+ * Note : l'ancienne card inline ChatMissionRunInline a été retirée (2026-05) ;
+ * les tests @skip-ci ciblent des sélecteurs ARIA à réaligner quand l'UI reviendra.
  *
  * Couvre :
  *  1. Smoke API : POST /api/v2/missions/[id]/run sans auth → pas de 5xx

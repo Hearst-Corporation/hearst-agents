@@ -12,7 +12,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { StageErrorBanner } from "@/app/(user)/components/ui";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -227,26 +227,23 @@ function DemoBadge() {
   );
 }
 
-function EmptyState() {
+function MissionListEmpty() {
   const setMode = useStageStore((s) => s.setMode);
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: VISION_EASE }}
-      className="flex flex-col items-center justify-center gap-(--space-5) py-20 text-center"
     >
-      <p className="t-15 text-(--text-faint) max-w-[var(--width-mission-empty-copy)] leading-relaxed">
-        Aucune mission récurrente. Demande à l&apos;agent d&apos;en créer une — par exemple « résume
-        mes emails chaque matin ».
-      </p>
-      <button
-        type="button"
-        onClick={() => setMode({ mode: "chat" })}
-        className="cockpit-action max-w-[var(--width-mission-cta)]"
-      >
-        <span className="ca-label">Demander à l&apos;agent</span>
-      </button>
+      <EmptyState
+        title="Aucune mission récurrente."
+        description="Demande à l'agent d'en créer une — par exemple « résume mes emails chaque matin »."
+        cta={{
+          label: "Demander à l'agent",
+          onClick: () => setMode({ mode: "chat" }),
+        }}
+        className="max-w-[var(--width-mission-empty-copy)] mx-auto"
+      />
     </motion.div>
   );
 }
@@ -421,7 +418,7 @@ export function MissionListStage({ mode }: { mode: string }) {
       {!loading && fetchError && <StageErrorBanner message={fetchError} variant="emphasis" />}
 
       {/* Empty state — prod, ou dev sans démo possible */}
-      {!loading && !fetchError && missions.length === 0 && !showDemo && <EmptyState />}
+      {!loading && !fetchError && missions.length === 0 && !showDemo && <MissionListEmpty />}
 
       {/* Liste (données réelles ou démo dev) */}
       {!loading && !fetchError && displayMissions.length > 0 && (
