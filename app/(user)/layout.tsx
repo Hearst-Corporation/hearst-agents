@@ -3,7 +3,7 @@
 import {
   type CockpitProduct,
   CockpitShell,
-  HubBottomBar,
+  ProductLauncherBar,
   setActiveProduct,
 } from "@hearst/cockpit-shell";
 import { SessionProvider } from "next-auth/react";
@@ -18,15 +18,58 @@ import { useFocusMode } from "@/stores/focus-mode";
 import { useVoiceStore } from "@/stores/voice";
 
 /**
- * Produits déclarés au CockpitShell — en mode headless le launcher du package
- * n'est pas rendu, mais ThemeAccent consomme `getProduct(active).color` pour
- * piloter `--ct-accent` via inline style sur `<html>`. On déclare donc Helm
- * avec sa signature teal visionOS pour que l'inline style résolve sur le bon
- * accent (et n'écrase pas l'override PR1 par le défaut `#be123c` bordeaux
- * Cockpit canonical).
+ * Produits déclarés au CockpitShell (PR7).
+ *
+ * Le premier produit est Helm lui-même (= produit hôte, `appId="helm"`).
+ * Sa couleur reste `var(--accent-teal)` pour préserver le visionOS via
+ * l'inline style `--ct-accent` posé par ThemeAccent (cf. PR1/PR4).
+ *
+ * Les 4 produits suivants (hub, halo, hyper, hustle) viennent de la
+ * liste canonical de la suite Hearst Corp (hub PR `config/products.ts`,
+ * consolidation 2026-05-20 : 13 produits historiques → 4 commerciaux
+ * + 1 shell). Cortex (vault Obsidian + Qdrant) est un service backend
+ * transverse et n'apparait pas dans le launcher.
+ *
+ * Les URLs `prodUrl` permettent au <ProductLauncherBar> de naviguer
+ * cross-domaine au clic. Couleurs alignées Brand Kit Hearst Corp.
+ *
+ * Note : "hive" du canonical Hub désigne en fait Helm (hearst-os
+ * localhost:4102 / hearst-os.vercel.app). Helm peut donc se déclarer
+ * soit comme "helm" (locale, conserve les overrides CSS PR1+) soit
+ * "hive" (alignement Hub canonical, breaking côté mapping CSS). On
+ * choisit "helm" pour stabilité — à arbitrer plus tard si convergence
+ * naming nécessaire.
  */
 const HELM_PRODUCTS: CockpitProduct[] = [
   { id: "helm", name: "Helm", short: "HE", color: "var(--accent-teal)" },
+  {
+    id: "hub",
+    name: "Hearst Corporation",
+    short: "HC",
+    color: "var(--ct-product-hub)",
+    url: "https://hearst-corporation.vercel.app",
+  },
+  {
+    id: "halo",
+    name: "Hearst Halo",
+    short: "HL",
+    color: "var(--ct-product-halo)",
+    url: "https://studio-hearst-corporation.vercel.app",
+  },
+  {
+    id: "hyper",
+    name: "Hearst Hyper",
+    short: "HY",
+    color: "var(--ct-product-hyper)",
+    url: "https://frontend-hearst-corporation.vercel.app",
+  },
+  {
+    id: "hustle",
+    name: "Hearst Hustle",
+    short: "HU",
+    color: "var(--ct-product-hustle)",
+    url: "https://dropship-platform-amber.vercel.app",
+  },
 ];
 
 function VoiceMount() {
@@ -49,15 +92,14 @@ function FocusModeStyles() {
 export default function UserXLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   useGlobalHotkeys();
   /*
-   * Workaround visibility HubBottomBar (PR5 → PR5b).
+   * Workaround visibility activeProductStore (PR5b, conservé en PR7).
    *
-   * Le package <CockpitShell> appelle `setDefaultActive(appId)` côté client
-   * dans un useEffect. Mais `setDefaultActive` pose la valeur via
-   * `_default = id` sans appeler `notifyListeners()`. Le HubBottomBar
-   * consomme `useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)`
-   * sur l'activeProductStore, qui reste à "hub" (DEFAULT_ID initial).
-   * Sa condition `if (active !== appId) return null` masque alors le bar
-   * en runtime client (déjà null en SSR par design).
+   * <CockpitShell> appelle `setDefaultActive(appId)` côté client mais cette
+   * fonction pose la valeur sans appeler `notifyListeners()`. Les composants
+   * du package (ex: <ProductLauncherBar>) consomment
+   * `useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)` sur
+   * l'activeProductStore qui reste à "hub" (DEFAULT_ID initial) → la
+   * pastille "active" reste sur hub au lieu de Helm.
    *
    * Fix : on force `setActiveProduct("helm")` (qui appelle notifyListeners)
    * au mount du layout user pour synchroniser le store sur l'appId Helm.
@@ -76,7 +118,7 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
           <FocusBadge />
           <MobileBottomNav />
           <FocusModeStyles />
-          <HubBottomBar />
+          <ProductLauncherBar />
         </div>
       </CockpitShell>
     </SessionProvider>

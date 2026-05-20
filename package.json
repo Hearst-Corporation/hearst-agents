@@ -81,7 +81,7 @@
     "@aws-sdk/s3-request-presigner": "^3.1037.0",
     "@composio/core": "^0.10.0",
     "@e2b/code-interpreter": "^2.4.1",
-    "@hearst/cockpit-shell": "file:./hearst-cockpit-shell-0.3.2.tgz",
+    "@hearst/cockpit-shell": "file:./hearst-cockpit-shell-0.4.0.tgz",
     "@sentry/nextjs": "^10.51.0",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.94",
