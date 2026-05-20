@@ -33,5 +33,17 @@
     "/tmp/hearst-os-next/dev/types/**/*.ts",
     ".next/dev/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "electron", "lab", "lib/hom", "docs/spatial/_BACKUP_*"]
+  "exclude": [
+    "node_modules",
+    "electron",
+    "lab",
+    "lib/hom",
+    "docs/spatial/_BACKUP_*",
+    "components/spatial-safe",
+    "hooks/spatial-safe",
+    "lib/spatial-safe",
+    "app/spatial-safe",
+    "styles/spatial-safe",
+    "providers/spatial-safe"
+  ]
 }
