@@ -238,7 +238,7 @@ function ErrorBanner({ error }: { error: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-[14px] rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
+      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {error}
     </motion.div>
@@ -305,7 +305,7 @@ function MissionCard({
           onClick();
         }
       }}
-      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-white/7 border border-(--line-strong) cursor-pointer transition-[background] duration-150 flex flex-col gap-2"
+      className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-white/7 border border-(--line-strong) cursor-pointer transition-[background] duration-150 flex flex-col gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent-teal)"
     >
       {/* Ligne principale : nom + badge */}
       <div className="flex items-center gap-3">
@@ -315,7 +315,7 @@ function MissionCard({
 
         {/* Badge statut — JS-computed colors kept in style */}
         <span
-          className="inline-flex items-center gap-[5px] t-11 px-[9px] py-[3px] rounded-full shrink-0"
+          className="inline-flex items-center gap-1.5 t-11 px-2 py-0.5 rounded-full shrink-0"
           style={{
             background: badge.bg,
             border: badge.border,
@@ -324,7 +324,7 @@ function MissionCard({
         >
           {badge.pulse && (
             <motion.span
-              className="w-[5px] h-[5px] rounded-full bg-(--accent-teal)/85 inline-block"
+              className="w-1.5 h-1.5 rounded-full bg-(--accent-teal)/85 inline-block"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
             />
@@ -436,7 +436,7 @@ export function MissionListStage({ mode }: { mode: string }) {
         <button
           type="button"
           onClick={handleNewMission}
-          className="px-4 py-2 rounded-[10px] bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-150"
+          className="px-4 py-2 rounded-lg bg-white/8 hover:bg-white/13 border border-white/12 text-(--text-muted) t-13 font-medium cursor-pointer transition-[background] duration-150"
         >
           Nouvelle demande
         </button>

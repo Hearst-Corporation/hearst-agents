@@ -162,6 +162,8 @@ function EmptyBrowserState() {
 function LoadingState() {
   return (
     <motion.div
+      role="status"
+      aria-live="polite"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: VISION_EASE }}
@@ -183,7 +185,7 @@ function ErrorState({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
+      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur session</strong> — {message}
     </motion.div>
@@ -268,7 +270,7 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       initial="hidden"
       animate="visible"
       layout
-      className="flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] transition-[opacity,background] duration-300 ease-[ease]"
+      className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg transition-[opacity,background] duration-300 ease-[ease]"
       style={{
         background: isRunning ? "rgba(140,100,255,0.06)" : "transparent",
         border: isRunning ? "1px solid rgba(140,100,255,0.15)" : "1px solid rgba(255,255,255,0.04)",

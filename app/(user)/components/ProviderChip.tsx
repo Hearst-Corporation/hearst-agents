@@ -121,6 +121,7 @@ export function ProviderChip({
     <span
       className="relative inline-flex items-center rounded-pill border border-(--border-shell) bg-surface-1 px-2 py-0.5 t-9 font-mono text-text-muted transition-colors hover:border-[var(--accent-teal-border)] hover:text-text"
       style={{ gap: "var(--space-1)" }}
+      tabIndex={0}
       data-provider={providerId}
       data-status={status}
       onMouseEnter={() => setShowTooltip(true)}
