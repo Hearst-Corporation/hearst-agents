@@ -5,7 +5,7 @@
  * Tokens DS uniquement ; remplace les copies dans alerting, video-quick-launch, assets.
  */
 
-import type { ComponentProps } from "react";
+import { type ComponentProps, forwardRef } from "react";
 
 type FieldSurface = "surface" | "card-flat";
 
@@ -24,15 +24,15 @@ export function FormInput({
   return <input className={`${FIELD_BASE} ${surfaceBg(surface)} ${className}`} {...props} />;
 }
 
-export function FormTextarea({
-  className = "",
-  surface = "surface",
-  ...props
-}: ComponentProps<"textarea"> & { surface?: FieldSurface }) {
+export const FormTextarea = forwardRef<
+  HTMLTextAreaElement,
+  ComponentProps<"textarea"> & { surface?: FieldSurface }
+>(function FormTextarea({ className = "", surface = "surface", ...props }, ref) {
   return (
     <textarea
+      ref={ref}
       className={`${FIELD_BASE} ${surfaceBg(surface)} resize-none ${className}`}
       {...props}
     />
   );
-}
+});
