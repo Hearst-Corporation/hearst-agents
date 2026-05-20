@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Audit qualité code — 2026-05-19</title>
+<style>
+  :root {
+    --bg: #0f0a0c;
+    --panel: #1a1216;
+    --border: #2a1f24;
+    --text: #e8dfd4;
+    --muted: #968a82;
+    --accent: #b0001f;
+    --p0: #ff4d6a;
+    --p1: #f0a020;
+    --p2: #7d8fa8;
+    --green: #4ade80;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px;
+    line-height: 1.55;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  h2 { font-size: 18px; margin-top: 32px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--accent); }
+  h3 { font-size: 14px; margin-top: 18px; margin-bottom: 8px; color: var(--text); }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 20px 0 28px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .card .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .card .value { font-size: 26px; font-weight: 600; margin-top: 4px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .p0 { background: rgba(255,77,106,0.15); color: var(--p0); border: 1px solid rgba(255,77,106,0.3); }
+  .p1 { background: rgba(240,160,32,0.15); color: var(--p1); border: 1px solid rgba(240,160,32,0.3); }
+  .p2 { background: rgba(125,143,168,0.15); color: var(--p2); border: 1px solid rgba(125,143,168,0.3); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 20px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    background: rgba(176,0,31,0.08);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  code {
+    background: rgba(255,255,255,0.04);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: #d4c0a8;
+  }
+  .path { font-family: ui-monospace, monospace; font-size: 11px; color: var(--muted); }
+  .reco {
+    background: var(--panel);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 4px;
+  }
+  .reco strong { color: var(--accent); }
+  .stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin: 8px 0 16px; font-size: 13px; color: var(--muted); }
+  .stat-row span strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <h1>Audit qualité code · Hearst OS</h1>
+  <div class="meta">Date : 2026-05-19 · Branche : feat/hub-mode-helm · Read-only · 5 agents Explore parallèles</div>
+
+  <div class="summary">
+    <div class="card"><div class="label">P0 critiques</div><div class="value" style="color: var(--p0)">12</div></div>
+    <div class="card"><div class="label">P1 à traiter</div><div class="value" style="color: var(--p1)">28</div></div>
+    <div class="card"><div class="label">P2 cleanup</div><div class="value" style="color: var(--p2)">35</div></div>
+    <div class="card"><div class="label">Total findings</div><div class="value">75</div></div>
+  </div>
+
+  <div class="reco">
+    <strong>Dette principale</strong> — Le typage Supabase est <em>la racine</em> de la dette code. 8 stores font <code>(sb as any)</code> ou <code>SupabaseClient&lt;any&gt;</code> car les tables <code>simulation_runs</code>, <code>personas</code>, <code>assets</code>, <code>reports_*</code> manquent dans <code>lib/database.types.ts</code>. Une régénération <code>supabase gen types typescript</code> élimine ~60% des <code>any</code> et supprime mécaniquement la plupart des <code>eslint-disable</code> associés.
+  </div>
+
+  <h2>1 · Exports orphelins (knip)</h2>
+  <div class="stat-row">
+    <span><strong>53</strong> fichiers orphelins (hors zones protégées)</span>
+    <span><strong>157</strong> exports orphelins actionables</span>
+    <span><strong>7</strong> dépendances installées inutilisées</span>
+  </div>
+
+  <h3>P0 — Dépendances installées jamais utilisées</h3>
+  <table>
+    <tr><th>Sev</th><th>Package</th><th>Action</th><th>Pourquoi</th></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><code>dompurify</code></td><td>Retirer de dependencies</td><td>Aucun import dans le codebase</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><code>@ai-sdk/openai</code></td><td>Retirer ou migrer</td><td>Installé jamais consommé</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><code>@react-three/drei</code>, <code>@react-three/fiber</code>, <code>three</code></td><td>Retirer (spatial-safe figé)</td><td>Bundle 3D pesant, jamais consommé hors zone interdite</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><code>cytoscape</code>, <code>react-cytoscapejs</code></td><td>Retirer ou connecter au KG admin</td><td>Cohérent avec MissionStepGraph.tsx orphelin</td></tr>
+  </table>
+
+  <h3>Fichiers et code mort critique</h3>
+  <table>
+    <tr><th>Sev</th><th>Fichier · Symbole</th><th>Action</th><th>Pourquoi</th></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">lib/engine/orchestrator/system-prompt.ts:86,161,184</span><br><code>PLAN_TOOL</code> · <code>RESPOND_TOOL</code> · <code>REQUEST_CONNECTION_TOOL</code></td><td>Vérifier branchement orchestrateur</td><td>3 outils système prompt jamais importés → flow OAuth/plan potentiellement cassé silencieusement</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">lib/engine/runtime/prompt-guard.ts:69</span> — <code>loadPromptContent</code></td><td>Brancher ou supprimer</td><td>Fonction de sécurité jamais appelée → guard prompt potentiellement inactif</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">app/hooks/use-oauth-expiry.ts:86</span> — <code>useOAuthExpiry</code></td><td>Brancher au header OAuth ou supprimer</td><td>Hook OAuth confirmé mort → badges d'expiration ne fonctionnent pas</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">components/shell/HelmBottomBar.tsx</span> + <span class="path">HelmShell.tsx</span></td><td>Confirmer remplacement par cockpit-shell puis supprimer</td><td>Shell legacy remplacé par <code>packages/cockpit-shell</code>, refactor non terminé</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/components/cockpit/orbital/</span> (5 fichiers)</td><td>Supprimer cluster orbital</td><td>Feature 3D abandonnée, cohérente avec deps three/r3f inutilisées</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/multi-tenant/types.ts:56</span> — <code>resolveSpaceId</code></td><td>Brancher au middleware tenant</td><td>Isolation tenant potentiellement non vérifiée</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/engine/runtime/missions/types.ts:51</span> — <code>ApprovalConfig</code></td><td>Connecter au flow HITL</td><td>Config d'approbation humaine non utilisée → HITL potentiellement désactivé</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/components/asset-variant-tabs/</span> (8 fichiers) + <code>AssetVariantTabs.tsx</code> racine</td><td>Trancher entre 2 implémentations</td><td>Doublon manifeste — un cluster complet orphelin</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/components/Chat*.tsx</span> (8 composants)</td><td>Vérifier remplacement par FocalStage puis supprimer</td><td>Cluster legacy chat — refactor non nettoyé</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/utils/date-format.ts</span> + <span class="path">lib/ui/format-time.ts</span></td><td>Merger en un seul utilitaire</td><td>Duplication utilitaires date orphelins</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">screenshot.mjs</span> racine</td><td>Supprimer (outil dev oublié)</td><td>Fichier .mjs racine jamais référencé</td></tr>
+  </table>
+
+  <h2>2 · Dead code TypeScript (ts-prune)</h2>
+  <div class="stat-row">
+    <span><strong>1 002</strong> exports remontés (raw)</span>
+    <span><strong>83</strong> findings réels (hors zones protégées)</span>
+    <span><strong>47</strong> purement <code>.ts</code></span>
+  </div>
+
+  <h3>Top dossiers concentrant le dead code</h3>
+  <table>
+    <tr><th>Rang</th><th>Dossier</th><th>Findings</th></tr>
+    <tr><td>1</td><td><code>lib/contracts/reports.ts</code></td><td>13</td></tr>
+    <tr><td>2</td><td><code>lib/contracts/missions.ts</code></td><td>6</td></tr>
+    <tr><td>3</td><td><code>packages/cockpit-shell/src/primitives/</code></td><td>6</td></tr>
+    <tr><td>4</td><td><code>lib/contracts/jobs.ts</code></td><td>4</td></tr>
+    <tr><td>5</td><td><code>lib/engine/orchestrator/</code></td><td>3</td></tr>
+  </table>
+
+  <h3>Findings prioritaires</h3>
+  <table>
+    <tr><th>Sev</th><th>Symbole</th><th>Action</th><th>Pourquoi</th></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/llm/models.ts:14</span> — <code>KimiModel</code></td><td>Brancher au router ou supprimer</td><td>Type modèle Kimi jamais importé alors que la stack utilise Kimi 2.6 en production</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/engine/runtime/lifecycle.ts:166</span> — <code>TracePayload</code></td><td>Brancher Langfuse trace ou supprimer</td><td>Type trace runtime jamais consommé — observabilité incomplète</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/credits/types.ts:11</span> — <code>CreditOperation</code></td><td>Brancher système facturation</td><td>Type comptabilité crédits jamais utilisé</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/hom/types.ts:89</span> — <code>MetricSample</code></td><td>Brancher collecte ou supprimer</td><td>Type métrique HOM jamais utilisé → collecte incomplète</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/reports/spec/schema.ts:313</span> — <code>PrimitiveKind</code></td><td>Brancher au renderer blocs</td><td>Enum schema rapport jamais consommé</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/contracts/reports.ts</span><br><code>CreateReportSharePayload</code> · <code>ExportReportQuery</code> · <code>ReportVersionNumber</code> (13 morts)</td><td>Audit ciblé puis purge</td><td>Quasi tout le contrat reports orphelin → couche client non implémentée ou abandonnée</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/contracts/jobs.ts</span> — <code>ImageGenPayload</code>, <code>AudioGenPayload</code></td><td>Brancher ou supprimer</td><td>Jobs image/audio jamais déclenchés</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/contracts/missions.ts:97</span> — <code>AbTestPersonaPayload</code></td><td>Supprimer si A/B non câblé</td><td>A/B test persona jamais déclenché</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/voice/tool-defs.ts:101</span> — <code>VOICE_TOOL_LABELS</code></td><td>Supprimer</td><td>Labels voice jamais consommés hors module</td></tr>
+  </table>
+
+  <h2>3 · Dettes lint masquées & typage faible</h2>
+  <div class="stat-row">
+    <span><strong>103</strong> <code>eslint-disable</code> (hors lab/spatial-safe)</span>
+    <span><strong>48</strong> <code>any</code> TypeScript (hors tests)</span>
+    <span style="color: var(--green)"><strong>0</strong> <code>@ts-ignore / @ts-nocheck</code> — discipline OK</span>
+  </div>
+
+  <h3>Top fichiers pollués</h3>
+  <table>
+    <tr><th>Rang</th><th>Fichier</th><th>Occurrences</th></tr>
+    <tr><td>1</td><td><span class="path">lib/reports/templates/store.ts</span></td><td>11 (6 disable + 5 as any)</td></tr>
+    <tr><td>2</td><td><span class="path">lib/jobs/workers/simulation.ts</span></td><td>8 (4 + 4)</td></tr>
+    <tr><td>3</td><td><span class="path">lib/reports/sharing/store.ts</span></td><td>8 (4 + 4)</td></tr>
+    <tr><td>4</td><td><span class="path">lib/personas/store.ts</span></td><td>6 (3 + 3)</td></tr>
+    <tr><td>5</td><td><span class="path">app/api/v2/search/route.ts</span></td><td>6 (3 + 3)</td></tr>
+  </table>
+
+  <h3>Findings prioritaires</h3>
+  <table>
+    <tr><th>Sev</th><th>Localisation</th><th>Pattern</th><th>Pourquoi</th></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/jobs/workers/simulation.ts:55,82,102,134</span></td><td><code>(sb.from("simulation_runs" as any) as any)</code> ×4</td><td>Worker simulation critique, table métier non typée</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/personas/store.ts:183,223,266</span></td><td><code>(db.from("personas" as any) as any)</code></td><td>Table personas complètement non typée</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/engine/runtime/state/adapter.ts:192,530</span></td><td><code>toRunRecord(row: any)</code> · <code>toScheduledMission(row: any)</code></td><td>Adaptateurs moteur sans types → risque crash runtime silencieux</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/api/hearst-card/revoke/route.ts:59,92</span></td><td><code>(sb as any)</code></td><td>Contournement sur route de révocation token (sécurité)</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/components/report-layout/use-safe-session.ts:14</span></td><td><code>eslint-disable react-hooks/rules-of-hooks</code></td><td>Violation règle fondamentale hooks, sans justification</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">_stages/SimulationStage.tsx:119,207</span> · <span class="path">MissionStage.tsx:457</span> · <span class="path">ChatDock.tsx:253</span></td><td><code>exhaustive-deps</code> ×4</td><td>Stages critiques sans deps déclarées → risque stale closure</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/admin/usage/aggregate.ts:108</span></td><td><code>let q: any = db</code></td><td>Query agrégat usage admin sans type</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/engine/runtime/timeline/persist.ts</span> · <span class="path">timeline/normalize.ts</span></td><td><code>any</code> sur couche persistence timeline</td><td>Sérialisation timeline moteur non typée</td></tr>
+  </table>
+
+  <div class="reco">
+    <strong>Action P1 unique</strong> — Régénérer <code>lib/database.types.ts</code> via <code>supabase gen types typescript</code> en incluant les tables manquantes (<code>simulation_runs</code>, <code>personas</code>, <code>assets</code>, <code>reports_*</code>) supprime mécaniquement ~60% des <code>any</code> et la majorité des <code>eslint-disable</code> du top 5.
+  </div>
+
+  <h2>4 · TODO / FIXME / HACK</h2>
+  <div class="stat-row">
+    <span><strong>6</strong> marqueurs au total</span>
+    <span>TODO: <strong>6</strong></span>
+    <span>FIXME/HACK/XXX: <strong>0</strong></span>
+    <span style="color: var(--green)">Dette marqueurs très faible · discipline excellente</span>
+  </div>
+
+  <table>
+    <tr><th>Sev</th><th>Localisation</th><th>Contexte</th><th>Action</th></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/_stages/BrowserStage.tsx:378, 404, 410</span></td><td>3 TODO liés à la route SSE <code>/api/v2/browser/sessions/[id]/steps</code> inexistante</td><td><strong>1 seul ticket</strong> — créer la route SSE backend + brancher <code>setSteps()</code>. BrowserStage muet en prod sans ça</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/engine/runtime/missions/export-job.ts:140</span></td><td>Throw explicite si <code>getSpec</code> non injecté</td><td>Stabiliser store assets puis injecter <code>getSpec</code></td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">lib/engine/runtime/delegate/api.ts:398</span></td><td>web_search Anthropic non compatible OpenAI/Kimi</td><td>Documenter dans CLAUDE.md + supprimer TODO inline</td></tr>
+    <tr><td><span class="badge p2">P2</span></td><td><span class="path">app/(user)/components/DocumentParseModal.tsx:187</span></td><td>Upload natif R2 (Phase B backlog)</td><td>Créer ticket backlog + supprimer TODO inline</td></tr>
+  </table>
+
+  <h2>5 · Complexité & structure</h2>
+  <div class="stat-row">
+    <span>Médiane : <strong>~280 lignes</strong></span>
+    <span><strong>7</strong> god-modules &gt; 700 lignes</span>
+    <span><strong>~150 000</strong> lignes analysées</span>
+  </div>
+
+  <h3>P0 — God modules &gt; 800 lignes</h3>
+  <table>
+    <tr><th>Sev</th><th>Fichier</th><th>Lignes</th><th>Action</th></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">lib/database.types.ts</span></td><td>4 721</td><td>Splitter par domaine (user / report / engine / admin) — voir aussi régénération section 3</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">lib/engine/orchestrator/ai-pipeline.ts</span></td><td>1 443</td><td>Découper en pipeline-steps/ · error-handling · model-dispatch</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">lib/capabilities/taxonomy.ts</span></td><td>930</td><td>Extraire par capability domain (media · content · analytics)</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">lib/reports/spec/schema.ts</span></td><td>880</td><td>Splitter schema par type de rapport</td></tr>
+    <tr><td><span class="badge p0">P0</span></td><td><span class="path">lib/admin/health.ts</span></td><td>860</td><td>Isoler checks par service</td></tr>
+  </table>
+
+  <h3>P1 — God-components &amp; modules &gt; 600 lignes</h3>
+  <table>
+    <tr><th>Sev</th><th>Fichier</th><th>Lignes</th><th>Action</th></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/llm/router.ts</span></td><td>787</td><td>Extraire routing-logic · fallback · cost-tracker</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/cockpit-x/CockpitXClient.tsx</span></td><td>783</td><td>Splitter en Header / Panel / Actions + hooks dédiés</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/engine/orchestrator/index.ts</span></td><td>728</td><td>Séparer exports (barrel) des implémentations métier</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/components/ChatDock.tsx</span></td><td>693</td><td>Extraire ChatInput · ChatMessageList · ChatToolbar</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/events/consumers/sse-adapter.ts</span></td><td>661</td><td>Découper en sse-parser · sse-reconnect · sse-dispatcher</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">lib/missions/approvals.ts</span></td><td>634</td><td>Extraire approval-flow · notification · validation</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/_stages/ArtifactStage.tsx</span></td><td>633</td><td>Splitter ArtifactViewer · Toolbar · Actions</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/components/connections/use-connections-hub.ts</span></td><td>624</td><td>Hook monolithique → découper par feature</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/_stages/SimulationStage.tsx</span></td><td>602</td><td>God-component stage</td></tr>
+    <tr><td><span class="badge p1">P1</span></td><td><span class="path">app/(user)/_stages/KGStage.tsx</span></td><td>589</td><td>God-component stage</td></tr>
+  </table>
+
+  <h2>Top 5 dettes structurelles — synthèse</h2>
+  <table>
+    <tr><th>#</th><th>Dette</th><th>Effet</th><th>Action prioritaire</th></tr>
+    <tr><td>1</td><td><code>lib/database.types.ts</code> monolithe + tables manquantes</td><td>48 <code>any</code> + 103 <code>eslint-disable</code> en chaîne</td><td>Régénérer types Supabase puis splitter par domaine</td></tr>
+    <tr><td>2</td><td>7 dépendances 3D/cytoscape installées non utilisées</td><td>Bundle gonflé, install lente</td><td>Désinstaller <code>three</code>, <code>@react-three/*</code>, <code>cytoscape*</code>, <code>dompurify</code>, <code>@ai-sdk/openai</code></td></tr>
+    <tr><td>3</td><td>Shell legacy non purgé (HelmShell/HelmBottomBar + 8 Chat*)</td><td>Confusion entre legacy et cockpit-shell</td><td>Confirmer remplacement complet puis purge</td></tr>
+    <tr><td>4</td><td>Pattern god-component sur 7+ stages (500-633 L)</td><td>Maintenance difficile, tests fragiles</td><td>Refactor systématique <code>_stages/*Stage.tsx</code></td></tr>
+    <tr><td>5</td><td>Cluster orbital 3D mort (5 fichiers)</td><td>Code mort + deps R3F inutilisées</td><td>Suppression complète si feature abandonnée</td></tr>
+  </table>
+
+  <div style="margin-top: 32px; color: var(--muted); font-size: 12px; text-align: center;">
+    Audit généré par /adrien-auditer-code · 5 agents Explore parallèles (knip · ts-prune · lint · TODO · complexité)
+  </div>
+</body>
+</html>

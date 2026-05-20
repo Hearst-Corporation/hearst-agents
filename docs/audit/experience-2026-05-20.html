@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Audit UX & Navigation — Hearst OS — 2026-05-20</title>
+<style>
+  :root {
+    --bg: #1A050B;
+    --bg-2: #2a0a13;
+    --surface: rgba(255,255,255,0.04);
+    --surface-2: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.10);
+    --text: rgba(245,245,245,0.92);
+    --muted: rgba(245,245,245,0.55);
+    --dim: rgba(245,245,245,0.40);
+    --accent: #8A1538;
+    --accent-2: #c33b5e;
+    --p0: #ff5a6a;
+    --p1: #ffb454;
+    --p2: #6fd0c2;
+    --ok: #6fd07a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font: 14px/1.55 system-ui, -apple-system, "Inter", "Helvetica Neue", sans-serif; }
+  body { background:
+    radial-gradient(1200px 800px at 0% 0%, rgba(138,21,56,0.22), transparent 60%),
+    radial-gradient(1000px 700px at 100% 100%, rgba(138,21,56,0.18), transparent 60%),
+    var(--bg);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 32px 28px 80px; }
+  header.top { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 18px 22px; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); margin-bottom: 26px; }
+  header.top h1 { font-size: 19px; margin: 0; letter-spacing: 0.02em; font-weight: 600; }
+  header.top h1 small { font-weight: 400; color: var(--muted); margin-left: 10px; font-size: 13px; }
+  header.top .meta { color: var(--muted); font-size: 12.5px; display: flex; gap: 14px; flex-wrap: wrap; }
+  header.top .meta b { color: var(--text); font-weight: 600; }
+
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-bottom: 22px; backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); }
+  section h2 { font-size: 15px; margin: 0 0 14px; letter-spacing: 0.02em; font-weight: 600; color: var(--text); }
+  section h2 .count { color: var(--muted); font-weight: 400; font-size: 12.5px; margin-left: 8px; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kpi { padding: 18px 18px 16px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--border); }
+  .kpi .v { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; line-height: 1; margin-bottom: 6px; }
+  .kpi .l { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+  .kpi.p0 .v { color: var(--p0); }
+  .kpi.p1 .v { color: var(--p1); }
+  .kpi.p2 .v { color: var(--p2); }
+  .kpi.tot .v { color: var(--text); }
+
+  .lead { color: var(--muted); margin: 0 0 18px; font-size: 13.5px; max-width: 80ch; }
+
+  .risk-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .risk-list li { padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
+  .risk-list .num { color: var(--accent-2); font-weight: 600; min-width: 22px; }
+  .risk-list .desc { color: var(--text); font-size: 13.5px; }
+  .risk-list .desc code { background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; font-size: 12.5px; color: var(--text); }
+  .risk-list .desc .why { display: block; color: var(--muted); margin-top: 4px; font-size: 12.5px; }
+
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12.5px; }
+  thead th { position: sticky; top: 0; z-index: 2; text-align: left; font-weight: 600; padding: 10px 10px; background: rgba(20, 5, 9, 0.92); border-bottom: 1px solid var(--border); color: var(--text); backdrop-filter: blur(8px); }
+  tbody td { padding: 11px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; color: var(--text); }
+  tbody tr:hover { background: rgba(255,255,255,0.025); }
+  td.path { font-family: ui-monospace, "SF Mono", "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); white-space: nowrap; max-width: 360px; overflow: hidden; text-overflow: ellipsis; }
+  td.path b { color: var(--text); font-weight: 500; }
+  td.title { min-width: 240px; }
+  td.suggested { color: var(--muted); font-size: 12px; }
+  .rule { display: inline-block; padding: 2px 7px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--muted); font-size: 11px; letter-spacing: 0.02em; }
+
+  .sev { display: inline-block; padding: 2px 8px; border-radius: 999px; font-weight: 700; font-size: 11px; letter-spacing: 0.04em; }
+  .sev.P0 { background: rgba(255,90,106,0.14); color: var(--p0); border: 1px solid rgba(255,90,106,0.30); }
+  .sev.P1 { background: rgba(255,180,84,0.14); color: var(--p1); border: 1px solid rgba(255,180,84,0.30); }
+  .sev.P2 { background: rgba(111,208,194,0.14); color: var(--p2); border: 1px solid rgba(111,208,194,0.30); }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+  .pill { padding: 6px 12px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); font-size: 12.5px; }
+  .pill b { color: var(--text); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, 1fr); } .grid-2 { grid-template-columns: 1fr; } }
+
+  details { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 0; margin: 8px 0 0; }
+  details > summary { padding: 10px 14px; cursor: pointer; color: var(--text); font-size: 13px; user-select: none; }
+  details[open] > summary { border-bottom: 1px solid var(--border); }
+  details .det-body { padding: 12px 14px; color: var(--muted); font-size: 12.5px; }
+
+  footer { margin-top: 28px; color: var(--dim); font-size: 12px; text-align: center; }
+  footer a { color: var(--accent-2); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Audit UX &amp; Navigation <small>Hearst OS · branche feat/hub-mode-helm</small></h1>
+  <div class="meta">
+    <span><b>Date</b> 2026-05-20</span>
+    <span><b>Agents</b> 3 × Sonnet (Explore)</span>
+    <span><b>Scope</b> app/, components/, packages/cockpit-shell/src/</span>
+    <span><b>Mode</b> read-only</span>
+  </div>
+</header>
+
+<section>
+  <h2>Synthèse</h2>
+  <div class="kpis">
+    <div class="kpi p0"><div class="v">7</div><div class="l">P0 — flow bloqué</div></div>
+    <div class="kpi p1"><div class="v">22</div><div class="l">P1 — friction notable</div></div>
+    <div class="kpi p2"><div class="v">25</div><div class="l">P2 — polish</div></div>
+    <div class="kpi tot"><div class="v">54</div><div class="l">findings total</div></div>
+  </div>
+  <p class="lead" style="margin-top:20px">
+    Audit comme un utilisateur premier-venu navigant au clavier. Patterns sains déjà adoptés : <b>ConfirmModal</b> sur 6 destructifs, système <b>toast</b> global (24 appels), <b>useModalA11y</b> sur toutes les modales sauf OnboardingTour, <b>lang="fr"</b> root. Les angles morts : le <b>cockpit-shell package</b> n'utilise pas le DS (window.confirm, catch silencieux), les <b>Server Components admin</b> n'ont pas de try/catch sur Promise.all, et plusieurs <b>pages d'écran</b> affichent des CTA non câblés (Marketplace / Apps).
+  </p>
+  <div class="pill-row">
+    <span class="pill">Routes auditées : <b>app/(user)/</b> · <b>app/admin/</b> · <b>packages/cockpit-shell/</b></span>
+    <span class="pill"><b>2</b> <code>window.confirm</code> détectés</span>
+    <span class="pill"><b>0</b> skip-link racine</span>
+    <span class="pill"><b>lang="fr"</b> OK · <b>useModalA11y</b> 95% couverture</span>
+  </div>
+</section>
+
+<section>
+  <h2>Top 5 flows à risque</h2>
+  <ol class="risk-list" style="counter-reset: r">
+    <li><span class="num">1.</span><div class="desc">
+      <code>app/(user)/components/chat/useRightPanelData.ts</code> — cœur du chat : <b>SSE <code>onerror</code> silencieux</b> bloque le panneau droit en loading infini après coupure réseau, et un <code>.catch(() => {})</code> sur le fetch <code>asset_generated</code> masque les échecs.
+      <span class="why">Impact : sur 100% des sessions, une coupure ou un 401 fige l'UI sans recours visible. P0 ×2.</span>
+    </div></li>
+    <li><span class="num">2.</span><div class="desc">
+      <code>packages/cockpit-shell/src/chat/ChatHistory.tsx:58,68</code> — <b><code>window.confirm()</code> sur <code>deleteChat()</code> et <code>clearAll()</code></b>, plus catch vide sur l'API DELETE.
+      <span class="why">Incohérence DS, suppression silencieuse côté serveur en cas d'erreur. P0 sur action destructive cumulative (toutes les conversations).</span>
+    </div></li>
+    <li><span class="num">3.</span><div class="desc">
+      <code>app/admin/orchestrator/overview/page.tsx</code> &amp; <code>orchestrator/agents/page.tsx</code> — <b><code>Promise.all</code> sur fonctions HOM sans try/catch</b> (<code>loadAllContracts</code>, <code>loadCC</code>, <code>loadQuarantine</code> throw explicitement si un fichier manque).
+      <span class="why">L'<code>error.tsx</code> du layout admin capture mais affiche un fallback opaque — l'opérateur ne sait pas quel contrat est manquant. P0.</span>
+    </div></li>
+    <li><span class="num">4.</span><div class="desc">
+      <code>app/(user)/marketplace/page.tsx</code> &amp; <code>apps/page.tsx</code> — <b>boutons "Installer" / "Connecter" sans <code>onClick</code></b> ni état loading, UI entièrement statique.
+      <span class="why">Le primo-visiteur clique, rien ne se passe. Impression de bug. P1 ×2 sur les premières pages de l'expérience.</span>
+    </div></li>
+    <li><span class="num">5.</span><div class="desc">
+      <code>app/admin/_canvas/RunWaterfall.tsx:70-80</code> — <b>slider clavier incomplet</b> : <code>role="slider"</code> ne gère que Arrow Left/Right, pas Home/End/Enter/Space.
+      <span class="why">Bornes 0/100% inaccessibles au clavier sur l'outil de debug runs. P0 a11y.</span>
+    </div></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Tableau des findings <span class="count">— filtrable visuellement par sévérité (P0 rouge / P1 orange / P2 teal)</span></h2>
+  <div style="overflow-x: auto; border-radius: 12px; border: 1px solid var(--border);">
+    <table>
+      <thead>
+        <tr>
+          <th>Sév.</th><th>Axe</th><th>Règle</th><th>Fichier</th><th>Titre</th><th>Fix</th>
+        </tr>
+      </thead>
+      <tbody>
+
+<!-- ÉTATS MANQUANTS (A1) -->
+<tr><td><span class="sev P0">P0</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>useRightPanelData.ts</b>:127</td><td class="title">SSE <code>onerror</code> silencieux — panneau droit bloqué en loading infini</td><td class="suggested">Dans <code>es.onerror</code>, <code>setLoading(false)</code> + état erreur visible "Connexion interrompue — Rafraîchir".</td></tr>
+<tr><td><span class="sev P0">P0</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>useRightPanelData.ts</b>:50</td><td class="title"><code>.catch(() =&gt; {})</code> sur fetch asset_generated</td><td class="suggested">Logger l'erreur + badge "données potentiellement obsolètes" dans le panneau.</td></tr>
+<tr><td><span class="sev P0">P0</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>admin/orchestrator/overview/page.tsx</b>:14</td><td class="title"><code>Promise.all</code> sans try/catch sur 7 fns HOM</td><td class="suggested">try/catch + état dégradé visible ; ajouter <code>app/admin/orchestrator/error.tsx</code>.</td></tr>
+<tr><td><span class="sev P0">P0</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>admin/orchestrator/agents/page.tsx</b>:9</td><td class="title"><code>loadAllContracts/loadCC/loadQuarantine</code> sans guard</td><td class="suggested">Wrapper Promise.all dans try/catch ou utiliser <code>Promise.allSettled</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-submit-feedback</span></td><td class="path"><b>marketplace/page.tsx</b>:151</td><td class="title">Bouton "Installer" sans onClick ni loading</td><td class="suggested">Brancher handler async + state submitting + désactiver pendant l'action.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-submit-feedback</span></td><td class="path"><b>apps/page.tsx</b>:131</td><td class="title">Bouton "Connecter" sans onClick (OAuth/Composio)</td><td class="suggested">Brancher le flow OAuth ou désactiver explicitement avec <code>title="Bientôt"</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-empty-state</span></td><td class="path"><b>reports/page.tsx</b>:96</td><td class="title">Filtres non fonctionnels — liste hardcodée</td><td class="suggested">useState filtre actif + branche conditionnelle "Aucun rapport pour ce filtre".</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>useRightPanelData.ts</b>:92</td><td class="title"><code>setLoading(true)</code> via <code>queueMicrotask</code> — FOUC</td><td class="suggested">Initialiser <code>loading=true</code> par défaut.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>cockpit-x/CockpitXClient.tsx</b>:21</td><td class="title">10 <code>dynamic()</code> sans <code>loading</code> fallback</td><td class="suggested">Ajouter <code>{ loading: () =&gt; &lt;StageSkeleton/&gt; }</code> à chaque dynamic import.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>VersionHistoryPanel.tsx</b>:72</td><td class="title">diff error confondu avec "Aucune différence"</td><td class="suggested">State <code>diffError</code> distinct ; message d'erreur explicite.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>admin/analytics/page.tsx</b>:131</td><td class="title"><code>loadTenantDetail</code> erreur globale non contextualisée</td><td class="suggested">State erreur local au drill-down + indicateur sur la row cliquée.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-empty-state</span></td><td class="path"><b>admin/runs/page.tsx</b>:75</td><td class="title">Pas de <code>loading.tsx</code> sur Server Component Supabase</td><td class="suggested">Créer <code>app/admin/runs/loading.tsx</code> (skeleton 8 lignes).</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>admin/agents/page.tsx</b>:18</td><td class="title">Page blanche pendant fetch Supabase</td><td class="suggested">Créer <code>app/admin/agents/loading.tsx</code> (grid 6 AgentCard skeletons).</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>admin/orchestrator/runs/[id]/page.tsx</b>:12</td><td class="title">readRunBundle/readRunSpans sans try/catch</td><td class="suggested">try/catch → <code>notFound()</code> propre + message.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-error-state</span></td><td class="path"><b>VersionHistoryPanel.tsx</b>:57</td><td class="title">loadVersions catch console.error → bloqué loading</td><td class="suggested">Setter <code>error</code> + <code>setLoading(false)</code> dans le catch.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-empty-state</span></td><td class="path"><b>reports/studio/page.tsx</b>:43</td><td class="title">Canvas "Glisse des blocs ici" sans DnD réel</td><td class="suggested">Implémenter DnD ou afficher état "en développement" + CTA alternatif.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-empty-state</span></td><td class="path"><b>apps/page.tsx</b>:18</td><td class="title">Section "Connectées" disparaît si vide</td><td class="suggested">Empty state explicite + CTA vers le catalogue.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>admin/health/page.tsx</b>:275</td><td class="title">Client component sans <code>loading.tsx</code> segment</td><td class="suggested">Créer <code>app/admin/health/loading.tsx</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>admin/metrics/page.tsx</b>:121</td><td class="title">Flash avant hydration côté client</td><td class="suggested">Créer <code>app/admin/metrics/loading.tsx</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>admin/analytics/page.tsx</b>:66</td><td class="title">Pas de skeleton segment analytics</td><td class="suggested">Créer <code>app/admin/analytics/loading.tsx</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>settings/alerting/page.tsx</b></td><td class="title">Flash sur chargement préférences</td><td class="suggested">Créer <code>loading.tsx</code> local.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>États</td><td><span class="rule">missing-loading</span></td><td class="path"><b>browser/page.tsx</b></td><td class="title">BrowserStage dynamic sans fallback</td><td class="suggested">Créer <code>loading.tsx</code> avec BrowserStage skeleton.</td></tr>
+
+<!-- NAVIGATION (A2) -->
+<tr><td><span class="sev P0">P0</span></td><td>Navigation</td><td><span class="rule">native-confirm</span></td><td class="path"><b>cockpit-shell/ChatHistory.tsx</b>:58</td><td class="title"><code>window.confirm()</code> sur <code>deleteChat()</code></td><td class="suggested">Remplacer par <code>ConfirmModal</code> du DS + toast.</td></tr>
+<tr><td><span class="sev P0">P0</span></td><td>Navigation</td><td><span class="rule">native-confirm</span></td><td class="path"><b>cockpit-shell/ChatHistory.tsx</b>:68</td><td class="title"><code>window.confirm()</code> sur <code>clearAll()</code> + catch vide</td><td class="suggested"><code>ConfirmModal</code> + <code>toast.error</code> sur échec API.</td></tr>
+<tr><td><span class="sev P0">P0</span></td><td>Navigation</td><td><span class="rule">unconfirmed-destructive</span></td><td class="path"><b>ReportSpecEditor.tsx</b>:60</td><td class="title"><code>resetAll()</code> détruit la sélection sans confirmation</td><td class="suggested"><code>ConfirmModal</code> si dirty, ou <code>toast</code> avec undo (pattern SimulationStage).</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-toast</span></td><td class="path"><b>cockpit-shell/ChatHistory.tsx</b>:60</td><td class="title"><code>deleteChat()</code> erreur silencieuse</td><td class="suggested">toast.error + rollback optimiste si DELETE échoue.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-breadcrumb</span></td><td class="path"><b>admin/runs/[id]/page.tsx</b>:52</td><td class="title">Aucun <code>BackLink</code> ni breadcrumb</td><td class="suggested">Ajouter <code>&lt;BackLink href="/admin/runs"/&gt;</code> (pattern <code>/admin/agents/[id]</code>).</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-toast</span></td><td class="path"><b>ReportActions.tsx</b>:235</td><td class="title">Copie clipboard sans feedback "Copié"</td><td class="suggested">State <code>copied</code> 1.5s ou <code>toast.success</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-toast</span></td><td class="path"><b>ReportActions.tsx</b>:117</td><td class="title">Création lien partage sans toast</td><td class="suggested"><code>toast.success("Lien partageable créé")</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-toast</span></td><td class="path"><b>useAlertingPrefs.ts</b>:51</td><td class="title">Save header inline invisible si scroll</td><td class="suggested">Compléter avec <code>toast.success("Préférences sauvegardées")</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-returnto</span></td><td class="path"><b>admin/layout.tsx</b>:29</td><td class="title"><code>redirect("/")</code> perd l'URL admin demandée</td><td class="suggested">Préserver callbackUrl pour reprise post-upgrade rôle.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-feedback</span></td><td class="path"><b>ChatDock.tsx</b>:283</td><td class="title"><code>router.push("/")</code> sur submit hors '/'</td><td class="suggested">Évaluer <code>router.replace</code> ou toast "Retour au cockpit".</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>Navigation</td><td><span class="rule">missing-progress</span></td><td class="path"><b>OnboardingTour.tsx</b>:176</td><td class="title">Dots sans <code>aria-live</code> ni numérotation accessible</td><td class="suggested"><code>aria-label="Étape N sur M"</code> ou <code>aria-live="polite"</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>Navigation</td><td><span class="rule">missing-toast</span></td><td class="path"><b>WebhooksSection.tsx</b>:27</td><td class="title">Suppression webhook sans toast</td><td class="suggested"><code>toast.success("Webhook supprimé")</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>Navigation</td><td><span class="rule">missing-feedback</span></td><td class="path"><b>ReportActions.tsx</b>:60</td><td class="title">Export téléchargement sans état loading</td><td class="suggested">State <code>isExporting</code> + spinner sur MenuItem.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>Navigation</td><td><span class="rule">missing-toast</span></td><td class="path"><b>admin/agents/new/page.tsx</b>:82</td><td class="title">Création agent sans toast de succès</td><td class="suggested"><code>toast.success("Agent créé")</code> avant <code>router.push</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>Navigation</td><td><span class="rule">missing-breadcrumb</span></td><td class="path"><b>admin/runs/[id]/page.tsx</b>:54</td><td class="title">Titre <code>run.kind</code> sans contexte agent</td><td class="suggested">Enrichir titre ou breadcrumb agent → run.</td></tr>
+
+<!-- A11Y (A3) -->
+<tr><td><span class="sev P0">P0</span></td><td>A11y</td><td><span class="rule">keyboard-event-incomplete</span></td><td class="path"><b>admin/_canvas/RunWaterfall.tsx</b>:70</td><td class="title"><code>role="slider"</code> sans Home/End/Enter/Space</td><td class="suggested">Compléter ARIA slider : Home (0), End (max), Page Up/Down par 10%, Enter pour valider.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>A11y</td><td><span class="rule">disabled-without-aria</span></td><td class="path"><b>MissionStage.tsx</b>:311</td><td class="title"><code>disabled={approving}</code> sans <code>aria-disabled</code> ni <code>title</code></td><td class="suggested"><code>aria-disabled="true" title="Approbation en cours"</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>A11y</td><td><span class="rule">input-without-label</span></td><td class="path"><b>admin/_components/ChatWindow.tsx</b>:148</td><td class="title">Input "Message…" sans label associé</td><td class="suggested"><code>aria-label="Message à envoyer"</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>A11y</td><td><span class="rule">input-without-label</span></td><td class="path"><b>SaveTemplateForm.tsx</b>:39,56</td><td class="title">2 inputs sans <code>htmlFor</code> (span au lieu de label)</td><td class="suggested">Remplacer <code>&lt;span&gt;</code> par <code>&lt;label htmlFor=...&gt;</code>.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>A11y</td><td><span class="rule">input-without-label</span></td><td class="path"><b>SimulationStage.tsx</b>:281,295</td><td class="title">Inputs Variable/Valeur sans label (placeholders seuls)</td><td class="suggested"><code>aria-label="Variable" / "Valeur"</code> sur chaque input itéré.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>A11y</td><td><span class="rule">missing-focus-trap</span></td><td class="path"><b>OnboardingTour.tsx</b>:110</td><td class="title">Dialog sans <code>useModalA11y</code> — Tab échappe</td><td class="suggested">Wrapper avec <code>useModalA11y</code> (focus trap + Escape + restore focus).</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>A11y</td><td><span class="rule">missing-autofocus</span></td><td class="path"><b>OnboardingTour.tsx</b>:141</td><td class="title">Aucun focus initial sur CTA du tour</td><td class="suggested"><code>autoFocus</code> sur "Suivant" ou <code>focus()</code> programmatique au mount.</td></tr>
+<tr><td><span class="sev P1">P1</span></td><td>A11y</td><td><span class="rule">broken-focus-visible</span></td><td class="path"><b>cockpit-shell/tokens.css</b>:570,571,660</td><td class="title"><code>outline:none</code> sur <code>.ct-chat-input</code> sans <code>:focus-visible</code></td><td class="suggested">Ajouter règle <code>.ct-chat-input:focus-visible</code> avec ring distinct ; convertir <code>:focus</code> → <code>:focus-visible</code> sur settings.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">missing-skiplink</span></td><td class="path"><b>app/layout.tsx</b>:39</td><td class="title">Pas de skip-to-content</td><td class="suggested"><code>&lt;a href="#main" className="sr-only focus:not-sr-only"&gt;Aller au contenu&lt;/a&gt;</code> en tête de body.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">broken-focus-visible</span></td><td class="path"><b>app/globals.css</b>:920</td><td class="title"><code>.pipeline-card</code> outline:none sans fallback :focus</td><td class="suggested">Garder <code>:focus-visible</code> + ajouter <code>:focus</code> fallback navigateurs anciens.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">broken-focus-visible</span></td><td class="path"><b>app/globals.css</b> (7 occurrences)</td><td class="title">Dette <code>outline:none</code> (toutes couvertes mais volume)</td><td class="suggested">Audit consolidé ou utilitaire <code>.focus-ring</code> partagé.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">input-without-label</span></td><td class="path"><b>chat/WorkingDocument.tsx</b>:95</td><td class="title">Input sans label visible</td><td class="suggested">Ajouter <code>aria-label</code> contextualisé.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">input-without-label</span></td><td class="path"><b>chat/ConversationHeader.tsx</b>:73</td><td class="title">Inline edit titre sans label</td><td class="suggested"><code>aria-label="Renommer la conversation"</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">input-without-label</span></td><td class="path"><b>AgentLockCard.tsx</b>:99</td><td class="title">Input admin sans label</td><td class="suggested"><code>aria-label</code> contextualisé au champ.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">broken-heading-order</span></td><td class="path"><b>admin/orchestrator/*/page.tsx</b></td><td class="title">h1 fourni indirectement par HomShell — fragile</td><td class="suggested">h1 explicite par page ou audit serré sur HomShell mount.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">broken-heading-order</span></td><td class="path"><b>UsageTimeSeriesChart.tsx</b>:75</td><td class="title">h3 dans composant non-autonome</td><td class="suggested">Convertir en <code>h2</code> ou exiger contexte parent documenté.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">broken-heading-order</span></td><td class="path"><b>_shell/RightRail.tsx</b>:77</td><td class="title">h3 dans rail droit sans h1/h2 garanti</td><td class="suggested"><code>aria-label</code> sur la région ou downgrade vers <code>div</code>.</td></tr>
+<tr><td><span class="sev P2">P2</span></td><td>A11y</td><td><span class="rule">keyboard-event-incomplete</span></td><td class="path"><b>admin/_components/ChatWindow.tsx</b>:151</td><td class="title">onKeyDown Enter only (OK input natif)</td><td class="suggested">Acceptable, mais corriger A-02 (label) reste prioritaire.</td></tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Patterns sains déjà adoptés</h2>
+  <ul style="margin:0; padding-left:20px; color: var(--muted); font-size: 13.5px; line-height: 1.7;">
+    <li><b>ConfirmModal</b> appliqué sur 6 destructifs (SimulationStage reset, MissionStepGraph skip, AppDrawer disconnect, WebhooksSection delete, ReportEditor reset/load, NewAgent cancel).</li>
+    <li><b>Système toast global</b> cohérent (24 appels), hook <code>useToast</code> uniforme.</li>
+    <li><b>useModalA11y</b> sur ConfirmModal, AssetCompareModal, Commandeur, DocumentParseModal, EnrichmentPreviewModal, VideoQuickLaunchPanel, PopoverShell — focus trap + Escape + restore focus. Seule modale non couverte : OnboardingTour.</li>
+    <li><b>error.tsx</b> présents sur <code>app/admin/</code> et <code>app/(user)/</code> (couvre les routes enfants).</li>
+    <li><code>&lt;html lang="fr"&gt;</code> dans root layout. Aucun <code>@ts-nocheck</code> dans le scope audité.</li>
+    <li>Pattern <code>:focus-visible</code> systématique dans <code>app/globals.css</code> (7 <code>outline:none</code>, tous accompagnés d'un fallback distinct).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Angles morts récurrents</h2>
+  <div class="grid-2">
+    <div>
+      <h3 style="font-size:13px; margin:0 0 8px; color:var(--text);">1. Cockpit-shell hors du DS</h3>
+      <p style="font-size:12.5px; color:var(--muted); margin:0;">Le package <code>packages/cockpit-shell/</code> n'utilise ni <code>ConfirmModal</code> ni <code>toast</code> ni <code>useModalA11y</code>. <code>window.confirm</code> ×2, <code>:focus-visible</code> absent sur <code>.ct-chat-input</code>. Gap le plus structurant — chaque ajout de feature dans le shell rejoue le pattern d'origine.</p>
+    </div>
+    <div>
+      <h3 style="font-size:13px; margin:0 0 8px; color:var(--text);">2. Server Components admin sans guard</h3>
+      <p style="font-size:12.5px; color:var(--muted); margin:0;"><code>Promise.all</code> sur fonctions HOM qui peuvent throw — masqué par <code>error.tsx</code> du layout, mais le fallback est opaque. Pas de discrimination entre "fichier manquant" et "API down" pour l'opérateur.</p>
+    </div>
+    <div>
+      <h3 style="font-size:13px; margin:0 0 8px; color:var(--text);">3. Pages d'écran avec CTA non câblés</h3>
+      <p style="font-size:12.5px; color:var(--muted); margin:0;"><code>marketplace</code>, <code>apps</code>, <code>archive</code>, <code>notifications</code> affichent des boutons sans <code>onClick</code> ou des filtres morts. Le run OMNISCAN précédent a désactivé les UI mortes sur archive/notifications/marketplace — il reste <code>apps/page.tsx</code> et les filtres <code>reports</code>.</p>
+    </div>
+    <div>
+      <h3 style="font-size:13px; margin:0 0 8px; color:var(--text);">4. Loading.tsx manquants côté admin</h3>
+      <p style="font-size:12.5px; color:var(--muted); margin:0;">5 routes <code>admin/</code> sans skeleton segment (runs, agents, health, metrics, analytics). Page blanche pendant le SSR/hydration. Réutiliser <code>RowSkeleton/CardSkeleton</code> existants.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Quick wins (ordre suggéré)</h2>
+  <ol style="margin:0; padding-left:22px; line-height:1.8; color:var(--text); font-size:13.5px;">
+    <li><b>Réparer <code>useRightPanelData.ts</code></b> (P0×2) — set <code>loading=false</code> dans <code>es.onerror</code> + état erreur visible. Effet sur 100% des sessions chat.</li>
+    <li><b>Cockpit-shell : adopter le DS</b> — remplacer <code>window.confirm</code> par <code>ConfirmModal</code>, ajouter <code>:focus-visible</code> sur <code>.ct-chat-input</code>. 1 PR ciblée.</li>
+    <li><b>Try/catch sur les 3 Server Components admin/orchestrator/*</b> + ajouter <code>app/admin/orchestrator/error.tsx</code> dédié.</li>
+    <li><b><code>OnboardingTour</code></b> : wrapper avec <code>useModalA11y</code> + <code>autoFocus</code> sur CTA principal.</li>
+    <li><b>5 <code>loading.tsx</code> admin</b> (runs, agents, health, metrics, analytics) — copie-colle de skeleton existants, 10 min chacun.</li>
+    <li><b>Compléter <code>RunWaterfall</code> slider</b> (Home/End/Page) — débloque clavier-only sur le debug runs.</li>
+    <li><b>Skip-link racine</b> + <code>:focus-visible</code> sur cockpit-shell — gain a11y systémique, 1 commit.</li>
+  </ol>
+</section>
+
+<footer>
+  Rapport généré par <code>/adrien-auditer-experience</code> · 3 agents Sonnet en parallèle · Hearst OS · 2026-05-20
+</footer>
+
+</div>
+</body>
+</html>

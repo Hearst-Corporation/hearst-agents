@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Audit performance — Hearst OS — 2026-05-19</title>
+<style>
+  :root {
+    --bg: #0f0a0c;
+    --bg-card: #1a1216;
+    --bg-card-hover: #221820;
+    --fg: #f4ecef;
+    --fg-muted: #b8a8b0;
+    --fg-dim: #7a6a72;
+    --border: #2d2128;
+    --accent: #c8385a;
+    --p0: #ff4d6d;
+    --p1: #ffa64d;
+    --p2: #6ec1ff;
+    --code-bg: #0a0608;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.55;
+    font-size: 14px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 28px 80px; }
+  header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+  .sub { color: var(--fg-muted); font-size: 13px; }
+  .stats { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 13px;
+    background: var(--bg-card); border: 1px solid var(--border);
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .badge.p0 .dot { background: var(--p0); }
+  .badge.p1 .dot { background: var(--p1); }
+  .badge.p2 .dot { background: var(--p2); }
+  .badge.total .dot { background: var(--fg-muted); }
+
+  h2 {
+    font-size: 18px; font-weight: 700; margin: 36px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  h2::before { content: ""; width: 3px; height: 16px; background: var(--accent); border-radius: 2px; }
+
+  .qw-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .qw {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; border-left: 3px solid var(--accent);
+  }
+  .qw-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .qw-gain { color: #7be39a; font-weight: 600; font-size: 12px; }
+  .qw-meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--fg-muted); margin-top: 4px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    text-align: left; padding: 10px 12px; font-weight: 600; color: var(--fg-muted);
+    background: var(--bg-card); border-bottom: 1px solid var(--border); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  tbody td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:hover { background: var(--bg-card); }
+
+  .sev { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11px; }
+  .sev.p0 { background: rgba(255, 77, 109, 0.15); color: var(--p0); }
+  .sev.p1 { background: rgba(255, 166, 77, 0.15); color: var(--p1); }
+  .sev.p2 { background: rgba(110, 193, 255, 0.15); color: var(--p2); }
+
+  code, .path {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    background: var(--code-bg);
+    padding: 2px 6px; border-radius: 4px;
+    color: #e8c4cf;
+    word-break: break-all;
+  }
+  .path { color: var(--fg-muted); }
+  .rule { color: var(--accent); font-weight: 600; font-size: 12px; }
+  .why { color: var(--fg-muted); font-size: 12px; margin-top: 4px; font-style: italic; }
+
+  details { margin: 14px 0; }
+  summary { cursor: pointer; font-weight: 600; padding: 8px 0; color: var(--fg-muted); }
+  summary:hover { color: var(--fg); }
+
+  .section-summary {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px 22px; margin: 12px 0 24px;
+  }
+  .section-summary p { margin: 8px 0; color: var(--fg-muted); }
+  .section-summary strong { color: var(--fg); }
+
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--fg-dim); font-size: 11px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Audit performance — Hearst OS</h1>
+    <div class="sub">2026-05-19 · Next.js 15 + React 19 · 3 agents Explore (Sonnet) en parallèle · read-only strict</div>
+    <div class="stats">
+      <span class="badge total"><span class="dot"></span>55 findings</span>
+      <span class="badge p0"><span class="dot"></span>P0 · 4</span>
+      <span class="badge p1"><span class="dot"></span>P1 · 27</span>
+      <span class="badge p2"><span class="dot"></span>P2 · 24</span>
+    </div>
+  </header>
+
+  <section class="section-summary">
+    <p><strong>Verdict.</strong> Le bundle initial est sain grâce aux <code>dynamic()</code> sur les stages et Spline, mais 4 fuites P0 méritent d'être traitées : 2 polls/intervals sans cleanup robuste, 2 requêtes Supabase non bornées (<code>kg_nodes</code>/<code>kg_edges</code>, <code>users</code>), et un risque <code>three.js</code> chargé sync sur <code>OrbitalRing</code>.</p>
+    <p><strong>Quick wins.</strong> <strong>3 actions sous 30 min</strong> peuvent réduire ~640–1050 KB du bundle initial et économiser 200–400 ms de LCP mobile : <code>optimizePackageImports</code>, migration <code>next/font/local</code>, et suppression du fetch <code>ThemeHydrator</code> redondant.</p>
+    <p><strong>Dette structurelle.</strong> <code>app/(user)/layout.tsx</code> en <code>"use client"</code> neutralise les Server Components sur toute l'arbo user — chantier de refonte à planifier hors quick wins.</p>
+  </section>
+
+  <h2>Quick wins (≤ 30 min chacun)</h2>
+  <div class="qw-grid">
+
+    <div class="qw">
+      <div class="qw-title">QW1 — <code>optimizePackageImports</code> dans next.config.ts</div>
+      <div>Ajouter <code>experimental.optimizePackageImports: ['framer-motion', 'zustand', '@supabase/supabase-js', 'zod', 'lucide-react']</code>.</div>
+      <div class="qw-meta"><span class="qw-gain">Gain : 80–150 KB gzipped</span> · <span>Effort : 5 min</span> · <span>Severity : P1</span></div>
+    </div>
+
+    <div class="qw">
+      <div class="qw-title">QW2 — <code>import "server-only"</code> sur connectors lourds</div>
+      <div>Ajouter <code>import "server-only";</code> en première ligne de <code>lib/connectors/google/*.ts</code>, <code>lib/daily-brief/pdf.ts</code>, <code>lib/reports/export/{xlsx,pdf}.ts</code>, <code>lib/engine/runtime/assets/generators/*.ts</code>.</div>
+      <div class="qw-meta"><span class="qw-gain">Gain : 500–800 KB si leak évité (googleapis seul)</span> · <span>Effort : 15 min</span> · <span>Severity : P1</span></div>
+    </div>
+
+    <div class="qw">
+      <div class="qw-title">QW3 — Migrer la font Satoshi vers next/font/local</div>
+      <div>Remplacer le <code>&lt;link rel="stylesheet"&gt;</code> externe vers fontshare.com par <code>next/font/local</code> (.woff2 self-hosted) — preload auto + font-display:swap.</div>
+      <div class="qw-meta"><span class="qw-gain">Gain : −200 à −400 ms LCP mobile</span> · <span>Effort : 30 min</span> · <span>Severity : P1</span></div>
+    </div>
+
+    <div class="qw">
+      <div class="qw-title">QW4 — Supprimer le fetch ThemeHydrator redondant</div>
+      <div>Le thème est déjà injecté via cookie + <code>data-theme</code> sur <code>&lt;html&gt;</code> dans <code>RootLayout</code>. Le <code>fetch('/api/user/theme', { cache: 'no-store' })</code> au mount est gratuit.</div>
+      <div class="qw-meta"><span class="qw-gain">Gain : −1 requête réseau / mount (~50 ms RTT)</span> · <span>Effort : 10 min</span> · <span>Severity : P2</span></div>
+    </div>
+
+    <div class="qw">
+      <div class="qw-title">QW5 — Borner les Supabase <code>kg_nodes</code> / <code>kg_edges</code></div>
+      <div>Ajouter <code>.limit(500)</code> + sélectionner colonnes explicites dans <code>lib/memory/kg.ts:515-516</code> pour éviter OOM sur KG denses.</div>
+      <div class="qw-meta"><span class="qw-gain">Gain : −80 % transfert réseau sur KG dense</span> · <span>Effort : 5 min</span> · <span>Severity : P0</span></div>
+    </div>
+
+  </div>
+
+  <h2>P0 — Bloquants (4)</h2>
+  <table>
+    <thead><tr><th style="width:60px">Sev</th><th>Localisation</th><th>Règle / titre</th><th>Détail</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="sev p0">P0</span></td>
+        <td><span class="path">components/spatial-safe/orbital/OrbitalRing.tsx</span><br/><span class="path">components/spatial-safe/materials/GlassMaterial.tsx</span></td>
+        <td><span class="rule">heavy-sync-import (three)</span><br/><strong>three + R3F importés en sync (~600 KB gzipped)</strong></td>
+        <td>OrbitalRing/GlassMaterial importent <code>* as THREE</code> directement. <code>SpatialLogoCore</code>/<code>SpatialRoot</code> font le boulot via <code>dynamic()</code>, mais si OrbitalRing remonte sans lazy boundary → bundle initial gonflé.<div class="why">⚠ zone spatial-safe protégée — ne pas modifier sans accord explicite Adrien.</div></td>
+      </tr>
+      <tr>
+        <td><span class="sev p0">P0</span></td>
+        <td><span class="path">components/spatial-safe/core/SpatialLogoCore.tsx</span></td>
+        <td><span class="rule">heavy-runtime-dep</span><br/><strong>@splinetool/runtime (~1 MB) en dep directe</strong></td>
+        <td>Spline est <code>dynamic()</code>-importé (correct), mais <code>@splinetool/runtime</code> reste accessible si importé ailleurs sans guard. Risque P0 latent.</td>
+      </tr>
+      <tr>
+        <td><span class="sev p0">P0</span></td>
+        <td><span class="path">lib/memory/kg.ts:515-516</span></td>
+        <td><span class="rule">supabase-unbounded</span><br/><strong><code>kg_nodes</code> + <code>kg_edges</code> en <code>select('*')</code> sans limite</strong></td>
+        <td>Fetch complet du graphe à chaque appel <code>getGraph()</code>. KG dense = centaines de rows = transfert non borné, risque OOM côté serveur.</td>
+      </tr>
+      <tr>
+        <td><span class="sev p0">P0</span></td>
+        <td><span class="path">app/admin/orchestrator/_components/CommandCenterLive.tsx:27</span></td>
+        <td><span class="rule">polling-no-cleanup</span><br/><strong><code>setInterval</code> 5 s sans <code>useRef</code></strong></td>
+        <td><code>pollTimer</code> est local au scope effet — cleanup fragile si remount rapide. Utiliser <code>useRef&lt;number&gt;</code> pour garantir <code>clearInterval</code> cross-render.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>P1 — Important (27)</h2>
+  <details open>
+    <summary>Renders & memoization (9)</summary>
+    <table>
+      <thead><tr><th style="width:60px">Sev</th><th>Localisation</th><th>Règle</th><th>Détail</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/admin/agents/new/page.tsx:38</span></td><td><span class="rule">json-stringify-in-render</span></td><td>Double <code>JSON.stringify(form)</code> à chaque render pour <code>isDirty</code> → wrapper en <code>useMemo</code>.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/KGStage.tsx:241</span></td><td><span class="rule">map-without-memo</span></td><td>GraphView <code>nodes.map()</code> sur 50–500 nodes sans <code>React.memo</code>. Chaque hover/click re-render tout.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/KGStage.tsx:294</span></td><td><span class="rule">map-without-memo</span></td><td>ListView <code>nodes.map()</code> dupliqué — double render non memoizé si vues co-existent.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/admin/orchestrator/_components/CommandCenterLive.tsx:11</span></td><td><span class="rule">useeffect-no-deps</span></td><td>useEffect SSE sans tableau de deps visible → risque reconnect en boucle.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/BrowserStage.tsx:428</span></td><td><span class="rule">useeffect-no-deps</span></td><td>3e useEffect dans le stage le plus lourd (541 L) — fetches répétés probables.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/MeetingStage.tsx:368</span></td><td><span class="rule">useeffect-no-deps</span></td><td>Polling meeting — vérifier <code>cancelled</code> ref pour éviter fetches orphelins post-unmount.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/cockpit-x/CockpitXClient.tsx:73,97,107,117</span></td><td><span class="rule">multi-useeffect-monolith</span></td><td>4 <code>useEffect</code> empilés dans un composant 783 L — orchestration fragile, re-renders en cascade.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/AssetCompareStage.tsx:208,331,360,391</span></td><td><span class="rule">multi-useeffect</span></td><td>4 useEffects non audités → risque double-fetch sur chaque render parent.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/SimulationStage.tsx:202</span></td><td><span class="rule">eslint-disable-deps</span></td><td><code>// eslint-disable-next-line react-hooks/exhaustive-deps</code> masque une dep manquante.</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details open>
+    <summary>Bundle & code splitting (10)</summary>
+    <table>
+      <thead><tr><th style="width:60px">Sev</th><th>Localisation</th><th>Règle</th><th>Détail</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">next.config.ts</span></td><td><span class="rule">missing-optimizePackageImports</span></td><td>framer-motion (25 fichiers), supabase-js, zustand, zod, lucide-react non listés. Tree-shaking guidé absent.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">next.config.ts</span></td><td><span class="rule">missing-config-optimization</span></td><td>Aucun <code>optimizePackageImports</code> ni <code>modularizeImports</code>. Next 15 peut tree-shaker auto si configuré.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/engine/orchestrator/index.ts</span></td><td><span class="rule">barrel-import</span></td><td>Barrel 728 L. Si un type remonte côté client → contamination bundle (orchestrateur IA, pipeline, adapters).</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/agent-lock/index.ts</span></td><td><span class="rule">barrel-import</span></td><td>Barrel moyen (135 L) — risque modéré pull inutile client.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/components/ChatDock.tsx</span></td><td><span class="rule">use-client-large</span></td><td>693 L en use client — chunk lourd. Candidat split en <code>StreamParser</code> + <code>MessageList</code> + <code>InputBar</code>.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/cockpit-x/CockpitXClient.tsx</span></td><td><span class="rule">use-client-large + framer-sync</span></td><td>783 L + <code>import { motion } from 'framer-motion'</code> sync.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/connectors/google/{calendar,drive,auth,gmail}.ts</span></td><td><span class="rule">heavy-lib-no-server-only</span></td><td>googleapis ~800 KB. Pas de <code>'server-only'</code> guard → leak potentiel si import accidentel client.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/engine/runtime/assets/generators/spreadsheet.ts</span><br/><span class="path">lib/reports/export/xlsx.ts</span></td><td><span class="rule">heavy-lib-no-server-only</span></td><td>ExcelJS ~500 KB import statique sans guard.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/daily-brief/pdf.ts</span><br/><span class="path">lib/engine/runtime/assets/generators/pdf.ts</span><br/><span class="path">lib/reports/export/pdf.ts</span></td><td><span class="rule">heavy-lib-no-server-only</span></td><td>pdfkit ~300 KB import statique sans guard.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/layout.tsx</span></td><td><span class="rule">use-client-layout</span></td><td><strong>Layout racine user en use client</strong> → toute l'arbo user forcée client, neutralise RSC splitting. Dette structurelle.</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details open>
+    <summary>Network, images & data fetching (8)</summary>
+    <table>
+      <thead><tr><th style="width:60px">Sev</th><th>Localisation</th><th>Règle</th><th>Détail</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_shell/LeftRail.tsx:194</span></td><td><span class="rule">image-no-optim</span></td><td><code>&lt;img src="/hearst-h.svg"&gt;</code> above-the-fold, sans <code>next/image</code> ni <code>loading="lazy"</code>.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/admin/usage/aggregate.ts:95</span><br/><span class="path">lib/jobs/inngest/functions/weekly-digest.ts:72</span><br/><span class="path">lib/jobs/inngest/functions/monthly-card.ts:61</span></td><td><span class="rule">supabase-unbounded</span></td><td><code>SELECT id, tenant_ids FROM users</code> sans <code>.limit()</code> — croissance linéaire avec la base, jobs Inngest chargent tout en RAM.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/platform/settings/store.ts:98</span></td><td><span class="rule">supabase-unbounded</span></td><td><code>db.from(TABLE).select('*')</code> sans limite — si filtre absent, fetch toute la table system_settings.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">lib/engine/runtime/engine/artifact-manager.ts:123</span></td><td><span class="rule">supabase-unbounded</span></td><td><code>.select()</code> seul = <code>select('*')</code>. Préciser colonnes + <code>.limit()</code>.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/BrowserStage.tsx:418</span><br/><span class="path">app/(user)/_stages/MeetingStage.tsx:360</span></td><td><span class="rule">polling-no-backoff</span></td><td>Polling fixe 5 s sans backoff exponentiel — requêtes s'empilent si serveur lent.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/(user)/_stages/MissionListStage.tsx:364</span></td><td><span class="rule">framer-loop</span></td><td><code>missions.map()</code> + <code>AnimatePresence</code> + <code>motion.*</code> par item → observateur Framer Motion par mission.</td></tr>
+        <tr><td><span class="sev p1">P1</span></td><td><span class="path">app/layout.tsx:41-43</span></td><td><span class="rule">font-no-preload</span></td><td>Satoshi via <code>&lt;link rel="stylesheet"&gt;</code> externe fontshare.com — bloque rendu, pas de preload, pas de font-display:swap auto.</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <h2>P2 — À surveiller (24)</h2>
+  <details>
+    <summary>Voir le détail (renders, fichiers monstres, console.log, framer over-use)</summary>
+    <table>
+      <thead><tr><th style="width:60px">Sev</th><th>Localisation</th><th>Règle</th><th>Détail</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/cockpit-x/CockpitXClient.tsx</span></td><td><span class="rule">file-too-large</span></td><td>783 L monolithique — découper en shell + hooks + sous-composants.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/components/ChatDock.tsx</span></td><td><span class="rule">file-too-large</span></td><td>693 L avec parsing SSE inline (<code>JSON.parse</code> L409).</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/_stages/ArtifactStage.tsx</span></td><td><span class="rule">file-too-large</span></td><td>633 L, fetch + versioning + tabs inline.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/_stages/SimulationStage.tsx:267</span></td><td><span class="rule">inline-fn-in-map</span></td><td><code>onClick={() => removeVariable(idx)}</code> dans <code>.map()</code> — nouvelle fn par render.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/_stages/KGStage.tsx:254</span></td><td><span class="rule">inline-fn-in-map</span></td><td>onClick inline × 2 dans <code>nodes.map()</code> sur potentiellement 100+ nodes.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/admin/runs/[id]/page.tsx:91-156</span></td><td><span class="rule">json-stringify-in-render</span></td><td>4× <code>JSON.stringify(run.input/output, null, 2)</code> dans JSX — payloads LLM volumineux.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/_stages/MissionListStage.tsx:369</span></td><td><span class="rule">inline-fn-in-map</span></td><td><code>onClick={() => setMode(...)}</code> sur liste missions potentiellement longue.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/admin/orchestrator/_components/CommandCenterLive.tsx:33</span></td><td><span class="rule">json-parse-no-guard</span></td><td><code>JSON.parse</code> dans callback SSE sans try/catch — crash silencieux si message malformé.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/components/VariantCarousel.tsx</span></td><td><span class="rule">file-too-large</span></td><td>458 L : SSE + carousel + animation dans un seul composant.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/components/ReportActions.tsx</span></td><td><span class="rule">file-too-large</span></td><td>525 L, multi-actions dans un fichier.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/hooks/use-global-hotkeys.ts:35</span></td><td><span class="rule">useeffect-no-deps</span></td><td>Hook global — re-abonnement attache des listeners en doublon si re-render.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/components/chat-input/QuickMentionRow.tsx:48</span></td><td><span class="rule">image-no-lazy</span></td><td><code>&lt;img src={service.icon}&gt;</code> dynamique dans liste sans lazy.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/api/v2/missions/[id]/pause/route.ts:78,110,147</span></td><td><span class="rule">console-log-prod</span></td><td>3× console.log() dans route lifecycle missions.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/api/v2/missions/[id]/{resume,approve-step,run}/route.ts</span></td><td><span class="rule">console-log-prod</span></td><td>Logs console multiples dans routes critiques.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/components/system/ThemeHydrator.tsx:25</span></td><td><span class="rule">cache-hint-missing</span></td><td><code>fetch('/api/user/theme', { cache: 'no-store' })</code> redondant — thème déjà via cookie.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">lib/admin/seed.ts:479</span></td><td><span class="rule">supabase-unbounded</span></td><td>Seeder sans limite — acceptable en dev, risqué si exécuté prod migration.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">24 fichiers</span></td><td><span class="rule">framer-overuse</span></td><td>Framer Motion dans 24 composants dont shells permanents (RightRail, CockpitX) — bundle non tree-shakeable.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/_shell/{RightRail,ChatKimiPanel}.tsx</span></td><td><span class="rule">framer-sync-shell</span></td><td>Shell components importent framer-motion sync → garantit présence bundle initial.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">lib/themes/index.ts</span></td><td><span class="rule">barrel-import</span></td><td>Barrel 59 L — risque faible, à remplacer par imports directs.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">lib/database.types.ts</span></td><td><span class="rule">large-source-file</span></td><td>4721 L Supabase auto-gen — vérifier que seuls types (pas valeurs) sont importés.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">lib/engine/runtime/assets/storage/r2.ts</span></td><td><span class="rule">aws-sdk-tree-shaking</span></td><td>AWS SDK v3 tree-shakeable uniquement si sous-packages importés séparément + guard server-only.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/components/voice/VoicePulse.tsx</span></td><td><span class="rule">no-dynamic</span></td><td>VoicePulse (423 L, use client) pas lazifié dans ChatDock.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">app/(user)/_shell/stage-icons.tsx</span></td><td><span class="rule">use-client-unnecessary</span></td><td>use client probablement inutile si fichier ne contient que SVG/constants → downgrade RSC.</td></tr>
+        <tr><td><span class="sev p2">P2</span></td><td><span class="path">lib/observability/*</span></td><td><span class="rule">pino-no-guard</span></td><td>pino + pino-pretty ~200 KB sans <code>'server-only'</code> explicite.</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <footer>
+    Audit perf généré par <code>/adrien-auditer-performance</code> · 3 sous-agents Explore (Sonnet) en parallèle · read-only strict · zones <code>spatial-safe/</code>, <code>lab/</code>, <code>__tests__/</code> exclues.
+  </footer>
+
+</div>
+</body>
+</html>

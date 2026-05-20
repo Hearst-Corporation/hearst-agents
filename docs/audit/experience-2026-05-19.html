@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Audit Expérience — Hearst OS — 2026-05-19</title>
+<style>
+:root {
+  --bg: #0a0908;
+  --surface: #14110f;
+  --surface-2: #1c1815;
+  --border: #2a2420;
+  --bordeaux: #7a1f2b;
+  --bordeaux-glow: #b03142;
+  --teal: #4fb3a8;
+  --gold: #c89b4a;
+  --text: #ede4d7;
+  --text-dim: #a39584;
+  --text-faint: #6e6357;
+  --p0: #ef4444;
+  --p1: #f59e0b;
+  --p2: #64748b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: -apple-system, "SF Pro Display", "Segoe UI", system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
+body { padding: 32px 48px 80px; max-width: 1280px; margin: 0 auto; }
+header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 32px; }
+h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+h1 .sub { color: var(--text-dim); font-weight: 400; font-size: 18px; margin-left: 12px; }
+h2 { font-size: 20px; font-weight: 600; margin-top: 40px; margin-bottom: 16px; letter-spacing: -0.01em; }
+h3 { font-size: 15px; font-weight: 600; margin-top: 24px; margin-bottom: 10px; color: var(--text); }
+.lede { color: var(--text-dim); font-size: 15px; margin-top: 6px; }
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+.kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-faint); margin-bottom: 8px; }
+.kpi .value { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; }
+.kpi.p0 .value { color: var(--p0); }
+.kpi.p1 .value { color: var(--p1); }
+.kpi.p2 .value { color: var(--p2); }
+.kpi.total .value { color: var(--teal); }
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; }
+.section h2 { margin-top: 0; }
+.flows-risk { background: linear-gradient(135deg, rgba(122,31,43,0.18), rgba(176,49,66,0.06)); border: 1px solid var(--bordeaux); border-radius: 10px; padding: 18px 22px; margin-bottom: 32px; }
+.flows-risk h2 { color: var(--bordeaux-glow); margin-top: 0; }
+.flows-risk ol { margin-left: 20px; }
+.flows-risk li { margin: 6px 0; color: var(--text); }
+.tab-bar { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.tab { padding: 10px 16px; cursor: pointer; color: var(--text-dim); border-bottom: 2px solid transparent; font-size: 13px; font-weight: 500; transition: all 0.15s; user-select: none; }
+.tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+.tab:hover:not(.active) { color: var(--text); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.finding { background: var(--surface-2); border: 1px solid var(--border); border-left-width: 3px; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; }
+.finding.p0 { border-left-color: var(--p0); }
+.finding.p1 { border-left-color: var(--p1); }
+.finding.p2 { border-left-color: var(--p2); }
+.finding-head { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.severity-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.05em; }
+.severity-badge.p0 { background: rgba(239,68,68,0.15); color: var(--p0); border: 1px solid rgba(239,68,68,0.3); }
+.severity-badge.p1 { background: rgba(245,158,11,0.15); color: var(--p1); border: 1px solid rgba(245,158,11,0.3); }
+.severity-badge.p2 { background: rgba(100,116,139,0.15); color: var(--p2); border: 1px solid rgba(100,116,139,0.3); }
+.rule-tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: rgba(79,179,168,0.1); color: var(--teal); font-family: ui-monospace, SF Mono, Menlo, monospace; }
+.finding-title { font-weight: 600; font-size: 14px; flex: 1; min-width: 100%; margin-top: 4px; }
+.finding-path { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--text-faint); margin-bottom: 6px; }
+.finding-body { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+.finding-block { font-size: 12.5px; }
+.finding-block .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); margin-bottom: 3px; }
+.finding-block .val { color: var(--text-dim); }
+.finding-why { grid-column: span 2; font-size: 12.5px; padding-top: 10px; border-top: 1px solid var(--border); margin-top: 4px; }
+.finding-why .lbl { color: var(--gold); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+.finding-why .val { color: var(--text); font-style: italic; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+th { background: var(--surface-2); color: var(--text-dim); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+td.ok { color: var(--teal); }
+td.bad { color: var(--p1); }
+td.crit { color: var(--p0); font-weight: 600; }
+.note { background: rgba(79,179,168,0.06); border-left: 2px solid var(--teal); padding: 10px 14px; border-radius: 4px; color: var(--text-dim); font-size: 12.5px; margin: 12px 0; }
+footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 11px; text-align: center; }
+.filter-bar { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; }
+.filter-pill { padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-dim); user-select: none; }
+.filter-pill.active { background: var(--teal); color: var(--bg); border-color: var(--teal); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Audit Expérience<span class="sub">— Hearst OS — 2026-05-19</span></h1>
+  <p class="lede">Audit UX read-only en 3 axes parallèles : états manquants (loading/empty/error), navigation et flows, accessibilité clavier & screen reader.</p>
+
+  <div class="summary-grid">
+    <div class="kpi p0">
+      <div class="label">P0 — flow bloqué</div>
+      <div class="value">3</div>
+    </div>
+    <div class="kpi p1">
+      <div class="label">P1 — friction notable</div>
+      <div class="value">22</div>
+    </div>
+    <div class="kpi p2">
+      <div class="label">P2 — polish</div>
+      <div class="value">15</div>
+    </div>
+    <div class="kpi total">
+      <div class="label">Total findings</div>
+      <div class="value">40</div>
+    </div>
+  </div>
+</header>
+
+<section class="flows-risk">
+  <h2>Flows les plus à risque</h2>
+  <ol>
+    <li><strong>AlertingSettings — écrasement silencieux des préférences</strong> : LOAD_ERROR muet, formulaire vide affiché, l'user peut sauvegarder {} par-dessus ses vraies données. <span style="color: var(--p0)">P0</span></li>
+    <li><strong>Déconnexion service OAuth (ConnectionsHub)</strong> : action irréversible sans confirmation, coupe les automatisations dépendantes. <span style="color: var(--p0)">P0</span></li>
+    <li><strong>Page /settings/alerting (RSC)</strong> : bouton "Enregistrer" sans handler ni toast — page dupliquée qui ne sauvegarde rien (la vraie est AlertingSettings.tsx, non rendu ici). <span style="color: var(--p0)">P0</span></li>
+    <li><strong>Pages statiques mensongères</strong> : Archive, Notifications, Marketplace affichent des UIs avec tabs/filtres non câblés. L'user croit que ses données ont disparu. <span style="color: var(--p1)">P1</span></li>
+    <li><strong>Dashboard home & CockpitX</strong> : 3-4s de fetch sans skeleton — KPI à "—" indiscernables de "aucune donnée". <span style="color: var(--p1)">P1</span></li>
+    <li><strong>SimulationStage & primitives Alerting</strong> : 4+ boutons sans focus ring visible — Tab-only user ne voit pas où il est. <span style="color: var(--p1)">P1</span></li>
+    <li><strong>Modales AppDrawer / OnboardingTour</strong> : pas de focus trap → Tab fuit hors de la modale ouverte. <span style="color: var(--p1)">P1</span></li>
+  </ol>
+</section>
+
+<div class="tab-bar">
+  <div class="tab active" data-tab="states">🎯 États manquants <span style="opacity:.6;font-size:11px;margin-left:4px;">(13)</span></div>
+  <div class="tab" data-tab="nav">🧭 Navigation & flows <span style="opacity:.6;font-size:11px;margin-left:4px;">(15)</span></div>
+  <div class="tab" data-tab="a11y">♿ A11y & clavier <span style="opacity:.6;font-size:11px;margin-left:4px;">(14)</span></div>
+  <div class="tab" data-tab="recap">📋 Récap & checklist</div>
+</div>
+
+<!-- ETATS MANQUANTS -->
+<div class="tab-content active" id="states">
+  <div class="finding p0">
+    <div class="finding-head"><span class="severity-badge p0">P0</span><span class="rule-tag">missing-error-state</span><div class="finding-title">LOAD_ERROR silencieux — formulaire vide affiché comme « configuré »</div></div>
+    <div class="finding-path">app/(user)/components/settings/alerting/types.ts:70</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Quand useAlertingPrefs échoue (API down, 401, réseau), le reducer LOAD_ERROR passe loading=false sans changer d'état d'erreur. AlertingSettings.tsx vérifie seulement if(state.loading) — pas d'erreur UI.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Ajouter un champ loadError dans State, le setter dans LOAD_ERROR, et afficher un ErrorBanner inline dans AlertingSettings quand loadError est non-null.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi c'est critique</div><div class="val">Risque de data loss : l'user croit configurer ses alertes mais écrase potentiellement ses préférences existantes avec un payload vide.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-loading-state</span><div class="finding-title">Dashboard home sans skeleton pendant fetch initial</div></div>
+    <div class="finding-path">app/(user)/page.tsx:36</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">refetchState démarre à 'loading' mais aucun skeleton n'est affiché — les KpiCards rendent avec value='—' et les sections Exécution/Radar/Initiatives sont vides.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Skeleton cards animés (animate-pulse) pendant refetchState==='loading' && data===null.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">L'user voit un dashboard vide 3-4s sans savoir si l'app charge ou si aucune donnée n'existe — indiscernable de l'état 'aucune mission'.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-error-state-consumed</span><div class="finding-title">Erreur chargement historique chat jamais affichée</div></div>
+    <div class="finding-path">hooks/use-conversation-history.ts:83</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">useConversationHistory retourne {loading, error} mais ChatDock.tsx (line 144) appelle le hook sans déstructurer ni error ni loading. Si le fetch échoue, le chat s'ouvre vide sans aucune indication.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Déstructurer error dans ChatDock et afficher un toast ou banner 'Impossible de charger l'historique' avec bouton retry.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">L'user ouvre un thread existant, voit le chat vide, ne sait pas si c'est un bug — peut re-taper sa demande inutilement.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-loading-state</span><div class="finding-title">VariantCarousel sans état de chargement initial</div></div>
+    <div class="finding-path">app/(user)/components/VariantCarousel.tsx:46</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Au mount, variants=[] et fetchVariants() est appelé. Pendant 200-500ms, les 4 tiles SUPPORTED_KINDS s'affichent avec le nom du kind comme placeholder — identique à l'état 'aucun variant'.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Ajouter isLoadingInitial (true jusqu'au premier fetchVariants complété) et afficher skeleton animate-pulse sur les tiles.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User ne sait pas si les variants chargent ou n'ont pas encore été générés — peut cliquer 'Générer' alors qu'ils existent déjà.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-feedback-submit</span><div class="finding-title">Marketplace — bouton « Installer » mort</div></div>
+    <div class="finding-path">app/(user)/marketplace/page.tsx:144</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Bouton Installer sans handler JS réel ni loading/disabled. Le composant est un RSC statique — aucune interactivité client.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Désactiver avec tooltip 'Bientôt disponible' (comme Settings disabled), ou connecter un vrai handler.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User clique 'Installer', rien ne se passe — confusion sur l'état de l'app.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-loading-state</span><div class="finding-title">Archive — page statique sans données réelles</div></div>
+    <div class="finding-path">app/(user)/archive/page.tsx:1</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Affiche empty state hardcodé 'Aucun élément archivé' sans fetcher. Tabs Threads/Assets/Missions et searchbox non-fonctionnels.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Convertir en client component avec fetch réel, ou ajouter badge 'Coming soon' sur le nav item.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Perte de confiance : ses conversations disparaissent du chat mais n'apparaissent pas dans l'archive — il croit avoir perdu ses données.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-loading-state</span><div class="finding-title">Notifications — page statique sans données réelles</div></div>
+    <div class="finding-path">app/(user)/notifications/page.tsx:1</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">RSC statique, 'Aucune notification' hardcodé, tabs Critique/Alerte/Info non-fonctionnels.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Connecter à une API notifications ou afficher badge 'En développement'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">L'user avec alertes configurées s'attend à voir ses notifications — page vide = impression que les alertes ne marchent pas.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-error-state-consumed</span><div class="finding-title">Erreur SSE panel data silencieuse</div></div>
+    <div class="finding-path">app/(user)/components/chat/useRightPanelData.ts:116</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">EventSource SSE log console.error si parsing échoue. es.onerror est défini à () => {} — la déconnexion SSE est silencieuse. ConversationHeader déstructure {assets}, jamais {loading, error}.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Exposer un état de reconnexion/erreur et afficher un dot orange dans ConversationHeader quand SSE coupé.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User voit un compteur d'assets figé sans savoir que la connexion temps-réel est coupée.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">missing-loading-state</span><div class="finding-title">CockpitX Dashboard sans skeleton pendant refetch client</div></div>
+    <div class="finding-path">app/(user)/cockpit-x/CockpitXClient.tsx:115</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">initialCockpitData=null (SSR fail/cold start) → refetchState='loading' mais CockpitContent reçoit data=null et affiche les sections vides avec telemetry value='—'.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Conditionner l'affichage sur data!==null et 3 lignes animate-pulse pendant loading.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Même ambiguïté que home page : vide = chargement ou vraiment vide.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">missing-error-state-consumed</span><div class="finding-title">Commandeur error non affichée inline</div></div>
+    <div class="finding-path">app/(user)/components/use-commandeur-data.ts:129</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">useCommandeurData retourne {results, loading, error} mais Commandeur.tsx déstructure seulement {results, loading}. Erreur → 'Aucun résultat' (indiscernable d'un vrai zéro).</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Déstructurer error et afficher 'Erreur de recherche — réessaie' quand error non-null.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User tape une requête qui devrait matcher, voit 'Aucun résultat', croit que ses données n'existent pas.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">missing-loading-state</span><div class="finding-title">Reports page — données hardcodées sans fetch</div></div>
+    <div class="finding-path">app/(user)/reports/page.tsx:17</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">REPORTS = tableau statique TS (4 rapports fixes). Aucun fetch. Filtres et 'Nouveau rapport →' pointent vers /reports/studio qui est également non-save.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Connecter à /api/reports ou marquer filtres comme décoratifs avec aria-disabled.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User crée un rapport dans Studio mais il n'apparaît pas dans la liste — perte de confiance.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">missing-error-state</span><div class="finding-title">VideoSimpleForm sans feedback d'erreur inline</div></div>
+    <div class="finding-path">app/(user)/components/video-quick-launch/VideoSimpleForm.tsx:63</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Formulaire disable les champs pendant isBusy mais n'affiche pas d'erreur de validation inline. errorMsg existe dans le hook mais son affichage UI à vérifier.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Rendre errorMsg proche du bouton Submit, pas seulement dans un toast éphémère.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Toast disparu avant que l'user le lise — il ne sait pas pourquoi sa vidéo n'a pas été générée.</div></div>
+    </div>
+  </div>
+
+  <h3>Vues critiques inspectées</h3>
+  <table>
+    <thead><tr><th>Vue</th><th>Fichier</th><th>Loading</th><th>Empty</th><th>Error</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Home Dashboard</td><td>app/(user)/page.tsx</td><td class="bad">Partiel</td><td class="ok">OK</td><td class="ok">OK</td><td class="bad">P1</td></tr>
+      <tr><td>Cockpit X</td><td>cockpit-x/CockpitXClient.tsx</td><td class="bad">Partiel</td><td class="ok">OK</td><td class="ok">OK</td><td>P2</td></tr>
+      <tr><td>Chat Stage</td><td>_stages/ChatStage.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">Conforme</td></tr>
+      <tr><td>Mission List</td><td>_stages/MissionListStage.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">Conforme</td></tr>
+      <tr><td>Mission Detail</td><td>_stages/MissionStage.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">Conforme</td></tr>
+      <tr><td>Asset Stage</td><td>_stages/AssetStage.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">Conforme</td></tr>
+      <tr><td>Signal Stage</td><td>_stages/SignalStage.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">Conforme</td></tr>
+      <tr><td>KG Stage</td><td>_stages/KGStage.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">Conforme</td></tr>
+      <tr><td>Connections Hub</td><td>ConnectionsHub.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">OK</td><td class="ok">Conforme</td></tr>
+      <tr><td>Alerting Settings</td><td>AlertingSettings.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="crit">LOAD_ERROR muet</td><td class="crit">P0</td></tr>
+      <tr><td>VariantCarousel</td><td>VariantCarousel.tsx</td><td class="bad">Aucun skeleton</td><td class="ok">OK</td><td class="ok">OK</td><td class="bad">P1</td></tr>
+      <tr><td>Notifications</td><td>notifications/page.tsx</td><td>—</td><td class="bad">Hardcodé</td><td>—</td><td class="bad">P1</td></tr>
+      <tr><td>Archive</td><td>archive/page.tsx</td><td>—</td><td class="bad">Hardcodé</td><td>—</td><td class="bad">P1</td></tr>
+      <tr><td>Marketplace</td><td>marketplace/page.tsx</td><td>—</td><td>—</td><td>—</td><td class="bad">P1 bouton mort</td></tr>
+      <tr><td>Reports</td><td>reports/page.tsx</td><td>—</td><td class="bad">Hardcodé</td><td>—</td><td>P2</td></tr>
+      <tr><td>Chat history hook</td><td>use-conversation-history.ts</td><td class="ok">exposé</td><td>—</td><td class="bad">non consommée</td><td class="bad">P1</td></tr>
+      <tr><td>Commandeur</td><td>Commandeur.tsx</td><td class="ok">OK</td><td class="ok">OK</td><td class="bad">ignorée</td><td>P2</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NAVIGATION -->
+<div class="tab-content" id="nav">
+  <div class="finding p0">
+    <div class="finding-head"><span class="severity-badge p0">P0</span><span class="rule-tag">unconfirmed-destructive</span><div class="finding-title">Déconnexion service OAuth sans confirmation</div></div>
+    <div class="finding-path">app/(user)/components/connections/AppDrawer.tsx:118</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Bouton 'Déconnecter [App]' dans l'AppDrawer des connections.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">ConfirmModal : 'Déconnecter Gmail ? Les automatisations dépendantes s'arrêtent.' + CTA 'Déconnecter'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Déconnexion OAuth irréversible — coupe les automatisations actives. Aucun ConfirmModal ni window.confirm présent.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p0">
+    <div class="finding-head"><span class="severity-badge p0">P0</span><span class="rule-tag">no-feedback-after-action</span><div class="finding-title">Bouton Enregistrer sans handler ni toast</div></div>
+    <div class="finding-path">app/(user)/settings/alerting/page.tsx:102</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Page RSC /settings/alerting — bouton 'Enregistrer' type='button' sans onClick.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Connecter un handler avec toast.success() ou rediriger vers /settings avec feedback.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User clique Enregistrer, rien ne se passe — aucun feedback, aucun appel API. La vraie page fonctionnelle (AlertingSettings.tsx) n'est pas rendue ici.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">unconfirmed-destructive</span><div class="finding-title">signOut admin sans confirmation</div></div>
+    <div class="finding-path">app/admin/_shell/AdminSidebar.tsx:142</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Clic sur le bouton utilisateur dans la sidebar admin déclenche immédiatement signOut().</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">ConfirmModal light : 'Se déconnecter ?' avec boutons 'Annuler' / 'Se déconnecter'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Admin en plein milieu d'une configuration → signOut = perte de contexte sans warning.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">no-breadcrumb</span><div class="finding-title">Breadcrumb absent dans l'arborescence orchestrator (5 niveaux)</div></div>
+    <div class="finding-path">app/admin/orchestrator/*</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Pages /admin/orchestrator/runs|quarantine|trust n'ont pas de breadcrumb — seul BackLink est présent sur certaines.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">BackLink systématique ou fil d'Ariane admin 'Admin > Orchestrator > Quarantine'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Admin ne sait pas où il est dans la hiérarchie orchestrator à 5 niveaux.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">settings-not-wired</span><div class="finding-title">Page /settings/alerting RSC duplique AlertingSettings sans la rendre</div></div>
+    <div class="finding-path">app/(user)/settings/alerting/page.tsx:7</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">La page RSC réimplémente manuellement les champs alerting SANS utiliser &lt;AlertingSettings/&gt; qui est le composant fonctionnel.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Remplacer le contenu de page.tsx par &lt;AlertingSettings /&gt; déjà connecté à l'API.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Double source de vérité : AlertingSettings.tsx fonctionnel, page.tsx morte — l'user voit une UI qui ne sauvegarde rien.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">no-progress-indicator</span><div class="finding-title">Onboarding tour : indicateur de progression non accessible</div></div>
+    <div class="finding-path">app/(user)/components/OnboardingTour.tsx:139</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">3 slides avec dots visuels uniquement. Eyebrow '01 — Bienvenue' mais aucun aria-valuemin/max/now ni role=progressbar.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">aria-label='Étape 1 sur 3' sur le container dots, ou role=progressbar avec aria-valuenow/max.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Lecteur d'écran ne sait pas combien d'étapes restent.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">no-loading-feedback</span><div class="finding-title">Bouton 'Déconnecter [App]' sans loading state visible</div></div>
+    <div class="finding-path">app/(user)/components/connections/AppDrawer.tsx:120</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Le prop busy est passé à Action mais aucun spinner pendant la requête DELETE Composio.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Vérifier que busy est bien connecté depuis le parent ConnectionsHub.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Si la requête prend 2-3s (Composio), le user peut recliquer.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">unconfirmed-destructive</span><div class="finding-title">Reset du report spec sans confirmation</div></div>
+    <div class="finding-path">app/(user)/components/reports/ReportSpecEditor.tsx:93</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Bouton 'resetAll' dans ReportSpecEditor (mode demo full-page) — pas de ConfirmModal contrairement à ReportEditor.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">ConfirmModal : 'Réinitialiser la spec ? Vos modifications seront perdues.'</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Inconsistance avec ReportEditor.tsx qui a le ConfirmModal.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">unconfirmed-destructive</span><div class="finding-title">Retrait d'un formulaire video batch sans confirmation</div></div>
+    <div class="finding-path">app/(user)/components/video-quick-launch/VideoBatchForm.tsx:124</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Bouton 'onRemove' supprime le formulaire de la liste sans ConfirmModal ni undo toast.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Undo-toast pattern (comme SimulationStage.removeVariable) ou ConfirmModal si form partiellement rempli.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User avec 5 formulaires vidéo remplis peut supprimer accidentellement sans recovery.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">no-beforeunload-guard</span><div class="finding-title">Formulaire agent sans guard beforeunload</div></div>
+    <div class="finding-path">app/admin/agents/new/page.tsx:40</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">isDirty détecté + ConfirmModal sur cancel button mais pas de window.beforeunload guard.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">useEffect avec window.addEventListener('beforeunload', e =&gt; { if (isDirty) e.preventDefault() }).</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Si l'admin tape directement une autre URL avec 80% du formulaire rempli, aucun warning natif.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">no-breadcrumb</span><div class="finding-title">Breadcrumb disponible mais non utilisé dans les pages secondaires</div></div>
+    <div class="finding-path">app/(user)/components/Breadcrumb.tsx</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Composant Breadcrumb existe mais aucune page user (/archive, /runs, /notifications, /marketplace) ne le rend.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Passer trail=[{label:'Accueil',href:'/'},{label:'Archive'}] dans ScreenShell.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User en navigation mobile ou après un deep-link ne sait pas où il est dans l'arborescence.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">ambiguous-cta</span><div class="finding-title">Settings — items désactivés sans explication de date</div></div>
+    <div class="finding-path">app/(user)/settings/page.tsx:86</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">'Profil' et 'Tenant' désactivés avec badge 'Bientôt' mais sans tooltip expliquant le plan ou la date.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">title='Disponible en Q3 2026' ou tooltip au survol.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">User ne sait pas s'il doit attendre 1 semaine ou 1 an.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">external-link-no-target</span><div class="finding-title">Liens hearstcorporation.io sans target=_blank dans les pages publiques</div></div>
+    <div class="finding-path">app/public/reports/[token]/page.tsx:148</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">&lt;a href='https://hearstcorporation.io'&gt; et /privacy dans pages public/* sans target='_blank'.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">target='_blank' rel='noopener noreferrer' sur tous les liens footer publics.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Le lien remplace la page du rapport partagé — l'utilisateur perd son contexte.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">ambiguous-cta</span><div class="finding-title">CTA 'Enregistrer' générique dans Alerting</div></div>
+    <div class="finding-path">app/(user)/components/settings/alerting/SaveHeader.tsx:47</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Bouton affiche 'Enregistrer' sans préciser quoi.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">'Sauvegarder l'alerting' ou aria-label='Sauvegarder les préférences d'alerting'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Dans un contexte de plusieurs sections (webhooks, email, slack) le scope du save n'est pas évident.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">ambiguous-cta</span><div class="finding-title">CTA Connecter avec fallback manquant</div></div>
+    <div class="finding-path">app/(user)/components/connections/AppDrawer.tsx:121</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Si app.name est vide, le CTA devient 'Connecter undefined'.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Fallback : app.name ?? app.key ?? 'ce service'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Edge case défensif — visible si l'API Composio renvoie un app sans name.</div></div>
+    </div>
+  </div>
+
+  <h3>Actions destructives sans confirmation — recap</h3>
+  <table>
+    <thead><tr><th>Action</th><th>Fichier</th><th>Confirmation présente</th></tr></thead>
+    <tbody>
+      <tr><td>removeVariable (simulation)</td><td>SimulationStage.tsx</td><td class="ok">Oui (undo-toast 4s)</td></tr>
+      <tr><td>reset simulation</td><td>SimulationStage.tsx</td><td class="ok">Oui (ConfirmModal)</td></tr>
+      <tr><td>skip step mission</td><td>MissionStepGraph.tsx</td><td class="ok">Oui (ConfirmModal)</td></tr>
+      <tr><td>delete webhook</td><td>WebhooksSection.tsx</td><td class="ok">Oui (ConfirmModal)</td></tr>
+      <tr><td>reset report editor</td><td>ReportEditor.tsx</td><td class="ok">Oui (ConfirmModal)</td></tr>
+      <tr><td>load template (écrase spec)</td><td>ReportEditor.tsx</td><td class="ok">Oui (ConfirmModal)</td></tr>
+      <tr><td>cancel new agent (dirty)</td><td>agents/new/page.tsx</td><td class="ok">Oui (ConfirmModal)</td></tr>
+      <tr><td><strong>Déconnecter service OAuth</strong></td><td>AppDrawer.tsx</td><td class="crit">NON — P0</td></tr>
+      <tr><td><strong>resetAll ReportSpecEditor</strong></td><td>ReportSpecEditor.tsx</td><td class="bad">NON — P1</td></tr>
+      <tr><td><strong>Remove VideoBatchForm</strong></td><td>VideoBatchForm.tsx</td><td class="bad">NON — P1</td></tr>
+      <tr><td>signOut admin</td><td>AdminSidebar.tsx</td><td class="bad">NON — P1</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Ce qui fonctionne bien (ne pas casser) :</strong>
+    <ul style="margin-left: 20px; margin-top: 6px;">
+      <li>Login/logout : callbackUrl correctement implémenté et validé same-origin</li>
+      <li>ConfirmModal : composant robuste avec focus-trap, loading lock, safe-default sur "Annuler"</li>
+      <li>Toast system / useToast / ToastHost : couvre bien erreurs réseau, succès API, retry</li>
+      <li>Onboarding tour : dots de progression + Escape + ArrowRight</li>
+      <li>isDirty guard dans agents/new avec ConfirmModal sur Annuler — pattern exemplaire à reproduire</li>
+    </ul>
+  </div>
+</div>
+
+<!-- A11Y -->
+<div class="tab-content" id="a11y">
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-focus-ring</span><div class="finding-title">Btn sans focus-visible ring (utilisé partout dans AlertingSettings)</div></div>
+    <div class="finding-path">app/(user)/components/settings/alerting/primitives.tsx:158</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">&lt;button&gt; avec outline absent — aucun style focus-visible sur le composant Btn.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-teal-border)] à la className.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Tab user ne voit aucun indicateur de focus sur les boutons Ajouter/Annuler/Supprimer de tout AlertingSettings.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-focus-ring</span><div class="finding-title">Input custom sans focus-visible côté CSS</div></div>
+    <div class="finding-path">app/(user)/components/settings/alerting/primitives.tsx:47</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Focus géré via onFocus/onBlur inline style mais pas par :focus-visible — peut manquer en préférence prefers-reduced-motion.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Ajouter focus-visible:ring-2 en complément des handlers inline.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Style inline sur onFocus ne s'applique pas avec focus-visible — indicateur visuel peut manquer.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-focus-ring</span><div class="finding-title">Bouton '+ Ajouter' sans focus ring</div></div>
+    <div class="finding-path">app/(user)/_stages/SimulationStage.tsx:268</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">className='...focus-visible:outline-none' — pas de ring de remplacement.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">focus-visible:ring-1 focus-visible:ring-[var(--border-input)] comme les autres boutons du fichier.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Tab user ne voit pas le focus sur '+ Ajouter variable'.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">missing-focus-ring</span><div class="finding-title">Boutons 'Rétablir', 'Nouvelle simulation', toggle DeepSeek sans focus ring</div></div>
+    <div class="finding-path">app/(user)/_stages/SimulationStage.tsx:345</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">Lignes 345, 411, 467 : focus-visible:outline-none sans ring.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">focus-visible:ring-1 à chacun.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Plusieurs actions de la simulation sont invisibles au clavier.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">button-disabled-no-aria-disabled</span><div class="finding-title">Bouton 'Approuver tout' disabled sans aria-disabled</div></div>
+    <div class="finding-path">app/(user)/_stages/MissionStage.tsx:311</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">&lt;button disabled={approving}&gt; sans aria-disabled — SR ne lit pas l'état 'en cours'.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">aria-disabled={approving} (combiner avec disabled natif).</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">SR annonce le bouton comme actif pendant l'approbation ; l'utilisateur peut tenter de le ré-activer sans feedback.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">input-no-label</span><div class="finding-title">Input 'Raison de restauration' sans label associé</div></div>
+    <div class="finding-path">app/admin/orchestrator/_components/RestoreAgentButton.tsx:28</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">&lt;input placeholder='Raison de restauration'&gt; sans htmlFor/aria-label — seul le placeholder indique le rôle.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">aria-label='Raison de restauration' sur l'input ou entourer d'un &lt;label&gt;.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">SR lit seulement le placeholder (non persistant après saisie) ; l'input perd son contexte dès que l'utilisateur tape.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">dialog-no-focus-trap</span><div class="finding-title">Dialog onboarding sans focus trap</div></div>
+    <div class="finding-path">app/(user)/components/OnboardingTour.tsx:110</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">role='dialog' avec Escape géré mais aucun focus trap — Tab fuit hors de la modale.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Utiliser useModalA11y() pour focus trap complet.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Tab user navigue derrière la modale pendant que le dialog est ouvert.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">dialog-no-focus-trap</span><div class="finding-title">AppDrawer sans focus trap ni gestion Escape</div></div>
+    <div class="finding-path">app/(user)/components/connections/AppDrawer.tsx:53</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">role='dialog' aria-modal='true' mais aucun useEffect Escape et pas de useModalA11y.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">useModalA11y(open, { onClose }) — focus trap + Escape + restore focus.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Clavier-only : Tab fuit hors du drawer, Escape ne ferme pas.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p1">
+    <div class="finding-head"><span class="severity-badge p1">P1</span><span class="rule-tag">link-no-focus-ring</span><div class="finding-title">Lien 'Voir →' sans focus ring</div></div>
+    <div class="finding-path">app/(user)/_stages/SignalStage.tsx:189</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">&lt;a className='...focus-visible:outline-none'&gt; — aucun indicateur de focus.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">focus-visible:ring-1 ou focus-visible:underline.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Tab user ne peut pas détecter visuellement le focus sur le lien CTA d'un signal.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">loading-no-aria</span><div class="finding-title">LoadingState ArtifactStage sans aria-live/aria-busy</div></div>
+    <div class="finding-path">app/(user)/_stages/ArtifactStage.tsx:107</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">LoadingState (animation pulse) sans role='status' ni aria-live ni aria-busy.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">role='status' aria-live='polite' aria-busy='true' sur le conteneur.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">SR ne sait pas que l'artifact est en chargement.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">loading-no-aria</span><div class="finding-title">LoadingState BrowserStage sans aria-live</div></div>
+    <div class="finding-path">app/(user)/_stages/BrowserStage.tsx:129</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">'Connexion à la session…' dans motion.div sans aria-live ni role='status'.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">role='status' aria-live='polite' aria-busy='true'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">SR ne voit pas le chargement de session navigateur.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">loading-no-aria</span><div class="finding-title">Skeleton KGStage sans aria-live</div></div>
+    <div class="finding-path">app/(user)/_stages/KGStage.tsx:528</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">&lt;div className='animate-pulse'&gt; sans aria-busy ni role='status'.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">aria-busy='true' aria-live='polite' role='status'.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">SR ne sait pas que le graphe de connaissances charge.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">loading-no-aria</span><div class="finding-title">Indicateur 'chargement…' sans aria-live (analytics)</div></div>
+    <div class="finding-path">app/admin/analytics/page.tsx:276</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">&lt;span&gt;chargement…&lt;/span&gt; conditionnel sans aria-live.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">role='status' aria-live='polite' sur le span.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">SR ne détecte pas le changement d'état de chargement analytics.</div></div>
+    </div>
+  </div>
+
+  <div class="finding p2">
+    <div class="finding-head"><span class="severity-badge p2">P2</span><span class="rule-tag">dialog-no-focus-trap</span><div class="finding-title">ExtractSchemaModal — Escape géré mais sans focus trap</div></div>
+    <div class="finding-path">app/(user)/components/browser/ExtractSchemaModal.tsx:25</div>
+    <div class="finding-body">
+      <div class="finding-block"><div class="lbl">Contexte</div><div class="val">useEffect Escape manuel + dialogRef présente mais non utilisée pour le focus trap.</div></div>
+      <div class="finding-block"><div class="lbl">Suggestion</div><div class="val">Passer dialogRef à useModalA11y ou implémenter cycle Tab FOCUSABLE_SELECTOR.</div></div>
+      <div class="finding-why"><div class="lbl">Pourquoi</div><div class="val">Tab user peut fuir la modale d'extraction (moindre risque, dialog centré bloquant).</div></div>
+    </div>
+  </div>
+
+  <h3>Composants interactifs custom recensés</h3>
+  <table>
+    <thead><tr><th>Composant</th><th>Type</th><th>A11y</th></tr></thead>
+    <tbody>
+      <tr><td>useModalA11y.ts</td><td>Hook focus trap</td><td class="ok">Robuste — trap + Escape + restore focus</td></tr>
+      <tr><td>MissionCard (MissionListStage)</td><td>motion.div role=button</td><td class="ok">Correct — tabIndex=0, onKeyDown</td></tr>
+      <tr><td>KGStage nodes (GraphView/ListView)</td><td>div role=button</td><td class="ok">Correct — tabIndex=0, aria-pressed</td></tr>
+      <tr><td>SignalStage FilterPill</td><td>button aria-pressed</td><td class="ok">Correct</td></tr>
+      <tr><td>primitives.tsx Toggle</td><td>button role=switch</td><td class="ok">Correct — aria-checked</td></tr>
+      <tr><td>primitives.tsx Btn</td><td>button</td><td class="bad">P1 — sans focus-visible ring</td></tr>
+      <tr><td>primitives.tsx Input</td><td>input</td><td class="bad">P1 — focus inline only</td></tr>
+      <tr><td>AppDrawer</td><td>aside role=dialog</td><td class="bad">P1 — sans focus trap ni Escape</td></tr>
+      <tr><td>OnboardingTour</td><td>div role=dialog</td><td class="bad">P1 — Escape ok, trap absent</td></tr>
+      <tr><td>ExtractSchemaModal</td><td>div role=dialog</td><td>P2 — Escape ok, trap partiel</td></tr>
+      <tr><td>Action.tsx</td><td>Composant bouton/lien universel</td><td class="ok">Correct — focus-visible:ring intégré</td></tr>
+      <tr><td>SimulationStage boutons inline</td><td>button</td><td class="bad">P1 — 4 boutons sans ring</td></tr>
+      <tr><td>SignalStage lien CTA</td><td>a</td><td class="bad">P1 — sans focus ring</td></tr>
+      <tr><td>RestoreAgentButton input</td><td>input</td><td class="bad">P1 — pas de label</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Bien implémenté :</strong> Login page (focus-visible ring complet, aria-label sur chaque provider). Modales via useModalA11y (ConfirmModal, AssetCompareModal, DocumentParseModal, Commandeur, ReportActions, EnrichmentPreviewModal, VideoQuickLaunchPanel) — toutes correctement trappées. ChatInput a aria-busy={isRunning}. Admin agents/new : tous les inputs enveloppés dans &lt;label&gt; avec texte visible.
+    <br><br>
+    <strong>À valider hors audit :</strong> contrastes de couleurs (var(--text-ghost)/var(--text-faint) sur surfaces sombres) — passer sous Storybook + axe-core ou color-contrast-checker.
+  </div>
+</div>
+
+<!-- RECAP -->
+<div class="tab-content" id="recap">
+  <h3>Priorités d'action — ordre recommandé</h3>
+
+  <div class="section">
+    <h2 style="color: var(--p0); margin-top: 0;">🔥 P0 — À fixer en priorité absolue (3 findings)</h2>
+    <ol style="margin-left: 22px; line-height: 2;">
+      <li><strong>AlertingSettings LOAD_ERROR</strong> — ajouter <code>loadError</code> dans le reducer + ErrorBanner inline pour éviter l'écrasement silencieux des préférences (data loss).</li>
+      <li><strong>Déconnexion OAuth AppDrawer</strong> — ajouter ConfirmModal avant le DELETE. Action irréversible qui coupe des automatisations.</li>
+      <li><strong>Page /settings/alerting RSC</strong> — remplacer le contenu par <code>&lt;AlertingSettings /&gt;</code> (le composant fonctionnel) au lieu de la duplication morte qui ne sauvegarde rien.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2 style="color: var(--p1); margin-top: 0;">⚡ P1 — Friction notable (22 findings)</h2>
+    <h3>Lot 1 — Skeletons & loading states (5)</h3>
+    <ul style="margin-left: 22px;">
+      <li>Dashboard home : skeleton pendant <code>refetchState==='loading' && data===null</code></li>
+      <li>VariantCarousel : <code>isLoadingInitial</code> + animate-pulse sur les 4 tiles</li>
+      <li>Hooks <code>useConversationHistory</code> + <code>useRightPanelData</code> + <code>useCommandeurData</code> : consommer leur état <code>error</code> dans le composant parent</li>
+    </ul>
+    <h3>Lot 2 — Confirmations destructives (3)</h3>
+    <ul style="margin-left: 22px;">
+      <li>signOut admin (AdminSidebar)</li>
+      <li>resetAll ReportSpecEditor</li>
+      <li>Remove VideoBatchForm (préférer undo-toast)</li>
+    </ul>
+    <h3>Lot 3 — Pages statiques mensongères (3)</h3>
+    <ul style="margin-left: 22px;">
+      <li>Archive, Notifications, Marketplace : soit câbler vraiment, soit afficher un badge "Coming soon" sur le nav item pour éviter le malentendu</li>
+    </ul>
+    <h3>Lot 4 — A11y critique (7)</h3>
+    <ul style="margin-left: 22px;">
+      <li>Btn + Input primitives Alerting : ajouter <code>focus-visible:ring-2</code></li>
+      <li>4 boutons SimulationStage + lien SignalStage : ajouter <code>focus-visible:ring-1</code></li>
+      <li>AppDrawer + OnboardingTour : intégrer <code>useModalA11y</code> (focus trap + Escape + restore focus)</li>
+      <li>MissionStage bouton "Approuver tout" : ajouter <code>aria-disabled</code></li>
+      <li>RestoreAgentButton input : ajouter <code>aria-label</code> ou <code>&lt;label&gt;</code></li>
+    </ul>
+    <h3>Lot 5 — Navigation (4)</h3>
+    <ul style="margin-left: 22px;">
+      <li>BackLink/breadcrumb systématique dans <code>/admin/orchestrator/*</code></li>
+      <li>OnboardingTour : <code>role=progressbar</code> avec <code>aria-valuenow/max</code></li>
+      <li>agents/new : <code>window.beforeunload</code> guard si <code>isDirty</code></li>
+      <li>Vérifier <code>busy</code> wiring de AppDrawer disconnect</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 style="color: var(--p2); margin-top: 0;">✨ P2 — Polish (15 findings)</h2>
+    <ul style="margin-left: 22px;">
+      <li>Skeleton CockpitX, Reports page → API ou badge clair</li>
+      <li>LoadingStates avec <code>role=status</code> + <code>aria-live=polite</code> (ArtifactStage, BrowserStage, KGStage, admin analytics)</li>
+      <li>ExtractSchemaModal : ajouter focus trap complet</li>
+      <li>CTAs : tooltip date "Bientôt", scope explicite "Sauvegarder l'alerting", fallback app.name</li>
+      <li>Liens externes pages publiques : <code>target='_blank' rel='noopener noreferrer'</code></li>
+      <li>Breadcrumbs dans pages secondaires (/archive, /runs, /notifications, /marketplace)</li>
+      <li>VideoSimpleForm : errorMsg inline en complément du toast</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 style="color: var(--teal); margin-top: 0;">✅ Ce qui fonctionne — ne pas casser</h2>
+    <ul style="margin-left: 22px;">
+      <li><strong>ConfirmModal</strong> + <strong>useModalA11y</strong> : architecture robuste (focus-trap + loading lock + safe-default)</li>
+      <li><strong>Toast system</strong> (useToast / ToastHost) : couvre erreurs réseau, succès API, retry</li>
+      <li><strong>Login</strong> : a11y impeccable + callbackUrl validé same-origin</li>
+      <li><strong>_stages/*</strong> (Chat, Mission, Asset, Signal, KG) : 3 états gérés correctement</li>
+      <li><strong>ChatInput</strong> : aria-busy correct</li>
+      <li><strong>Admin agents/new</strong> : isDirty + ConfirmModal + labels = pattern exemplaire</li>
+      <li><strong>Action.tsx</strong> : composant bouton/lien universel correctement a11y</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  Audit généré le 2026-05-19 — Hearst OS — read-only strict, aucun fichier modifié.<br>
+  3 agents Explore en parallèle (Sonnet) sur axes : états manquants / navigation / a11y clavier.
+</footer>
+
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === target));
+    });
+  });
+</script>
+
+</body>
+</html>
