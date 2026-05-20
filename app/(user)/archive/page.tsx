@@ -22,7 +22,10 @@ export default async function ArchivePage() {
         <input
           type="search"
           aria-label="Rechercher dans l'archive"
-          placeholder="Rechercher dans l'archive…"
+          placeholder="Recherche bientôt disponible"
+          disabled
+          aria-disabled="true"
+          title="Recherche bientôt disponible"
           className="bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-3 w-full t-13 outline-none focus:border-(--ct-border-strong) transition-colors mb-6"
         />
 
@@ -33,10 +36,13 @@ export default async function ArchivePage() {
               type="button"
               role="tab"
               aria-selected={tab === "Tout"}
+              disabled={tab !== "Tout"}
+              aria-disabled={tab !== "Tout" ? "true" : undefined}
+              title={tab !== "Tout" ? "À venir" : undefined}
               className={
                 tab === "Tout"
                   ? "px-4 py-1.5 rounded-md t-13 font-medium bg-(--ct-surface-2) text-(--ct-text-strong)"
-                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) transition-colors"
+                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) transition-colors cursor-not-allowed"
               }
             >
               {tab}

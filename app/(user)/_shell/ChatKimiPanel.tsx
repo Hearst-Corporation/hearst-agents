@@ -62,7 +62,7 @@ function ChatKimiPanelStyles() {
       .vision-kimi-panel .ct-chat-newbtn {
         font-size: var(--ct-font-size-sm);
         font-weight: var(--ct-font-weight-medium);
-        letter-spacing: 0.08em;
+        letter-spacing: var(--tracking-caption);
         color: var(--text-faint);
         background: transparent;
         border: 1px solid var(--line-strong);
@@ -105,7 +105,7 @@ function ChatKimiPanelStyles() {
       /* ── Placeholder vide ─────────────────────────────────────── */
       .vision-kimi-panel .ct-placeholder {
         font-size: var(--ct-font-size-sm);
-        line-height: 1.6;
+        line-height: var(--leading-relaxed);
         color: var(--text-ghost);
         padding: var(--space-3);
         text-align: center;
@@ -131,7 +131,7 @@ function ChatKimiPanelStyles() {
         padding: var(--space-2) var(--space-3);
         font-size: var(--ct-font-size-base);
         color: var(--text-soft);
-        line-height: 1.5;
+        line-height: var(--leading-body-tight);
         max-width: 90%;
       }
 
@@ -146,7 +146,7 @@ function ChatKimiPanelStyles() {
         padding: var(--space-2) var(--space-3);
         font-size: var(--ct-font-size-base);
         color: var(--text-muted);
-        line-height: 1.6;
+        line-height: var(--leading-relaxed);
         max-width: 100%;
         position: relative;
       }
@@ -268,7 +268,7 @@ function ChatKimiPanelStyles() {
         font-size: var(--ct-font-size-base);
         color: var(--text-soft);
         resize: none;
-        line-height: 1.5;
+        line-height: var(--leading-body-tight);
         font-family: inherit;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
         outline: none;

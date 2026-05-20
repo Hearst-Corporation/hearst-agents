@@ -100,16 +100,20 @@ export default async function MarketplacePage() {
             placeholder="Rechercher un template…"
             className="flex-1 bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-2.5 t-13 text-(--ct-text-strong) placeholder:text-(--ct-text-muted) outline-none focus:border-(--ct-border-strong) transition-colors"
             disabled
+            aria-disabled="true"
           />
           <div className="flex items-center gap-1">
             {(["Tout", "Workflow", "Rapport", "Persona"] as const).map((filter) => (
               <button
                 key={filter}
                 type="button"
+                disabled={filter !== "Tout"}
+                aria-disabled={filter !== "Tout" ? "true" : undefined}
+                title={filter !== "Tout" ? "À venir" : undefined}
                 className={`px-3.5 py-2 rounded-md t-13 transition-colors ${
                   filter === "Tout"
                     ? "bg-(--ct-surface-2) text-(--ct-text-strong)"
-                    : "text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1)"
+                    : "text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) cursor-not-allowed"
                 }`}
               >
                 {filter}
