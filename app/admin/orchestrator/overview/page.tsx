@@ -11,15 +11,36 @@ import { StartRunButton } from "../_components/StartRunButton";
 export const dynamic = "force-dynamic";
 
 export default async function OverviewPage() {
-  const [scores, history, drift, cc, runs, quarantined, health] = await Promise.all([
-    latestScores(),
-    loadHistory(),
-    loadDriftLog(),
-    loadCC(),
-    listRuns(),
-    listQuarantined(),
-    quickHealthCheck(),
-  ]);
+  let scores, history, drift, cc, runs, quarantined, health;
+  try {
+    [scores, history, drift, cc, runs, quarantined, health] = await Promise.all([
+      latestScores(),
+      loadHistory(),
+      loadDriftLog(),
+      loadCC(),
+      listRuns(),
+      listQuarantined(),
+      quickHealthCheck(),
+    ]);
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    return (
+      <HomShell current="/admin/orchestrator/overview">
+        <PageHeader
+          title="Vue d'ensemble"
+          subtitle="État agrégé du mesh : trust scores, drift, runs, blockers."
+        />
+        <Card>
+          <h3 className="t-13 text-text mb-(--space-2)">Données indisponibles</h3>
+          <p className="t-12 text-text-muted mb-(--space-3)">
+            Impossible de charger les données du mesh HOM. Un fichier requis est manquant ou
+            inaccessible.
+          </p>
+          <p className="t-11 font-mono text-text-ghost break-all">{message}</p>
+        </Card>
+      </HomShell>
+    );
+  }
 
   const lastTrust = history.at(-1);
   const recentRuns = runs.slice(0, 5);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { RightPanelData } from "@/lib/core/types";
 import { mapFocalObject, mapFocalObjects } from "@/lib/core/types/focal";
 import { useFocalStore } from "@/stores/focal";
@@ -16,6 +16,8 @@ export interface RightPanelDataState {
   activeThreadId: string | null;
   runningSpecs: Set<string>;
   runSuggestion: (specId: string, title: string) => Promise<void>;
+  panelError: string | null;
+  clearPanelError: () => void;
 }
 
 export function useRightPanelData(): RightPanelDataState {
@@ -23,6 +25,8 @@ export function useRightPanelData(): RightPanelDataState {
 
   const [data, setData] = useState<RightPanelData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [panelError, setPanelError] = useState<string | null>(null);
+  const clearPanelError = useCallback(() => setPanelError(null), []);
 
   const [trackedThreadId, setTrackedThreadId] = useState<string | null>(activeThreadId ?? null);
   if (trackedThreadId !== (activeThreadId ?? null)) {
@@ -47,10 +51,13 @@ export function useRightPanelData(): RightPanelDataState {
       .then((panelData: RightPanelData | null) => {
         if (panelData) setData(panelData);
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.warn("[useRightPanelData] right-panel refresh failed", err);
+      });
   }, [runtimeEvents, activeThreadId]);
 
   useEffect(() => {
+    setPanelError(null);
     if (!activeThreadId) {
       let cancelled = false;
       Promise.resolve().then(() => {
@@ -97,6 +104,7 @@ export function useRightPanelData(): RightPanelDataState {
 
     const applyPanel = (panelData: RightPanelData) => {
       if (cancelled || activeThreadIdRef.current !== streamThreadId) return;
+      setPanelError(null);
       setData(panelData);
       const hydrateThreadState = useFocalStore.getState().hydrateThreadState;
       const tid = activeThreadIdRef.current;
@@ -124,7 +132,13 @@ export function useRightPanelData(): RightPanelDataState {
       window.location.reload();
     });
 
-    es.onerror = () => {};
+    es.onerror = () => {
+      if (cancelled || activeThreadIdRef.current !== streamThreadId) return;
+      console.warn("[useRightPanelData] SSE stream error", { threadId: streamThreadId });
+      setLoading(false);
+      setPanelError("Connexion interrompue. Rafraîchissez pour rétablir le contexte.");
+      // EventSource gère la reconnexion automatique
+    };
 
     return () => {
       cancelled = true;
@@ -146,5 +160,7 @@ export function useRightPanelData(): RightPanelDataState {
     activeThreadId,
     runningSpecs,
     runSuggestion,
+    panelError,
+    clearPanelError,
   };
 }

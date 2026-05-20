@@ -6,7 +6,28 @@ import { Card, HomShell, PageHeader, StatusPill } from "../_components/Shell";
 export const dynamic = "force-dynamic";
 
 export default async function AgentsPage() {
-  const [contracts, cc, q] = await Promise.all([loadAllContracts(), loadCC(), loadQuarantine()]);
+  let contracts, cc, q;
+  try {
+    [contracts, cc, q] = await Promise.all([loadAllContracts(), loadCC(), loadQuarantine()]);
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    return (
+      <HomShell current="/admin/orchestrator/agents">
+        <PageHeader
+          title="Agents"
+          subtitle="Capability contracts, scope, état runtime, quarantaine."
+        />
+        <Card>
+          <h3 className="t-13 text-text mb-(--space-2)">Données indisponibles</h3>
+          <p className="t-12 text-text-muted mb-(--space-3)">
+            Impossible de charger les contracts d'agents HOM. Un fichier requis est manquant ou
+            inaccessible.
+          </p>
+          <p className="t-11 font-mono text-text-ghost break-all">{message}</p>
+        </Card>
+      </HomShell>
+    );
+  }
 
   return (
     <HomShell current="/admin/orchestrator/agents">

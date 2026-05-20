@@ -23,7 +23,7 @@ export function ConversationHeader() {
     activeThreadId ? s.threads.find((t) => t.id === activeThreadId) : undefined,
   );
   const updateThreadName = useNavigationStore((s) => s.updateThreadName);
-  const { assets } = useRightPanelData();
+  const { assets, panelError, clearPanelError } = useRightPanelData();
 
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
@@ -59,91 +59,117 @@ export function ConversationHeader() {
   };
 
   return (
-    <header
-      className="shrink-0 flex items-center justify-between border-b border-(--border-default)"
-      style={{
-        padding: "var(--space-4) var(--space-12)",
-        gap: "var(--space-4)",
-        background: "var(--bg-elev)",
-      }}
-    >
-      <div className="flex items-baseline min-w-0" style={{ gap: "var(--space-3)" }}>
-        {editing ? (
-          <>
-            <input
-              ref={inputRef}
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  commitEdit();
-                } else if (e.key === "Escape") {
-                  e.preventDefault();
-                  cancelEdit();
-                }
-              }}
-              className="t-15 font-medium bg-transparent border-b border-[var(--accent-teal-border)] outline-none min-w-0 flex-1"
-              style={{ color: "var(--text)" }}
-              maxLength={120}
-              aria-label="Renommer la conversation"
-            />
-            <button
-              type="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={commitEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-(--accent-teal) hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
-              title="Valider (Entrée)"
-              aria-label="Valider le renommage"
-            >
-              <CheckIcon />
-            </button>
-            <button
-              type="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={cancelEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-text-faint hover:text-text hover:bg-[var(--layer-1)] transition-colors"
-              title="Annuler (Échap)"
-              aria-label="Annuler le renommage"
-            >
-              <XIcon />
-            </button>
-          </>
-        ) : (
-          <>
-            <span className="t-15 font-medium truncate min-w-0" style={{ color: "var(--text)" }}>
-              {activeThread.name || "Sans titre"}
+    <>
+      <header
+        className="shrink-0 flex items-center justify-between border-b border-(--border-default)"
+        style={{
+          padding: "var(--space-4) var(--space-12)",
+          gap: "var(--space-4)",
+          background: "var(--bg-elev)",
+        }}
+      >
+        <div className="flex items-baseline min-w-0" style={{ gap: "var(--space-3)" }}>
+          {editing ? (
+            <>
+              <input
+                ref={inputRef}
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    commitEdit();
+                  } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    cancelEdit();
+                  }
+                }}
+                className="t-15 font-medium bg-transparent border-b border-[var(--accent-teal-border)] outline-none min-w-0 flex-1"
+                style={{ color: "var(--text)" }}
+                maxLength={120}
+                aria-label="Renommer la conversation"
+              />
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={commitEdit}
+                className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-(--accent-teal) hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
+                title="Valider (Entrée)"
+                aria-label="Valider le renommage"
+              >
+                <CheckIcon />
+              </button>
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={cancelEdit}
+                className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-text-faint hover:text-text hover:bg-[var(--layer-1)] transition-colors"
+                title="Annuler (Échap)"
+                aria-label="Annuler le renommage"
+              >
+                <XIcon />
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="t-15 font-medium truncate min-w-0" style={{ color: "var(--text)" }}>
+                {activeThread.name || "Sans titre"}
+              </span>
+              <button
+                type="button"
+                onClick={startEdit}
+                className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-text-faint hover:text-(--accent-teal) hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
+                title="Renommer la conversation"
+                aria-label="Renommer la conversation"
+              >
+                <PencilIcon />
+              </button>
+            </>
+          )}
+          <span className="t-11 font-light shrink-0" style={{ color: "var(--text-faint)" }}>
+            {dateLabel}
+          </span>
+        </div>
+        {assetCount > 0 && (
+          <span
+            className="inline-flex items-baseline shrink-0"
+            style={{ gap: "var(--space-2)" }}
+            title={`${assetCount} asset${assetCount > 1 ? "s" : ""} généré${assetCount > 1 ? "s" : ""} dans ce fil`}
+          >
+            <span className="t-11 font-mono tabular-nums" style={{ color: "var(--accent-teal)" }}>
+              {assetCount.toString().padStart(2, "0")}
             </span>
-            <button
-              type="button"
-              onClick={startEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-text-faint hover:text-(--accent-teal) hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
-              title="Renommer la conversation"
-              aria-label="Renommer la conversation"
-            >
-              <PencilIcon />
-            </button>
-          </>
+            <span className="t-11 font-light" style={{ color: "var(--text-faint)" }}>
+              asset{assetCount > 1 ? "s" : ""}
+            </span>
+          </span>
         )}
-        <span className="t-11 font-light shrink-0" style={{ color: "var(--text-faint)" }}>
-          {dateLabel}
-        </span>
-      </div>
-      {assetCount > 0 && (
-        <span
-          className="inline-flex items-baseline shrink-0"
-          style={{ gap: "var(--space-2)" }}
-          title={`${assetCount} asset${assetCount > 1 ? "s" : ""} généré${assetCount > 1 ? "s" : ""} dans ce fil`}
+      </header>
+      {panelError && (
+        <div
+          className="shrink-0 flex items-center justify-between"
+          style={{
+            padding: "var(--space-2) var(--space-12)",
+            gap: "var(--space-4)",
+            background: "color-mix(in srgb, var(--color-error, #e05) 10%, transparent)",
+            borderBottom: "1px solid color-mix(in srgb, var(--color-error, #e05) 30%, transparent)",
+          }}
+          role="alert"
         >
-          <span className="t-11 font-mono tabular-nums" style={{ color: "var(--accent-teal)" }}>
-            {assetCount.toString().padStart(2, "0")}
+          <span className="t-12 font-light" style={{ color: "var(--color-error, #ff4466)" }}>
+            {panelError}
           </span>
-          <span className="t-11 font-light" style={{ color: "var(--text-faint)" }}>
-            asset{assetCount > 1 ? "s" : ""}
-          </span>
-        </span>
+          <button
+            type="button"
+            onClick={clearPanelError}
+            className="shrink-0 t-11 font-medium underline-offset-2 underline transition-opacity hover:opacity-70"
+            style={{ color: "var(--color-error, #ff4466)" }}
+          >
+            Fermer
+          </button>
+        </div>
       )}
-    </header>
+    </>
   );
 }
 

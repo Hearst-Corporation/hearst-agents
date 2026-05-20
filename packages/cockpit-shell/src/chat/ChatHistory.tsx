@@ -6,8 +6,9 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { setView } from "../stores/chatViewStore";
 import { setActiveChat } from "../stores/activeChatStore";
+import { setView } from "../stores/chatViewStore";
+import { ConfirmDialog } from "./ConfirmDialog";
 
 interface ChatSummary {
   id: string;
@@ -24,6 +25,8 @@ export function ChatHistory({ productColor }: ChatHistoryProps = {}) {
   const [chats, setChats] = useState<ChatSummary[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [confirmClearOpen, setConfirmClearOpen] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -54,23 +57,23 @@ export function ChatHistory({ productColor }: ChatHistoryProps = {}) {
     setView("chat");
   }
 
-  async function deleteChat(id: string) {
-    if (!window.confirm("Supprimer cette conversation ?")) return;
+  async function performDelete(id: string) {
     try {
       await fetch(`/api/cockpit-chats/${id}`, { method: "DELETE" });
       setChats((prev) => prev.filter((c) => c.id !== id));
-    } catch {
-      /* silencieux */
+    } catch (err) {
+      console.warn("[ChatHistory] Échec de la suppression :", err);
+      setError("Échec de la suppression — réessayez.");
     }
   }
 
-  async function clearAll() {
-    if (!window.confirm("Tout supprimer ? Cette action est irréversible.")) return;
+  async function performClearAll() {
     try {
       await fetch("/api/cockpit-chats", { method: "DELETE" });
       setChats([]);
-    } catch {
-      /* silencieux */
+    } catch (err) {
+      console.warn("[ChatHistory] Échec de la suppression globale :", err);
+      setError("Échec de la suppression — réessayez.");
     }
   }
 
@@ -89,7 +92,7 @@ export function ChatHistory({ productColor }: ChatHistoryProps = {}) {
           <button
             type="button"
             className="ct-chat-history-clearbtn"
-            onClick={clearAll}
+            onClick={() => setConfirmClearOpen(true)}
             title="Tout supprimer"
           >
             Tout effacer
@@ -101,8 +104,8 @@ export function ChatHistory({ productColor }: ChatHistoryProps = {}) {
       {error && <p className="ct-chat-error">{error}</p>}
       {!loading && !error && chats.length === 0 && (
         <p className="ct-placeholder">
-          Aucune conversation pour l'instant — démarre un chat pour voir
-          apparaître ton historique ici.
+          Aucune conversation pour l'instant — démarre un chat pour voir apparaître ton historique
+          ici.
         </p>
       )}
 
@@ -120,17 +123,49 @@ export function ChatHistory({ productColor }: ChatHistoryProps = {}) {
             <button
               type="button"
               className="ct-chat-history-delete"
-              onClick={() => deleteChat(c.id)}
+              onClick={() => setConfirmDeleteId(c.id)}
               aria-label="Supprimer"
               title="Supprimer"
             >
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-                <path d="M1.5 3h10M4.5 3V2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1M5.5 5.5v4M7.5 5.5v4M2.5 3l.5 8a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5l.5-8" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M1.5 3h10M4.5 3V2a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1M5.5 5.5v4M7.5 5.5v4M2.5 3l.5 8a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5l.5-8"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </li>
         ))}
       </ul>
+
+      <ConfirmDialog
+        open={confirmDeleteId !== null}
+        title="Supprimer cette conversation ?"
+        description="Cette action est définitive."
+        confirmLabel="Supprimer"
+        danger
+        onConfirm={async () => {
+          if (confirmDeleteId) {
+            await performDelete(confirmDeleteId);
+            setConfirmDeleteId(null);
+          }
+        }}
+        onCancel={() => setConfirmDeleteId(null)}
+      />
+      <ConfirmDialog
+        open={confirmClearOpen}
+        title="Tout supprimer ?"
+        description="Toutes les conversations seront effacées définitivement."
+        confirmLabel="Tout supprimer"
+        danger
+        onConfirm={async () => {
+          await performClearAll();
+          setConfirmClearOpen(false);
+        }}
+        onCancel={() => setConfirmClearOpen(false)}
+      />
     </div>
   );
 }
