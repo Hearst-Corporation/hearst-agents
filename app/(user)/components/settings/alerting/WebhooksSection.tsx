@@ -4,11 +4,12 @@
  * Section "Webhooks" — liste, ajout, suppression et test.
  */
 
+import { Card } from "@hearst/cockpit-shell";
 import { type Dispatch, useState } from "react";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
 import { ConfirmModal } from "../../ConfirmModal";
-import { Btn, Card, Input, SectionTitle, SignalBadge, TestBadge } from "./primitives";
+import { Btn, Input, SectionTitle, SignalBadge, TestBadge } from "./primitives";
 import type { Action, SignalType, State } from "./types";
 
 const MAX_WEBHOOKS = 10;

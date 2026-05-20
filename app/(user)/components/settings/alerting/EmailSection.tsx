@@ -4,10 +4,11 @@
  * Section "Email" — destinataires, signaux, toggle, test.
  */
 
+import { Card } from "@hearst/cockpit-shell";
 import type { Dispatch } from "react";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import { parseEmailInput } from "./helpers";
-import { Btn, Card, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
+import { Btn, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
 import type { Action, SignalType, State } from "./types";
 
 interface Props {

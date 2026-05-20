@@ -17,21 +17,6 @@ export function SectionTitle({ children }: { children: ReactNode }) {
   );
 }
 
-export function Card({ children }: { children: ReactNode }) {
-  return (
-    <div
-      className="p-4 mb-4"
-      style={{
-        background: "var(--surface-1)",
-        border: "1px solid var(--border-default)",
-        borderRadius: "var(--radius-md)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
 export function Input({
   value,
   onChange,

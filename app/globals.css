@@ -2,6 +2,13 @@
 
 @import "../themes/robotflowtemplate-webflow-io/tokens.css";
 
+/* @hearst/cockpit-shell — tokens + classes .ct-* utilisées par les primitives
+ * adoptées (Card, KpiCard, KpiGrid, Eyebrow, Title, Sub, etc.).
+ * Les valeurs `:root` posées ici sont surchargées dans le bloc
+ * `[data-product="helm"]` plus bas (cascade : même spécificité, dernier
+ * déclaré gagne) → le visuel reste visionOS. */
+@import "@hearst/cockpit-shell/tokens.css";
+
 :root {
   
   --bg: #000000;
@@ -425,14 +432,38 @@
 }
 
 /* ─── @hearst/cockpit-shell — pont visionOS ─────────────────────────────
- * Helm consomme le package en mode "marker" (PR1) : on pose data-product
- * mais on n'instancie pas <CockpitShell> (incompatible avec le Shell
- * interne, cf. plan PR1). Cet override fige l'accent du package sur le
- * teal visionOS si jamais un sous-composant du package (KpiCard, Eyebrow,
- * Card…) est monté plus tard sans <CockpitShell>. Defensive : aujourd'hui
- * aucun var(--ct-*) n'est consommé par Helm. */
+ * Helm consomme le package en mode "primitives" (PR3) : <Card> alerting
+ * vient de @hearst/cockpit-shell. Le tokens.css du package est importé
+ * en haut du fichier (cf. @import). Ce bloc surcharge les valeurs `:root`
+ * Cockpit (bordeaux #1A050B) vers les tokens visionOS Helm — cascade
+ * identique (même spécificité), dernier déclaré gagne. */
 [data-product="helm"] {
+  /* Accent : déjà mappé en PR1, conservé */
   --ct-accent: var(--accent-teal);
+
+  /* Surfaces — alignées sur les surfaces translucides visionOS */
+  --ct-surface-0: var(--bg-soft);
+  --ct-surface-1: var(--surface-1);
+  --ct-surface-2: var(--surface-2);
+  --ct-surface-3: var(--bg-elev);
+
+  /* Borders */
+  --ct-border-soft: var(--border-soft);
+  --ct-border: var(--border-default);
+  --ct-border-strong: var(--border-strong);
+  --ct-border-accent: var(--accent-teal-border);
+
+  /* Text */
+  --ct-text-strong: var(--text);
+  --ct-text-primary: var(--text-soft);
+  --ct-text-body: var(--text-muted);
+  --ct-text-muted: var(--text-faint);
+
+  /* Background du Cockpit (bordeaux Cockpit canonical → noir visionOS) */
+  --ct-bg-deep: var(--bg);
+
+  /* Shadow — la Card alerting Helm est plate ; on neutralise box-shadow */
+  --ct-shadow-depth: none;
 }
 
 .poster-greeting {

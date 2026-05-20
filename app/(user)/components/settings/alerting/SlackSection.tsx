@@ -4,9 +4,10 @@
  * Section "Slack" — webhook URL, toggle, test.
  */
 
+import { Card } from "@hearst/cockpit-shell";
 import type { Dispatch } from "react";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
-import { Btn, Card, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
+import { Btn, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
 import type { Action, State } from "./types";
 
 interface Props {
