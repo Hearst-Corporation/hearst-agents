@@ -26,7 +26,7 @@ export default async function ArchivePage() {
           disabled
           aria-disabled="true"
           title="Recherche bientôt disponible"
-          className="bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-3 w-full t-13 outline-none focus:border-(--ct-border-strong) transition-colors mb-6"
+          className="bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-3 w-full t-13 outline-none focus:border-(--ct-border-strong) transition-colors mb-6 cursor-not-allowed"
         />
 
         <div role="tablist" className="flex items-center gap-1 mb-8">
@@ -42,7 +42,7 @@ export default async function ArchivePage() {
               className={
                 tab === "Tout"
                   ? "px-4 py-1.5 rounded-md t-13 font-medium bg-(--ct-surface-2) text-(--ct-text-strong)"
-                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) transition-colors cursor-not-allowed"
+                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) transition-colors cursor-not-allowed"
               }
             >
               {tab}

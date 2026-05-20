@@ -6,7 +6,7 @@ export default function MarketplaceLoading() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="t-30 font-semibold tracking-tight">Marketplace</h1>
-          <p className="mt-1 text-white/50 text-sm">
+          <p className="mt-1 text-(--ct-text-muted) text-sm">
             Templates communautaires · workflows, rapports, personas
           </p>
         </div>

@@ -97,8 +97,9 @@ export default async function MarketplacePage() {
         <div className="flex items-center gap-3 mb-8">
           <input
             type="text"
-            placeholder="Rechercher un template…"
-            className="flex-1 bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-2.5 t-13 text-(--ct-text-strong) placeholder:text-(--ct-text-muted) outline-none focus:border-(--ct-border-strong) transition-colors"
+            placeholder="Recherche bientôt disponible"
+            title="Recherche bientôt disponible"
+            className="flex-1 bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-2.5 t-13 text-(--ct-text-strong) placeholder:text-(--ct-text-muted) outline-none focus:border-(--ct-border-strong) transition-colors cursor-not-allowed"
             disabled
             aria-disabled="true"
           />
@@ -113,7 +114,7 @@ export default async function MarketplacePage() {
                 className={`px-3.5 py-2 rounded-md t-13 transition-colors ${
                   filter === "Tout"
                     ? "bg-(--ct-surface-2) text-(--ct-text-strong)"
-                    : "text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) cursor-not-allowed"
+                    : "text-(--ct-text-muted) cursor-not-allowed"
                 }`}
               >
                 {filter}

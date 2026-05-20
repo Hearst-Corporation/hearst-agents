@@ -6,7 +6,9 @@ export default function ArchiveLoading() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="t-24 font-semibold tracking-tight">Archive</h1>
-          <p className="mt-1 text-sm text-white/50">Threads et assets de plus de 7 jours</p>
+          <p className="mt-1 text-sm text-(--ct-text-muted)">
+            Threads et assets de plus de 7 jours
+          </p>
         </div>
         <RowSkeleton count={6} height="var(--space-12)" />
       </div>

@@ -6,7 +6,7 @@ export default function NotificationsLoading() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="t-24 font-semibold tracking-tight">Notifications</h1>
-          <p className="mt-1 text-sm text-white/50">Signaux, rapports, exports</p>
+          <p className="mt-1 text-sm text-(--ct-text-muted)">Signaux, rapports, exports</p>
         </div>
         <RowSkeleton count={5} height="var(--space-16)" />
       </div>

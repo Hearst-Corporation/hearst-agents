@@ -16,7 +16,7 @@ export default async function NotificationsPage() {
             disabled
             aria-disabled="true"
             title="À venir"
-            className="t-11 text-(--ct-text-muted) hover:text-(--ct-text-body) transition-colors mt-1.5"
+            className="t-11 text-(--ct-text-muted) transition-colors mt-1.5 cursor-not-allowed"
           >
             Tout marquer comme lu
           </button>
@@ -35,7 +35,7 @@ export default async function NotificationsPage() {
               className={
                 tab === "Tout"
                   ? "px-4 py-1.5 rounded-md t-13 font-medium bg-(--ct-surface-2) text-(--ct-text-strong)"
-                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) transition-colors cursor-not-allowed"
+                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) transition-colors cursor-not-allowed"
               }
             >
               {tab}
