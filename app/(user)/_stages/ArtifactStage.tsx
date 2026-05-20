@@ -118,11 +118,11 @@ function buildStatusLabel(status: string | undefined): string {
 }
 
 function buildStatusColor(status: string | undefined): string {
-  if (!status) return "rgba(255,255,255,0.3)";
-  if (status === "ready") return "rgba(160,255,160,0.65)";
-  if (status === "running" || status === "pending") return "rgba(255,200,80,0.7)";
-  if (status === "failed" || status === "error") return "rgba(255,120,120,0.65)";
-  return "rgba(255,255,255,0.3)";
+  if (!status) return "var(--text-l2)";
+  if (status === "ready") return "var(--accent-teal)";
+  if (status === "running" || status === "pending") return "var(--warn)";
+  if (status === "failed" || status === "error") return "var(--danger)";
+  return "var(--text-l2)";
 }
 
 // ── Sub-composants ─────────────────────────────────────────────────────────────
@@ -155,16 +155,16 @@ function EmptyArtifactState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 0",
+        padding: "var(--space-20) 0",
         textAlign: "center",
       }}
     >
       <p
         className="t-15"
         style={{
-          color: "rgba(255,255,255,0.45)",
-          maxWidth: "440px",
-          lineHeight: 1.6,
+          color: "var(--text-faint)",
+          maxWidth: "var(--width-context, 440px)",
+          lineHeight: "var(--leading-relaxed)",
         }}
       >
         Lance une mission qui génère un artifact ou demande à l'agent.
@@ -183,15 +183,15 @@ function LoadingState() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 0",
-        gap: "10px",
+        padding: "var(--space-20) 0",
+        gap: "var(--space-2-5)",
       }}
     >
       <span
         className="inline-block rounded-full animate-pulse"
-        style={{ width: "6px", height: "6px", background: "rgba(94,229,195,0.6)" }}
+        style={{ width: "6px", height: "6px", background: "var(--accent-teal)" }}
       />
-      <span className="t-15" style={{ color: "rgba(255,255,255,0.35)" }}>
+      <span className="t-15" style={{ color: "var(--text-l2)" }}>
         Chargement de l'artifact…
       </span>
     </motion.div>
@@ -205,31 +205,34 @@ function ErrorState({ message }: { message: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
       style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
+        padding: "var(--space-3-5) var(--space-4-5, 18px)",
+        borderRadius: "var(--radius-md)",
+        background: "var(--danger-surface-soft)",
+        borderLeft: "2px solid var(--danger-border)",
+        color: "var(--text-soft)",
+        lineHeight: "var(--leading-comfortable)",
       }}
+      className="t-13"
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
-      {message}
+      <strong
+        style={{ color: "var(--text)", fontWeight: "var(--weight-semibold)" as unknown as number }}
+      >
+        Erreur
+      </strong>{" "}
+      — {message}
     </motion.div>
   );
 }
 
 function CodeBlock({ code, language }: { code: string; language: string }) {
   return (
-    <div style={{ padding: "14px 16px" }}>
+    <div style={{ padding: "var(--space-3-5) var(--space-4)" }}>
       <pre
-        className="code-block"
+        className="code-block t-11"
         style={{
           margin: 0,
-          fontSize: "12px",
-          lineHeight: 1.7,
-          color: "rgba(255,255,255,0.65)",
+          lineHeight: "var(--leading-code)",
+          color: "var(--text-muted)",
           fontFamily: "var(--font-mono, 'SF Mono', monospace)",
           whiteSpace: "pre-wrap",
           wordBreak: "break-word",
@@ -258,47 +261,53 @@ function PreviewPanel() {
 function VersionsList({ versions }: { versions: VersionRow[] }) {
   if (versions.length === 0) {
     return (
-      <div className="flex-1" style={{ padding: "14px 16px" }}>
-        <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.3)" }}>
+      <div className="flex-1" style={{ padding: "var(--space-3-5) var(--space-4)" }}>
+        <p className="t-13" style={{ color: "var(--text-l3)" }}>
           Aucune version disponible.
         </p>
       </div>
     );
   }
   return (
-    <div style={{ padding: "14px 16px" }}>
-      <div className="flex flex-col" style={{ gap: "8px" }}>
+    <div style={{ padding: "var(--space-3-5) var(--space-4)" }}>
+      <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
         {versions.map((v, i) => (
           <div
             key={v.id}
             style={{
-              padding: "10px 14px",
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: "8px",
+              padding: "var(--space-2-5) var(--space-3-5)",
+              background: "var(--surface-1)",
+              border: "1px solid var(--border-subtle, rgba(255,255,255,0.06))",
+              borderRadius: "var(--radius-sm)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: "8px",
+              gap: "var(--space-2)",
             }}
           >
-            <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", fontWeight: 500 }}>
+            <span
+              className="t-11"
+              style={{
+                color: "var(--text-muted)",
+                fontWeight: "var(--weight-medium)" as unknown as number,
+              }}
+            >
               V{versions.length - i}
             </span>
             <span
+              className="t-11"
               style={{
-                fontSize: "11px",
                 fontFamily: "var(--font-mono, monospace)",
-                color: "rgba(255,255,255,0.3)",
+                color: "var(--text-l2)",
               }}
             >
               {v.id.slice(0, 8)}
             </span>
-            <span style={{ fontSize: "11px", color: buildStatusColor(v.status) }}>
+            <span className="t-11" style={{ color: buildStatusColor(v.status) }}>
               {buildStatusLabel(v.status)}
             </span>
             {v.createdAt && (
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)" }}>
+              <span className="t-11" style={{ color: "var(--text-l3)" }}>
                 {new Date(v.createdAt).toLocaleDateString("fr-FR")}
               </span>
             )}
@@ -496,7 +505,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
                 background: buildStatusColor(meta.buildStatus),
               }}
             />
-            <span style={{ fontSize: "12px", color: buildStatusColor(meta.buildStatus) }}>
+            <span className="t-11" style={{ color: buildStatusColor(meta.buildStatus) }}>
               {buildStatusLabel(meta.buildStatus)}
             </span>
           </div>
@@ -553,8 +562,8 @@ export function ArtifactStage({ mode }: { mode: string }) {
             <div
               className="flex flex-col flex-1 min-w-0"
               style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "14px",
+                border: "1px solid var(--border-subtle, rgba(255,255,255,0.08))",
+                borderRadius: "var(--radius-lg)",
                 overflow: "hidden",
               }}
             >
@@ -562,9 +571,9 @@ export function ArtifactStage({ mode }: { mode: string }) {
               <div
                 className="flex items-center gap-2"
                 style={{
-                  padding: "8px 14px",
-                  borderBottom: "1px solid rgba(255,255,255,0.07)",
-                  background: "rgba(255,255,255,0.03)",
+                  padding: "var(--space-2) var(--space-3-5)",
+                  borderBottom: "1px solid var(--border-subtle, rgba(255,255,255,0.07))",
+                  background: "var(--surface-1)",
                 }}
               >
                 <span className="t-11 font-medium text-white/60">{fileName}</span>
@@ -580,7 +589,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
                   className="flex-1 flex items-center justify-center"
                   style={{ padding: "var(--space-6)" }}
                 >
-                  <p className="t-13" style={{ color: "rgba(255,255,255,0.25)" }}>
+                  <p className="t-13" style={{ color: "var(--text-l3)" }}>
                     Aucun code disponible.
                   </p>
                 </div>
@@ -591,8 +600,8 @@ export function ArtifactStage({ mode }: { mode: string }) {
             <div
               className="flex flex-col flex-1 min-w-0"
               style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "14px",
+                border: "1px solid var(--border-subtle, rgba(255,255,255,0.08))",
+                borderRadius: "var(--radius-lg)",
                 overflow: "hidden",
               }}
             >
@@ -600,9 +609,9 @@ export function ArtifactStage({ mode }: { mode: string }) {
               <div
                 className="flex items-center gap-1"
                 style={{
-                  padding: "8px 14px",
-                  borderBottom: "1px solid rgba(255,255,255,0.07)",
-                  background: "rgba(255,255,255,0.03)",
+                  padding: "var(--space-2) var(--space-3-5)",
+                  borderBottom: "1px solid var(--border-subtle, rgba(255,255,255,0.07))",
+                  background: "var(--surface-1)",
                 }}
               >
                 {tabs.map((tab) => (
@@ -612,11 +621,10 @@ export function ArtifactStage({ mode }: { mode: string }) {
                     onClick={() => setActiveTab(tab.key)}
                     className="t-11 font-medium transition-colors"
                     style={{
-                      padding: "4px 10px",
-                      borderRadius: "20px",
-                      background: activeTab === tab.key ? "rgba(255,255,255,0.1)" : "transparent",
-                      color:
-                        activeTab === tab.key ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.35)",
+                      padding: "var(--space-1) var(--space-2-5)",
+                      borderRadius: "var(--radius-xl)",
+                      background: activeTab === tab.key ? "var(--surface-2)" : "transparent",
+                      color: activeTab === tab.key ? "var(--text-soft)" : "var(--text-l2)",
                       border: "none",
                       cursor: "pointer",
                     }}
@@ -657,7 +665,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
                         className="flex-1 flex items-center justify-center"
                         style={{ padding: "var(--space-6)" }}
                       >
-                        <p className="t-13" style={{ color: "rgba(255,255,255,0.25)" }}>
+                        <p className="t-13" style={{ color: "var(--text-l3)" }}>
                           Aucun code disponible.
                         </p>
                       </div>

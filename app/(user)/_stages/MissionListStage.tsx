@@ -85,36 +85,36 @@ function badgeTokens(mission: ApiMission): {
 
   if (isError)
     return {
-      bg: "rgba(255,80,80,0.1)",
-      border: "1px solid rgba(255,120,120,0.35)",
-      color: "rgba(255,140,140,0.9)",
+      bg: "var(--danger-surface-soft)",
+      border: "1px solid var(--danger-border)",
+      color: "var(--danger)",
       pulse: false,
     };
   if (isApproval)
     return {
-      bg: "rgba(212,175,55,0.1)",
-      border: "1px solid rgba(212,175,55,0.35)",
-      color: "rgba(212,175,55,0.9)",
+      bg: "var(--warn-surface-soft)",
+      border: "1px solid var(--warn-border)",
+      color: "var(--warn)",
       pulse: false,
     };
   if (isSuccess)
     return {
-      bg: "rgba(255,255,255,0.06)",
-      border: "1px solid rgba(255,255,255,0.1)",
-      color: "rgba(255,255,255,0.45)",
+      bg: "var(--surface-2)",
+      border: "1px solid var(--border-subtle, rgba(255,255,255,0.1))",
+      color: "var(--text-faint)",
       pulse: false,
     };
   if (isRunning)
     return {
-      bg: "rgba(94,229,195,0.1)",
-      border: "1px solid rgba(94,229,195,0.3)",
-      color: "rgba(94,229,195,0.85)",
+      bg: "var(--accent-teal-surface)",
+      border: "1px solid var(--accent-teal-border)",
+      color: "var(--accent-teal)",
       pulse: true,
     };
   return {
-    bg: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "rgba(255,255,255,0.35)",
+    bg: "var(--surface-2)",
+    border: "1px solid var(--border-subtle, rgba(255,255,255,0.1))",
+    color: "var(--text-l2)",
     pulse: false,
   };
 }

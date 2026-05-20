@@ -205,13 +205,17 @@ function EmptyMeetingState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 0",
+        padding: "var(--space-20) 0",
         textAlign: "center",
       }}
     >
       <p
         className="t-15"
-        style={{ color: "rgba(255,255,255,0.45)", maxWidth: "440px", lineHeight: 1.6 }}
+        style={{
+          color: "var(--text-faint)",
+          maxWidth: "var(--width-context, 440px)",
+          lineHeight: "var(--leading-relaxed)",
+        }}
       >
         Lance ou rejoins un meeting pour voir le transcript en direct.
       </p>
@@ -221,15 +225,15 @@ function EmptyMeetingState() {
 
 function LoadingSkeleton() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       {[1, 2, 3].map((i) => (
         <div
           key={i}
           className="animate-pulse"
           style={{
-            height: "56px",
-            borderRadius: "12px",
-            background: "rgba(255,255,255,0.05)",
+            height: "var(--space-14)",
+            borderRadius: "var(--radius-md)",
+            background: "var(--surface-1)",
           }}
         />
       ))}
@@ -244,17 +248,21 @@ function ErrorBanner({ message }: { message: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
       style={{
-        padding: "14px 18px",
-        borderRadius: "12px",
-        background: "rgba(255,80,80,0.08)",
-        borderLeft: "2px solid rgba(255,120,120,0.55)",
-        color: "rgba(255,200,200,0.85)",
-        fontSize: "13px",
-        lineHeight: 1.55,
+        padding: "var(--space-3-5) var(--space-4-5, 18px)",
+        borderRadius: "var(--radius-md)",
+        background: "var(--danger-surface-soft)",
+        borderLeft: "2px solid var(--danger-border)",
+        color: "var(--text-soft)",
+        lineHeight: "var(--leading-comfortable)",
       }}
+      className="t-13"
     >
-      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
-      {message}
+      <strong
+        style={{ color: "var(--text)", fontWeight: "var(--weight-semibold)" as unknown as number }}
+      >
+        Erreur
+      </strong>{" "}
+      — {message}
     </motion.div>
   );
 }
@@ -268,41 +276,41 @@ function TranscriptBubble({ seg, index }: { seg: Segment; index: number }) {
       variants={BUBBLE_VARIANTS}
       initial="hidden"
       animate="visible"
-      style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}
+      style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}
     >
       {/* Avatar */}
       <div
         style={{
           flexShrink: 0,
-          width: "32px",
-          height: "32px",
+          width: "var(--space-8)",
+          height: "var(--space-8)",
           borderRadius: "50%",
           background: bg,
           color,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "12px",
-          fontWeight: 600,
-          marginTop: "2px",
+          fontWeight: "var(--weight-semibold)" as unknown as number,
+          marginTop: "var(--space-0-5)",
         }}
+        className="t-11"
       >
         {speakerInitial(seg.speaker)}
       </div>
       {/* Body */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "3px", flex: 1 }}>
-        <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-0-5)", flex: 1 }}>
+        <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "baseline" }}>
           <span className="t-11 font-semibold" style={{ color }}>
             {name || "Intervenant"}
           </span>
-          <span className="t-11" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <span className="t-11" style={{ color: "var(--text-l2)" }}>
             {fmtTime(seg.start)}
           </span>
         </div>
         <p
           className="t-13"
           style={{
-            color: "rgba(255,255,255,0.82)",
+            color: "var(--text-soft)",
             lineHeight: "var(--leading-comfortable)",
             margin: 0,
           }}
@@ -321,47 +329,47 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
-        padding: "16px 20px",
-        borderRadius: "14px",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        gap: "var(--space-2)",
+        padding: "var(--space-4) var(--space-5)",
+        borderRadius: "var(--radius-lg)",
+        background: "var(--surface-2)",
+        border: "1px solid var(--border-subtle, rgba(255,255,255,0.07))",
       }}
     >
       <p
         className="t-11 font-semibold"
         style={{
-          color: "rgba(255,255,255,0.4)",
-          letterSpacing: ".06em",
-          marginBottom: "4px",
+          color: "var(--text-l2)",
+          letterSpacing: "var(--tracking-tight, .06em)",
+          marginBottom: "var(--space-1)",
         }}
       >
         Actions requises
       </p>
       {items.map((item, i) => (
-        <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+        <div key={i} style={{ display: "flex", gap: "var(--space-2-5)", alignItems: "flex-start" }}>
           <span
             style={{
-              marginTop: "2px",
-              width: "16px",
-              height: "16px",
-              borderRadius: "4px",
-              border: "1.5px solid rgba(94,229,195,0.45)",
+              marginTop: "var(--space-0-5)",
+              width: "var(--space-4)",
+              height: "var(--space-4)",
+              borderRadius: "var(--radius-xs)",
+              border: "1.5px solid var(--accent-teal-border)",
               flexShrink: 0,
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           />
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-0-5)" }}>
             <span
               className="t-13"
-              style={{ color: "rgba(255,255,255,0.82)", lineHeight: "var(--leading-body-tight)" }}
+              style={{ color: "var(--text-soft)", lineHeight: "var(--leading-body-tight)" }}
             >
               {item.action}
             </span>
             {(item.owner || item.deadline) && (
-              <span className="t-11" style={{ color: "rgba(255,255,255,0.35)" }}>
+              <span className="t-11" style={{ color: "var(--text-l2)" }}>
                 {[item.owner, item.deadline].filter(Boolean).join(" · ")}
               </span>
             )}
@@ -519,16 +527,16 @@ export function MeetingStage({ mode }: { mode: string }) {
 
       {/* Content */}
       {meetingId && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
           {demoActive && <DemoBanner />}
 
           {/* Header */}
-          <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
             <p
               className="t-11"
               style={{
-                color: "rgba(255,255,255,0.35)",
-                letterSpacing: ".06em",
+                color: "var(--text-l2)",
+                letterSpacing: "var(--tracking-tight, .06em)",
               }}
             >
               {data
@@ -537,14 +545,14 @@ export function MeetingStage({ mode }: { mode: string }) {
             </p>
             <h1
               style={{
-                fontSize: "28px",
-                fontWeight: 500,
-                letterSpacing: "-.02em",
+                fontWeight: "var(--weight-medium)" as unknown as number,
+                letterSpacing: "var(--tracking-tight)",
                 display: "flex",
                 alignItems: "center",
-                gap: "14px",
+                gap: "var(--space-3-5)",
                 flexWrap: "wrap",
               }}
+              className="t-28"
             >
               {data?.meetingId ?? meetingId}
               {live && (
@@ -552,21 +560,21 @@ export function MeetingStage({ mode }: { mode: string }) {
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "6px",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    color: "rgba(255,90,90,0.9)",
-                    padding: "4px 10px",
-                    borderRadius: "9999px",
-                    background: "rgba(255,80,80,0.12)",
+                    gap: "var(--space-1-5)",
+                    fontWeight: "var(--weight-medium)" as unknown as number,
+                    color: "var(--danger)",
+                    padding: "var(--space-1) var(--space-2-5)",
+                    borderRadius: "var(--radius-pill)",
+                    background: "var(--danger-surface)",
                   }}
+                  className="t-11"
                 >
                   <motion.span
                     style={{
                       width: "5px",
                       height: "5px",
                       borderRadius: "50%",
-                      background: "rgba(255,90,90,0.9)",
+                      background: "var(--danger)",
                       display: "inline-block",
                     }}
                     animate={{ opacity: [1, 0.3, 1] }}
@@ -577,13 +585,13 @@ export function MeetingStage({ mode }: { mode: string }) {
               )}
               {data && !live && (
                 <span
+                  className="t-11"
                   style={{
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    color: "rgba(255,255,255,0.45)",
-                    padding: "4px 10px",
-                    borderRadius: "9999px",
-                    background: "rgba(255,255,255,0.06)",
+                    fontWeight: "var(--weight-medium)" as unknown as number,
+                    color: "var(--text-faint)",
+                    padding: "var(--space-1) var(--space-2-5)",
+                    borderRadius: "var(--radius-pill)",
+                    background: "var(--surface-2)",
                   }}
                 >
                   Terminé
@@ -591,7 +599,7 @@ export function MeetingStage({ mode }: { mode: string }) {
               )}
             </h1>
             {data && (
-              <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.45)" }}>
+              <p className="t-14" style={{ color: "var(--text-faint)" }}>
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length}{" "}
                 speaker
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length !== 1
@@ -612,7 +620,7 @@ export function MeetingStage({ mode }: { mode: string }) {
           {/* Transcript */}
           <AnimatePresence initial={false}>
             {segments.length > 0 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
                 {segments.map((seg, idx) => (
                   <TranscriptBubble key={`${seg.speaker}-${seg.start}`} seg={seg} index={idx} />
                 ))}
