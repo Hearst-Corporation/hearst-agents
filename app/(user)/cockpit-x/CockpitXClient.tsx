@@ -37,15 +37,6 @@ const SimulationStage = dynamic(() =>
 );
 const VoiceStage = dynamic(() => import("../_stages/VoiceStage").then((m) => m.VoiceStage));
 
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center w-full h-full">
-      <div className="w-8 h-8 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
-    </div>
-  ),
-});
-
 /**
  * CockpitXClient — orchestrateur du shell visionOS (P4+).
  */
@@ -264,18 +255,6 @@ function CockpitContent({
       className="preserve-3d flex w-full flex-col mx-auto flex-1 relative min-h-screen"
       style={{ maxWidth: "1600px" }}
     >
-      {/* L'Aura du Système (3D Spline) - Présence fantomatique à droite */}
-      <div className="fixed top-0 right-[-15vw] w-[65vw] h-screen pointer-events-none z-0 overflow-hidden flex items-center justify-center">
-        <div
-          className="absolute inset-0 scale-[1.3] opacity-50"
-          style={{ filter: "grayscale(100%) contrast(1.3) brightness(0.6)" }}
-        >
-          <Spline scene="https://prod.spline.design/jc1CUanFKE-XIpec/scene.splinecode" />
-        </div>
-        {/* Gradient pour assombrir le torse et ancrer le robot dans le noir */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent z-10" />
-      </div>
-
       {/* Contenu Principal - Alignement Editorial */}
       <div className="relative z-10 flex flex-col w-full max-w-[620px] px-14 pt-16 pb-32">
         {/* État d'erreur silencieux — affiché quand le refetch échoue */}
