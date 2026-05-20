@@ -334,7 +334,7 @@ function MissionCard({
       </div>
 
       {/* Input preview */}
-      <p className="t-13 text-(--text-faint) leading-[1.5] overflow-hidden text-ellipsis whitespace-nowrap">
+      <p className="t-13 text-(--text-faint) leading-[var(--leading-body-tight)] overflow-hidden text-ellipsis whitespace-nowrap">
         {mission.input.slice(0, 120)}
       </p>
 
@@ -427,7 +427,7 @@ export function MissionListStage({ mode }: { mode: string }) {
           <p className="t-13 text-(--text-ghost)">Toutes les demandes</p>
           <h1 className="t-30 font-medium tracking-tight text-(--text-soft)">Demandes</h1>
           {STAGE_REGISTRY.mission.tagline && (
-            <p className="t-13 text-(--text-faint) leading-[1.5]">
+            <p className="t-13 text-(--text-faint) leading-[var(--leading-body-tight)]">
               {STAGE_REGISTRY.mission.tagline}
             </p>
           )}

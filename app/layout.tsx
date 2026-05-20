@@ -50,7 +50,7 @@ export default async function RootLayout({
          * ses propres tokens.css — pas besoin d'un <link> global ici.
          */}
       </head>
-      <body className="h-full text-text overflow-hidden">
+      <body className="h-full text-text">
         <div className="ghost-bg" />
         <ThemeHydrator initial={themeCookie} />
         {children}

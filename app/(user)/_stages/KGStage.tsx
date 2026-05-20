@@ -391,7 +391,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             {/* Dot couleur type — background dynamique via color → conservé en style JS */}
             <span
               aria-hidden="true"
-              className="inline-block size-[6px] rounded-full shrink-0 align-middle mr-[5px]"
+              className="inline-block size-[var(--size-dot)] rounded-full shrink-0 align-middle mr-[5px]"
               style={{ background: color }}
             />
             <div className="kg-chip">{node.label}</div>
@@ -484,7 +484,9 @@ function DetailPanel({
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-1">{node.type}</p>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[var(--tracking-caption)] mb-1">
+            {node.type}
+          </p>
           <h3 className="t-18 font-medium tracking-[-.015em] text-(--text-soft)">{node.label}</h3>
         </div>
         <button
@@ -500,7 +502,7 @@ function DetailPanel({
       {/* Liaisons */}
       {linkedEdges.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[var(--tracking-caption)] mb-2">
             Liaisons ({linkedEdges.length})
           </p>
           <div className="flex flex-col gap-1">
@@ -523,7 +525,9 @@ function DetailPanel({
       {/* Propriétés */}
       {propEntries.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">Propriétés</p>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[var(--tracking-caption)] mb-2">
+            Propriétés
+          </p>
           <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
               <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
@@ -664,7 +668,7 @@ export function KGStage({ mode }: KGStageProps) {
 
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 uppercase tracking-[.08em] text-(--text-ghost)">
+        <p className="t-13 uppercase tracking-[var(--tracking-caption)] text-(--text-ghost)">
           {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
         </p>
         <h1 className="t-30 font-medium tracking-[-.02em]">
@@ -679,7 +683,7 @@ export function KGStage({ mode }: KGStageProps) {
       </header>
 
       {/* Loading skeleton */}
-      {loading && <div className="h-[300px] animate-pulse rounded-xl bg-white/5" />}
+      {loading && <div className="min-h-[300px] animate-pulse rounded-xl bg-white/5" />}
 
       {/* Error */}
       {!loading && error && <ErrorBanner message={error} />}

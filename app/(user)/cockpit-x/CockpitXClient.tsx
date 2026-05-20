@@ -292,12 +292,12 @@ function CockpitContent({
         )}
         {/* Top Left - Ancrage système */}
         <header className="flex flex-col gap-1 mb-20">
-          <div className="t-10 uppercase tracking-[0.2em] text-white/30 font-mono font-bold">
+          <div className="t-10 uppercase tracking-[var(--tracking-display)] text-white/30 font-mono font-bold">
             {todayLabel}
           </div>
           <div className="flex items-center gap-2 mt-1">
             <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-pulse" />
-            <span className="t-9 uppercase tracking-[0.2em] text-white/30 font-bold">
+            <span className="t-9 uppercase tracking-[var(--tracking-display)] text-white/30 font-bold">
               En écoute
             </span>
           </div>
@@ -325,7 +325,7 @@ function CockpitContent({
               {/* EXÉCUTION ACTIVE */}
               <div className="flex flex-col">
                 <div className="border-t border-white/5 pt-4 mb-6">
-                  <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
+                  <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
                     Exécution active
                   </h2>
                 </div>
@@ -354,7 +354,7 @@ function CockpitContent({
               {factoryRows.length > 1 && (
                 <div className="flex flex-col">
                   <div className="border-t border-white/5 pt-4 mb-6">
-                    <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
+                    <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
                       En file
                     </h2>
                   </div>
@@ -382,7 +382,9 @@ function CockpitContent({
           {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
             <div className="flex flex-col">
               <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">Radar</h2>
+                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
+                  Radar
+                </h2>
               </div>
               <div className="flex flex-col gap-6">
                 {watch.inbox.kind === "items" &&
@@ -423,7 +425,7 @@ function CockpitContent({
           {proposals.length > 0 && (
             <div className="flex flex-col">
               <div className="border-t border-white/5 pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[0.2em] font-bold text-white/30">
+                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-white/30">
                   Initiatives
                 </h2>
               </div>
