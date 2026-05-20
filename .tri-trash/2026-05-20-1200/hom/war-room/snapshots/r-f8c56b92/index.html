@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>HOM Snapshot — r-f8c56b92</title>
+<style>
+  :root {
+    --bg: #050709;
+    --bg-elev: #131318;
+    --bg-soft: #1B1B22;
+    --line: rgba(255,255,255,0.06);
+    --line-strong: rgba(255,255,255,0.12);
+    --text: #ffffff;
+    --text-muted: rgba(255,255,255,0.65);
+    --text-faint: rgba(255,255,255,0.45);
+    --accent-teal: #4A8B86;
+    --gold: #C8A961;
+    --warn: #ffcc00;
+    --danger: #ff3333;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 64px 48px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header { border-bottom: 1px solid var(--line); padding-bottom: 24px; margin-bottom: 32px; }
+  h1 { font-size: 22px; font-weight: 300; margin: 0 0 4px 0; letter-spacing: -0.01em; }
+  h2 { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em;
+       color: var(--text-faint); margin: 32px 0 12px 0; }
+  .meta { color: var(--text-muted); font-size: 12px; font-family: ui-monospace, monospace; }
+  .meta span { margin-right: 16px; }
+  .status {
+    display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 11px;
+    font-family: ui-monospace, monospace; text-transform: lowercase;
+  }
+  .status-green { background: rgba(74,139,134,0.15); color: var(--accent-teal); }
+  .status-amber { background: rgba(255,204,0,0.15); color: var(--warn); }
+  .status-red { background: rgba(255,51,51,0.15); color: var(--danger); }
+  .status-quarantined { background: rgba(167,139,250,0.15); color: #a78bfa; }
+  .status-stale { background: rgba(255,255,255,0.06); color: var(--text-faint); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .trust-cell, .sev-cell {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .trust-key, .sev-key {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .trust-value, .sev-value {
+    font-size: 28px;
+    font-weight: 300;
+  }
+  .ok { color: var(--accent-teal); }
+  .warn { color: var(--warn); }
+  .bad { color: var(--danger); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  th { color: var(--text-faint); font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; }
+  tr:last-child td { border-bottom: 0; }
+  code { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-muted); }
+  .muted { color: var(--text-faint); }
+  .decision-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-family: ui-monospace, monospace;
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+  }
+  .decision-release_candidate { background: rgba(74,139,134,0.15); color: var(--accent-teal); }
+  .decision-needs_review { background: rgba(255,204,0,0.15); color: var(--warn); }
+  .decision-release_blocked { background: rgba(255,51,51,0.15); color: var(--danger); }
+  .decision-aborted { background: rgba(255,255,255,0.06); color: var(--text-faint); }
+  .signature { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--text-faint); font-size: 11px; font-family: ui-monospace, monospace; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Hearst Operations Mesh — Run snapshot</h1>
+    <div class="meta">
+      <span>r-f8c56b92</span>
+      <span>2026-05-09T23:04:32.360Z → 2026-05-09T23:04:33.120Z</span>
+      <span class="decision-pill decision-needs_review">needs_review</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Trust scores</h2>
+    <div class="grid">
+        <div class="trust-cell">
+          <div class="trust-key">architecture</div>
+          <div class="trust-value bad">40</div>
+        </div>
+        <div class="trust-cell">
+          <div class="trust-key">design</div>
+          <div class="trust-value bad">0</div>
+        </div>
+        <div class="trust-cell">
+          <div class="trust-key">qa</div>
+          <div class="trust-value bad">0</div>
+        </div>
+        <div class="trust-cell">
+          <div class="trust-key">runtime</div>
+          <div class="trust-value bad">0</div>
+        </div>
+        <div class="trust-cell">
+          <div class="trust-key">release</div>
+          <div class="trust-value bad">0</div>
+        </div>
+        <div class="trust-cell">
+          <div class="trust-key">orchestration</div>
+          <div class="trust-value ok">100</div>
+        </div>
+        <div class="trust-cell">
+          <div class="trust-key">product_experience</div>
+          <div class="trust-value bad">0</div>
+        </div></div>
+  </section>
+
+  <section>
+    <h2>Severity stack</h2>
+    <div class="grid">
+        <div class="sev-cell">
+          <div class="sev-key">critical</div>
+          <div class="sev-value bad">0</div>
+        </div>
+        <div class="sev-cell">
+          <div class="sev-key">high</div>
+          <div class="sev-value bad">21</div>
+        </div>
+        <div class="sev-cell">
+          <div class="sev-key">medium</div>
+          <div class="sev-value warn">65</div>
+        </div>
+        <div class="sev-cell">
+          <div class="sev-key">low</div>
+          <div class="sev-value ok">72</div>
+        </div>
+        <div class="sev-cell">
+          <div class="sev-key">info</div>
+          <div class="sev-value ok">0</div>
+        </div></div>
+  </section>
+
+  <section>
+    <h2>Agents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th><th>Status</th><th>Score</th><th>Severity max</th>
+          <th>Findings</th><th>Durée</th><th>Rapport</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>architecture</td>
+          <td><span class="status status-amber">amber</span></td>
+          <td>40</td>
+          <td>high</td>
+          <td>5</td>
+          <td>261ms</td>
+          <td><code>hom/audits/architecture/2026-05-09T23-04-32-857Z-r-f8c56b92.md</code></td>
+        </tr>
+        <tr>
+          <td>design-system</td>
+          <td><span class="status status-amber">amber</span></td>
+          <td>0</td>
+          <td>high</td>
+          <td>58</td>
+          <td>176ms</td>
+          <td><code>hom/audits/design-system/2026-05-09T23-04-33-041Z-r-f8c56b92.md</code></td>
+        </tr>
+        <tr>
+          <td>qa</td>
+          <td><span class="status status-amber">amber</span></td>
+          <td>0</td>
+          <td>medium</td>
+          <td>95</td>
+          <td>68ms</td>
+          <td><code>hom/audits/qa/2026-05-09T23-04-33-115Z-r-f8c56b92.md</code></td>
+        </tr></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Blockers</h2>
+    <ul><li>release trust &lt; 90 (0)</li><li>architecture trust &lt; 75</li><li>design trust &lt; 75</li><li>qa trust &lt; 85</li></ul>
+  </section>
+
+  <section>
+    <h2>Drift findings cumulés</h2>
+    <p>696 drift finding(s) actifs dans le journal.</p>
+  </section>
+
+  <div class="signature">
+    Signed by <code>orchestrator/master</code> · hash <code>90b7c59da285cfdd9ab54d93d7f9c2992563a4c0ad27e429461a91af536af6da</code>
+  </div>
+</div>
+</body>
+</html>
