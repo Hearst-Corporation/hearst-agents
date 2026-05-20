@@ -125,7 +125,7 @@ export default function CanvasShell() {
               type="button"
               onClick={onLiveToggle}
               className={[
-                "flex items-center gap-(--space-2) t-10 font-mono uppercase tracking-(--tracking-stretch) px-(--space-3) py-(--space-1) rounded-(--radius-xs) border transition-[border-color,background-color,color,box-shadow] duration-(--duration-slow) ease-(--ease-standard) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
+                "flex items-center gap-(--space-2) t-10 font-mono uppercase tracking-(--tracking-stretch) px-(--space-3) py-(--space-1) rounded-(--radius-xs) border transition-[border-color,background-color,color,box-shadow] duration-(--duration-slow) ease-(--ease-standard) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/80",
                 mode === "live"
                   ? "border-(--accent-teal)/60 text-(--accent-teal) bg-(--accent-teal)/10 shadow-(--glow-cyan-sm)"
                   : "border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 hover:bg-(--accent-teal)/5",
@@ -145,7 +145,7 @@ export default function CanvasShell() {
               type="button"
               onClick={toggleAsideCollapsed}
               title={asideCollapsed ? "Afficher le panneau droit" : "Masquer le panneau droit"}
-              className="hidden lg:flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors duration-(--duration-base) ease-(--ease-standard) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50"
+              className="hidden lg:flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors duration-(--duration-base) ease-(--ease-standard) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/80"
             >
               <svg
                 width="14"

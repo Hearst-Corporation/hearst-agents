@@ -123,7 +123,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
 
 function MetaChip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5 px-[10px] py-[6px] bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
+    <div className="flex flex-col gap-0.5 px-2.5 py-1.5 bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
       <span className="t-10 text-(--text-decor-25) font-medium">{label}</span>
       <span className="truncate t-13 text-(--text-muted)" title={value}>
         {value}
@@ -271,7 +271,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
 
       {/* Ligne diviseur */}
       <div
-        className="absolute top-0 bottom-0 w-[2px] bg-white/55 -translate-x-1/2 pointer-events-none"
+        className="absolute top-0 bottom-0 w-0.5 bg-white/55 -translate-x-1/2 pointer-events-none"
         style={{ left: `${sliderX}%` }}
       />
 
