@@ -123,7 +123,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
       }}
     >
       <div
-        className="flex flex-col w-full max-w-2xl"
+        className="flex flex-col w-full max-w-(--width-2xl)"
         style={{
           background: "var(--bg-elev)",
           border: "1px solid var(--border-default)",

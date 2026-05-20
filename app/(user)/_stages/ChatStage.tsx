@@ -197,7 +197,7 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
         variants={BUBBLE_VARIANTS}
         initial="hidden"
         animate="visible"
-        className="self-end max-w-(--width-chat-bubble-max) rounded-2xl border border-(--border-shell) bg-(--surface-2) t-15 text-text leading-relaxed whitespace-pre-wrap break-words"
+        className="self-end max-w-(--width-chat-bubble-max) rounded-(--radius-2xl) border border-(--border-shell) bg-(--surface-2) t-15 text-text leading-relaxed whitespace-pre-wrap break-words"
         style={{ padding: "var(--space-3) var(--space-5)" }}
       >
         {msg.content}
@@ -287,7 +287,7 @@ function StreamingPlaceholder() {
       transition={{ duration: 0.4, ease: VISION_EASE }}
       role="status"
       aria-live="polite"
-      className="flex items-center gap-2.5 rounded-xl border-l-2 border-(--accent-teal) bg-(--accent-teal-surface) t-13 text-text-muted leading-relaxed max-w-fit"
+      className="flex items-center gap-(--space-2-5) rounded-xl border-l-2 border-(--accent-teal) bg-(--accent-teal-surface) t-13 text-text-muted leading-relaxed max-w-fit"
       style={{ padding: "var(--space-3) var(--space-4)" }}
     >
       <span aria-hidden="true" className="animate-pulse text-(--accent-teal) t-15">

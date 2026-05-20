@@ -144,6 +144,7 @@
   --height-compare-viewer: 320px; /* Hauteur viewer AssetCompare */
   --height-compare-thumb-max: 200px; /* Preview image/vidéo AssetCompare */
   --height-compare-thumb: 140px; /* Placeholder kind AssetCompare */
+  --size-compare-handle: 28px; /* Diamètre poignée slider AssetCompare */
   --min-height-kg-skeleton: 300px; /* Skeleton graphe KGStage */
   --max-height-commandeur-list: 60vh; /* Liste résultats Commandeur */
   --width-chat-bubble-max: 80%; /* Bulle utilisateur ChatStage */
@@ -161,6 +162,7 @@
   /** Grid template colonnes — Audit log table (cf. app/admin/audit/page.tsx).
    * Time | Action | Resource (flex) | Status | Severity. */
   --grid-audit: 160px 100px 1fr 80px 100px;
+  --size-icon-xs: 1.75rem;
   --size-icon-sm: 2rem;
   --size-icon-md: 2.25rem;
   --size-icon-lg: 3rem;
@@ -186,6 +188,7 @@
   
   --width-context: clamp(280px, 22vw, 440px);
   --width-center-max: 960px;
+  --width-cockpit-max: 1600px;
   --width-actions: clamp(440px, 36vw, 720px);
   --width-admin-sidebar: 240px;
   --width-admin-sidebar-collapsed: 56px;
@@ -240,6 +243,13 @@
   /* Prose widths */
   --width-prose-narrow: 560px;
   --width-working-doc: min(50%, 720px);
+  --width-xs: 320px;
+  --width-sm: 384px;
+  --width-md: 448px;
+  --width-lg: 512px;
+  --width-xl: 576px;
+  --width-2xl: 672px;
+  --width-3xl: 768px;
 
   /* ─── Login — carte d'auth (page /login) ──────────────────────────── */
   --width-login-card: 480px;

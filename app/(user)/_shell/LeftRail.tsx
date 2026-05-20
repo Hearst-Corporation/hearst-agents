@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import type { StageKey } from "../_stages/types";
+import { IconButton } from "../components/ui";
 import { STAGE_ICON } from "./stage-icons";
 
 /**
@@ -115,30 +116,32 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
       ? `${label} · ${tagline}`
       : label;
   return (
-    <button
-      type="button"
+    <IconButton
       onClick={onClick}
-      aria-label={tooltip}
-      aria-current={active ? "page" : undefined}
-      title={tooltip}
-      className={`group relative flex size-11 items-center justify-center rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover) ${
+      label={tooltip}
+      ariaCurrent={active}
+      size="sm"
+      tone={active ? "accent" : "muted"}
+      className={`group relative ${
         active ? "text-text" : "text-(--text-ghost) hover:text-(--text-soft)"
       }`}
-      style={{ background: active ? "var(--surface-1)" : "transparent" }}
-    >
-      {active && (
-        <span
-          aria-hidden="true"
-          className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r"
-          style={{
-            width: "var(--space-1)",
-            height: "var(--space-5)",
-            background: "var(--accent-teal)",
-          }}
-        />
-      )}
-      {children}
-    </button>
+      icon={
+        <>
+          {active && (
+            <span
+              aria-hidden="true"
+              className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r"
+              style={{
+                width: "var(--space-1)",
+                height: "var(--space-5)",
+                background: "var(--accent-teal)",
+              }}
+            />
+          )}
+          {children}
+        </>
+      }
+    />
   );
 }
 

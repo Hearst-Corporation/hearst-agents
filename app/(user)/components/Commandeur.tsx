@@ -216,7 +216,7 @@ export function Commandeur() {
           role="dialog"
           aria-modal="true"
           aria-label="Palette de commandes"
-          className="w-full max-w-3xl overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
+          className="w-full max-w-(--width-3xl) overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
           style={{ background: "transparent" }}
           onClick={(e) => e.stopPropagation()}
         >

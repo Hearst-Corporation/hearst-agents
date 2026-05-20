@@ -167,7 +167,7 @@ function LoadingState() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: VISION_EASE }}
-      className="flex items-center gap-2.5 py-10 text-(--text-ghost) t-13"
+      className="flex items-center gap-(--space-2-5) py-10 text-(--text-ghost) t-13"
     >
       <motion.div
         className="size-1.5 rounded-full bg-(--accent-llm)/90"
@@ -193,7 +193,7 @@ function SessionFrame({
   return (
     <div className="rounded-xl overflow-hidden border border-(--line-strong) bg-(--surface)">
       {/* Barre navigateur */}
-      <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-(--line-strong) bg-(--bg-soft)">
+      <div className="flex items-center gap-(--space-2-5) px-4 py-(--space-2-5) border-b border-(--line-strong) bg-(--bg-soft)">
         {/* Traffic lights */}
         <div className="flex gap-1.5">
           <span className="size-2.5 rounded-full bg-(--danger)/45" />
@@ -209,7 +209,7 @@ function SessionFrame({
         {/* Indicateur live */}
         <div className="flex items-center gap-1.5">
           <motion.div
-            className={`size-[5px] rounded-full ${isActive ? "bg-(--accent-llm)" : "bg-text-ghost/30"}`}
+            className={`size-(--space-1) rounded-full ${isActive ? "bg-(--accent-llm)" : "bg-text-ghost/30"}`}
             animate={isActive ? { opacity: [1, 0.3, 1] } : { opacity: 1 }}
             transition={isActive ? { repeat: Infinity, duration: 1, ease: "easeInOut" } : {}}
           />
@@ -220,7 +220,7 @@ function SessionFrame({
       </div>
 
       {/* Viewport — placeholder aspect-video, PAS d'iframe (XSS / cross-origin) */}
-      <div className="aspect-video bg-(--surface-1) flex flex-col items-center justify-center gap-2.5">
+      <div className="aspect-video bg-(--surface-1) flex flex-col items-center justify-center gap-(--space-2-5)">
         {isActive ? (
           <>
             <motion.div
@@ -260,13 +260,13 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
     >
       <div
         className={`size-6 rounded-full flex items-center justify-center t-11 font-semibold shrink-0 ${stepDotClass(step.status)} ${
-          isDone || isRunning || isError ? "text-black/85" : "text-text-ghost"
+          isDone || isRunning || isError ? "text-text-on-accent-teal" : "text-text-ghost"
         }`}
       >
         {isDone ? "✓" : isError ? "✕" : isRunning ? "…" : index + 1}
       </div>
 
-      <div className="flex-1 t-13 text-(--text-soft) leading-[1.45]">{step.label}</div>
+      <div className="flex-1 t-13 text-(--text-soft) leading-(--leading-base)">{step.label}</div>
 
       <span
         className={`t-11 font-medium px-2 py-0.5 rounded-pill shrink-0 ${
@@ -496,14 +496,14 @@ export function BrowserStage({ mode }: { mode: string }) {
 
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 text-(--text-decor-25) tracking-[.04em]">
+        <p className="t-13 text-(--text-decor-25) tracking-(--tracking-micro)">
           Browserbase · Stagehand · navigateur cloud
         </p>
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
-            <h1 className="t-28 font-medium tracking-[-.02em]">Session active</h1>
+            <h1 className="t-28 font-medium tracking-(--tracking-tight)">Session active</h1>
             {STAGE_REGISTRY.browser.tagline && (
-              <p className="t-13 text-(--text-ghost) leading-[1.5]">
+              <p className="t-13 text-(--text-ghost) leading-(--leading-normal)">
                 {STAGE_REGISTRY.browser.tagline}
               </p>
             )}
@@ -527,7 +527,7 @@ export function BrowserStage({ mode }: { mode: string }) {
 
       {/* Steps Stagehand */}
       <div className="flex flex-col gap-1">
-        <p className="t-11 text-(--text-decor-25) mb-2 tracking-[.04em]">
+        <p className="t-11 text-(--text-decor-25) mb-2 tracking-(--tracking-micro)">
           {steps.length > 0
             ? `Étapes Stagehand — ${doneCount(steps)} / ${steps.length}`
             : "Étapes Stagehand — en attente de données"}

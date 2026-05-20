@@ -253,7 +253,7 @@ function CockpitContent({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="preserve-3d flex w-full flex-col mx-auto flex-1 relative min-h-screen"
-      style={{ maxWidth: "min(100%, 1600px)" }}
+      style={{ maxWidth: "min(100%, var(--width-cockpit-max))" }}
     >
       {/* Contenu Principal - Alignement Editorial */}
       <div
@@ -290,7 +290,7 @@ function CockpitContent({
 
         {/* Focus - Accueil & Arbitrage */}
         <div className="flex flex-col gap-4 mb-20">
-          <h1 className="t-64 leading-[1.1] font-light tracking-tight text-text">
+          <h1 className="t-64 font-light tracking-tight text-text">
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
           </h1>
           <p className="t-20 font-light text-text-muted">
@@ -423,7 +423,7 @@ function CockpitContent({
                     type="button"
                     aria-label={`Initiative : ${p.title}`}
                     onClick={() => openCommandeur(p.title)}
-                    className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-(--radius-sm)"
+                    className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
                   >
                     <span className="t-15 text-text-muted group-hover:text-text transition-colors duration-(--duration-emphasis)">
                       {p.title}
@@ -767,7 +767,7 @@ function ModePlaceholder({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="preserve-3d flex w-full flex-col gap-16"
-      style={{ maxWidth: "min(100%, 1600px)", margin: "0 auto" }}
+      style={{ maxWidth: "min(100%, var(--width-cockpit-max))", margin: "0 auto" }}
     >
       <header className="flex flex-col gap-4">
         <p className="t-13 font-medium text-text-faint">Shell visionOS · stage non câblé</p>

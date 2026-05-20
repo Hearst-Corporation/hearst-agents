@@ -296,7 +296,7 @@ function MissionHeader({ mission }: { mission: ApiMission }) {
         >
           {isRunning && (
             <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-(--accent-teal)/85 inline-block"
+              className="w-(--size-dot) h-(--size-dot) rounded-full bg-(--accent-teal) inline-block"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
             />
@@ -344,7 +344,7 @@ function ApprovalBar({
 
   return (
     <div className="mt-3 flex flex-wrap items-center gap-3 rounded-lg border border-(--gold-border) bg-(--gold-surface) p-3">
-      <p className="t-13 flex-1 min-w-[200px] text-text-soft">
+      <p className="t-13 flex-1 min-w-(--width-mission-cta) text-text-soft">
         Cette étape envoie un message — votre approbation est requise.
       </p>
       <Action

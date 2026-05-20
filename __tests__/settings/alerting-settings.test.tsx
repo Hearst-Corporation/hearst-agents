@@ -64,29 +64,32 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
+/** Titre « Alerting » fourni par ScreenShell ; on attend le contenu chargé. */
+async function waitForLoaded() {
+  await waitFor(() => {
+    expect(screen.getByText("Webhooks")).toBeTruthy();
+  });
+}
+
 // ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe("AlertingSettings — rendu", () => {
-  it("affiche le loader pendant le chargement puis le titre", async () => {
+  it("affiche le loader pendant le chargement puis le contenu", async () => {
     mockFetch();
     render(<AlertingSettings />);
 
     // Loader visible initialement
     expect(screen.getByText(/chargement des préférences/i)).toBeTruthy();
 
-    // Puis le titre principal
-    await waitFor(() => {
-      expect(screen.getByText("Alerting")).toBeTruthy();
-    });
+    await waitForLoaded();
+    expect(screen.getByText("Enregistrer")).toBeTruthy();
   });
 
   it("affiche les sections Webhooks, Email, Slack, Signal Types", async () => {
     mockFetch();
     render(<AlertingSettings />);
 
-    await waitFor(() => {
-      expect(screen.getByText("Alerting")).toBeTruthy();
-    });
+    await waitForLoaded();
 
     // Sections (en majuscules via CSS mais text content brut)
     expect(screen.getByText("Webhooks")).toBeTruthy();
@@ -114,7 +117,7 @@ describe("AlertingSettings — ajout webhook", () => {
     mockFetch();
     render(<AlertingSettings />);
 
-    await waitFor(() => screen.getByText("Alerting"));
+    await waitForLoaded();
 
     const addBtn = screen.getByText("+ Ajouter un webhook");
     fireEvent.click(addBtn);
@@ -128,7 +131,7 @@ describe("AlertingSettings — ajout webhook", () => {
     mockFetch();
     render(<AlertingSettings />);
 
-    await waitFor(() => screen.getByText("Alerting"));
+    await waitForLoaded();
 
     fireEvent.click(screen.getByText("+ Ajouter un webhook"));
 
@@ -149,7 +152,7 @@ describe("AlertingSettings — ajout webhook", () => {
     mockFetch();
     render(<AlertingSettings />);
 
-    await waitFor(() => screen.getByText("Alerting"));
+    await waitForLoaded();
 
     fireEvent.click(screen.getByText("+ Ajouter un webhook"));
     await waitFor(() => screen.getByText("Annuler"));
@@ -200,7 +203,7 @@ describe("AlertingSettings — sauvegarde", () => {
     mockFetch();
     render(<AlertingSettings />);
 
-    await waitFor(() => screen.getByText("Alerting"));
+    await waitForLoaded();
 
     fireEvent.click(screen.getByText("Enregistrer"));
 
@@ -230,7 +233,7 @@ describe("AlertingSettings — sauvegarde", () => {
     );
 
     render(<AlertingSettings />);
-    await waitFor(() => screen.getByText("Alerting"));
+    await waitForLoaded();
 
     fireEvent.click(screen.getByText("Enregistrer"));
 

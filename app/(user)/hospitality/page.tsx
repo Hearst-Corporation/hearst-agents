@@ -45,7 +45,7 @@ export default function HospitalityPage() {
             <div>
               <p className="t-13 font-medium text-text-muted">Aucune donnée</p>
               <p
-                className="t-11 font-light text-text-faint max-w-xs mx-auto"
+                className="t-11 font-light text-text-faint max-w-(--width-xs) mx-auto"
                 style={{ marginTop: "var(--space-1)" }}
               >
                 Connectez un PMS pour afficher RevPAR, taux d&apos;occupation et satisfaction
@@ -98,7 +98,7 @@ export default function HospitalityPage() {
                     Spécialisé hôtellerie
                   </p>
                   <p
-                    className="t-13 font-light text-text-muted leading-relaxed max-w-lg"
+                    className="t-13 font-light text-text-muted leading-relaxed max-w-(--width-lg)"
                     style={{ marginTop: "var(--space-2)" }}
                   >
                     Agent conversationnel entraîné sur les données hôtelières. Répond aux questions

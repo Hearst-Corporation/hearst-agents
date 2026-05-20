@@ -32,6 +32,7 @@ import {
 } from "./ghost-icons";
 import { NotificationBell } from "./NotificationBell";
 import { SpaceSelector } from "./SpaceSelector";
+import { IconButton } from "./ui";
 
 /** Format yearMonth précédent (UTC) pour la Hearst Card du mois passé. */
 function previousYearMonth(now: Date = new Date()): string {
@@ -188,14 +189,13 @@ export function PulseBar() {
          reste visible mobile et desktop, c'est un signal d'identité du
          workspace (perso / side / venture) plus qu'un control fréquent. */}
       <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-        <button
-          type="button"
+        <IconButton
           onClick={toggleLeftDrawer}
-          className="md:hidden w-7 h-7 flex items-center justify-center text-text-faint hover:text-(--accent-teal) transition-colors shrink-0"
-          aria-label="Ouvrir les conversations"
-        >
-          <GhostIconMenu className="w-4 h-4" />
-        </button>
+          className="md:hidden"
+          size="xs"
+          label="Ouvrir les conversations"
+          icon={<GhostIconMenu className="w-4 h-4" />}
+        />
         <SpaceSelector />
       </div>
 
@@ -206,7 +206,7 @@ export function PulseBar() {
       <button
         type="button"
         onClick={() => setCommandeurOpen(true)}
-        className="touch-cmdk-pill flex-1 min-w-0 max-w-xl mx-auto flex items-center justify-between"
+        className="touch-cmdk-pill flex-1 min-w-0 max-w-(--width-xl) mx-auto flex items-center justify-between"
         style={{
           padding: "var(--space-2) var(--space-4)",
           borderRadius: "var(--radius-md)",
@@ -344,56 +344,49 @@ function PulseBarQuickActions() {
     }
   };
 
-  const buttonClass =
-    "hidden md:flex w-7 h-7 items-center justify-center text-text-faint hover:text-(--accent-teal) transition-colors shrink-0 disabled:opacity-40";
-
   return (
     <div
       className="hidden md:flex items-center"
       style={{ gap: "var(--space-3)" }}
       data-testid="pulsebar-quick-actions"
     >
-      <button
-        type="button"
+      <IconButton
         onClick={openVideoLauncher}
-        className={buttonClass}
+        className="hidden md:inline-flex"
+        size="xs"
+        label="Générer une vidéo"
         title="Générer une vidéo (⌘G)"
-        aria-label="Générer une vidéo"
-        data-testid="qa-video"
-      >
-        <GhostIconCamera className="w-3.5 h-3.5" />
-      </button>
-      <button
-        type="button"
+        testId="qa-video"
+        icon={<GhostIconCamera className="w-3.5 h-3.5" />}
+      />
+      <IconButton
         onClick={toggleFocus}
-        className={buttonClass}
+        className="hidden md:inline-flex"
+        size="xs"
+        label="Basculer le mode focus"
         title="Mode focus (⌘⇧F)"
-        aria-label="Basculer le mode focus"
-        data-testid="qa-focus"
-      >
-        <GhostIconTarget className="w-3.5 h-3.5" />
-      </button>
-      <button
-        type="button"
+        testId="qa-focus"
+        icon={<GhostIconTarget className="w-3.5 h-3.5" />}
+      />
+      <IconButton
         onClick={onOpenSignalBoard}
-        className={buttonClass}
+        className="hidden md:inline-flex"
+        size="xs"
+        label="Ouvrir le tableau des signaux"
         title="Tableau des signaux"
-        aria-label="Ouvrir le tableau des signaux"
-        data-testid="qa-signal"
-      >
-        <GhostIconWave className="w-3.5 h-3.5" />
-      </button>
-      <button
-        type="button"
+        testId="qa-signal"
+        icon={<GhostIconWave className="w-3.5 h-3.5" />}
+      />
+      <IconButton
         onClick={onOpenHearstCard}
         disabled={hearstLoading}
-        className={buttonClass}
+        className="hidden md:inline-flex"
+        size="xs"
+        label="Ouvrir mon Wrapped mensuel"
         title="Mon Wrapped du mois"
-        aria-label="Ouvrir mon Wrapped mensuel"
-        data-testid="qa-hearst-card"
-      >
-        <GhostIconCard className="w-3.5 h-3.5" />
-      </button>
+        testId="qa-hearst-card"
+        icon={<GhostIconCard className="w-3.5 h-3.5" />}
+      />
     </div>
   );
 }
@@ -446,7 +439,8 @@ function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
     setMode({ mode: "signal", selectedSignalId: signal.id });
   };
 
-  const groupClass = "hidden md:flex items-center min-w-0 max-w-sm group transition-opacity";
+  const groupClass =
+    "hidden md:flex items-center min-w-0 max-w-(--width-sm) group transition-opacity";
   const groupStyle: React.CSSProperties = {
     gap: "var(--space-2)",
     opacity: visible ? 1 : 0,

@@ -14,6 +14,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import { EmptyState } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -154,26 +155,11 @@ function DemoBanner() {
 
 function EmptyArtifactState() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, ease: VISION_EASE }}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "var(--space-20) 0",
-        textAlign: "center",
-      }}
-    >
-      <p
-        className="t-15 font-light text-text-faint leading-relaxed"
-        style={{ maxWidth: "var(--width-prose-narrow)" }}
-      >
-        Lance une mission qui génère un artifact ou demande à l'agent.
-      </p>
-    </motion.div>
+    <EmptyState
+      title="Aucun artifact actif."
+      description="Lance une mission qui génère un artifact ou demande à l'agent."
+      className="max-w-(--width-prose-narrow) mx-auto py-(--space-20)"
+    />
   );
 }
 

@@ -439,7 +439,9 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
               style={{ background: color }}
             />
             <span className="t-13 text-(--text-soft) flex-1">{node.label}</span>
-            <span className="t-11 text-(--text-ghost) uppercase tracking-[.06em]">{node.type}</span>
+            <span className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-badge)">
+              {node.type}
+            </span>
             <span className="t-11 text-(--text-decor-25)">
               {count} liaison{count !== 1 ? "s" : ""}
             </span>
@@ -667,7 +669,7 @@ export function KGStage({ mode }: KGStageProps) {
         <p className="t-13 uppercase tracking-(--tracking-caption) text-(--text-ghost)">
           {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
         </p>
-        <h1 className="t-30 font-medium tracking-[-.02em]">
+        <h1 className="t-30 font-medium tracking-(--tracking-tight)">
           {loading ? "Knowledge Graph" : headerTitle}
         </h1>
         {!loading && !error && displayNodes.length > 0 && (

@@ -290,7 +290,7 @@ function MissionCard({
         >
           {badge.pulse && (
             <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-(--accent-teal)/85 inline-block"
+              className="w-(--size-dot) h-(--size-dot) rounded-full bg-(--accent-teal) inline-block"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
             />

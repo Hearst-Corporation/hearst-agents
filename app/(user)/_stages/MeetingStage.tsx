@@ -192,7 +192,7 @@ function isLive(status: string): boolean {
 function DemoBanner() {
   return (
     <div
-      className="t-9 font-mono uppercase tracking-wide"
+      className="t-9 font-mono uppercase tracking-(--tracking-wide)"
       style={{
         alignSelf: "flex-start",
         color: "var(--text-faint)",
@@ -263,11 +263,11 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
   if (items.length === 0) return null;
   return (
     <div className="flex flex-col gap-2 px-5 py-4 rounded-xl border border-(--line) bg-(--surface-1)">
-      <p className="t-9 font-semibold uppercase tracking-wide text-text-faint mb-1">
+      <p className="t-9 font-semibold uppercase tracking-(--tracking-wide) text-text-faint mb-1">
         Actions requises
       </p>
       {items.map((item, i) => (
-        <div key={i} className="flex gap-2.5 items-start">
+        <div key={i} className="flex gap-(--space-2-5) items-start">
           <span className="mt-0.5 size-4 shrink-0 rounded-xs border-2 border-(--accent-teal-border) inline-flex" />
           <div className="flex flex-col gap-0.5 min-w-0">
             <span className="t-13 text-text-soft leading-relaxed">{item.action}</span>
@@ -434,7 +434,7 @@ export function MeetingStage({ mode }: { mode: string }) {
           {demoActive && <DemoBanner />}
 
           <header className="flex flex-col gap-2">
-            <p className="t-11 uppercase tracking-wide text-text-ghost">
+            <p className="t-11 uppercase tracking-(--tracking-wide) text-text-ghost">
               {data
                 ? `Recall.ai · ${segments.length} segment${segments.length !== 1 ? "s" : ""}`
                 : "Connexion…"}
@@ -442,7 +442,7 @@ export function MeetingStage({ mode }: { mode: string }) {
             <h1 className="t-28 font-medium tracking-tight text-text flex items-center gap-3.5 flex-wrap">
               {data?.meetingId ?? meetingId}
               {live && (
-                <span className="inline-flex items-center gap-1.5 t-11 font-medium text-(--danger) px-2.5 py-1 rounded-pill bg-(--danger)/10">
+                <span className="inline-flex items-center gap-1.5 t-11 font-medium text-(--danger) px-2.5 py-1 rounded-pill bg-(--danger-surface) border border-(--danger-border)">
                   <motion.span
                     className="inline-block size-(--size-dot) rounded-full bg-(--danger)"
                     animate={{ opacity: [1, 0.3, 1] }}

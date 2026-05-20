@@ -45,7 +45,7 @@ export function Sparkline({
       <div
         role="img"
         aria-label={label ?? "Sparkline indisponible"}
-        className="t-9 font-mono uppercase tracking-[0.2em] text-[var(--text-faint)]"
+        className="t-9 font-mono uppercase tracking-(--tracking-display) text-[var(--text-faint)]"
         style={{ height }}
       >
         donnée insuffisante

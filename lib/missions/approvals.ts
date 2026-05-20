@@ -337,31 +337,32 @@ function renderApprovalEmail(input: {
   const expires = new Date(input.expiresAt).toLocaleString("fr-FR");
 
   const html = `<!DOCTYPE html>
+<!-- Palette inline : sync app/globals.css :root (visionOS DS). Email clients : pas de var(), hex/rgba copiés des tokens. -->
 <html lang="fr">
 <head><meta charset="utf-8"><title>${escapeHtml(subject)}</title></head>
-<body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;background:#0b0d0f;color:#e8e8e8;margin:0;padding:32px;">
-  <div style="max-width:560px;margin:0 auto;background:#111418;border:1px solid #1f2429;border-radius:12px;padding:32px;">
-    <h1 style="font-size:20px;font-weight:500;letter-spacing:-0.01em;margin:0 0 8px 0;color:#f3f4f6;">Approbation requise</h1>
-    <p style="font-size:14px;color:#9aa3ad;margin:0 0 24px 0;">Une mission Hearst OS attend votre validation avant exécution.</p>
+<body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;background:#000000;color:rgba(255,255,255,0.88);margin:0;padding:32px;">
+  <div style="max-width:560px;margin:0 auto;background:#121212;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:32px;">
+    <h1 style="font-size:20px;font-weight:500;letter-spacing:-0.01em;margin:0 0 8px 0;color:#ffffff;">Approbation requise</h1>
+    <p style="font-size:14px;color:rgba(255,255,255,0.65);margin:0 0 24px 0;">Une mission Hearst OS attend votre validation avant exécution.</p>
 
-    <div style="border-top:1px solid #1f2429;border-bottom:1px solid #1f2429;padding:16px 0;margin:24px 0;">
-      <p style="font-size:12px;color:#6b7480;margin:0 0 4px 0;text-transform:uppercase;letter-spacing:0.08em;">Mission</p>
-      <p style="font-size:16px;color:#f3f4f6;margin:0 0 16px 0;font-weight:500;">${safeMission}</p>
-      <p style="font-size:12px;color:#6b7480;margin:0 0 4px 0;text-transform:uppercase;letter-spacing:0.08em;">Instructions</p>
-      <p style="font-size:13px;color:#c4c9cf;margin:0;line-height:1.6;white-space:pre-wrap;">${safeInput}</p>
+    <div style="border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:16px 0;margin:24px 0;">
+      <p style="font-size:12px;color:rgba(255,255,255,0.45);margin:0 0 4px 0;text-transform:uppercase;letter-spacing:0.08em;">Mission</p>
+      <p style="font-size:16px;color:#ffffff;margin:0 0 16px 0;font-weight:500;">${safeMission}</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.45);margin:0 0 4px 0;text-transform:uppercase;letter-spacing:0.08em;">Instructions</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.65);margin:0;line-height:1.6;white-space:pre-wrap;">${safeInput}</p>
     </div>
 
     <div style="text-align:center;margin:32px 0 24px 0;">
-      <a href="${input.approveUrl}" style="display:inline-block;padding:12px 24px;background:#2db8a8;color:#0b0d0f;text-decoration:none;border-radius:9999px;font-weight:500;font-size:14px;margin:0 8px 8px 0;">Approuver</a>
-      <a href="${input.rejectUrl}" style="display:inline-block;padding:12px 24px;background:transparent;color:#e8e8e8;text-decoration:none;border:1px solid #1f2429;border-radius:9999px;font-weight:500;font-size:14px;margin:0 8px 8px 0;">Rejeter</a>
+      <a href="${input.approveUrl}" style="display:inline-block;padding:12px 24px;background:#4a8b86;color:#000000;text-decoration:none;border-radius:9999px;font-weight:500;font-size:14px;margin:0 8px 8px 0;">Approuver</a>
+      <a href="${input.rejectUrl}" style="display:inline-block;padding:12px 24px;background:transparent;color:rgba(255,255,255,0.88);text-decoration:none;border:1px solid rgba(255,255,255,0.06);border-radius:9999px;font-weight:500;font-size:14px;margin:0 8px 8px 0;">Rejeter</a>
     </div>
 
-    <p style="font-size:12px;color:#6b7480;margin:24px 0 0 0;line-height:1.6;">
+    <p style="font-size:12px;color:rgba(255,255,255,0.45);margin:24px 0 0 0;line-height:1.6;">
       Lien personnel — ne pas transférer.<br>
       Valide jusqu'au ${escapeHtml(expires)}.
     </p>
   </div>
-  <p style="text-align:center;font-size:11px;color:#4a5159;margin:24px 0 0 0;">© Hearst OS · Approbation collaborative</p>
+  <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.42);margin:24px 0 0 0;">© Hearst OS · Approbation collaborative</p>
 </body>
 </html>`;
 

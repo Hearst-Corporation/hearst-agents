@@ -124,7 +124,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
 
 function MetaChip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5 px-2.5 py-1.5 bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
+    <div className="flex flex-col gap-(--space-0-5) px-(--space-2-5) py-(--space-1-5) bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
       <span className="t-10 text-(--text-decor-25) font-medium">{label}</span>
       <span className="truncate t-13 text-(--text-muted)" title={value}>
         {value}
@@ -145,7 +145,7 @@ function AssetPane({
   const meta = extractMeta(asset);
 
   return (
-    <div className="flex-[0_0_calc(50%-var(--space-2))] min-w-0 flex flex-col gap-3 p-5 bg-(--surface-2) border border-(--line-strong) rounded-2xl">
+    <div className="flex-[0_0_calc(50%-var(--space-2))] min-w-0 flex flex-col gap-3 p-5 bg-(--surface-2) border border-(--line-strong) rounded-(--radius-2xl)">
       <header className="flex items-center justify-between gap-2">
         <span className="t-11 font-semibold text-(--text-faint)">{label}</span>
         {asset && (
@@ -280,7 +280,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
 
       {/* Poignée centrale */}
       <div
-        className="absolute top-1/2 w-7 h-7 rounded-full bg-(--surface-2) border-2 border-(--border-shell) text-text flex items-center justify-center pointer-events-none shadow-(--shadow-stage-card) -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 w-(--size-compare-handle) h-(--size-compare-handle) rounded-full bg-(--surface-2) border-2 border-(--border-shell) text-text flex items-center justify-center pointer-events-none shadow-(--shadow-stage-card) -translate-x-1/2 -translate-y-1/2"
         style={{ left: `${sliderX}%` }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -294,10 +294,10 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
       </div>
 
       {/* Labels latéraux */}
-      <div className="absolute bottom-2 left-(--space-2-5) t-10 font-semibold text-(--text-muted) bg-(--overlay-scrim) px-2 py-0.5 rounded-(--radius-xs) pointer-events-none">
+      <div className="absolute bottom-(--space-2) left-(--space-2-5) t-10 font-semibold text-(--text-muted) bg-(--overlay-scrim) px-(--space-2) py-(--space-0-5) rounded-(--radius-xs) pointer-events-none">
         Gauche
       </div>
-      <div className="absolute bottom-2 right-(--space-2-5) t-10 font-semibold text-(--text-muted) bg-(--overlay-scrim) px-2 py-0.5 rounded-(--radius-xs) pointer-events-none">
+      <div className="absolute bottom-(--space-2) right-(--space-2-5) t-10 font-semibold text-(--text-muted) bg-(--overlay-scrim) px-(--space-2) py-(--space-0-5) rounded-(--radius-xs) pointer-events-none">
         Droite
       </div>
     </div>
@@ -472,7 +472,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
           {[0, 1].map((i) => (
             <div
               key={i}
-              className="animate-pulse flex-[0_0_calc(50%-var(--space-2))] h-(--height-compare-viewer) bg-(--surface-2) rounded-2xl"
+              className="animate-pulse flex-[0_0_calc(50%-var(--space-2))] h-(--height-compare-viewer) bg-(--surface-2) rounded-(--radius-2xl)"
             />
           ))}
         </div>

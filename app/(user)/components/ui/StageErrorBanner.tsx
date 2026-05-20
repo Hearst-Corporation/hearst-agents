@@ -25,10 +25,10 @@ export function StageErrorBanner({
 }: StageErrorBannerProps) {
   const className =
     variant === "emphasis"
-      ? "px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-(--leading-snug-body)"
-      : "rounded-xl border-l-2 border-(--danger) bg-(--danger)/5 px-4.5 py-3.5 t-13 font-light text-(--danger) leading-relaxed";
+      ? "rounded-xl border-l-2 border-(--danger-border) bg-(--danger-surface) px-(--space-4) py-(--space-3) t-13 leading-(--leading-snug-body) text-(--danger)"
+      : "rounded-xl border-l-2 border-(--danger-border) bg-(--danger-surface-soft) px-(--space-4) py-(--space-3) t-13 font-light text-(--danger) leading-relaxed";
 
-  const strongClass = variant === "emphasis" ? "text-(--danger)/95 font-semibold" : "font-semibold";
+  const strongClass = "font-semibold";
 
   return (
     <motion.div

@@ -144,10 +144,10 @@ function DisabledState({ message }: { message: string | null }) {
   return (
     <section className="preserve-3d flex w-full max-w-(--width-connections-max) flex-col 2xl:max-w-(--width-connections-max-wide) items-center justify-center gap-4 py-24 animate-[fu_0.4s_ease-out_forwards]">
       <p className="t-15 font-medium text-text-muted">Composio indisponible</p>
-      <p className="t-13 text-text-soft max-w-md text-center leading-relaxed">
+      <p className="t-13 text-text-soft max-w-(--width-md) text-center leading-relaxed">
         {message ?? "Composio n'est pas configuré."}
       </p>
-      <p className="t-11 text-text-faint max-w-md text-center leading-relaxed">
+      <p className="t-11 text-text-faint max-w-(--width-md) text-center leading-relaxed">
         Vérifie <code className="text-(--accent-teal)">COMPOSIO_API_KEY</code> dans{" "}
         <code>.env.local</code>.
       </p>

@@ -56,7 +56,9 @@ export function VoiceStage({ mode }: { mode: string }) {
       className="preserve-3d flex w-full flex-col gap-16"
     >
       <header className="text-center">
-        <p className="t-13 tracking-[.04em] text-(--text-faint)">Voice · Mode conversationnel</p>
+        <p className="t-13 tracking-(--tracking-micro) text-(--text-faint)">
+          Voice · Mode conversationnel
+        </p>
       </header>
 
       <div className="flex flex-col items-center gap-8 py-12 text-center">

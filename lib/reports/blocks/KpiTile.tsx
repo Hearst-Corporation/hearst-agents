@@ -4,7 +4,7 @@
  * KPI tile — valeur grande + label mono + delta optionnel + sparkline mini.
  *
  * Cohérence Ghost Protocol (HEARST-OS-DESIGN-SYSTEM.html section "data-card") :
- *   data-label : .t-9 font-mono uppercase tracking-[0.3em] text-[var(--text-muted)]
+ *   data-label : .t-9 font-mono uppercase tracking-(--tracking-marquee) text-[var(--text-muted)]
  *   data-value : .t-28 font-light tracking-tight
  *   data-trend : .t-9 font-mono uppercase, accent-teal/danger/muted selon tone
  *

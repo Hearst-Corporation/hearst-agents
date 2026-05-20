@@ -6,6 +6,7 @@
  */
 
 import type { ReactNode } from "react";
+import { Action } from "@/app/(user)/components/ui/Action";
 import { FormInput } from "@/app/(user)/components/ui/FormField";
 import { SIGNAL_SEVERITY } from "./constants";
 import type { TestState } from "./types";
@@ -100,42 +101,21 @@ export function Btn({
   variant?: "default" | "danger" | "primary" | "ghost";
   disabled?: boolean;
 }) {
-  const colors = {
-    default: { bg: "var(--surface-2)", color: "var(--text-soft)", border: "var(--border-default)" },
-    danger: {
-      bg: "var(--color-error-bg)",
-      color: "var(--color-error)",
-      border: "var(--color-error-border)",
-    },
-    primary: {
-      bg: "var(--accent-teal)",
-      color: "var(--text-on-accent-teal)",
-      border: "transparent",
-    },
-    ghost: { bg: "transparent", color: "var(--text-muted)", border: "transparent" },
-  };
-  const c = colors[variant];
+  const tone = variant === "primary" ? "brand" : variant === "danger" ? "danger" : "neutral";
+  const actionVariant =
+    variant === "primary" ? "primary" : variant === "ghost" ? "ghost" : "secondary";
 
   return (
-    <button
-      type="button"
+    <Action
+      variant={actionVariant}
+      tone={tone}
+      size="md"
       onClick={onClick}
       disabled={disabled}
-      className="t-13"
-      style={{
-        background: c.bg,
-        color: c.color,
-        border: `1px solid ${c.border}`,
-        borderRadius: "var(--radius-sm)",
-        padding: "var(--space-1) var(--space-3)",
-        cursor: disabled ? "not-allowed" : "pointer",
-        opacity: disabled ? 0.5 : 1,
-        transition: `opacity var(--duration-fast) var(--ease-standard)`,
-        letterSpacing: "var(--tracking-caption)",
-      }}
+      className="h-auto px-(--space-3) py-(--space-1) t-13 tracking-(--tracking-caption) rounded-(--radius-sm)"
     >
       {children}
-    </button>
+    </Action>
   );
 }
 
