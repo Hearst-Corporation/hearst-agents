@@ -424,6 +424,17 @@
   --section-gap: var(--space-8); /* gap vertical entre sections d'une page */
 }
 
+/* ─── @hearst/cockpit-shell — pont visionOS ─────────────────────────────
+ * Helm consomme le package en mode "marker" (PR1) : on pose data-product
+ * mais on n'instancie pas <CockpitShell> (incompatible avec le Shell
+ * interne, cf. plan PR1). Cet override fige l'accent du package sur le
+ * teal visionOS si jamais un sous-composant du package (KpiCard, Eyebrow,
+ * Card…) est monté plus tard sans <CockpitShell>. Defensive : aujourd'hui
+ * aucun var(--ct-*) n'est consommé par Helm. */
+[data-product="helm"] {
+  --ct-accent: var(--accent-teal);
+}
+
 .poster-greeting {
   font-weight: 500;
   font-size: clamp(18px, 2vw, 28px);

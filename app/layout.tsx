@@ -36,7 +36,12 @@ export default async function RootLayout({
 }>) {
   const themeCookie = (await cookies()).get("theme")?.value ?? "default";
   return (
-    <html lang="fr" className="dark h-full antialiased" data-theme={themeCookie}>
+    <html
+      lang="fr"
+      className="dark h-full antialiased"
+      data-theme={themeCookie}
+      data-product="helm"
+    >
       <head>
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&display=swap"
