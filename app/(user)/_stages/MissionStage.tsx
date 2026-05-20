@@ -379,7 +379,7 @@ function ApprovalBar({
       <div className="approval-bar-t">
         Cette étape envoie un message — votre approbation est requise.
       </div>
-      <button className="vision-btn-primary appr-btn" disabled={approving} onClick={handleApprove}>
+      <button className="appr-btn" disabled={approving} onClick={handleApprove}>
         {approving ? "Approbation…" : "Approuver tout"}
       </button>
     </div>
