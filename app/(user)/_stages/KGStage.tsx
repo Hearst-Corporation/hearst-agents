@@ -391,7 +391,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             {/* Dot couleur type — background dynamique via color → conservé en style JS */}
             <span
               aria-hidden="true"
-              className="inline-block size-[var(--size-dot)] rounded-full shrink-0 align-middle mr-[5px]"
+              className="inline-block size-[var(--size-dot)] rounded-full shrink-0 align-middle mr-1.5"
               style={{ background: color }}
             />
             <div className="kg-chip">{node.label}</div>

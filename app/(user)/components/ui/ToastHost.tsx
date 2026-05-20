@@ -207,7 +207,7 @@ export function ToastHost() {
         display: "flex",
         flexDirection: "column",
         gap: "var(--space-2)",
-        zIndex: "var(--z-toast, 70)",
+        zIndex: 70,
         pointerEvents: "none",
       }}
     >
