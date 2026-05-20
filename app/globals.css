@@ -45,6 +45,7 @@
   --skeleton-base: var(--bg-elev); /* rgba(255,255,255,0.05) — même valeur, nom sémantique */
 
   /* Accent colors */
+  --ct-accent-teal: #4a8b86; /* token primaire — référencé par les alias ci-dessous */
   --cyan-accent: #4a8b86;
   --accent-teal: #4a8b86;
   --money: #4a8b86;
@@ -64,6 +65,10 @@
   /* Glow shadows — Luxurious & Wide */
   --glow-cyan-sm: 0 0 30px rgba(74, 139, 134, 0.1);
   --glow-cyan-md: 0 0 60px rgba(74, 139, 134, 0.15);
+
+  /* Glow tokens Cockpit — servent de box-shadow tokenisés */
+  --ct-glow-accent: 0 0 8px var(--ct-accent-teal); /* caret, focus, halo discret */
+  --glow-pipeline-sm: 0 0 8px var(--pipeline-accent); /* cable rail pipeline */
 
   /* ─── Z-index scale ─────────────────────────────────────────── */
   --z-base: 0;
@@ -515,6 +520,20 @@
   /* ─── Width utilitaires divers ────────────────────────────────── */
   --width-chat-bubble-max: 80%; /* Bulle chat admin — max-width responsive en % */
   --max-w-responsive-tooltip: min(calc(100vw - var(--space-8)), 20rem); /* Tooltip viewport-aware — ProviderChip */
+
+  /* ─── Typographie — échelle px tokenisée (squad-adrien iter 1 stream A+B) ── */
+  /* Ces vars servent à remplacer les font-size hardcodées répétées. */
+  --t-10: 10px;   /* .ca-hotkey, .halo-agent-label-desc */
+  --t-11: 11px;   /* .poster-eyebrow, .recap-card-count, .recap-card-body, halo media */
+  --t-12: 12px;   /* .recap-card-label, .poster-time-tick */
+  --t-13: 13px;   /* .read-more, .halo-agent-label-name, .rail-section-label, chip filtre */
+  --t-22: 22px;   /* .halo-core-badge */
+  --t-display-xl: 74px; /* .orbe-letter */
+
+  /* ─── Tailles composants spécifiques ────────────────────────────────────── */
+  --size-voice-sphere: 220px; /* .voice-sphere */
+  --size-voice-core: 110px;   /* .voice-core */
+  --height-kg-canvas: 460px;  /* .kg-canvas */
 }
 
 .poster-greeting {

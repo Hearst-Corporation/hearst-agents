@@ -41,6 +41,25 @@
   --ct-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ct-dur-base: 180ms;
 
+  /* ── Typo tokens — référencés par ChatKimiPanel et autres composants ─── */
+  /* Découplés de globals.css pour autonomie du package cockpit-shell.       */
+  --ct-font-size-xs: 11px;
+  --ct-font-size-sm: 13px;
+  --ct-font-size-base: 15px;
+  --ct-font-size-md: 16px;
+  --ct-font-weight-medium: 500;
+
+  /* ── Radius tokens — alignés sur l'échelle radius-* de globals.css ───── */
+  /* Doublons volontaires pour découpler packages/cockpit-shell du DS local. */
+  --ct-radius-xs: 4px;
+  --ct-radius-sm: 8px;
+  --ct-radius-md: 12px;
+  --ct-radius-input: 8px;
+  --ct-radius-pill: 9999px;
+
+  /* ── Texte faint (ajout stream A+B) ──────────────────────────────────── */
+  --ct-text-faint: rgba(245, 245, 245, 0.40);
+
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
