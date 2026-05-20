@@ -1,5 +1,6 @@
 "use client";
 
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { AppLogo } from "../AppLogo";
 import { CATEGORIES_VISIBLE, type ComposioApp, stageVariant } from "../types";
 
@@ -108,7 +109,7 @@ export function Wallpaper({
           Aucun service dans cette catégorie.
         </p>
       ) : (
-        <div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3">
+        <div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2">
           {apps.map((app) => (
             <WallpaperTile
               key={app.key}
@@ -182,11 +183,12 @@ function WallpaperTile({
         filter,
       }}
     >
-      <AppLogo app={app} size={32} />
+      <AppLogo app={app} size={28} />
       {connected && (
-        <span
+        <Chip
           aria-hidden
-          className="absolute w-2 h-2 rounded-pill"
+          variant="dot"
+          className="absolute"
           style={{
             top: "calc(-1 * var(--space-1))",
             right: "calc(-1 * var(--space-1))",

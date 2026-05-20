@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 
 interface ThinkingDisclosureProps {
   thinking: string;
@@ -24,9 +25,9 @@ export function ThinkingDisclosure({ thinking }: ThinkingDisclosureProps) {
           setOpen((v) => !v);
         }}
       >
-        <span
-          className={`rounded-pill ${open ? "bg-(--warn) animate-pulse" : "bg-(--accent-teal)"}`}
-          style={{ width: "var(--space-2)", height: "var(--space-2)", flexShrink: 0 }}
+        <Chip
+          variant="dot"
+          className={open ? "bg-(--warn) animate-pulse" : "bg-(--accent-teal)"}
           aria-hidden
         />
         <span className="t-11 font-medium text-(--warn)">RAISONNEMENT · {lines} lignes</span>

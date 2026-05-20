@@ -9,6 +9,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Action } from "@/app/(user)/components/ui/Action";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import type { CircuitState } from "@/lib/llm/circuit-breaker";
 import type { MetricsSnapshot, ProviderMetrics } from "@/lib/llm/metrics";
 import type { CustomWebhook } from "@/lib/webhooks/types";
@@ -81,9 +82,9 @@ function CircuitBadge({ state }: { state: CircuitState }) {
         : "bg-(--warn)/15 text-(--warn)";
 
   return (
-    <span className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}>
+    <Chip size="sm" className={cls}>
       {CIRCUIT_LABELS[state]}
-    </span>
+    </Chip>
   );
 }
 
@@ -94,7 +95,11 @@ function WebhookStatusBadge({ status }: { status: "success" | "failed" | undefin
       ? "bg-(--accent-teal)/15 text-(--accent-teal)"
       : "bg-(--danger)/15 text-(--danger)";
   const label = status === "success" ? "Réussi" : "Échec";
-  return <span className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}>{label}</span>;
+  return (
+    <Chip size="sm" className={cls}>
+      {label}
+    </Chip>
+  );
 }
 
 // Table header row

@@ -7,12 +7,11 @@
  * 3 actions : utiliser l'enrichi / garder l'original / modifier
  * manuellement. Annuler ferme la modal sans rien lancer.
  *
- * A11y : focus trap + scroll lock + Escape via `useModalA11y`.
+ * A11y : focus trap + scroll lock + Escape via ModalShell (useModalA11y interne).
  */
 
 import type React from "react";
-import { ModalShell } from "@/app/(user)/components/ui";
-import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { Action, ModalShell } from "@/app/(user)/components/ui";
 
 export interface EnrichmentPreviewModalProps {
   preview: { original: string; enriched: string; diff: string[] };
@@ -37,13 +36,6 @@ export function EnrichmentPreviewModal({
   onUseManual,
   onCancel,
 }: EnrichmentPreviewModalProps) {
-  // Hook a11y : focus trap + scroll lock + Escape (annule) + restore focus.
-  // Le modal n'est rendu QUE quand `preview` est non-null côté caller, donc
-  // isOpen=true tant que ce composant est monté.
-  const dialogRef = useModalA11y<HTMLDivElement>(true, {
-    onClose: onCancel,
-  });
-
   return (
     <ModalShell
       open={true}
@@ -53,15 +45,14 @@ export function EnrichmentPreviewModal({
       a11yOptions={{ onClose: onCancel }}
     >
       <div
-        ref={dialogRef}
         className="flex flex-col gap-6 max-w-2xl w-full mx-4 p-6 border border-(--border-shell)"
         style={{ backgroundColor: "var(--card-flat-bg)" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col gap-1">
-          <span id="enrichment-preview-title" className="t-15 font-medium text-(--text-l1)">
+          <h2 id="enrichment-preview-title" className="t-15 font-medium text-(--text-l1)">
             Prompt enrichi
-          </span>
+          </h2>
           <span className="t-11 font-light text-text-muted">
             Claude a réécrit votre prompt en direction cinématographique. Vérifiez avant génération.
           </span>
@@ -92,51 +83,39 @@ export function EnrichmentPreviewModal({
         )}
 
         <div className="flex items-center justify-end gap-2 flex-wrap">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted transition-colors hover:text-text"
-          >
+          <Action variant="secondary" tone="neutral" size="sm" onClick={onCancel}>
             Annuler
-          </button>
+          </Action>
           {!editingManually ? (
             <>
-              <button
-                type="button"
+              <Action
+                variant="secondary"
+                tone="neutral"
+                size="sm"
                 onClick={() => {
                   setManualPrompt(preview.enriched);
                   setEditingManually(true);
                 }}
-                className="px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted transition-colors hover:text-text"
               >
                 Modifier manuellement
-              </button>
-              <button
-                type="button"
-                onClick={onKeepOriginal}
-                className="px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text transition-colors hover:border-(--accent-teal) hover:text-(--accent-teal)"
-              >
+              </Action>
+              <Action variant="secondary" tone="neutral" size="sm" onClick={onKeepOriginal}>
                 Garder l&apos;original
-              </button>
-              <button
-                type="button"
-                onClick={onUseEnriched}
-                className="px-3 py-1.5 t-11 font-medium border border-(--accent-teal) text-(--accent-teal) transition-colors"
-                style={{ backgroundColor: "var(--accent-teal-bg-hover)" }}
-              >
+              </Action>
+              <Action variant="primary" tone="brand" size="sm" onClick={onUseEnriched}>
                 Utiliser l&apos;enrichi
-              </button>
+              </Action>
             </>
           ) : (
-            <button
-              type="button"
+            <Action
+              variant="primary"
+              tone="brand"
+              size="sm"
               onClick={onUseManual}
               disabled={manualPrompt.trim().length === 0}
-              className="px-3 py-1.5 t-11 font-medium border border-(--accent-teal) text-(--accent-teal) transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ backgroundColor: "var(--accent-teal-bg-hover)" }}
             >
               Utiliser ma version
-            </button>
+            </Action>
           )}
         </div>
       </div>

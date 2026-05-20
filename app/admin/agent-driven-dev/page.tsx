@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import Link from "next/link";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { BackLink } from "@/app/admin/_components/BackLink";
 import { getAgentLockState } from "@/lib/agent-lock";
 import AgentLockCard from "./_components/AgentLockCard";
@@ -78,12 +79,9 @@ function StatutBadge({ statut, raw }: { statut: string; raw: string }) {
   const cls = STATUT_STYLES[statut] ?? "bg-(--surface-2) text-text-muted border-line";
   const label = STATUT_LABELS[statut] ?? statut;
   return (
-    <span
-      className={`inline-flex items-center px-(--space-2) py-(--space-1) rounded-pill border t-10 font-medium ${cls}`}
-      title={raw}
-    >
+    <Chip size="sm" variant="outlined" className={cls} title={raw}>
       {label}
-    </span>
+    </Chip>
   );
 }
 

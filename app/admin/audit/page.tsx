@@ -1,3 +1,4 @@
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { type AuditLog, getAuditLogs } from "@/lib/admin/audit";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -83,11 +84,12 @@ export default async function AuditPage() {
                 <span className="text-(--danger) t-10">Échec</span>
               )}
             </span>
-            <span
-              className={`t-10 px-(--space-2) py-(--space-1) rounded-pill w-fit ${SEVERITY_COLORS[log.severity] ?? "text-text-faint"}`}
+            <Chip
+              size="sm"
+              className={`w-fit ${SEVERITY_COLORS[log.severity] ?? "text-text-faint"}`}
             >
               {log.severity}
-            </span>
+            </Chip>
           </div>
         ))}
       </div>

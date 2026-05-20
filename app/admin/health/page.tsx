@@ -30,6 +30,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 
 // ---------------------------------------------------------------------------
 // Types (miroir du payload de /api/health/llm)
@@ -207,9 +208,9 @@ function StatusPill({ status }: { status: HealthStatus }) {
   const label = status === "ok" ? "Réussi" : status === "degraded" ? "Dégradé" : "Hors ligne";
 
   return (
-    <span className={`t-10 px-(--space-2) py-(--space-1) rounded-pill border font-medium ${cls}`}>
+    <Chip size="sm" variant="outlined" className={cls}>
       {label}
-    </span>
+    </Chip>
   );
 }
 
@@ -220,9 +221,9 @@ function StatusPill({ status }: { status: HealthStatus }) {
 function ServiceStatusPill({ status }: { status: ServiceStatus }) {
   if (status === "not_configured") {
     return (
-      <span className="t-10 px-(--space-2) py-(--space-1) rounded-pill border border-(--border-shell) text-text-ghost font-medium">
+      <Chip size="sm" variant="outlined" className="text-text-ghost">
         Non configuré
-      </span>
+      </Chip>
     );
   }
   // ServiceStatus restant ⊂ HealthStatus → on délègue.
@@ -244,9 +245,9 @@ function CircuitBadge({ state }: { state: CircuitState }) {
   const label = state === "CLOSED" ? "Fermé" : state === "HALF_OPEN" ? "Mi-ouvert" : "Ouvert";
 
   return (
-    <span className={`t-10 px-(--space-2) py-(--space-1) rounded-pill font-medium ${cls}`}>
+    <Chip size="sm" className={cls}>
       {label}
-    </span>
+    </Chip>
   );
 }
 

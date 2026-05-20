@@ -5,7 +5,7 @@
  *
  * Remplace le double `window.prompt()` du Commandeur par une modale
  * tokens-first cohérente avec ConfirmModal :
- *   - backdrop scrim, dialog centré, focus trap (useModalA11y)
+ *   - backdrop scrim, dialog centré, focus trap (via ModalShell)
  *   - 2 inputs neutres (pas de halo cyan), bouton "Comparer" disabled
  *     tant que les 2 IDs ne sont pas remplis
  *   - Escape annule, click backdrop annule
@@ -14,8 +14,7 @@
  */
 
 import { useState } from "react";
-import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
-import { Action } from "./ui";
+import { Action, ModalShell } from "./ui";
 
 export interface AssetCompareModalProps {
   open: boolean;
@@ -36,13 +35,6 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
     onCancel();
   }
 
-  // Focus trap + scroll lock + Escape + restore focus.
-  // autoFocus=false : on pose nous-même le focus sur l'input A via <input autoFocus>.
-  const dialogRef = useModalA11y<HTMLDivElement>(open, {
-    onClose: handleCancel,
-    autoFocus: false,
-  });
-
   if (!open) return null;
 
   const trimmedA = idA.trim();
@@ -57,22 +49,15 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
   }
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="asset-compare-title"
+    <ModalShell
+      open={open}
+      onClose={handleCancel}
       data-testid="asset-compare-modal"
-      className="fixed inset-0 flex items-center justify-center"
-      style={{
-        zIndex: "var(--z-modal)" as unknown as number,
-        background: "color-mix(in srgb, var(--bg) 70%, transparent)",
-      }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) handleCancel();
-      }}
+      labelledBy="asset-compare-title"
+      backdropStyle={{ background: "color-mix(in srgb, var(--bg) 70%, transparent)" }}
+      a11yOptions={{ onClose: handleCancel, autoFocus: false }}
     >
       <div
-        ref={dialogRef}
         className="flex flex-col"
         style={{
           minWidth: "var(--space-96, 400px)",
@@ -84,6 +69,7 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
           borderRadius: "var(--radius-md)",
           boxShadow: "var(--shadow-card-hover)",
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         <h2
           id="asset-compare-title"
@@ -172,6 +158,6 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
           </Action>
         </div>
       </div>
-    </div>
+    </ModalShell>
   );
 }

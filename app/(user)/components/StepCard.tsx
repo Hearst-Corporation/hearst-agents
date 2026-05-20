@@ -101,6 +101,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
         disabled={!canExpand}
         aria-expanded={expanded}
       >
+        {/* chip-tailwind-custom: icône container taille --space-5, non-Chip (icon-only) */}
         <span
           aria-hidden
           className="inline-flex items-center justify-center rounded-pill"

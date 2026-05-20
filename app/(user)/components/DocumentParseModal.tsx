@@ -17,7 +17,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
-import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { Action, ModalShell } from "./ui";
@@ -80,22 +79,8 @@ export function DocumentParseModal({
     onClose();
   }
 
-  // Hook a11y : focus trap, body scroll lock, restore focus, Escape.
-  // autoFocus=false → on focalise manuellement l'input URL (premier champ).
-  const dialogRef = useModalA11y<HTMLDivElement>(open, {
-    onClose: () => {
-      if (status !== "submitting") {
-        resetState();
-        onClose();
-      }
-    },
-    autoFocus: false,
-  });
-
-  // useModalA11y(autoFocus:false) ci-dessus : focus trap actif mais focus
-  // initial confié au useEffect ci-dessous (l'URL input est notre champ
-  // primaire, on ne veut pas que le hook focalise le premier focusable
-  // générique — ici ce serait l'input mais on garde la maîtrise explicite).
+  // Focus initial confié au useEffect ci-dessous (l'URL input est notre champ
+  // primaire — autoFocus désactivé dans a11yOptions, on garde la maîtrise).
   useEffect(() => {
     if (!open) return;
     inputRef.current?.focus();
@@ -165,7 +150,6 @@ export function DocumentParseModal({
       }}
     >
       <div
-        ref={dialogRef}
         data-testid="document-parse-modal"
         className="flex flex-col w-full"
         style={{

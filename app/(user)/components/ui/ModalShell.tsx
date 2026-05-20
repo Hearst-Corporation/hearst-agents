@@ -30,12 +30,14 @@ export interface ModalShellProps {
   /**
    * Alignement vertical du contenu :
    *   - "center" (défaut) → items-center
-   *   - "top" → items-start + paddingTop: "15vh" (ex: Commandeur)
+   *   - "top" → items-start + paddingTop: var(--modal-offset-top) (ex: Commandeur)
    */
   align?: "center" | "top";
   className?: string;
   /** Style additionnel injecté sur le div backdrop (ex: background conditionnel). */
   backdropStyle?: React.CSSProperties;
+  /** data-testid posé sur le div backdrop (cible des tests qui cliquent le backdrop). */
+  "data-testid"?: string;
   children: ReactNode;
   /** id de l'élément qui labellise la modale (aria-labelledby). */
   labelledBy?: string;
@@ -78,6 +80,7 @@ const ModalShell = forwardRef<HTMLDivElement, ModalShellProps>(
       labelledBy,
       describedBy,
       a11yOptions,
+      "data-testid": dataTestId,
     },
     _ref,
   ) => {
@@ -97,6 +100,7 @@ const ModalShell = forwardRef<HTMLDivElement, ModalShellProps>(
     return (
       <div
         ref={_ref}
+        data-testid={dataTestId}
         className={[
           "fixed inset-0 flex justify-center",
           isTop ? "items-start" : "items-center",
@@ -110,7 +114,7 @@ const ModalShell = forwardRef<HTMLDivElement, ModalShellProps>(
             background: "var(--overlay-scrim)",
             backdropFilter: "var(--blur-lg)",
             WebkitBackdropFilter: "var(--blur-lg)",
-            ...(isTop ? { paddingTop: "15vh" } : {}),
+            ...(isTop ? { paddingTop: "var(--modal-offset-top)" } : {}),
             // Overrides explicites (ex: background conditionnel lors de loading).
             ...backdropStyle,
           } as CSSProperties

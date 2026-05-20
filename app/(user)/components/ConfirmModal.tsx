@@ -13,8 +13,6 @@
  * `var(--*)`.
  */
 
-import { useEffect } from "react";
-import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { Action, ModalShell } from "./ui";
 
 export interface ConfirmModalProps {
@@ -28,7 +26,7 @@ export interface ConfirmModalProps {
    * État "soumission en cours". Quand `true` :
    *   - le bouton confirm passe en spinner et est `disabled`
    *   - le bouton cancel est `disabled`
-   *   - Escape n'appelle PAS `onCancel` (cf. useModalA11y.onClose ci-dessous)
+   *   - Escape n'appelle PAS `onCancel` (cf. onClose passé à ModalShell)
    *   - le clic sur le backdrop est ignoré
    * Garantit qu'une action destructive en cours ne peut pas être interrompue
    * par un Escape ou un clic accidentel — évite les états zombies si l'API
@@ -50,29 +48,6 @@ export function ConfirmModal({
   onConfirm,
   onCancel,
 }: ConfirmModalProps) {
-  // Le hook gère focus trap, scroll lock, restore focus, Escape (avec
-  // garde-fou loading via closeOnEscape). On désactive autoFocus pour
-  // poser le focus initial sur le bouton "Annuler" (option safe).
-  const dialogRef = useModalA11y<HTMLDivElement>(open, {
-    onClose: () => {
-      if (!loading) onCancel();
-    },
-    autoFocus: false,
-  });
-
-  // useModalA11y autoFocus=false : on focus explicitement le cancel pour
-  // pattern safe-default. Pas de race avec autoFocus du hook (désactivé
-  // ci-dessus) — cet effect est l'unique source de focus initial dans
-  // l'ouverture de la modale.
-  useEffect(() => {
-    if (!open) return;
-    // Focus initial sur le bouton "Annuler" (option safe par défaut).
-    const cancelBtn = dialogRef.current?.querySelector<HTMLButtonElement>(
-      "[data-testid='confirm-modal-cancel']",
-    );
-    cancelBtn?.focus();
-  }, [open, dialogRef]);
-
   if (!open) return null;
 
   const isDanger = variant === "danger";
@@ -83,6 +58,7 @@ export function ConfirmModal({
       onClose={() => {
         if (!loading) onCancel();
       }}
+      data-testid="confirm-modal"
       labelledBy="confirm-modal-title"
       backdropStyle={{
         // Backdrop : color-mix sur le shell ambient (--bg) pour rester token-only.
@@ -101,8 +77,7 @@ export function ConfirmModal({
       }}
     >
       <div
-        ref={dialogRef}
-        data-testid="confirm-modal"
+        data-testid="confirm-modal-content"
         aria-disabled={loading ? "true" : undefined}
         className="flex flex-col"
         style={{

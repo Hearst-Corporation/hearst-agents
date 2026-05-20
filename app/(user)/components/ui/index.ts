@@ -7,6 +7,8 @@
 
 export type { ActionSize, ActionTone, ActionVariant } from "./Action";
 export { Action } from "./Action";
+export type { ChipProps, ChipSize, ChipVariant } from "./Chip";
+export { Chip } from "./Chip";
 export { EmptyState } from "./EmptyState";
 export type { ModalShellProps } from "./ModalShell";
 export { ModalShell } from "./ModalShell";

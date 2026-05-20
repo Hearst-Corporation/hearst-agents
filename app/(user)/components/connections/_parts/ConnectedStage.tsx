@@ -1,5 +1,6 @@
 "use client";
 
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { AppLogo } from "../AppLogo";
 import { type ComposioApp, stageVariant } from "../types";
 
@@ -61,9 +62,10 @@ function StageTile({
       <span className="relative inline-flex">
         <AppLogo app={app} size={48} />
         {dotColor && (
-          <span
+          <Chip
             aria-hidden
-            className="absolute w-2 h-2 rounded-pill"
+            variant="dot"
+            className="absolute"
             style={{
               top: "calc(-1 * var(--space-1))",
               right: "calc(-1 * var(--space-1))",

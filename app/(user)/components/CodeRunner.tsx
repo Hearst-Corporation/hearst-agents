@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import type { AssetVariant } from "@/lib/assets/variants";
 
 interface CodeRunnerProps {
@@ -118,21 +119,18 @@ export function CodeRunner({ variant }: CodeRunnerProps) {
   const isFailed = variant.status === "failed";
 
   return (
-    <div
-      className="border rounded-md bg-surface-1"
-      style={{ borderColor: "var(--surface-2)", padding: "var(--space-6)" }}
-    >
-      <header className="flex items-center" style={{ marginBottom: "var(--space-4)" }}>
+    <div className="border border-[var(--surface-2)] rounded-md bg-surface-1 p-6">
+      <header className="flex items-center mb-4">
         <div className="flex items-center gap-3">
-          <span
-            className={`rounded-pill ${
+          <Chip
+            variant="dot"
+            className={
               isReady
                 ? "bg-(--accent-teal)"
                 : isFailed
                   ? "bg-(--danger)"
                   : "bg-(--warn) animate-pulse"
-            }`}
-            style={{ width: "var(--space-2)", height: "var(--space-2)" }}
+            }
             aria-hidden
           />
           <span

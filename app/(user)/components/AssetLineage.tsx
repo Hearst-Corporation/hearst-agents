@@ -14,6 +14,7 @@
  */
 
 import { useMemo, useState } from "react";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import type { Asset } from "@/lib/assets/types";
 
 interface AssetLineageProps {
@@ -101,10 +102,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
     >
       <header className="flex items-center" style={{ gap: "var(--space-3)" }}>
         <span className="t-11 font-medium text-(--accent-teal)">PROVENANCE</span>
-        <span
-          className="rounded-pill bg-(--text-ghost)"
-          style={{ width: "var(--space-1)", height: "var(--space-1)" }}
-        />
+        <Chip variant="dot" className="bg-[var(--text-ghost)] size-(--space-1)" />
         <span className="t-11 font-light text-text-faint">
           {DATE_FORMATTER.format(new Date(asset.createdAt))}
         </span>
@@ -310,7 +308,7 @@ function LineageMiniGraph({ currentTitle, parentIds, onOpenParent }: LineageMini
                   y={yParent + nodeHeight / 2 + 3}
                   fill="var(--text-muted)"
                   fontSize={10}
-                  fontFamily="var(--font-mono)"
+                  fontFamily="ui-monospace, monospace"
                   textAnchor="middle"
                 >
                   {pid.slice(0, 8)}
@@ -335,7 +333,7 @@ function LineageMiniGraph({ currentTitle, parentIds, onOpenParent }: LineageMini
             y={(totalHeight - nodeHeight) / 2 + nodeHeight / 2 + 3}
             fill="var(--accent-teal)"
             fontSize={10}
-            fontFamily="var(--font-mono)"
+            fontFamily="ui-monospace, monospace"
             textAnchor="middle"
           >
             {currentTitle.slice(0, 14)}

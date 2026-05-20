@@ -63,6 +63,7 @@ export function Header({
 
       <div className="flex items-center gap-3 t-11 font-light whitespace-nowrap tabular-nums">
         <span className="flex items-center gap-2 text-text-soft">
+          {/* chip-tailwind-custom: halo-dot class custom + background token runtime */}
           <span
             className="w-1 h-1 rounded-pill halo-dot"
             style={{ background: "var(--accent-teal)" }}

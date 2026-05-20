@@ -212,6 +212,7 @@
 
   /* ─── Modal backdrop ───────────────────────────────────────── */
   --modal-backdrop: rgba(0, 0, 0, 0.6); /* Backdrop modal (enrichment diff, fork panel) */
+  --modal-offset-top: 15vh; /* Décalage vertical des modales align="top" (ex: Commandeur) */
 
   
   --height-particles-wave: clamp(

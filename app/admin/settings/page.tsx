@@ -1,3 +1,4 @@
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { getFeatureFlags, getSystemSettings } from "@/lib/admin/settings";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SystemSetting } from "@/lib/platform/settings/types";
@@ -47,13 +48,12 @@ export default async function SettingsPage() {
               className="rounded-(--radius-md) bg-(--card-flat-bg) border border-(--card-flat-border) p-(--space-3) flex items-center justify-between"
             >
               <span className="t-12 text-text-muted truncate mr-(--space-2)">{key}</span>
-              <span
-                className={`t-9 font-mono px-(--space-2) rounded-pill ${
-                  enabled ? "bg-(--money)/20 text-(--money)" : "bg-(--surface-2) text-text-ghost"
-                }`}
+              <Chip
+                size="xs"
+                className={`font-mono ${enabled ? "bg-(--money)/20 text-(--money)" : "bg-(--surface-2) text-text-ghost"}`}
               >
                 {enabled ? "actif" : "inactif"}
-              </span>
+              </Chip>
             </div>
           ))}
           {Object.keys(flags).length === 0 && (

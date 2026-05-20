@@ -11,6 +11,7 @@
  */
 
 import { useState } from "react";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { type PlanState, useRuntimeStore } from "@/stores/runtime";
 import { ConfirmModal } from "./ConfirmModal";
 import { StepCard } from "./StepCard";
@@ -154,16 +155,9 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
         >
           <span className="t-11 font-medium text-(--text-l1)">Apps requises</span>
           {plan.requiredApps.map((app) => (
-            <span
-              key={app}
-              className="t-11 font-light border border-(--border-shell) rounded-pill"
-              style={{
-                padding: "var(--space-1) var(--space-2)",
-                color: "var(--text-muted)",
-              }}
-            >
+            <Chip key={app} size="md" variant="outlined" className="font-light text-text-muted">
               {app}
-            </span>
+            </Chip>
           ))}
         </div>
       )}

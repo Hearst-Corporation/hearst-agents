@@ -21,7 +21,6 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { useFocalStore } from "@/stores/focal";
@@ -173,18 +172,8 @@ export function Commandeur() {
     return () => window.removeEventListener("keydown", onKey, { capture: true });
   }, [isOpen, flatRows, activeIndex, setOpen, runRow]);
 
-  // Hook a11y : focus trap + scroll lock body + restore focus.
-  // F-015 : `autoFocus: true` → le hook focus le premier focusable du dialog,
-  // qui est l'input de recherche (premier `<input>` rendu). Sans ça le focus
-  // reste sur l'élément précédent (ex: textarea ChatDock) et Escape ne ferme
-  // pas le dialog (cf. F-016) tant qu'on n'a pas cliqué dans l'input.
-  const dialogRef = useModalA11y<HTMLDivElement>(isOpen, {
-    onClose: () => setOpen(false),
-    closeOnEscape: false,
-    autoFocus: true,
-  });
-
-  const compareModal = (
+  // compareModal — rendu uniquement si ouvert pour éviter un mount inutile.
+  const compareModal = compareOpen ? (
     <AssetCompareModal
       open={compareOpen}
       onCancel={() => setCompareOpen(false)}
@@ -193,7 +182,7 @@ export function Commandeur() {
         setStageMode({ mode: "asset_compare", assetIds: [idA, idB] } as StagePayload);
       }}
     />
-  );
+  ) : null;
 
   if (!isOpen) return compareModal;
 
@@ -215,7 +204,6 @@ export function Commandeur() {
         }}
       >
         <div
-          ref={dialogRef}
           aria-label="Palette de commandes"
           className="w-full max-w-3xl overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
           style={{ background: "transparent" }}

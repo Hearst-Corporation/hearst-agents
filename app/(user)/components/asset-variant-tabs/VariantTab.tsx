@@ -7,6 +7,7 @@
  * le style actif via la teinte teal. Pas de halo-on-hover sur le chrome.
  */
 
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
 
 export interface VariantTabProps {
@@ -34,7 +35,7 @@ export function VariantTab({
         ? "bg-(--warn) animate-pulse"
         : effectiveStatus === "failed"
           ? "bg-(--danger)"
-          : "bg-(--text-ghost)";
+          : "bg-[var(--text-ghost)]";
 
   return (
     <button
@@ -47,10 +48,7 @@ export function VariantTab({
       }`}
     >
       <span className="flex items-center gap-2">
-        <span
-          className={`rounded-pill shrink-0 ${dotColor}`}
-          style={{ width: "var(--space-1)", height: "var(--space-1)" }}
-        />
+        <Chip variant="dot" className={`${dotColor} size-(--space-1)`} />
         <span>{label}</span>
       </span>
     </button>

@@ -7,6 +7,7 @@
  */
 
 import { useState } from "react";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import type { KgEdge, KgNode, TimelineEvent } from "@/lib/memory/kg";
 
 interface KgNodeDetailProps {
@@ -73,11 +74,9 @@ export function KgNodeDetail({ node, edges, nodes, onClose, onPickPath }: KgNode
     >
       <header className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <span
-            className="rounded-pill shrink-0"
+          <Chip
+            variant="dot"
             style={{
-              width: "var(--space-2)",
-              height: "var(--space-2)",
               background: TYPE_COLOR[node.type] ?? "var(--text-faint)",
             }}
             aria-hidden

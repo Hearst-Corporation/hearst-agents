@@ -18,7 +18,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
-import { Action } from "./ui";
+import { Action, Chip } from "./ui";
 
 interface VariantCarouselProps {
   assetId: string;
@@ -134,7 +134,7 @@ export function VariantCarousel({ assetId, sourceText, defaultKind }: VariantCar
   return (
     <section
       data-testid="variant-carousel"
-      className="border-t border-(--surface-2)"
+      className="border-t border-[var(--surface-2)]"
       style={{ paddingTop: "var(--space-6)", marginTop: "var(--space-6)" }}
       aria-label="Variants alternatifs"
     >
@@ -211,10 +211,12 @@ function StatusDot({ status }: { status?: string }) {
   } else if (status === "pending" || status === "generating") {
     color = "var(--warn)";
   }
+  // chip-tailwind-custom: taille non-standard --space-1 + background dynamique via style inline
   return (
-    <span
-      className={`rounded-pill ${status === "pending" || status === "generating" ? "animate-pulse" : ""}`}
-      style={{ width: "var(--space-1)", height: "var(--space-1)", background: color }}
+    <Chip
+      variant="dot"
+      className={`size-(--space-1) ${status === "pending" || status === "generating" ? "animate-pulse" : ""}`}
+      style={{ background: color }}
       aria-hidden
     />
   );
@@ -250,7 +252,6 @@ function VariantThumbnail({ variant, kind }: { variant?: AssetVariant; kind: Ass
   if (kind === "image") {
     return (
       <div style={baseStyle}>
-        {/* Source dynamique Supabase signed URL → gardé en <img> car dimensions réelles inconnues côté client. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={variant.storageUrl}

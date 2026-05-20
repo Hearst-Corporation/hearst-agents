@@ -2,6 +2,7 @@
  * Admin Run Detail Page
  */
 import { notFound } from "next/navigation";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
@@ -121,11 +122,13 @@ export default async function RunDetailPage({ params }: Props) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-(--space-3)">
                   <span className="t-9 font-mono text-text-faint">#{i + 1}</span>
-                  <span
-                    className={`rounded-pill border px-(--space-2) py-(--space-1) t-10 font-medium ${traceKindColor[t.kind] ?? "border-(--border-shell) text-text-muted"}`}
+                  <Chip
+                    size="sm"
+                    variant="outlined"
+                    className={traceKindColor[t.kind] ?? "border-(--border-shell) text-text-muted"}
                   >
                     {t.kind}
-                  </span>
+                  </Chip>
                   <span className="t-13 text-text-soft">{t.name}</span>
                 </div>
                 <div className="flex items-center gap-(--space-4) t-9 text-text-muted font-mono">

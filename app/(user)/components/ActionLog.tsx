@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import type { BrowserAction, BrowserActionType } from "@/lib/events/types";
 
 interface ActionLogProps {
@@ -72,11 +73,10 @@ export function ActionLog({
         style={{ height: "var(--height-pulsebar)" }}
       >
         <div className="flex items-center gap-2">
-          <span
-            className="rounded-pill"
+          {/* chip-tailwind-custom: background dynamique via style (token runtime) */}
+          <Chip
+            variant="dot"
             style={{
-              width: "var(--space-2)",
-              height: "var(--space-2)",
               background: isRunning
                 ? "var(--accent-teal)"
                 : isControlled
@@ -90,7 +90,7 @@ export function ActionLog({
           <button
             type="button"
             onClick={onTakeOver}
-            className="t-11 font-medium text-(--accent-teal) hover:text-text transition-colors px-2 py-1 border border-[var(--accent-teal-border)] rounded-pill"
+            className="t-11 font-medium text-(--accent-teal) hover:text-text transition-colors border border-[var(--accent-teal-border)] rounded-pill px-(--space-2) py-(--space-1)"
           >
             Take Over
           </button>
@@ -150,7 +150,6 @@ export function ActionLog({
                   className="rounded-md overflow-hidden border border-(--border-soft)"
                   style={{ height: "var(--space-20)" }}
                 >
-                  {/* Source dynamique Playwright screenshot → gardé en <img> pour la sérialisation URL brute. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={a.screenshotUrl}

@@ -1,11 +1,26 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Chip } from "@/app/(user)/components/ui/Chip";
 import { BackLink } from "@/app/admin/_components/BackLink";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import ChatWindow from "../../_components/ChatWindow";
 import ModelBadge from "../../_components/ModelBadge";
 
 export const dynamic = "force-dynamic";
+
+function statusLabel(status: string): string {
+  const map: Record<string, string> = {
+    active: "Actif",
+    paused: "En pause",
+    archived: "Archivé",
+    running: "En cours",
+    idle: "Inactif",
+    error: "Erreur",
+    completed: "Terminé",
+    failed: "Échoué",
+  };
+  return map[status] ?? status;
+}
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -92,9 +107,12 @@ export default async function AgentDetailPage({ params }: Props) {
       <div className="mb-(--space-6) flex items-start justify-between">
         <div>
           <div className="mb-(--space-1) flex items-center gap-(--space-3)">
-            <span
-              className={`size-(--space-2) rounded-pill ${statusDot[agent.status] ?? "bg-text-muted"}`}
+            <Chip
+              variant="dot"
+              className={statusDot[agent.status] ?? "bg-text-muted"}
+              aria-hidden
             />
+            <span className="sr-only">Statut : {statusLabel(agent.status)}</span>
             <h1 className="t-24 font-light text-text">{agent.name}</h1>
           </div>
           {agent.description && (
@@ -190,12 +208,9 @@ export default async function AgentDetailPage({ params }: Props) {
                     category: string;
                   } | null;
                   return skill ? (
-                    <span
-                      key={skill.id}
-                      className="rounded-pill border border-(--border-shell) px-(--space-2) py-(--space-1) t-10 font-medium text-text-muted"
-                    >
+                    <Chip key={skill.id} size="sm" variant="outlined" className="text-text-muted">
                       {skill.name}
-                    </span>
+                    </Chip>
                   ) : null;
                 })}
               </div>
@@ -249,9 +264,18 @@ export default async function AgentDetailPage({ params }: Props) {
                     className="flex items-center justify-between rounded-(--radius-sm) px-(--space-2) py-(--space-1) t-9 transition-colors hover:bg-(--surface-1)"
                   >
                     <div className="flex items-center gap-(--space-2)">
-                      <span
-                        className={`size-(--space-2) rounded-pill ${r.status === "completed" ? "bg-(--money)" : r.status === "failed" ? "bg-(--danger)" : "bg-text-muted"}`}
+                      <Chip
+                        variant="dot"
+                        className={
+                          r.status === "completed"
+                            ? "bg-(--money)"
+                            : r.status === "failed"
+                              ? "bg-(--danger)"
+                              : "bg-text-muted"
+                        }
+                        aria-hidden
                       />
+                      <span className="sr-only">Statut : {statusLabel(r.status)}</span>
                       <span className="text-text-muted">{r.kind}</span>
                     </div>
                     <span className="text-text-muted font-mono">

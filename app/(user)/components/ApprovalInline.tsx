@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { ProviderChip } from "./ProviderChip";
-import { Action } from "./ui";
+import { Action, Chip } from "./ui";
 
 export interface ApprovalInlineProps {
   stepId: string;
@@ -108,7 +108,7 @@ export function ApprovalInline({
       {prominent && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-backdrop pointer-events-none transition-opacity"
+          className="fixed inset-0 z-40 pointer-events-none transition-opacity"
           style={{
             background: isLocked
               ? "color-mix(in srgb, var(--bg) 50%, transparent)"
@@ -122,7 +122,7 @@ export function ApprovalInline({
         ref={cardRef}
         role="region"
         aria-labelledby={labelId}
-        className={`border-l-2 border-(--accent-teal) ${prominent ? "relative z-modal" : ""}`}
+        className={`border-l-2 border-(--accent-teal) ${prominent ? "relative z-50" : ""}`}
         style={{
           background: "var(--accent-teal-surface)",
           padding: "var(--space-3) var(--space-4)",
@@ -139,16 +139,14 @@ export function ApprovalInline({
           <span id={labelId} className="t-11 font-medium text-(--accent-teal)">
             Validation requise
           </span>
-          <span
-            className="rounded-pill bg-[var(--text-ghost)]"
-            style={{ width: "var(--space-1)", height: "var(--space-1)" }}
-          />
+          <Chip variant="dot" className="bg-(--text-ghost) size-(--space-1)" aria-hidden="true" />
           <span className="t-11 font-light text-text-faint">{kind}</span>
           {providerId && (
             <>
-              <span
-                className="rounded-pill bg-[var(--text-ghost)]"
-                style={{ width: "var(--space-1)", height: "var(--space-1)" }}
+              <Chip
+                variant="dot"
+                className="bg-(--text-ghost) size-(--space-1)"
+                aria-hidden="true"
               />
               <ProviderChip providerId={providerId} status="pending" />
             </>
