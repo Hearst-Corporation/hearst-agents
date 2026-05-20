@@ -464,6 +464,23 @@
 
   /* Shadow — la Card alerting Helm est plate ; on neutralise box-shadow */
   --ct-shadow-depth: none;
+
+  /* HubBottomBar (PR5) — neutralise `left: calc((--ct-rail-left + 100vw -
+   * --ct-rail-right-eff) / 2)` du package qui suppose une RailRight 420px du
+   * Hub canonical. Helm a sa propre RailRight (260/320px) gérée par Shell.tsx
+   * interne. On centre proprement sur 100vw. */
+  --ct-rail-left: 0px;
+  --ct-rail-right-eff: 0px;
+}
+
+/* HubBottomBar PR5 — surélève au-dessus du composer ChatDock (bottom: 24px
+ * + paddingBottom: var(--space-6) = 48px de zone protégée). Le package pose
+ * `bottom: 24px` par défaut → conflit. On remonte à 96px pour laisser
+ * respirer le composer chat sans masquer la barre cross-produits. */
+[data-product="helm"] .ct-hub-bar {
+  position: fixed; /* ancrage viewport, pas au parent (le package était absolute) */
+  bottom: var(--space-24); /* 120px — laisse respirer le composer ChatDock (bottom 0 + padding 24px) */
+  z-index: 26; /* juste au-dessus du composer Helm (z-25), sous le Commandeur (z-40) */
 }
 
 .poster-greeting {
