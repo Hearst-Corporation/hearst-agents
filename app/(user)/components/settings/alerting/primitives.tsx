@@ -142,7 +142,7 @@ export function Btn({
     default: { bg: "var(--surface-2)", color: "var(--text-soft)", border: "var(--border-default)" },
     danger: {
       bg: "var(--color-error-bg)",
-      color: "var(--color-error)",
+      color: "var(--color-error-text)",
       border: "var(--color-error-border)",
     },
     primary: {
@@ -192,7 +192,7 @@ export function TestBadge({ state, message }: { state?: TestState; message?: str
     <span
       className="t-9"
       style={{
-        color: state === "ok" ? "var(--color-success)" : "var(--color-error)",
+        color: state === "ok" ? "var(--color-success-text)" : "var(--color-error-text)",
         letterSpacing: "var(--tracking-caption)",
       }}
       title={message}
@@ -224,12 +224,12 @@ export function SignalBadge({ type }: { type: keyof typeof SIGNAL_SEVERITY | "*"
   const colors = {
     critical: {
       bg: "var(--color-error-bg)",
-      color: "var(--color-error)",
+      color: "var(--color-error-text)",
       border: "var(--color-error-border)",
     },
     warning: {
       bg: "var(--color-warning-bg)",
-      color: "var(--color-warning)",
+      color: "var(--color-warning-text)",
       border: "var(--color-warning-border)",
     },
     info: {

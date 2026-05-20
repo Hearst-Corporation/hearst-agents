@@ -39,7 +39,7 @@ export function SaveHeader({ saveStatus, saveError, onSave }: Props) {
         {saveStatus === "error" && (
           <span
             className="t-9"
-            style={{ color: "var(--color-error)", letterSpacing: "var(--tracking-caption)" }}
+            style={{ color: "var(--color-error-text)", letterSpacing: "var(--tracking-caption)" }}
           >
             {saveError ?? "Erreur"}
           </span>
