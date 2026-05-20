@@ -1,7 +1,13 @@
 "use client";
 
-import { type CockpitProduct, CockpitShell, HubBottomBar } from "@hearst/cockpit-shell";
+import {
+  type CockpitProduct,
+  CockpitShell,
+  HubBottomBar,
+  setActiveProduct,
+} from "@hearst/cockpit-shell";
 import { SessionProvider } from "next-auth/react";
+import { useEffect } from "react";
 import { Commandeur } from "@/app/(user)/components/Commandeur";
 import { FocusBadge } from "@/app/(user)/components/FocusBadge";
 import { MobileBottomNav } from "@/app/(user)/components/MobileBottomNav";
@@ -42,6 +48,23 @@ function FocusModeStyles() {
 
 export default function UserXLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   useGlobalHotkeys();
+  /*
+   * Workaround visibility HubBottomBar (PR5 → PR5b).
+   *
+   * Le package <CockpitShell> appelle `setDefaultActive(appId)` côté client
+   * dans un useEffect. Mais `setDefaultActive` pose la valeur via
+   * `_default = id` sans appeler `notifyListeners()`. Le HubBottomBar
+   * consomme `useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)`
+   * sur l'activeProductStore, qui reste à "hub" (DEFAULT_ID initial).
+   * Sa condition `if (active !== appId) return null` masque alors le bar
+   * en runtime client (déjà null en SSR par design).
+   *
+   * Fix : on force `setActiveProduct("helm")` (qui appelle notifyListeners)
+   * au mount du layout user pour synchroniser le store sur l'appId Helm.
+   */
+  useEffect(() => {
+    setActiveProduct("helm");
+  }, []);
   return (
     <SessionProvider>
       <CockpitShell appId="helm" headless products={HELM_PRODUCTS}>
