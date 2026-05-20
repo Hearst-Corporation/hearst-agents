@@ -82,8 +82,6 @@
     "@composio/core": "^0.10.0",
     "@e2b/code-interpreter": "^2.4.1",
     "@hearst/cockpit-shell": "file:./hearst-cockpit-shell-0.3.2.tgz",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
     "@sentry/nextjs": "^10.51.0",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.94",
@@ -107,7 +105,6 @@
     "react-dom": "19.2.4",
     "resend": "^6.12.2",
     "stripe": "^22.1.1",
-    "three": "^0.184.0",
     "zod": "^4.3.6",
     "zustand": "^5.0.12"
   },
