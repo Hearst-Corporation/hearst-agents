@@ -242,7 +242,7 @@ function humanCron(cron: string): string {
 
 function DemoBadge() {
   return (
-    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[0.06em]">
+    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[var(--tracking-badge)]">
       Démo · données fictives (dev)
     </span>
   );
@@ -552,7 +552,9 @@ export function MissionStage({ mode }: { mode: string }) {
           {/* Suivi de la demande (jalons dérivés du statut — pas les vraies steps
               d'exécution agent ; celles-ci viendront du run output) */}
           <div className="flex flex-col gap-2">
-            <p className="t-11 text-(--text-faint) tracking-[0.04em]">Suivi de la demande</p>
+            <p className="t-11 text-(--text-faint) tracking-[var(--tracking-micro)]">
+              Suivi de la demande
+            </p>
             <div className="mtl">
               <AnimatePresence initial={false}>
                 {steps.map((step, idx) => (

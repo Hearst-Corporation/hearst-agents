@@ -149,9 +149,7 @@ export function AppDrawer({
 function NativeFooter() {
   return (
     <div className="flex flex-col gap-2">
-      <p className="t-11 font-medium" style={{ color: "var(--accent-teal-deep)" }}>
-        Géré via le SSO
-      </p>
+      <p className="t-11 font-medium text-text-accent-teal-deep">Géré via le SSO</p>
       <p className="t-11" style={{ color: "var(--text-soft)", lineHeight: "var(--leading-snug)" }}>
         L&apos;accès à ce service vient de ton login Google/Microsoft initial — Hearst
         l&apos;utilise nativement, sans OAuth additionnel. Pour révoquer, change de session ou
@@ -250,7 +248,7 @@ function ActionsSection({
               <button
                 type="button"
                 onClick={onToggleShowAll}
-                className="t-11 font-medium text-[var(--accent-teal-deep)] hover:text-(--accent-teal) transition-colors"
+                className="t-11 font-medium text-text-accent-teal-deep hover:text-(--accent-teal) transition-colors"
               >
                 {showAll ? "← Réduire" : `Voir les ${totalActions} actions →`}
               </button>

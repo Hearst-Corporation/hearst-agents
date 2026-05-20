@@ -134,7 +134,7 @@ export function Wallpaper({
           <button
             type="button"
             onClick={onLoadMore}
-            className="text-[var(--accent-teal-deep)] hover:text-(--accent-teal) transition-colors"
+            className="text-text-accent-teal-deep hover:text-(--accent-teal) transition-colors"
           >
             charger plus →
           </button>

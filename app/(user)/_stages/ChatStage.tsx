@@ -168,7 +168,7 @@ function DemoBadge() {
         borderRadius: "var(--radius-sm)",
         background: "var(--surface-1)",
         color: "var(--text-faint)",
-        letterSpacing: "0.06em",
+        letterSpacing: "var(--tracking-badge)",
       }}
     >
       Démo · données fictives (dev)
@@ -197,7 +197,7 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
         variants={BUBBLE_VARIANTS}
         initial="hidden"
         animate="visible"
-        className="self-end max-w-[80%] rounded-2xl border border-(--border-shell) bg-(--surface-2) t-15 text-text leading-relaxed whitespace-pre-wrap break-words"
+        className="self-end max-w-[var(--width-chat-bubble-max)] rounded-2xl border border-(--border-shell) bg-(--surface-2) t-15 text-text leading-relaxed whitespace-pre-wrap break-words"
         style={{ padding: "var(--space-3) var(--space-5)" }}
       >
         {msg.content}
@@ -363,7 +363,7 @@ export function ChatStage({ mode }: { mode: string }) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-16"
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <div className="flex flex-col gap-8">
         {showDemo && <DemoBadge />}
 
         {isEmpty && !showDemo && <EmptyChatState />}

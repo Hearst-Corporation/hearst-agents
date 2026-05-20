@@ -151,7 +151,7 @@ function FocalContent({
             className={`w-2 h-2 rounded-pill ${STATUS_COLORS[focal.status]} ${isLive ? "animate-pulse" : ""}`}
           />
           <div className="flex items-center gap-4">
-            <span className="t-13 font-medium text-(--text-l1)">{TYPE_LABELS[focal.type]}</span>
+            <span className="t-13 font-medium text-text-l1">{TYPE_LABELS[focal.type]}</span>
             <span className="w-1 h-1 rounded-pill bg-[var(--text-ghost)]" />
             <span
               className={`t-13 font-light ${focal.status === "awaiting_approval" ? "text-(--warn)" : focal.status === "failed" ? "text-(--danger)" : "text-text-faint"}`}
@@ -189,7 +189,7 @@ function FocalContent({
           {focal.sections.map((section, i) => (
             <div key={i} className="border-t border-[var(--surface-2)] pt-8">
               {section.heading && (
-                <h3 className="t-13 font-medium text-(--text-l1) mb-4">{section.heading}</h3>
+                <h3 className="t-13 font-medium text-text-l1 mb-4">{section.heading}</h3>
               )}
               <div className="t-15 leading-(--leading-body) text-text-muted font-normal">
                 {section.body}
@@ -208,7 +208,7 @@ function FocalContent({
       {sourceAssetId && (previewLoading || previewContent) && (
         <div className="mt-12 pt-8 border-t border-[var(--surface-2)]">
           <div className="flex items-baseline gap-3 mb-4">
-            <span className="t-13 font-medium text-(--text-l1)">Aperçu</span>
+            <span className="t-13 font-medium text-text-l1">Aperçu</span>
             {previewLoading && <span className="t-11 font-light text-text-faint">Chargement…</span>}
           </div>
           {previewContent && tryParseReportPayload(previewContent) ? (

@@ -4,8 +4,8 @@
  * Section "Email" — destinataires, signaux, toggle, test.
  */
 
-import { Card } from "@hearst/cockpit-shell";
 import type { Dispatch } from "react";
+import { PanelCard } from "@/app/(user)/components/ui";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import { parseEmailInput } from "./helpers";
 import { Btn, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
@@ -54,7 +54,7 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
   return (
     <section>
       <SectionTitle>Email</SectionTitle>
-      <Card>
+      <PanelCard>
         <div className="flex flex-col gap-4">
           <Toggle
             checked={!!prefs.email}
@@ -148,7 +148,7 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
             </>
           )}
         </div>
-      </Card>
+      </PanelCard>
     </section>
   );
 }

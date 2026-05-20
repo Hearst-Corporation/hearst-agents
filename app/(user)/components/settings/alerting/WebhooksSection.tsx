@@ -4,8 +4,8 @@
  * Section "Webhooks" — liste, ajout, suppression et test.
  */
 
-import { Card } from "@hearst/cockpit-shell";
 import { type Dispatch, useState } from "react";
+import { PanelCard } from "@/app/(user)/components/ui";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
 import { ConfirmModal } from "../../ConfirmModal";
@@ -42,7 +42,7 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
       )}
 
       {prefs.webhooks.map((wh, idx) => (
-        <Card key={idx}>
+        <PanelCard key={idx}>
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1 min-w-0">
               <p
@@ -79,11 +79,11 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
               </Btn>
             </div>
           </div>
-        </Card>
+        </PanelCard>
       ))}
 
       {state.showNewWebhookForm && (
-        <Card>
+        <PanelCard>
           <div className="flex flex-col gap-3">
             <label className="t-9" style={{ color: "var(--text-muted)" }}>
               URL du webhook
@@ -158,7 +158,7 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
               </Btn>
             </div>
           </div>
-        </Card>
+        </PanelCard>
       )}
 
       {!state.showNewWebhookForm && prefs.webhooks.length < MAX_WEBHOOKS && (

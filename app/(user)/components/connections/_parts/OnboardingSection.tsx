@@ -56,7 +56,7 @@ function StarterTile({ app, onClick }: { app: ComposioApp; onClick: () => void }
       >
         {app.name}
       </span>
-      <span className="t-9 font-light text-[var(--accent-teal-deep)] opacity-0 group-hover:opacity-100 transition-opacity">
+      <span className="t-9 font-light text-text-accent-teal-deep opacity-0 group-hover:opacity-100 transition-opacity">
         Connecter →
       </span>
     </button>

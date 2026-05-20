@@ -23,14 +23,14 @@ export function ForkPanel({ state, setState, onSubmit, generating }: ForkPanelPr
       style={{ backgroundColor: "var(--card-flat-bg)" }}
     >
       <div className="flex items-baseline justify-between">
-        <span className="t-13 font-medium text-(--text-l1)">Modifier ce variant</span>
+        <span className="t-13 font-medium text-text-l1">Modifier ce variant</span>
         <span className="t-11 font-light text-text-muted">
           Lineage : nouveau variant dérivé de l&apos;original
         </span>
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className="t-11 font-medium text-(--text-l1)">Prompt</span>
+        <span className="t-11 font-medium text-text-l1">Prompt</span>
         <textarea
           value={state.prompt}
           onChange={(e) => setState({ ...state, prompt: e.target.value })}
@@ -43,7 +43,7 @@ export function ForkPanel({ state, setState, onSubmit, generating }: ForkPanelPr
       {isVideo && (
         <div className="flex flex-col gap-3">
           <label className="flex flex-col gap-2">
-            <span className="t-11 font-medium text-(--text-l1)">
+            <span className="t-11 font-medium text-text-l1">
               Durée (secondes) : {state.duration}
             </span>
             <input
@@ -59,7 +59,7 @@ export function ForkPanel({ state, setState, onSubmit, generating }: ForkPanelPr
           </label>
 
           <div className="flex flex-col gap-2">
-            <span className="t-11 font-medium text-(--text-l1)">Format</span>
+            <span className="t-11 font-medium text-text-l1">Format</span>
             <div className="flex items-center">
               <button
                 type="button"

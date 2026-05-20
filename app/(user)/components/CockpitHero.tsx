@@ -63,29 +63,13 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
       }}
     >
       <div className="flex items-start justify-between" style={{ gap: "var(--space-8)" }}>
-        <h1
-          className="t-30"
-          style={{
-            fontWeight: "var(--weight-medium)",
-            lineHeight: "var(--leading-tight)",
-            color: "var(--text-l1)",
-          }}
-        >
-          {firstName}
-        </h1>
+        <h1 className="t-30 font-medium text-text-l1 leading-tight">{firstName}</h1>
         <div
           className="flex flex-col items-end shrink-0"
           style={{ gap: "var(--space-1)", marginTop: "var(--space-2)" }}
         >
-          <span
-            className="t-13 font-light first-letter:uppercase"
-            style={{ color: "var(--text-l2)" }}
-          >
-            {dateLabel}
-          </span>
-          <span className="t-13 font-mono tabular-nums" style={{ color: "var(--text-faint)" }}>
-            {time}
-          </span>
+          <span className="t-13 font-light text-text-l2 first-letter:uppercase">{dateLabel}</span>
+          <span className="t-13 font-mono tabular-nums text-text-faint">{time}</span>
         </div>
       </div>
 
@@ -99,29 +83,10 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
           return (
             <div style={{ marginTop: "var(--space-8)", maxWidth: "var(--width-actions)" }}>
               {headline && (
-                <p
-                  className="t-15"
-                  style={{
-                    fontWeight: "var(--weight-regular)",
-                    lineHeight: "var(--leading-tight)",
-                    color: "var(--text-l1)",
-                  }}
-                >
-                  {headline}
-                </p>
+                <p className="t-15 font-normal text-text-l1 leading-tight">{headline}</p>
               )}
               {body && (
-                <p
-                  className="t-13"
-                  style={{
-                    lineHeight: "var(--leading-tight)",
-                    color: "var(--text-l2)",
-                    marginTop: "var(--space-3)",
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  {body}
-                </p>
+                <p className="t-13 text-text-l2 leading-tight mt-3 whitespace-pre-wrap">{body}</p>
               )}
             </div>
           );
@@ -129,25 +94,10 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
 
       {briefing?.empty && emptyAction && (
         <div style={{ marginTop: "var(--space-8)", maxWidth: "var(--width-actions)" }}>
-          <p
-            className="t-15"
-            style={{
-              fontWeight: "var(--weight-regular)",
-              lineHeight: "var(--leading-tight)",
-              color: "var(--text-l1)",
-            }}
-          >
+          <p className="t-15 font-normal text-text-l1 leading-tight">
             Pas encore de signal aujourd{"'"}hui.
           </p>
-          <p
-            className="t-13"
-            style={{
-              lineHeight: "var(--leading-tight)",
-              color: "var(--text-l2)",
-              marginTop: "var(--space-3)",
-              marginBottom: "var(--space-4)",
-            }}
-          >
+          <p className="t-13 text-text-l2 leading-tight mt-3 mb-4">
             Connecte tes apps depuis ⌘K — Hearst commence à briefer dès la première synchro.
           </p>
           <a
@@ -176,30 +126,13 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
             }}
             aria-hidden="true"
           >
-            <span className="t-9 font-medium" style={{ color: "var(--text-l2)" }}>
-              Aperçu — exemple type
-            </span>
-            <p
-              className="t-13 font-light"
-              style={{
-                color: "var(--text-l1)",
-                marginTop: "var(--space-3)",
-                lineHeight: "var(--leading-base)",
-                fontStyle: "italic",
-              }}
-            >
+            <span className="t-9 font-medium text-text-l2">Aperçu — exemple type</span>
+            <p className="t-13 font-light text-text-l1 mt-3 leading-base italic">
               Matinée à fort enjeu : la term sheet Sequoia se reclarifie en parallèle de la
               signature Acme. Le staging encore instable côté backend pèse sur la confiance
               opérationnelle.
             </p>
-            <p
-              className="t-11 font-light"
-              style={{
-                color: "var(--text-l2)",
-                marginTop: "var(--space-2)",
-                lineHeight: "var(--leading-base)",
-              }}
-            >
+            <p className="t-11 font-light text-text-l2 mt-2 leading-base">
               9 signaux ingérés cross-app — 3 emails urgents, 2 PRs stuck, 1 issue P1.
             </p>
           </div>

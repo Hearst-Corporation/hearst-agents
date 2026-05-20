@@ -149,28 +149,9 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
           </button>
         </div>
 
-        <h2
-          className="t-28"
-          style={{
-            fontWeight: "var(--weight-medium)",
-            lineHeight: "var(--leading-tight)",
-            color: "var(--text-l1)",
-            marginBottom: "var(--space-5)",
-          }}
-        >
-          {slide.title}
-        </h2>
+        <h2 className="t-28 font-medium text-text-l1 leading-tight mb-5">{slide.title}</h2>
 
-        <p
-          className="t-15 font-light"
-          style={{
-            color: "var(--text-l2)",
-            lineHeight: "var(--leading-relaxed)",
-            marginBottom: "var(--space-10)",
-          }}
-        >
-          {slide.body}
-        </p>
+        <p className="t-15 font-light text-text-l2 leading-relaxed mb-10">{slide.body}</p>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>

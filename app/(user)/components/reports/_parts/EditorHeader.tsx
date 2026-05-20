@@ -16,7 +16,7 @@ export function EditorHeader({ visibleCount, totalCount, onClose }: EditorHeader
       }}
     >
       <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-        <span className="t-13 font-medium text-(--text-l1)">Éditeur</span>
+        <span className="t-13 font-medium text-text-l1">Éditeur</span>
         <span className="t-13 text-text tabular-nums">
           {visibleCount} / {totalCount} blocs visibles
         </span>

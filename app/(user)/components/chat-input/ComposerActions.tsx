@@ -67,7 +67,7 @@ export function ComposerActions({
             : audioGenStatus === "error"
               ? "text-(--danger)"
               : input.trim()
-                ? "text-(--text-l2) hover:text-(--accent-teal)"
+                ? "text-text-l2 hover:text-(--accent-teal)"
                 : "text-(--text-l3) cursor-not-allowed"
         }`}
       >
@@ -99,7 +99,7 @@ export function ComposerActions({
             : codeExecStatus === "error"
               ? "text-(--danger)"
               : input.trim()
-                ? "text-(--text-l2) hover:text-(--accent-teal)"
+                ? "text-text-l2 hover:text-(--accent-teal)"
                 : "text-(--text-l3) cursor-not-allowed"
         }`}
       >
@@ -133,7 +133,7 @@ export function ComposerActions({
             : imageGenStatus === "error"
               ? "text-(--danger)"
               : input.trim()
-                ? "text-(--text-l2) hover:text-(--accent-teal)"
+                ? "text-text-l2 hover:text-(--accent-teal)"
                 : "text-(--text-l3) cursor-not-allowed"
         }`}
       >
@@ -162,7 +162,7 @@ export function ComposerActions({
         className={`transition-colors duration-base ${
           isRunning
             ? "text-(--text-l3) cursor-not-allowed"
-            : "text-(--text-l2) hover:text-(--accent-teal)"
+            : "text-text-l2 hover:text-(--accent-teal)"
         }`}
       >
         <svg
@@ -192,7 +192,7 @@ export function ComposerActions({
             ? "text-(--warn) animate-pulse"
             : attachment
               ? "text-(--accent-teal)"
-              : "text-(--text-l2) hover:text-(--accent-teal)"
+              : "text-text-l2 hover:text-(--accent-teal)"
         }`}
       >
         <svg
@@ -221,7 +221,7 @@ export function ComposerActions({
           className={`transition-colors duration-base ${
             input.trim()
               ? "text-(--accent-teal)"
-              : "text-(--text-l3) cursor-not-allowed hover:text-(--text-l2)"
+              : "text-(--text-l3) cursor-not-allowed hover:text-text-l2"
           }`}
           title="Envoyer"
         >

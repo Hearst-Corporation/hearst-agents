@@ -10,11 +10,7 @@ import { SIGNAL_SEVERITY } from "./constants";
 import type { TestState } from "./types";
 
 export function SectionTitle({ children }: { children: ReactNode }) {
-  return (
-    <h3 className="t-13 font-medium mb-4" style={{ color: "var(--text-l1)" }}>
-      {children}
-    </h3>
-  );
+  return <h3 className="t-13 font-medium mb-4 text-text-l1">{children}</h3>;
 }
 
 export function Input({

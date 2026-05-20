@@ -369,7 +369,7 @@ function ActiveVariantPanel({
       }}
     >
       <header className="flex items-center justify-between" style={{ gap: "var(--space-3)" }}>
-        <span className="t-13 font-medium text-(--text-l1)">
+        <span className="t-13 font-medium text-text-l1">
           {KIND_LABEL[kind]} · <span className="font-light text-text-faint">{variant.status}</span>
         </span>
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>

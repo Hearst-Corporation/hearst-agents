@@ -142,6 +142,11 @@
   /* ── Layout tokens (composants spécifiques) ── */
   --radius-card: 10px; /* Radius card preview (AssetCompare) */
   --height-compare-viewer: 320px; /* Hauteur viewer AssetCompare */
+  --height-compare-thumb-max: 200px; /* Preview image/vidéo AssetCompare */
+  --height-compare-thumb: 140px; /* Placeholder kind AssetCompare */
+  --min-height-kg-skeleton: 300px; /* Skeleton graphe KGStage */
+  --max-height-commandeur-list: 60vh; /* Liste résultats Commandeur */
+  --width-chat-bubble-max: 80%; /* Bulle utilisateur ChatStage */
   --width-drawer-min: 320px;
   --width-drawer-max: 520px;
   --max-height-notification-popover: clamp(200px, 40vh, 400px);
@@ -194,6 +199,8 @@
   /** Sidebar stats du SignalBoardStage (Q3-B). Largeur fixe pour le panneau
    * latéral droit avec cumul + répartition par kind. */
   --width-signal-sidebar: 280px;
+  --width-signal-stats-aside: 136px; /* Colonne stats SignalStage (desktop lg+) */
+  --max-height-simulation-reasoning: 240px; /* Bloc reasoning collapsible SimulationStage */
   /** LeftRail — contrat layout Shell (88px, LOCKED). */
   --width-rail-left: 88px;
   /** RightRail — contexte stage (Shell.tsx gère l'offset ; cf. commentaire --ct-rail-*). */
@@ -364,6 +371,9 @@
 
   /* ─── Hearst Connect — Letter spacing scale ─────────────────── */
   --tracking-tight: -0.02em;
+  --tracking-tight-sm: -0.015em; /* Titres compacts (KG detail, etc.) */
+  --tracking-micro: 0.04em; /* Hotkeys, meta PulseBar */
+  --tracking-badge: 0.06em; /* Badges mono uppercase (démo dev) */
   --tracking-editorial: -0.035em; /* H1 éditorial serré — cockpit greeting, wordmark */
   --tracking-hairline: 0.02em;
   --tracking-subtle: 0.03em;
@@ -382,6 +392,7 @@
   --leading-snug: 1.2;
   --leading-base: 1.45;
   --leading-normal: 1.5;
+  --leading-snug-body: 1.55; /* Error banners emphasis, résumés compare */
   --leading-relaxed: 1.6;
   --leading-loose: 1.8;
   
@@ -1330,6 +1341,7 @@
   --leading-tight: var(--leading-tight);
   --leading-snug: var(--leading-snug);
   --leading-base: var(--leading-base);
+  --leading-normal: var(--leading-normal);
   --leading-relaxed: var(--leading-relaxed);
   --leading-loose: var(--leading-loose);
   --h-input-max: var(--height-input-max);
@@ -1337,6 +1349,9 @@
 
   /* Hearst Connect — tracking scale (tracking-tight, tracking-display, …) */
   --tracking-tight: var(--tracking-tight);
+  --tracking-tight-sm: var(--tracking-tight-sm);
+  --tracking-micro: var(--tracking-micro);
+  --tracking-badge: var(--tracking-badge);
   --tracking-hairline: var(--tracking-hairline);
   --tracking-subtle: var(--tracking-subtle);
   --tracking-caption: var(--tracking-caption);
@@ -1371,11 +1386,25 @@
   --color-accent-teal: var(--accent-teal);
 
   
+  /* Typo cockpit — convention unique :
+   *   text-text        titre / corps principal
+   *   text-text-soft   corps secondaire
+   *   text-text-muted  labels, meta
+   *   text-text-faint  hints, placeholders
+   *   text-text-ghost  décoratif, timestamps
+   *   text-text-l1     titres de section (≈ 70 % blanc) — préférer à style inline
+   *   text-text-l2     meta secondaire (≈ 40 % blanc)
+   * Éviter text-[var(--text-*)] et text-(--text-*) dans le JSX. */
   --color-text: var(--text);
   --color-text-soft: var(--text-soft);
   --color-text-muted: var(--text-muted);
   --color-text-faint: var(--text-faint);
   --color-text-ghost: var(--text-ghost);
+  --color-text-l1: var(--text-l1);
+  --color-text-l2: var(--text-l2);
+  --color-text-on-accent-teal: var(--text-on-accent-teal);
+  --color-accent-teal-deep: var(--accent-teal-deep);
+  --color-gold: var(--gold);
 
   /* Hearst Connect — surface scale → classes `bg-surface-1`, `bg-surface-2` */
   --color-surface-1: var(--surface-1);

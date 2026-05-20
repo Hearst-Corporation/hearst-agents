@@ -123,12 +123,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
         style={{ gap: "var(--space-4)", marginBottom: "var(--space-4)" }}
       >
         <div className="flex-1 min-w-0">
-          <p
-            className="t-11 font-medium"
-            style={{ color: "var(--text-l1)", marginBottom: "var(--space-1)" }}
-          >
-            Plan multi-étapes
-          </p>
+          <p className="t-11 font-medium text-text-l1 mb-1">Plan multi-étapes</p>
           <p className="t-15 font-light text-text whitespace-pre-wrap">
             {plan.intent || "Plan sans intention"}
           </p>
@@ -152,7 +147,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
           className="flex items-center"
           style={{ gap: "var(--space-2)", marginBottom: "var(--space-4)" }}
         >
-          <span className="t-11 font-medium text-(--text-l1)">Apps requises</span>
+          <span className="t-11 font-medium text-text-l1">Apps requises</span>
           {plan.requiredApps.map((app) => (
             <span
               key={app}

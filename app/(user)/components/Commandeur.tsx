@@ -231,7 +231,7 @@ export function Commandeur() {
             {loading && <span className="t-11 font-light text-text-faint">Recherche…</span>}
           </div>
 
-          <div className="max-h-[60vh] overflow-y-auto px-12 pb-16 scrollbar-hide">
+          <div className="max-h-[var(--max-height-commandeur-list)] overflow-y-auto px-12 pb-16 scrollbar-hide">
             {sections.length === 0 ? (
               <p className="t-13 text-text-ghost font-light">Aucun résultat.</p>
             ) : (

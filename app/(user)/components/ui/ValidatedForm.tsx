@@ -37,5 +37,5 @@ export function ValidatedForm<T>({ schema, onValid, children }: ValidatedFormPro
 }
 
 export function FieldError({ name, errors }: { name: string; errors: Record<string, string> }) {
-  return errors[name] ? <p className="text-xs text-red-400 mt-1">{errors[name]}</p> : null;
+  return errors[name] ? <p className="t-9 text-(--danger) mt-1">{errors[name]}</p> : null;
 }

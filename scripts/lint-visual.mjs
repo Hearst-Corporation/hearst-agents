@@ -27,6 +27,8 @@ const SCAN_DIR = join(ROOT, "app");
 const STRICT_PATHS = [
   "app/(user)/components/right-panel/",
   "app/(user)/components/",
+  "app/(user)/_stages/",
+  "app/(user)/_shell/",
   "app/admin/_components/",
   "app/admin/_canvas/",
   "app/components/system/",

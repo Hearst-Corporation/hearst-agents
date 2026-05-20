@@ -221,7 +221,7 @@ function LoadingSkeleton() {
 
 function DemoBadge() {
   return (
-    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[0.06em]">
+    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[var(--tracking-badge)]">
       Démo · données fictives (dev)
     </span>
   );

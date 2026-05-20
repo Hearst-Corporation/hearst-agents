@@ -163,7 +163,7 @@ function EmptyArtifactState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 0",
+        padding: "var(--space-20) 0",
         textAlign: "center",
       }}
     >
@@ -187,8 +187,8 @@ function LoadingState() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 0",
-        gap: "10px",
+        padding: "var(--space-20) 0",
+        gap: "var(--space-2-5)",
       }}
     >
       <span
@@ -246,14 +246,14 @@ function PreviewPanel() {
 function VersionsList({ versions }: { versions: VersionRow[] }) {
   if (versions.length === 0) {
     return (
-      <div className="flex-1" style={{ padding: "14px 16px" }}>
+      <div className="flex-1" style={{ padding: "var(--space-3-5) var(--space-4)" }}>
         <p className="t-13 text-text-ghost">Aucune version disponible.</p>
       </div>
     );
   }
   return (
-    <div style={{ padding: "14px 16px" }}>
-      <div className="flex flex-col" style={{ gap: "8px" }}>
+    <div style={{ padding: "var(--space-3-5) var(--space-4)" }}>
+      <div className="flex flex-col gap-2">
         {versions.map((v, i) => (
           <div
             key={v.id}

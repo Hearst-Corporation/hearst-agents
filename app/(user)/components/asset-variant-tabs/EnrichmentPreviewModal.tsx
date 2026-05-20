@@ -62,7 +62,7 @@ export function EnrichmentPreviewModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col gap-1">
-          <span id="enrichment-preview-title" className="t-15 font-medium text-(--text-l1)">
+          <span id="enrichment-preview-title" className="t-15 font-medium text-text-l1">
             Prompt enrichi
           </span>
           <span className="t-11 font-light text-text-muted">
@@ -84,7 +84,7 @@ export function EnrichmentPreviewModal({
 
         {editingManually && (
           <div className="flex flex-col gap-2">
-            <span className="t-11 font-medium text-(--text-l1)">Modification manuelle</span>
+            <span className="t-11 font-medium text-text-l1">Modification manuelle</span>
             <textarea
               value={manualPrompt}
               onChange={(e) => setManualPrompt(e.target.value)}

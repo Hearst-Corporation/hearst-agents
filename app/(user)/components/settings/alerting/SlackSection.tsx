@@ -4,8 +4,8 @@
  * Section "Slack" — webhook URL, toggle, test.
  */
 
-import { Card } from "@hearst/cockpit-shell";
 import type { Dispatch } from "react";
+import { PanelCard } from "@/app/(user)/components/ui";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import { Btn, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
 import type { Action, State } from "./types";
@@ -37,7 +37,7 @@ export function SlackSection({ prefs, state, dispatch, onTest }: Props) {
   return (
     <section>
       <SectionTitle>Slack</SectionTitle>
-      <Card>
+      <PanelCard>
         <div className="flex flex-col gap-4">
           <Toggle
             checked={!!prefs.slack}
@@ -83,7 +83,7 @@ export function SlackSection({ prefs, state, dispatch, onTest }: Props) {
             </>
           )}
         </div>
-      </Card>
+      </PanelCard>
     </section>
   );
 }

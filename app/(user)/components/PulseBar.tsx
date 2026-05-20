@@ -218,10 +218,10 @@ export function PulseBar() {
           className="t-9 font-mono shrink-0 ml-3"
           style={{
             color: "var(--text-muted)",
-            padding: "2px var(--space-1)",
+            padding: "var(--space-0-5) var(--space-1)",
             border: "1px solid var(--border-soft)",
             borderRadius: "var(--radius-xs)",
-            letterSpacing: "0.04em",
+            letterSpacing: "var(--tracking-micro)",
           }}
         >
           ⌘K

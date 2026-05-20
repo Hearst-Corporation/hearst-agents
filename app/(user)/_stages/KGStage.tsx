@@ -481,7 +481,9 @@ function DetailPanel({
           <p className="t-11 text-(--text-ghost) uppercase tracking-[var(--tracking-caption)] mb-1">
             {node.type}
           </p>
-          <h3 className="t-18 font-medium tracking-[-.015em] text-(--text-soft)">{node.label}</h3>
+          <h3 className="t-18 font-medium tracking-[var(--tracking-tight-sm)] text-(--text-soft)">
+            {node.label}
+          </h3>
         </div>
         <button
           type="button"
@@ -677,7 +679,9 @@ export function KGStage({ mode }: KGStageProps) {
       </header>
 
       {/* Loading skeleton */}
-      {loading && <div className="min-h-[300px] animate-pulse rounded-xl bg-(--surface-1)" />}
+      {loading && (
+        <div className="min-h-[var(--min-height-kg-skeleton)] animate-pulse rounded-xl bg-(--surface-1)" />
+      )}
 
       {/* Error */}
       {!loading && error && <StageErrorBanner message={error} variant="emphasis" />}

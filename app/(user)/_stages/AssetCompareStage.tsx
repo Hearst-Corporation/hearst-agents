@@ -98,7 +98,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
         controls
         muted
         playsInline
-        className="w-full rounded-(--radius-card) max-h-[200px] object-cover bg-(--surface)"
+        className="w-full rounded-(--radius-card) max-h-[var(--height-compare-thumb-max)] object-cover bg-(--surface)"
       />
     );
   }
@@ -109,13 +109,13 @@ function AssetPreview({ asset }: { asset: Asset }) {
       <img
         src={ref}
         alt={asset.title}
-        className="w-full rounded-(--radius-card) max-h-[200px] object-cover bg-(--surface)"
+        className="w-full rounded-(--radius-card) max-h-[var(--height-compare-thumb-max)] object-cover bg-(--surface)"
       />
     );
   }
 
   return (
-    <div className="w-full h-[140px] rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
+    <div className="w-full h-[var(--height-compare-thumb)] rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
       <span className="t-11 text-(--text-decor-25)">{asset.kind}</span>
     </div>
   );
@@ -163,7 +163,9 @@ function AssetPane({
           <AssetPreview asset={asset} />
 
           {asset.summary && (
-            <p className="t-13 text-(--text-ghost) leading-[1.55] line-clamp-3">{asset.summary}</p>
+            <p className="t-13 text-(--text-ghost) leading-[var(--leading-snug-body)] line-clamp-3">
+              {asset.summary}
+            </p>
           )}
 
           <div className="flex flex-wrap gap-1.5">

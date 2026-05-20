@@ -109,7 +109,7 @@ export function ChatMissionRunInline() {
         <span className="text-text-faint">{MATCH_LABEL[request.matchKind]}</span>
       </div>
       <p className="t-13 text-text-soft leading-(--leading-body-tight)">
-        <span className="font-medium text-(--text-l1)">{request.missionName}</span>
+        <span className="font-medium text-text-l1">{request.missionName}</span>
         {request.scheduleLabel && (
           <span className="text-text-faint">
             {" — "}

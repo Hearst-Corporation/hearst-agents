@@ -69,12 +69,7 @@ export function WelcomePanel() {
       >
         {!activeThreadId && (
           <>
-            <p
-              className="t-13 font-medium"
-              style={{ color: "var(--text-l1)", marginBottom: "var(--space-4)" }}
-            >
-              Premier parcours
-            </p>
+            <p className="t-13 font-medium text-text-l1 mb-4">Premier parcours</p>
             <div style={{ marginBottom: "var(--space-8)" }}>
               {GUIDED_PATH.map((a) => (
                 <button key={a.step} type="button" onClick={a.action} className="cockpit-action">
@@ -87,15 +82,7 @@ export function WelcomePanel() {
           </>
         )}
 
-        <p
-          className="t-13 font-medium"
-          style={{
-            color: "var(--text-l1)",
-            marginBottom: "var(--space-8)",
-          }}
-        >
-          Raccourcis
-        </p>
+        <p className="t-13 font-medium text-text-l1 mb-8">Raccourcis</p>
         {QUICK_ACTIONS.map((a) => (
           <button key={a.label} type="button" onClick={a.action} className="cockpit-action">
             <span className="ca-label">{a.label}</span>

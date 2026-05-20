@@ -113,7 +113,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
           {STATUS_GLYPH[step.status]}
         </span>
         <div className="flex-1 min-w-0">
-          <p className="t-13 font-medium text-(--text-l1) truncate">{step.label}</p>
+          <p className="t-13 font-medium text-text-l1 truncate">{step.label}</p>
           <p className="t-11 font-light" style={{ color }}>
             {STATUS_LABEL[step.status]}
           </p>

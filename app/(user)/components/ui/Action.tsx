@@ -70,16 +70,16 @@ const SIZE_CLASSES: Record<ActionSize, string> = {
 };
 
 const PRIMARY_TONE: Record<ActionTone, string> = {
-  brand: "bg-(--accent-teal) text-[var(--text-on-accent-teal)] hover:opacity-90 active:opacity-80",
-  gold: "bg-[var(--gold)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
-  neutral: "bg-[var(--text)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
-  danger: "bg-(--danger) text-[var(--bg)] hover:opacity-90 active:opacity-80",
+  brand: "bg-(--accent-teal) text-text-on-accent-teal hover:opacity-90 active:opacity-80",
+  gold: "bg-gold text-text hover:opacity-90 active:opacity-80",
+  neutral: "bg-text text-background hover:opacity-90 active:opacity-80",
+  danger: "bg-(--danger) text-background hover:opacity-90 active:opacity-80",
 };
 
 const SECONDARY_TONE: Record<ActionTone, string> = {
   brand:
-    "border border-[var(--accent-teal-border)] text-(--accent-teal) bg-[var(--accent-teal-surface)] hover:border-[var(--accent-teal-border-hover)] hover:bg-[var(--accent-teal-bg-hover)]",
-  gold: "border border-[var(--gold-border)] text-(--gold) bg-[var(--gold-surface)] hover:bg-[var(--gold-bg-hover)]",
+    "border border-(--accent-teal-border) text-(--accent-teal) bg-(--accent-teal-surface) hover:border-(--accent-teal-border-hover) hover:bg-(--accent-teal-bg-hover)",
+  gold: "border border-(--gold-border) text-gold bg-(--gold-surface) hover:bg-(--gold-bg-hover)",
   neutral:
     "border border-(--border-shell) text-text-soft hover:border-(--border-default) hover:text-text",
   danger: "border border-(--danger) text-(--danger) hover:bg-(--danger)/5",
@@ -94,7 +94,7 @@ const GHOST_TONE: Record<ActionTone, string> = {
 
 const LINK_TONE: Record<ActionTone, string> = {
   brand: "text-(--accent-teal) border-b border-(--accent-teal) hover:opacity-80 px-0",
-  gold: "text-(--gold) border-b border-[var(--gold-border)] hover:opacity-80 px-0",
+  gold: "text-gold border-b border-(--gold-border) hover:opacity-80 px-0",
   neutral: "text-text-soft border-b border-(--border-default) hover:text-text px-0",
   danger: "text-(--danger) border-b border-(--danger) hover:opacity-80 px-0",
 };
@@ -140,7 +140,7 @@ export function Action(props: ActionProps) {
   const composed = [
     "inline-flex items-center justify-center gap-2 rounded-sm",
     "transition-colors duration-base",
-    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]",
+    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)",
     "disabled:opacity-50 disabled:cursor-not-allowed",
     sizeClass,
     FONT_WEIGHT[variant],

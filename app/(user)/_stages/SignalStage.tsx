@@ -473,10 +473,7 @@ export function SignalStage({ mode }: { mode: string }) {
         </div>
 
         {/* Sidebar stats */}
-        <aside
-          className="hidden lg:flex flex-col shrink-0"
-          style={{ width: "136px", gap: "var(--space-6)", paddingTop: "var(--space-1)" }}
-        >
+        <aside className="hidden lg:flex flex-col shrink-0 w-[var(--width-signal-stats-aside)] gap-6 pt-1">
           <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
             <span className="t-11 font-light text-text-ghost">Cumul</span>
             <p className="t-28 font-light text-text">{stats.total}</p>

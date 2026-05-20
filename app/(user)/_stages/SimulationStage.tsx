@@ -420,7 +420,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                   className="t-11 font-mono text-text-ghost overflow-auto"
                   style={{
                     padding: "var(--space-3) var(--space-4)",
-                    maxHeight: "240px",
+                    maxHeight: "var(--max-height-simulation-reasoning)",
                     whiteSpace: "pre-wrap",
                     lineHeight: "var(--leading-relaxed)",
                   }}

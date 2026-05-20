@@ -55,7 +55,7 @@ function SuggestionCard({
         </div>
       </div>
       <span
-        className="text-text-ghost group-hover:text-[var(--accent-teal-deep)] transition-colors"
+        className="text-text-ghost group-hover:text-text-accent-teal-deep transition-colors"
         aria-hidden
       >
         →

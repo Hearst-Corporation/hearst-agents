@@ -50,7 +50,7 @@ export function VariantEmptyState({
       {kind === "video" && (
         <div className="flex flex-col gap-3">
           <label className="flex flex-col gap-2">
-            <span className="t-11 font-medium text-(--text-l1)">Fournisseur</span>
+            <span className="t-11 font-medium text-text-l1">Fournisseur</span>
             <select
               value={videoProvider}
               onChange={(e) => setVideoProvider(e.target.value === "heygen" ? "heygen" : "runway")}
@@ -64,7 +64,7 @@ export function VariantEmptyState({
           {/* [S2-F] Toggle ratio Runway */}
           {videoProvider === "runway" && (
             <div className="flex flex-col gap-2">
-              <span className="t-11 font-medium text-(--text-l1)">Format</span>
+              <span className="t-11 font-medium text-text-l1">Format</span>
               <div className="flex items-center">
                 <button
                   type="button"

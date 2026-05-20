@@ -90,7 +90,7 @@ export function ConnectionsHub() {
                 <button
                   type="button"
                   onClick={hub.onClearAttentionFilter}
-                  className="t-11 font-medium text-[var(--accent-teal-deep)] hover:text-(--accent-teal) transition-colors"
+                  className="t-11 font-medium text-text-accent-teal-deep hover:text-(--accent-teal) transition-colors"
                 >
                   ← Voir tout le catalogue
                 </button>
