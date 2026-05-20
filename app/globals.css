@@ -421,8 +421,8 @@
   --color-success: #2dc558;
   --color-success-bg: rgba(45, 197, 88, 0.1);
   --color-success-border: rgba(45, 197, 88, 0.2);
-  /* Color tokens — sémantique success UI (badges "publié", "connecté", "persona") — alias teal DS Cockpit */
-  --color-success-text: color-mix(in srgb, var(--ct-accent-teal) 75%, white);
+  /* Color tokens — sémantique success UI (badges "publié", "connecté", "persona") — famille alignée sur --color-success vert universel */
+  --color-success-text: color-mix(in srgb, var(--color-success) 75%, white);
   --color-warning: #f59e0b;
   --color-warning-bg: rgba(245, 158, 11, 0.1);
   --color-warning-border: rgba(245, 158, 11, 0.2);
