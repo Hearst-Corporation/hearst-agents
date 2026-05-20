@@ -2376,7 +2376,9 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 /* removed in iter 2 — migrated to <Action> */
 /* .ghost-btn-solid, .ghost-btn-ghost, .ghost-btn-accent-teal */
 
-button:focus-visible:not([data-no-fv-fallback]) {
+/* data-no-fv-fallback : attribut de fuite si un composant gère son propre focus-visible
+   (ex. <Action> injecte son propre box-shadow — ajouter data-no-fv-fallback sur l'élément natif) */
+button:focus-visible {
   outline: 1px solid var(--accent-teal-border-hover);
   outline-offset: 1px;
 }
