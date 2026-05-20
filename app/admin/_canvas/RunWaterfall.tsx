@@ -75,8 +75,17 @@ export default function RunWaterfall({
         onClick={handleScrubberClick}
         onKeyDown={(e) => {
           if (disabled) return;
-          if (e.key === "ArrowRight") onSeek(Math.min(1, progress + 0.05));
-          if (e.key === "ArrowLeft") onSeek(Math.max(0, progress - 0.05));
+          let next: number | null = null;
+          if (e.key === "ArrowRight") next = Math.min(1, progress + 0.05);
+          else if (e.key === "ArrowLeft") next = Math.max(0, progress - 0.05);
+          else if (e.key === "PageUp") next = Math.min(1, progress + 0.1);
+          else if (e.key === "PageDown") next = Math.max(0, progress - 0.1);
+          else if (e.key === "Home") next = 0;
+          else if (e.key === "End") next = 1;
+          if (next !== null) {
+            e.preventDefault();
+            onSeek(next);
+          }
         }}
       >
         <div

@@ -316,6 +316,8 @@ function ApprovalBar({
         onClick={handleApprove}
         className="rounded-(--radius-pill)"
         aria-label="Approuver toutes les étapes"
+        aria-disabled={approving ? true : undefined}
+        title={approving ? "Approbation en cours…" : undefined}
       >
         {approving ? "Approbation…" : "Approuver tout"}
       </Action>

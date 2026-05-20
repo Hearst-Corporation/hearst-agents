@@ -43,6 +43,10 @@ interface ActionBaseProps {
   className?: string;
   /** Aria-label obligatoire si pas de children visible (icon-only). */
   "aria-label"?: string;
+  /** aria-disabled : annonce l'état désactivé aux lecteurs d'écran sans bloquer le focus. */
+  "aria-disabled"?: boolean;
+  /** title : tooltip natif + hint lecteur d'écran. */
+  title?: string;
   testId?: string;
 }
 
@@ -214,6 +218,8 @@ export function Action(props: ActionProps) {
       disabled={isDisabled}
       aria-busy={loading || undefined}
       aria-label={props["aria-label"]}
+      aria-disabled={props["aria-disabled"]}
+      title={props.title}
       data-testid={testId}
       data-no-fv-fallback
       className={composed}

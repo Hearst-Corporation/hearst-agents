@@ -1,6 +1,6 @@
 "use client";
 
-import type { RefObject } from "react";
+import { type RefObject, useId } from "react";
 
 interface SaveTemplateFormProps {
   saveName: string;
@@ -23,6 +23,8 @@ export function SaveTemplateForm({
   onConfirm,
   onCancel,
 }: SaveTemplateFormProps) {
+  const nameId = useId();
+  const descriptionId = useId();
   return (
     <div
       data-testid="report-editor-save-form"
@@ -35,9 +37,12 @@ export function SaveTemplateForm({
         borderRadius: "var(--radius-xs)",
       }}
     >
-      <span className="t-9 font-mono uppercase text-text-muted">Nom du template</span>
+      <label htmlFor={nameId} className="t-9 font-mono uppercase text-text-muted">
+        Nom du template
+      </label>
       <input
         ref={saveNameRef}
+        id={nameId}
         type="text"
         value={saveName}
         onChange={(e) => onChangeName(e.target.value)}
@@ -53,7 +58,11 @@ export function SaveTemplateForm({
           outline: "none",
         }}
       />
+      <label htmlFor={descriptionId} className="sr-only">
+        Description optionnelle
+      </label>
       <input
+        id={descriptionId}
         type="text"
         value={saveDesc}
         onChange={(e) => onChangeDesc(e.target.value)}

@@ -512,7 +512,6 @@ button, a, input, textarea, select, [role="button"], .ct-product-host {
   display: flex; flex-direction: column; gap: 8px;
   min-width: 0;
   box-shadow: var(--ct-shadow-depth);
-  min-width: 0;
 }
 .ct-kpi-card.accent {
   background:
@@ -587,9 +586,13 @@ button, a, input, textarea, select, [role="button"], .ct-product-host {
   font-size: 13px; font-family: inherit; line-height: 1.5;
   resize: none;
   outline: none;
-  outline: none;
 }
 .ct-chat-input::placeholder { color: var(--ct-text-muted); }
+.ct-chat-input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ct-accent-soft, color-mix(in srgb, var(--ct-accent) 35%, transparent));
+  border-radius: 6px;
+}
 .ct-chat-send {
   flex-shrink: 0;
   width: 36px; height: 36px;
@@ -681,8 +684,8 @@ button, a, input, textarea, select, [role="button"], .ct-product-host {
               box-shadow var(--ct-dur-base) var(--ct-ease);
 }
 .ct-chat-settings-input::placeholder { color: var(--ct-text-muted); }
-.ct-chat-settings-input:focus,
-.ct-chat-settings-select:focus {
+.ct-chat-settings-input:focus-visible,
+.ct-chat-settings-select:focus-visible {
   border-color: var(--ct-border-accent);
   box-shadow: 0 0 0 3px var(--ct-accent-soft);
 }

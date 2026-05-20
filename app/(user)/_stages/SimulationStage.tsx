@@ -283,6 +283,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                     value={variable.key}
                     onChange={(e) => updateVariable(idx, { key: e.target.value })}
                     placeholder="Variable"
+                    aria-label="Variable"
                     className="flex-1 min-w-0 bg-transparent t-13 font-light text-[var(--text-faint)] placeholder:text-[var(--text-ghost)] focus:outline-none focus:border-[var(--border-input)]"
                     style={{
                       padding: "var(--space-2) var(--space-3)",
@@ -297,6 +298,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                     value={variable.value}
                     onChange={(e) => updateVariable(idx, { value: e.target.value })}
                     placeholder="Valeur"
+                    aria-label="Valeur"
                     className="flex-1 min-w-0 bg-transparent t-13 font-light text-[var(--text-faint)] placeholder:text-[var(--text-ghost)] focus:outline-none focus:border-[var(--border-input)]"
                     style={{
                       padding: "var(--space-2) var(--space-3)",

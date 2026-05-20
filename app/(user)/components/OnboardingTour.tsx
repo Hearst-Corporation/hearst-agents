@@ -13,7 +13,8 @@
  * du produit en 30s, pas de tout expliquer. Tokens design system uniquement.
  */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 const STORAGE_KEY = "hearst.onboarded";
 
@@ -91,16 +92,25 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
     }
   }, [step, close]);
 
-  // Hotkey Escape pour skip
+  const dialogRef = useModalA11y<HTMLDivElement>(open, { onClose: close, autoFocus: false });
+  const nextBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Hotkeys Enter / ArrowRight → handleNext (Escape délégué à useModalA11y)
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      else if (e.key === "Enter" || e.key === "ArrowRight") handleNext();
+      if (e.key === "Enter" || e.key === "ArrowRight") handleNext();
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [open, close, handleNext]);
+  }, [open, handleNext]);
+
+  // Focus CTA au mount et à chaque step
+  useEffect(() => {
+    if (!open) return;
+    const t = setTimeout(() => nextBtnRef.current?.focus(), 0);
+    return () => clearTimeout(t);
+  }, [open, step]);
 
   if (!open) return null;
 
@@ -108,6 +118,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-label="Bienvenue dans Hearst OS"
       style={{
@@ -189,6 +200,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
           </div>
 
           <button
+            ref={nextBtnRef}
             type="button"
             onClick={handleNext}
             className="t-13 font-medium transition-opacity hover:opacity-90"
