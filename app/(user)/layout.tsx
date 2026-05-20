@@ -45,7 +45,7 @@ function FocusModeStyles() {
 // car il n'est pas derrière ces couches). On neutralise UNIQUEMENT en isHub :
 //   • AmbientLayers : display:none des deux <div data-ambient> (filter:blur +
 //     mask-image → supprimés physiquement, pas juste cachés par opacity).
-//   • .vision-glass / .vision-btn-glass / .orbital-chip / .halo-core-badge
+//   • .vision-glass / .orbital-chip / .halo-core-badge
 //     / .ghost-overlay-backdrop / .kg-chip : backdrop-filter → none, fond
 //     opaque via var(--bg) (#000000 par défaut, #050607 thème robotflow)
 //     pour éviter zones claires. (--surface = rgba(255,255,255,0.02), quasi
@@ -72,11 +72,6 @@ function HubModeStyles() {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         background: var(--bg) !important;
-      }
-      .vision-btn-glass {
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        background: var(--border-input) !important;
       }
       .orbital-chip {
         backdrop-filter: none !important;

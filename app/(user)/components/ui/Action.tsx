@@ -24,7 +24,7 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
 export type ActionVariant = "primary" | "secondary" | "ghost" | "link";
-export type ActionTone = "brand" | "gold" | "neutral" | "danger";
+export type ActionTone = "brand" | "gold" | "neutral" | "danger" | "warn";
 export type ActionSize = "sm" | "md";
 
 interface ActionBaseProps {
@@ -74,6 +74,7 @@ const PRIMARY_TONE: Record<ActionTone, string> = {
   gold: "bg-[var(--gold)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
   neutral: "bg-[var(--text)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
   danger: "bg-(--danger) text-[var(--bg)] hover:opacity-90 active:opacity-80",
+  warn: "bg-(--warn-surface) text-(--warn) border border-(--warn-border) hover:opacity-90 active:opacity-80",
 };
 
 const SECONDARY_TONE: Record<ActionTone, string> = {
@@ -83,6 +84,7 @@ const SECONDARY_TONE: Record<ActionTone, string> = {
   neutral:
     "border border-(--border-shell) text-text-soft hover:border-(--border-default) hover:text-text",
   danger: "border border-(--danger) text-(--danger) hover:bg-(--danger)/5",
+  warn: "border border-(--warn-border) text-(--warn) bg-(--warn-surface) hover:opacity-90",
 };
 
 const GHOST_TONE: Record<ActionTone, string> = {
@@ -90,6 +92,7 @@ const GHOST_TONE: Record<ActionTone, string> = {
   gold: "text-text-faint hover:text-(--gold)",
   neutral: "text-text-faint hover:text-text",
   danger: "text-text-faint hover:text-(--danger)",
+  warn: "text-text-faint hover:text-(--warn)",
 };
 
 const LINK_TONE: Record<ActionTone, string> = {
@@ -97,6 +100,7 @@ const LINK_TONE: Record<ActionTone, string> = {
   gold: "text-(--gold) border-b border-[var(--gold-border)] hover:opacity-80 px-0",
   neutral: "text-text-soft border-b border-(--border-default) hover:text-text px-0",
   danger: "text-(--danger) border-b border-(--danger) hover:opacity-80 px-0",
+  warn: "text-(--warn) border-b border-(--warn-border) hover:opacity-80 px-0",
 };
 
 const FONT_WEIGHT: Record<ActionVariant, string> = {
@@ -211,6 +215,7 @@ export function Action(props: ActionProps) {
       aria-busy={loading || undefined}
       aria-label={props["aria-label"]}
       data-testid={testId}
+      data-no-fv-fallback
       className={composed}
     >
       {content}

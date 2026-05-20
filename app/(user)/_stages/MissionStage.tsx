@@ -310,10 +310,11 @@ function ApprovalBar({
       </div>
       <Action
         variant="primary"
-        tone="brand"
+        tone="warn"
         size="md"
-        loading={approving}
+        disabled={approving}
         onClick={handleApprove}
+        className="rounded-(--radius-pill)"
         aria-label="Approuver toutes les étapes"
       >
         {approving ? "Approbation…" : "Approuver tout"}

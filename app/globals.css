@@ -2376,9 +2376,10 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 /* removed in iter 2 — migrated to <Action> */
 /* .ghost-btn-solid, .ghost-btn-ghost, .ghost-btn-accent-teal */
 
-/* data-no-fv-fallback : attribut de fuite si un composant gère son propre focus-visible
-   (ex. <Action> injecte son propre box-shadow — ajouter data-no-fv-fallback sur l'élément natif) */
-button:focus-visible {
+/* data-no-fv-fallback : opt-out du fallback focus-visible global.
+   Les composants DS (<Action>, etc.) posent data-no-fv-fallback sur l'élément
+   natif <button> et gèrent eux-mêmes leur focus-visible:ring — évite double-outline. */
+button:focus-visible:not([data-no-fv-fallback]) {
   outline: 1px solid var(--accent-teal-border-hover);
   outline-offset: 1px;
 }
@@ -2817,12 +2818,7 @@ button:focus-visible {
   }
 
   /* removed in iter 2 — migrated to <Action> */
-  /* .vision-btn-primary, .vision-btn-glass */
-
-  .vision-btn-glass {
-    /* kept for HubModeStyles backdrop-filter override in layout.tsx */
-    /* visual styles removed — only targeted by hub-mode CSS for webview compositing */
-  }
+  /* .vision-btn-primary */
 
   .vision-segmented-track {
     background: var(--overlay-scrim-soft);
