@@ -11,6 +11,7 @@ const TABS = [
   { href: "/admin/orchestrator/telemetry", label: "Telemetry" },
   { href: "/admin/orchestrator/quarantine", label: "Quarantaine" },
   { href: "/admin/orchestrator/release", label: "Release" },
+  { href: "/admin/orchestrator/tools", label: "Tools" },
 ];
 
 export function HomShell({ current, children }: { current: string; children: React.ReactNode }) {
