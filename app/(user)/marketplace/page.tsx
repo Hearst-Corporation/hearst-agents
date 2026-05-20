@@ -71,8 +71,8 @@ const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
     label: "Rapport",
   },
   persona: {
-    /* TODO iter 2 : créer --color-success-* tokens — en attendant, text-(--ct-accent-teal) aligné DS Cockpit */
-    badge: "bg-(--ct-surface-2) text-(--ct-accent-teal) border border-(--ct-border)",
+    badge:
+      "bg-(--color-success-bg) text-(--color-success-text) border border-(--color-success-border)",
     label: "Persona",
   },
 };

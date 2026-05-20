@@ -98,8 +98,7 @@ export default async function AppsPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <p className="font-medium t-13">{app.name}</p>
-                    {/* TODO iter 2 : créer --color-success-* tokens — badge "Connecté" utilise --ct-accent-teal aligné DS Cockpit */}
-                    <span className="t-11 px-2 py-0.5 bg-(--ct-surface-2) text-(--ct-accent-teal) border border-(--ct-border) rounded-full">
+                    <span className="t-11 px-2 py-0.5 bg-(--color-success-bg) text-(--color-success-text) border border-(--color-success-border) rounded-full">
                       Connecté
                     </span>
                   </div>

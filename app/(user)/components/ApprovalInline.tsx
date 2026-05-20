@@ -207,27 +207,31 @@ export function ApprovalInline({
             Approuver
           </Action>
           {onEdit && (
-            <button
-              type="button"
+            <Action
+              variant="ghost"
+              tone="neutral"
+              size="sm"
+              className="t-9"
               onClick={onEdit}
               disabled={pending !== null}
-              className="ghost-btn-solid ghost-btn-ghost t-9"
-              data-testid="approval-edit"
+              testId="approval-edit"
               aria-label={`Modifier l'action ${kind} avant approbation`}
             >
-              <span>Modifier</span>
-            </button>
+              Modifier
+            </Action>
           )}
-          <button
-            type="button"
+          <Action
+            variant="ghost"
+            tone="neutral"
+            size="sm"
+            className="t-9"
             onClick={handleSkip}
             disabled={pending !== null}
-            className="ghost-btn-solid ghost-btn-ghost t-9"
-            data-testid="approval-skip"
+            testId="approval-skip"
             aria-label={`Sauter l'action ${kind} sans l'exécuter`}
           >
-            <span>{pending === "skip" ? "…" : "Sauter"}</span>
-          </button>
+            {pending === "skip" ? "…" : "Sauter"}
+          </Action>
         </div>
 
         {/* Bloc d'erreur d'action — visible si la dernière approbation/skip a

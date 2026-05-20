@@ -50,8 +50,8 @@ const REPORTS: Report[] = [
 ];
 
 const STATUS_STYLES: Record<StatusLabel, string> = {
-  /* TODO iter 2 : créer --color-success-* tokens — "publié" utilise --ct-accent-teal aligné DS Cockpit */
-  publié: "bg-(--ct-surface-2) text-(--ct-accent-teal) border border-(--ct-border)",
+  publié:
+    "bg-(--color-success-bg) text-(--color-success-text) border border-(--color-success-border)",
   brouillon: "bg-amber-500/10 text-amber-400 border border-amber-500/20",
   archivé: "bg-(--ct-surface-1) text-(--ct-text-muted) border border-(--ct-border)",
 };

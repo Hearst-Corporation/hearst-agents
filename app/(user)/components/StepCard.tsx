@@ -14,6 +14,7 @@ import { useState } from "react";
 import type { PlanStepState } from "@/stores/runtime";
 import { ApprovalInline } from "./ApprovalInline";
 import { ProviderChip, type ProviderStatus } from "./ProviderChip";
+import { Action } from "./ui";
 
 export interface StepCardProps {
   step: PlanStepState;
@@ -158,15 +159,16 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
         >
           {step.error}
           {onRetry && (
-            <button
-              type="button"
+            <Action
+              variant="ghost"
+              tone="neutral"
+              size="sm"
+              className="t-9 ml-(--space-3)"
               onClick={onRetry}
-              className="ghost-btn-solid ghost-btn-ghost t-9"
-              style={{ marginLeft: "var(--space-3)" }}
-              data-testid="step-retry"
+              testId="step-retry"
             >
-              <span>Réessayer</span>
-            </button>
+              Réessayer
+            </Action>
           )}
         </div>
       )}

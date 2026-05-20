@@ -187,19 +187,16 @@ function NotConnectableFooter({ app }: { app: ComposioApp }) {
         Ce service demande une auth-config personnalisée côté Composio avant d&apos;être connectable
         depuis Hearst.
       </p>
-      <a
+      <Action
         href={dashboardUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="ghost-btn-solid ghost-btn-ghost w-full text-center"
-        style={{
-          color: "var(--text)",
-          borderColor: "var(--border-default)",
-          textDecoration: "none",
-        }}
+        external
+        variant="secondary"
+        tone="neutral"
+        size="md"
+        className="w-full text-center"
       >
         Configurer sur Composio →
-      </a>
+      </Action>
     </div>
   );
 }

@@ -22,7 +22,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { EmptyState } from "@/app/(user)/components/ui";
+import { Action, EmptyState } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -308,9 +308,16 @@ function ApprovalBar({
       <div className="approval-bar-t">
         Cette étape envoie un message — votre approbation est requise.
       </div>
-      <button className="vision-btn-primary appr-btn" disabled={approving} onClick={handleApprove}>
+      <Action
+        variant="primary"
+        tone="brand"
+        size="md"
+        loading={approving}
+        onClick={handleApprove}
+        aria-label="Approuver toutes les étapes"
+      >
         {approving ? "Approbation…" : "Approuver tout"}
-      </button>
+      </Action>
     </div>
   );
 }
