@@ -223,7 +223,7 @@ export default async function PublicApprovalPage({ params, searchParams }: PageP
               style={{
                 color: "var(--text-soft)",
                 marginTop: "var(--space-4)",
-                lineHeight: 1.6,
+                lineHeight: "var(--leading-relaxed)",
                 whiteSpace: "pre-wrap",
               }}
             >
@@ -381,7 +381,7 @@ function BrandedHeader() {
           alt="Hearst OS"
           width={64}
           height={16}
-          style={{ height: "16px", width: "auto" }}
+          style={{ height: "var(--space-4)", width: "auto" }}
           priority
         />
       </Link>

@@ -23,6 +23,134 @@ import { useStageData } from "@/stores/stage-data";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
+// ── Démo dev-only ─────────────────────────────────────────────────────────────
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+const DEMO_NODE_BASE = {
+  user_id: "demo",
+  tenant_id: "demo",
+  created_at: "2026-05-18T08:00:00.000Z",
+  updated_at: "2026-05-18T08:00:00.000Z",
+  properties: {} as Record<string, unknown>,
+};
+
+/** Graphe fictif — affiché uniquement en dev quand aucune donnée réelle. */
+const DEMO_GRAPH: { nodes: KgNode[]; edges: KgEdge[] } = {
+  nodes: [
+    { ...DEMO_NODE_BASE, id: "demo-n1", type: "project", label: "Mission Q2" },
+    { ...DEMO_NODE_BASE, id: "demo-n2", type: "company", label: "Client Acme" },
+    { ...DEMO_NODE_BASE, id: "demo-n3", type: "person", label: "Camille Roy" },
+    { ...DEMO_NODE_BASE, id: "demo-n4", type: "decision", label: "Cadrage budget" },
+    { ...DEMO_NODE_BASE, id: "demo-n5", type: "commitment", label: "Livraison 30 mai" },
+    { ...DEMO_NODE_BASE, id: "demo-n6", type: "topic", label: "Campagne display" },
+    { ...DEMO_NODE_BASE, id: "demo-n7", type: "company", label: "Studio Lumen" },
+    { ...DEMO_NODE_BASE, id: "demo-n8", type: "topic", label: "Rapport marché" },
+  ],
+  edges: [
+    {
+      id: "demo-e1",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n2",
+      type: "concerne",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e2",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n3",
+      type: "piloté par",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e3",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n4",
+      type: "décide",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e4",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n5",
+      type: "engage",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e5",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n1",
+      target_id: "demo-n6",
+      type: "porte sur",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e6",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n2",
+      target_id: "demo-n3",
+      type: "contact",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e7",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n6",
+      target_id: "demo-n7",
+      type: "réalisé par",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e8",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n4",
+      target_id: "demo-n5",
+      type: "implique",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e9",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n8",
+      target_id: "demo-n2",
+      type: "analyse",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+    {
+      id: "demo-e10",
+      user_id: "demo",
+      tenant_id: "demo",
+      source_id: "demo-n8",
+      target_id: "demo-n6",
+      type: "nourrit",
+      weight: 1,
+      created_at: DEMO_NODE_BASE.created_at,
+    },
+  ],
+};
+
 // ── Variants ─────────────────────────────────────────────────────────────────
 
 const CONTAINER_VARIANTS = {
@@ -140,15 +268,15 @@ const toSVG = (cx: number, cy: number, w = 760, h = 440) => ({
 // ── Node type color ───────────────────────────────────────────────────────────
 // Données fonctionnelles — conservées en JS (couleurs sémantiques par type de nœud)
 const NODE_TYPE_COLORS: Record<string, string> = {
-  person: "var(--accent-teal)",
-  company: "var(--accent-llm)",
-  project: "var(--accent-agent)",
-  decision: "var(--danger)",
-  commitment: "var(--dataviz-commitment)",
-  topic: "var(--text-muted)",
+  person: "rgba(94,229,195,0.85)",
+  company: "rgba(200,160,255,0.85)",
+  project: "rgba(255,200,80,0.85)",
+  decision: "rgba(255,140,100,0.85)",
+  commitment: "rgba(140,200,255,0.85)",
+  topic: "rgba(200,200,200,0.7)",
 };
 function nodeColor(type: string): string {
-  return NODE_TYPE_COLORS[type] ?? "var(--text-muted)";
+  return NODE_TYPE_COLORS[type] ?? "rgba(255,255,255,0.65)";
 }
 
 // ── Sub-composants ────────────────────────────────────────────────────────────
@@ -175,7 +303,7 @@ function ErrorBanner({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-comfortable"
+      className="px-[18px] py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {message}
     </motion.div>
@@ -231,7 +359,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
               y2={to.y}
               className={`kg-line${visEdges[edge.id] ? " draw" : ""}`}
               // stroke dynamique conditionnel — conservé en style JS
-              style={isHot ? { stroke: "var(--accent-teal-border)", strokeWidth: 1.5 } : undefined}
+              style={isHot ? { stroke: "rgba(94,229,195,0.45)", strokeWidth: 1.5 } : undefined}
             />
           );
         })}
@@ -263,13 +391,8 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             {/* Dot couleur type — background dynamique via color → conservé en style JS */}
             <span
               aria-hidden="true"
-              className="inline-block rounded-full shrink-0 align-middle"
-              style={{
-                width: "var(--size-dot)",
-                height: "var(--size-dot)",
-                marginRight: "var(--space-dot-gap)",
-                background: color,
-              }}
+              className="inline-block size-[6px] rounded-full shrink-0 align-middle mr-[5px]"
+              style={{ background: color }}
             />
             <div className="kg-chip">{node.label}</div>
           </div>
@@ -309,7 +432,7 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
                 onSelectNode(isSelected ? null : node.id);
               }
             }}
-            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-card cursor-pointer transition-[background,border-color] border ${
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] cursor-pointer transition-[background,border-color] border ${
               isSelected
                 ? "bg-(--accent-teal)/7 border-(--accent-teal)/20"
                 : "bg-(--surface-1) border-(--line-strong)"
@@ -322,7 +445,7 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
               style={{ background: color }}
             />
             <span className="t-13 text-(--text-soft) flex-1">{node.label}</span>
-            <span className="t-11 text-(--text-ghost) uppercase tracking-eyebrow">{node.type}</span>
+            <span className="t-11 text-(--text-ghost) uppercase tracking-[.06em]">{node.type}</span>
             <span className="t-11 text-(--text-decor-25)">
               {count} liaison{count !== 1 ? "s" : ""}
             </span>
@@ -356,19 +479,19 @@ function DetailPanel({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 8 }}
       transition={{ duration: 0.3, ease: VISION_EASE }}
-      className="p-5 rounded-xl bg-(--bg-elev) border border-(--line-strong) flex flex-col gap-4"
+      className="p-5 rounded-(--radius-card) bg-(--bg-elev) border border-white/8 flex flex-col gap-4"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-caption mb-1">{node.type}</p>
-          <h3 className="t-18 font-medium tracking-tight text-(--text-soft)">{node.label}</h3>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-1">{node.type}</p>
+          <h3 className="t-18 font-medium tracking-[-.015em] text-(--text-soft)">{node.label}</h3>
         </div>
         <button
           type="button"
           onClick={onClose}
           aria-label="Fermer le panneau"
-          className="bg-(--surface-2) border border-(--line-strong) rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
+          className="bg-white/6 border border-white/10 rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
         >
           ✕
         </button>
@@ -377,7 +500,7 @@ function DetailPanel({
       {/* Liaisons */}
       {linkedEdges.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-caption mb-2">
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">
             Liaisons ({linkedEdges.length})
           </p>
           <div className="flex flex-col gap-1">
@@ -400,11 +523,11 @@ function DetailPanel({
       {/* Propriétés */}
       {propEntries.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-caption mb-2">Propriétés</p>
+          <p className="t-11 text-(--text-ghost) uppercase tracking-[.08em] mb-2">Propriétés</p>
           <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
               <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
-                <span className="text-(--text-ghost) min-w-20">{k}</span>
+                <span className="text-(--text-ghost) min-w-[80px]">{k}</span>
                 <span className="text-(--text-muted) break-all">
                   {String(v).length > 80 ? `${String(v).slice(0, 77)}…` : String(v)}
                 </span>
@@ -466,24 +589,40 @@ export function KGStage({ mode }: KGStageProps) {
     };
   }, []);
 
+  // Dev only : si aucune donnée réelle, on injecte un graphe fictif via les
+  // helpers de layout existants (renderer SVG inchangé). En prod : inchangé.
+  const isDemo = IS_DEV && !loading && !error && nodes.length === 0;
+  const displayNodes = useMemo<DisplayNode[]>(
+    () => (isDemo ? layoutNodes(DEMO_GRAPH.nodes) : nodes),
+    [isDemo, nodes],
+  );
+  const displayEdges = useMemo<DisplayEdge[]>(
+    () => (isDemo ? buildEdges(layoutNodes(DEMO_GRAPH.nodes), DEMO_GRAPH.edges) : edges),
+    [isDemo, edges],
+  );
+
   // Push railItems → ContextRail
-  const clusters = useMemo(() => detectClusters(nodes, edges), [nodes, edges]);
+  const clusters = useMemo(
+    () => detectClusters(displayNodes, displayEdges),
+    [displayNodes, displayEdges],
+  );
   const selectedDisplayNode = useMemo(
-    () => (selectedNode ? (nodes.find((n) => n.id === selectedNode) ?? null) : null),
-    [selectedNode, nodes],
+    () => (selectedNode ? (displayNodes.find((n) => n.id === selectedNode) ?? null) : null),
+    [selectedNode, displayNodes],
   );
 
   useEffect(() => {
     const items: RailItem[] = [];
 
     if (selectedDisplayNode) {
-      const linkCount = edgeCountForNode(selectedDisplayNode.id, edges);
+      const linkCount = edgeCountForNode(selectedDisplayNode.id, displayEdges);
       items.push({ t: selectedDisplayNode.label, s: selectedDisplayNode.type, hot: true });
       items.push({ t: "Liaisons", s: String(linkCount) });
     } else {
-      if (nodes.length > 0) items.push({ t: "Nœud central", s: nodes[0]?.label ?? "—" });
-      items.push({ t: "Entités", s: String(nodes.length) });
-      items.push({ t: "Relations", s: String(edges.length) });
+      if (displayNodes.length > 0)
+        items.push({ t: "Nœud central", s: displayNodes[0]?.label ?? "—" });
+      items.push({ t: "Entités", s: String(displayNodes.length) });
+      items.push({ t: "Relations", s: String(displayEdges.length) });
       if (clusters > 1) items.push({ t: "Clusters", s: String(clusters) });
     }
 
@@ -491,13 +630,13 @@ export function KGStage({ mode }: KGStageProps) {
     return () => {
       useStageData.getState().clearShellData();
     };
-  }, [selectedDisplayNode, nodes, edges, clusters]);
+  }, [selectedDisplayNode, displayNodes, displayEdges, clusters]);
 
-  const isEmpty = !loading && !error && nodes.length === 0;
+  const isEmpty = !loading && !error && displayNodes.length === 0;
   const headerTitle = selectedDisplayNode
     ? `${selectedDisplayNode.label} — nœud central`
-    : nodes.length > 0
-      ? `${nodes[0]?.label ?? "Graphe"} — ${nodes.length} entité${nodes.length > 1 ? "s" : ""}`
+    : displayNodes.length > 0
+      ? `${displayNodes[0]?.label ?? "Graphe"} — ${displayNodes.length} entité${displayNodes.length > 1 ? "s" : ""}`
       : "Knowledge Graph";
 
   return (
@@ -508,24 +647,39 @@ export function KGStage({ mode }: KGStageProps) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-16"
     >
+      {/* Badge démo dev-only */}
+      {isDemo && (
+        <span
+          className="t-9 font-mono uppercase self-start"
+          style={{
+            padding: "var(--space-1) var(--space-2)",
+            color: "var(--text-faint)",
+            background: "var(--surface-1)",
+            borderRadius: "var(--radius-xs)",
+          }}
+        >
+          Démo · données fictives (dev)
+        </span>
+      )}
+
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 uppercase tracking-caption text-(--text-ghost)">
+        <p className="t-13 uppercase tracking-[.08em] text-(--text-ghost)">
           {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
         </p>
-        <h1 className="t-30 font-medium tracking-tight">
+        <h1 className="t-30 font-medium tracking-[-.02em]">
           {loading ? "Knowledge Graph" : headerTitle}
         </h1>
-        {!loading && !error && nodes.length > 0 && (
+        {!loading && !error && displayNodes.length > 0 && (
           <p className="t-14 text-(--text-faint)">
-            {edges.length} liaison{edges.length !== 1 ? "s" : ""}
+            {displayEdges.length} liaison{displayEdges.length !== 1 ? "s" : ""}
             {clusters > 1 ? ` · ${clusters} cluster${clusters > 1 ? "s" : ""}` : ""}
           </p>
         )}
       </header>
 
       {/* Loading skeleton */}
-      {loading && <div className="h-75 animate-pulse rounded-xl bg-(--surface-icon-tile)" />}
+      {loading && <div className="h-[300px] animate-pulse rounded-xl bg-white/5" />}
 
       {/* Error */}
       {!loading && error && <ErrorBanner message={error} />}
@@ -534,20 +688,20 @@ export function KGStage({ mode }: KGStageProps) {
       {isEmpty && <EmptyKGState />}
 
       {/* Contenu principal */}
-      {!loading && !error && nodes.length > 0 && (
+      {!loading && !error && displayNodes.length > 0 && (
         <div className="flex flex-col gap-5">
           {/* Vue Graph ou Liste */}
           {viewMode === "graph" ? (
             <GraphView
-              nodes={nodes}
-              edges={edges}
+              nodes={displayNodes}
+              edges={displayEdges}
               selectedNode={selectedNode}
               onSelectNode={setSelectedNode}
             />
           ) : (
             <ListView
-              nodes={nodes}
-              edges={edges}
+              nodes={displayNodes}
+              edges={displayEdges}
               selectedNode={selectedNode}
               onSelectNode={setSelectedNode}
             />
@@ -559,7 +713,7 @@ export function KGStage({ mode }: KGStageProps) {
               <DetailPanel
                 key={selectedDisplayNode.id}
                 node={selectedDisplayNode}
-                edges={edges}
+                edges={displayEdges}
                 onClose={() => setSelectedNode(null)}
               />
             )}
@@ -575,7 +729,7 @@ export function KGStage({ mode }: KGStageProps) {
                 className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border ${
                   viewMode === m
                     ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
-                    : "border-(--line-strong) bg-transparent text-(--text-faint)"
+                    : "border-white/8 bg-transparent text-(--text-faint)"
                 }`}
               >
                 {m === "graph" ? "Graphe" : "Liste"}

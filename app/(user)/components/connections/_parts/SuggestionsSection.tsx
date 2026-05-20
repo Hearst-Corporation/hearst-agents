@@ -36,7 +36,7 @@ function SuggestionCard({
       onClick={onClick}
       className="group flex items-center gap-4 text-left transition-colors"
     >
-      <AppLogo app={app} size={40} />
+      <AppLogo app={app} size={48} />
       <div className="flex-1 min-w-0">
         <div
           className="t-13 truncate group-hover:text-(--accent-teal) transition-colors"

@@ -159,7 +159,7 @@ function BrandedHeader() {
           alt="Hearst OS"
           width={64}
           height={16}
-          style={{ height: "16px", width: "auto" }}
+          style={{ height: "var(--space-4)", width: "auto" }}
           priority
         />
       </Link>
@@ -219,7 +219,7 @@ function CtaFooter() {
             color: "var(--text-soft)",
             margin: 0,
             maxWidth: "560px",
-            lineHeight: 1.55,
+            lineHeight: "var(--leading-comfortable)",
           }}
         >
           Hearst OS génère des rapports comme celui-ci, automatiquement et en continu.
@@ -367,7 +367,7 @@ export default async function PublicReportPage({ params }: PageProps) {
               style={{
                 color: "var(--text-soft)",
                 marginTop: "var(--space-4)",
-                lineHeight: 1.6,
+                lineHeight: "var(--leading-relaxed)",
               }}
             >
               {result.summary}
@@ -394,7 +394,7 @@ export default async function PublicReportPage({ params }: PageProps) {
               style={{
                 whiteSpace: "pre-wrap",
                 color: "var(--text-soft)",
-                lineHeight: 1.7,
+                lineHeight: "var(--leading-body)",
               }}
             >
               {result.narration}

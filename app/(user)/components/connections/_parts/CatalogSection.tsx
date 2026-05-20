@@ -108,7 +108,7 @@ export function Wallpaper({
           Aucun service dans cette catégorie.
         </p>
       ) : (
-        <div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2">
+        <div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3">
           {apps.map((app) => (
             <WallpaperTile
               key={app.key}
@@ -182,7 +182,7 @@ function WallpaperTile({
         filter,
       }}
     >
-      <AppLogo app={app} size={28} />
+      <AppLogo app={app} size={32} />
       {connected && (
         <span
           aria-hidden

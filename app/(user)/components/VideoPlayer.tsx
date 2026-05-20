@@ -125,7 +125,7 @@ export function VideoPlayer({ variant }: VideoPlayerProps) {
   }
 
   return (
-    <div className="border border-(--surface-2) rounded-md bg-(--surface-1) p-6">
+    <div className="border border-[var(--surface-2)] rounded-(--radius-card) bg-surface-1 p-6">
       <header className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <span
@@ -157,7 +157,7 @@ export function VideoPlayer({ variant }: VideoPlayerProps) {
               type="button"
               onClick={togglePiP}
               title="Afficher en Picture-in-Picture"
-              className={`t-11 transition-colors duration-base ${
+              className={`t-11 transition-colors duration-150 ${
                 isPiP ? "text-(--accent-teal)" : "text-(--text-faint) hover:text-(--accent-teal)"
               }`}
             >

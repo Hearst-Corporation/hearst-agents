@@ -136,6 +136,7 @@ export function ProviderChip({
       >
         {glyphFor(providerId)}
       </span>
+      {/* max-w-20 via Tailwind --spacing-20 = 80px ; pas de token --width-provider-label défini */}
       <span className="truncate max-w-20">{displayLabel}</span>
       <span
         aria-hidden

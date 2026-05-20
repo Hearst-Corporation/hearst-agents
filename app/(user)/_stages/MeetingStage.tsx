@@ -61,6 +61,75 @@ interface MeetingApiResponse {
   message?: string;
 }
 
+// ── Mode démo (dev only) ─────────────────────────────────────────────────────
+// Affiché uniquement en dev quand aucun meeting réel n'est branché, pour
+// pouvoir développer le design sans backend. Inchangé en production.
+
+const IS_DEV = process.env.NODE_ENV !== "production";
+
+const DEMO_MEETING_ID = "Revue commerciale · Q2";
+
+const DEMO_MEETING: MeetingApiResponse = {
+  meetingId: DEMO_MEETING_ID,
+  status: "in_call",
+  transcript: "Camille : Merci à tous d'être là. On fait le point sur le pipeline du trimestre.",
+  segments: [
+    {
+      speaker: "Camille",
+      text: "Merci à tous d'être là. On fait le point sur le pipeline du trimestre.",
+      start: 0,
+      end: 7,
+    },
+    {
+      speaker: "Julien",
+      text: "Côté nouveaux comptes, on est à dix-huit signatures, soit cent dix pour cent de l'objectif.",
+      start: 8,
+      end: 19,
+    },
+    {
+      speaker: "Camille",
+      text: "Excellent. Et sur le renouvellement des contrats grands comptes ?",
+      start: 20,
+      end: 26,
+    },
+    {
+      speaker: "Sarah",
+      text: "Deux dossiers à risque, je relance les décideurs cette semaine avec une offre ajustée.",
+      start: 27,
+      end: 37,
+    },
+    {
+      speaker: "Julien",
+      text: "Je peux préparer un comparatif tarifaire pour appuyer la négociation si besoin.",
+      start: 38,
+      end: 46,
+    },
+    {
+      speaker: "Camille",
+      text: "Parfait. On valide ça et on synchronise avant vendredi.",
+      start: 47,
+      end: 53,
+    },
+  ],
+  actionItems: [
+    {
+      action: "Relancer les deux comptes à risque avec une offre ajustée",
+      owner: "Sarah",
+      deadline: "Cette semaine",
+    },
+    {
+      action: "Préparer un comparatif tarifaire pour la négociation",
+      owner: "Julien",
+      deadline: "Avant vendredi",
+    },
+    {
+      action: "Synchroniser l'équipe commerciale sur le pipeline Q2",
+      owner: "Camille",
+      deadline: "Vendredi",
+    },
+  ],
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 /** Formate un offset en secondes → "MM:SS". */
@@ -84,20 +153,17 @@ function useElapsed(startRef: React.MutableRefObject<number | null>): string {
 
 /** Couleur avatar pseudo-stable par nom de speaker. */
 const SPEAKER_PALETTE = [
-  { bg: "var(--border-subtle)", color: "var(--text-soft)" },
-  { bg: "var(--mono-surface)", color: "var(--accent-llm)" },
-  { bg: "var(--gold-surface)", color: "var(--gold)" },
-  { bg: "var(--accent-teal-surface)", color: "var(--accent-teal)" },
-  {
-    bg: "var(--surface-2)",
-    color: "var(--dataviz-speaker-warm-to)",
-  },
+  { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" },
+  { bg: "rgba(140,100,255,.2)", color: "rgba(187, 158, 255, 1)" },
+  { bg: "rgba(255,188,58,.2)", color: "rgba(255, 188, 58, 1)" },
+  { bg: "rgba(94,229,195,.2)", color: "rgba(94,229,195,.9)" },
+  { bg: "rgba(255,120,80,.2)", color: "rgba(255, 144, 96, 1)" },
 ];
 
 function speakerColor(name: string) {
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
-  const fallback = { bg: "var(--border-subtle)", color: "var(--text-soft)" };
+  const fallback = { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" };
   return SPEAKER_PALETTE[Math.abs(hash) % SPEAKER_PALETTE.length] ?? fallback;
 }
 
@@ -111,6 +177,23 @@ function isLive(status: string): boolean {
 
 // ── Sub-composants ────────────────────────────────────────────────────────────
 
+function DemoBanner() {
+  return (
+    <div
+      className="t-9 font-mono uppercase tracking-wide"
+      style={{
+        alignSelf: "flex-start",
+        color: "var(--text-faint)",
+        background: "var(--surface-1)",
+        padding: "var(--space-1) var(--space-3)",
+        borderRadius: "var(--radius-pill, 9999px)",
+      }}
+    >
+      Démo · données fictives (dev)
+    </div>
+  );
+}
+
 function EmptyMeetingState() {
   return (
     <motion.div
@@ -122,17 +205,13 @@ function EmptyMeetingState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "var(--space-20) 0",
+        padding: "80px 0",
         textAlign: "center",
       }}
     >
       <p
         className="t-15"
-        style={{
-          color: "var(--text-faint)",
-          maxWidth: "var(--width-prose-tight)",
-          lineHeight: "var(--leading-relaxed)",
-        }}
+        style={{ color: "rgba(255,255,255,0.45)", maxWidth: "440px", lineHeight: 1.6 }}
       >
         Lance ou rejoins un meeting pour voir le transcript en direct.
       </p>
@@ -142,15 +221,15 @@ function EmptyMeetingState() {
 
 function LoadingSkeleton() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
       {[1, 2, 3].map((i) => (
         <div
           key={i}
           className="animate-pulse"
           style={{
-            height: "var(--space-14)",
-            borderRadius: "var(--radius-md)",
-            background: "var(--surface-icon-tile)",
+            height: "56px",
+            borderRadius: "12px",
+            background: "rgba(255,255,255,0.05)",
           }}
         />
       ))}
@@ -165,19 +244,17 @@ function ErrorBanner({ message }: { message: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
       style={{
-        padding: "var(--space-3-5) var(--space-4-5)",
-        borderRadius: "var(--radius-md)",
-        background: "var(--danger-surface-soft)",
-        borderLeft: "2px solid var(--danger-border)",
-        color: "var(--danger)",
-        fontSize: "var(--text-sm)",
-        lineHeight: "var(--leading-comfortable)",
+        padding: "14px 18px",
+        borderRadius: "12px",
+        background: "rgba(255,80,80,0.08)",
+        borderLeft: "2px solid rgba(255,120,120,0.55)",
+        color: "rgba(255,200,200,0.85)",
+        fontSize: "13px",
+        lineHeight: 1.55,
       }}
     >
-      <strong style={{ color: "var(--danger)", fontWeight: "var(--weight-semibold)" }}>
-        Erreur
-      </strong>{" "}
-      — {message}
+      <strong style={{ color: "rgba(255,180,180,0.95)", fontWeight: 600 }}>Erreur</strong> —{" "}
+      {message}
     </motion.div>
   );
 }
@@ -191,41 +268,41 @@ function TranscriptBubble({ seg, index }: { seg: Segment; index: number }) {
       variants={BUBBLE_VARIANTS}
       initial="hidden"
       animate="visible"
-      style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}
+      style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}
     >
       {/* Avatar */}
       <div
         style={{
           flexShrink: 0,
-          width: "var(--size-avatar-sm)",
-          height: "var(--size-avatar-sm)",
+          width: "32px",
+          height: "32px",
           borderRadius: "50%",
           background: bg,
           color,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "var(--text-xs)",
-          fontWeight: "var(--weight-semibold)",
-          marginTop: "var(--space-0-5)",
+          fontSize: "12px",
+          fontWeight: 600,
+          marginTop: "2px",
         }}
       >
         {speakerInitial(seg.speaker)}
       </div>
       {/* Body */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-0-5)", flex: 1 }}>
-        <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "baseline" }}>
-          <span style={{ fontSize: "var(--text-xs)", fontWeight: "var(--weight-semibold)", color }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "3px", flex: 1 }}>
+        <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
+          <span className="t-11 font-semibold" style={{ color }}>
             {name || "Intervenant"}
           </span>
-          <span style={{ fontSize: "var(--text-xs)", color: "var(--text-l2)" }}>
+          <span className="t-11" style={{ color: "rgba(255,255,255,0.35)" }}>
             {fmtTime(seg.start)}
           </span>
         </div>
         <p
+          className="t-13"
           style={{
-            fontSize: "var(--text-base)",
-            color: "var(--text-soft)",
+            color: "rgba(255,255,255,0.82)",
             lineHeight: "var(--leading-comfortable)",
             margin: 0,
           }}
@@ -244,51 +321,47 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "var(--space-2)",
-        padding: "var(--space-4) var(--space-5)",
-        borderRadius: "var(--radius-md)",
-        background: "var(--surface-row-hover)",
-        border: "1px solid var(--line-strong)",
+        gap: "8px",
+        padding: "16px 20px",
+        borderRadius: "14px",
+        background: "rgba(255,255,255,0.04)",
+        border: "1px solid rgba(255,255,255,0.07)",
       }}
     >
       <p
+        className="t-11 font-semibold"
         style={{
-          fontSize: "var(--text-xs)",
-          fontWeight: "var(--weight-semibold)",
-          color: "var(--text-faint)",
-          letterSpacing: "var(--tracking-eyebrow)",
-          marginBottom: "var(--space-1)",
+          color: "rgba(255,255,255,0.4)",
+          letterSpacing: ".06em",
+          marginBottom: "4px",
         }}
       >
         Actions requises
       </p>
       {items.map((item, i) => (
-        <div key={i} style={{ display: "flex", gap: "var(--space-2-5)", alignItems: "flex-start" }}>
+        <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
           <span
             style={{
-              marginTop: "var(--space-0-5)",
-              width: "var(--space-4)",
-              height: "var(--space-4)",
-              borderRadius: "var(--radius-xs)",
-              border: "1.5px solid var(--accent-teal-border)",
+              marginTop: "2px",
+              width: "16px",
+              height: "16px",
+              borderRadius: "4px",
+              border: "1.5px solid rgba(94,229,195,0.45)",
               flexShrink: 0,
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           />
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-0-5)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
             <span
-              style={{
-                fontSize: "var(--text-sm)",
-                color: "var(--text-soft)",
-                lineHeight: "var(--leading-body-tight)",
-              }}
+              className="t-13"
+              style={{ color: "rgba(255,255,255,0.82)", lineHeight: "var(--leading-body-tight)" }}
             >
               {item.action}
             </span>
             {(item.owner || item.deadline) && (
-              <span style={{ fontSize: "var(--text-xs)", color: "var(--text-l2)" }}>
+              <span className="t-11" style={{ color: "rgba(255,255,255,0.35)" }}>
                 {[item.owner, item.deadline].filter(Boolean).join(" · ")}
               </span>
             )}
@@ -304,11 +377,16 @@ function ActionItemsList({ items }: { items: ActionItem[] }) {
 export function MeetingStage({ mode }: { mode: string }) {
   const current = useStageStore((s) => s.current);
   // Normalise "" → null : le LeftRail ouvre avec meetingId="" (pas de meeting
-  // actif). Falsy → empty state existant.
+  // actif). Le ?? ne traitant pas "" comme nullish, sans ça la démo dev ne
+  // s'activerait jamais via la navigation.
   const realMeetingId = current.mode === "meeting" && current.meetingId ? current.meetingId : null;
-  const meetingId = realMeetingId;
 
-  const [data, setData] = useState<MeetingApiResponse | null>(null);
+  // Mode démo : actif uniquement en dev ET sans meeting réel. Le poll réel
+  // reste prioritaire — dès qu'un vrai meeting arrive, la démo disparaît.
+  const demoActive = IS_DEV && !realMeetingId;
+  const meetingId = realMeetingId ?? (demoActive ? DEMO_MEETING_ID : null);
+
+  const [data, setData] = useState<MeetingApiResponse | null>(demoActive ? DEMO_MEETING : null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -321,6 +399,15 @@ export function MeetingStage({ mode }: { mode: string }) {
 
   // Fetch + polling 5s
   useEffect(() => {
+    if (demoActive) {
+      // Pas de poll réseau : on injecte le meeting démo et on amorce le timer.
+      setData(DEMO_MEETING);
+      setError(null);
+      setLoading(false);
+      if (startedAt.current === null) startedAt.current = Date.now();
+      return;
+    }
+
     if (!meetingId) {
       setData(null);
       setError(null);
@@ -362,7 +449,7 @@ export function MeetingStage({ mode }: { mode: string }) {
       cancelled = true;
       clearInterval(interval);
     };
-  }, [meetingId]);
+  }, [meetingId, demoActive]);
 
   // Auto-scroll vers le bas quand le transcript grandit
   useEffect(() => {
@@ -432,14 +519,16 @@ export function MeetingStage({ mode }: { mode: string }) {
 
       {/* Content */}
       {meetingId && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+          {demoActive && <DemoBanner />}
+
           {/* Header */}
-          <header style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+          <header style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <p
+              className="t-11"
               style={{
-                fontSize: "var(--text-xs)",
-                color: "var(--text-l2)",
-                letterSpacing: "var(--tracking-eyebrow)",
+                color: "rgba(255,255,255,0.35)",
+                letterSpacing: ".06em",
               }}
             >
               {data
@@ -448,12 +537,12 @@ export function MeetingStage({ mode }: { mode: string }) {
             </p>
             <h1
               style={{
-                fontSize: "var(--text-3xl)",
-                fontWeight: "var(--weight-medium)",
-                letterSpacing: "var(--tracking-tight)",
+                fontSize: "28px",
+                fontWeight: 500,
+                letterSpacing: "-.02em",
                 display: "flex",
                 alignItems: "center",
-                gap: "var(--space-3-5)",
+                gap: "14px",
                 flexWrap: "wrap",
               }}
             >
@@ -463,21 +552,21 @@ export function MeetingStage({ mode }: { mode: string }) {
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "var(--space-1-5)",
-                    fontSize: "var(--text-xs)",
-                    fontWeight: "var(--weight-medium)",
-                    color: "var(--danger)",
-                    padding: "var(--space-1) var(--space-2-5)",
-                    borderRadius: "var(--radius-pill)",
-                    background: "var(--danger-surface-soft)",
+                    gap: "6px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    color: "rgba(255,90,90,0.9)",
+                    padding: "4px 10px",
+                    borderRadius: "9999px",
+                    background: "rgba(255,80,80,0.12)",
                   }}
                 >
                   <motion.span
                     style={{
-                      width: "var(--size-dot)",
-                      height: "var(--size-dot)",
+                      width: "5px",
+                      height: "5px",
                       borderRadius: "50%",
-                      background: "var(--danger)",
+                      background: "rgba(255,90,90,0.9)",
                       display: "inline-block",
                     }}
                     animate={{ opacity: [1, 0.3, 1] }}
@@ -489,12 +578,12 @@ export function MeetingStage({ mode }: { mode: string }) {
               {data && !live && (
                 <span
                   style={{
-                    fontSize: "var(--text-xs)",
-                    fontWeight: "var(--weight-medium)",
-                    color: "var(--text-faint)",
-                    padding: "var(--space-1) var(--space-2-5)",
-                    borderRadius: "var(--radius-pill)",
-                    background: "var(--card-flat-bg)",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.45)",
+                    padding: "4px 10px",
+                    borderRadius: "9999px",
+                    background: "rgba(255,255,255,0.06)",
                   }}
                 >
                   Terminé
@@ -502,7 +591,7 @@ export function MeetingStage({ mode }: { mode: string }) {
               )}
             </h1>
             {data && (
-              <p style={{ fontSize: "var(--text-base)", color: "var(--text-faint)" }}>
+              <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.45)" }}>
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length}{" "}
                 speaker
                 {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length !== 1
@@ -523,7 +612,7 @@ export function MeetingStage({ mode }: { mode: string }) {
           {/* Transcript */}
           <AnimatePresence initial={false}>
             {segments.length > 0 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                 {segments.map((seg, idx) => (
                   <TranscriptBubble key={`${seg.speaker}-${seg.start}`} seg={seg} index={idx} />
                 ))}

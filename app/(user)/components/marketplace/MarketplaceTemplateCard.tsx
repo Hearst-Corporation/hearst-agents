@@ -76,9 +76,7 @@ export function MarketplaceTemplateCard({
         <RatingChip avg={template.ratingAvg} count={template.ratingCount} />
       </header>
 
-      <h3 className="t-15 font-medium text-text" style={{ lineHeight: "var(--leading-snug)" }}>
-        {template.title}
-      </h3>
+      <h3 className="t-15 font-medium text-text leading-snug">{template.title}</h3>
 
       {template.description && (
         <p className="t-11 text-text-muted" style={{ lineHeight: "var(--leading-normal)" }}>

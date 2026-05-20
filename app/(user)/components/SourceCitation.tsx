@@ -80,7 +80,7 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
     sups.forEach((sup) => {
       sup.style.cursor = "pointer";
       sup.style.color = "var(--accent-teal)";
-      sup.style.fontWeight = "500";
+      sup.style.fontWeight = "var(--weight-medium)";
       sup.addEventListener("mouseenter", handleEnter);
       sup.addEventListener("mouseleave", handleLeave);
       sup.addEventListener("click", handleClick);

@@ -83,7 +83,7 @@ export function CodeEditor({
   return (
     <div
       className="flex h-full min-h-0 flex-1 overflow-hidden rounded-md border border-(--border-default) bg-[var(--rail)]"
-      style={{ fontFamily: "var(--font-mono)" }}
+      style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
     >
       <div
         ref={gutterRef}
@@ -96,7 +96,7 @@ export function CodeEditor({
           paddingRight: "var(--space-3)",
           color: "var(--text-faint)",
           minWidth: "var(--space-12)",
-          lineHeight: "1.5",
+          lineHeight: "var(--leading-body-tight)",
           background: "var(--surface-1)",
         }}
       >
@@ -119,8 +119,8 @@ export function CodeEditor({
           padding: "var(--space-3)",
           color: "var(--text)",
           caretColor: "var(--accent-teal)",
-          lineHeight: "1.5",
-          fontFamily: "var(--font-mono)",
+          lineHeight: "var(--leading-body-tight)",
+          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
         }}
         placeholder="# Code Python ou Node — ⌘Enter pour exécuter"
       />

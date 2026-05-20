@@ -90,7 +90,7 @@ function NavButton({ label, active, hotkey, onClick }: NavButtonProps) {
         borderRadius: "var(--radius-pill)",
         background: active ? "var(--text)" : "transparent",
         color: active ? "var(--bg)" : "var(--text-faint)",
-        fontWeight: active ? 600 : 500,
+        fontWeight: active ? "var(--weight-semibold)" : "var(--weight-medium)",
         border: "none",
         cursor: "pointer",
         transition: "all 0.1s ease-out",

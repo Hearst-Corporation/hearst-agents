@@ -327,7 +327,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
           style={{
             color: "var(--text-soft)",
             margin: "var(--space-4) 0 0 0",
-            lineHeight: 1.55,
+            lineHeight: "var(--leading-comfortable)",
           }}
         >
           Hearst OS génère votre Wrapped chaque mois, automatiquement.

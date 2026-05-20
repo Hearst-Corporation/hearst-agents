@@ -107,9 +107,9 @@ export function ResearchReportArticle({ content }: { content: string }) {
         switch (block.kind) {
           case "h1":
             return (
-              <h1 key={idx} className="t-28 font-light leading-tight tracking-tight text-text mt-2">
+              <h2 key={idx} className="t-28 font-light leading-tight tracking-tight text-text mt-2">
                 {block.text}
-              </h1>
+              </h2>
             );
           case "h2":
             return (

@@ -79,10 +79,7 @@ export function AppDrawer({
           <div className="flex items-center gap-4 mb-4">
             <AppLogo app={app} size={48} />
             <div className="min-w-0">
-              <h2
-                className="t-18 m-0"
-                style={{ fontWeight: "var(--weight-semibold)", color: "var(--text)" }}
-              >
+              <h2 className="t-18 font-semibold m-0" style={{ color: "var(--text)" }}>
                 {app.name}
               </h2>
               <p className="t-11 font-light text-text-faint m-0 mt-1">{categoryLabel(app)}</p>
@@ -292,7 +289,7 @@ function ActionBullet({ action }: { action: DiscoveredTool }) {
         ·
       </span>
       <div className="flex-1 min-w-0">
-        <div className="t-13" style={{ fontWeight: "var(--weight-medium)", color: "var(--text)" }}>
+        <div className="t-13 font-medium" style={{ color: "var(--text)" }}>
           {title}
         </div>
         {desc && (
