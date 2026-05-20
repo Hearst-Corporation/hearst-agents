@@ -1,6 +1,6 @@
 "use client";
 
-import { type CockpitProduct, CockpitShell } from "@hearst/cockpit-shell";
+import { type CockpitProduct, CockpitShell, HubBottomBar } from "@hearst/cockpit-shell";
 import { SessionProvider } from "next-auth/react";
 import { Commandeur } from "@/app/(user)/components/Commandeur";
 import { FocusBadge } from "@/app/(user)/components/FocusBadge";
@@ -53,6 +53,7 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
           <FocusBadge />
           <MobileBottomNav />
           <FocusModeStyles />
+          <HubBottomBar />
         </div>
       </CockpitShell>
     </SessionProvider>
