@@ -1,9 +1,23 @@
 "use client";
 
+/**
+ * <SeedEmptyState> — empty state admin avec primary CTA (create) + secondary CTA (seed dev).
+ *
+ * Spécifique aux ressources admin qui exposent `POST /api/admin/seed/[resource]`.
+ * Construit au-dessus de la primitive user `<EmptyState>` (mêmes tokens, même voix éditoriale).
+ *
+ * Variantes :
+ *   - "full" (default) : empty page complète, primary "Créer" + secondary "Charger samples dev"
+ *   - "compact"        : prompt compact en ligne, secondary seed uniquement
+ */
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { EmptyState } from "@/app/(user)/components/ui/EmptyState";
 import { toast } from "@/app/hooks/use-toast";
+
+export type SeedResource = "agents" | "tools" | "datasets" | "workflows" | "skills";
 
 interface Props {
   title: string;
@@ -12,12 +26,12 @@ interface Props {
   createHref: string;
   createLabel: string;
   /** Resource name for `POST /api/admin/seed/[resource]`. */
-  seedResource: "agents" | "tools" | "datasets" | "workflows" | "skills";
+  seedResource: SeedResource;
   /** Variant: full-page empty state vs. compact "load more samples" prompt. */
   variant?: "full" | "compact";
 }
 
-export default function EmptyState({
+export default function SeedEmptyState({
   title,
   description,
   createHref,
@@ -67,25 +81,8 @@ export default function EmptyState({
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-(--space-5) py-(--space-16) px-(--space-6) text-center">
-      <span className="size-(--space-16) flex items-center justify-center rounded-(--radius-2xl) bg-(--accent-teal-bg-active) border border-(--accent-teal)/30 text-(--accent-teal)">
-        <svg
-          className="size-(--space-8)"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 21a8 8 0 0 1 16 0" />
-        </svg>
-      </span>
-      <div className="flex flex-col gap-(--space-2) max-w-md">
-        <h2 className="t-15 font-medium text-text">{title}</h2>
-        <p className="t-12 leading-relaxed text-text-muted">{description}</p>
-      </div>
+    <div className="flex flex-col items-center gap-(--space-4)">
+      <EmptyState title={title} description={description} />
       <div className="flex flex-wrap items-center justify-center gap-(--space-3)">
         <Link
           href={createHref}

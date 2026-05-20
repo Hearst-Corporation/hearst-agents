@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import AgentCard from "../_components/AgentCard";
-import EmptyState from "../_components/EmptyState";
+import SeedEmptyState from "../_components/SeedEmptyState";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +52,7 @@ export default async function AgentsPage() {
       )}
 
       {agents.length === 0 && !error ? (
-        <EmptyState
+        <SeedEmptyState
           title="Pas encore d'agent"
           description="Les agents définissent les comportements des assistants Hearst. Crée-en un manuellement, ou charge un set dev (4 agents typés : email, calendrier, research, slack)."
           createHref="/admin/agents/new"
