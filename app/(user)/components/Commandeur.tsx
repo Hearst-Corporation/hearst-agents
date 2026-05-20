@@ -226,12 +226,12 @@ export function Commandeur() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Rechercher..."
-              className="flex-1 bg-transparent t-48 leading-none font-bold tracking-tight text-text placeholder-[var(--text-ghost)] outline-none"
+              className="flex-1 bg-transparent t-48 leading-none font-bold tracking-tight text-text placeholder-(--text-ghost) outline-none"
             />
             {loading && <span className="t-11 font-light text-text-faint">Recherche…</span>}
           </div>
 
-          <div className="max-h-[var(--max-height-commandeur-list)] overflow-y-auto px-12 pb-16 scrollbar-hide">
+          <div className="max-h-(--max-height-commandeur-list) overflow-y-auto px-12 pb-16 scrollbar-hide">
             {sections.length === 0 ? (
               <p className="t-13 text-text-ghost font-light">Aucun résultat.</p>
             ) : (

@@ -99,7 +99,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
         controls
         muted
         playsInline
-        className="w-full rounded-(--radius-card) max-h-[var(--height-compare-thumb-max)] object-cover bg-(--surface)"
+        className="w-full rounded-(--radius-card) max-h-(--height-compare-thumb-max) object-cover bg-(--surface)"
       />
     );
   }
@@ -110,13 +110,13 @@ function AssetPreview({ asset }: { asset: Asset }) {
       <img
         src={ref}
         alt={asset.title}
-        className="w-full rounded-(--radius-card) max-h-[var(--height-compare-thumb-max)] object-cover bg-(--surface)"
+        className="w-full rounded-(--radius-card) max-h-(--height-compare-thumb-max) object-cover bg-(--surface)"
       />
     );
   }
 
   return (
-    <div className="w-full h-[var(--height-compare-thumb)] rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
+    <div className="w-full h-(--height-compare-thumb) rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
       <span className="t-11 text-(--text-decor-25)">{asset.kind}</span>
     </div>
   );
@@ -164,7 +164,7 @@ function AssetPane({
           <AssetPreview asset={asset} />
 
           {asset.summary && (
-            <p className="t-13 text-(--text-ghost) leading-[var(--leading-snug-body)] line-clamp-3">
+            <p className="t-13 text-(--text-ghost) leading-(--leading-snug-body) line-clamp-3">
               {asset.summary}
             </p>
           )}
@@ -230,7 +230,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[var(--height-compare-viewer)] rounded-xl overflow-hidden bg-(--bg) border border-(--line-strong) cursor-col-resize select-none"
+      className="relative w-full h-(--height-compare-viewer) rounded-xl overflow-hidden bg-(--bg) border border-(--line-strong) cursor-col-resize select-none"
       onMouseDown={(e) => {
         dragging.current = true;
         updateFromEvent(e.clientX);
@@ -280,7 +280,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
 
       {/* Poignée centrale */}
       <div
-        className="absolute top-1/2 w-7 h-7 rounded-full bg-(--surface-2) border-2 border-(--border-shell) text-text flex items-center justify-center pointer-events-none shadow-[var(--shadow-stage-card)] -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 w-7 h-7 rounded-full bg-(--surface-2) border-2 border-(--border-shell) text-text flex items-center justify-center pointer-events-none shadow-(--shadow-stage-card) -translate-x-1/2 -translate-y-1/2"
         style={{ left: `${sliderX}%` }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -294,10 +294,10 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
       </div>
 
       {/* Labels latéraux */}
-      <div className="absolute bottom-2 left-[var(--space-2-5)] t-10 font-semibold text-(--text-muted) bg-[var(--overlay-scrim)] px-2 py-0.5 rounded-[var(--radius-xs)] pointer-events-none">
+      <div className="absolute bottom-2 left-(--space-2-5) t-10 font-semibold text-(--text-muted) bg-(--overlay-scrim) px-2 py-0.5 rounded-(--radius-xs) pointer-events-none">
         Gauche
       </div>
-      <div className="absolute bottom-2 right-[var(--space-2-5)] t-10 font-semibold text-(--text-muted) bg-[var(--overlay-scrim)] px-2 py-0.5 rounded-[var(--radius-xs)] pointer-events-none">
+      <div className="absolute bottom-2 right-(--space-2-5) t-10 font-semibold text-(--text-muted) bg-(--overlay-scrim) px-2 py-0.5 rounded-(--radius-xs) pointer-events-none">
         Droite
       </div>
     </div>
@@ -440,7 +440,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
         <EmptyState
           title="Sélectionne 2 assets."
           description="Choisis deux assets depuis la liste pour les comparer côte à côte."
-          className="max-w-[var(--width-empty-hint)] mx-auto"
+          className="max-w-(--width-empty-hint) mx-auto"
         />
       </motion.section>
     );
@@ -472,7 +472,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
           {[0, 1].map((i) => (
             <div
               key={i}
-              className="animate-pulse flex-[0_0_calc(50%-var(--space-2))] h-[var(--height-compare-viewer)] bg-(--surface-2) rounded-2xl"
+              className="animate-pulse flex-[0_0_calc(50%-var(--space-2))] h-(--height-compare-viewer) bg-(--surface-2) rounded-2xl"
             />
           ))}
         </div>

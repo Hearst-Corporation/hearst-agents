@@ -41,7 +41,7 @@ export function SegmentedRow<T extends string | number>({
               disabled={disabled}
               className={`t-13 font-light transition-colors duration-base disabled:opacity-50 disabled:cursor-not-allowed ${
                 active
-                  ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
+                  ? "border border-(--accent-teal) text-(--accent-teal) bg-(--accent-teal-surface)"
                   : "border border-(--border-shell) text-text-muted hover:text-text"
               }`}
               style={{
@@ -84,7 +84,7 @@ export function SegmentedInline<T extends string | number>({
             disabled={disabled}
             className={`t-11 font-light transition-colors duration-base disabled:opacity-50 disabled:cursor-not-allowed ${
               active
-                ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
+                ? "border border-(--accent-teal) text-(--accent-teal) bg-(--accent-teal-surface)"
                 : "border border-(--border-shell) text-text-muted hover:text-text"
             }`}
             style={{

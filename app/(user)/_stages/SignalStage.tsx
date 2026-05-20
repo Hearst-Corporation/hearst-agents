@@ -161,7 +161,7 @@ function FilterPill({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className="t-11 font-light shrink-0 inline-flex items-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border)]"
+      className="t-11 font-light shrink-0 inline-flex items-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border)"
       style={{
         padding: "var(--space-1) var(--space-3)",
         background: active ? "var(--surface-2)" : "transparent",
@@ -263,7 +263,7 @@ function SignalSkeleton() {
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="animate-pulse h-[var(--height-signal-skeleton-row)] bg-(--surface-1) border border-(--border-shell) rounded-(--radius-md)"
+          className="animate-pulse h-(--height-signal-skeleton-row) bg-(--surface-1) border border-(--border-shell) rounded-(--radius-md)"
         />
       ))}
     </div>
@@ -395,7 +395,7 @@ export function SignalStage({ mode }: { mode: string }) {
       {/* Filtres */}
       <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
         <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-light text-text-ghost shrink-0 w-[var(--width-signal-filter-label)]">
+          <span className="t-11 font-light text-text-ghost shrink-0 w-(--width-signal-filter-label)">
             Fenêtre
           </span>
           <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
@@ -410,7 +410,7 @@ export function SignalStage({ mode }: { mode: string }) {
           </div>
         </div>
         <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-light text-text-ghost shrink-0 w-[var(--width-signal-filter-label)]">
+          <span className="t-11 font-light text-text-ghost shrink-0 w-(--width-signal-filter-label)">
             Type
           </span>
           <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
@@ -473,7 +473,7 @@ export function SignalStage({ mode }: { mode: string }) {
         </div>
 
         {/* Sidebar stats */}
-        <aside className="hidden lg:flex flex-col shrink-0 w-[var(--width-signal-stats-aside)] gap-6 pt-1">
+        <aside className="hidden lg:flex flex-col shrink-0 w-(--width-signal-stats-aside) gap-6 pt-1">
           <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
             <span className="t-11 font-light text-text-ghost">Cumul</span>
             <p className="t-28 font-light text-text">{stats.total}</p>

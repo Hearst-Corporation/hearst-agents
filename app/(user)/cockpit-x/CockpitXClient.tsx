@@ -274,7 +274,7 @@ function CockpitContent({
         )}
         {/* Top Left - Ancrage système */}
         <header className="flex flex-col gap-1 mb-20">
-          <div className="t-10 uppercase tracking-[var(--tracking-display)] text-text-ghost font-mono font-bold">
+          <div className="t-10 uppercase tracking-(--tracking-display) text-text-ghost font-mono font-bold">
             {todayLabel}
           </div>
           <div className="flex items-center gap-2 mt-1">
@@ -282,7 +282,7 @@ function CockpitContent({
               className="rounded-pill bg-(--accent-teal) animate-pulse shrink-0"
               style={{ width: "var(--size-dot)", height: "var(--size-dot)" }}
             />
-            <span className="t-9 uppercase tracking-[var(--tracking-display)] text-text-ghost font-bold">
+            <span className="t-9 uppercase tracking-(--tracking-display) text-text-ghost font-bold">
               En écoute
             </span>
           </div>
@@ -310,7 +310,7 @@ function CockpitContent({
               {/* EXÉCUTION ACTIVE */}
               <div className="flex flex-col">
                 <div className="border-t border-(--line) pt-4 mb-6">
-                  <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
+                  <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
                     Exécution active
                   </h2>
                 </div>
@@ -339,7 +339,7 @@ function CockpitContent({
               {factoryRows.length > 1 && (
                 <div className="flex flex-col">
                   <div className="border-t border-(--line) pt-4 mb-6">
-                    <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
+                    <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
                       En file
                     </h2>
                   </div>
@@ -367,7 +367,7 @@ function CockpitContent({
           {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
             <div className="flex flex-col">
               <div className="border-t border-(--line) pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
+                <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
                   Radar
                 </h2>
               </div>
@@ -412,7 +412,7 @@ function CockpitContent({
           {proposals.length > 0 && (
             <div className="flex flex-col">
               <div className="border-t border-(--line) pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-[var(--tracking-display)] font-bold text-text-ghost">
+                <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
                   Initiatives
                 </h2>
               </div>

@@ -121,7 +121,7 @@ function RailButton({ label, hint, tagline, active, onClick, children }: RailBut
       aria-label={tooltip}
       aria-current={active ? "page" : undefined}
       title={tooltip}
-      className={`group relative flex size-11 items-center justify-center rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] ${
+      className={`group relative flex size-11 items-center justify-center rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover) ${
         active ? "text-text" : "text-(--text-ghost) hover:text-(--text-soft)"
       }`}
       style={{ background: active ? "var(--surface-1)" : "transparent" }}
@@ -185,7 +185,7 @@ export function LeftRail() {
   return (
     <aside
       aria-label="Navigation principale"
-      className="relative z-20 h-full w-[var(--width-rail-left)] shrink-0 hidden md:block"
+      className="relative z-20 h-full w-(--width-rail-left) shrink-0 hidden md:block"
     >
       <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center border-y-0 border-l-0 py-5">
         {/* Brand logo */}

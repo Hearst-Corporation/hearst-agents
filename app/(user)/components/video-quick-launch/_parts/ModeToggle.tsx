@@ -37,7 +37,7 @@ export function ModeToggle({
         aria-pressed={!batchMode}
         className={`t-11 font-light transition-colors duration-base disabled:opacity-50 ${
           !batchMode
-            ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
+            ? "border border-(--accent-teal) text-(--accent-teal) bg-(--accent-teal-surface)"
             : "border border-(--border-shell) text-text-muted hover:text-text"
         }`}
         style={{
@@ -55,7 +55,7 @@ export function ModeToggle({
         aria-pressed={batchMode}
         className={`t-11 font-light transition-colors duration-base disabled:opacity-50 ${
           batchMode
-            ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
+            ? "border border-(--accent-teal) text-(--accent-teal) bg-(--accent-teal-surface)"
             : "border border-(--border-shell) text-text-muted hover:text-text"
         }`}
         style={{

@@ -216,7 +216,7 @@ function EmptyMeetingState() {
       <EmptyState
         title="Aucun meeting actif."
         description="Lance ou rejoins un meeting pour voir le transcript en direct."
-        className="max-w-[var(--width-prose-narrow)] mx-auto"
+        className="max-w-(--width-prose-narrow) mx-auto"
       />
     </motion.div>
   );

@@ -139,7 +139,7 @@ export function NotificationBell() {
         onClick={() => setOpen((v) => !v)}
         aria-label={`Notifications${hasUnread ? ` (${unreadCount} non lues)` : ""}`}
         aria-expanded={open}
-        className={`relative inline-flex items-center justify-center rounded-md border-none cursor-pointer outline-none transition-colors duration-(--duration-base) ease-(--ease-standard) hover:bg-surface-1 focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border)] ${
+        className={`relative inline-flex items-center justify-center rounded-md border-none cursor-pointer outline-none transition-colors duration-(--duration-base) ease-(--ease-standard) hover:bg-surface-1 focus-visible:ring-1 focus-visible:ring-(--accent-teal-border) ${
           open ? "bg-surface-2" : "bg-transparent"
         }`}
         style={{

@@ -18,12 +18,10 @@ export function SaveHeader({ saveStatus, saveError, onSave }: Props) {
   return (
     <div className="flex items-center justify-end gap-3 flex-wrap">
       {saveStatus === "saved" && (
-        <span className="t-9 text-(--color-success) tracking-[var(--tracking-caption)]">
-          Enregistré
-        </span>
+        <span className="t-9 text-(--color-success) tracking-(--tracking-caption)">Enregistré</span>
       )}
       {saveStatus === "error" && (
-        <span className="t-9 text-(--color-error) tracking-[var(--tracking-caption)]">
+        <span className="t-9 text-(--color-error) tracking-(--tracking-caption)">
           {saveError ?? "Erreur"}
         </span>
       )}

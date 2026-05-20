@@ -35,7 +35,7 @@ export function RightRail({ title, items }: RightRailProps) {
   return (
     <aside
       aria-label="Contexte"
-      className="vision-rail-right preserve-3d relative z-20 hidden xl:flex xl:w-[var(--width-rail-right)] shrink-0 flex-col gap-2 border-l border-line-strong bg-surface px-5 py-10 2xl:w-[var(--width-rail-right-wide)] 2xl:px-8 2xl:py-14"
+      className="vision-rail-right preserve-3d relative z-20 hidden xl:flex xl:w-(--width-rail-right) shrink-0 flex-col gap-2 border-l border-line-strong bg-surface px-5 py-10 2xl:w-(--width-rail-right-wide) 2xl:px-8 2xl:py-14"
     >
       <h3 className="mb-3 pl-3 t-9 font-medium text-text-faint 2xl:mb-4 2xl:pl-4 2xl:t-11">
         {title}

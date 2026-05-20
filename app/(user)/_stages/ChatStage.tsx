@@ -197,7 +197,7 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
         variants={BUBBLE_VARIANTS}
         initial="hidden"
         animate="visible"
-        className="self-end max-w-[var(--width-chat-bubble-max)] rounded-2xl border border-(--border-shell) bg-(--surface-2) t-15 text-text leading-relaxed whitespace-pre-wrap break-words"
+        className="self-end max-w-(--width-chat-bubble-max) rounded-2xl border border-(--border-shell) bg-(--surface-2) t-15 text-text leading-relaxed whitespace-pre-wrap break-words"
         style={{ padding: "var(--space-3) var(--space-5)" }}
       >
         {msg.content}

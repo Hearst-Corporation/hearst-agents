@@ -200,7 +200,7 @@ function ActionItemsView({
             type="checkbox"
             checked={it.checked}
             onChange={(e) => onToggle?.(i, e.target.checked)}
-            className="shrink-0 accent-[var(--accent-teal)]"
+            className="shrink-0 accent-(--accent-teal)"
             aria-label={`Tâche : ${it.label}`}
             style={{
               width: "var(--space-4)",

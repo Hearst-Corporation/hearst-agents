@@ -1,90 +1,103 @@
 "use client";
 
+import { MarketplaceTemplateCard } from "@/app/(user)/components/marketplace/MarketplaceTemplateCard";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
-import {
-  Action,
-  FilterTabs,
-  PanelCard,
-  ScreenShell,
-  SearchField,
-} from "@/app/(user)/components/ui";
+import { FilterTabs, ScreenShell, SearchField } from "@/app/(user)/components/ui";
+import type { MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
-type KindLabel = "workflow" | "rapport" | "persona";
-
-interface Template {
-  id: number;
-  title: string;
-  description: string;
-  author: string;
-  uses: number;
-  kind: KindLabel;
-}
-
-const TEMPLATES: Template[] = [
+/** Données mock — en attente de branchement GET /api/v2/marketplace/templates. */
+const MOCK_TEMPLATES: MarketplaceTemplateSummary[] = [
   {
-    id: 1,
+    id: "mock-1",
+    kind: "workflow",
     title: "Brief Rédactionnel Hebdo",
     description: "Génère le planning éditorial de la semaine depuis les trends.",
-    author: "equipe-hearst",
-    uses: 482,
-    kind: "workflow",
+    authorDisplayName: "equipe-hearst",
+    authorTenantId: "hearst-builtin",
+    tags: ["editorial", "hebdo"],
+    ratingAvg: 4.6,
+    ratingCount: 48,
+    cloneCount: 482,
+    isFeatured: true,
+    createdAt: "",
+    updatedAt: "",
   },
   {
-    id: 2,
+    id: "mock-2",
+    kind: "report_spec",
     title: "Rapport Performance Édition",
     description: "Consolide les KPIs d'une édition : vues, taux de rebond, RPM.",
-    author: "analytics-lab",
-    uses: 317,
-    kind: "rapport",
+    authorDisplayName: "analytics-lab",
+    authorTenantId: "hearst-builtin",
+    tags: ["kpi", "edition"],
+    ratingAvg: 4.2,
+    ratingCount: 31,
+    cloneCount: 317,
+    isFeatured: false,
+    createdAt: "",
+    updatedAt: "",
   },
   {
-    id: 3,
+    id: "mock-3",
+    kind: "persona",
     title: "Persona Directeur Hôtel",
     description: "Agent spécialisé RevPAR, OCC, satisfaction client hôtellerie.",
-    author: "hospitality-hub",
-    uses: 204,
-    kind: "persona",
+    authorDisplayName: "hospitality-hub",
+    authorTenantId: "hearst-builtin",
+    tags: ["hospitality", "revpar"],
+    ratingAvg: 4.8,
+    ratingCount: 22,
+    cloneCount: 204,
+    isFeatured: false,
+    createdAt: "",
+    updatedAt: "",
   },
   {
-    id: 4,
+    id: "mock-4",
+    kind: "workflow",
     title: "Veille Concurrents Médias",
     description: "Scrape et synthétise les publications concurrentes chaque matin.",
-    author: "equipe-hearst",
-    uses: 391,
-    kind: "workflow",
+    authorDisplayName: "equipe-hearst",
+    authorTenantId: "hearst-builtin",
+    tags: ["veille", "media"],
+    ratingAvg: 4.4,
+    ratingCount: 39,
+    cloneCount: 391,
+    isFeatured: false,
+    createdAt: "",
+    updatedAt: "",
   },
   {
-    id: 5,
+    id: "mock-5",
+    kind: "report_spec",
     title: "Rapport Audience Mensuel",
     description: "Tableau de bord audience : acquisition, rétention, géo.",
-    author: "data-studio",
-    uses: 158,
-    kind: "rapport",
+    authorDisplayName: "data-studio",
+    authorTenantId: "hearst-builtin",
+    tags: ["audience"],
+    ratingAvg: 3.9,
+    ratingCount: 15,
+    cloneCount: 158,
+    isFeatured: false,
+    createdAt: "",
+    updatedAt: "",
   },
   {
-    id: 6,
+    id: "mock-6",
+    kind: "persona",
     title: "Persona Journaliste Enquête",
     description: "Assiste la rédaction longue : vérification sources, angles narratifs.",
-    author: "newsroom-ai",
-    uses: 276,
-    kind: "persona",
+    authorDisplayName: "newsroom-ai",
+    authorTenantId: "hearst-builtin",
+    tags: ["newsroom", "enquête"],
+    ratingAvg: 4.7,
+    ratingCount: 27,
+    cloneCount: 276,
+    isFeatured: false,
+    createdAt: "",
+    updatedAt: "",
   },
 ];
-
-const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
-  workflow: {
-    badge: "bg-(--color-info)/10 text-(--color-info) border border-(--color-info)/25",
-    label: "Workflow",
-  },
-  rapport: {
-    badge: "bg-(--accent-llm)/10 text-(--accent-llm) border border-(--accent-llm)/25",
-    label: "Rapport",
-  },
-  persona: {
-    badge: "bg-(--accent-teal-surface) text-(--accent-teal) border border-(--accent-teal-border)",
-    label: "Persona",
-  },
-};
 
 const FILTERS = ["Tout", "Workflow", "Rapport", "Persona"] as const;
 
@@ -108,43 +121,9 @@ export default function MarketplacePage() {
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
           style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
         >
-          {TEMPLATES.map((t) => {
-            const { badge, label } = KIND_STYLES[t.kind];
-            return (
-              <PanelCard key={t.id} hover className="flex flex-col gap-3">
-                <span
-                  className={`t-9 font-medium rounded-pill inline-flex w-fit ${badge}`}
-                  style={{ padding: "var(--space-1) var(--space-2-5)" }}
-                >
-                  {label}
-                </span>
-                <div>
-                  <p className="t-13 font-medium text-text leading-snug">{t.title}</p>
-                  <p
-                    className="t-11 font-light text-text-faint line-clamp-2"
-                    style={{ marginTop: "var(--space-1)" }}
-                  >
-                    {t.description}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between mt-auto pt-1">
-                  <p className="t-11 font-light text-text-ghost">
-                    <span className="text-text-muted">{t.author}</span>
-                    <span style={{ margin: "0 var(--space-1-5)" }}>·</span>
-                    {t.uses.toLocaleString("fr-FR")} utilisations
-                  </p>
-                  <Action
-                    variant="secondary"
-                    tone="neutral"
-                    size="sm"
-                    aria-label={`Installer ${t.title}`}
-                  >
-                    Installer
-                  </Action>
-                </div>
-              </PanelCard>
-            );
-          })}
+          {MOCK_TEMPLATES.map((template) => (
+            <MarketplaceTemplateCard key={template.id} template={template} />
+          ))}
         </div>
       </ScreenShell>
     </StandalonePageFrame>

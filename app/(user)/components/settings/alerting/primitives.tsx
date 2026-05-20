@@ -6,6 +6,7 @@
  */
 
 import type { ReactNode } from "react";
+import { FormInput } from "@/app/(user)/components/ui/FormField";
 import { SIGNAL_SEVERITY } from "./constants";
 import type { TestState } from "./types";
 
@@ -25,29 +26,11 @@ export function Input({
   type?: string;
 }) {
   return (
-    <input
+    <FormInput
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full t-13"
-      style={{
-        background: "var(--surface-1)",
-        border: "1px solid var(--border-default)",
-        borderRadius: "var(--radius-sm)",
-        padding: "var(--space-2) var(--space-3)",
-        color: "var(--text)",
-        outline: "none",
-        transition: `border-color var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard)`,
-      }}
-      onFocus={(e) => {
-        e.currentTarget.style.borderColor = "var(--accent-teal)";
-        e.currentTarget.style.boxShadow = "var(--shadow-input-focus)";
-      }}
-      onBlur={(e) => {
-        e.currentTarget.style.borderColor = "var(--border-default)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
     />
   );
 }

@@ -22,7 +22,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
+import { Action, EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -242,7 +242,7 @@ function humanCron(cron: string): string {
 
 function DemoBadge() {
   return (
-    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[var(--tracking-badge)]">
+    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-(--tracking-badge)">
       Démo · données fictives (dev)
     </span>
   );
@@ -343,13 +343,20 @@ function ApprovalBar({
   }
 
   return (
-    <div className="approval-bar">
-      <div className="approval-bar-t">
+    <div className="mt-3 flex flex-wrap items-center gap-3 rounded-lg border border-(--gold-border) bg-(--gold-surface) p-3">
+      <p className="t-13 flex-1 min-w-[200px] text-text-soft">
         Cette étape envoie un message — votre approbation est requise.
-      </div>
-      <button className="appr-btn" disabled={approving} onClick={handleApprove}>
-        {approving ? "Approbation…" : "Approuver tout"}
-      </button>
+      </p>
+      <Action
+        variant="primary"
+        tone="gold"
+        size="sm"
+        loading={approving}
+        disabled={approving}
+        onClick={handleApprove}
+      >
+        Approuver tout
+      </Action>
     </div>
   );
 }
@@ -514,22 +521,26 @@ export function MissionStage({ mode }: { mode: string }) {
     >
       {/* Bouton retour vers la liste — visible uniquement quand missionId est défini */}
       {missionId && (
-        <button
-          type="button"
+        <Action
+          variant="ghost"
+          tone="neutral"
+          size="md"
           onClick={() => setMode({ mode: "mission" })}
-          className="inline-flex items-center gap-1.5 t-13 text-(--text-faint) hover:text-(--text-soft) bg-transparent border-0 cursor-pointer p-0 -mb-2 transition-colors duration-150"
+          className="-mb-2 gap-1.5 px-0"
+          iconLeft={
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path
+                d="M9 2L4 7L9 12"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path
-              d="M9 2L4 7L9 12"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
           Demandes
-        </button>
+        </Action>
       )}
 
       {/* Badge démo — dev uniquement, aucune demande réelle */}
@@ -552,7 +563,7 @@ export function MissionStage({ mode }: { mode: string }) {
           {/* Suivi de la demande (jalons dérivés du statut — pas les vraies steps
               d'exécution agent ; celles-ci viendront du run output) */}
           <div className="flex flex-col gap-2">
-            <p className="t-11 text-(--text-faint) tracking-[var(--tracking-micro)]">
+            <p className="t-11 text-(--text-faint) tracking-(--tracking-micro)">
               Suivi de la demande
             </p>
             <div className="mtl">

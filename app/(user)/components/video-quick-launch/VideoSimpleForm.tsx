@@ -9,6 +9,7 @@
  */
 
 import type { RefObject } from "react";
+import { FormTextarea } from "@/app/(user)/components/ui/FormField";
 import { ProgressBlock, SegmentedRow } from "./segments";
 import {
   DURATION_LABELS,
@@ -63,7 +64,7 @@ export function VideoSimpleForm({
           disabled={isBusy || isDone}
           placeholder="Une caméra qui glisse au-dessus d'une ville futuriste au crépuscule…"
           rows={4}
-          className="t-13 font-light text-text bg-[var(--card-flat-bg)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] focus:border-[var(--accent-teal-border-hover)] focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed resize-none"
+          className="t-13 font-light text-text bg-(--card-flat-bg) border border-(--border-shell) hover:border-(--accent-teal-border-hover) focus:border-(--accent-teal-border-hover) focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed resize-none"
           style={{
             padding: "var(--space-3)",
             borderRadius: "var(--radius-sm)",

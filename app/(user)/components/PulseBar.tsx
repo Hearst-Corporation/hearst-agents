@@ -457,7 +457,7 @@ function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
     <button
       type="button"
       onClick={onSeeAll}
-      className="t-9 font-light shrink-0 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
+      className="t-9 font-light shrink-0 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
       style={{
         paddingLeft: "var(--space-2)",
         paddingRight: "var(--space-2)",

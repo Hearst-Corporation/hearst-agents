@@ -104,7 +104,7 @@ export function WorkingDocument() {
         />
         <button
           onClick={close}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-colors shrink-0"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors shrink-0"
           title="Réduire (Cmd+B)"
           type="button"
         >
@@ -142,14 +142,14 @@ export function WorkingDocument() {
       >
         <button
           type="button"
-          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-colors"
+          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors"
           title="Sauvegarder ce document comme asset réutilisable"
         >
           Sauvegarder comme asset
         </button>
         <button
           type="button"
-          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-colors"
+          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors"
           title="Convertir ce document en mission planifiée"
         >
           Convertir en mission

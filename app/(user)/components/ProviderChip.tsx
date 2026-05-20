@@ -114,12 +114,12 @@ export function ProviderChip({
     status === "error"
       ? "bg-(--danger)"
       : status === "pending"
-        ? "bg-[var(--text-faint)] animate-pulse"
+        ? "bg-(--text-faint) animate-pulse"
         : "bg-(--accent-teal)";
 
   return (
     <span
-      className="relative inline-flex items-center rounded-pill border border-(--border-shell) bg-surface-1 px-2 py-0.5 t-9 font-mono text-text-muted transition-colors hover:border-[var(--accent-teal-border)] hover:text-text"
+      className="relative inline-flex items-center rounded-pill border border-(--border-shell) bg-surface-1 px-2 py-0.5 t-9 font-mono text-text-muted transition-colors hover:border-(--accent-teal-border) hover:text-text"
       style={{ gap: "var(--space-1)" }}
       tabIndex={0}
       data-provider={providerId}
@@ -149,7 +149,7 @@ export function ProviderChip({
           role="tooltip"
           // max-w borne le tooltip à la viewport pour éviter overflow horizontal
           // quand le chip est près du bord droit (collision detection minimaliste, sans JS).
-          className="absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 max-w-[min(calc(100vw-var(--space-8)),20rem)] whitespace-nowrap overflow-hidden text-ellipsis rounded-md border border-(--border-shell) bg-[var(--rail)] px-2 py-1 t-9 font-mono text-text-muted shadow-[var(--shadow-card)]"
+          className="absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 max-w-[min(calc(100vw-var(--space-8)),20rem)] whitespace-nowrap overflow-hidden text-ellipsis rounded-md border border-(--border-shell) bg-(--rail) px-2 py-1 t-9 font-mono text-text-muted shadow-(--shadow-card)"
         >
           <span className="text-text">{displayLabel}</span>
           <span className="ml-2">⌛ {formatLatency(latencyMs)}</span>

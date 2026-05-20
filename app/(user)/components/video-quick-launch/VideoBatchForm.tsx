@@ -8,6 +8,7 @@
  * `VideoBatchGrid` qui affiche les progress cards.
  */
 
+import { FormTextarea } from "@/app/(user)/components/ui/FormField";
 import { SegmentedInline } from "./segments";
 import {
   type BatchPhase,
@@ -131,14 +132,12 @@ function VideoBatchVariantField({
         )}
       </div>
 
-      <textarea
+      <FormTextarea
         value={form.prompt}
         onChange={(e) => onChange({ prompt: e.target.value })}
         disabled={disabled}
         placeholder={`Prompt du variant ${index + 1}…`}
         rows={3}
-        className="t-13 font-light text-text bg-[var(--surface-1)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] focus:border-[var(--accent-teal-border-hover)] focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed resize-none"
-        style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)" }}
       />
 
       <div className="flex" style={{ gap: "var(--space-2)" }}>

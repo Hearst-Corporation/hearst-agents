@@ -385,7 +385,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             {/* Dot couleur type — background dynamique via color → conservé en style JS */}
             <span
               aria-hidden="true"
-              className="inline-block size-[var(--size-dot)] rounded-full shrink-0 align-middle mr-1.5"
+              className="inline-block size-(--size-dot) rounded-full shrink-0 align-middle mr-1.5"
               style={{ background: color }}
             />
             <div className="kg-chip">{node.label}</div>
@@ -478,10 +478,10 @@ function DetailPanel({
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[var(--tracking-caption)] mb-1">
+          <p className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-caption) mb-1">
             {node.type}
           </p>
-          <h3 className="t-18 font-medium tracking-[var(--tracking-tight-sm)] text-(--text-soft)">
+          <h3 className="t-18 font-medium tracking-(--tracking-tight-sm) text-(--text-soft)">
             {node.label}
           </h3>
         </div>
@@ -498,7 +498,7 @@ function DetailPanel({
       {/* Liaisons */}
       {linkedEdges.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[var(--tracking-caption)] mb-2">
+          <p className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-caption) mb-2">
             Liaisons ({linkedEdges.length})
           </p>
           <div className="flex flex-col gap-1">
@@ -521,13 +521,13 @@ function DetailPanel({
       {/* Propriétés */}
       {propEntries.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-[var(--tracking-caption)] mb-2">
+          <p className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-caption) mb-2">
             Propriétés
           </p>
           <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
               <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
-                <span className="text-(--text-ghost) min-w-[var(--space-20)]">{k}</span>
+                <span className="text-(--text-ghost) min-w-(--space-20)">{k}</span>
                 <span className="text-(--text-muted) break-all">
                   {String(v).length > 80 ? `${String(v).slice(0, 77)}…` : String(v)}
                 </span>
@@ -664,7 +664,7 @@ export function KGStage({ mode }: KGStageProps) {
 
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 uppercase tracking-[var(--tracking-caption)] text-(--text-ghost)">
+        <p className="t-13 uppercase tracking-(--tracking-caption) text-(--text-ghost)">
           {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
         </p>
         <h1 className="t-30 font-medium tracking-[-.02em]">
@@ -680,7 +680,7 @@ export function KGStage({ mode }: KGStageProps) {
 
       {/* Loading skeleton */}
       {loading && (
-        <div className="min-h-[var(--min-height-kg-skeleton)] animate-pulse rounded-xl bg-(--surface-1)" />
+        <div className="min-h-(--min-height-kg-skeleton) animate-pulse rounded-xl bg-(--surface-1)" />
       )}
 
       {/* Error */}

@@ -12,7 +12,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
+import { Action, EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -221,7 +221,7 @@ function LoadingSkeleton() {
 
 function DemoBadge() {
   return (
-    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-[var(--tracking-badge)]">
+    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-(--tracking-badge)">
       Démo · données fictives (dev)
     </span>
   );
@@ -242,7 +242,7 @@ function MissionListEmpty() {
           label: "Demander à l'agent",
           onClick: () => setMode({ mode: "chat" }),
         }}
-        className="max-w-[var(--width-mission-empty-copy)] mx-auto"
+        className="max-w-(--width-mission-empty-copy) mx-auto"
       />
     </motion.div>
   );
@@ -300,7 +300,7 @@ function MissionCard({
       </div>
 
       {/* Input preview */}
-      <p className="t-13 text-(--text-faint) leading-[var(--leading-body-tight)] overflow-hidden text-ellipsis whitespace-nowrap">
+      <p className="t-13 text-(--text-faint) leading-(--leading-body-tight) overflow-hidden text-ellipsis whitespace-nowrap">
         {mission.input.slice(0, 120)}
       </p>
 
@@ -393,19 +393,15 @@ export function MissionListStage({ mode }: { mode: string }) {
           <p className="t-13 text-(--text-ghost)">Toutes les demandes</p>
           <h1 className="t-30 font-medium tracking-tight text-(--text-soft)">Demandes</h1>
           {STAGE_REGISTRY.mission.tagline && (
-            <p className="t-13 text-(--text-faint) leading-[var(--leading-body-tight)]">
+            <p className="t-13 text-(--text-faint) leading-(--leading-body-tight)">
               {STAGE_REGISTRY.mission.tagline}
             </p>
           )}
         </div>
 
-        <button
-          type="button"
-          onClick={handleNewMission}
-          className="px-4 py-2 rounded-lg bg-(--surface-2) hover:bg-(--surface-1) border border-(--line-strong) text-text-muted t-13 font-medium cursor-pointer transition-[background] duration-150"
-        >
+        <Action variant="secondary" tone="neutral" size="md" onClick={handleNewMission}>
           Nouvelle demande
-        </button>
+        </Action>
       </header>
 
       {/* Badge démo — dev uniquement, liste réelle vide */}
