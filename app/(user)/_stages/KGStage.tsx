@@ -303,7 +303,7 @@ function ErrorBanner({ message }: { message: string }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: VISION_EASE }}
-      className="px-[18px] py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
+      className="px-4.5 py-3.5 rounded-xl bg-(--danger)/8 border-l-2 border-(--danger)/55 text-(--danger)/85 t-13 leading-[1.55]"
     >
       <strong className="text-(--danger)/95 font-semibold">Erreur</strong> — {message}
     </motion.div>
@@ -432,7 +432,7 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
                 onSelectNode(isSelected ? null : node.id);
               }
             }}
-            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] cursor-pointer transition-[background,border-color] border ${
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg cursor-pointer transition-[background,border-color] border ${
               isSelected
                 ? "bg-(--accent-teal)/7 border-(--accent-teal)/20"
                 : "bg-(--surface-1) border-(--line-strong)"
