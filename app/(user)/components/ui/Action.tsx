@@ -8,7 +8,7 @@
  *
  * Axes :
  *   variant : "primary" | "secondary" | "ghost" | "link"
- *   tone    : "brand" (accent-teal) | "gold" | "neutral" | "danger"
+ *   tone    : "brand" (accent-teal) | "gold" | "neutral" | "danger" | "warn"
  *   size    : "sm" (t-11, h ≈ space-7) | "md" (t-13, h ≈ space-10)
  *
  * États inclus : idle / hover / active / focus-visible / disabled / loading.
