@@ -50,9 +50,10 @@ const REPORTS: Report[] = [
 ];
 
 const STATUS_STYLES: Record<StatusLabel, string> = {
-  publié: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+  /* TODO iter 2 : créer --color-success-* tokens — "publié" utilise --ct-accent-teal aligné DS Cockpit */
+  publié: "bg-(--ct-surface-2) text-(--ct-accent-teal) border border-(--ct-border)",
   brouillon: "bg-amber-500/10 text-amber-400 border border-amber-500/20",
-  archivé: "bg-white/5 text-white/30 border border-white/10",
+  archivé: "bg-(--ct-surface-1) text-(--ct-text-muted) border border-(--ct-border)",
 };
 
 const DOMAIN_STYLES: Record<DomainLabel, string> = {
@@ -66,13 +67,16 @@ const FILTERS = ["Tout", "Performance", "Audience", "Revenue", "Hôtellerie"] as
 
 export default async function ReportsPage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
+    <div className="min-h-screen w-full bg-(--ct-bg-deep) text-(--ct-text-strong) overflow-y-auto px-6 py-10">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-start justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight">Rapports</h1>
-            <p className="mt-1 text-white/50 text-sm">Bibliothèque · Analyse · Distributions</p>
+            <h1 className="t-30 font-semibold tracking-tight">Rapports</h1>
+            <p className="mt-1 text-(--ct-text-muted) t-13">
+              Bibliothèque · Analyse · Distributions
+            </p>
           </div>
+          {/* CTA primaire — sera remplacé par <Action variant="primary"> en iter 2 stream E */}
           <Link
             href="/reports/studio"
             className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black text-sm font-medium rounded-xl hover:bg-white/90 transition-colors"
@@ -86,10 +90,10 @@ export default async function ReportsPage() {
             <button
               key={f}
               type="button"
-              className={`px-3.5 py-2 rounded-lg text-sm transition-colors ${
+              className={`px-3.5 py-2 rounded-md t-13 transition-colors ${
                 f === "Tout"
-                  ? "bg-white/10 text-white"
-                  : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                  ? "bg-(--ct-surface-2) text-(--ct-text-strong)"
+                  : "text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1)"
               }`}
             >
               {f}
@@ -98,7 +102,7 @@ export default async function ReportsPage() {
         </div>
 
         {REPORTS.length === 0 ? (
-          <div className="flex items-center justify-center h-48 text-white/25 text-sm">
+          <div className="flex items-center justify-center h-48 text-(--text-faint) t-13">
             Aucun rapport pour ce filtre
           </div>
         ) : (
@@ -106,25 +110,23 @@ export default async function ReportsPage() {
             {REPORTS.map((r) => (
               <div
                 key={r.id}
-                className="bg-white/5 border border-white/8 rounded-2xl p-5 hover:border-white/15 transition-colors flex flex-col gap-3"
+                className="bg-(--ct-surface-1) border border-(--ct-border-soft) rounded-(--radius-card) p-5 hover:border-(--ct-border) transition-colors flex flex-col gap-3"
               >
                 <div className="flex items-center justify-between">
                   <span
-                    className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_STYLES[r.status]}`}
+                    className={`t-11 px-2.5 py-1 rounded-full font-medium ${STATUS_STYLES[r.status]}`}
                   >
                     {r.status.charAt(0).toUpperCase() + r.status.slice(1)}
                   </span>
-                  <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-xs font-semibold text-white/70">
+                  <div className="w-7 h-7 rounded-full bg-(--ct-surface-2) flex items-center justify-center t-11 font-semibold text-(--ct-text-body)">
                     {r.authorInitials}
                   </div>
                 </div>
                 <div>
-                  <p className="font-medium text-sm">{r.title}</p>
-                  <p className={`text-xs mt-1 font-medium ${DOMAIN_STYLES[r.domain]}`}>
-                    {r.domain}
-                  </p>
+                  <p className="font-medium t-13">{r.title}</p>
+                  <p className={`t-11 mt-1 font-medium ${DOMAIN_STYLES[r.domain]}`}>{r.domain}</p>
                 </div>
-                <p className="text-xs text-white/30 mt-auto">Mis à jour le {r.updatedAt}</p>
+                <p className="t-11 text-(--ct-text-muted) mt-auto">Mis à jour le {r.updatedAt}</p>
               </div>
             ))}
           </div>

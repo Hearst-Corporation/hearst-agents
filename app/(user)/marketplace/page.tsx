@@ -71,49 +71,45 @@ const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
     label: "Rapport",
   },
   persona: {
-    badge: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+    /* TODO iter 2 : créer --color-success-* tokens — en attendant, text-(--ct-accent-teal) aligné DS Cockpit */
+    badge: "bg-(--ct-surface-2) text-(--ct-accent-teal) border border-(--ct-border)",
     label: "Persona",
   },
 };
 
 export default async function MarketplacePage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
+    <div className="min-h-screen w-full bg-(--ct-bg-deep) text-(--ct-text-strong) overflow-y-auto px-6 py-10">
       <div className="max-w-4xl mx-auto">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 t-13 text-white/40 hover:text-white mb-4"
+          className="inline-flex items-center gap-1.5 t-13 text-(--ct-text-muted) hover:text-(--ct-text-strong) mb-4"
         >
           ← Cockpit
         </Link>
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold tracking-tight">Marketplace</h1>
-          <p className="mt-1 text-white/50 text-sm">
+          <h1 className="t-30 font-semibold tracking-tight">Marketplace</h1>
+          <p className="mt-1 text-(--ct-text-muted) t-13">
             Templates communautaires · workflows, rapports, personas
           </p>
         </div>
 
         <div className="flex items-center gap-3 mb-8">
-          <div className="flex-1" title="Recherche en cours de développement">
-            <input
-              type="text"
-              placeholder="Recherche (bientôt)"
-              title="Recherche en cours de développement"
-              aria-disabled="true"
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition-colors disabled:cursor-not-allowed disabled:text-white/30"
-              disabled
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Rechercher un template…"
+            className="flex-1 bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-2.5 t-13 text-(--ct-text-strong) placeholder:text-(--ct-text-muted) outline-none focus:border-(--ct-border-strong) transition-colors"
+            disabled
+          />
           <div className="flex items-center gap-1">
             {(["Tout", "Workflow", "Rapport", "Persona"] as const).map((filter) => (
               <button
                 key={filter}
                 type="button"
-                disabled
-                aria-disabled="true"
-                title="À venir"
-                className={`px-3.5 py-2 rounded-lg text-sm cursor-not-allowed ${
-                  filter === "Tout" ? "bg-white/10 text-white" : "text-white/40"
+                className={`px-3.5 py-2 rounded-md t-13 transition-colors ${
+                  filter === "Tout"
+                    ? "bg-(--ct-surface-2) text-(--ct-text-strong)"
+                    : "text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1)"
                 }`}
               >
                 {filter}
@@ -128,29 +124,29 @@ export default async function MarketplacePage() {
             return (
               <div
                 key={t.id}
-                className="bg-white/5 border border-white/8 rounded-2xl p-5 hover:border-white/15 transition-colors flex flex-col gap-3"
+                className="bg-(--ct-surface-1) border border-(--ct-border-soft) rounded-(--radius-card) p-5 hover:border-(--ct-border) transition-colors flex flex-col gap-3"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${badge}`}>
+                  <span className={`t-11 px-2.5 py-1 rounded-full font-medium ${badge}`}>
                     {label}
                   </span>
                 </div>
                 <div>
-                  <p className="font-medium text-sm leading-snug">{t.title}</p>
-                  <p className="mt-1 text-white/45 text-xs leading-relaxed line-clamp-1">
+                  <p className="font-medium t-13 leading-snug">{t.title}</p>
+                  <p className="mt-1 text-(--ct-text-body) t-11 leading-relaxed line-clamp-1">
                     {t.description}
                   </p>
                 </div>
                 <div className="flex items-center justify-between mt-auto pt-1">
-                  <div className="text-xs text-white/30">
-                    <span className="text-white/50">{t.author}</span>
+                  <div className="t-11 text-(--ct-text-muted)">
+                    <span className="text-(--ct-text-body)">{t.author}</span>
                     <span className="mx-1.5">·</span>
                     <span>{t.uses.toLocaleString("fr-FR")} utilisations</span>
                   </div>
                   <button
                     type="button"
                     aria-label={`Installer ${t.title}`}
-                    className="text-xs px-3 py-1.5 bg-white/8 hover:bg-white/12 border border-white/10 rounded-lg transition-colors"
+                    className="t-11 px-3 py-1.5 bg-(--ct-surface-2) hover:bg-(--ct-surface-3) border border-(--ct-border) rounded-md transition-colors"
                   >
                     Installer
                   </button>

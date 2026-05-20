@@ -6,29 +6,25 @@ const tabs = ["Tout", "Threads", "Assets", "Missions"] as const;
 
 export default async function ArchivePage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
+    <div className="min-h-screen w-full bg-(--ct-bg-deep) text-(--ct-text-strong) overflow-y-auto px-6 py-10">
       <div className="max-w-4xl mx-auto">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 t-13 text-white/40 hover:text-white mb-4"
+          className="inline-flex items-center gap-1.5 t-13 text-(--ct-text-muted) hover:text-(--ct-text-strong) mb-4"
         >
           ← Cockpit
         </Link>
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold tracking-tight">Archive</h1>
-          <p className="mt-1 text-sm text-white/50">Threads et assets de plus de 7 jours</p>
+          <h1 className="t-24 font-semibold tracking-tight">Archive</h1>
+          <p className="mt-1 t-13 text-(--ct-text-muted)">Threads et assets de plus de 7 jours</p>
         </div>
 
-        <div title="Recherche bientôt disponible">
-          <input
-            type="search"
-            aria-label="Rechercher dans l'archive"
-            aria-disabled="true"
-            disabled
-            placeholder="Recherche bientôt disponible"
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 w-full text-sm outline-none transition-colors mb-6 disabled:cursor-not-allowed disabled:text-white/30 disabled:placeholder:text-white/25"
-          />
-        </div>
+        <input
+          type="search"
+          aria-label="Rechercher dans l'archive"
+          placeholder="Rechercher dans l'archive…"
+          className="bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-4 py-3 w-full t-13 outline-none focus:border-(--ct-border-strong) transition-colors mb-6"
+        />
 
         <div role="tablist" className="flex items-center gap-1 mb-8">
           {tabs.map((tab) => (
@@ -37,13 +33,10 @@ export default async function ArchivePage() {
               type="button"
               role="tab"
               aria-selected={tab === "Tout"}
-              aria-disabled="true"
-              disabled
-              title="À venir"
               className={
                 tab === "Tout"
-                  ? "px-4 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-white cursor-not-allowed"
-                  : "px-4 py-1.5 rounded-lg text-sm text-white/40 cursor-not-allowed"
+                  ? "px-4 py-1.5 rounded-md t-13 font-medium bg-(--ct-surface-2) text-(--ct-text-strong)"
+                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) transition-colors"
               }
             >
               {tab}
@@ -58,7 +51,7 @@ export default async function ArchivePage() {
             viewBox="0 0 40 40"
             fill="none"
             aria-hidden="true"
-            className="text-white/20"
+            className="text-(--ct-text-muted)"
           >
             <rect
               x="5"
@@ -81,8 +74,10 @@ export default async function ArchivePage() {
               strokeWidth="1.5"
             />
           </svg>
-          <p className="text-sm font-medium text-white/40">Aucun élément archivé</p>
-          <p className="text-xs text-white/25">Les éléments de plus de 7 jours apparaîtront ici</p>
+          <p className="t-13 font-medium text-(--ct-text-muted)">Aucun élément archivé</p>
+          <p className="t-11 text-(--text-faint)">
+            Les éléments de plus de 7 jours apparaîtront ici
+          </p>
         </div>
       </div>
     </div>

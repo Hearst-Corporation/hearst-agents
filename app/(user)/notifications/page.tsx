@@ -4,19 +4,16 @@ const tabs = ["Tout", "Critique", "Alerte", "Info"] as const;
 
 export default async function NotificationsPage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
+    <div className="min-h-screen w-full bg-(--ct-bg-deep) text-(--ct-text-strong) overflow-y-auto px-6 py-10">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-start justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Notifications</h1>
-            <p className="mt-1 text-sm text-white/50">Signaux, rapports, exports</p>
+            <h1 className="t-24 font-semibold tracking-tight">Notifications</h1>
+            <p className="mt-1 t-13 text-(--ct-text-muted)">Signaux, rapports, exports</p>
           </div>
           <button
             type="button"
-            disabled
-            aria-disabled="true"
-            title="À venir"
-            className="text-xs text-white/25 mt-1.5 cursor-not-allowed"
+            className="t-11 text-(--ct-text-muted) hover:text-(--ct-text-body) transition-colors mt-1.5"
           >
             Tout marquer comme lu
           </button>
@@ -29,13 +26,10 @@ export default async function NotificationsPage() {
               type="button"
               role="tab"
               aria-selected={tab === "Tout"}
-              aria-disabled="true"
-              disabled
-              title="À venir"
               className={
                 tab === "Tout"
-                  ? "px-4 py-1.5 rounded-lg text-sm font-medium bg-white/10 text-white cursor-not-allowed"
-                  : "px-4 py-1.5 rounded-lg text-sm text-white/40 cursor-not-allowed"
+                  ? "px-4 py-1.5 rounded-md t-13 font-medium bg-(--ct-surface-2) text-(--ct-text-strong)"
+                  : "px-4 py-1.5 rounded-md t-13 text-(--ct-text-muted) hover:text-(--ct-text-body) hover:bg-(--ct-surface-1) transition-colors"
               }
             >
               {tab}
@@ -50,7 +44,7 @@ export default async function NotificationsPage() {
             viewBox="0 0 40 40"
             fill="none"
             aria-hidden="true"
-            className="text-white/20"
+            className="text-(--ct-text-muted)"
           >
             <path
               d="M20 6a10 10 0 0 1 10 10v6l3 4H7l3-4v-6A10 10 0 0 1 20 6z"
@@ -65,8 +59,8 @@ export default async function NotificationsPage() {
               strokeLinecap="round"
             />
           </svg>
-          <p className="text-sm font-medium text-white/40">Aucune notification</p>
-          <p className="text-xs text-white/25">Tout est calme pour l'instant</p>
+          <p className="t-13 font-medium text-(--ct-text-muted)">Aucune notification</p>
+          <p className="t-11 text-(--text-faint)">Tout est calme pour l'instant</p>
         </div>
       </div>
     </div>

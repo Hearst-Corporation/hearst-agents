@@ -73,64 +73,67 @@ const AVAILABLE: AvailableApp[] = [
 
 export default async function AppsPage() {
   return (
-    <div className="min-h-screen w-full bg-black text-white overflow-y-auto px-6 py-10">
+    <div className="min-h-screen w-full bg-(--ct-bg-deep) text-(--ct-text-strong) overflow-y-auto px-6 py-10">
       <div className="max-w-4xl mx-auto">
         <div className="mb-10">
-          <h1 className="text-3xl font-semibold tracking-tight">Apps connectées</h1>
-          <p className="mt-1 text-white/50 text-sm">
+          <h1 className="t-30 font-semibold tracking-tight">Apps connectées</h1>
+          <p className="mt-1 text-(--ct-text-muted) t-13">
             Connecte les sources qui nourrissent tes missions
           </p>
         </div>
 
         <div className="mb-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
+          <h2 className="t-11 font-semibold uppercase tracking-(--tracking-eyebrow-soft) text-(--ct-text-muted) mb-4">
             Connectées
           </h2>
           <div className="flex flex-col gap-3">
             {CONNECTED.map((app) => (
               <div
                 key={app.id}
-                className="flex items-center gap-4 bg-white/5 border border-emerald-500/30 rounded-2xl px-5 py-4"
+                className="flex items-center gap-4 bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) px-5 py-4"
               >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold text-white shrink-0">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center t-11 font-bold text-(--ct-text-strong) shrink-0">
                   {app.initials}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="font-medium text-sm">{app.name}</p>
-                    <span className="text-xs px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
+                    <p className="font-medium t-13">{app.name}</p>
+                    {/* TODO iter 2 : créer --color-success-* tokens — badge "Connecté" utilise --ct-accent-teal aligné DS Cockpit */}
+                    <span className="t-11 px-2 py-0.5 bg-(--ct-surface-2) text-(--ct-accent-teal) border border-(--ct-border) rounded-full">
                       Connecté
                     </span>
                   </div>
-                  <p className="text-xs text-white/40 mt-0.5">{app.description}</p>
+                  <p className="t-11 text-(--ct-text-muted) mt-0.5">{app.description}</p>
                 </div>
-                <p className="text-xs text-white/25 shrink-0">depuis le {app.connectedAt}</p>
+                <p className="t-11 text-(--text-faint) shrink-0">depuis le {app.connectedAt}</p>
               </div>
             ))}
           </div>
         </div>
 
         <div>
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-white/30 mb-4">
+          <h2 className="t-11 font-semibold uppercase tracking-(--tracking-eyebrow-soft) text-(--ct-text-muted) mb-4">
             Disponibles
           </h2>
           <div className="grid grid-cols-3 gap-4">
             {AVAILABLE.map((app) => (
               <div
                 key={app.id}
-                className="bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col gap-3 hover:border-white/18 transition-colors"
+                className="bg-(--ct-surface-1) border border-(--ct-border) rounded-(--radius-card) p-5 flex flex-col gap-3 hover:border-(--ct-border-strong) transition-colors"
               >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold text-white">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center t-11 font-bold text-(--ct-text-strong)">
                   {app.initials}
                 </div>
                 <div>
-                  <p className="font-medium text-sm">{app.name}</p>
-                  <p className="text-xs text-white/40 mt-0.5 leading-relaxed">{app.description}</p>
+                  <p className="font-medium t-13">{app.name}</p>
+                  <p className="t-11 text-(--ct-text-muted) mt-0.5 leading-relaxed">
+                    {app.description}
+                  </p>
                 </div>
                 <button
                   type="button"
                   aria-label={`Connecter ${app.name}`}
-                  className="mt-auto text-xs px-3 py-1.5 bg-white/8 hover:bg-white/12 border border-white/10 rounded-lg transition-colors self-start"
+                  className="mt-auto t-11 px-3 py-1.5 bg-(--ct-surface-2) hover:bg-(--ct-surface-3) border border-(--ct-border) rounded-md transition-colors self-start"
                 >
                   Connecter
                 </button>
