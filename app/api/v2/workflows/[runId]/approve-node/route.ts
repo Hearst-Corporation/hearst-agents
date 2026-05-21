@@ -25,6 +25,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { redactId } from "@/lib/utils/redact";
@@ -56,11 +57,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ run
 
   // MVP : log audit-only. Aucun resume automatique tant que la persistance
   // du workflow state n'est pas livrée. Voir docstring du fichier.
-  if (process.env.NODE_ENV !== "production") {
-    console.log(
-      `[ApproveNode] runId=${runId} nodeId=${body.nodeId} decision=${body.decision} user=${redactId(scope.userId)}`,
-    );
-  }
+  logger.info(
+    { runId, nodeId: body.nodeId, decision: body.decision, userId: redactId(scope.userId) },
+    "[ApproveNode] approval recorded",
+  );
 
   return NextResponse.json({
     ok: true,

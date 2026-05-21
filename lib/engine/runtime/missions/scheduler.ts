@@ -15,6 +15,7 @@
 
 import { analyzeMissionDrift, generateDriftNarration } from "@/lib/cockpit/drift-detection";
 import { hasActiveApprovalSession, requestApprovals } from "@/lib/missions/approvals";
+import { logger } from "@/lib/observability/logger";
 import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
 import { INSTANCE_ID } from "../instance-id";
 import {
@@ -118,7 +119,7 @@ async function hydrateIfNeeded(): Promise<void> {
     }
     hydrated = true;
     if (persisted.length > 0) {
-      console.log(`[Scheduler] Hydrated ${persisted.length} mission(s) from Supabase`);
+      logger.info({ count: persisted.length }, "[Scheduler] Hydrated missions from Supabase");
     }
   } catch (err) {
     console.error("[Scheduler] Hydration failed:", err);
@@ -152,7 +153,7 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
     triggeredThisMinute.add(mission.id);
 
     if (!mission.tenantId || !mission.workspaceId) {
-      console.warn(`[Scheduler] Mission skipped — missing tenant scope (${mission.id})`);
+      logger.warn({ missionId: mission.id }, "[Scheduler] Mission skipped — missing tenant scope");
       continue;
     }
 
@@ -161,8 +162,9 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
       try {
         const monthlyCost = await getMonthlyMissionCost(mission.id);
         if (monthlyCost >= mission.budgetUsd) {
-          console.warn(
-            `[Scheduler] Mission "${mission.name}" skipped — monthly budget exceeded ($${monthlyCost.toFixed(2)} / $${mission.budgetUsd.toFixed(2)})`,
+          logger.warn(
+            { missionId: mission.id, monthlyCost, budgetUsd: mission.budgetUsd },
+            `[Scheduler] Mission "${mission.name}" skipped — monthly budget exceeded`,
           );
           opsResult(mission.id, {
             status: "blocked",
@@ -179,7 +181,10 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
         // Lecture budget en erreur — fail-open : on laisse passer pour ne pas
         // bloquer l'agent si Supabase est down. L'enforcement sera retenté
         // au prochain tick.
-        console.warn(`[Scheduler] Mission "${mission.name}" budget check failed (fail-open):`, err);
+        logger.warn(
+          { missionId: mission.id, err },
+          `[Scheduler] Mission "${mission.name}" budget check failed (fail-open)`,
+        );
       }
     }
 
@@ -193,13 +198,19 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
       try {
         const active = await hasActiveApprovalSession(mission.id);
         if (active) {
-          console.log(
+          logger.info(
+            { missionId: mission.id },
             `[Scheduler] Mission "${mission.name}" — session approbation en cours, skip tick`,
           );
           continue;
         }
-        console.log(
-          `[Scheduler] Mission "${mission.name}" — création session approbation (${mission.approvers.length} approvers, mode=${mission.approvalMode ?? "all"})`,
+        logger.info(
+          {
+            missionId: mission.id,
+            approversCount: mission.approvers.length,
+            mode: mission.approvalMode ?? "all",
+          },
+          `[Scheduler] Mission "${mission.name}" — création session approbation`,
         );
         const result = await requestApprovals({
           missionId: mission.id,
@@ -222,9 +233,9 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
         });
         continue;
       } catch (err) {
-        console.warn(
-          `[Scheduler] Mission "${mission.name}" approval gate failed (fail-open):`,
-          err,
+        logger.warn(
+          { missionId: mission.id, err },
+          `[Scheduler] Mission "${mission.name}" approval gate failed (fail-open)`,
         );
         // Fail-open : on continue le run normalement plutôt que de tout
         // bloquer si la table mission_approvals est indispo.
@@ -233,7 +244,10 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
 
     // Layer 3: in-memory overlap guard
     if (isMissionRunning(mission.id)) {
-      console.log(`[Scheduler] Mission "${mission.name}" skipped — already running (local)`);
+      logger.info(
+        { missionId: mission.id },
+        `[Scheduler] Mission "${mission.name}" skipped — already running (local)`,
+      );
       continue;
     }
 
@@ -244,11 +258,17 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
       runWindowKey: windowKey,
     });
     if (!acquired) {
-      console.log(`[Scheduler] Mission "${mission.name}" skipped — lease held by another instance`);
+      logger.info(
+        { missionId: mission.id },
+        `[Scheduler] Mission "${mission.name}" skipped — lease held by another instance`,
+      );
       continue;
     }
 
-    console.log(`[Scheduler] Triggering "${mission.name}" (${mission.id}) [${INSTANCE_ID}]`);
+    logger.info(
+      { missionId: mission.id, instanceId: INSTANCE_ID },
+      `[Scheduler] Triggering "${mission.name}"`,
+    );
     markMissionRunning(mission.id);
     opsRunning(mission.id);
 
@@ -275,12 +295,18 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
       });
 
       if (result.status === "success") {
-        console.log(`[Scheduler] Mission "${mission.name}" completed → run ${runId}`);
+        logger.info(
+          { missionId: mission.id, runId },
+          `[Scheduler] Mission "${mission.name}" completed`,
+        );
         // ── Drift Alert (S3-E) ─────────────────────────────────
         // Fire-and-forget : la détection de drift et la notification ne
         // doivent jamais bloquer le tick suivant ni faire échouer le run.
         runDriftHook(mission).catch((err) => {
-          console.warn(`[Scheduler] Drift hook failed for mission "${mission.name}":`, err);
+          logger.warn(
+            { missionId: mission.id, err },
+            `[Scheduler] Drift hook failed for mission "${mission.name}"`,
+          );
         });
         // ── Webhook mission.completed (fire-and-forget) ───────
         try {
@@ -306,8 +332,9 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
           });
         }
       } else {
-        console.warn(
-          `[Scheduler] Mission "${mission.name}" finished with status: ${result.status}`,
+        logger.warn(
+          { missionId: mission.id, status: result.status },
+          `[Scheduler] Mission "${mission.name}" finished with non-success status`,
         );
       }
     } catch (err) {
@@ -347,11 +374,11 @@ async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<
  */
 export function startScheduler(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): () => void {
   if (intervalId) {
-    console.warn("[Scheduler] Already running — skipping duplicate start");
+    logger.warn("[Scheduler] Already running — skipping duplicate start");
     return () => stopScheduler();
   }
 
-  console.log(`[Scheduler] Started (polling every 60s) [${INSTANCE_ID}]`);
+  logger.info({ instanceId: INSTANCE_ID }, "[Scheduler] Started (polling every 60s)");
 
   tick(trigger, isLeader).catch((e) => console.error("[Scheduler] Initial tick error:", e));
 
@@ -361,7 +388,7 @@ export function startScheduler(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn
 
   // Register HMR cleanup
   registerHMRCleanup(() => {
-    console.log("[Scheduler] HMR cleanup — stopping scheduler");
+    logger.info("[Scheduler] HMR cleanup — stopping scheduler");
     stopScheduler();
   });
 
@@ -372,7 +399,7 @@ export function stopScheduler(): void {
   if (intervalId) {
     clearInterval(intervalId);
     intervalId = null;
-    console.log("[Scheduler] Stopped");
+    logger.info("[Scheduler] Stopped");
   }
 }
 
@@ -442,6 +469,6 @@ async function runDriftHook(mission: ScheduledMission): Promise<void> {
       },
     });
   } catch (err) {
-    console.warn(`[Scheduler] Drift notification failed for ${mission.id}:`, err);
+    logger.warn({ missionId: mission.id, err }, "[Scheduler] Drift notification failed");
   }
 }

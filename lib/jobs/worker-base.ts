@@ -15,6 +15,7 @@
 
 import { type Job, type Processor, UnrecoverableError, Worker } from "bullmq";
 import { settleCredits } from "@/lib/credits/client";
+import { logger } from "@/lib/observability/logger";
 import { JOB_QUEUE_CONFIGS } from "./configs";
 import { getBullConnection } from "./connection";
 import { isPermanentError } from "./permanent-error";
@@ -229,6 +230,6 @@ export function startWorker<P extends JobPayload>(
     console.error(`[Jobs] ${handler.kind} worker error:`, err.message);
   });
 
-  console.log(`[Jobs] Worker ${handler.kind} started (concurrency=${config.concurrency})`);
+  logger.info({ kind: handler.kind, concurrency: config.concurrency }, "[Jobs] Worker started");
   return worker;
 }

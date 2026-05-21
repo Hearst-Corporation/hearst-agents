@@ -36,6 +36,28 @@ export function ValidatedForm<T>({ schema, onValid, children }: ValidatedFormPro
   return <>{children({ errors, submitting, handleSubmit })}</>;
 }
 
+/**
+ * Attributs a11y à spreader sur l'`<input>` associé au champ.
+ *
+ * Usage :
+ *   <input {...fieldA11yProps("email", errors)} ... />
+ *   <FieldError name="email" errors={errors} />
+ */
+export function fieldA11yProps(
+  name: string,
+  errors: Record<string, string>,
+): {
+  "aria-invalid"?: true;
+  "aria-describedby"?: string;
+} {
+  if (!errors[name]) return {};
+  return { "aria-invalid": true, "aria-describedby": `${name}-error` };
+}
+
 export function FieldError({ name, errors }: { name: string; errors: Record<string, string> }) {
-  return errors[name] ? <p className="t-9 text-(--danger) mt-1">{errors[name]}</p> : null;
+  return errors[name] ? (
+    <p id={`${name}-error`} role="alert" className="t-9 text-(--danger) mt-1">
+      {errors[name]}
+    </p>
+  ) : null;
 }

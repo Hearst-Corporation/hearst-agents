@@ -36,6 +36,7 @@ import { memoryToConversationHistory } from "@/lib/memory/format";
 import { appendMessage, getRecentMessages } from "@/lib/memory/store";
 import { assertTenantScope } from "@/lib/multi-tenant/guards";
 import type { TenantScope } from "@/lib/multi-tenant/types";
+import { logger } from "@/lib/observability/logger";
 import { SYSTEM_CONFIG } from "@/lib/system/config";
 import { registerRun, unregisterRun } from "./abort-registry";
 import { runAiPipeline } from "./ai-pipeline";
@@ -259,17 +260,15 @@ async function runPipeline(
     decision.mode = "workflow";
     decision.reason = "Research intent detected — promoted from DIRECT_ANSWER";
     decision.backend = "hearst_runtime";
-    console.log("[ExecutionMode] Research override: direct_answer → workflow");
+    logger.info("[ExecutionMode] Research override: direct_answer → workflow");
   }
 
   input._capabilityDomain = capScope.domain;
   input._allowedTools = capScope.allowedTools;
 
-  console.log(
-    "[ExecutionMode]",
-    decision.mode,
-    decision.reason,
-    `[domain: ${capScope.domain}, schedule: ${scheduleDetected}]`,
+  logger.info(
+    { mode: decision.mode, reason: decision.reason, domain: capScope.domain, scheduleDetected },
+    "[ExecutionMode] resolved",
   );
 
   // ── 2. Create Run ──────────────────────────────────────────
@@ -311,7 +310,10 @@ async function runPipeline(
   const safetyEnabled = await isFeatureEnabled(db, "safety_gate_enabled", scope.tenantId, true);
   const safety = safetyEnabled ? checkSafetyGate(input.message) : { kind: "ok" as const };
   if (safety.kind !== "ok") {
-    console.log(`[Orchestrator] Safety gate ${safety.kind}: ${safety.reason}`);
+    logger.info(
+      { kind: safety.kind, reason: safety.reason },
+      "[Orchestrator] Safety gate triggered",
+    );
     eventBus.emit({
       type: "orchestrator_log",
       run_id: engine.id,
@@ -533,8 +535,9 @@ async function runPipeline(
 
         if (!anyConnected) {
           const capability = providerReq?.capability ?? capScope.capabilities[0] ?? capScope.domain;
-          console.log(
-            `[Orchestrator] Provider absent: ${capability} (explicit=${userExplicitlyMentioned}) — providers=${providersToCheck.join(",")}`,
+          logger.info(
+            { capability, explicit: userExplicitlyMentioned, providers: providersToCheck },
+            "[Orchestrator] Provider absent",
           );
 
           if (userExplicitlyMentioned) {

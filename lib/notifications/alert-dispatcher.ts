@@ -17,6 +17,7 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { logger } from "@/lib/observability/logger";
 import { getTenantSetting } from "@/lib/platform/settings";
 import type { BusinessSignal } from "@/lib/reports/signals/extract";
 import type { Severity } from "@/lib/reports/signals/types";
@@ -282,5 +283,5 @@ function logStructured(entry: {
     })),
   };
   // Log unique par dispatch — le caller (run-report) ne re-logge pas.
-  console.log(`[alerting] ${JSON.stringify(summary)}`);
+  logger.info(summary, "[alerting] dispatch complete");
 }

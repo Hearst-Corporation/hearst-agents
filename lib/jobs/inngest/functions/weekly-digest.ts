@@ -20,6 +20,7 @@ import { buildWeeklyDigest, type WeeklyDigestPayload } from "@/lib/cockpit/weekl
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
 import { inngest } from "@/lib/jobs/inngest/client";
+import { logger } from "@/lib/observability/logger";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { redactId } from "@/lib/utils/redact";
 import {
@@ -118,7 +119,7 @@ export const weeklyDigestCronFunction = inngest.createFunction(
     const users = await step.run("load-active-slack-users", () => loadActiveUsersWithSlack());
 
     if (users.length === 0) {
-      console.log("[WeeklyDigest/cron] aucun user avec Slack connecté.");
+      logger.info("[WeeklyDigest/cron] aucun user avec Slack connecté");
       return { dispatched: 0 };
     }
 
@@ -132,7 +133,7 @@ export const weeklyDigestCronFunction = inngest.createFunction(
     }));
 
     await step.sendEvent("dispatch-per-user", events);
-    console.log(`[WeeklyDigest/cron] dispatched=${events.length}`);
+    logger.info({ dispatched: events.length }, "[WeeklyDigest/cron] dispatched");
     return { dispatched: events.length };
   },
 );
@@ -174,7 +175,7 @@ export const weeklyDigestPerUserFunction = inngest.createFunction(
     });
 
     if (!slackConnected) {
-      console.log(`[WeeklyDigest/user=${redactId(data.userId)}] Slack déconnecté — skip.`);
+      logger.info({ userId: redactId(data.userId) }, "[WeeklyDigest] Slack déconnecté — skip");
       return { skipped: true, reason: "slack_disconnected" };
     }
 
@@ -217,8 +218,14 @@ export const weeklyDigestPerUserFunction = inngest.createFunction(
       }
     });
 
-    console.log(
-      `[WeeklyDigest/user=${redactId(data.userId)}] sent channel=${channel} window=${payload.window.label} runs=${payload.totalRuns}`,
+    logger.info(
+      {
+        userId: redactId(data.userId),
+        channel,
+        window: payload.window.label,
+        runs: payload.totalRuns,
+      },
+      "[WeeklyDigest] sent",
     );
 
     return {

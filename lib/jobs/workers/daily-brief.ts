@@ -22,6 +22,7 @@ import { renderDailyBriefPdf } from "@/lib/daily-brief/pdf";
 import type { DailyBriefAssetMeta } from "@/lib/daily-brief/types";
 import type { DailyBriefInput, JobResult } from "@/lib/jobs/types";
 import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
+import { logger } from "@/lib/observability/logger";
 import { getExportSignedUrl, persistExport } from "@/lib/reports/export/store";
 import { redactId } from "@/lib/utils/redact";
 
@@ -145,8 +146,15 @@ const handler: WorkerHandler<DailyBriefInput> = {
 
     await reportProgress(100, "Daily Brief prêt");
 
-    console.log(
-      `[DailyBrief] user=${redactId(payload.userId)} signals=${totalItems} sources=[${data.sources.join(",")}] cost=$${narration.costUsd.toFixed(4)} assetId=${assetId}`,
+    logger.info(
+      {
+        userId: redactId(payload.userId),
+        signals: totalItems,
+        sources: data.sources,
+        costUsd: narration.costUsd,
+        assetId,
+      },
+      "[DailyBrief] complete",
     );
 
     return {
@@ -166,6 +174,6 @@ const handler: WorkerHandler<DailyBriefInput> = {
 };
 
 export function startDailyBriefWorker() {
-  console.log("[DailyBrief] worker started");
+  logger.info("[DailyBrief] worker started");
   return startWorker(handler);
 }

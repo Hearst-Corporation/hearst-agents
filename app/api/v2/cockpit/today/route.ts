@@ -10,6 +10,7 @@
 
 import { NextResponse } from "next/server";
 import { getCockpitToday } from "@/lib/cockpit/today";
+import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { redactId } from "@/lib/utils/redact";
 
@@ -36,11 +37,15 @@ export async function GET() {
     // par cette requête + le nombre de missions retournées. Permet de comparer
     // ce que reçoit Chrome user vs Playwright et identifier la divergence.
     // À retirer après résolution.
-    if (process.env.NODE_ENV !== "production") {
-      console.log(
-        `[diag/cockpit-today] scope=user:${redactId(scope.userId)} tenant:${scope.tenantId} workspace:${scope.workspaceId} → missionsRunning=${payload.missionsRunning?.length ?? 0}`,
-      );
-    }
+    logger.info(
+      {
+        userId: redactId(scope.userId),
+        tenantId: scope.tenantId,
+        workspaceId: scope.workspaceId,
+        missionsRunning: payload.missionsRunning?.length ?? 0,
+      },
+      "[cockpit-today] payload ready",
+    );
 
     return NextResponse.json({
       ...payload,

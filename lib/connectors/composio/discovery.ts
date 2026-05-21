@@ -17,6 +17,7 @@
  * Invalidated explicitly on connect / disconnect / OAuth return.
  */
 
+import { logger } from "@/lib/observability/logger";
 import {
   getCacheEntry,
   invalidateUserDiscovery,
@@ -88,9 +89,13 @@ export async function getToolsForUser(
         : activeSlugs;
 
     if (targetSlugs.length === 0) {
-      console.log(
-        `[Composio/Discovery] userId=${userId} — no ACTIVE toolkits ` +
-          `(connectedAccounts: ${accounts.length} total, statuses: ${accounts.map((a) => `${a.appName}:${a.status}`).join(", ") || "none"})`,
+      logger.info(
+        {
+          userId,
+          totalAccounts: accounts.length,
+          statuses: accounts.map((a) => `${a.appName}:${a.status}`).join(", ") || "none",
+        },
+        "[Composio/Discovery] no ACTIVE toolkits",
       );
       // Don't cache an empty result — the user might be mid-OAuth.
       return [];
@@ -136,8 +141,9 @@ export async function getToolsForUser(
       );
     }
 
-    console.log(
-      `[Composio/Discovery] userId=${userId} — ${tools.length} tools across [${[...slugsInTools].join(", ")}]`,
+    logger.info(
+      { userId, toolCount: tools.length, toolkits: [...slugsInTools] },
+      "[Composio/Discovery] tools resolved",
     );
 
     // Only cache when we actually got tools — avoid pinning an empty

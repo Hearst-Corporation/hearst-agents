@@ -11,7 +11,8 @@
  * Tokens uniquement (CLAUDE.md §1).
  */
 
-import type { MouseEvent, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { IconButton } from "@/app/(user)/components/ui/IconButton";
 
 export interface RowAction {
   id: string;
@@ -46,55 +47,24 @@ export function RowActions({ actions, showOnHover = true }: RowActionsProps) {
       data-testid="row-actions"
     >
       {actions.map((a) => (
-        <IconButton key={a.id} action={a} />
+        <IconButton
+          key={a.id}
+          icon={a.icon}
+          label={a.label}
+          tone={a.variant === "danger" ? "danger" : "muted"}
+          disabled={a.disabled}
+          testId={`row-action-${a.id}`}
+          onClick={(ev) => {
+            // Empêche le clic sur l'icône de déclencher le onClick du parent (la
+            // ligne entière est souvent cliquable pour ouvrir le détail).
+            ev.stopPropagation();
+            if (!a.disabled) a.onClick();
+          }}
+          style={{
+            padding: "var(--space-2-5)",
+          }}
+        />
       ))}
     </div>
-  );
-}
-
-function IconButton({ action }: { action: RowAction }) {
-  const handleClick = (ev: MouseEvent<HTMLButtonElement>) => {
-    // Empêche le clic sur l'icône de déclencher le onClick du parent (la
-    // ligne entière est souvent cliquable pour ouvrir le détail).
-    ev.stopPropagation();
-    if (!action.disabled) action.onClick();
-  };
-  const isDanger = action.variant === "danger";
-  return (
-    <button
-      type="button"
-      onClick={handleClick}
-      disabled={action.disabled}
-      aria-label={action.label}
-      title={action.label}
-      data-testid={`row-action-${action.id}`}
-      className="inline-flex items-center justify-center"
-      style={{
-        width: "var(--size-touch-target)",
-        height: "var(--size-touch-target)",
-        padding: "var(--space-2-5)",
-        background: "transparent",
-        color: isDanger ? "var(--danger)" : "var(--text-faint)",
-        border: "1px solid transparent",
-        borderRadius: "var(--radius-xs)",
-        cursor: action.disabled ? "not-allowed" : "pointer",
-        opacity: action.disabled ? 0.5 : 1,
-        transition:
-          "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard)",
-      }}
-      onMouseEnter={(e) => {
-        if (action.disabled) return;
-        e.currentTarget.style.color = isDanger ? "var(--danger)" : "var(--accent-teal)";
-        e.currentTarget.style.borderColor = isDanger
-          ? "var(--danger)"
-          : "var(--accent-teal-border-hover)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.color = isDanger ? "var(--danger)" : "var(--text-faint)";
-        e.currentTarget.style.borderColor = "transparent";
-      }}
-    >
-      <span aria-hidden>{action.icon}</span>
-    </button>
   );
 }

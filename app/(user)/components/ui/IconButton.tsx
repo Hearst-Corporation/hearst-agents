@@ -1,17 +1,19 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, MouseEvent, ReactNode } from "react";
 
 type IconButtonSize = "xs" | "sm";
-type IconButtonTone = "muted" | "accent";
+type IconButtonTone = "muted" | "accent" | "danger";
 
-interface IconButtonProps {
+export interface IconButtonProps {
   icon: ReactNode;
   label: string;
-  onClick?: () => void;
+  onClick?: (ev: MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   title?: string;
   className?: string;
+  /** Style inline additionnel (ex. padding via token CSS). */
+  style?: CSSProperties;
   size?: IconButtonSize;
   tone?: IconButtonTone;
   testId?: string;
@@ -25,8 +27,9 @@ const SIZE_CLASS: Record<IconButtonSize, string> = {
 };
 
 const TONE_CLASS: Record<IconButtonTone, string> = {
-  muted: "text-text-faint hover:text-(--accent-teal)",
-  accent: "text-text hover:text-(--accent-teal)",
+  muted: "text-(--text-faint) hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover)",
+  accent: "text-(--text) hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover)",
+  danger: "text-(--danger) hover:border-(--danger)",
 };
 
 export function IconButton({
@@ -36,6 +39,7 @@ export function IconButton({
   disabled = false,
   title,
   className = "",
+  style,
   size = "sm",
   tone = "muted",
   testId,
@@ -50,9 +54,10 @@ export function IconButton({
       {...(ariaCurrent ? { "aria-current": "page" as const } : {})}
       title={title ?? label}
       data-testid={testId}
-      className={`inline-flex items-center justify-center rounded-(--radius-sm) shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover) disabled:opacity-40 ${SIZE_CLASS[size]} ${TONE_CLASS[tone]} ${className}`}
+      style={style}
+      className={`inline-flex items-center justify-center rounded-(--radius-xs) border border-transparent shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover) disabled:opacity-40 disabled:cursor-not-allowed ${SIZE_CLASS[size]} ${TONE_CLASS[tone]} ${className}`}
     >
-      {icon}
+      <span aria-hidden>{icon}</span>
     </button>
   );
 }

@@ -13,6 +13,7 @@
 
 import { z } from "zod";
 import { getEmailSender } from "@/lib/notifications/channels";
+import { logger } from "@/lib/observability/logger";
 import type { AutoExportConfig } from "./types";
 
 // ── Zod schema du payload job ────────────────────────────────
@@ -194,9 +195,7 @@ export async function runExportScheduledReportJob(
     missionId,
   });
 
-  console.log(
-    `[export-job] ok — format=${format} asset=${assetId} size=${exportResult.size} emails=${emailsSent}`,
-  );
+  logger.info({ format, assetId, size: exportResult.size, emailsSent }, "[export-job] ok");
 
   return {
     ok: true,

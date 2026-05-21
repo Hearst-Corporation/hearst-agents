@@ -21,6 +21,7 @@ import {
 } from "@/lib/cockpit/monthly-card";
 import { buildPublicCardUrl, signCardToken } from "@/lib/cockpit/monthly-card-token";
 import { inngest } from "@/lib/jobs/inngest/client";
+import { logger } from "@/lib/observability/logger";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { redactId } from "@/lib/utils/redact";
 
@@ -122,7 +123,7 @@ export const monthlyCardCronFunction = inngest.createFunction(
     const users = await step.run("load-active-users", () => loadActiveUsers());
 
     if (users.length === 0) {
-      console.log("[MonthlyCard/cron] aucun user actif.");
+      logger.info("[MonthlyCard/cron] aucun user actif");
       return { dispatched: 0 };
     }
 
@@ -139,7 +140,7 @@ export const monthlyCardCronFunction = inngest.createFunction(
     }));
 
     await step.sendEvent("dispatch-per-user", events);
-    console.log(`[MonthlyCard/cron] dispatched=${events.length} ym=${yearMonth}`);
+    logger.info({ dispatched: events.length, yearMonth }, "[MonthlyCard/cron] dispatched");
     return { dispatched: events.length, yearMonth };
   },
 );
@@ -208,8 +209,14 @@ export const monthlyCardPerUserFunction = inngest.createFunction(
       ),
     );
 
-    console.log(
-      `[MonthlyCard/user=${redactId(data.userId)}] ready ym=${yearMonth} runs=${cardData.missionsRun} reports=${cardData.reportsGenerated}`,
+    logger.info(
+      {
+        userId: redactId(data.userId),
+        yearMonth,
+        runs: cardData.missionsRun,
+        reports: cardData.reportsGenerated,
+      },
+      "[MonthlyCard] ready",
     );
 
     return {

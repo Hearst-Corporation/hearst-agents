@@ -7,6 +7,7 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { logger } from "@/lib/observability/logger";
 import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
 import type { StorageProvider } from "../storage/types";
 import { type CleanupConfig, type CleanupResult, runAssetCleanup } from "./worker";
@@ -35,12 +36,12 @@ export class CleanupScheduler {
 
   start(): void {
     if (!this.config.enabled) {
-      console.log("[CleanupScheduler] Disabled");
+      logger.info("[CleanupScheduler] Disabled");
       return;
     }
 
     if (this.timer) {
-      console.log("[CleanupScheduler] Already running");
+      logger.info("[CleanupScheduler] Already running");
       return;
     }
 
@@ -48,8 +49,9 @@ export class CleanupScheduler {
     const msUntilFirst = msUntilNextRun(hour, minute);
     const DAILY_MS = 24 * 60 * 60 * 1000;
 
-    console.log(
-      `[CleanupScheduler] Scheduled daily at ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")} — first run in ${Math.round(msUntilFirst / 60_000)}min`,
+    logger.info(
+      { hour, minute, firstRunInMin: Math.round(msUntilFirst / 60_000) },
+      "[CleanupScheduler] Scheduled daily",
     );
 
     this.initialTimeout = setTimeout(() => {
@@ -77,7 +79,7 @@ export class CleanupScheduler {
       clearInterval(this.timer);
       this.timer = null;
     }
-    console.log("[CleanupScheduler] Stopped");
+    logger.info("[CleanupScheduler] Stopped");
   }
 
   isRunning(): boolean {
@@ -104,12 +106,12 @@ export class CleanupScheduler {
 
   private async tick(): Promise<CleanupResult> {
     if (this.running) {
-      console.log("[CleanupScheduler] Skipping — previous run still active");
+      logger.info("[CleanupScheduler] Skipping — previous run still active");
       return this.lastResult ?? emptyResult();
     }
 
     this.running = true;
-    console.log("[CleanupScheduler] Run starting...");
+    logger.info("[CleanupScheduler] Run starting…");
 
     try {
       const cleanupConfig: CleanupConfig = {
@@ -123,8 +125,14 @@ export class CleanupScheduler {
       const result = await runAssetCleanup(this.db, this.storage, cleanupConfig);
       this.lastRun = new Date();
       this.lastResult = result;
-      console.log(
-        `[CleanupScheduler] Run complete — ${result.assetsDeleted} deleted, ${result.filesDeleted} orphans, ${result.errors} errors (${result.durationMs}ms)`,
+      logger.info(
+        {
+          assetsDeleted: result.assetsDeleted,
+          filesDeleted: result.filesDeleted,
+          errors: result.errors,
+          durationMs: result.durationMs,
+        },
+        "[CleanupScheduler] Run complete",
       );
       return result;
     } catch (err) {

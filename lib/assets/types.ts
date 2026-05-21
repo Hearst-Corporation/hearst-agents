@@ -15,6 +15,7 @@
  */
 
 import type { OutputTier } from "@/lib/engine/runtime/formatting/pipeline";
+import { logger } from "@/lib/observability/logger";
 import type { ProviderId } from "@/lib/providers/types";
 
 // ── Asset types ─────────────────────────────────────────────
@@ -225,7 +226,7 @@ export async function storeAsset(asset: Asset): Promise<void> {
   if (error) {
     console.error("[AssetStore] DB write failed:", error.message);
   } else {
-    console.log(`[AssetStore] persisted asset ${asset.id}`);
+    logger.info({ assetId: asset.id }, "[AssetStore] persisted asset");
     // ── Webhook asset.created (fire-and-forget) ──────────────
     const tenantId = asset.provenance?.tenantId;
     if (tenantId) {

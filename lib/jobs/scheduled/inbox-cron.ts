@@ -25,6 +25,7 @@ import { Queue } from "bullmq";
 import { JOB_QUEUE_CONFIGS } from "@/lib/jobs/configs";
 import { getBullConnection } from "@/lib/jobs/connection";
 import type { InboxFetchInput } from "@/lib/jobs/types";
+import { logger } from "@/lib/observability/logger";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 const REPEAT_EVERY_MS = 30 * 60_000; // 30 min
@@ -134,15 +135,16 @@ export async function startInboxCron(): Promise<void> {
 
     const users = await getActiveInboxUsers();
     if (users.length === 0) {
-      console.log("[InboxCron] no active users — repeatable jobs deferred");
+      logger.info("[InboxCron] no active users — repeatable jobs deferred");
       return;
     }
 
     for (const u of users) {
       await registerInboxRepeatable(u);
     }
-    console.log(
-      `[InboxCron] ${users.length} repeatable jobs scheduled every ${REPEAT_EVERY_MS / 60_000}min via BullMQ`,
+    logger.info(
+      { users: users.length, intervalMin: REPEAT_EVERY_MS / 60_000 },
+      "[InboxCron] repeatable jobs scheduled via BullMQ",
     );
   } catch (err) {
     console.warn("[InboxCron] BullMQ setup failed:", err);
