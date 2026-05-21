@@ -108,11 +108,13 @@
     "zod": "^4.3.6",
     "zustand": "^5.0.12"
   },
-  "overrides": {
-    "@opentelemetry/auto-instrumentations-node": ">=0.75.0",
-    "@opentelemetry/exporter-prometheus": ">=0.217.0",
-    "@opentelemetry/sdk-node": ">=0.217.0",
-    "postcss": ">=8.5.10"
+  "pnpm": {
+    "overrides": {
+      "@opentelemetry/auto-instrumentations-node": ">=0.75.0",
+      "@opentelemetry/exporter-prometheus": ">=0.217.0",
+      "@opentelemetry/sdk-node": ">=0.217.0",
+      "postcss": ">=8.5.10"
+    }
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",

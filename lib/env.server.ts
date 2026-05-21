@@ -43,6 +43,28 @@ function validateEnv(): void {
     );
   }
 
+  // Critical: Stripe secret key obligatoire en prod pour créer les sessions Checkout
+  // et interroger l'API Stripe (top-up crédits). Sans elle, lib/credits/stripe.ts
+  // utilise process.env.STRIPE_SECRET_KEY! (non-null assertion) → TypeError en runtime.
+  if (isProd && !process.env.STRIPE_SECRET_KEY) {
+    throw new Error(
+      "[ENV ERROR] STRIPE_SECRET_KEY is required in production. " +
+        "Without it, Stripe Checkout sessions cannot be created and top-up will fail. " +
+        "Get the key from Stripe dashboard > Developers > API keys.",
+    );
+  }
+
+  // Critical: Kimi API key obligatoire en prod pour les fonctions d'orchestration IA
+  // (run-research-report, delegate/api.ts) qui utilisent process.env.KIMI_API_KEY!
+  // (non-null assertion). Sans cette var, un throw TypeError non catchable en runtime.
+  if (isProd && !process.env.KIMI_API_KEY) {
+    throw new Error(
+      "[ENV ERROR] KIMI_API_KEY is required in production. " +
+        "Without it, AI orchestration (research reports, delegate API) will crash at runtime. " +
+        "Get the key from Hypercli dashboard and set KIMI_API_KEY in your environment.",
+    );
+  }
+
   // Safety net 7j — HEARST_TENANT_ID/HEARST_WORKSPACE_ID encore utilisés
   // pour les pages publiques (hearst-card screenshotter) sans session.
   // Ces vars seront retirées en PR 4 (après 7 jours sans incident Sentry).
