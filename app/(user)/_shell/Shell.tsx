@@ -33,7 +33,6 @@
 
 import type { ReactNode } from "react";
 import type { RailItem } from "../_stages/types";
-import { PulseBar } from "../components/PulseBar";
 import { AmbientLayers } from "./AmbientLayers";
 import { LeftRail } from "./LeftRail";
 import { RightRailChat } from "./RightRailChat";
@@ -52,10 +51,8 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
 
       <LeftRail />
 
-      {/* Zone principale : PulseBar (header) + centre scrollable + RightRail */}
+      {/* Zone principale : centre scrollable + RightRail */}
       <div className="preserve-3d relative z-10 flex min-w-0 flex-1 flex-col overflow-hidden">
-        <PulseBar />
-
         <div className="preserve-3d relative flex min-h-0 flex-1 overflow-hidden">
           {/* Main content area (Scrollable + Floating Footer ancré dessus) */}
           <div className="preserve-3d relative flex min-w-0 flex-1 flex-col overflow-hidden">

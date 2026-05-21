@@ -15,7 +15,6 @@ import { useRuntimeStore } from "@/stores/runtime";
 import { useServicesStore } from "@/stores/services";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
-import { StageFooter } from "./_shell/StageFooter";
 import { ChatInput } from "./chat-input/ChatInput";
 
 /**
@@ -649,7 +648,6 @@ export function ChatDock() {
         {reconnectAnnouncement}
       </span>
 
-      <StageFooter />
       <ChatInput onSubmit={handleSubmit} connectedServices={connectedServices} />
 
       {/* Bouton de fermeture explicite du chat (retour cockpit). */}
