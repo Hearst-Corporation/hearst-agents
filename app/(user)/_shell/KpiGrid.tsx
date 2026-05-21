@@ -49,10 +49,9 @@ export function KpiGrid({ items }: KpiGridProps) {
           }}
         >
           <span
+            className="t-11 font-semibold"
             style={{
-              fontSize: "11px",
-              fontWeight: 600,
-              letterSpacing: "0.08em",
+              letterSpacing: "var(--tracking-caption)",
               textTransform: "uppercase",
               color: "var(--text-faint)",
               fontFamily: "var(--font-satoshi)",
@@ -61,10 +60,9 @@ export function KpiGrid({ items }: KpiGridProps) {
             {item.label}
           </span>
           <span
+            className="t-28 font-light"
             style={{
-              fontSize: "clamp(28px, 3vw, 40px)",
-              fontWeight: 300,
-              letterSpacing: "-0.03em",
+              letterSpacing: "var(--tracking-editorial)",
               color: "var(--text)",
               lineHeight: 1.1,
               fontFamily: "var(--font-satoshi)",

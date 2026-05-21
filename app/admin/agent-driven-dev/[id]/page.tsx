@@ -100,7 +100,9 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
       {/* Header */}
       <div className="space-y-(--space-4)">
         <div className="flex flex-wrap items-center gap-(--space-3)">
-          <h1 className="t-28 font-light text-text font-mono">{id}</h1>
+          <h1 className="t-24 font-light text-text">
+            <span className="font-mono">{id}</span>
+          </h1>
           {feature && (
             <>
               <span

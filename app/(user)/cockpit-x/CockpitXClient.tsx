@@ -275,27 +275,22 @@ function CockpitContent({
             }}
           >
             <span
+              className="t-11 font-semibold uppercase"
               style={{
-                fontSize: "11px",
-                fontWeight: 600,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "var(--tracking-caption)",
                 color: "var(--accent-teal)",
-                fontFamily: "var(--font-satoshi)",
               }}
             >
               Helm · Cockpit
             </span>
             <span
+              className="t-10 font-semibold uppercase"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "var(--space-1)",
-                fontSize: "10px",
                 color: "var(--text-ghost)",
-                fontWeight: 600,
-                textTransform: "uppercase",
-                letterSpacing: "0.2em",
+                letterSpacing: "var(--tracking-display)",
               }}
             >
               <span
@@ -309,13 +304,10 @@ function CockpitContent({
                 }}
               />
               <span
+                className="t-11 font-semibold uppercase"
                 style={{
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
+                  letterSpacing: "var(--tracking-caption)",
                   color: "var(--text-ghost)",
-                  fontFamily: "var(--font-satoshi)",
                 }}
               >
                 {todayLabel} · En écoute
@@ -323,14 +315,12 @@ function CockpitContent({
             </span>
           </div>
           <h1
+            className="t-34 font-light"
             style={{
-              fontSize: "clamp(32px, 4vw, 56px)",
-              fontWeight: 300,
-              letterSpacing: "-0.03em",
+              letterSpacing: "var(--tracking-editorial)",
               color: "var(--text)",
               lineHeight: 1.05,
               marginBottom: "var(--space-3)",
-              fontFamily: "var(--font-satoshi)",
             }}
           >
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
@@ -376,15 +366,12 @@ function CockpitContent({
                 }}
               >
                 <div
+                  className="t-10 font-bold uppercase"
                   style={{
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.2em",
+                    letterSpacing: "var(--tracking-display)",
                     color: "var(--text-ghost)",
                     paddingBottom: "var(--space-3)",
                     borderBottom: "1px solid var(--line)",
-                    fontFamily: "var(--font-satoshi)",
                   }}
                 >
                   Exécution active
@@ -423,21 +410,17 @@ function CockpitContent({
                         }}
                       >
                         <span
+                          className="t-14 font-medium"
                           style={{
-                            fontSize: "14px",
-                            fontWeight: 500,
                             color: "var(--text-soft)",
-                            fontFamily: "var(--font-satoshi)",
                           }}
                         >
                           {row.name}
                         </span>
                         <span
+                          className="t-10 font-semibold uppercase"
                           style={{
-                            fontSize: "10px",
-                            fontWeight: 600,
-                            textTransform: "uppercase",
-                            letterSpacing: "0.08em",
+                            letterSpacing: "var(--tracking-caption)",
                             color:
                               row.status === "running"
                                 ? "var(--accent-teal)"
@@ -451,7 +434,6 @@ function CockpitContent({
                             borderRadius: "var(--radius-pill)",
                             padding: "2px 8px",
                             flexShrink: 0,
-                            fontFamily: "var(--font-satoshi)",
                           }}
                         >
                           {row.statusLabel}
@@ -459,23 +441,19 @@ function CockpitContent({
                       </div>
                       {row.detail && (
                         <span
+                          className="t-13"
                           style={{
-                            fontSize: "13px",
                             color: "var(--text-faint)",
-                            fontFamily: "var(--font-satoshi)",
                           }}
                         >
                           {row.detail}
                         </span>
                       )}
                       <span
+                        className="t-11 font-semibold uppercase"
                         style={{
-                          fontSize: "11px",
-                          fontWeight: 600,
-                          textTransform: "uppercase",
-                          letterSpacing: "0.08em",
+                          letterSpacing: "var(--tracking-caption)",
                           color: "var(--text-ghost)",
-                          fontFamily: "var(--font-satoshi)",
                         }}
                       >
                         {row.when}
@@ -502,15 +480,12 @@ function CockpitContent({
                 }}
               >
                 <div
+                  className="t-10 font-bold uppercase"
                   style={{
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.2em",
+                    letterSpacing: "var(--tracking-display)",
                     color: "var(--text-ghost)",
                     paddingBottom: "var(--space-3)",
                     borderBottom: "1px solid var(--line)",
-                    fontFamily: "var(--font-satoshi)",
                   }}
                 >
                   Radar
@@ -536,20 +511,17 @@ function CockpitContent({
                         }}
                       >
                         <span
+                          className="t-14 font-medium"
                           style={{
-                            fontSize: "14px",
-                            fontWeight: 500,
                             color: "var(--text-soft)",
-                            fontFamily: "var(--font-satoshi)",
                           }}
                         >
                           {it.title}
                         </span>
                         <span
+                          className="t-13"
                           style={{
-                            fontSize: "13px",
                             color: "var(--text-faint)",
-                            fontFamily: "var(--font-satoshi)",
                           }}
                         >
                           {it.summary}
@@ -576,23 +548,18 @@ function CockpitContent({
                         }}
                       >
                         <span
+                          className="t-14 font-medium"
                           style={{
-                            fontSize: "14px",
-                            fontWeight: 500,
                             color: "var(--text-soft)",
-                            fontFamily: "var(--font-satoshi)",
                           }}
                         >
                           {ev.title}
                         </span>
                         <span
+                          className="t-11 font-semibold uppercase"
                           style={{
-                            fontSize: "11px",
-                            fontWeight: 600,
-                            textTransform: "uppercase",
-                            letterSpacing: "0.08em",
+                            letterSpacing: "var(--tracking-caption)",
                             color: "var(--text-ghost)",
-                            fontFamily: "var(--font-satoshi)",
                           }}
                         >
                           {ev.when}
@@ -615,15 +582,12 @@ function CockpitContent({
                 }}
               >
                 <div
+                  className="t-10 font-bold uppercase"
                   style={{
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.2em",
+                    letterSpacing: "var(--tracking-display)",
                     color: "var(--text-ghost)",
                     paddingBottom: "var(--space-3)",
                     borderBottom: "1px solid var(--line)",
-                    fontFamily: "var(--font-satoshi)",
                   }}
                 >
                   Initiatives
@@ -648,20 +612,17 @@ function CockpitContent({
                       }}
                     >
                       <span
+                        className="t-14 font-medium"
                         style={{
-                          fontSize: "14px",
-                          fontWeight: 500,
                           color: "var(--text-soft)",
-                          fontFamily: "var(--font-satoshi)",
                         }}
                       >
                         {p.title}
                       </span>
                       <span
+                        className="t-13"
                         style={{
-                          fontSize: "13px",
                           color: "var(--text-faint)",
-                          fontFamily: "var(--font-satoshi)",
                         }}
                       >
                         {p.description}

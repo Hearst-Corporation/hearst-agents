@@ -494,6 +494,15 @@
   --page-padding-y: var(--space-8); /* padding vertical standard des pages admin */
   --card-padding: var(--space-4); /* padding interne standard des cartes */
   --section-gap: var(--space-8); /* gap vertical entre sections d'une page */
+
+  /* ─── Syntax highlighting — ar-code ────────────────────────────── */
+  --ct-syntax-kw: #c792ea; /* keyword — mauve */
+  --ct-syntax-st: #a5e075; /* string — vert */
+  --ct-syntax-fn: #82aaff; /* function — bleu */
+
+  /* ─── Focus rings étendus (range slider) ───────────────────────── */
+  --shadow-focus-ring-md: 0 0 0 3px rgba(46, 207, 194, 0.3); /* :focus-visible moz-thumb */
+  --shadow-focus-ring-lg: 0 0 0 4px rgba(46, 207, 194, 0.2); /* :hover webkit-thumb */
 }
 
 /* ─── @hearst/cockpit-shell — pont visionOS ─────────────────────────────
@@ -581,7 +590,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm); /* était 10px */
   margin-bottom: 8px;
   opacity: 0.85;
   transition: opacity 0.15s;
@@ -605,7 +614,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm); /* était 10px */
   border: none;
   background: transparent;
   color: var(--text-ghost, rgba(255,255,255,0.35));
@@ -651,7 +660,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm); /* était 10px */
   border: none;
   background: transparent;
   color: var(--text-ghost, rgba(255,255,255,0.35));
@@ -683,7 +692,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm); /* était 10px */
   border: none;
   background: transparent;
   color: var(--text-ghost, rgba(255,255,255,0.35));
@@ -735,7 +744,7 @@
   justify-content: center;
   width: 22px;
   height: 22px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs); /* était 6px → 4px, arrondi léger conservé */
   background: color-mix(in srgb, var(--accent-teal) 15%, transparent);
   color: var(--accent-teal);
   flex-shrink: 0;
@@ -743,7 +752,7 @@
 
 .ct-chat-msg-bubble {
   padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm); /* était 10px */
   white-space: pre-wrap;
 }
 .ct-chat-msg.user .ct-chat-msg-bubble {
@@ -767,7 +776,7 @@
 .ct-chat-input {
   width: 100%;
   height: 48px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border-shell, rgba(255,255,255,0.12));
   background: rgba(255,255,255,0.05);
   color: var(--text, #fff);
@@ -2478,7 +2487,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 0 4px rgba(46, 207, 194, 0.2);
+  box-shadow: var(--shadow-focus-ring-lg);
 }
 
 input[type="range"]::-moz-range-track {
@@ -2501,7 +2510,7 @@ input[type="range"]:focus-visible {
 }
 
 input[type="range"]:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px rgba(46, 207, 194, 0.3);
+  box-shadow: var(--shadow-focus-ring-md);
 }
 
 /* Panel enter animation (Connect cinematic entrance) */
@@ -2702,7 +2711,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   left: 80px; /* skip traffic lights macOS (x=16, width≈70) */
   right: 0;
   height: 32px;
-  z-index: 9999;
+  z-index: var(--z-overlay); /* était 9999 */
   -webkit-app-region: drag;
   app-region: drag;
   pointer-events: none;
@@ -3378,7 +3387,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   .slot {
     aspect-ratio: 9 / 16;
     max-height: 340px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg); /* était 18px */
     overflow: hidden;
     position: relative;
     background: rgba(255, 255, 255, 0.02);
@@ -3523,7 +3532,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     width: 320px;
     max-width: 100%;
     padding: var(--space-2) var(--space-3);
-    border-radius: 6px;
+    border-radius: var(--radius-sm); /* était 6px — unifié sur 8px */
     border: 1px solid #c4c4cc;
     background: white;
     font-size: var(--font-size-12, 12px);
@@ -3535,7 +3544,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   }
   .br-btn {
     padding: var(--space-2) 18px;
-    border-radius: 7px;
+    border-radius: var(--radius-sm); /* était 7px — unifié sur 8px */
     background: #2a6fff;
     color: white;
     font-size: var(--font-size-12, 12px);
@@ -3806,7 +3815,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   .kg-canvas {
     position: relative;
     height: 460px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg); /* était 18px */
     background: radial-gradient(
       ellipse at center,
       color-mix(in srgb, var(--accent-teal) 3%, transparent) 0%,
@@ -3884,7 +3893,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   }
   .ar-tabs span {
     padding: var(--space-1) var(--space-2-5);
-    border-radius: 6px;
+    border-radius: var(--radius-xs); /* était 6px → 4px */
     background: rgba(255, 255, 255, 0.04);
     color: rgba(255, 255, 255, 0.5);
   }
@@ -3930,9 +3939,9 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     opacity: 1;
     transform: translateY(0);
   }
-  .ar-code .kw { color: #c792ea; }
-  .ar-code .st { color: #a5e075; }
-  .ar-code .fn { color: #82aaff; }
+  .ar-code .kw { color: var(--ct-syntax-kw); }
+  .ar-code .st { color: var(--ct-syntax-st); }
+  .ar-code .fn { color: var(--ct-syntax-fn); }
   .ar-preview {
     flex: 1;
     padding: var(--space-4) var(--space-5);
@@ -3953,7 +3962,8 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     font-size: var(--font-size-18, 18px);
     font-weight: 500;
     margin-bottom: var(--space-3);
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+    /* fade text gauche→droite sur fond sombre ar-preview — white intentionnel */
+    background: linear-gradient(90deg, white, color-mix(in srgb, white 50%, transparent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -3969,7 +3979,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   }
   .ar-pv {
     padding: var(--space-3);
-    border-radius: 10px;
+    border-radius: var(--radius-sm); /* était 10px */
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.07);
     font-size: var(--font-size-11, 11px);
@@ -4028,7 +4038,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   margin-top: 12px;
   background: var(--ct-surface-2);
   border: 1px solid var(--ct-border-strong);
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   box-shadow: var(--ct-shadow-depth);
   transition:
     border-color var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1)),

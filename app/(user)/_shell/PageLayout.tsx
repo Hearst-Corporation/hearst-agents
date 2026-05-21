@@ -24,9 +24,9 @@ export const PAGE_AREA_STYLE: React.CSSProperties = {
 
 export const EYEBROW_STYLE: React.CSSProperties = {
   fontSize: "var(--font-size-11, 11px)",
-  fontWeight: 600,
+  fontWeight: "var(--weight-semibold)" as unknown as number,
   textTransform: "uppercase",
-  letterSpacing: "0.08em",
+  letterSpacing: "var(--tracking-caption)",
   color: "var(--accent-teal)",
   marginBottom: "var(--space-2)",
   fontFamily: "var(--font-satoshi)",
@@ -34,12 +34,12 @@ export const EYEBROW_STYLE: React.CSSProperties = {
 
 export const TITLE_STYLE: React.CSSProperties = {
   fontSize: "var(--font-size-24, 24px)",
-  fontWeight: 600,
+  fontWeight: "var(--weight-semibold)" as unknown as number,
   color: "var(--text)",
   marginBottom: "var(--space-1)",
   lineHeight: "var(--line-height-tight, 1.2)",
   fontFamily: "var(--font-satoshi)",
-  letterSpacing: "-0.02em",
+  letterSpacing: "var(--tracking-tight)",
 };
 
 export const SUB_STYLE: React.CSSProperties = {
@@ -60,11 +60,11 @@ export const CARD_STYLE: React.CSSProperties = {
 
 export const CARD_TITLE_STYLE: React.CSSProperties = {
   fontSize: "var(--font-size-11, 11px)",
-  fontWeight: 600,
+  fontWeight: "var(--weight-semibold)" as unknown as number,
   color: "var(--text-soft)",
   padding: "var(--space-4) var(--space-5) 0",
   textTransform: "uppercase",
-  letterSpacing: "0.08em",
+  letterSpacing: "var(--tracking-caption)",
   fontFamily: "var(--font-satoshi)",
 };
 

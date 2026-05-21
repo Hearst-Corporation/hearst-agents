@@ -14,7 +14,7 @@ export default function ThemesPage() {
   return (
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
       <header className="space-y-(--space-2)">
-        <h1 className="text-2xl text-(--text) font-medium">Apparence</h1>
+        <h1 className="t-24 text-(--text) font-medium">Apparence</h1>
         <p className="text-(--text-muted)">
           Choisis le design system de l&apos;application. Le switch est immédiat et persiste sur ton
           compte. Les nouveaux thèmes sont ajoutés via{" "}

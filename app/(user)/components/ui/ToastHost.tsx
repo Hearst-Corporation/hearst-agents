@@ -13,7 +13,7 @@
  */
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 import { type ToastType, useToast } from "@/app/hooks/use-toast";
 
 // Durées d'auto-dismiss (ms).
@@ -193,7 +193,7 @@ export function ToastHost() {
         display: "flex",
         flexDirection: "column",
         gap: "var(--space-2)",
-        zIndex: 70,
+        zIndex: "var(--z-toast)" as CSSProperties["zIndex"],
         pointerEvents: "none",
       }}
     >

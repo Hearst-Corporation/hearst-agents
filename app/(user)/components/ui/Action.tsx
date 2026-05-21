@@ -138,7 +138,7 @@ export function Action(props: ActionProps) {
   const sizeClass = variant === "link" ? "t-13" : SIZE_CLASSES[size];
 
   const composed = [
-    "inline-flex items-center justify-center gap-2 rounded-sm",
+    "inline-flex items-center justify-center gap-2 rounded-(--radius-sm)",
     "transition-colors duration-base",
     "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)",
     "disabled:opacity-50 disabled:cursor-not-allowed",

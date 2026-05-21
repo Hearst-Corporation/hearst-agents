@@ -198,9 +198,9 @@ export function RightRailChat() {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
+            className="font-semibold"
             style={{
               fontSize: 12,
-              fontWeight: 600,
               color: "var(--text)",
               fontFamily: "var(--font-satoshi)",
               letterSpacing: "-0.01em",
@@ -209,8 +209,8 @@ export function RightRailChat() {
             Kimi
           </div>
           <div
+            className="t-11"
             style={{
-              fontSize: 11,
               color: isStreaming ? "var(--accent-teal)" : "var(--text-ghost)",
               fontFamily: "var(--font-satoshi)",
               marginTop: 1,
@@ -328,13 +328,12 @@ export function RightRailChat() {
           >
             {msg.role === "assistant" && (
               <div
+                className="t-10 font-semibold"
                 style={{
-                  fontSize: 10,
-                  fontWeight: 600,
                   color: "var(--text-ghost)",
                   fontFamily: "var(--font-satoshi)",
                   textTransform: "uppercase",
-                  letterSpacing: "0.08em",
+                  letterSpacing: "var(--tracking-caption)",
                   paddingLeft: 2,
                   marginBottom: 2,
                 }}
@@ -343,8 +342,8 @@ export function RightRailChat() {
               </div>
             )}
             <div
+              className="t-13"
               style={{
-                fontSize: 13,
                 lineHeight: 1.6,
                 fontFamily: "var(--font-satoshi)",
                 letterSpacing: "-0.005em",
@@ -426,7 +425,7 @@ export function RightRailChat() {
           <textarea
             ref={inputRef}
             rows={1}
-            className="ct-chat-input"
+            className="ct-chat-input t-14"
             placeholder="Demandez à Kimi…"
             aria-label="Message à Kimi"
             value={inputValue}
@@ -439,7 +438,6 @@ export function RightRailChat() {
               border: "none",
               outline: "none",
               color: "var(--text)",
-              fontSize: 14,
               fontFamily: "var(--font-satoshi)",
               lineHeight: 1.5,
               resize: "none",
@@ -487,8 +485,8 @@ export function RightRailChat() {
           </button>
         </div>
         <div
+          className="t-10"
           style={{
-            fontSize: 10,
             color: "var(--text-ghost)",
             fontFamily: "var(--font-satoshi)",
             marginTop: 6,

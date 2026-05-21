@@ -51,11 +51,11 @@ export function ThemePicker({ themes }: Props) {
   return (
     <div className="space-y-(--space-6)">
       <div className="flex items-center justify-between">
-        <p className="text-(--text-muted) text-sm">
+        <p className="text-(--text-muted) t-13">
           {themes.length} thème{themes.length > 1 ? "s" : ""} disponible
           {themes.length > 1 ? "s" : ""}
         </p>
-        <span className="text-xs text-(--text-muted)" aria-live="polite">
+        <span className="t-11 text-(--text-muted)" aria-live="polite">
           {saveState === "saving" && "Sauvegarde…"}
           {saveState === "saved" && "Préférence enregistrée"}
           {saveState === "error" && "Erreur de sauvegarde"}
@@ -71,7 +71,7 @@ export function ThemePicker({ themes }: Props) {
               type="button"
               onClick={() => pick(t.slug)}
               aria-pressed={isActive}
-              className={`group relative text-left bg-(--bg-elev) rounded-2xl overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${
+              className={`group relative text-left bg-(--bg-elev) rounded-(--radius-2xl) overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${
                 isActive
                   ? "border-(--accent) shadow-[0_0_0_1px_var(--accent)]"
                   : "border-(--border) hover:border-(--text-muted)"

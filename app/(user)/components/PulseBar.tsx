@@ -194,7 +194,7 @@ export function PulseBar() {
           className="md:hidden"
           size="xs"
           label="Ouvrir les conversations"
-          icon={<GhostIconMenu className="w-4 h-4" />}
+          icon={<GhostIconMenu className="w-3.5 h-3.5" />}
         />
         <SpaceSelector />
       </div>

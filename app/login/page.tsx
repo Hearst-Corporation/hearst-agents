@@ -137,7 +137,10 @@ function LoginContent() {
             </h1>
 
             {/* Description */}
-            <p className="mt-4 text-center t-15 leading-[1.55] text-(--text-soft) sm:text-base">
+            <p
+              className="mt-4 text-center t-15 text-(--text-soft) sm:text-base"
+              style={{ lineHeight: "var(--leading-snug-body)" }}
+            >
               Connectez-vous via votre fournisseur d&apos;identité professionnel.
             </p>
           </div>
@@ -154,7 +157,7 @@ function LoginContent() {
                   onClick={() => handleSignIn(provider.id)}
                   disabled={isDisabled}
                   aria-label={provider.label}
-                  className="group relative flex h-12 w-full items-center justify-center gap-3 rounded-md border border-(--border-shell) bg-(--surface-1) text-sm font-medium text-text-soft transition-[color,background-color,border-color,transform,opacity] duration-200 hover:border-(--accent-teal-border) hover:bg-(--surface-card) hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border) focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50"
+                  className="group relative flex h-12 w-full items-center justify-center gap-3 rounded-md border border-(--border-shell) bg-(--surface-1) t-14 font-medium text-text-soft transition-[color,background-color,border-color,transform,opacity] duration-200 hover:border-(--accent-teal-border) hover:bg-(--surface-card) hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border) focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50"
                 >
                   {isLoading ? (
                     <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--line-strong) border-t-(--text-faint)" />
@@ -187,7 +190,10 @@ function LoginContent() {
           )}
 
           {/* Micro-copy */}
-          <p className="mt-6 text-center text-xs leading-[1.6] text-(--text-faint)">
+          <p
+            className="mt-6 text-center t-11 text-(--text-faint)"
+            style={{ lineHeight: "var(--leading-relaxed)" }}
+          >
             En continuant, vous vous authentifiez via votre fournisseur d&apos;entreprise.
           </p>
         </div>

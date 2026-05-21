@@ -160,8 +160,8 @@ export default async function PublicApprovalPage({ params, searchParams }: PageP
           }}
         >
           <h1
-            className="t-28"
-            style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)", margin: 0 }}
+            className="t-28 font-light"
+            style={{ letterSpacing: "var(--tracking-tight)", margin: 0 }}
           >
             Approbation indisponible
           </h1>
@@ -203,9 +203,8 @@ export default async function PublicApprovalPage({ params, searchParams }: PageP
             Approbation requise
           </p>
           <h1
-            className="t-28"
+            className="t-28 font-normal"
             style={{
-              fontWeight: 400,
               letterSpacing: "var(--tracking-tight)",
               color: "var(--text)",
               margin: 0,
@@ -381,7 +380,7 @@ function BrandedHeader() {
           priority
         />
       </Link>
-      <span className="t-11" style={{ color: "var(--text-faint)", fontWeight: 300 }}>
+      <span className="t-11 font-light" style={{ color: "var(--text-faint)" }}>
         Approbation collaborative
       </span>
     </header>
@@ -399,10 +398,9 @@ function MinimalFooter() {
       }}
     >
       <p
-        className="t-9"
+        className="t-9 font-light"
         style={{
           color: "var(--text-faint)",
-          fontWeight: 300,
           margin: 0,
         }}
       >

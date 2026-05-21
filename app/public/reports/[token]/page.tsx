@@ -163,7 +163,7 @@ function BrandedHeader() {
           priority
         />
       </Link>
-      <span className="t-11" style={{ color: "var(--text-faint)", fontWeight: 300 }}>
+      <span className="t-11 font-light" style={{ color: "var(--text-faint)" }}>
         Rapport partagé via Hearst OS
       </span>
     </header>
@@ -197,9 +197,8 @@ function CtaFooter() {
         }}
       >
         <h2
-          className="t-28"
+          className="t-28 font-light"
           style={{
-            fontWeight: 300,
             color: "var(--text)",
             letterSpacing: "var(--tracking-tight)",
             margin: 0,
@@ -265,10 +264,9 @@ function MinimalFooter() {
       }}
     >
       <p
-        className="t-9"
+        className="t-9 font-light"
         style={{
           color: "var(--text-faint)",
-          fontWeight: 300,
           margin: 0,
         }}
       >
@@ -312,7 +310,7 @@ export default async function PublicReportPage({ params }: PageProps) {
             minHeight: "60vh",
           }}
         >
-          <h1 className="t-28" style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}>
+          <h1 className="t-28 font-light" style={{ letterSpacing: "var(--tracking-tight)" }}>
             Lien indisponible
           </h1>
           <p className="t-13" style={{ color: "var(--text-soft)", marginTop: "var(--space-3)" }}>
@@ -339,9 +337,8 @@ export default async function PublicReportPage({ params }: PageProps) {
       >
         <header style={{ marginBottom: "var(--space-10)" }}>
           <h1
-            className="t-34"
+            className="t-34 font-normal"
             style={{
-              fontWeight: 400,
               letterSpacing: "var(--tracking-tight)",
               color: "var(--text)",
               margin: 0,

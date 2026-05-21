@@ -56,7 +56,7 @@ export function RightRail({ title, items }: RightRailProps) {
             <motion.div
               variants={RAIL_ITEM_VARIANTS}
               key={idx}
-              className={`flex flex-col gap-1 rounded-lg border p-3 t-13 transition-colors 2xl:p-4 2xl:t-15 ${
+              className={`flex flex-col gap-1 rounded-(--radius-md) border p-3 t-13 transition-colors 2xl:p-4 2xl:t-15 ${
                 item.hot
                   ? "border-line-strong bg-bg-elev text-text"
                   : "border-transparent text-text-muted"

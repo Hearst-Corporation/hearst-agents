@@ -246,12 +246,12 @@ function AssetSlot({ asset, index }: { asset: AssetItem; index: number }) {
       )}
 
       {/* Badge variant haut gauche */}
-      <div className="absolute top-2.5 left-2.5 z-5 inline-block px-2 py-0.5 rounded-pill bg-(--surface-2) t-9 font-semibold tracking-wide text-text">
+      <div className="absolute top-2.5 left-2.5 z-[5] inline-block px-2 py-0.5 rounded-pill bg-(--surface-2) t-9 font-semibold tracking-wide text-text">
         {`V${index}`}
       </div>
 
       <div
-        className={`absolute bottom-2.5 right-2.5 z-5 px-2.5 py-1 rounded-pill t-11 font-medium ${assetStatusClass(asset.status)}`}
+        className={`absolute bottom-2.5 right-2.5 z-[5] px-2.5 py-1 rounded-pill t-11 font-medium ${assetStatusClass(asset.status)}`}
       >
         {statusLabel(asset.status)}
       </div>

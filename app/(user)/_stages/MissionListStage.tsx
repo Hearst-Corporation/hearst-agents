@@ -280,7 +280,7 @@ function MissionCard({
       className="px-5 py-4 rounded-xl bg-(--surface-2) hover:bg-(--surface-1) border border-(--line-strong) cursor-pointer transition-[background] duration-150 flex flex-col gap-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent-teal)"
     >
       {/* Ligne principale : nom + badge */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <span className="t-15 font-medium text-(--text-soft) flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
           {mission.name}
         </span>

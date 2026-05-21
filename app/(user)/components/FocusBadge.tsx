@@ -11,6 +11,7 @@
  * du Stage central qui occupe désormais 100vw.
  */
 
+import { type CSSProperties } from "react";
 import { useFocusMode } from "@/stores/focus-mode";
 
 export function FocusBadge() {
@@ -28,7 +29,7 @@ export function FocusBadge() {
       style={{
         top: "var(--space-3)",
         right: "var(--space-3)",
-        zIndex: 60,
+        zIndex: "var(--z-modal-stack)" as CSSProperties["zIndex"],
         padding: "var(--space-2) var(--space-3)",
         background: "var(--surface-1)",
         color: "var(--text-muted)",
