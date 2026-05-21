@@ -50,7 +50,7 @@ const HEADER_STYLE: React.CSSProperties = {
 };
 
 const HEADER_TITLE_STYLE: React.CSSProperties = {
-  fontSize: "12px",
+  fontSize: "var(--font-size-12, 12px)",
   fontWeight: 600,
   color: "var(--text-soft)",
   display: "flex",
@@ -88,7 +88,7 @@ const HEADER_BTN_STYLE: React.CSSProperties = {
 };
 
 const NEWBTN_STYLE: React.CSSProperties = {
-  fontSize: "11px",
+  fontSize: "var(--font-size-11, 11px)",
   fontWeight: 500,
   color: "var(--accent-teal)",
   background: "transparent",
@@ -116,8 +116,8 @@ const MSG_USER_STYLE: React.CSSProperties = {
   border: "1px solid var(--accent-teal-border)",
   borderRadius: "var(--radius-lg)",
   padding: "var(--space-2-5) var(--space-3-5)",
-  fontSize: "13px",
-  lineHeight: 1.5,
+  fontSize: "var(--font-size-13, 13px)",
+  lineHeight: "var(--line-height-relaxed, 1.5)",
   whiteSpace: "pre-wrap",
   wordBreak: "break-word",
 };
@@ -130,8 +130,8 @@ const MSG_ASSISTANT_STYLE: React.CSSProperties = {
   border: "1px solid var(--border-shell)",
   borderRadius: "var(--radius-lg)",
   padding: "var(--space-2-5) var(--space-3-5)",
-  fontSize: "13px",
-  lineHeight: 1.5,
+  fontSize: "var(--font-size-13, 13px)",
+  lineHeight: "var(--line-height-relaxed, 1.5)",
   whiteSpace: "pre-wrap",
   wordBreak: "break-word",
 };
@@ -151,7 +151,7 @@ const TEXTAREA_STYLE: React.CSSProperties = {
   border: "1px solid var(--border-shell)",
   borderRadius: "var(--radius-md)",
   padding: "var(--space-2-5) var(--space-3)",
-  fontSize: "13px",
+  fontSize: "var(--font-size-13, 13px)",
   color: "var(--text)",
   resize: "none",
   outline: "none",

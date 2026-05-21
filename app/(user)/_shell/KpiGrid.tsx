@@ -56,7 +56,7 @@ export function KpiGrid({ items }: KpiGridProps) {
         >
           <span
             style={{
-              fontSize: "10px",
+              fontSize: "var(--font-size-10, 10px)",
               fontWeight: 600,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
@@ -67,11 +67,11 @@ export function KpiGrid({ items }: KpiGridProps) {
           </span>
           <span
             style={{
-              fontSize: "28px",
+              fontSize: "var(--font-size-28, 28px)",
               fontWeight: 300,
               letterSpacing: "-0.02em",
               color: "var(--text)",
-              lineHeight: 1.1,
+              lineHeight: "var(--line-height-tight, 1.1)",
               fontFamily: "var(--font-satoshi)",
             }}
           >
@@ -99,7 +99,7 @@ export function KpiGrid({ items }: KpiGridProps) {
           </div>
           <span
             style={{
-              fontSize: "11px",
+              fontSize: "var(--font-size-11, 11px)",
               color:
                 item.tone === "warn"
                   ? "var(--warn)"

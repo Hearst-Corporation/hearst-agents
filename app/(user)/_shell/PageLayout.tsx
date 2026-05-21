@@ -37,7 +37,7 @@ export const TITLE_STYLE: React.CSSProperties = {
   fontWeight: 600,
   color: "var(--text)",
   marginBottom: "var(--space-1)",
-  lineHeight: 1.2,
+  lineHeight: "var(--line-height-tight, 1.2)",
   fontFamily: "var(--font-satoshi)",
   letterSpacing: "-0.02em",
 };
