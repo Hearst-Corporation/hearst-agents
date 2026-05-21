@@ -160,4 +160,16 @@ export const JOB_QUEUE_CONFIGS: Record<JobKind, JobQueueConfig> = {
     removeOnComplete: 30,
     removeOnFail: { age: 7 * 24 * 3600 },
   },
+  "swarm-run": {
+    queueName: "swarm-run",
+    // Swarm hive-engine multi-agent : 4-8 min. Concurrency basse (GPU2 partagé).
+    concurrency: 3,
+    // 10 min : 8 min de run + marge poll/persistence.
+    maxDurationMs: 600_000,
+    retryAttempts: 1,
+    retryDelayMs: 30_000,
+    priority: 3,
+    removeOnComplete: 50,
+    removeOnFail: { age: 7 * 24 * 3600 },
+  },
 };

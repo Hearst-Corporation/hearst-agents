@@ -58,6 +58,8 @@ const RUN_KIND_MAX_DURATION_MS: Record<RunKind, number> = {
   video_gen: JOB_QUEUE_CONFIGS["video-gen"].maxDurationMs,
   doc_parse: JOB_QUEUE_CONFIGS["document-parse"].maxDurationMs,
   code_exec: JOB_QUEUE_CONFIGS["code-exec"].maxDurationMs,
+  // Un swarm hive-engine tourne 4-8 min → reprend le maxDurationMs de sa queue.
+  swarm: JOB_QUEUE_CONFIGS["swarm-run"].maxDurationMs,
 };
 
 /** Cutoff variants : pas de kind exploitable → on garde un global prudent. */

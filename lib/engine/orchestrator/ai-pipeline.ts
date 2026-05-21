@@ -52,6 +52,7 @@ import { buildMarketDataTools } from "@/lib/tools/native/market-data";
 import { buildMeetingsTools } from "@/lib/tools/native/meetings";
 import { buildMissionTools } from "@/lib/tools/native/missions";
 import { buildResearchTools } from "@/lib/tools/native/research";
+import { buildSwarmTools } from "@/lib/tools/native/swarm";
 import { buildWebSearchTools } from "@/lib/tools/native/web-search";
 import { canonicalHash } from "@/lib/utils/canonical-hash";
 import { redactId } from "@/lib/utils/redact";
@@ -551,6 +552,7 @@ export async function runAiPipeline(
     scope: pipelineScope,
   });
   const cortexSearchTools = buildCortexSearchTools({ scope: pipelineScope });
+  const swarmTools = buildSwarmTools({ scope: pipelineScope });
   const missionTools = buildMissionTools({
     engine,
     eventBus,
@@ -571,6 +573,7 @@ export async function runAiPipeline(
     ...extrasMediaTools,
     ...kgQueryTools,
     ...cortexSearchTools,
+    ...swarmTools,
     ...missionTools,
     ...meetingsTools,
     ...toAiTools(filteredComposio, { userId: input.userId, tenantId: resolvedTenantId }),

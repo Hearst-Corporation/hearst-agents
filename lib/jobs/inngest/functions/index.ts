@@ -14,6 +14,7 @@ import { documentParseFunction } from "./document-parse";
 import { imageGenFunction } from "./image-gen";
 import { monthlyCardCronFunction, monthlyCardPerUserFunction } from "./monthly-card";
 import { preMeetingIntelFunction } from "./pre-meeting-intel";
+import { swarmRunFunction } from "./swarm-run";
 import { weeklyDigestCronFunction, weeklyDigestPerUserFunction } from "./weekly-digest";
 
 export const inngestFunctions = [
@@ -28,4 +29,6 @@ export const inngestFunctions = [
   imageGenFunction,
   codeExecFunction,
   documentParseFunction,
+  // Swarms hive-engine (réflexion multi-agent, 4-8 min)
+  swarmRunFunction,
 ];

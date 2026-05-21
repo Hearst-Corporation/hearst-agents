@@ -24,7 +24,8 @@ export type JobKind =
   | "asset-variant"
   | "inbox-fetch"
   | "daily-brief"
-  | "simulation";
+  | "simulation"
+  | "swarm-run";
 
 // ── Payloads par JobKind (discriminated union) ───────────────
 
@@ -176,6 +177,18 @@ export interface SimulationInput extends JobScopeFields {
   simulationId: string;
 }
 
+export interface SwarmRunInput extends JobScopeFields {
+  jobKind: "swarm-run";
+  /** ID ou slug du swarm hive-engine à lancer (ex: "revue-projet"). */
+  swarmId: string;
+  /** Nom lisible du swarm (pour l'affichage dans les dashboards). */
+  swarmName?: string;
+  /** Contexte passé au swarm (kickoff body). */
+  context?: Record<string, unknown>;
+  /** Run ID Helm pré-créé dans `runs` (le worker UPDATE plutôt qu'INSERT). */
+  runId: string;
+}
+
 export type JobPayload =
   | ImageGenInput
   | AudioGenInput
@@ -188,7 +201,8 @@ export type JobPayload =
   | AssetVariantInput
   | InboxFetchInput
   | DailyBriefInput
-  | SimulationInput;
+  | SimulationInput
+  | SwarmRunInput;
 
 // ── Result canonique ─────────────────────────────────────────
 

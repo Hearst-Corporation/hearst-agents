@@ -33,6 +33,7 @@ export const INNGEST_JOB_KINDS = new Set<JobKind>([
   "weekly-digest" as JobKind,
   "monthly-card" as JobKind,
   "pre-meeting-intel" as JobKind,
+  "swarm-run",
 ]);
 
 const queues = new Map<JobKind, Queue>();
