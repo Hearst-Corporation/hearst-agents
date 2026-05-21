@@ -5,11 +5,19 @@
  * vecteur : les dimensions sont incompatibles, 1536 ≠ 384). Cortex ré-embed
  * côté serveur. Fail-soft total : toute erreur → [].
  *
- * Variables requises :
- *   CORTEX_URL             — URL de base du serveur Cortex (ex: https://cortex.hearst.app)
- *   CORTEX_PUBLIC_API_KEY  — clé d'authentification publique
+ * Authentification (multi-tenant) :
+ *   - Si tenantId fourni → JWT HS256 signé avec CORTEX_JWT_SECRET (claims
+ *     {sub, tenant_id, scope}). Cortex isole alors la mémoire PAR TENANT
+ *     → chaque user n'accède qu'à SA sauvegarde.
+ *   - Sinon → fallback x-api-key (CORTEX_PUBLIC_API_KEY) = tenant par défaut.
+ *
+ * Variables :
+ *   CORTEX_URL             — URL de base Cortex (ex: https://cortex.hearst.app)
+ *   CORTEX_JWT_SECRET      — secret partagé HS256 (= JWT_SECRET côté Cortex) [multi-tenant]
+ *   CORTEX_PUBLIC_API_KEY  — clé publique fallback (mono-tenant)
  */
 
+import { createHmac } from "node:crypto";
 import type { RetrievedEmbedding } from "@/lib/embeddings/store";
 
 const DEFAULT_K = 5;
@@ -25,6 +33,45 @@ const CORTEX_SOURCE_TAG = "cortex_ltm";
 // Segments de path identifiant une note originaire de Helm (anti-boucle C3)
 const HELM_PATH_SEGMENT = "/helm/";
 const HELM_PATH_PREFIX = "helm/";
+
+// JWT Cortex — doit matcher lib/server/auth.ts côté Cortex (iss/aud/algo).
+const CORTEX_JWT_ISS = "cortex";
+const CORTEX_JWT_AUD = "cortex.hearst.app";
+const CORTEX_JWT_TTL_S = 300;
+
+/** base64url sans padding (format JWT). */
+function b64url(input: Buffer | string): string {
+  return Buffer.from(input)
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+}
+
+/**
+ * Signe un JWT HS256 compatible Cortex (verifyJwt jose : iss + aud + exp).
+ * Retourne null si CORTEX_JWT_SECRET absent → le caller retombe sur x-api-key.
+ */
+function signCortexJwt(tenantId: string, userId: string): string | null {
+  const secret = process.env.CORTEX_JWT_SECRET;
+  if (!secret) return null;
+  const now = Math.floor(Date.now() / 1000);
+  const header = b64url(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+  const payload = b64url(
+    JSON.stringify({
+      sub: userId,
+      tenant_id: tenantId,
+      scope: ["read"],
+      iss: CORTEX_JWT_ISS,
+      aud: CORTEX_JWT_AUD,
+      iat: now,
+      exp: now + CORTEX_JWT_TTL_S,
+    }),
+  );
+  const data = `${header}.${payload}`;
+  const sig = b64url(createHmac("sha256", secret).update(data).digest());
+  return `${data}.${sig}`;
+}
 
 interface CortexResult {
   path?: string;
@@ -50,12 +97,26 @@ interface CortexResponse {
 export async function searchCortexMemory(params: {
   query: string;
   k?: number;
+  /** Tenant du user connecté → mémoire ISOLÉE par tenant (JWT). */
+  tenantId?: string;
+  /** User id (claim sub du JWT). */
+  userId?: string;
 }): Promise<RetrievedEmbedding[]> {
   const baseUrl = process.env.CORTEX_URL;
-  const apiKey = process.env.CORTEX_PUBLIC_API_KEY;
 
-  if (!baseUrl || !apiKey) {
-    console.warn("[cortex-client] CORTEX_URL ou CORTEX_PUBLIC_API_KEY absent — skipping");
+  // Auth : JWT par tenant si dispo (isolation multi-tenant), sinon x-api-key global.
+  const jwt = params.tenantId
+    ? signCortexJwt(params.tenantId, params.userId ?? params.tenantId)
+    : null;
+  const apiKey = process.env.CORTEX_PUBLIC_API_KEY;
+  const authHeaders: Record<string, string> = jwt
+    ? { Authorization: `Bearer ${jwt}` }
+    : apiKey
+      ? { "x-api-key": apiKey }
+      : {};
+
+  if (!baseUrl || Object.keys(authHeaders).length === 0) {
+    console.warn("[cortex-client] CORTEX_URL ou auth (JWT/api-key) absent — skipping");
     return [];
   }
 
@@ -71,7 +132,7 @@ export async function searchCortexMemory(params: {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": apiKey,
+        ...authHeaders,
       },
       body: JSON.stringify({ query, limit: k, mode: CORTEX_SEARCH_MODE }),
       signal: controller.signal,

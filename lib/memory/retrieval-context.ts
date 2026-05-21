@@ -134,7 +134,10 @@ export async function getRetrievedMemoryForUser(params: RetrievedMemoryParams): 
       searchEmbeddings({ userId, tenantId, queryText: trimmed, k }).catch(
         (): RetrievedEmbedding[] => [],
       ),
-      searchCortexMemory({ query: trimmed, k }).catch((): RetrievedEmbedding[] => []),
+      // tenantId/userId → Cortex isole la mémoire par tenant (chacun SA sauvegarde).
+      searchCortexMemory({ query: trimmed, k, tenantId, userId }).catch(
+        (): RetrievedEmbedding[] => [],
+      ),
     ]);
 
     // Quota par source : scores locaux (cosine ~0.7-0.95) et Cortex (RRF hybride, échelle différente)

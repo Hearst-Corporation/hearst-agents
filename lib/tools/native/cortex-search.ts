@@ -24,8 +24,9 @@ interface CortexSearchArgs {
 const MAX_EXCERPT_CHARS = 200;
 
 export function buildCortexSearchTools(opts: { scope: TenantScope }): AiToolMap {
-  // scope réservé pour propagation tenant future (cf. plan multi-tenant)
-  void opts.scope;
+  // Propagation tenant : la recherche Cortex est isolée par tenant (JWT) →
+  // l'agent n'accède qu'à la mémoire de SON utilisateur.
+  const { userId, tenantId } = opts.scope;
 
   const cortexSearch: Tool<CortexSearchArgs, unknown> = {
     description:
@@ -55,7 +56,7 @@ export function buildCortexSearchTools(opts: { scope: TenantScope }): AiToolMap 
       if (!query) return "Erreur : requête vide.";
 
       try {
-        const results = await searchCortexMemory({ query, k: args.limit });
+        const results = await searchCortexMemory({ query, k: args.limit, tenantId, userId });
 
         if (results.length === 0) {
           return `Aucune note pertinente trouvée dans Cortex pour "${query}".`;
