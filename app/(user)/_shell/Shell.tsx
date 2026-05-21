@@ -36,7 +36,7 @@ import type { RailItem } from "../_stages/types";
 import { PulseBar } from "../components/PulseBar";
 import { AmbientLayers } from "./AmbientLayers";
 import { LeftRail } from "./LeftRail";
-import { RightRail } from "./RightRail";
+import { RightRailChat } from "./RightRailChat";
 
 export type ShellProps = {
   centerContent: ReactNode;
@@ -87,7 +87,7 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
             )}
           </div>
 
-          <RightRail title={railTitle} items={railItems} />
+          <RightRailChat />
         </div>
       </div>
     </div>
