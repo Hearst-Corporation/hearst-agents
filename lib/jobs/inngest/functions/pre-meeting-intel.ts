@@ -26,6 +26,7 @@ import {
 } from "@/lib/cockpit/pre-meeting-intel";
 import { inngest } from "@/lib/jobs/inngest/client";
 import { createNotification } from "@/lib/notifications/in-app";
+import { logger } from "@/lib/observability/logger";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { redactId } from "@/lib/utils/redact";
 
@@ -203,11 +204,11 @@ export const preMeetingIntelFunction = inngest.createFunction(
           }
         }
       } catch (err) {
-        console.warn(`[pre-meeting-intel] échec user=${redactId(user.userId)} :`, err);
+        logger.warn({ userId: redactId(user.userId), err }, "[pre-meeting-intel] échec user");
       }
     }
 
-    console.log(`[pre-meeting-intel] tick processed=${users.length} notified=${notified}`);
+    logger.info({ processed: users.length, notified }, "[pre-meeting-intel] tick complete");
 
     return { processed: users.length, notified };
   },

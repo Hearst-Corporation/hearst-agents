@@ -3,6 +3,7 @@ import AzureADProvider from "next-auth/providers/azure-ad";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
+import { logger } from "@/lib/observability/logger";
 import { saveTokens } from "@/lib/platform/auth/tokens";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { redactId } from "@/lib/utils/redact";
@@ -126,8 +127,9 @@ export const authOptions: AuthOptions = {
           if (data) {
             token.tenantId = data.primary_tenant_id ?? undefined;
             token.workspaceId = data.primary_workspace_id ?? undefined;
-            console.log(
-              `[Auth] Dev-bypass JWT created — user: ${redactId(user.id)}, tenant: ${redactId(data.primary_tenant_id)}`,
+            logger.info(
+              { userId: redactId(user.id), tenantId: redactId(data.primary_tenant_id) },
+              "[Auth] Dev-bypass JWT created",
             );
           } else {
             console.warn(`[Auth] Dev-bypass JWT — no tenant found for user ${redactId(user.id)}`);

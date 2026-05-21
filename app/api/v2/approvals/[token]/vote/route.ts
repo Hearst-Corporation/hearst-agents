@@ -13,6 +13,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { getApprovalState, recordVote } from "@/lib/missions/approvals";
+import { logger } from "@/lib/observability/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -116,9 +117,8 @@ async function triggerMissionRun(missionId: string): Promise<void> {
   // sont posés et plus aucun "pending") et lancera la mission au prochain
   // tick. On peut aussi forcer un run immédiat via une route signée si
   // le délai jusqu'à 60s est inacceptable — non implémenté pour MVP.
-  if (process.env.NODE_ENV !== "production") {
-    console.log(
-      `[approvals/vote] Mission ${missionId} approuvée — exécution au prochain tick scheduler`,
-    );
-  }
+  logger.info(
+    { missionId },
+    "[approvals/vote] Mission approuvée — exécution au prochain tick scheduler",
+  );
 }

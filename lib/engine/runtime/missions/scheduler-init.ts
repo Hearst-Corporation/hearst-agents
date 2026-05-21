@@ -13,6 +13,7 @@
  */
 
 import { orchestrate } from "@/lib/engine/orchestrator/index";
+import { logger } from "@/lib/observability/logger";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
 import { INSTANCE_ID } from "../instance-id";
@@ -57,12 +58,12 @@ async function acquireLeadership(): Promise<void> {
   const acquired = await tryAcquireSchedulerLeadership();
   if (acquired && !_isLeader) {
     _isLeader = true;
-    console.log(`[Scheduler] Leadership acquired by ${INSTANCE_ID}`);
+    logger.info({ instanceId: INSTANCE_ID }, "[Scheduler] Leadership acquired");
   } else if (!acquired && _isLeader) {
     _isLeader = false;
-    console.log(`[Scheduler] Leadership lost — entering standby`);
+    logger.info("[Scheduler] Leadership lost — entering standby");
   } else if (!acquired) {
-    console.log(`[Scheduler] Standby mode (${INSTANCE_ID})`);
+    logger.info({ instanceId: INSTANCE_ID }, "[Scheduler] Standby mode");
   }
 }
 
@@ -73,7 +74,7 @@ async function heartbeat(): Promise<void> {
     const renewed = await renewSchedulerLeadership();
     if (!renewed) {
       _isLeader = false;
-      console.log(`[Scheduler] Leadership lost — entering standby`);
+      logger.info("[Scheduler] Leadership lost — entering standby");
       await acquireLeadership();
     }
   } else {
@@ -85,7 +86,7 @@ async function heartbeat(): Promise<void> {
     try {
       const { deleted } = await cleanupExpiredSchedulerLeases();
       if (deleted > 0) {
-        console.log(`[Scheduler] Cleaned ${deleted} expired lease(s)`);
+        logger.info({ deleted }, "[Scheduler] Cleaned expired leases");
       }
     } catch (e) {
       console.error("[Scheduler] Lease cleanup error:", e);
@@ -145,7 +146,7 @@ async function drainStream(stream: ReadableStream): Promise<DrainResult> {
       }
     }
   } catch (err) {
-    console.error("[Scheduler] Stream drain error:", err);
+    console.error("[Scheduler] Stream drain error:", err); // garde : erreur critique, non récupérable
   } finally {
     reader.releaseLock();
   }
@@ -212,7 +213,10 @@ function buildTrigger(): SchedulerTriggerFn {
             finalText,
           },
         }).catch((err) => {
-          console.warn(`[Scheduler] updateMissionContextSummary failed for ${mission.id}:`, err);
+          logger.warn(
+            { missionId: mission.id, err },
+            "[Scheduler] updateMissionContextSummary failed",
+          );
         });
       }
 
@@ -244,7 +248,7 @@ export async function ensureSchedulerStarted(): Promise<void> {
   if (isStarted()) return;
   markStarted();
 
-  console.log(`[Scheduler] Initializing… (${INSTANCE_ID})`);
+  logger.info({ instanceId: INSTANCE_ID }, "[Scheduler] Initializing…");
 
   // Check if DB is available
   try {
@@ -252,7 +256,7 @@ export async function ensureSchedulerStarted(): Promise<void> {
   } catch {
     _dbAvailable = false;
     _isLeader = true; // local fallback
-    console.log(`[Scheduler] No DB — local fallback mode`);
+    logger.info("[Scheduler] No DB — local fallback mode");
   }
 
   if (_dbAvailable) {
@@ -265,7 +269,7 @@ export async function ensureSchedulerStarted(): Promise<void> {
 
   // Register HMR cleanup for scheduler
   registerHMRCleanup(() => {
-    console.log("[Scheduler] HMR cleanup triggered");
+    logger.info("[Scheduler] HMR cleanup triggered");
     stopSchedulerFn();
   });
 
@@ -283,11 +287,11 @@ export async function ensureSchedulerStarted(): Promise<void> {
   ) {
     (process as unknown as { _hearstSigtermRegistered?: boolean })._hearstSigtermRegistered = true;
     process.once("SIGTERM", () => {
-      console.log("[Scheduler] SIGTERM received — stopping scheduler");
+      logger.info("[Scheduler] SIGTERM received — stopping scheduler");
       stopScheduler();
     });
     process.once("SIGINT", () => {
-      console.log("[Scheduler] SIGINT received — stopping scheduler");
+      logger.info("[Scheduler] SIGINT received — stopping scheduler");
       stopScheduler();
     });
   }

@@ -12,6 +12,7 @@
  */
 
 import { z } from "zod";
+import { logger } from "@/lib/observability/logger";
 import { type RunReportOptions, runReport } from "@/lib/reports/engine/run-report";
 import { parseReportSpec } from "@/lib/reports/spec/schema";
 import type { VersionSummary } from "@/lib/reports/versions/store";
@@ -100,9 +101,14 @@ export async function restoreVersion(
     return { ok: false, reason: "persist_failed" };
   }
 
-  console.log(
-    `[restoreVersion] asset=${input.assetId} restauré depuis v${input.versionNumber} → nouvelle v${newVersion.versionNumber}` +
-      (input.userId ? ` par user=${input.userId}` : ""),
+  logger.info(
+    {
+      assetId: input.assetId,
+      fromVersion: input.versionNumber,
+      toVersion: newVersion.versionNumber,
+      userId: input.userId,
+    },
+    "[restoreVersion] restauré",
   );
 
   return { ok: true, newVersion };

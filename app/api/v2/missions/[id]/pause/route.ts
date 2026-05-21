@@ -74,11 +74,10 @@ export async function POST(
       disableMission(missionId);
       await updateScheduledMission(missionId, { enabled: false });
 
-      if (process.env.NODE_ENV !== "production") {
-        console.log(
-          `[MissionsAPI] Runtime mission paused: ${missionId} (user: ${redactId(scope.userId)})`,
-        );
-      }
+      logger.info(
+        { missionId, userId: redactId(scope.userId) },
+        "[MissionsAPI] Runtime mission paused",
+      );
 
       return NextResponse.json({
         success: true,
@@ -106,11 +105,10 @@ export async function POST(
       }
 
       await updateScheduledMission(missionId, { enabled: false });
-      if (process.env.NODE_ENV !== "production") {
-        console.log(
-          `[MissionsAPI] Persisted mission paused: ${missionId} (user: ${redactId(scope.userId)})`,
-        );
-      }
+      logger.info(
+        { missionId, userId: redactId(scope.userId) },
+        "[MissionsAPI] Persisted mission paused",
+      );
 
       return NextResponse.json({
         success: true,
@@ -143,9 +141,7 @@ export async function POST(
         return NextResponse.json({ error: "Failed to pause mission" }, { status: 500 });
       }
 
-      if (process.env.NODE_ENV !== "production") {
-        console.log(`[MissionsAPI] Planner mission paused: ${missionId}`);
-      }
+      logger.info({ missionId }, "[MissionsAPI] Planner mission paused");
 
       return NextResponse.json({
         success: true,

@@ -8,6 +8,7 @@
  * Disable with ASSET_CLEANUP_ENABLED=false.
  */
 
+import { logger } from "@/lib/observability/logger";
 import { getGlobalStorage } from "../storage";
 import { CleanupScheduler } from "./scheduler";
 
@@ -33,7 +34,7 @@ export async function ensureCleanupSchedulerStarted(): Promise<void> {
   const dryRun = process.env.ASSET_CLEANUP_DRY_RUN === "true";
 
   if (!enabled) {
-    console.log("[CleanupBoot] Asset cleanup scheduler disabled via ASSET_CLEANUP_ENABLED=false");
+    logger.info("[CleanupBoot] Asset cleanup scheduler disabled via ASSET_CLEANUP_ENABLED=false");
     return;
   }
 
@@ -53,10 +54,8 @@ export async function ensureCleanupSchedulerStarted(): Promise<void> {
     });
 
     scheduler.start();
-    console.log(
-      `[CleanupBoot] Asset cleanup scheduler started (cron=${cron}, ttl=${ttlDays}d, dryRun=${dryRun})`,
-    );
+    logger.info({ cron, ttlDays, dryRun }, "[CleanupBoot] Asset cleanup scheduler started");
   } catch (err) {
-    console.warn("[CleanupBoot] Failed to start cleanup scheduler:", err);
+    logger.warn({ err }, "[CleanupBoot] Failed to start cleanup scheduler");
   }
 }

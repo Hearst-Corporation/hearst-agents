@@ -21,6 +21,7 @@ import { renderDailyBriefPdf } from "@/lib/daily-brief/pdf";
 import type { DailyBriefAssetMeta } from "@/lib/daily-brief/types";
 import { inngest } from "@/lib/jobs/inngest/client";
 import type { DailyBriefInput } from "@/lib/jobs/types";
+import { logger } from "@/lib/observability/logger";
 import { getExportSignedUrl, persistExport } from "@/lib/reports/export/store";
 import { redactId } from "@/lib/utils/redact";
 
@@ -157,8 +158,15 @@ export const dailyBriefFunction = inngest.createFunction(
       });
     });
 
-    console.log(
-      `[DailyBrief/Inngest] user=${redactId(payload.userId)} signals=${totalItems} sources=[${data.sources.join(",")}] cost=$${narration.costUsd.toFixed(4)} assetId=${assetId}`,
+    logger.info(
+      {
+        userId: redactId(payload.userId),
+        signals: totalItems,
+        sources: data.sources,
+        costUsd: narration.costUsd,
+        assetId,
+      },
+      "[DailyBrief/Inngest] complete",
     );
 
     return {

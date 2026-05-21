@@ -11,6 +11,7 @@
  * - neither → disconnected (if connectable) or coming_soon
  */
 
+import { logger } from "@/lib/observability/logger";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import {
   getAllProviders,
@@ -175,7 +176,7 @@ async function healControlPlane(
         userId: scope.userId,
       },
     });
-    console.log(`[UnifiedConnectors] Auto-healed control-plane for ${provider}`);
+    logger.info({ provider }, "[UnifiedConnectors] Auto-healed control-plane");
   } catch (err) {
     console.warn(`[UnifiedConnectors] Auto-heal failed for ${provider}:`, err);
   }

@@ -292,7 +292,7 @@ export class RunTracer {
       const flushed = await flushLangfuse(2000);
       if (!flushed) {
         // Compteur silencieux — pas d'exception Sentry car volontaire (timeout).
-        console.debug("[tracer] Langfuse flush skipped or timed out (fail-soft)");
+        logger.debug("[tracer] Langfuse flush skipped or timed out (fail-soft)");
       }
     } catch (err) {
       // Cas improbable (flushLangfuse fail-soft) — capture pour observabilité.

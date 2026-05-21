@@ -22,6 +22,7 @@ import type { RunEventBus } from "@/lib/events/bus";
 import { defaultMetrics } from "@/lib/llm/metrics";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { TenantScope } from "@/lib/multi-tenant/types";
+import { logger } from "@/lib/observability/logger";
 import { searchWeb, type WebSearchResult } from "@/lib/tools/handlers/web-search";
 import { extractResearchQuery, isReportIntent } from "./research-intent";
 import { ORCHESTRATOR_MODEL } from "./system-prompt";
@@ -199,8 +200,9 @@ export async function runResearchReport(input: ResearchReportInput): Promise<voi
         title: assetName,
         content: reportText,
       });
-      console.log(
-        `[ResearchReport] PDF generated: ${pdfFile.fileName} (${pdfFile.sizeBytes} bytes)`,
+      logger.info(
+        { fileName: pdfFile.fileName, sizeBytes: pdfFile.sizeBytes },
+        "[ResearchReport] PDF generated",
       );
     } catch (err) {
       console.error("[ResearchReport] PDF generation failed:", err);

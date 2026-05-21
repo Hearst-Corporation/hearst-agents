@@ -13,6 +13,7 @@ import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import { readDriveFileContent, searchDriveFiles } from "@/lib/connectors/google/drive";
 import { searchEmails as searchGmail } from "@/lib/connectors/google/gmail";
 import { KIMI_MODELS } from "@/lib/llm/models";
+import { logger } from "@/lib/observability/logger";
 import { getTokens } from "@/lib/platform/auth/tokens";
 import type { RunEngine } from "../engine";
 import type { StepActor } from "../engine/types";
@@ -380,8 +381,14 @@ async function executeAgentSync(
   }
 
   const useWebSearch = !providerPayload && AGENTS_WITH_WEB_SEARCH.has(input.agent);
-  console.log(
-    `[Delegate] agent=${input.agent} retrieval_mode=${input.retrieval_mode ?? "none"} provider=${providerPayload?.providerUsed ?? "none"} web_search=${useWebSearch}`,
+  logger.info(
+    {
+      agent: input.agent,
+      retrievalMode: input.retrieval_mode ?? "none",
+      provider: providerPayload?.providerUsed ?? "none",
+      webSearch: useWebSearch,
+    },
+    "[Delegate] routing",
   );
 
   let text: string;

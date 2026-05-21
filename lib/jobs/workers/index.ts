@@ -12,6 +12,7 @@
  */
 
 import type { Worker } from "bullmq";
+import { logger } from "@/lib/observability/logger";
 import { INNGEST_JOB_KINDS } from "../queue";
 import { startInboxCron } from "../scheduled/inbox-cron";
 import { startAudioGenWorker } from "./audio-gen";
@@ -29,18 +30,18 @@ let _started = false;
 const _startedWorkers: Worker[] = [];
 
 async function closeAllWorkers(): Promise<void> {
-  console.log(`[workers] shutting down ${_startedWorkers.length} worker(s)`);
+  logger.info({ count: _startedWorkers.length }, "[workers] shutting down workers");
   await Promise.all(_startedWorkers.map((w) => w.close().catch(() => {})));
   _startedWorkers.length = 0;
 }
 
 function registerShutdownHandlers(): void {
   process.once("SIGTERM", () => {
-    console.log("[workers] SIGTERM received — closing workers");
+    logger.info("[workers] SIGTERM received — closing workers");
     void closeAllWorkers();
   });
   process.once("SIGINT", () => {
-    console.log("[workers] SIGINT received — closing workers");
+    logger.info("[workers] SIGINT received — closing workers");
     void closeAllWorkers();
   });
 }
@@ -63,7 +64,7 @@ export function startAllWorkers(): void {
     starter: () => Worker | null,
   ): void => {
     if (INNGEST_JOB_KINDS.has(kind)) {
-      console.log(`[workers] skipping BullMQ worker for ${kind} (Inngest-routed)`);
+      logger.info({ kind }, "[workers] skipping BullMQ worker (Inngest-routed)");
       return;
     }
     push(starter());
@@ -86,8 +87,9 @@ export function startAllWorkers(): void {
 
   if (_startedWorkers.length > 0) {
     registerShutdownHandlers();
-    console.log(
-      `[workers] ${_startedWorkers.length} worker(s) started, SIGTERM handler registered`,
+    logger.info(
+      { count: _startedWorkers.length },
+      "[workers] workers started, SIGTERM handler registered",
     );
   }
 }

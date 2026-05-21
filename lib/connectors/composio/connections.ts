@@ -11,6 +11,7 @@
  * `userId` (Hearst Supabase id) maps 1:1 onto Composio's `userId`.
  */
 
+import { logger } from "@/lib/observability/logger";
 import { invalidateUserDiscovery } from "./cache";
 import { getComposio, isComposioConfigured } from "./client";
 import type { ConnectedAccount, InitiateConnectionResult } from "./types";
@@ -77,8 +78,9 @@ export async function initiateConnection(
     const res = await composio.toolkits.authorize(userId, slug);
     invalidateUserDiscovery(userId);
 
-    console.log(
-      `[Composio/Connections] authorize ok — userId=${userId} toolkit=${slug} hasRedirect=${Boolean(res.redirectUrl)}`,
+    logger.info(
+      { userId, toolkit: slug, hasRedirect: Boolean(res.redirectUrl) },
+      "[Composio/Connections] authorize ok",
     );
 
     void redirectUri; // Composio Connect URLs handle return-to via dashboard config.

@@ -18,6 +18,7 @@ import { storeAsset } from "@/lib/assets/types";
 import { deepseekChat } from "@/lib/capabilities/providers/deepseek";
 import type { JobResult, SimulationInput } from "@/lib/jobs/types";
 import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
+import { logger } from "@/lib/observability/logger";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { type SimulationOutput, simulationOutputSchema } from "@/lib/simulations/schemas";
 import { redactId } from "@/lib/utils/redact";
@@ -141,8 +142,13 @@ async function processSimulation(payload: SimulationInput): Promise<JobResult> {
     })
     .eq("id", payload.simulationId);
 
-  console.log(
-    `[Simulation/Worker] user=${redactId(payload.userId)} sim=${redactId(payload.simulationId)} scenarios=${parsed.scenarios.length}`,
+  logger.info(
+    {
+      userId: redactId(payload.userId),
+      simulationId: redactId(payload.simulationId),
+      scenarios: parsed.scenarios.length,
+    },
+    "[Simulation/Worker] complete",
   );
 
   return {
@@ -196,6 +202,6 @@ const handler: WorkerHandler<SimulationInput> = {
 };
 
 export function startSimulationWorker() {
-  console.log("[Simulation] worker started");
+  logger.info("[Simulation] worker started");
   return startWorker(handler);
 }

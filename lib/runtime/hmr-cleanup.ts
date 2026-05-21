@@ -37,6 +37,8 @@ export function registerHMRCleanup(fn: CleanupFn): () => void {
  * Called automatically by HMR dispose hook.
  */
 function runAllCleanups(): void {
+  // HMR dev-only : console.log intentionnel (pas de pino hors serveur)
+  // eslint-disable-next-line no-console
   console.log(`[HMR] Running ${cleanupRegistry.length} cleanup(s)`);
   for (const fn of cleanupRegistry) {
     try {

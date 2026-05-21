@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { type Asset, type AssetKind, loadAssetsForScope, storeAsset } from "@/lib/assets/types";
+import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { withScope } from "@/lib/platform/http/route-handler";
@@ -121,11 +122,10 @@ export async function POST(req: NextRequest) {
 
   storeAsset(asset);
 
-  if (process.env.NODE_ENV !== "production") {
-    console.log(
-      `[POST /api/v2/assets] Created asset: ${asset.id} (${type} → ${asset.kind}) for user ${redactId(scope.userId)}`,
-    );
-  }
+  logger.info(
+    { assetId: asset.id, type, kind: asset.kind, userId: redactId(scope.userId) },
+    "[POST /api/v2/assets] Created asset",
+  );
 
   return NextResponse.json(
     {

@@ -95,11 +95,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
   }
 
-  if (process.env.NODE_ENV !== "production") {
-    console.log(
-      `[MissionRunNow] Triggering "${missionName}" (${id}) for user ${redactId(scope.userId)}`,
-    );
-  }
+  logger.info(
+    { missionId: id, missionName, userId: redactId(scope.userId) },
+    "[MissionRunNow] Triggering",
+  );
 
   // Branch C3 : si la mission a un workflowGraph, on exécute via le workflow
   // executor au lieu de l'orchestrator standard. Run synchrone — les events

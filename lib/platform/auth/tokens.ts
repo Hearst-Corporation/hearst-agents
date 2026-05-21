@@ -7,6 +7,7 @@
 
 import crypto from "node:crypto";
 import type { Database } from "@/lib/database.types";
+import { logger } from "@/lib/observability/logger";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 type UserTokenInsert = Database["public"]["Tables"]["user_tokens"]["Insert"];
@@ -266,7 +267,7 @@ export async function saveTokens(
     if (tokens.expiresAt !== undefined) existing.expiresAt = tokens.expiresAt;
     if (options?.tenantId) existing.tenantId = options.tenantId;
     memoryTokens.set(k, existing);
-    console.log(`[TokenStore] Saved to memory for ${userId}/${provider}`);
+    logger.debug({ provider }, "[TokenStore] Saved to memory");
     return;
   }
   try {

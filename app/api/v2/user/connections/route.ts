@@ -15,6 +15,7 @@ import { getUnifiedConnectors } from "@/lib/connectors/unified/reconcile";
 import { getServiceDefinition } from "@/lib/integrations/catalog";
 import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
 import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
+import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getApplicableReports } from "@/lib/reports/catalog";
 import { redactId } from "@/lib/utils/redact";
@@ -231,11 +232,10 @@ export async function GET(_req: NextRequest) {
 
     // Log for debugging
     const connectedCount = services.filter((s) => s.connectionStatus === "connected").length;
-    if (process.env.NODE_ENV !== "production") {
-      console.log(
-        `[UserConnections] User ${redactId(scope.userId)}: ${connectedCount}/${services.length} connected`,
-      );
-    }
+    logger.info(
+      { userId: redactId(scope.userId), connectedCount, totalServices: services.length },
+      "[UserConnections] resolved",
+    );
 
     // Reports applicables au user vu ses connexions (ready/partial seulement).
     // Le RightPanel les transforme en suggestions dans la section Assets.

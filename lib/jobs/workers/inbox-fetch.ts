@@ -15,6 +15,7 @@ import { storeAsset } from "@/lib/assets/types";
 import { generateInboxBrief } from "@/lib/inbox/inbox-brief";
 import type { InboxFetchInput, JobResult } from "@/lib/jobs/types";
 import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
+import { logger } from "@/lib/observability/logger";
 
 const handler: WorkerHandler<InboxFetchInput> = {
   kind: "inbox-fetch",
@@ -63,8 +64,9 @@ const handler: WorkerHandler<InboxFetchInput> = {
 
     await reportProgress(100, "Inbox brief prêt");
 
-    console.log(
-      `[InboxFetch] user=${payload.userId} items=${brief.items.length} sources=[${brief.sources.join(",")}] assetId=${assetId}`,
+    logger.info(
+      { userId: payload.userId, items: brief.items.length, sources: brief.sources, assetId },
+      "[InboxFetch] complete",
     );
 
     return {
@@ -81,6 +83,6 @@ const handler: WorkerHandler<InboxFetchInput> = {
 };
 
 export function startInboxFetchWorker() {
-  console.log("[InboxFetch] worker started");
+  logger.info("[InboxFetch] worker started");
   return startWorker(handler);
 }
