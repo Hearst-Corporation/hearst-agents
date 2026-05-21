@@ -62,7 +62,7 @@ export function BottomBar() {
             style={{
               padding: "var(--space-1-5) var(--space-3)",
               borderRadius: "var(--radius-sm)",
-              fontSize: "11px",
+              fontSize: "var(--font-size-11, 11px)",
               fontWeight: active ? 600 : 500,
               letterSpacing: "0.04em",
               color: active ? "var(--accent-teal)" : "var(--text-faint)",

@@ -69,7 +69,7 @@ export function Toggle({
           background: checked ? "var(--accent-teal)" : "var(--surface-2)",
           border: `1px solid ${checked ? "var(--accent-teal)" : "var(--border-default)"}`,
           alignItems: "center",
-          padding: "2px",
+          padding: "var(--space-0-5)",
           transition: `background var(--duration-base) var(--ease-standard)`,
           flexShrink: 0,
         }}

@@ -39,7 +39,7 @@ export function HubBar() {
     >
       <span
         style={{
-          fontSize: "10px",
+          fontSize: "var(--font-size-10, 10px)",
           fontWeight: 600,
           letterSpacing: "0.1em",
           textTransform: "uppercase",
@@ -66,7 +66,7 @@ export function HubBar() {
               style={{
                 padding: "var(--space-1) var(--space-2-5)",
                 borderRadius: "var(--radius-xs)",
-                fontSize: "11px",
+                fontSize: "var(--font-size-11, 11px)",
                 fontWeight: active ? 600 : 500,
                 color: active ? "var(--text)" : "var(--text-faint)",
                 background: active ? "var(--surface-2)" : "transparent",
