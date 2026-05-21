@@ -43,10 +43,28 @@ export default async function RootLayout({
       data-product="helm"
     >
       <head>
+        {/* Preconnect fontshare CDN — réduit la latence de connexion */}
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        {/*
+         * Satoshi Variable — chargement asynchrone non-bloquant.
+         * display=swap est injecté par fontshare côté serveur CSS ; on charge
+         * la feuille en media print + onload pour éviter le render-blocking.
+         * NOTE : pour passer en self-host complet (next/font/local), fournir les
+         * fichiers .woff2 Satoshi (absents du repo) et supprimer ce bloc.
+         */}
         <link
-          href="https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&display=swap"
           rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&display=swap"
+          media="print"
+          // biome-ignore lint/suspicious/noExplicitAny: inline onload pattern non-bloquant
+          onLoad={"this.media='all'" as any}
         />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&display=swap"
+          />
+        </noscript>
         {/*
          * Inter+Tight retiré 2026-05-15 — F-045/F-115 : la CSP `style-src` ne
          * whitelist pas `fonts.googleapis.com` (seul fontshare l'est) et la
