@@ -195,6 +195,13 @@ export const authOptions: AuthOptions = {
         token.tenantId = primaryTenantId;
         token.workspaceId = primaryWorkspaceId;
         if (email) token.email = email;
+        // Prénom / nom de l'utilisateur — Google expose `given_name`, Azure `name`.
+        // Stocké dans token.name pour être exposé via session.user.name (NextAuth).
+        token.name =
+          (profile as { given_name?: string; name?: string } | undefined)?.given_name ??
+          (profile as { name?: string } | undefined)?.name ??
+          user?.name ??
+          undefined;
 
         if (uuid) {
           await saveTokens(
@@ -237,10 +244,18 @@ export const authOptions: AuthOptions = {
       // serveur. À utiliser comme identifiant dans tout React state qui
       // a besoin d'une key user.
       if (session.user && typeof token.userId === "string") {
-        const u = session.user as { id?: string; tenantId?: string; workspaceId?: string };
+        const u = session.user as {
+          id?: string;
+          tenantId?: string;
+          workspaceId?: string;
+          name?: string | null;
+        };
         u.id = token.userId;
         u.tenantId = token.tenantId;
         u.workspaceId = token.workspaceId;
+        // Peuple session.user.name depuis token.name (NextAuth ne le fait pas
+        // automatiquement quand on utilise un custom jwt callback).
+        if (token.name) u.name = token.name as string;
       }
       return session;
     },

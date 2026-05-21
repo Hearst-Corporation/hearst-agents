@@ -89,6 +89,8 @@ interface OrchestrateInput {
   _allowedTools?: string[];
   /** Injected by runPipeline — recurring intent detected, force schedule preview. */
   _scheduleDirective?: boolean;
+  /** Prénom / nom de l'utilisateur connecté (depuis scope.userName). Fail-soft si absent. */
+  userName?: string;
 }
 
 const DEV_TENANT_ID = "dev-tenant";
@@ -189,6 +191,8 @@ async function handleAiPipeline(
     _allowedTools: input._allowedTools,
     // F-012 : passer missionId pour déclencher l'isolation scheduler
     missionId: input.missionId,
+    // Profil utilisateur pour personnalisation du system prompt
+    userName: input.userName,
   });
 }
 

@@ -194,6 +194,7 @@ export async function POST(req: NextRequest) {
     tenantId: scope.tenantId,
     workspaceId: scope.workspaceId,
     max_cost_usd: PRICE_CAP_USD,
+    userName: scope.userName,
   });
 
   return new Response(withHeartbeat(stream, scope.userId), {

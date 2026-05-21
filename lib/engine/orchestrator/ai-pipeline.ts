@@ -109,6 +109,12 @@ export interface AiPipelineInput {
    * Déclenche l'isolation scheduler (retire les tools récursifs).
    */
   missionId?: string;
+  /**
+   * Prénom (ou nom complet) de l'utilisateur connecté — transmis depuis scope.userName
+   * (capturé au login OAuth). Injecté dans le system prompt pour personnaliser
+   * l'adresse. Absent/vide → prompt inchangé (fail-soft).
+   */
+  userName?: string;
 }
 
 // Orchestrateur via Hypercli (endpoint compatible Anthropic /v1/messages) :
@@ -696,6 +702,7 @@ export async function runAiPipeline(
     retrievedMemory: retrievedMemory && retrievedMemory.length > 0 ? retrievedMemory : undefined,
     persona,
     missionContext: input.missionContext,
+    userProfile: input.userName || undefined,
   });
 
   // ── 4. Build message history ────────────────────────────────

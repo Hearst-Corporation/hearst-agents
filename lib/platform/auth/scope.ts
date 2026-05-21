@@ -20,6 +20,8 @@ export interface CanonicalScope {
   tenantId: string;
   workspaceId: string;
   isDevFallback: boolean;
+  /** Prénom (ou nom complet) de l'utilisateur connecté, tel qu'exposé par le provider OAuth. */
+  userName?: string;
 }
 
 interface ResolveScopeOptions {
@@ -67,6 +69,9 @@ export async function resolveScope(
     (session?.user as { workspaceId?: string } | undefined)?.workspaceId ??
     ((session as unknown as Record<string, unknown> | null)?.workspaceId as string | undefined) ??
     null;
+  // Prénom / nom depuis session.user.name (peuplé via token.name dans options.ts).
+  const sessionUserName =
+    (session?.user as { name?: string | null } | undefined)?.name ?? undefined;
 
   let tenantId: string | null = sessionTenantId;
   let workspaceId: string | null = sessionWorkspaceId;
@@ -113,6 +118,7 @@ export async function resolveScope(
     tenantId,
     workspaceId,
     isDevFallback,
+    userName: sessionUserName || undefined,
   };
 }
 

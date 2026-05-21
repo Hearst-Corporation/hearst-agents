@@ -262,6 +262,13 @@ interface AgentSystemPromptOpts {
    * `formatMissionContextBlock` (lib/memory/mission-context.ts).
    */
   missionContext?: string;
+  /**
+   * Prénom (ou nom complet) de l'utilisateur connecté — capturé depuis le
+   * profil OAuth (Google: given_name, Azure: name) au moment du login.
+   * Injecté dans la zone stable du prompt (avant les directives variables)
+   * pour bénéficier du prompt cache. Absent/vide → rien n'est injecté.
+   */
+  userProfile?: string;
 }
 
 /**
@@ -283,6 +290,7 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
     retrievedMemory,
     persona,
     missionContext,
+    userProfile,
   } = opts;
 
   const today = new Date().toLocaleDateString("fr-FR", {
@@ -315,6 +323,21 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
       : "(aucun outil tiers connecté pour ce tour)";
 
   const surfaceNote = surface ? `\nSurface active : ${surface}` : "";
+
+  // Profil utilisateur : prénom capturé depuis OAuth (Google given_name / Azure name).
+  // Injecté en zone stable pour bénéficier du prompt cache. Rien si absent.
+  // Sanitize : le name vient du profil OAuth (externe) → anti-injection + cap longueur
+  const safeName = userProfile
+    ? userProfile
+        .trim()
+        .replace(/[\n\r<>]/g, " ")
+        .replace(/\s+/g, " ")
+        .slice(0, 80)
+    : "";
+  const userProfileSection =
+    safeName.length > 0
+      ? `\n\n## Utilisateur\nL'utilisateur connecté s'appelle ${safeName}. Adresse-toi à lui par son prénom, naturellement, sans en faire trop. Tu es SON assistant personnel Hearst.\n`
+      : "";
 
   // Briefing : injecté en zone stable (avant tools, avant directives variables)
   // pour rester cacheable. Coupé à 2000 chars pour éviter de saturer le prompt
@@ -388,7 +411,7 @@ Déduis les paramètres directement depuis le message :
   return `${getSpotlightHeader()}
 
 ${scheduleHeader}Tu es Hearst, un assistant exécutif intelligent pour les professionnels des médias.
-Aujourd'hui : ${today}${surfaceNote}${briefingSection}${kgContextSection}${missionContextSection}${personaSection}${applicableReportsSection}
+Aujourd'hui : ${today}${surfaceNote}${userProfileSection}${briefingSection}${kgContextSection}${missionContextSection}${personaSection}${applicableReportsSection}
 
 CHARTE ÉDITORIALE HEARST (s'applique à toutes tes réponses et drafts) :
 ${EDITORIAL_CHARTER_BLOCK}
