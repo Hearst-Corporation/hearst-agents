@@ -1,147 +1,12 @@
 "use client";
 
-/**
- * RightRailChat — Chat Kimi dans la colonne de droite.
- *
- * Structure cible (inspirée du ref design) :
- *   .ct-rail-right-body
- *     .ct-chat-root
- *       .ct-chat-actionbar
- *       .ct-chat-list
- *       .ct-chat-form
- *
- * Ce composant est AUTONOME : il gère son propre fetch SSE vers /api/orchestrate.
- */
-
 import { useCallback, useEffect, useRef, useState } from "react";
-
-// ── Types ────────────────────────────────────────────────────────────────────
 
 interface ChatMessage {
   id: string;
   role: "user" | "assistant";
   content: string;
 }
-
-// ── Styles inline (ref design) ───────────────────────────────────────────────
-
-const RAIL_BODY_STYLE: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-  width: "100%",
-};
-
-const CHAT_ROOT_STYLE: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-  width: "100%",
-};
-
-const HEADER_STYLE: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "var(--space-3) var(--space-4)",
-  borderBottom: "1px solid var(--border-shell)",
-  flexShrink: 0,
-  gap: "var(--space-2)",
-};
-
-const HEADER_TITLE_STYLE: React.CSSProperties = {
-  fontSize: "var(--font-size-12, 12px)",
-  fontWeight: 600,
-  color: "var(--text-soft)",
-  display: "flex",
-  alignItems: "center",
-  gap: "var(--space-1-5)",
-};
-
-const HEADER_DOT_STYLE: React.CSSProperties = {
-  width: "var(--size-dot)",
-  height: "var(--size-dot)",
-  borderRadius: "50%",
-  background: "var(--accent-teal)",
-  boxShadow: "var(--shadow-playhead-accent-teal)",
-};
-
-const HEADER_ACTIONS_STYLE: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "var(--space-1)",
-};
-
-const HEADER_BTN_STYLE: React.CSSProperties = {
-  width: "var(--size-compare-handle)",
-  height: "var(--size-compare-handle)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "var(--radius-sm)",
-  border: "none",
-  background: "transparent",
-  color: "var(--text-faint)",
-  cursor: "pointer",
-  transition: "all 0.15s ease",
-  padding: 0,
-};
-
-const NEWBTN_STYLE: React.CSSProperties = {
-  fontSize: "var(--font-size-11, 11px)",
-  fontWeight: 500,
-  color: "var(--accent-teal)",
-  background: "transparent",
-  border: "none",
-  cursor: "pointer",
-  padding: "var(--space-1) var(--space-2)",
-  borderRadius: "var(--radius-sm)",
-  transition: "background 0.15s",
-};
-
-const LIST_STYLE: React.CSSProperties = {
-  flex: 1,
-  overflowY: "auto",
-  padding: "var(--space-4)",
-  display: "flex",
-  flexDirection: "column",
-  gap: "var(--space-3)",
-};
-
-const MSG_USER_STYLE: React.CSSProperties = {
-  alignSelf: "flex-end",
-  maxWidth: "85%",
-  background: "var(--accent-teal-surface)",
-  color: "var(--text)",
-  border: "1px solid var(--accent-teal-border)",
-  borderRadius: "var(--radius-lg)",
-  padding: "var(--space-2-5) var(--space-3-5)",
-  fontSize: "var(--font-size-13, 13px)",
-  lineHeight: "var(--line-height-relaxed, 1.5)",
-  whiteSpace: "pre-wrap",
-  wordBreak: "break-word",
-};
-
-const MSG_ASSISTANT_STYLE: React.CSSProperties = {
-  alignSelf: "flex-start",
-  maxWidth: "85%",
-  background: "var(--surface-1)",
-  color: "var(--text-muted)",
-  border: "1px solid var(--border-shell)",
-  borderRadius: "var(--radius-lg)",
-  padding: "var(--space-2-5) var(--space-3-5)",
-  fontSize: "var(--font-size-13, 13px)",
-  lineHeight: "var(--line-height-relaxed, 1.5)",
-  whiteSpace: "pre-wrap",
-  wordBreak: "break-word",
-};
-
-/* Styles inline supprimés — les classes .ct-chat-form, .ct-chat-input,
- * .ct-chat-send du package @hearst/cockpit-shell (surchargées dans
- * globals.css via [data-product="helm"]) prennent le relais.
- * Cohérence visuelle avec Cortex (Master Vault). */
-
-// ── Composant principal ──────────────────────────────────────────────────────
 
 export function RightRailChat() {
   const [inputValue, setInputValue] = useState("");
@@ -150,337 +15,196 @@ export function RightRailChat() {
     {
       id: "welcome",
       role: "assistant",
-      content:
-        "Bonjour ! Je suis Kimi K2.6, votre assistant Hearst. Comment puis-je vous aider aujourd'hui ?",
+      content: "Bonjour. Que voulez-vous orchestrer aujourd'hui ?",
     },
   ]);
   const listRef = useRef<HTMLDivElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
-  // ID de conversation stable (UUID) — /api/orchestrate exige des UUID valides
-  // pour conversation_id/thread_id (sinon 400 invalid_body). Généré une fois.
   const conversationIdRef = useRef<string>(crypto.randomUUID());
 
-  // Auto-scroll
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
     }
   }, [messages, isStreaming]);
 
-  // Auto-resize textarea
-  useEffect(() => {
-    const ta = textareaRef.current;
-    if (ta) {
-      ta.style.height = "auto";
-      ta.style.height = `${Math.min(ta.scrollHeight, 120)}px`;
-    }
-  }, [inputValue]);
-
-  // Cleanup
   useEffect(() => {
     return () => {
       if (abortRef.current) abortRef.current.abort();
     };
   }, []);
 
-  const handleNewChat = () => {
-    setMessages([
-      {
-        id: "welcome",
-        role: "assistant",
-        content:
-          "Bonjour ! Je suis Kimi K2.6, votre assistant Hearst. Comment puis-je vous aider aujourd'hui ?",
-      },
-    ]);
+  const handleSubmit = useCallback(async () => {
+    const text = inputValue.trim();
+    if (!text || isStreaming) return;
+
+    const userMsg: ChatMessage = { id: `u-${Date.now()}`, role: "user", content: text };
+    setMessages((prev) => [...prev, userMsg]);
+
+    const assistantId = `a-${Date.now()}`;
+    setMessages((prev) => [...prev, { id: assistantId, role: "assistant", content: "" }]);
     setInputValue("");
-  };
+    setIsStreaming(true);
 
-  const handleSubmit = useCallback(
-    async (e?: React.FormEvent) => {
-      e?.preventDefault();
-      const text = inputValue.trim();
-      if (!text || isStreaming) return;
+    const controller = new AbortController();
+    abortRef.current = controller;
 
-      // Message user
-      const userMsg: ChatMessage = {
-        id: `u-${Date.now()}`,
-        role: "user",
-        content: text,
-      };
-      setMessages((prev) => [...prev, userMsg]);
+    try {
+      const res = await fetch("/api/orchestrate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          surface: "chat",
+          thread_id: conversationIdRef.current,
+          conversation_id: conversationIdRef.current,
+          history: messages
+            .filter((m) => m.content.trim().length > 0)
+            .slice(-10)
+            .map((m) => ({ role: m.role, content: m.content })),
+          capability_mode: "general",
+        }),
+        signal: controller.signal,
+      });
 
-      // Message assistant vide
-      const assistantId = `a-${Date.now()}`;
-      setMessages((prev) => [...prev, { id: assistantId, role: "assistant", content: "" }]);
+      if (!res.ok) {
+        const err = res.status >= 500 ? "Problème serveur" : `Erreur ${res.status}`;
+        setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: err } : m)));
+        setIsStreaming(false);
+        return;
+      }
 
-      setInputValue("");
-      setIsStreaming(true);
+      const reader = res.body?.getReader();
+      if (!reader) {
+        setIsStreaming(false);
+        return;
+      }
 
-      const controller = new AbortController();
-      abortRef.current = controller;
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let assistantBuffer = "";
+      let failureReason = "";
 
-      try {
-        const res = await fetch("/api/orchestrate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: text,
-            surface: "chat",
-            thread_id: conversationIdRef.current,
-            conversation_id: conversationIdRef.current,
-            history: messages
-              .filter((m) => m.content.trim().length > 0)
-              .slice(-10)
-              .map((m) => ({ role: m.role, content: m.content })),
-            capability_mode: "general",
-          }),
-          signal: controller.signal,
-        });
-
-        if (!res.ok) {
-          const err = res.status >= 500 ? "Problème serveur" : `Erreur ${res.status}`;
-          setMessages((prev) =>
-            prev.map((m) => (m.id === assistantId ? { ...m, content: err } : m)),
-          );
-          setIsStreaming(false);
-          return;
-        }
-
-        const reader = res.body?.getReader();
-        if (!reader) {
-          setIsStreaming(false);
-          return;
-        }
-
-        const decoder = new TextDecoder();
-        let buffer = "";
-        let assistantBuffer = "";
-        let failureReason = "";
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() ?? "";
-
-          for (const line of lines) {
-            // Accepte "data: " et "data:" (avec ou sans espace).
-            if (!line.startsWith("data:")) continue;
-            try {
-              const event = JSON.parse(line.slice(line.indexOf(":") + 1).trim());
-              if (event.type === "text_delta" && event.delta) {
-                assistantBuffer += event.delta;
-                setMessages((prev) =>
-                  prev.map((m) => (m.id === assistantId ? { ...m, content: assistantBuffer } : m)),
-                );
-              }
-              // Capte l'erreur réelle au lieu de l'avaler silencieusement (bulle vide).
-              if (event.type === "run_failed") {
-                failureReason =
-                  event.error || event.reason || event.message || "run_failed (sans détail)";
-              }
-              if (event.type === "error" && (event.message || event.error)) {
-                failureReason = event.message || event.error;
-              }
-              if (event.type === "run_completed" || event.type === "run_failed") {
-                setIsStreaming(false);
-              }
-            } catch {
-              /* ignore malformed */
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+        for (const line of lines) {
+          if (!line.startsWith("data:")) continue;
+          try {
+            const event = JSON.parse(line.slice(line.indexOf(":") + 1).trim());
+            if (event.type === "text_delta" && event.delta) {
+              assistantBuffer += event.delta;
+              setMessages((prev) =>
+                prev.map((m) => (m.id === assistantId ? { ...m, content: assistantBuffer } : m)),
+              );
             }
+            if (event.type === "run_failed") {
+              failureReason = event.error || event.reason || event.message || "run_failed";
+            }
+            if (event.type === "error" && (event.message || event.error)) {
+              failureReason = event.message || event.error;
+            }
+            if (event.type === "run_completed" || event.type === "run_failed") {
+              setIsStreaming(false);
+            }
+          } catch {
+            /* ignore malformed */
           }
         }
-
-        // Stream terminé sans aucun texte → afficher la cause au lieu d'une bulle vide.
-        if (!assistantBuffer) {
-          setMessages((prev) =>
-            prev.map((m) =>
-              m.id === assistantId
-                ? {
-                    ...m,
-                    content: failureReason
-                      ? `⚠️ ${failureReason}`
-                      : "⚠️ Réponse vide (aucun text_delta reçu)",
-                  }
-                : m,
-            ),
-          );
-        }
-        setIsStreaming(false);
-      } catch (err) {
-        const isAbort = err instanceof DOMException && err.name === "AbortError";
-        if (!isAbort) {
-          setMessages((prev) =>
-            prev.map((m) => (m.id === assistantId ? { ...m, content: "Erreur de connexion" } : m)),
-          );
-        }
-        setIsStreaming(false);
-      } finally {
-        abortRef.current = null;
       }
-    },
-    [inputValue, isStreaming, messages],
-  );
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+      if (!assistantBuffer) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantId
+              ? { ...m, content: failureReason ? `⚠️ ${failureReason}` : "⚠️ Réponse vide" }
+              : m,
+          ),
+        );
+      }
+      setIsStreaming(false);
+    } catch (err) {
+      const isAbort = err instanceof DOMException && err.name === "AbortError";
+      if (!isAbort) {
+        setMessages((prev) =>
+          prev.map((m) => (m.id === assistantId ? { ...m, content: "Erreur de connexion" } : m)),
+        );
+      }
+      setIsStreaming(false);
+    } finally {
+      abortRef.current = null;
+    }
+  }, [inputValue, isStreaming, messages]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
       e.preventDefault();
       void handleSubmit();
     }
   };
-
-  const canSend = inputValue.trim().length > 0 && !isStreaming;
 
   return (
     <aside
       aria-label="Chat avec Kimi"
       className="vision-rail-right preserve-3d relative z-20 hidden xl:flex xl:w-(--width-rail-right) shrink-0 flex-col border-l border-line-strong bg-surface 2xl:w-(--width-rail-right-wide)"
     >
-      <div className="ct-rail-right-body" style={RAIL_BODY_STYLE}>
-        <div className="ct-chat-root" style={CHAT_ROOT_STYLE}>
-          {/* Header */}
-          <div className="ct-chat-header" style={HEADER_STYLE}>
-            <div style={HEADER_TITLE_STYLE}>
-              <span style={HEADER_DOT_STYLE} />
-              <span>Assistant · Hearst Cortex</span>
-            </div>
-            <div style={HEADER_ACTIONS_STYLE}>
-              {/* Historique */}
-              <button
-                type="button"
-                title="Historique"
-                style={HEADER_BTN_STYLE}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--text-muted)";
-                  e.currentTarget.style.background = "var(--surface-1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-faint)";
-                  e.currentTarget.style.background = "transparent";
-                }}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="1 4 1 10 7 10" />
-                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
-                </svg>
-              </button>
-              {/* Paramètres */}
-              <button
-                type="button"
-                title="Paramètres"
-                style={HEADER_BTN_STYLE}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--text-muted)";
-                  e.currentTarget.style.background = "var(--surface-1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-faint)";
-                  e.currentTarget.style.background = "transparent";
-                }}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.67 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.67a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                </svg>
-              </button>
-              {/* Nouveau */}
-              <button
-                type="button"
-                title="Nouvelle conversation"
-                className="ct-chat-newbtn"
-                style={NEWBTN_STYLE}
-                onClick={handleNewChat}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = "var(--accent-teal-surface)")
-                }
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                + Nouveau
-              </button>
-            </div>
-          </div>
-
-          {/* Messages */}
-          <div ref={listRef} className="ct-chat-list" style={LIST_STYLE}>
+      <div className="ct-rail-right-body">
+        <div className="ct-chat">
+          <div ref={listRef} className="ct-chat-messages">
             {messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`ct-chat-msg ${msg.role}`}
-                style={msg.role === "user" ? MSG_USER_STYLE : MSG_ASSISTANT_STYLE}
-              >
-                <div>{msg.content}</div>
+              <div key={msg.id} className={`ct-chat-msg ${msg.role}`}>
+                {msg.role === "assistant" && (
+                  <div className="ct-chat-msg-avatar" aria-hidden>
+                    <svg viewBox="560 455 155 170" width="13" height="14" fill="currentColor">
+                      <polygon points="601.74 466.87 572.6 466.87 572.6 609.73 601.74 609.73 601.74 549.07 633.11 579.43 665.76 579.43 601.74 517.46 601.74 466.87" />
+                      <polygon points="672.72 466.87 672.72 528.12 644.63 500.93 611.98 500.93 672.72 559.72 672.72 609.73 701.86 609.73 701.86 466.87 672.72 466.87" />
+                    </svg>
+                  </div>
+                )}
+                <div className="ct-chat-msg-bubble">{msg.content}</div>
               </div>
             ))}
             {isStreaming && (
-              <div className="ct-chat-msg assistant" style={MSG_ASSISTANT_STYLE}>
-                <div>
+              <div className="ct-chat-msg assistant">
+                <div className="ct-chat-msg-avatar" aria-hidden>
+                  <svg viewBox="560 455 155 170" width="13" height="14" fill="currentColor">
+                    <polygon points="601.74 466.87 572.6 466.87 572.6 609.73 601.74 609.73 601.74 549.07 633.11 579.43 665.76 579.43 601.74 517.46 601.74 466.87" />
+                    <polygon points="672.72 466.87 672.72 528.12 644.63 500.93 611.98 500.93 672.72 559.72 672.72 609.73 701.86 609.73 701.86 466.87 672.72 466.87" />
+                  </svg>
+                </div>
+                <div className="ct-chat-msg-bubble">
                   <span
                     style={{
                       display: "inline-block",
-                      width: "var(--size-dot)",
-                      height: "var(--size-dot)",
+                      width: 6,
+                      height: 6,
                       borderRadius: "50%",
-                      background: "var(--accent-teal)",
+                      background: "var(--ct-accent)",
                       animation: "pulse 1.5s infinite",
-                      marginRight: "var(--space-1-5)",
                     }}
                   />
-                  En cours…
                 </div>
               </div>
             )}
           </div>
 
-          {/* Form */}
-          <form className="ct-chat-form" onSubmit={(e) => void handleSubmit(e)}>
-            <textarea
-              ref={textareaRef}
+          <div className="ct-chat-input-wrap">
+            <input
+              ref={inputRef}
+              type="text"
               className="ct-chat-input"
-              rows={2}
-              placeholder="Message à Kimi…"
+              placeholder="Demandez à Helm…"
+              aria-label="Message à Helm"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               disabled={isStreaming}
             />
-            <button type="submit" className="ct-chat-send" disabled={!canSend} aria-label="Envoyer">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="12" y1="19" x2="12" y2="5" />
-                <polyline points="5 12 12 5 19 12" />
-              </svg>
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </aside>
