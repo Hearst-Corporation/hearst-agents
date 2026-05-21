@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
 import { Action, FilterTabs, PanelCard, ScreenShell } from "@/app/(user)/components/ui";
 
@@ -64,8 +65,14 @@ const DOMAIN_STYLES: Record<DomainLabel, string> = {
 };
 
 const FILTERS = ["Tout", "Performance", "Audience", "Revenue", "Hôtellerie"] as const;
+type Filter = (typeof FILTERS)[number];
 
 export default function ReportsPage() {
+  const [activeFilter, setActiveFilter] = useState<Filter>("Tout");
+
+  const filteredReports =
+    activeFilter === "Tout" ? REPORTS : REPORTS.filter((r) => r.domain === activeFilter);
+
   return (
     <StandalonePageFrame>
       <ScreenShell
@@ -77,13 +84,18 @@ export default function ReportsPage() {
           </Action>
         }
       >
-        <FilterTabs tabs={FILTERS} active="Tout" aria-label="Filtrer les rapports" />
+        <FilterTabs
+          tabs={FILTERS}
+          active={activeFilter}
+          aria-label="Filtrer les rapports"
+          onValueChange={(v) => setActiveFilter(v as Filter)}
+        />
 
         <div
           className="grid grid-cols-1 md:grid-cols-2"
           style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
         >
-          {REPORTS.map((r) => (
+          {filteredReports.map((r) => (
             <PanelCard key={r.id} hover className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
                 <span

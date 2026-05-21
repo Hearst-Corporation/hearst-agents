@@ -3,6 +3,10 @@
 /**
  * FilterTabs — onglets / filtres horizontaux (pages standalone mock).
  * Tokens uniquement — remplace bg-white/10 + text-white/40.
+ *
+ * Contrôlable via `value` + `onValueChange` (ou `onChange` alias).
+ * Si aucun handler n'est fourni, le composant reste non-interactif
+ * (mode affichage seul, rétrocompatible).
  */
 
 interface FilterTabsProps {
@@ -11,9 +15,22 @@ interface FilterTabsProps {
   "aria-label"?: string;
   /** Sans marge basse — quand les tabs sont dans une barre d'outils. */
   inline?: boolean;
+  /** Appelé avec le label de l'onglet cliqué. */
+  onValueChange?: (value: string) => void;
+  /** Alias de `onValueChange` pour rétrocompatibilité. */
+  onChange?: (value: string) => void;
 }
 
-export function FilterTabs({ tabs, active, "aria-label": ariaLabel, inline }: FilterTabsProps) {
+export function FilterTabs({
+  tabs,
+  active,
+  "aria-label": ariaLabel,
+  inline,
+  onValueChange,
+  onChange,
+}: FilterTabsProps) {
+  const handleChange = onValueChange ?? onChange;
+
   return (
     <div
       role="tablist"
@@ -32,6 +49,7 @@ export function FilterTabs({ tabs, active, "aria-label": ariaLabel, inline }: Fi
             type="button"
             role="tab"
             aria-selected={isActive}
+            onClick={handleChange ? () => handleChange(tab) : undefined}
             className={`t-13 font-medium rounded-lg transition-colors ${
               isActive
                 ? "bg-(--surface-2) text-text"

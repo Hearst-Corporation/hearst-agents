@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
 import {
   Action,
@@ -87,8 +88,23 @@ const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
 };
 
 const FILTERS = ["Tout", "Workflow", "Rapport", "Persona"] as const;
+type Filter = (typeof FILTERS)[number];
+
+// Map label de filtre → valeur kind
+const FILTER_TO_KIND: Partial<Record<Filter, KindLabel>> = {
+  Workflow: "workflow",
+  Rapport: "rapport",
+  Persona: "persona",
+};
 
 export default function MarketplacePage() {
+  const [activeFilter, setActiveFilter] = useState<Filter>("Tout");
+
+  const filteredTemplates =
+    activeFilter === "Tout"
+      ? TEMPLATES
+      : TEMPLATES.filter((t) => t.kind === FILTER_TO_KIND[activeFilter]);
+
   return (
     <StandalonePageFrame>
       <ScreenShell
@@ -101,14 +117,20 @@ export default function MarketplacePage() {
           style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}
         >
           <SearchField placeholder="Rechercher un template…" disabled className="flex-1" />
-          <FilterTabs tabs={FILTERS} active="Tout" aria-label="Filtrer par type" inline />
+          <FilterTabs
+            tabs={FILTERS}
+            active={activeFilter}
+            aria-label="Filtrer par type"
+            inline
+            onValueChange={(v) => setActiveFilter(v as Filter)}
+          />
         </div>
 
         <div
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
           style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
         >
-          {TEMPLATES.map((t) => {
+          {filteredTemplates.map((t) => {
             const { badge, label } = KIND_STYLES[t.kind];
             return (
               <PanelCard key={t.id} hover className="flex flex-col gap-3">
