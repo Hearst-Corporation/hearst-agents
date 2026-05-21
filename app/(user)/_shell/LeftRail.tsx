@@ -1,327 +1,202 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
-import { type StagePayload, useStageStore } from "@/stores/stage";
-import { STAGE_REGISTRY } from "../_stages/registry";
-import type { StageKey } from "../_stages/types";
-import { IconButton } from "../components/ui";
-import { STAGE_ICON } from "./stage-icons";
+import { useStageStore } from "@/stores/stage";
 
 /**
- * LeftRail — barre d'activité verticale (navigation Stages).
- *
- * Refonte navigation 2026-05-18 : la rail 88px redevient la navigation
- * VISUELLE de premier niveau. Les 12 Stages y sont tous accessibles en
- * 1 clic, groupés logiquement (Primaire / Création / Live / Savoir /
- * Système), icône + tooltip (label + hotkey) + état actif.
- *
- * Pourquoi : le footer n'expose que 3 Stages (Dashboard/Chat/Demandes)
- * et le reste n'était atteignable que par ⌘K ou hotkey — invisible pour
- * qui ne les connaît pas. La rail rend tout découvrable sans alourdir le
- * centre (icônes seules, 88px inchangé).
- *
- * Couches complémentaires conservées :
- *   - Footer (StageFooter)   = raccourci des 3 Stages primaires
- *   - Commandeur (⌘K)        = recherche + actions, accès expert
- *   - Hotkeys ⌘1..9 / ⌘0     = accès clavier
- *
- * `asset_compare` est exclu de la rail : mode contextuel ouvert depuis
- * le Stage Asset, pas une destination de premier niveau.
- *
- * Largeur 88px conservée — contrat layout Shell.tsx (LOCKED).
+ * LeftRail — barre latérale gauche, structure identique au Master Vault Cortex.
+ * Utilise les classes ct-rail-* du package @hearst/cockpit-shell.
  */
 
-// ── Groupes logiques (ordre top → bottom) ─────────────────────────────
-
-interface NavGroup {
-  id: string;
-  stages: readonly StageKey[];
-}
-
-const NAV_GROUPS: readonly NavGroup[] = [
-  { id: "primaire", stages: ["cockpit", "chat", "mission"] },
-  { id: "creation", stages: ["asset", "artifact", "simulation"] },
-  { id: "live", stages: ["browser", "voice", "meeting"] },
-  { id: "savoir", stages: ["kg", "signal"] },
-  { id: "systeme", stages: ["connections"] },
-] as const;
-
-/**
- * Construit le StagePayload pour un Stage. Les modes à ID requis
- * (mission / asset / browser / meeting) reçoivent le dernier ID connu
- * ou une valeur vide — les Stages rendent alors leur état idle/empty
- * (jamais de crash, cf. hardening flow it.1-8).
- */
-function payloadFor(key: StageKey): StagePayload {
-  const s = useStageStore.getState();
-  switch (key) {
-    case "mission":
-      return { mode: "mission", missionId: s.lastMissionId ?? "" };
-    case "asset":
-      return { mode: "asset", assetId: s.lastAssetId ?? "" };
-    case "browser":
-      return { mode: "browser", sessionId: "" };
-    case "meeting":
-      return { mode: "meeting", meetingId: "" };
-    default:
-      return { mode: key } as StagePayload;
-  }
-}
-
-// ── Sub-composants ────────────────────────────────────────────────────
-
-/**
- * UserAvatar — avatar de session cliquable.
- * Un clic ouvre un mini-popover proposant "Se déconnecter".
- */
 function UserAvatar() {
   const { data: session } = useSession();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const image = session?.user?.image;
   const name = session?.user?.name ?? "?";
-  const initial = name.charAt(0).toUpperCase();
-  /** Ref du bouton avatar — re-focus à la fermeture du popover (a11y). */
-  const avatarBtnRef = useRef<HTMLButtonElement>(null);
+  const initial = name.slice(0, 2).toUpperCase();
+  const image = session?.user?.image;
 
-  /** Ferme le menu et rend le focus au bouton avatar. */
-  const closeMenu = () => {
-    setMenuOpen(false);
-    // Re-focus différé d'un tick pour laisser le DOM se stabiliser.
-    requestAnimationFrame(() => avatarBtnRef.current?.focus());
-  };
-
-  /** Fermeture Escape depuis n'importe quel descendant du popover. */
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        closeMenu();
-      }
-    };
-    document.addEventListener("keydown", onKeyDown, true);
-    return () => document.removeEventListener("keydown", onKeyDown, true);
-    // closeMenu est stable (setState + rAF, pas de deps externes)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [menuOpen]);
-
-  const avatarEl = image ? (
-    <img
-      src={image}
-      alt={name}
-      className="size-9 rounded-full object-cover"
-      style={{ boxShadow: "var(--shadow-inset-highlight)" }}
-    />
-  ) : (
-    <div
-      className="flex size-9 items-center justify-center rounded-full bg-(--surface-icon-tile) t-13 text-text"
-      style={{ boxShadow: "var(--shadow-inset-highlight)" }}
-    >
-      <span className="opacity-90">{initial}</span>
-    </div>
-  );
-
-  return (
-    <div className="relative">
+  if (image) {
+    return (
       <button
-        ref={avatarBtnRef}
         type="button"
-        aria-label={`Session ${name} — Se déconnecter`}
-        aria-expanded={menuOpen}
-        aria-haspopup="menu"
-        title={`${name} — cliquer pour se déconnecter`}
-        onClick={() => setMenuOpen((v) => !v)}
-        className="rounded-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
+        className="ct-avatar"
+        title="Profil"
+        aria-label="Profil utilisateur"
+        onClick={() => void signOut({ callbackUrl: "/login" })}
       >
-        {avatarEl}
+        <img
+          src={image}
+          alt={name}
+          style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+        />
       </button>
+    );
+  }
 
-      {menuOpen && (
-        <>
-          {/* Backdrop invisible pour fermer au clic extérieur */}
-          <div className="fixed inset-0 z-40" aria-hidden onClick={closeMenu} />
-          {/* Mini-popover au-dessus de l'avatar */}
-          <div
-            role="menu"
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 flex flex-col overflow-hidden rounded-xl border"
-            style={{
-              minWidth: "var(--width-menu)",
-              background: "var(--surface-1)",
-              borderColor: "var(--border-default)",
-              boxShadow: "var(--shadow-card-hover)",
-            }}
-          >
-            <div className="px-3 py-2 border-b" style={{ borderColor: "var(--border-soft)" }}>
-              <p className="t-11 font-medium text-text truncate">{name}</p>
-              {session?.user?.email && (
-                <p className="t-10 text-text-faint truncate">{session.user.email}</p>
-              )}
-            </div>
-            <button
-              type="button"
-              role="menuitem"
-              onClick={() => {
-                closeMenu();
-                void signOut({ callbackUrl: "/login" });
-              }}
-              className="w-full text-left px-3 py-2 t-12 font-medium text-text-muted hover:text-(--danger) hover:bg-(--surface-2) transition-colors"
-            >
-              Se déconnecter
-            </button>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-interface RailButtonProps {
-  label: string;
-  hint?: string;
-  tagline?: string;
-  active?: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}
-
-function RailButton({ label, hint, tagline, active, onClick, children }: RailButtonProps) {
-  const tooltip = hint
-    ? tagline
-      ? `${label} · ${hint} · ${tagline}`
-      : `${label} · ${hint}`
-    : tagline
-      ? `${label} · ${tagline}`
-      : label;
   return (
-    <IconButton
-      onClick={onClick}
-      label={tooltip}
-      ariaCurrent={active}
-      size="sm"
-      tone={active ? "accent" : "muted"}
-      className={`group relative ${
-        active ? "text-text" : "text-(--text-ghost) hover:text-(--text-soft)"
-      }`}
-      icon={
-        <>
-          {active && (
-            <span
-              aria-hidden="true"
-              className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r"
-              style={{
-                width: "var(--space-1)",
-                height: "var(--space-5)",
-                background: "var(--accent-teal)",
-              }}
-            />
-          )}
-          {children}
-        </>
-      }
-    />
+    <button
+      type="button"
+      className="ct-avatar"
+      title="Profil"
+      aria-label="Profil utilisateur"
+      onClick={() => void signOut({ callbackUrl: "/login" })}
+    >
+      {initial}
+    </button>
   );
 }
-
-function CommandeurIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
-      <text
-        x="9"
-        y="12"
-        textAnchor="middle"
-        fontSize="9"
-        fontFamily="ui-monospace, monospace"
-        fill="currentColor"
-      >
-        ⌘
-      </text>
-    </svg>
-  );
-}
-
-function Divider() {
-  return (
-    <span
-      aria-hidden="true"
-      className="my-1 shrink-0"
-      style={{
-        width: "var(--space-6)",
-        height: "1px",
-        background: "var(--border-default)",
-      }}
-    />
-  );
-}
-
-// ── Composant principal ──────────────────────────────────────────────
 
 export function LeftRail() {
-  const currentMode = useStageStore((s) => s.current.mode);
-  const setMode = useStageStore((s) => s.setMode);
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
-  const commandeurOpen = useStageStore((s) => s.commandeurOpen);
+  const setMode = useStageStore((s) => s.setMode);
 
   return (
-    <aside
-      aria-label="Navigation principale"
-      className="relative z-20 h-full w-(--width-rail-left) shrink-0 hidden md:block"
-    >
-      <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center border-y-0 border-l-0 py-5">
-        {/* Brand logo */}
-        <div className="mb-3 flex size-8 items-center justify-center" aria-hidden>
-          <img src="/hearst-h.svg" alt="" className="size-7 opacity-90" />
-        </div>
+    <aside className="ct-rail-left">
+      {/* Logo */}
+      <a
+        href="#"
+        className="ct-logo-slot"
+        title="Helm"
+        onClick={(e) => {
+          e.preventDefault();
+          setMode({ mode: "cockpit" });
+        }}
+      >
+        <img src="/hearst-h.svg" alt="Helm" style={{ width: 22, height: 24, opacity: 0.9 }} />
+      </a>
 
-        {/* Navigation Stages — groupes logiques, scrollable si déborde */}
-        <nav
-          aria-label="Stages"
-          className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto"
-          style={{ gap: "var(--space-1)", scrollbarWidth: "none" }}
+      {/* Actions principales */}
+      <div className="ct-rail-actions">
+        <button
+          type="button"
+          className="ct-rail-action accent"
+          title="Nouvelle mission"
+          aria-label="Nouvelle mission"
+          onClick={() => setMode({ mode: "chat" })}
         >
-          {NAV_GROUPS.map((group, gi) => (
-            <div
-              key={group.id}
-              className="flex flex-col items-center"
-              style={{ gap: "var(--space-1)" }}
-            >
-              {gi > 0 && <Divider />}
-              {group.stages.map((key) => {
-                const def = STAGE_REGISTRY[key];
-                const Icon = STAGE_ICON[key];
-                return (
-                  <RailButton
-                    key={key}
-                    label={def.navLabel}
-                    hint={def.hotkey}
-                    tagline={def.tagline}
-                    active={currentMode === key}
-                    onClick={() => setMode(payloadFor(key))}
-                  >
-                    <Icon />
-                  </RailButton>
-                );
-              })}
-            </div>
-          ))}
-
-          {/* Commandeur — recherche / accès expert */}
-          <Divider />
-          <RailButton
-            label="Commandeur"
-            hint="Recherche et actions (⌘K)"
-            active={commandeurOpen}
-            onClick={() => setCommandeurOpen(true)}
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
           >
-            <CommandeurIcon />
-          </RailButton>
-        </nav>
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </button>
 
-        {/* Avatar — session */}
-        <div className="mt-3 shrink-0">
-          <UserAvatar />
-        </div>
+        <button
+          type="button"
+          className="ct-rail-action"
+          title="Assets"
+          aria-label="Assets"
+          onClick={() => setMode({ mode: "asset", assetId: "" })}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <rect x="3" y="6" width="18" height="13" rx="2" />
+            <circle cx="12" cy="12.5" r="3.5" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          className="ct-rail-action"
+          title="Commandeur (⌘K)"
+          aria-label="Commandeur"
+          onClick={() => setCommandeurOpen(true)}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <line x1="16.5" y1="16.5" x2="21" y2="21" />
+          </svg>
+        </button>
+
+        <div className="ct-rail-divider" />
+
+        <button
+          type="button"
+          className="ct-rail-action"
+          title="Voice prompt"
+          aria-label="Voice prompt"
+          onClick={() => setMode({ mode: "voice" })}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <rect x="9" y="3" width="6" height="13" rx="3" />
+            <path d="M5 11a7 7 0 0 0 14 0" />
+            <line x1="12" y1="18" x2="12" y2="22" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="ct-spacer" />
+
+      {/* Bottom */}
+      <div className="ct-rail-bottom">
+        <button
+          type="button"
+          className="ct-rail-badge"
+          title="Connexions"
+          aria-label="Connexions et services"
+          onClick={() => setMode({ mode: "connections" })}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          <span className="ct-rail-badge-dot" aria-label="En ligne" />
+        </button>
+
+        <button type="button" className="ct-rail-settings" title="Settings" aria-label="Settings">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+        </button>
+
+        <UserAvatar />
       </div>
     </aside>
   );
