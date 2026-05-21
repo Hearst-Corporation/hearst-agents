@@ -296,6 +296,7 @@ export function RightRailChat() {
         const decoder = new TextDecoder();
         let buffer = "";
         let assistantBuffer = "";
+        let failureReason = "";
 
         while (true) {
           const { done, value } = await reader.read();
@@ -306,14 +307,23 @@ export function RightRailChat() {
           buffer = lines.pop() ?? "";
 
           for (const line of lines) {
-            if (!line.startsWith("data: ")) continue;
+            // Accepte "data: " et "data:" (avec ou sans espace).
+            if (!line.startsWith("data:")) continue;
             try {
-              const event = JSON.parse(line.slice(6));
+              const event = JSON.parse(line.slice(line.indexOf(":") + 1).trim());
               if (event.type === "text_delta" && event.delta) {
                 assistantBuffer += event.delta;
                 setMessages((prev) =>
                   prev.map((m) => (m.id === assistantId ? { ...m, content: assistantBuffer } : m)),
                 );
+              }
+              // Capte l'erreur réelle au lieu de l'avaler silencieusement (bulle vide).
+              if (event.type === "run_failed") {
+                failureReason =
+                  event.error || event.reason || event.message || "run_failed (sans détail)";
+              }
+              if (event.type === "error" && (event.message || event.error)) {
+                failureReason = event.message || event.error;
               }
               if (event.type === "run_completed" || event.type === "run_failed") {
                 setIsStreaming(false);
@@ -323,6 +333,23 @@ export function RightRailChat() {
             }
           }
         }
+
+        // Stream terminé sans aucun texte → afficher la cause au lieu d'une bulle vide.
+        if (!assistantBuffer) {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === assistantId
+                ? {
+                    ...m,
+                    content: failureReason
+                      ? `⚠️ ${failureReason}`
+                      : "⚠️ Réponse vide (aucun text_delta reçu)",
+                  }
+                : m,
+            ),
+          );
+        }
+        setIsStreaming(false);
       } catch (err) {
         const isAbort = err instanceof DOMException && err.name === "AbortError";
         if (!isAbort) {
