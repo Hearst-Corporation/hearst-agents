@@ -1,6 +1,7 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { useState } from "react";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import type { StageKey } from "../_stages/types";
@@ -70,30 +71,78 @@ function payloadFor(key: StageKey): StagePayload {
 
 // ── Sub-composants ────────────────────────────────────────────────────
 
+/**
+ * UserAvatar — avatar de session cliquable.
+ * Un clic ouvre un mini-popover proposant "Se déconnecter".
+ */
 function UserAvatar() {
   const { data: session } = useSession();
+  const [menuOpen, setMenuOpen] = useState(false);
   const image = session?.user?.image;
   const name = session?.user?.name ?? "?";
   const initial = name.charAt(0).toUpperCase();
 
-  if (image) {
-    return (
-      <img
-        src={image}
-        alt={name}
-        className="size-9 rounded-full object-cover"
-        style={{ boxShadow: "var(--shadow-inset-highlight)" }}
-      />
-    );
-  }
-  return (
+  const avatarEl = image ? (
+    <img
+      src={image}
+      alt={name}
+      className="size-9 rounded-full object-cover"
+      style={{ boxShadow: "var(--shadow-inset-highlight)" }}
+    />
+  ) : (
     <div
       className="flex size-9 items-center justify-center rounded-full bg-(--surface-icon-tile) t-13 text-text"
       style={{ boxShadow: "var(--shadow-inset-highlight)" }}
-      aria-label={`Session ${name}`}
-      title={name}
     >
       <span className="opacity-90">{initial}</span>
+    </div>
+  );
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        aria-label={`Session ${name} — Se déconnecter`}
+        title={`${name} — cliquer pour se déconnecter`}
+        onClick={() => setMenuOpen((v) => !v)}
+        className="rounded-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
+      >
+        {avatarEl}
+      </button>
+
+      {menuOpen && (
+        <>
+          {/* Backdrop invisible pour fermer au clic extérieur */}
+          <div className="fixed inset-0 z-40" aria-hidden onClick={() => setMenuOpen(false)} />
+          {/* Mini-popover au-dessus de l'avatar */}
+          <div
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 flex flex-col overflow-hidden rounded-xl border"
+            style={{
+              minWidth: "160px",
+              background: "var(--surface-1)",
+              borderColor: "var(--border-default)",
+              boxShadow: "var(--shadow-card-hover)",
+            }}
+          >
+            <div className="px-3 py-2 border-b" style={{ borderColor: "var(--border-soft)" }}>
+              <p className="t-11 font-medium text-text truncate">{name}</p>
+              {session?.user?.email && (
+                <p className="t-10 text-text-faint truncate">{session.user.email}</p>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                void signOut({ callbackUrl: "/login" });
+              }}
+              className="w-full text-left px-3 py-2 t-12 font-medium text-text-muted hover:text-(--danger) hover:bg-(--surface-2) transition-colors"
+            >
+              Se déconnecter
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

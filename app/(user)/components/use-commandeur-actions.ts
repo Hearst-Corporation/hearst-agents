@@ -19,6 +19,7 @@
  */
 
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { signOut } from "next-auth/react";
 import { useMemo } from "react";
 import type { StagePayload } from "@/stores/stage";
 import { useVoiceStore } from "@/stores/voice";
@@ -299,6 +300,16 @@ export function useCommandeurActions({
         perform: () => {
           onCompareOpen();
           setOpen(false);
+        },
+      },
+      {
+        id: "action-sign-out",
+        kind: "action",
+        label: "Se déconnecter",
+        hint: "Fermer la session en cours",
+        perform: async () => {
+          setOpen(false);
+          await signOut({ callbackUrl: "/login" });
         },
       },
     ],

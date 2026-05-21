@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
 import { Action, EmptyState, FilterTabs, ScreenShell } from "@/app/(user)/components/ui";
+import { useNotificationsStore } from "@/stores/notifications";
 
 const TABS = ["Tout", "Critique", "Alerte", "Info"] as const;
+type Tab = (typeof TABS)[number];
 
 function BellIcon() {
   return (
@@ -25,18 +28,29 @@ function BellIcon() {
 }
 
 export default function NotificationsPage() {
+  const [activeTab, setActiveTab] = useState<Tab>("Tout");
+  const markAllRead = useNotificationsStore((s) => s.markAllRead);
+  const unreadCount = useNotificationsStore((s) => s.unreadCount);
+
   return (
     <StandalonePageFrame>
       <ScreenShell
         title="Notifications"
         subtitle="Signaux, rapports, exports"
         actions={
-          <Action variant="link" tone="brand" size="sm">
-            Tout marquer comme lu
-          </Action>
+          unreadCount > 0 ? (
+            <Action variant="link" tone="brand" size="sm" onClick={() => void markAllRead()}>
+              Tout marquer comme lu
+            </Action>
+          ) : null
         }
       >
-        <FilterTabs tabs={TABS} active="Tout" aria-label="Filtrer les notifications" />
+        <FilterTabs
+          tabs={TABS}
+          active={activeTab}
+          aria-label="Filtrer les notifications"
+          onValueChange={(v) => setActiveTab(v as Tab)}
+        />
         <EmptyState
           title="Aucune notification"
           description="Tout est calme pour l'instant"

@@ -21,6 +21,8 @@
 //  Composio>native, etc.) sont préservés intégralement.
 // ============================================================================
 
+import { useState } from "react";
+import { ConfirmModal } from "./ConfirmModal";
 import { CategoriesBar, Wallpaper } from "./connections/_parts/CatalogSection";
 import { Stage } from "./connections/_parts/ConnectedStage";
 import { Header, SectionLabel } from "./connections/_parts/HeaderSection";
@@ -32,6 +34,10 @@ import { useConnectionsHub } from "./connections/use-connections-hub";
 
 export function ConnectionsHub() {
   const hub = useConnectionsHub();
+  const [pendingDisconnect, setPendingDisconnect] = useState<{
+    accountId: string;
+    appName: string;
+  } | null>(null);
 
   if (!hub.enabled) return <DisabledState message={hub.sdkError} />;
   if (hub.loading) return <LoadingState />;
@@ -129,11 +135,38 @@ export function ConnectionsHub() {
           onConnect={() => hub.handleConnect(hub.liveDrawer!.app)}
           onDisconnect={
             hub.liveDrawer.connectedAccount
-              ? () => hub.handleDisconnect(hub.liveDrawer?.connectedAccount!)
+              ? () => {
+                  const account = hub.liveDrawer!.connectedAccount!;
+                  setPendingDisconnect({ accountId: account.id, appName: account.appName });
+                }
               : undefined
           }
         />
       )}
+
+      {/* Confirmation avant déconnexion d'un service tiers */}
+      <ConfirmModal
+        open={pendingDisconnect !== null}
+        title={`Déconnecter ${pendingDisconnect?.appName ?? "ce service"} ?`}
+        description="Cette action révoque l'accès de Hearst à ce service. Tu pourras le reconnecter à tout moment."
+        confirmLabel="Déconnecter"
+        cancelLabel="Annuler"
+        variant="danger"
+        loading={
+          pendingDisconnect !== null &&
+          (hub.busy === pendingDisconnect.accountId || hub.busy === hub.liveDrawer?.app.key)
+        }
+        onConfirm={() => {
+          if (!pendingDisconnect) return;
+          const account = hub.liveDrawer?.connectedAccount;
+          if (!account) {
+            setPendingDisconnect(null);
+            return;
+          }
+          void hub.handleDisconnect(account).finally(() => setPendingDisconnect(null));
+        }}
+        onCancel={() => setPendingDisconnect(null)}
+      />
     </section>
   );
 }

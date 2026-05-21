@@ -1,107 +1,110 @@
 "use client";
 
-import { MarketplaceTemplateCard } from "@/app/(user)/components/marketplace/MarketplaceTemplateCard";
+import { useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
-import { FilterTabs, ScreenShell, SearchField } from "@/app/(user)/components/ui";
-import type { MarketplaceTemplateSummary } from "@/lib/marketplace/types";
+import {
+  Action,
+  FilterTabs,
+  PanelCard,
+  ScreenShell,
+  SearchField,
+} from "@/app/(user)/components/ui";
 
-/** Données mock — en attente de branchement GET /api/v2/marketplace/templates. */
-const MOCK_TEMPLATES: MarketplaceTemplateSummary[] = [
+type KindLabel = "workflow" | "rapport" | "persona";
+
+interface Template {
+  id: number;
+  title: string;
+  description: string;
+  author: string;
+  uses: number;
+  kind: KindLabel;
+}
+
+const TEMPLATES: Template[] = [
   {
-    id: "mock-1",
-    kind: "workflow",
+    id: 1,
     title: "Brief Rédactionnel Hebdo",
     description: "Génère le planning éditorial de la semaine depuis les trends.",
-    authorDisplayName: "equipe-hearst",
-    authorTenantId: "hearst-builtin",
-    tags: ["editorial", "hebdo"],
-    ratingAvg: 4.6,
-    ratingCount: 48,
-    cloneCount: 482,
-    isFeatured: true,
-    createdAt: "",
-    updatedAt: "",
+    author: "equipe-hearst",
+    uses: 482,
+    kind: "workflow",
   },
   {
-    id: "mock-2",
-    kind: "report_spec",
+    id: 2,
     title: "Rapport Performance Édition",
     description: "Consolide les KPIs d'une édition : vues, taux de rebond, RPM.",
-    authorDisplayName: "analytics-lab",
-    authorTenantId: "hearst-builtin",
-    tags: ["kpi", "edition"],
-    ratingAvg: 4.2,
-    ratingCount: 31,
-    cloneCount: 317,
-    isFeatured: false,
-    createdAt: "",
-    updatedAt: "",
+    author: "analytics-lab",
+    uses: 317,
+    kind: "rapport",
   },
   {
-    id: "mock-3",
-    kind: "persona",
+    id: 3,
     title: "Persona Directeur Hôtel",
     description: "Agent spécialisé RevPAR, OCC, satisfaction client hôtellerie.",
-    authorDisplayName: "hospitality-hub",
-    authorTenantId: "hearst-builtin",
-    tags: ["hospitality", "revpar"],
-    ratingAvg: 4.8,
-    ratingCount: 22,
-    cloneCount: 204,
-    isFeatured: false,
-    createdAt: "",
-    updatedAt: "",
+    author: "hospitality-hub",
+    uses: 204,
+    kind: "persona",
   },
   {
-    id: "mock-4",
-    kind: "workflow",
+    id: 4,
     title: "Veille Concurrents Médias",
     description: "Scrape et synthétise les publications concurrentes chaque matin.",
-    authorDisplayName: "equipe-hearst",
-    authorTenantId: "hearst-builtin",
-    tags: ["veille", "media"],
-    ratingAvg: 4.4,
-    ratingCount: 39,
-    cloneCount: 391,
-    isFeatured: false,
-    createdAt: "",
-    updatedAt: "",
+    author: "equipe-hearst",
+    uses: 391,
+    kind: "workflow",
   },
   {
-    id: "mock-5",
-    kind: "report_spec",
+    id: 5,
     title: "Rapport Audience Mensuel",
     description: "Tableau de bord audience : acquisition, rétention, géo.",
-    authorDisplayName: "data-studio",
-    authorTenantId: "hearst-builtin",
-    tags: ["audience"],
-    ratingAvg: 3.9,
-    ratingCount: 15,
-    cloneCount: 158,
-    isFeatured: false,
-    createdAt: "",
-    updatedAt: "",
+    author: "data-studio",
+    uses: 158,
+    kind: "rapport",
   },
   {
-    id: "mock-6",
-    kind: "persona",
+    id: 6,
     title: "Persona Journaliste Enquête",
     description: "Assiste la rédaction longue : vérification sources, angles narratifs.",
-    authorDisplayName: "newsroom-ai",
-    authorTenantId: "hearst-builtin",
-    tags: ["newsroom", "enquête"],
-    ratingAvg: 4.7,
-    ratingCount: 27,
-    cloneCount: 276,
-    isFeatured: false,
-    createdAt: "",
-    updatedAt: "",
+    author: "newsroom-ai",
+    uses: 276,
+    kind: "persona",
   },
 ];
 
+const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
+  workflow: {
+    badge: "bg-(--color-info)/10 text-(--color-info) border border-(--color-info)/25",
+    label: "Workflow",
+  },
+  rapport: {
+    badge: "bg-(--accent-llm)/10 text-(--accent-llm) border border-(--accent-llm)/25",
+    label: "Rapport",
+  },
+  persona: {
+    badge: "bg-(--accent-teal-surface) text-(--accent-teal) border border-(--accent-teal-border)",
+    label: "Persona",
+  },
+};
+
 const FILTERS = ["Tout", "Workflow", "Rapport", "Persona"] as const;
+type Filter = (typeof FILTERS)[number];
+
+// Map label de filtre → valeur kind
+const FILTER_TO_KIND: Partial<Record<Filter, KindLabel>> = {
+  Workflow: "workflow",
+  Rapport: "rapport",
+  Persona: "persona",
+};
 
 export default function MarketplacePage() {
+  const [activeFilter, setActiveFilter] = useState<Filter>("Tout");
+
+  const filteredTemplates =
+    activeFilter === "Tout"
+      ? TEMPLATES
+      : TEMPLATES.filter((t) => t.kind === FILTER_TO_KIND[activeFilter]);
+
   return (
     <StandalonePageFrame>
       <ScreenShell
@@ -114,16 +117,56 @@ export default function MarketplacePage() {
           style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}
         >
           <SearchField placeholder="Rechercher un template…" disabled className="flex-1" />
-          <FilterTabs tabs={FILTERS} active="Tout" aria-label="Filtrer par type" inline />
+          <FilterTabs
+            tabs={FILTERS}
+            active={activeFilter}
+            aria-label="Filtrer par type"
+            inline
+            onValueChange={(v) => setActiveFilter(v as Filter)}
+          />
         </div>
 
         <div
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
           style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
         >
-          {MOCK_TEMPLATES.map((template) => (
-            <MarketplaceTemplateCard key={template.id} template={template} />
-          ))}
+          {filteredTemplates.map((t) => {
+            const { badge, label } = KIND_STYLES[t.kind];
+            return (
+              <PanelCard key={t.id} hover className="flex flex-col gap-3">
+                <span
+                  className={`t-9 font-medium rounded-pill inline-flex w-fit ${badge}`}
+                  style={{ padding: "var(--space-1) var(--space-2-5)" }}
+                >
+                  {label}
+                </span>
+                <div>
+                  <p className="t-13 font-medium text-text leading-snug">{t.title}</p>
+                  <p
+                    className="t-11 font-light text-text-faint line-clamp-2"
+                    style={{ marginTop: "var(--space-1)" }}
+                  >
+                    {t.description}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between mt-auto pt-1">
+                  <p className="t-11 font-light text-text-ghost">
+                    <span className="text-text-muted">{t.author}</span>
+                    <span style={{ margin: "0 var(--space-1-5)" }}>·</span>
+                    {t.uses.toLocaleString("fr-FR")} utilisations
+                  </p>
+                  <Action
+                    variant="secondary"
+                    tone="neutral"
+                    size="sm"
+                    aria-label={`Installer ${t.title}`}
+                  >
+                    Installer
+                  </Action>
+                </div>
+              </PanelCard>
+            );
+          })}
         </div>
       </ScreenShell>
     </StandalonePageFrame>
