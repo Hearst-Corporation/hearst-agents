@@ -3,7 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { ConfirmModal } from "@/app/(user)/components/ConfirmModal";
-import { FieldError, ValidatedForm } from "@/app/(user)/components/ui/ValidatedForm";
+import {
+  FieldError,
+  fieldA11yProps,
+  ValidatedForm,
+} from "@/app/(user)/components/ui/ValidatedForm";
 import { toast } from "@/app/hooks/use-toast";
 import { createAgentSchema } from "@/lib/domain/schemas";
 
@@ -114,6 +118,7 @@ export default function NewAgentPage() {
                 value={form.name}
                 onChange={(e) => set("name", e.target.value)}
                 className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
+                {...fieldA11yProps("name", errors)}
               />
               <FieldError name="name" errors={errors} />
             </label>

@@ -101,7 +101,7 @@ function badgeClass(mission: ApiMission): { className: string; pulse: boolean } 
       pulse: true,
     };
   return {
-    className: "bg-(--surface-1) border border-(--line) text-text-ghost",
+    className: "bg-(--surface-1) border border-(--line) text-(--text-muted)",
     pulse: false,
   };
 }
@@ -305,9 +305,11 @@ function MissionCard({
       </p>
 
       {/* Meta : date + schedule */}
-      <div className="flex items-center gap-4 t-11 text-(--text-ghost)">
+      <div className="flex items-center gap-4 t-11 text-(--text-muted)">
         <span>{formatDate(mission.createdAt)}</span>
-        <span className="text-text-ghost">·</span>
+        <span className="text-(--text-decor-25)" aria-hidden="true">
+          ·
+        </span>
         <span>{humanCron(mission.schedule)}</span>
       </div>
     </motion.div>
@@ -390,7 +392,7 @@ export function MissionListStage({ mode }: { mode: string }) {
       {/* Header */}
       <header className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
-          <p className="t-13 text-(--text-ghost)">Toutes les demandes</p>
+          <p className="t-13 text-(--text-muted)">Toutes les demandes</p>
           <h1 className="t-30 font-medium tracking-tight text-(--text-soft)">Demandes</h1>
           {STAGE_REGISTRY.mission.tagline && (
             <p className="t-13 text-(--text-faint) leading-(--leading-body-tight)">

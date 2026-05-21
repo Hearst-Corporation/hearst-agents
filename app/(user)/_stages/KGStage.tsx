@@ -439,10 +439,10 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
               style={{ background: color }}
             />
             <span className="t-13 text-(--text-soft) flex-1">{node.label}</span>
-            <span className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-badge)">
+            <span className="t-11 text-(--text-muted) uppercase tracking-(--tracking-badge)">
               {node.type}
             </span>
-            <span className="t-11 text-(--text-ghost)">
+            <span className="t-11 text-(--text-muted)">
               {count} liaison{count !== 1 ? "s" : ""}
             </span>
           </div>
@@ -480,7 +480,7 @@ function DetailPanel({
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-caption) mb-1">
+          <p className="t-11 text-(--text-muted) uppercase tracking-(--tracking-caption) mb-1">
             {node.type}
           </p>
           <h3 className="t-18 font-medium tracking-(--tracking-tight-sm) text-(--text-soft)">
@@ -500,7 +500,7 @@ function DetailPanel({
       {/* Liaisons */}
       {linkedEdges.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-caption) mb-2">
+          <p className="t-11 text-(--text-muted) uppercase tracking-(--tracking-caption) mb-2">
             Liaisons ({linkedEdges.length})
           </p>
           <div className="flex flex-col gap-1">
@@ -523,13 +523,13 @@ function DetailPanel({
       {/* Propriétés */}
       {propEntries.length > 0 && (
         <div>
-          <p className="t-11 text-(--text-ghost) uppercase tracking-(--tracking-caption) mb-2">
+          <p className="t-11 text-(--text-muted) uppercase tracking-(--tracking-caption) mb-2">
             Propriétés
           </p>
           <div className="flex flex-col gap-1">
             {propEntries.slice(0, 8).map(([k, v]) => (
               <div key={k} className="flex gap-2 px-2.5 py-1.5 rounded-lg bg-(--surface-1) t-13">
-                <span className="text-(--text-ghost) min-w-(--space-20)">{k}</span>
+                <span className="text-(--text-muted) min-w-(--space-20)">{k}</span>
                 <span className="text-(--text-muted) break-all">
                   {String(v).length > 80 ? `${String(v).slice(0, 77)}…` : String(v)}
                 </span>
@@ -666,7 +666,7 @@ export function KGStage({ mode }: KGStageProps) {
 
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 uppercase tracking-(--tracking-caption) text-(--text-ghost)">
+        <p className="t-13 uppercase tracking-(--tracking-caption) text-(--text-muted)">
           {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
         </p>
         <h1 className="t-30 font-medium tracking-(--tracking-tight)">

@@ -138,10 +138,15 @@ export const useNotificationsStore = create<NotificationsState>()(
       }));
 
       try {
-        await fetch("/api/notifications/read-all", {
+        const res = await fetch("/api/notifications/read-all", {
           method: "POST",
           credentials: "include",
         });
+        if (!res.ok) {
+          // Réponse HTTP 4xx/5xx : la DB n'a pas été mise à jour → rollback.
+          void get().fetchNotifications();
+          return;
+        }
       } catch {
         void get().fetchNotifications();
       }

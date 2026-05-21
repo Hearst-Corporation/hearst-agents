@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import type { StageKey } from "../_stages/types";
@@ -81,6 +81,30 @@ function UserAvatar() {
   const image = session?.user?.image;
   const name = session?.user?.name ?? "?";
   const initial = name.charAt(0).toUpperCase();
+  /** Ref du bouton avatar — re-focus à la fermeture du popover (a11y). */
+  const avatarBtnRef = useRef<HTMLButtonElement>(null);
+
+  /** Ferme le menu et rend le focus au bouton avatar. */
+  const closeMenu = () => {
+    setMenuOpen(false);
+    // Re-focus différé d'un tick pour laisser le DOM se stabiliser.
+    requestAnimationFrame(() => avatarBtnRef.current?.focus());
+  };
+
+  /** Fermeture Escape depuis n'importe quel descendant du popover. */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        closeMenu();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown, true);
+    return () => document.removeEventListener("keydown", onKeyDown, true);
+    // closeMenu est stable (setState + rAF, pas de deps externes)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuOpen]);
 
   const avatarEl = image ? (
     <img
@@ -101,8 +125,11 @@ function UserAvatar() {
   return (
     <div className="relative">
       <button
+        ref={avatarBtnRef}
         type="button"
         aria-label={`Session ${name} — Se déconnecter`}
+        aria-expanded={menuOpen}
+        aria-haspopup="menu"
         title={`${name} — cliquer pour se déconnecter`}
         onClick={() => setMenuOpen((v) => !v)}
         className="rounded-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
@@ -113,12 +140,13 @@ function UserAvatar() {
       {menuOpen && (
         <>
           {/* Backdrop invisible pour fermer au clic extérieur */}
-          <div className="fixed inset-0 z-40" aria-hidden onClick={() => setMenuOpen(false)} />
+          <div className="fixed inset-0 z-40" aria-hidden onClick={closeMenu} />
           {/* Mini-popover au-dessus de l'avatar */}
           <div
+            role="menu"
             className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 flex flex-col overflow-hidden rounded-xl border"
             style={{
-              minWidth: "160px",
+              minWidth: "var(--width-menu)",
               background: "var(--surface-1)",
               borderColor: "var(--border-default)",
               boxShadow: "var(--shadow-card-hover)",
@@ -132,8 +160,9 @@ function UserAvatar() {
             </div>
             <button
               type="button"
+              role="menuitem"
               onClick={() => {
-                setMenuOpen(false);
+                closeMenu();
                 void signOut({ callbackUrl: "/login" });
               }}
               className="w-full text-left px-3 py-2 t-12 font-medium text-text-muted hover:text-(--danger) hover:bg-(--surface-2) transition-colors"

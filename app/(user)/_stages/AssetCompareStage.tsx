@@ -117,7 +117,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
 
   return (
     <div className="w-full h-(--height-compare-thumb) rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
-      <span className="t-11 text-(--text-ghost)">{asset.kind}</span>
+      <span className="t-11 text-(--text-muted)">{asset.kind}</span>
     </div>
   );
 }
@@ -125,7 +125,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
 function MetaChip({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-(--space-0-5) px-(--space-2-5) py-(--space-1-5) bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
-      <span className="t-10 text-(--text-ghost) font-medium">{label}</span>
+      <span className="t-10 text-(--text-muted) font-medium">{label}</span>
       <span className="truncate t-13 text-(--text-muted)" title={value}>
         {value}
       </span>
@@ -149,7 +149,7 @@ function AssetPane({
       <header className="flex items-center justify-between gap-2">
         <span className="t-11 font-semibold text-(--text-faint)">{label}</span>
         {asset && (
-          <span className="t-10 text-(--text-ghost)">{formatCreatedAt(asset.createdAt)}</span>
+          <span className="t-10 text-(--text-muted)">{formatCreatedAt(asset.createdAt)}</span>
         )}
       </header>
 
@@ -164,7 +164,7 @@ function AssetPane({
           <AssetPreview asset={asset} />
 
           {asset.summary && (
-            <p className="t-13 text-(--text-ghost) leading-(--leading-snug-body) line-clamp-3">
+            <p className="t-13 text-(--text-muted) leading-(--leading-snug-body) line-clamp-3">
               {asset.summary}
             </p>
           )}
@@ -247,7 +247,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
             draggable={false}
           />
         ) : (
-          <span className="t-13 text-(--text-ghost)">{assetA?.title ?? "Gauche"}</span>
+          <span className="t-13 text-(--text-muted)">{assetA?.title ?? "Gauche"}</span>
         )}
       </div>
 
@@ -268,7 +268,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
             draggable={false}
           />
         ) : (
-          <span className="t-13 text-(--text-ghost)">{assetB?.title ?? "Droite"}</span>
+          <span className="t-13 text-(--text-muted)">{assetB?.title ?? "Droite"}</span>
         )}
       </div>
 
@@ -460,7 +460,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
       <div className="flex items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
           <h2 className="t-20 font-semibold text-(--text-soft)">Comparer</h2>
-          <p className="t-13 text-(--text-ghost)">
+          <p className="t-13 text-(--text-muted)">
             2 assets — {viewMode === "split" ? "vue divisée" : "vue superposée"}
           </p>
         </div>
@@ -497,7 +497,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
               "px-4 py-1.5 rounded-full border t-13 font-medium cursor-pointer transition-all duration-200 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
               viewMode === v
                 ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
-                : "border-(--line) bg-transparent text-(--text-ghost)",
+                : "border-(--line) bg-transparent text-(--text-muted)",
             ].join(" ")}
           >
             {v === "split" ? "Vue divisée" : "Vue superposée"}

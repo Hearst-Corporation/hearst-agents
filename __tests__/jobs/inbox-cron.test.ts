@@ -7,12 +7,32 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+// server-only est un guard Next.js — no-op en vitest.
+vi.mock("server-only", () => ({}));
+
 const mocks = vi.hoisted(() => ({
   getBullConnection: vi.fn(),
   getServerSupabase: vi.fn(),
   queueAdd: vi.fn(),
   queueRemoveRepeatable: vi.fn(),
   queueClose: vi.fn(),
+  loggerInfo: vi.fn(),
+  loggerWarn: vi.fn(),
+}));
+
+vi.mock("@/lib/observability/logger", () => ({
+  logger: {
+    info: mocks.loggerInfo,
+    warn: mocks.loggerWarn,
+    error: vi.fn(),
+    debug: vi.fn(),
+  },
+  withRoute: () => ({
+    info: mocks.loggerInfo,
+    warn: mocks.loggerWarn,
+    error: vi.fn(),
+    debug: vi.fn(),
+  }),
 }));
 
 vi.mock("@/lib/jobs/connection", () => ({
@@ -54,31 +74,26 @@ function makeSupabaseStub(rows: Array<{ config: unknown }>) {
 }
 
 describe("inbox-cron — BullMQ Repeatable Jobs", () => {
-  let warnSpy: ReturnType<typeof vi.spyOn>;
-  let logSpy: ReturnType<typeof vi.spyOn>;
-
   beforeEach(() => {
     Object.values(mocks).forEach((m) => m.mockReset());
     mocks.queueAdd.mockResolvedValue({ id: "job-1" });
     mocks.queueRemoveRepeatable.mockResolvedValue(undefined);
     mocks.queueClose.mockResolvedValue(undefined);
     resetInboxCronForTests();
-    warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-    logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
   });
 
   afterEach(() => {
-    warnSpy.mockRestore();
-    logSpy.mockRestore();
     resetInboxCronForTests();
   });
 
   it("sans REDIS_URL : no-op + log warn", async () => {
     mocks.getBullConnection.mockReturnValue(null);
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     await startInboxCron();
 
     expect(mocks.queueAdd).not.toHaveBeenCalled();
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("REDIS_URL absent"));
+    warnSpy.mockRestore();
   });
 
   it("avec mock queue : ajoute un repeatable job pour chaque user actif (jobId déterministe)", async () => {
@@ -150,6 +165,10 @@ describe("inbox-cron — BullMQ Repeatable Jobs", () => {
 
     await startInboxCron();
     expect(mocks.queueAdd).not.toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("no active users"));
+    // logger.info est appelé avec (message) ou (obj, message) selon pino — on vérifie l'un ou l'autre.
+    const calledWithNoActiveUsers = mocks.loggerInfo.mock.calls.some((args) =>
+      args.some((a: unknown) => typeof a === "string" && a.includes("no active users")),
+    );
+    expect(calledWithNoActiveUsers).toBe(true);
   });
 });

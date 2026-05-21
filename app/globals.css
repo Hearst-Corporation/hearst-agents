@@ -168,6 +168,8 @@
   --size-icon-lg: 3rem;
   /* Touch target minimum */
   --size-touch-target: 44px;
+  /** Largeur minimale d'un popover / menu déroulant (avatar signOut, etc.). */
+  --width-menu: 160px;
   /** Demi-step entre --space-2 (8px) et --space-3 (12px) — padding interne RowActions. */
   --space-2-5: 10px;
 
@@ -242,6 +244,8 @@
 
   /* Prose widths */
   --width-prose-narrow: 560px;
+  --width-report: 720px; /* pages publiques : carte rapport / vote */
+  --width-card-wide: 1080px; /* pages publiques : header large hearst-card */
   --width-working-doc: min(50%, 720px);
   --width-xs: 320px;
   --width-sm: 384px;

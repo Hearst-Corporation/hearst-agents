@@ -101,8 +101,8 @@ export function MobileBottomNav() {
             style={{
               flex: item.emphasis ? "1.6" : "1",
               padding: "var(--space-2)",
-              minHeight: "44px",
-              minWidth: "44px",
+              minHeight: "var(--size-touch-target)",
+              minWidth: "var(--size-touch-target)",
               borderRadius: "var(--radius-md)",
               border: "none",
               cursor: "pointer",

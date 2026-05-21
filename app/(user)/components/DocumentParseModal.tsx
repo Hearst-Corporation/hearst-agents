@@ -21,7 +21,7 @@ import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { Action } from "./ui";
-import { FieldError, ValidatedForm } from "./ui/ValidatedForm";
+import { FieldError, fieldA11yProps, ValidatedForm } from "./ui/ValidatedForm";
 
 export interface DocumentParseModalProps {
   open: boolean;
@@ -214,6 +214,7 @@ export function DocumentParseModal({
                     outline: "none",
                   }}
                   disabled={submitting}
+                  {...fieldA11yProps("fileUrl", errors)}
                 />
                 <FieldError name="fileUrl" errors={errors} />
               </label>

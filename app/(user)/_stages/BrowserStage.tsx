@@ -167,7 +167,7 @@ function LoadingState() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: VISION_EASE }}
-      className="flex items-center gap-(--space-2-5) py-10 text-(--text-ghost) t-13"
+      className="flex items-center gap-(--space-2-5) py-10 text-(--text-muted) t-13"
     >
       <motion.div
         className="size-1.5 rounded-full bg-(--accent-llm)/90"
@@ -228,8 +228,8 @@ function SessionFrame({
               animate={{ opacity: [1, 0.25, 1], scale: [1, 1.3, 1] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
             />
-            <span className="t-13 text-(--text-ghost)">Session Browserbase active</span>
-            <span className="t-11 text-(--text-ghost) font-mono">{sessionId.slice(0, 16)}…</span>
+            <span className="t-13 text-(--text-muted)">Session Browserbase active</span>
+            <span className="t-11 text-(--text-muted) font-mono">{sessionId.slice(0, 16)}…</span>
           </>
         ) : (
           <span className="t-13 text-(--text-ghost)">Session inactive</span>
@@ -275,8 +275,8 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
             : isRunning
               ? "bg-(--accent-llm)/15 text-(--accent-llm)"
               : isDone
-                ? "bg-(--surface-1) text-text-muted"
-                : "text-text-ghost"
+                ? "bg-(--surface-1) text-(--text-muted)"
+                : "text-(--text-muted)"
         }`}
       >
         {stepStateLabel(step.status)}
@@ -288,7 +288,7 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
 function ModeToggle({ auto, onToggle }: { auto: boolean; onToggle: () => void }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="t-13 text-(--text-ghost)">
+      <span className="t-13 text-(--text-muted)">
         {auto ? "Mode automatique" : "Mode pas-à-pas"}
       </span>
       <button
@@ -496,14 +496,14 @@ export function BrowserStage({ mode }: { mode: string }) {
 
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 text-(--text-ghost) tracking-(--tracking-micro)">
+        <p className="t-13 text-(--text-muted) tracking-(--tracking-micro)">
           Browserbase · Stagehand · navigateur cloud
         </p>
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
             <h1 className="t-28 font-medium tracking-(--tracking-tight)">Session active</h1>
             {STAGE_REGISTRY.browser.tagline && (
-              <p className="t-13 text-(--text-ghost) leading-(--leading-normal)">
+              <p className="t-13 text-(--text-muted) leading-(--leading-normal)">
                 {STAGE_REGISTRY.browser.tagline}
               </p>
             )}

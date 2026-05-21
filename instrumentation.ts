@@ -28,6 +28,11 @@ export async function register() {
     }
   }
   if (process.env.NEXT_RUNTIME === "nodejs") {
+    // Fail-closed réel au boot : valide les secrets critiques avant tout autre init.
+    // lib/env.server.ts throw en prod si STRIPE_WEBHOOK_SECRET, HEARST_ALLOWED_EMAIL_DOMAINS
+    // ou HEARST_DEV_AUTH_BYPASS=1 sont absents/invalides. En dev, no-op (isProd=false).
+    await import("@/lib/env.server");
+
     // Hard-fail si Langfuse mal configuré en prod (fail fast au boot plutôt qu'au 1er call)
     const { assertLangfuseReady } = await import("@/lib/observability/langfuse");
     assertLangfuseReady();
