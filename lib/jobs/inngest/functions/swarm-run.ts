@@ -50,6 +50,7 @@ export const swarmRunFunction = inngest.createFunction(
     let final: { status: string; resultText?: string; tokensIn?: number; tokensOut?: number } = {
       status: "running",
     };
+    let timedOut = true;
     for (let i = 0; i < MAX_POLLS; i++) {
       await step.sleep(`wait-${i}`, POLL_INTERVAL);
       const polled = await step.run(`poll-${i}`, async () => {
@@ -64,6 +65,7 @@ export const swarmRunFunction = inngest.createFunction(
       });
       if (polled.ok && (polled.status === "completed" || polled.status === "failed")) {
         final = polled;
+        timedOut = false;
         break;
       }
     }
@@ -71,6 +73,12 @@ export const swarmRunFunction = inngest.createFunction(
     // Step 3 — persister le résultat dans `runs` (visible dashboards).
     await step.run("end-run", async () => {
       if (!sb) return;
+      const isFailed = timedOut || final.status !== "completed";
+      const errorMsg = timedOut
+        ? "Swarm timeout (>8 min) — le moteur tournait peut-être encore"
+        : final.status === "failed"
+          ? `swarm failed`
+          : undefined;
       await endJobRun(sb, {
         runId: helmRunId,
         status: final.status === "completed" ? "completed" : "failed",
@@ -82,7 +90,7 @@ export const swarmRunFunction = inngest.createFunction(
           tokensIn: final.tokensIn ?? 0,
           tokensOut: final.tokensOut ?? 0,
         },
-        error: final.status === "completed" ? undefined : `swarm ${final.status}`,
+        error: isFailed ? errorMsg : undefined,
       }).catch(() => {});
     });
 

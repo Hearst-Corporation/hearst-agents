@@ -437,10 +437,11 @@ export async function runAiPipeline(
   eventBus: RunEventBus,
   input: AiPipelineInput,
 ): Promise<void> {
-  // Scope guard — tenantId et workspaceId doivent être fournis par le caller
+  // Scope guard — tenantId, workspaceId et userId doivent être fournis par le caller
   // (orchestrateur via buildTenantScope). En prod, l'absence est une erreur fatale.
-  if (!input.tenantId || !input.workspaceId) {
-    const msg = `[AiPipeline] tenantId ou workspaceId absent (tenantId=${input.tenantId}, workspaceId=${input.workspaceId}, userId=${redactId(input.userId)})`;
+  // userId est requis pour le claim sub du JWT Cortex (mémoire fédérée multi-tenant).
+  if (!input.tenantId || !input.workspaceId || !input.userId) {
+    const msg = `[AiPipeline] tenantId, workspaceId ou userId absent (tenantId=${input.tenantId}, workspaceId=${input.workspaceId}, userId=${redactId(input.userId)})`;
     console.error(msg);
     await engine.fail(msg);
     return;

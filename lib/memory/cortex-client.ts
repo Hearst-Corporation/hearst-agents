@@ -105,9 +105,9 @@ export async function searchCortexMemory(params: {
   const baseUrl = process.env.CORTEX_URL;
 
   // Auth : JWT par tenant si dispo (isolation multi-tenant), sinon x-api-key global.
-  const jwt = params.tenantId
-    ? signCortexJwt(params.tenantId, params.userId ?? params.tenantId)
-    : null;
+  // trim() défensif : un tenantId whitespace " " signerait un JWT à tenant invalide.
+  const tenantId = params.tenantId?.trim();
+  const jwt = tenantId ? signCortexJwt(tenantId, params.userId?.trim() || tenantId) : null;
   const apiKey = process.env.CORTEX_PUBLIC_API_KEY;
   const authHeaders: Record<string, string> = jwt
     ? { Authorization: `Bearer ${jwt}` }
