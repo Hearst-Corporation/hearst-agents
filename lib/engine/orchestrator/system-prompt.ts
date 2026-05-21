@@ -16,7 +16,11 @@ import { getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import type { Persona } from "@/lib/personas/types";
 
-export const ORCHESTRATOR_MODEL = "claude-sonnet-4-6";
+// Hypercli (endpoint Anthropic-compatible) sert Kimi K2.6 sous l'id
+// "kimi-k2.6-anthropic". Sans Hypercli, fallback Anthropic direct (Sonnet 4.6).
+export const ORCHESTRATOR_MODEL = process.env.HYPERCLI_API_KEY
+  ? "kimi-k2.6-anthropic"
+  : "claude-sonnet-4-6";
 
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
 

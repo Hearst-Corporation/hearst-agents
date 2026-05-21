@@ -111,8 +111,18 @@ export interface AiPipelineInput {
   missionId?: string;
 }
 
+// Orchestrateur via Hypercli (endpoint compatible Anthropic /v1/messages) :
+// Kimi K2.6 plutôt qu'Anthropic direct (compte Anthropic sans crédit).
+// Hypercli est drop-in Anthropic-compatible → on garde @ai-sdk/anthropic,
+// on change juste baseURL + clé. Fallback sur Anthropic direct si HYPERCLI absent.
+const USE_HYPERCLI = Boolean(process.env.HYPERCLI_API_KEY);
 const anthropic = createAnthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY ?? "",
+  apiKey: USE_HYPERCLI
+    ? (process.env.HYPERCLI_API_KEY ?? "")
+    : (process.env.ANTHROPIC_API_KEY ?? ""),
+  ...(USE_HYPERCLI
+    ? { baseURL: process.env.HYPERCLI_BASE_URL ?? "https://api.hypercli.com/v1" }
+    : {}),
 });
 
 /**
