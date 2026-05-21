@@ -517,20 +517,45 @@
   --ct-text-primary: var(--text-soft);
   --ct-text-body: var(--text-muted);
   --ct-text-muted: var(--text-faint);
+  /* --ct-text-faint absent du package — défini ici pour les composants
+   * qui le référencent (placeholder ct-chat-input, labels discrets). */
+  --ct-text-faint: rgba(245, 245, 245, 0.40);
 
   /* Background du Cockpit (bordeaux Cockpit canonical → noir visionOS) */
   --ct-bg-deep: var(--bg);
 
-  /* Shadow — la Card alerting Helm est plate ; on neutralise box-shadow */
-  --ct-shadow-depth: none;
+  /* Radius — tokens absents du package, nécessaires pour ct-chat-input,
+   * ct-chat-send et composants radius-aware. Alignés sur Cortex. */
+  --ct-radius-base: 10px;
+  --ct-radius-sm: 8px;
+  --ct-radius-md: 12px;
 
-  /* ProductLauncherBar (PR7) + HubBottomBar (PR5, retiré) — neutralise
-   * `left: calc((--ct-rail-left + 100vw - --ct-rail-right-eff) / 2)` du
-   * package qui suppose les rails du Hub canonical (RailLeft 88px +
-   * RailRight 420px). Helm a sa propre RailRight (260/320px) gérée par
-   * Shell.tsx interne. On centre proprement sur 100vw. */
-  --ct-rail-left: 0px;
-  --ct-rail-right-eff: 0px;
+  /* Typography — tokens absents du package, nécessaires pour ct-chat-input
+   * (font-size: var(--ct-font-base)) et composants dérivés. */
+  --ct-font-base: 13px;
+  --ct-font-sm: 12px;
+  --ct-font-md: 15px;
+  --ct-font-md2: 14px;
+  --ct-font-weight-bold: 700;
+  --ct-font-weight-semibold: 600;
+
+  /* Shadow depth — token présent dans le package (:root bordeaux), conservé
+   * tel quel pour ct-chat-form. On le redéclare explicitement ici pour
+   * que l'environnement visionOS (fond noir) bénéficie du même relief. */
+  --ct-shadow-depth:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45),
+    0 20px 60px -24px rgba(0, 0, 0, 0.65);
+
+  /* Rails cockpit-shell — on restaure les valeurs canoniques pour que
+   * .ct-rail-left (88px) et .ct-rail-right (420px) fonctionnent si un
+   * composant du package les consomme. Helm utilise ses propres rails
+   * vision-rail-left / vision-rail-right avec --width-rail-left (88px)
+   * et --width-rail-right (260/320px), donc ces tokens n'impactent pas
+   * le layout Helm directement. */
+  --ct-rail-left: 88px;
+  --ct-rail-right: 420px;
+  --ct-rail-right-eff: 420px;
 
   /* Couleurs signature produits Hearst (PR7).
    * Référencées par HELM_PRODUCTS dans app/(user)/layout.tsx pour le
@@ -3735,4 +3760,96 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
     margin-bottom: 3px;
     font-weight: 500;
   }
+}
+
+/* ─── @hearst/cockpit-shell — overrides chat (PR7) ────────────────────────
+ * Le package v0.4.0 définit .ct-chat-input avec background:transparent et
+ * border:none (style "flat" pour un input dans une pill). Helm utilise
+ * ct-chat-form / ct-chat-input / ct-chat-send mais avec un style inline
+ * dans RightRailChat.tsx qui diverge. Pour aligner sur Cortex (qui
+ * surcharge ces classes dans son globals.css), on pose ici les mêmes
+ * règles que Cortex : input avec fond sombre, border, border-radius. */
+[data-product="helm"] .ct-chat-input {
+  flex: 1;
+  appearance: none;
+  resize: none;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--ct-border);
+  border-radius: var(--ct-radius-base, 10px);
+  color: var(--ct-text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 9px 12px;
+  outline: none;
+  max-height: 140px;
+  min-height: 38px;
+  transition:
+    border-color var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+    background var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+[data-product="helm"] .ct-chat-input:focus {
+  border-color: var(--ct-border-accent);
+  background: rgba(0, 0, 0, 0.35);
+}
+[data-product="helm"] .ct-chat-input::placeholder {
+  color: var(--ct-text-faint);
+}
+
+/* ct-chat-form : on garde le style du package (pill avec shadow-depth) mais
+ * on s'assure que le focus-within marche avec les tokens Helm. */
+[data-product="helm"] .ct-chat-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 10px 10px 14px;
+  margin-top: 12px;
+  background: var(--ct-surface-2);
+  border: 1px solid var(--ct-border-strong);
+  border-radius: 20px;
+  box-shadow: var(--ct-shadow-depth);
+  transition:
+    border-color var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+    box-shadow var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+[data-product="helm"] .ct-chat-form:focus-within {
+  border-color: var(--ct-border-accent);
+  box-shadow: 0 0 0 3px var(--ct-accent-soft), var(--ct-shadow-depth);
+}
+
+/* ct-chat-send : alignement sur le style du package (rond accent) */
+[data-product="helm"] .ct-chat-send {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  background: var(--ct-accent);
+  color: var(--ct-text-strong);
+  border: none;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ct-accent) 40%, transparent);
+  transition:
+    transform var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+    box-shadow var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+    background var(--ct-dur-base, 180ms) var(--ct-ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+}
+[data-product="helm"] .ct-chat-send:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: var(--ct-accent-strong);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--ct-accent) 55%, transparent);
+}
+[data-product="helm"] .ct-chat-send:active:not(:disabled) {
+  transform: translateY(0);
+}
+[data-product="helm"] .ct-chat-send:disabled {
+  opacity: 0.4;
+  cursor: default;
+  background: var(--ct-surface-3);
+  box-shadow: none;
 }
