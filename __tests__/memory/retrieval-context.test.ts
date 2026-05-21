@@ -1,5 +1,5 @@
 /**
- * retrieval-context — formatRetrievedItems + cap 1500 chars + cache 30s.
+ * retrieval-context — formatRetrievedItems + cap 1500 chars + cache 60s.
  */
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -15,6 +15,11 @@ vi.mock("@/lib/embeddings/store", () => ({
 // Force le fallback localCache — isole les tests du Redis partagé
 vi.mock("@/lib/platform/redis/client", () => ({
   getRedis: () => null,
+}));
+
+// Isole les tests du fetch réseau vers Cortex — searchCortexMemory retourne []
+vi.mock("@/lib/memory/cortex-client", () => ({
+  searchCortexMemory: vi.fn().mockResolvedValue([]),
 }));
 
 import type { RetrievedEmbedding } from "@/lib/embeddings/store";
@@ -45,7 +50,7 @@ describe("formatRetrievedItems", () => {
       item({ sourceKind: "message", textExcerpt: "Adrien parlait pricing" }),
       item({ sourceKind: "asset", textExcerpt: "Plan Q2 — sections" }),
     ]);
-    // P6 : chaque item est wrappé dans <untrusted_memory source="..."> pour prompt injection guard.
+    // chaque item est wrappé dans <untrusted_memory source="..."> pour prompt injection guard.
     expect(out).toMatch(/<untrusted_memory [^>]*source="message"[^>]*>/);
     expect(out).toContain("Adrien parlait pricing");
     expect(out).toMatch(/<untrusted_memory [^>]*source="asset"[^>]*>/);
@@ -53,10 +58,12 @@ describe("formatRetrievedItems", () => {
     expect(out).toMatch(/Souvenirs pertinents/);
   });
 
-  it("ordonne par similarité décroissante", () => {
+  it("préserve l'ordre fourni par l'appelant", () => {
+    // formatRetrievedItems ne trie plus — c'est l'appelant qui ordonne.
+    // On fournit high en premier, low en second et on vérifie que l'ordre est conservé.
     const out = formatRetrievedItems([
-      item({ textExcerpt: "low", similarity: 0.1 }),
       item({ textExcerpt: "high", similarity: 0.9 }),
+      item({ textExcerpt: "low", similarity: 0.1 }),
     ]);
     const lowIdx = out.indexOf("low");
     const highIdx = out.indexOf("high");

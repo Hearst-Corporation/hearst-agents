@@ -16,6 +16,7 @@
 
 import { type RetrievedEmbedding, searchEmbeddings } from "@/lib/embeddings/store";
 import { getRedis } from "@/lib/platform/redis/client";
+import { searchCortexMemory } from "./cortex-client";
 import { fenceUntrusted } from "./untrusted-fence";
 
 const MAX_TOTAL_CHARS = 1500;
@@ -47,23 +48,6 @@ function hashMessage(s: string): string {
   return h.toString(16);
 }
 
-function _labelFor(kind: RetrievedEmbedding["sourceKind"]): string {
-  switch (kind) {
-    case "message":
-      return "message";
-    case "asset":
-      return "asset";
-    case "briefing":
-      return "briefing";
-    case "kg_node":
-      return "kg";
-    case "transcript":
-      return "transcript";
-    default:
-      return "mem";
-  }
-}
-
 function clampLine(text: string, max: number): string {
   const oneLine = text.replace(/\s+/g, " ").trim();
   if (oneLine.length <= max) return oneLine;
@@ -73,12 +57,13 @@ function clampLine(text: string, max: number): string {
 export function formatRetrievedItems(items: RetrievedEmbedding[]): string {
   if (items.length === 0) return "";
 
-  const sorted = [...items].sort((a, b) => b.similarity - a.similarity);
-
+  // Préserve l'ordre fourni par l'appelant — trier EN AMONT si nécessaire
+  // (cf. getRetrievedMemoryForUser qui fournit local puis cortex déjà ordonnés,
+  //  et mission-context.ts qui trie avant l'appel pour sa source homogène).
   const fencedItems: string[] = [];
   let total = 0;
 
-  for (const item of sorted) {
+  for (const item of items) {
     const excerpt = clampLine(item.textExcerpt, PER_ITEM_MAX);
     const meta: Record<string, string> = {
       source: item.sourceKind,
@@ -94,7 +79,7 @@ export function formatRetrievedItems(items: RetrievedEmbedding[]): string {
 
   if (fencedItems.length === 0) return "";
   return [
-    "Souvenirs pertinents (proches de la requête, ordonnés par similarité) :",
+    "Souvenirs pertinents (proches de la requête, dans l'ordre fourni) :",
     ...fencedItems,
   ].join("\n");
 }
@@ -143,8 +128,43 @@ export async function getRetrievedMemoryForUser(params: RetrievedMemoryParams): 
 
   let text = "";
   try {
-    const items = await searchEmbeddings({ userId, tenantId, queryText: trimmed, k });
-    text = formatRetrievedItems(items);
+    // Interrogation parallèle : mémoire locale Helm (Supabase 1536d) + Cortex LTM (BGE 384d).
+    // Les vecteurs sont incompatibles → fédération PAR TEXTE (Cortex ré-embed côté serveur).
+    const [localItems, cortexItems] = await Promise.all([
+      searchEmbeddings({ userId, tenantId, queryText: trimmed, k }).catch(
+        (): RetrievedEmbedding[] => [],
+      ),
+      searchCortexMemory({ query: trimmed, k }).catch((): RetrievedEmbedding[] => []),
+    ]);
+
+    // Quota par source : scores locaux (cosine ~0.7-0.95) et Cortex (RRF hybride, échelle différente)
+    // ne sont PAS comparables — un tri brut écraserait systématiquement Cortex.
+    // Quota = PLANCHER garanti (half local + (k-half) cortex) avec complétion croisée :
+    // les slots inutilisés d'une source (ex: Cortex absent) sont ré-alloués à l'autre
+    // jusqu'à k total. Ex : (5 local, 0 cortex, k=5) → 5 local ; (2 local, 5 cortex, k=5) → 2+3.
+    const bySimilarityDesc = (a: RetrievedEmbedding, b: RetrievedEmbedding) =>
+      b.similarity - a.similarity;
+    const sortedLocal = [...localItems].sort(bySimilarityDesc);
+    const sortedCortex = [...cortexItems].sort(bySimilarityDesc);
+    const half = Math.ceil(k / 2);
+    let nLocal = Math.min(half, sortedLocal.length);
+    let nCortex = Math.min(k - half, sortedCortex.length);
+    const spare = k - nLocal - nCortex;
+    if (spare > 0) {
+      nLocal += Math.min(spare, sortedLocal.length - nLocal);
+      nCortex += Math.min(k - nLocal - nCortex, sortedCortex.length - nCortex);
+    }
+    const localSlice = sortedLocal.slice(0, nLocal);
+    const cortexSlice = sortedCortex.slice(0, nCortex);
+    // Interleave round-robin : le cap 1500 chars (formatRetrievedItems) ne sacrifie
+    // plus systématiquement la source en fin de liste (Cortex). Préserve le quota.
+    const merged: RetrievedEmbedding[] = [];
+    for (let i = 0; i < Math.max(localSlice.length, cortexSlice.length); i++) {
+      if (i < localSlice.length) merged.push(localSlice[i]);
+      if (i < cortexSlice.length) merged.push(cortexSlice[i]);
+    }
+
+    text = formatRetrievedItems(merged);
   } catch (err) {
     console.warn("[retrieval-context] search failed:", err);
     text = "";

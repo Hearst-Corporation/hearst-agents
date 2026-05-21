@@ -303,6 +303,7 @@ export async function getMissionContext(opts: {
       queryText: opts.missionInput,
       k: 5,
     })
+      .then((items) => [...items].sort((a, b) => b.similarity - a.similarity))
       .then(formatRetrievedItems)
       .catch(() => ""),
     getKgContextForUser(opts.userId, opts.tenantId).catch(() => null),
