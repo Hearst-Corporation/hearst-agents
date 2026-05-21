@@ -114,7 +114,7 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
               }}
               placeholder="asset-id-a"
               data-testid="asset-compare-input-a"
-              className="t-13 font-light outline-none"
+              className="t-13 font-light outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 background: "var(--surface-2)",
@@ -138,7 +138,7 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
               }}
               placeholder="asset-id-b"
               data-testid="asset-compare-input-b"
-              className="t-13 font-light outline-none"
+              className="t-13 font-light outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 background: "var(--surface-2)",

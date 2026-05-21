@@ -97,10 +97,12 @@ export function MobileBottomNav() {
             aria-current={active ? "page" : undefined}
             data-testid={`mobile-nav-${item.id}`}
             data-active={active}
-            className="flex flex-col items-center justify-center transition-colors"
+            className="flex flex-col items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
             style={{
               flex: item.emphasis ? "1.6" : "1",
               padding: "var(--space-2)",
+              minHeight: "44px",
+              minWidth: "44px",
               borderRadius: "var(--radius-md)",
               border: "none",
               cursor: "pointer",

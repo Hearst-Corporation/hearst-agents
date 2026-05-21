@@ -229,10 +229,10 @@ function SessionFrame({
               transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
             />
             <span className="t-13 text-(--text-ghost)">Session Browserbase active</span>
-            <span className="t-11 text-(--text-decor-25) font-mono">{sessionId.slice(0, 16)}…</span>
+            <span className="t-11 text-(--text-ghost) font-mono">{sessionId.slice(0, 16)}…</span>
           </>
         ) : (
-          <span className="t-13 text-(--text-decor-25)">Session inactive</span>
+          <span className="t-13 text-(--text-ghost)">Session inactive</span>
         )}
       </div>
     </div>
@@ -496,7 +496,7 @@ export function BrowserStage({ mode }: { mode: string }) {
 
       {/* Header */}
       <header className="flex flex-col gap-2">
-        <p className="t-13 text-(--text-decor-25) tracking-(--tracking-micro)">
+        <p className="t-13 text-(--text-ghost) tracking-(--tracking-micro)">
           Browserbase · Stagehand · navigateur cloud
         </p>
         <div className="flex items-center justify-between">
@@ -527,7 +527,7 @@ export function BrowserStage({ mode }: { mode: string }) {
 
       {/* Steps Stagehand */}
       <div className="flex flex-col gap-1">
-        <p className="t-11 text-(--text-decor-25) mb-2 tracking-(--tracking-micro)">
+        <p className="t-11 text-(--text-ghost) mb-2 tracking-(--tracking-micro)">
           {steps.length > 0
             ? `Étapes Stagehand — ${doneCount(steps)} / ${steps.length}`
             : "Étapes Stagehand — en attente de données"}
@@ -539,7 +539,7 @@ export function BrowserStage({ mode }: { mode: string }) {
             ))}
           </AnimatePresence>
         ) : (
-          <p className="t-13 text-(--text-decor-25) py-2">
+          <p className="t-13 text-(--text-ghost) py-2">
             Les étapes s&apos;afficheront ici quand la session Browserbase transmettra des
             événements.
           </p>

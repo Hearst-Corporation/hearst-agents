@@ -97,14 +97,14 @@ export function WorkingDocument() {
           type="text"
           value={current.title}
           onChange={(e) => updateTitle(e.target.value)}
-          className="flex-1 min-w-0 bg-transparent outline-none halo-title-xl truncate"
+          className="flex-1 min-w-0 bg-transparent outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover) halo-title-xl truncate"
           style={{ color: "var(--text)" }}
           placeholder="Sans titre"
           aria-label="Titre du document"
         />
         <button
           onClick={close}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors shrink-0"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
           title="Réduire (Cmd+B)"
           type="button"
         >
@@ -121,7 +121,7 @@ export function WorkingDocument() {
         <textarea
           value={current.content}
           onChange={(e) => updateContent(e.target.value)}
-          className="w-full h-full min-h-0 bg-transparent outline-none resize-none t-15 leading-relaxed"
+          className="w-full h-full min-h-0 bg-transparent outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover) resize-none t-15 leading-relaxed"
           style={{
             color: "var(--text)",
             minHeight: "var(--space-16)",
@@ -142,14 +142,14 @@ export function WorkingDocument() {
       >
         <button
           type="button"
-          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors"
+          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
           title="Sauvegarder ce document comme asset réutilisable"
         >
           Sauvegarder comme asset
         </button>
         <button
           type="button"
-          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors"
+          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
           title="Convertir ce document en mission planifiée"
         >
           Convertir en mission

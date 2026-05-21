@@ -305,9 +305,9 @@ function MissionCard({
       </p>
 
       {/* Meta : date + schedule */}
-      <div className="flex items-center gap-4 t-11 text-(--text-decor-25)">
+      <div className="flex items-center gap-4 t-11 text-(--text-ghost)">
         <span>{formatDate(mission.createdAt)}</span>
-        <span className="text-text-decor-25">·</span>
+        <span className="text-text-ghost">·</span>
         <span>{humanCron(mission.schedule)}</span>
       </div>
     </motion.div>
