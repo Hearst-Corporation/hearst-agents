@@ -197,6 +197,9 @@ export function RightRailChat() {
   const listRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  // ID de conversation stable (UUID) — /api/orchestrate exige des UUID valides
+  // pour conversation_id/thread_id (sinon 400 invalid_body). Généré une fois.
+  const conversationIdRef = useRef<string>(crypto.randomUUID());
 
   // Auto-scroll
   useEffect(() => {
@@ -264,8 +267,8 @@ export function RightRailChat() {
           body: JSON.stringify({
             message: text,
             surface: "chat",
-            thread_id: `thread-${Date.now()}`,
-            conversation_id: `thread-${Date.now()}`,
+            thread_id: conversationIdRef.current,
+            conversation_id: conversationIdRef.current,
             history: messages
               .filter((m) => m.content.trim().length > 0)
               .slice(-10)
