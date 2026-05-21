@@ -200,7 +200,7 @@ export function ChatInput({
                 ? "Que devons-nous décider ? _"
                 : resolveModePlaceholder(stageMode, surface, placeholder)
             }
-            className="w-full bg-transparent border-none outline-none text-text-soft t-15 placeholder:text-text-ghost font-light caret-(--accent-teal)"
+            className="w-full bg-transparent border-none outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover) text-text-soft t-15 placeholder:text-text-ghost font-light caret-(--accent-teal)"
           />
 
           {/* Spinner inline pendant un run actif (aria-busy parent). */}

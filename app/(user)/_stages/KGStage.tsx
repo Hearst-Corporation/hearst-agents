@@ -440,7 +440,7 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
             />
             <span className="t-13 text-(--text-soft) flex-1">{node.label}</span>
             <span className="t-11 text-(--text-ghost) uppercase tracking-[.06em]">{node.type}</span>
-            <span className="t-11 text-(--text-decor-25)">
+            <span className="t-11 text-(--text-ghost)">
               {count} liaison{count !== 1 ? "s" : ""}
             </span>
           </div>

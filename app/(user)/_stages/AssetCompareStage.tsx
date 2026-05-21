@@ -116,7 +116,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
 
   return (
     <div className="w-full h-[var(--height-compare-thumb)] rounded-(--radius-card) bg-(--surface) border border-(--line-strong) flex items-center justify-center">
-      <span className="t-11 text-(--text-decor-25)">{asset.kind}</span>
+      <span className="t-11 text-(--text-ghost)">{asset.kind}</span>
     </div>
   );
 }
@@ -124,7 +124,7 @@ function AssetPreview({ asset }: { asset: Asset }) {
 function MetaChip({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5 px-2.5 py-1.5 bg-(--surface-2) border border-(--line-strong) rounded-lg min-w-0 flex-[1_1_auto]">
-      <span className="t-10 text-(--text-decor-25) font-medium">{label}</span>
+      <span className="t-10 text-(--text-ghost) font-medium">{label}</span>
       <span className="truncate t-13 text-(--text-muted)" title={value}>
         {value}
       </span>
@@ -148,7 +148,7 @@ function AssetPane({
       <header className="flex items-center justify-between gap-2">
         <span className="t-11 font-semibold text-(--text-faint)">{label}</span>
         {asset && (
-          <span className="t-10 text-(--text-decor-25)">{formatCreatedAt(asset.createdAt)}</span>
+          <span className="t-10 text-(--text-ghost)">{formatCreatedAt(asset.createdAt)}</span>
         )}
       </header>
 
@@ -246,7 +246,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
             draggable={false}
           />
         ) : (
-          <span className="t-13 text-(--text-decor-25)">{assetA?.title ?? "Gauche"}</span>
+          <span className="t-13 text-(--text-ghost)">{assetA?.title ?? "Gauche"}</span>
         )}
       </div>
 
@@ -267,7 +267,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
             draggable={false}
           />
         ) : (
-          <span className="t-13 text-(--text-decor-25)">{assetB?.title ?? "Droite"}</span>
+          <span className="t-13 text-(--text-ghost)">{assetB?.title ?? "Droite"}</span>
         )}
       </div>
 
