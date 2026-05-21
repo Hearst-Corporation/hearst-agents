@@ -9,6 +9,8 @@ import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import type { StagePayload } from "@/stores/stage";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { HubBar } from "../_shell/HubBar";
+import { KpiGrid } from "../_shell/KpiGrid";
 import { Shell } from "../_shell/Shell";
 import { ChatStage } from "../_stages/ChatStage";
 import { MissionListStage } from "../_stages/MissionListStage";
@@ -258,7 +260,7 @@ function CockpitContent({
       {/* Contenu Principal - Alignement Editorial */}
       <div
         className="relative z-10 flex flex-col w-full px-14 pt-16 pb-32"
-        style={{ maxWidth: "var(--width-prose-narrow)" }}
+        style={{ maxWidth: "var(--width-prose-narrow)", marginInline: "auto" }}
       >
         {/* État d'erreur silencieux — affiché quand le refetch échoue */}
         {refetchState === "error" && (
@@ -289,7 +291,7 @@ function CockpitContent({
         </header>
 
         {/* Focus - Accueil & Arbitrage */}
-        <div className="flex flex-col gap-4 mb-20">
+        <div className="flex flex-col gap-4 mb-12">
           <h1 className="t-64 font-light tracking-tight text-text">
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
           </h1>
@@ -300,6 +302,11 @@ function CockpitContent({
                 ? `${telemetry[2].value} communications requièrent votre arbitrage.`
                 : "Aucune décision urgente requise."}
           </p>
+        </div>
+
+        {/* KPI Telemetry Grid */}
+        <div className="mb-16">
+          <KpiGrid items={telemetry} />
         </div>
 
         {/* Listes Éditoriales (Max 3 items au total) */}
@@ -435,6 +442,8 @@ function CockpitContent({
             </div>
           )}
         </div>
+
+        <HubBar />
       </div>
     </motion.section>
   );
