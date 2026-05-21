@@ -20,6 +20,7 @@ import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { StageLayout } from "../_shell/StageLayout";
 import { STAGE_REGISTRY } from "./registry";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
@@ -353,54 +354,54 @@ export function AssetStage({ mode }: { mode: string }) {
         </span>
       )}
 
-      {/* Header */}
-      <header className="flex flex-col gap-2">
-        <p className="t-11 tracking-wide text-text-ghost">
-          {loading
+      {/* Header standardisé via StageLayout (eyebrow/title/subtitle cohérents). */}
+      <StageLayout
+        eyebrow={
+          loading
             ? "Chargement"
             : error
               ? "Erreur de chargement"
               : total === 0
                 ? "Aucun asset"
-                : `${total} asset${total > 1 ? "s" : ""} · ${readyCount} prêt${readyCount > 1 ? "s" : ""}`}
-        </p>
-        <h1 className="t-30 font-medium tracking-tight text-text">
-          {loading ? "Chargement des assets" : total === 0 ? "Génération média" : "Assets"}
-        </h1>
-        {STAGE_REGISTRY.asset.tagline && (
-          <p className="t-13 text-text-faint leading-relaxed">{STAGE_REGISTRY.asset.tagline}</p>
-        )}
+                : `${total} asset${total > 1 ? "s" : ""} · ${readyCount} prêt${readyCount > 1 ? "s" : ""}`
+        }
+        title={loading ? "Chargement des assets" : total === 0 ? "Génération média" : "Assets"}
+        subtitle={STAGE_REGISTRY.asset.tagline || undefined}
+      >
+        {/* Tags (sous le header, conservé) */}
         {total > 0 && (
-          <p className="t-13 text-text-muted">{displayAssets.map((a) => a.tag).join(" · ")}</p>
+          <p className="t-13 text-text-muted" style={{ marginBottom: "var(--space-4)" }}>
+            {displayAssets.map((a) => a.tag).join(" · ")}
+          </p>
         )}
-      </header>
 
-      {/* Error */}
-      {error && <StageErrorBanner message={error} />}
+        {/* Error */}
+        {error && <StageErrorBanner message={error} />}
 
-      {/* Loading */}
-      {loading && !error && <LoadingGrid />}
+        {/* Loading */}
+        {loading && !error && <LoadingGrid />}
 
-      {/* Empty */}
-      {!loading && !error && total === 0 && <EmptyAssetState />}
+        {/* Empty */}
+        {!loading && !error && total === 0 && <EmptyAssetState />}
 
-      {/* Populated */}
-      {!loading && !error && total > 0 && (
-        <div className="asset-grid">
-          {displayAssets.map((asset, idx) => (
-            <AssetSlot key={asset.id} asset={asset} index={idx} />
-          ))}
-        </div>
-      )}
+        {/* Populated */}
+        {!loading && !error && total > 0 && (
+          <div className="asset-grid">
+            {displayAssets.map((asset, idx) => (
+              <AssetSlot key={asset.id} asset={asset} index={idx} />
+            ))}
+          </div>
+        )}
 
-      {/* Footer */}
-      {!loading && !error && total > 0 && (
-        <p className="text-center t-13 text-text-faint">
-          {readyCount === total
-            ? `${total} variant${total > 1 ? "s" : ""} prêt${total > 1 ? "s" : ""}`
-            : `${readyCount} prêt${readyCount > 1 ? "s" : ""} · ${total - readyCount} en cours`}
-        </p>
-      )}
+        {/* Footer */}
+        {!loading && !error && total > 0 && (
+          <p className="text-center t-13 text-text-faint" style={{ marginTop: "var(--space-4)" }}>
+            {readyCount === total
+              ? `${total} variant${total > 1 ? "s" : ""} prêt${total > 1 ? "s" : ""}`
+              : `${readyCount} prêt${readyCount > 1 ? "s" : ""} · ${total - readyCount} en cours`}
+          </p>
+        )}
+      </StageLayout>
     </motion.section>
   );
 }

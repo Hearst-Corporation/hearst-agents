@@ -16,6 +16,7 @@ import { Action, EmptyState, StageErrorBanner } from "@/app/(user)/components/ui
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { StageLayout } from "../_shell/StageLayout";
 import { STAGE_REGISTRY } from "./registry";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
@@ -389,50 +390,45 @@ export function MissionListStage({ mode }: { mode: string }) {
       animate="visible"
       className="preserve-3d flex w-full flex-col gap-8"
     >
-      {/* Header */}
-      <header className="flex items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <p className="t-13 text-(--text-muted)">Toutes les demandes</p>
-          <h1 className="t-30 font-medium tracking-tight text-(--text-soft)">Demandes</h1>
-          {STAGE_REGISTRY.mission.tagline && (
-            <p className="t-13 text-(--text-faint) leading-(--leading-body-tight)">
-              {STAGE_REGISTRY.mission.tagline}
-            </p>
-          )}
-        </div>
+      {/* Header standardisé via StageLayout (eyebrow/title/subtitle + action). */}
+      <StageLayout
+        eyebrow="Toutes les demandes"
+        title="Demandes"
+        subtitle={STAGE_REGISTRY.mission.tagline || undefined}
+        actions={
+          <Action variant="secondary" tone="neutral" size="md" onClick={handleNewMission}>
+            Nouvelle demande
+          </Action>
+        }
+      >
+        {/* Badge démo — dev uniquement, liste réelle vide */}
+        {showDemo && <DemoBadge />}
 
-        <Action variant="secondary" tone="neutral" size="md" onClick={handleNewMission}>
-          Nouvelle demande
-        </Action>
-      </header>
+        {/* Loading */}
+        {loading && <LoadingSkeleton />}
 
-      {/* Badge démo — dev uniquement, liste réelle vide */}
-      {showDemo && <DemoBadge />}
+        {/* Erreur */}
+        {!loading && fetchError && <StageErrorBanner message={fetchError} variant="emphasis" />}
 
-      {/* Loading */}
-      {loading && <LoadingSkeleton />}
+        {/* Empty state — prod, ou dev sans démo possible */}
+        {!loading && !fetchError && missions.length === 0 && !showDemo && <MissionListEmpty />}
 
-      {/* Erreur */}
-      {!loading && fetchError && <StageErrorBanner message={fetchError} variant="emphasis" />}
-
-      {/* Empty state — prod, ou dev sans démo possible */}
-      {!loading && !fetchError && missions.length === 0 && !showDemo && <MissionListEmpty />}
-
-      {/* Liste (données réelles ou démo dev) */}
-      {!loading && !fetchError && displayMissions.length > 0 && (
-        <div className="flex flex-col gap-2">
-          <AnimatePresence initial={false}>
-            {displayMissions.map((mission, idx) => (
-              <MissionCard
-                key={mission.id}
-                mission={mission}
-                index={idx}
-                onClick={() => setMode({ mode: "mission", missionId: mission.id })}
-              />
-            ))}
-          </AnimatePresence>
-        </div>
-      )}
+        {/* Liste (données réelles ou démo dev) */}
+        {!loading && !fetchError && displayMissions.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <AnimatePresence initial={false}>
+              {displayMissions.map((mission, idx) => (
+                <MissionCard
+                  key={mission.id}
+                  mission={mission}
+                  index={idx}
+                  onClick={() => setMode({ mode: "mission", missionId: mission.id })}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+      </StageLayout>
     </motion.section>
   );
 }
