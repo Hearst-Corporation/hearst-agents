@@ -136,50 +136,10 @@ const MSG_ASSISTANT_STYLE: React.CSSProperties = {
   wordBreak: "break-word",
 };
 
-const FORM_STYLE: React.CSSProperties = {
-  display: "flex",
-  alignItems: "flex-end",
-  gap: "var(--space-2)",
-  padding: "var(--space-3) var(--space-4)",
-  borderTop: "1px solid var(--border-shell)",
-  flexShrink: 0,
-};
-
-const TEXTAREA_STYLE: React.CSSProperties = {
-  flex: 1,
-  background: "var(--surface-1)",
-  border: "1px solid var(--border-shell)",
-  borderRadius: "var(--radius-md)",
-  padding: "var(--space-2-5) var(--space-3)",
-  fontSize: "var(--font-size-13, 13px)",
-  color: "var(--text)",
-  resize: "none",
-  outline: "none",
-  minHeight: "var(--size-touch-target)",
-  maxHeight: "var(--space-24)",
-  fontFamily: "inherit",
-};
-
-const SEND_BTN_STYLE: React.CSSProperties = {
-  width: "var(--size-avatar-sm)",
-  height: "var(--size-avatar-sm)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "var(--radius-sm)",
-  border: "none",
-  background: "transparent",
-  color: "var(--accent-teal)",
-  cursor: "pointer",
-  flexShrink: 0,
-  padding: 0,
-};
-
-const SEND_BTN_DISABLED_STYLE: React.CSSProperties = {
-  ...SEND_BTN_STYLE,
-  color: "var(--text-ghost)",
-  cursor: "not-allowed",
-};
+/* Styles inline supprimés — les classes .ct-chat-form, .ct-chat-input,
+ * .ct-chat-send du package @hearst/cockpit-shell (surchargées dans
+ * globals.css via [data-product="helm"]) prennent le relais.
+ * Cohérence visuelle avec Cortex (Master Vault). */
 
 // ── Composant principal ──────────────────────────────────────────────────────
 
@@ -493,11 +453,10 @@ export function RightRailChat() {
           </div>
 
           {/* Form */}
-          <form className="ct-chat-form" style={FORM_STYLE} onSubmit={(e) => void handleSubmit(e)}>
+          <form className="ct-chat-form" onSubmit={(e) => void handleSubmit(e)}>
             <textarea
               ref={textareaRef}
               className="ct-chat-input"
-              style={TEXTAREA_STYLE}
               rows={2}
               placeholder="Message à Kimi…"
               value={inputValue}
@@ -505,13 +464,7 @@ export function RightRailChat() {
               onKeyDown={handleKeyDown}
               disabled={isStreaming}
             />
-            <button
-              type="submit"
-              className="ct-chat-send"
-              style={canSend ? SEND_BTN_STYLE : SEND_BTN_DISABLED_STYLE}
-              disabled={!canSend}
-              aria-label="Envoyer"
-            >
+            <button type="submit" className="ct-chat-send" disabled={!canSend} aria-label="Envoyer">
               <svg
                 width="16"
                 height="16"

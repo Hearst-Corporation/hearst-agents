@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { Commandeur } from "@/app/(user)/components/Commandeur";
 import { FocusBadge } from "@/app/(user)/components/FocusBadge";
 import { MobileBottomNav } from "@/app/(user)/components/MobileBottomNav";
-import { VideoQuickLaunch } from "@/app/(user)/components/VideoQuickLaunch";
 import { VoicePulse } from "@/app/(user)/components/voice/VoicePulse";
 import { useGlobalHotkeys } from "@/app/hooks/use-global-hotkeys";
 import { useFocusMode } from "@/stores/focus-mode";
@@ -108,7 +107,6 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
         <div className="h-screen w-full overflow-hidden bg-black text-white antialiased">
           {children}
           <Commandeur />
-          <VideoQuickLaunch />
           <VoiceMount />
           <FocusBadge />
           <MobileBottomNav />
