@@ -35,7 +35,6 @@ import type { ReactNode } from "react";
 import type { RailItem } from "../_stages/types";
 import { PulseBar } from "../components/PulseBar";
 import { AmbientLayers } from "./AmbientLayers";
-import { BottomBar } from "./BottomBar";
 import { LeftRail } from "./LeftRail";
 import { RightRailChat } from "./RightRailChat";
 
@@ -90,8 +89,6 @@ export function Shell({ centerContent, railTitle, railItems, composer }: ShellPr
 
           <RightRailChat />
         </div>
-
-        <BottomBar />
       </div>
     </div>
   );

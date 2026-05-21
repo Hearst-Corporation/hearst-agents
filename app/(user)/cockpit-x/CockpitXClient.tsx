@@ -9,7 +9,6 @@ import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import type { StagePayload } from "@/stores/stage";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
-import { HubBar } from "../_shell/HubBar";
 import { KpiGrid } from "../_shell/KpiGrid";
 import { Shell } from "../_shell/Shell";
 import { ChatStage } from "../_stages/ChatStage";
@@ -442,8 +441,6 @@ function CockpitContent({
             </div>
           )}
         </div>
-
-        <HubBar />
       </div>
     </motion.section>
   );
