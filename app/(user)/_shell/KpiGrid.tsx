@@ -1,11 +1,5 @@
 "use client";
 
-/**
- * KpiGrid — grille de métriques telemetry (style cockpit ref).
- *
- * 4 KPIs en grille 2×2 avec barre de progression et valeur.
- */
-
 import { motion } from "framer-motion";
 
 interface KpiItem {
@@ -33,7 +27,7 @@ export function KpiGrid({ items }: KpiGridProps) {
       className="ct-kpi-grid"
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
         gap: "var(--space-3)",
         marginBottom: "var(--space-4)",
       }}
@@ -48,7 +42,7 @@ export function KpiGrid({ items }: KpiGridProps) {
             background: "var(--surface-1)",
             border: "1px solid var(--border-shell)",
             borderRadius: "var(--radius-md)",
-            padding: "var(--space-4)",
+            padding: "var(--space-5)",
             display: "flex",
             flexDirection: "column",
             gap: "var(--space-2)",
@@ -56,22 +50,23 @@ export function KpiGrid({ items }: KpiGridProps) {
         >
           <span
             style={{
-              fontSize: "var(--font-size-10, 10px)",
+              fontSize: "11px",
               fontWeight: 600,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
               color: "var(--text-faint)",
+              fontFamily: "var(--font-satoshi)",
             }}
           >
             {item.label}
           </span>
           <span
             style={{
-              fontSize: "var(--font-size-28, 28px)",
+              fontSize: "clamp(28px, 3vw, 40px)",
               fontWeight: 300,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.03em",
               color: "var(--text)",
-              lineHeight: "var(--line-height-tight, 1.1)",
+              lineHeight: 1.1,
               fontFamily: "var(--font-satoshi)",
             }}
           >
@@ -80,7 +75,6 @@ export function KpiGrid({ items }: KpiGridProps) {
           <div
             style={{
               height: "2px",
-              width: "100%",
               background: "var(--border-shell)",
               borderRadius: "1px",
               overflow: "hidden",
@@ -90,24 +84,20 @@ export function KpiGrid({ items }: KpiGridProps) {
               initial={{ width: 0 }}
               animate={{ width: `${item.progress}%` }}
               transition={{ delay: 0.3 + 0.1 * i, duration: 0.8, ease: "easeOut" }}
-              style={{
-                height: "100%",
-                background: TONE_COLOR[item.tone],
-                borderRadius: "1px",
-              }}
+              style={{ height: "100%", background: TONE_COLOR[item.tone], borderRadius: "1px" }}
             />
           </div>
           <span
             style={{
-              fontSize: "var(--font-size-11, 11px)",
+              fontSize: "12px",
               color:
                 item.tone === "warn"
                   ? "var(--warn)"
                   : item.tone === "active"
                     ? "var(--accent-teal)"
                     : "var(--text-ghost)",
-              fontFamily: "var(--font-mono)",
-              letterSpacing: "0.02em",
+              fontFamily: "var(--font-satoshi)",
+              letterSpacing: "0.01em",
             }}
           >
             {item.footnote}

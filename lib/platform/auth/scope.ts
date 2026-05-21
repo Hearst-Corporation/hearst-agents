@@ -118,7 +118,7 @@ export async function resolveScope(
     tenantId,
     workspaceId,
     isDevFallback,
-    userName: sessionUserName || undefined,
+    ...(sessionUserName ? { userName: sessionUserName } : {}),
   };
 }
 

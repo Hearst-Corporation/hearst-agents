@@ -8,14 +8,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import type { StagePayload } from "@/stores/stage";
 import { useStageStore } from "@/stores/stage";
-import { useStageData } from "@/stores/stage-data";
 import { KpiGrid } from "../_shell/KpiGrid";
 import { Shell } from "../_shell/Shell";
 import { ChatStage } from "../_stages/ChatStage";
 import { MissionListStage } from "../_stages/MissionListStage";
 import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
-import type { RailItem, StageKey } from "../_stages/types";
+import type { StageKey } from "../_stages/types";
 
 /* Stages non-critiques — lazy-load pour réduire le bundle initial */
 const ArtifactStage = dynamic(() =>
@@ -48,7 +47,6 @@ interface CockpitXClientProps {
 }
 
 const FACTORY_MAX = 5;
-const RAIL_MAX = 3;
 
 export function CockpitXClient({
   initialCockpitData,
@@ -60,16 +58,12 @@ export function CockpitXClient({
   const setMode = useStageStore((s) => s.setMode);
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
 
-  const shellData = useStageData((s) => s.shellData);
   const [data, setData] = useState<CockpitTodayPayload | null>(initialCockpitData);
 
-  /* Mémoïsation des données dérivées — évite les re-calculs à chaque render */
   const telemetry = useMemo(() => buildTelemetry(data), [data]);
   const factoryRows = useMemo(() => buildFactoryRows(data), [data]);
   const watch = useMemo(() => buildWatch(data), [data]);
   const proposals = useMemo(() => buildProposals(data), [data]);
-  const railItems = useMemo(() => buildRailItems(data), [data]);
-
   useEffect(() => {
     if (!initialMode || initialMode === "cockpit") return;
     const safeModesWithoutRequired: StageKey[] = [
@@ -81,6 +75,9 @@ export function CockpitXClient({
       "signal",
       "simulation",
       "connections",
+      "meeting",
+      "asset",
+      "asset_compare",
     ];
     if (safeModesWithoutRequired.includes(initialMode as StageKey)) {
       setMode({ mode: initialMode } as StagePayload);
@@ -157,14 +154,9 @@ export function CockpitXClient({
             proposals={proposals}
           />
         }
-        railTitle="ARBITRAGE REQUIS"
-        railItems={railItems}
       />
     );
   }
-
-  const stageRailTitle: string = shellData?.railTitle ?? def.railTitle;
-  const stageRailItems: RailItem[] = shellData?.railItems ? [...shellData.railItems] : [];
 
   const stageContent = (() => {
     switch (mode) {
@@ -197,9 +189,7 @@ export function CockpitXClient({
     }
   })();
 
-  return (
-    <Shell centerContent={stageContent} railTitle={stageRailTitle} railItems={stageRailItems} />
-  );
+  return <Shell centerContent={stageContent} />;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -240,199 +230,448 @@ function CockpitContent({
     [setCommandeurOpen],
   );
 
+  const attentionLabel =
+    telemetry[0]?.value !== "0" && telemetry[0]?.value !== "—"
+      ? `${telemetry[0].value} exécutions requièrent votre attention.`
+      : telemetry[2]?.value !== "0" && telemetry[2]?.value !== "—"
+        ? `${telemetry[2].value} messages requièrent votre attention.`
+        : "Aucune décision urgente requise.";
+
   return (
     <motion.section
       key="cockpit"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="preserve-3d flex w-full flex-col mx-auto flex-1 relative min-h-screen"
-      style={{ maxWidth: "min(100%, var(--width-cockpit-max))" }}
+      className="preserve-3d w-full flex-1 relative"
     >
-      {/* Contenu Principal - Alignement Editorial */}
       <div
-        className="relative z-10 flex flex-col w-full px-6 pt-10 pb-20"
-        style={{ maxWidth: "var(--width-prose-narrow)", marginInline: "auto" }}
+        style={{
+          maxWidth: "var(--width-cockpit-max)",
+          marginInline: "auto",
+          padding: "var(--space-6) var(--space-6) var(--space-24)",
+        }}
       >
-        {/* État d'erreur silencieux — affiché quand le refetch échoue */}
         {refetchState === "error" && (
           <div
             role="alert"
             aria-live="polite"
-            className="mb-8 rounded-(--radius-sm) border border-(--border-shell) bg-(--surface-1) px-(--space-4) py-(--space-3)"
+            className="mb-6 rounded-(--radius-sm) border border-(--border-shell) bg-(--surface-1) px-(--space-4) py-(--space-3)"
           >
             <p className="t-13 text-text-muted">
               Impossible de rafraîchir les données. Affichage des dernières informations connues.
             </p>
           </div>
         )}
-        {/* Top Left - Ancrage système */}
-        <header className="flex flex-col gap-1 mb-20">
-          <div className="t-10 uppercase tracking-(--tracking-display) text-text-ghost font-mono font-bold">
-            {todayLabel}
-          </div>
-          <div className="flex items-center gap-2 mt-1">
+
+        {/* ── Header ────────────────────────────────────────────────── */}
+        <header style={{ marginBottom: "var(--space-8)" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "var(--space-2)",
+              marginBottom: "var(--space-3)",
+            }}
+          >
             <span
-              className="rounded-pill bg-(--accent-teal) animate-pulse shrink-0"
-              style={{ width: "var(--size-dot)", height: "var(--size-dot)" }}
-            />
-            <span className="t-9 uppercase tracking-(--tracking-display) text-text-ghost font-bold">
-              En écoute
+              style={{
+                fontSize: "11px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "var(--accent-teal)",
+                fontFamily: "var(--font-satoshi)",
+              }}
+            >
+              Helm · Cockpit
+            </span>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "var(--space-1)",
+                fontSize: "10px",
+                color: "var(--text-ghost)",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.2em",
+              }}
+            >
+              <span
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "var(--accent-teal)",
+                  display: "inline-block",
+                  animation: "pulse 2s infinite",
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  color: "var(--text-ghost)",
+                  fontFamily: "var(--font-satoshi)",
+                }}
+              >
+                {todayLabel} · En écoute
+              </span>
             </span>
           </div>
-        </header>
-
-        {/* Focus - Accueil & Arbitrage */}
-        <div className="flex flex-col gap-4 mb-12">
-          <h1 className="t-64 font-light tracking-tight text-text">
+          <h1
+            style={{
+              fontSize: "clamp(32px, 4vw, 56px)",
+              fontWeight: 300,
+              letterSpacing: "-0.03em",
+              color: "var(--text)",
+              lineHeight: 1.05,
+              marginBottom: "var(--space-3)",
+              fontFamily: "var(--font-satoshi)",
+            }}
+          >
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
           </h1>
-          <p className="t-20 font-light text-text-muted">
-            {telemetry[0]?.value !== "0" && telemetry[0]?.value !== "—"
-              ? `${telemetry[0].value} exécutions requièrent votre attention.`
-              : telemetry[2]?.value !== "0" && telemetry[2]?.value !== "—"
-                ? `${telemetry[2].value} communications requièrent votre arbitrage.`
-                : "Aucune décision urgente requise."}
+          <p
+            style={{
+              fontSize: "var(--ct-font-md, 15px)",
+              color: "var(--text-muted)",
+              fontWeight: 300,
+            }}
+          >
+            {attentionLabel}
           </p>
-        </div>
+        </header>
 
-        {/* KPI Telemetry Grid */}
-        <div className="mb-16">
-          <KpiGrid items={telemetry} />
-        </div>
+        {/* ── KPI Grid 4 colonnes ───────────────────────────────────── */}
+        <KpiGrid items={telemetry} />
 
-        {/* Listes Éditoriales (Max 3 items au total) */}
-        <div className="flex flex-col gap-16">
-          {/* EXÉCUTION */}
-          {factoryRows.length > 0 && (
-            <div className="flex flex-col gap-10">
-              {/* EXÉCUTION ACTIVE */}
-              <div className="flex flex-col">
-                <div className="border-t border-(--line) pt-4 mb-6">
-                  <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
-                    Exécution active
-                  </h2>
+        {/* ── Layout 2 colonnes ──────────────────────────────────── */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              watch.inbox.kind === "items" || watch.agenda.kind === "items" || proposals.length > 0
+                ? "2fr 1fr"
+                : "1fr",
+            gap: "var(--space-4)",
+            alignItems: "start",
+          }}
+        >
+          {/* Colonne gauche — Exécution */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+            {factoryRows.length > 0 && (
+              <div
+                style={{
+                  background: "var(--surface-1)",
+                  border: "1px solid var(--border-shell)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "var(--space-5)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-4)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    color: "var(--text-ghost)",
+                    paddingBottom: "var(--space-3)",
+                    borderBottom: "1px solid var(--line)",
+                    fontFamily: "var(--font-satoshi)",
+                  }}
+                >
+                  Exécution active
                 </div>
-                <div className="flex flex-col gap-6">
-                  {factoryRows.slice(0, 1).map((row) => (
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+                  {factoryRows.slice(0, FACTORY_MAX).map((row, i) => (
                     <button
                       key={row.id}
                       type="button"
-                      aria-label={`Mission ${row.name}, statut ${row.statusLabel}`}
+                      aria-label={`Mission ${row.name}`}
                       onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
-                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
+                      style={{
+                        background: "none",
+                        border: "none",
+                        padding:
+                          i < factoryRows.slice(0, FACTORY_MAX).length - 1
+                            ? `0 0 var(--space-4) 0`
+                            : "0",
+                        borderBottom:
+                          i < factoryRows.slice(0, FACTORY_MAX).length - 1
+                            ? "1px solid var(--line)"
+                            : "none",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "var(--space-1)",
+                      }}
                     >
-                      <span className="t-18 text-text-soft group-hover:text-text transition-colors duration-(--duration-emphasis)">
-                        {row.name}
-                      </span>
-                      {row.detail && <span className="t-15 text-text-faint">{row.detail}</span>}
-                      <span className="t-11 uppercase font-mono text-text-ghost mt-1">
-                        Dernière activité — {row.when}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: "var(--space-2)",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 500,
+                            color: "var(--text-soft)",
+                            fontFamily: "var(--font-satoshi)",
+                          }}
+                        >
+                          {row.name}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "10px",
+                            fontWeight: 600,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.08em",
+                            color:
+                              row.status === "running"
+                                ? "var(--accent-teal)"
+                                : row.status === "failed"
+                                  ? "var(--danger)"
+                                  : "var(--text-ghost)",
+                            background:
+                              row.status === "running"
+                                ? "color-mix(in srgb, var(--accent-teal) 10%, transparent)"
+                                : "var(--surface-2)",
+                            borderRadius: "var(--radius-pill)",
+                            padding: "2px 8px",
+                            flexShrink: 0,
+                            fontFamily: "var(--font-satoshi)",
+                          }}
+                        >
+                          {row.statusLabel}
+                        </span>
+                      </div>
+                      {row.detail && (
+                        <span
+                          style={{
+                            fontSize: "13px",
+                            color: "var(--text-faint)",
+                            fontFamily: "var(--font-satoshi)",
+                          }}
+                        >
+                          {row.detail}
+                        </span>
+                      )}
+                      <span
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 600,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.08em",
+                          color: "var(--text-ghost)",
+                          fontFamily: "var(--font-satoshi)",
+                        }}
+                      >
+                        {row.when}
                       </span>
                     </button>
                   ))}
                 </div>
               </div>
+            )}
+          </div>
 
-              {/* EN FILE */}
-              {factoryRows.length > 1 && (
-                <div className="flex flex-col">
-                  <div className="border-t border-(--line) pt-4 mb-6">
-                    <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
-                      En file
-                    </h2>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    {factoryRows.slice(1, 3).map((row) => (
+          {/* Colonne droite — Radar + Initiatives */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+            {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
+              <div
+                style={{
+                  background: "var(--surface-1)",
+                  border: "1px solid var(--border-shell)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "var(--space-5)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-4)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    color: "var(--text-ghost)",
+                    paddingBottom: "var(--space-3)",
+                    borderBottom: "1px solid var(--line)",
+                    fontFamily: "var(--font-satoshi)",
+                  }}
+                >
+                  Radar
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+                  {watch.inbox.kind === "items" &&
+                    watch.inbox.items.slice(0, 3).map((it, i, arr) => (
                       <button
-                        key={row.id}
+                        key={it.id}
                         type="button"
-                        aria-label={`Mission ${row.name}, statut ${row.statusLabel}`}
-                        onClick={() => setMode({ mode: "mission", missionId: row.missionId })}
-                        className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
+                        aria-label={`Message : ${it.title}`}
+                        onClick={() => openCommandeur("brief inbox")}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: i < arr.length - 1 ? `0 0 var(--space-4) 0` : "0",
+                          borderBottom: i < arr.length - 1 ? "1px solid var(--line)" : "none",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "var(--space-1)",
+                        }}
                       >
-                        <span className="t-15 text-text-faint group-hover:text-text transition-colors duration-(--duration-emphasis)">
-                          {row.name}
+                        <span
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 500,
+                            color: "var(--text-soft)",
+                            fontFamily: "var(--font-satoshi)",
+                          }}
+                        >
+                          {it.title}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "13px",
+                            color: "var(--text-faint)",
+                            fontFamily: "var(--font-satoshi)",
+                          }}
+                        >
+                          {it.summary}
                         </span>
                       </button>
                     ))}
-                  </div>
+                  {watch.agenda.kind === "items" &&
+                    watch.agenda.items.slice(0, 2).map((ev, i, arr) => (
+                      <button
+                        key={ev.id}
+                        type="button"
+                        aria-label={`Agenda : ${ev.title}`}
+                        onClick={() => openCommandeur("agenda du jour")}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: i < arr.length - 1 ? `0 0 var(--space-4) 0` : "0",
+                          borderBottom: i < arr.length - 1 ? "1px solid var(--line)" : "none",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "var(--space-1)",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 500,
+                            color: "var(--text-soft)",
+                            fontFamily: "var(--font-satoshi)",
+                          }}
+                        >
+                          {ev.title}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.08em",
+                            color: "var(--text-ghost)",
+                            fontFamily: "var(--font-satoshi)",
+                          }}
+                        >
+                          {ev.when}
+                        </span>
+                      </button>
+                    ))}
                 </div>
-              )}
-            </div>
-          )}
-
-          {/* RADAR (Inbox / Agenda) */}
-          {(watch.inbox.kind === "items" || watch.agenda.kind === "items") && (
-            <div className="flex flex-col">
-              <div className="border-t border-(--line) pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
-                  Radar
-                </h2>
               </div>
-              <div className="flex flex-col gap-6">
-                {watch.inbox.kind === "items" &&
-                  watch.inbox.items.slice(0, 1).map((it) => (
-                    <button
-                      key={it.id}
-                      type="button"
-                      aria-label={`Message : ${it.title}`}
-                      onClick={() => openCommandeur("brief inbox")}
-                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
-                    >
-                      <span className="t-15 text-text-muted group-hover:text-text transition-colors duration-(--duration-emphasis)">
-                        {it.title}
-                      </span>
-                      <span className="t-14 text-text-faint">{it.summary}</span>
-                    </button>
-                  ))}
-                {watch.agenda.kind === "items" &&
-                  watch.agenda.items.slice(0, 1).map((ev) => (
-                    <button
-                      key={ev.id}
-                      type="button"
-                      aria-label={`Événement agenda : ${ev.title} à ${ev.when}`}
-                      onClick={() => openCommandeur("agenda du jour")}
-                      className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
-                    >
-                      <span className="t-15 text-text-muted group-hover:text-text transition-colors duration-(--duration-emphasis)">
-                        Prochain engagement : {ev.title}
-                      </span>
-                      <span className="t-10 uppercase font-mono text-text-ghost mt-1">
-                        {ev.when}
-                      </span>
-                    </button>
-                  ))}
-              </div>
-            </div>
-          )}
-
-          {/* INITIATIVES */}
-          {proposals.length > 0 && (
-            <div className="flex flex-col">
-              <div className="border-t border-(--line) pt-4 mb-6">
-                <h2 className="t-10 uppercase tracking-(--tracking-display) font-bold text-text-ghost">
+            )}
+            {proposals.length > 0 && (
+              <div
+                style={{
+                  background: "var(--surface-1)",
+                  border: "1px solid var(--border-shell)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "var(--space-5)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--space-4)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.2em",
+                    color: "var(--text-ghost)",
+                    paddingBottom: "var(--space-3)",
+                    borderBottom: "1px solid var(--line)",
+                    fontFamily: "var(--font-satoshi)",
+                  }}
+                >
                   Initiatives
-                </h2>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
+                  {proposals.slice(0, 3).map((p, i, arr) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      aria-label={`Initiative : ${p.title}`}
+                      onClick={() => openCommandeur(p.title)}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        padding: i < arr.length - 1 ? `0 0 var(--space-4) 0` : "0",
+                        borderBottom: i < arr.length - 1 ? "1px solid var(--line)" : "none",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "var(--space-1)",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          color: "var(--text-soft)",
+                          fontFamily: "var(--font-satoshi)",
+                        }}
+                      >
+                        {p.title}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: "13px",
+                          color: "var(--text-faint)",
+                          fontFamily: "var(--font-satoshi)",
+                        }}
+                      >
+                        {p.description}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col gap-6">
-                {proposals.slice(0, 1).map((p) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    aria-label={`Initiative : ${p.title}`}
-                    onClick={() => openCommandeur(p.title)}
-                    className="flex flex-col text-left group gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border-hover) rounded-(--radius-sm)"
-                  >
-                    <span className="t-15 text-text-muted group-hover:text-text transition-colors duration-(--duration-emphasis)">
-                      {p.title}
-                    </span>
-                    <span className="t-14 text-text-faint">{p.description}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </motion.section>
@@ -675,51 +914,6 @@ function buildWatch(data: CockpitTodayPayload | null): WatchData {
     inbox,
     agenda,
   };
-}
-
-function buildRailItems(data: CockpitTodayPayload | null): RailItem[] {
-  if (!data) return [];
-  const items: RailItem[] = [];
-
-  // Priorité 1 : Messages déconnectés ou urgents
-  if (data.inbox.needsConnection) {
-    items.push({ t: "Messages déconnectés", s: "Connecter Gmail ou Slack" });
-  } else if (data.inbox.brief && data.inbox.brief.items.length > 0) {
-    const n = data.inbox.brief.items.length;
-    items.push({
-      t: `${n} message${n > 1 ? "s" : ""} à examiner`,
-      s: "Action requise",
-      hot: true,
-    });
-  }
-
-  // Priorité 2 : Rapports disponibles (ex: Deal-to-Cash)
-  for (const fav of data.favoriteReports) {
-    if (items.length >= RAIL_MAX) break;
-    items.push({ t: fav.title, s: "Rapport disponible" });
-  }
-
-  // Priorité 3 : Demandes en échec
-  const failed = data.missionsRunning.find((m) => m.status === "failed");
-  if (failed && items.length < RAIL_MAX) {
-    items.push({ t: failed.name, s: "Demande en échec" });
-  }
-
-  // Priorité 4 : Agenda déconnecté ou prochain event
-  if (!data.calendarConnected && items.length < RAIL_MAX) {
-    items.push({ t: "Agenda déconnecté", s: "Connecter Google Calendar" });
-  } else if (data.agenda.length > 0 && items.length < RAIL_MAX) {
-    const first = data.agenda[0];
-    if (first) items.push({ t: first.title, s: formatTime(first.startsAt) });
-  }
-
-  // Priorité 5 : Suggestions
-  for (const sug of data.suggestions) {
-    if (items.length >= RAIL_MAX) break;
-    items.push({ t: sug.title, s: sug.status === "ready" ? "Prêt" : "Partiel" });
-  }
-
-  return items.slice(0, RAIL_MAX);
 }
 
 function formatAgo(ts: number): string {

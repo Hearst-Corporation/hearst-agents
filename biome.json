@@ -28,7 +28,8 @@
       "!pnpm-lock.yaml",
       "!*.snap",
       "!**/*.html",
-      "!**/*.css"
+      "!**/*.css",
+      "!graphify-out"
     ]
   },
   "formatter": {

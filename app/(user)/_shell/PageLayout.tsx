@@ -17,9 +17,9 @@ import { ReactNode } from "react";
 
 export const PAGE_AREA_STYLE: React.CSSProperties = {
   width: "100%",
-  maxWidth: "var(--ct-layout-max-width, 720px)",
+  maxWidth: "var(--width-cockpit-max)",
   marginInline: "auto",
-  padding: "var(--space-4) var(--space-4) var(--space-20)",
+  padding: "var(--space-6) var(--space-6) var(--space-20)",
 };
 
 export const EYEBROW_STYLE: React.CSSProperties = {
@@ -83,7 +83,7 @@ interface PageLayoutProps {
 
 export function PageLayout({ eyebrow = "Cockpit", title, subtitle, children }: PageLayoutProps) {
   return (
-    <div className="ct-page-area" style={PAGE_AREA_STYLE}>
+    <div style={PAGE_AREA_STYLE}>
       <div className="ct-eyebrow" style={EYEBROW_STYLE}>
         {eyebrow}
       </div>

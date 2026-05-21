@@ -13,7 +13,7 @@ interface StageLayoutProps {
 
 export function StageLayout({ eyebrow, title, subtitle, actions, children }: StageLayoutProps) {
   return (
-    <div className="ct-page-area" style={PAGE_AREA_STYLE}>
+    <div style={PAGE_AREA_STYLE}>
       <div style={{ marginBottom: "var(--space-6)" }}>
         <div
           style={{
