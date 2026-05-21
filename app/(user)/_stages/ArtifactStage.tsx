@@ -18,6 +18,7 @@ import { EmptyState } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { StageLayout } from "../_shell/StageLayout";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -318,7 +319,6 @@ export function ArtifactStage({ mode }: { mode: string }) {
         // lui rien à afficher → error), les variants sont optionnelles
         // (degraded mode : on affiche l'asset seul + warn dev).
         if (!assetRes.ok) {
-          console.error("[ArtifactStage] asset fetch failed:", assetRes.status);
           if (!cancelled) {
             setErrorMsg("Impossible de charger l'asset.");
             setFetchState("error");
@@ -363,7 +363,6 @@ export function ArtifactStage({ mode }: { mode: string }) {
           }
         } else {
           // Non-fatal : l'asset est rendu sans liste de versions.
-          console.warn("[ArtifactStage] variants fetch failed (optional):", variantsRes.status);
           if (!cancelled) setVersions([]);
         }
 
@@ -430,184 +429,180 @@ export function ArtifactStage({ mode }: { mode: string }) {
     >
       {demoActive && <DemoBanner />}
 
-      {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex flex-col gap-1.5">
-          <h2 className="t-28 font-medium text-text">{meta.title ?? "Artifact"}</h2>
-          <p className="t-13 font-light text-text-faint">
-            {meta.model ? `${meta.model} · ` : ""}E2B · preview live
-          </p>
-        </div>
+      <StageLayout
+        eyebrow="Artifact"
+        title={meta.title ?? "Artifact"}
+        subtitle={meta.model ? `${meta.model} · E2B · preview live` : "E2B · preview live"}
+        actions={
+          meta.buildStatus ? (
+            <div className="flex items-center gap-2 shrink-0">
+              <span
+                className={`inline-block size-(--size-dot) rounded-full shrink-0 ${buildStatusDotClass(meta.buildStatus)}`}
+              />
+              <span className={`t-11 ${buildStatusClass(meta.buildStatus)}`}>
+                {buildStatusLabel(meta.buildStatus)}
+              </span>
+            </div>
+          ) : undefined
+        }
+      >
+        {/* Corps principal */}
+        <AnimatePresence mode="wait">
+          {fetchState === "loading" && (
+            <motion.div
+              key="loading"
+              variants={PANEL_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0 }}
+            >
+              <LoadingState />
+            </motion.div>
+          )}
 
-        {/* Badge statut */}
-        {meta.buildStatus && (
-          <div className="flex items-center gap-2 shrink-0" style={{ paddingTop: "4px" }}>
+          {fetchState === "error" && errorMsg && (
+            <motion.div
+              key="error"
+              variants={PANEL_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0 }}
+            >
+              <ErrorState message={errorMsg} />
+            </motion.div>
+          )}
+
+          {fetchState === "empty" && (
+            <motion.div
+              key="empty"
+              variants={PANEL_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0 }}
+            >
+              <EmptyArtifactState />
+            </motion.div>
+          )}
+
+          {fetchState === "ready" && (
+            <motion.div
+              key="ready"
+              variants={PANEL_VARIANTS}
+              initial="hidden"
+              animate="visible"
+              className="flex gap-4"
+            >
+              {/* Éditeur code read-only */}
+              <div className="flex flex-col flex-1 min-w-0 overflow-hidden rounded-xl border border-(--line)">
+                {/* Tab bar éditeur */}
+                <div className="flex items-center gap-2 px-3.5 py-2 border-b border-(--line) bg-(--surface-1)">
+                  <span className="t-11 font-medium text-text-muted">{fileName}</span>
+                  {(meta.buildStatus === "running" || meta.buildStatus === "pending") && (
+                    <span className="t-11 text-(--warn) animate-pulse">build en cours</span>
+                  )}
+                </div>
+
+                {code ? (
+                  <CodeBlock code={code} language={meta.language ?? "python"} />
+                ) : (
+                  <div
+                    className="flex-1 flex items-center justify-center"
+                    style={{ padding: "var(--space-6)" }}
+                  >
+                    <p className="t-13 text-text-ghost">Aucun code disponible.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Preview / Versions selon tab */}
+              <div className="flex flex-col flex-1 min-w-0 overflow-hidden rounded-xl border border-(--line)">
+                {/* Footer tabs */}
+                <div className="flex items-center gap-1 px-3.5 py-2 border-b border-(--line) bg-(--surface-1)">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.key}
+                      type="button"
+                      onClick={() => setActiveTab(tab.key)}
+                      className={`t-11 font-medium rounded-pill px-2.5 py-1 border-none cursor-pointer transition-colors ${
+                        activeTab === tab.key
+                          ? "bg-(--surface-2) text-text"
+                          : "bg-transparent text-text-ghost hover:text-text-muted"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Contenu du panneau droit */}
+                <AnimatePresence mode="wait">
+                  {activeTab === "apercu" && (
+                    <motion.div
+                      key="apercu"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex-1 flex flex-col"
+                    >
+                      <PreviewPanel />
+                    </motion.div>
+                  )}
+
+                  {activeTab === "code" && (
+                    <motion.div
+                      key="code"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex flex-col"
+                    >
+                      {code ? (
+                        <CodeBlock code={code} language={meta.language ?? "python"} />
+                      ) : (
+                        <div
+                          className="flex-1 flex items-center justify-center"
+                          style={{ padding: "var(--space-6)" }}
+                        >
+                          <p className="t-13 text-text-ghost">Aucun code disponible.</p>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+
+                  {activeTab === "versions" && (
+                    <motion.div
+                      key="versions"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex flex-col"
+                    >
+                      <VersionsList versions={versions} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
             <span
               className={`inline-block size-(--size-dot) rounded-full shrink-0 ${buildStatusDotClass(meta.buildStatus)}`}
             />
-            <span className={`t-11 ${buildStatusClass(meta.buildStatus)}`}>
-              {buildStatusLabel(meta.buildStatus)}
-            </span>
+            <span className="t-11 text-text-ghost">E2B sandbox · {meta.language ?? "python"}</span>
           </div>
-        )}
-      </div>
 
-      {/* Corps principal */}
-      <AnimatePresence mode="wait">
-        {fetchState === "loading" && (
-          <motion.div
-            key="loading"
-            variants={PANEL_VARIANTS}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0 }}
-          >
-            <LoadingState />
-          </motion.div>
-        )}
-
-        {fetchState === "error" && errorMsg && (
-          <motion.div
-            key="error"
-            variants={PANEL_VARIANTS}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0 }}
-          >
-            <ErrorState message={errorMsg} />
-          </motion.div>
-        )}
-
-        {fetchState === "empty" && (
-          <motion.div
-            key="empty"
-            variants={PANEL_VARIANTS}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0 }}
-          >
-            <EmptyArtifactState />
-          </motion.div>
-        )}
-
-        {fetchState === "ready" && (
-          <motion.div
-            key="ready"
-            variants={PANEL_VARIANTS}
-            initial="hidden"
-            animate="visible"
-            className="flex gap-4"
-          >
-            {/* Éditeur code read-only */}
-            <div className="flex flex-col flex-1 min-w-0 overflow-hidden rounded-xl border border-(--line)">
-              {/* Tab bar éditeur */}
-              <div className="flex items-center gap-2 px-3.5 py-2 border-b border-(--line) bg-(--surface-1)">
-                <span className="t-11 font-medium text-text-muted">{fileName}</span>
-                {(meta.buildStatus === "running" || meta.buildStatus === "pending") && (
-                  <span className="t-11 text-(--warn) animate-pulse">build en cours</span>
-                )}
-              </div>
-
-              {code ? (
-                <CodeBlock code={code} language={meta.language ?? "python"} />
-              ) : (
-                <div
-                  className="flex-1 flex items-center justify-center"
-                  style={{ padding: "var(--space-6)" }}
-                >
-                  <p className="t-13 text-text-ghost">Aucun code disponible.</p>
-                </div>
-              )}
-            </div>
-
-            {/* Preview / Versions selon tab */}
-            <div className="flex flex-col flex-1 min-w-0 overflow-hidden rounded-xl border border-(--line)">
-              {/* Footer tabs */}
-              <div className="flex items-center gap-1 px-3.5 py-2 border-b border-(--line) bg-(--surface-1)">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.key}
-                    type="button"
-                    onClick={() => setActiveTab(tab.key)}
-                    className={`t-11 font-medium rounded-pill px-2.5 py-1 border-none cursor-pointer transition-colors ${
-                      activeTab === tab.key
-                        ? "bg-(--surface-2) text-text"
-                        : "bg-transparent text-text-ghost hover:text-text-muted"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Contenu du panneau droit */}
-              <AnimatePresence mode="wait">
-                {activeTab === "apercu" && (
-                  <motion.div
-                    key="apercu"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="flex-1 flex flex-col"
-                  >
-                    <PreviewPanel />
-                  </motion.div>
-                )}
-
-                {activeTab === "code" && (
-                  <motion.div
-                    key="code"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="flex flex-col"
-                  >
-                    {code ? (
-                      <CodeBlock code={code} language={meta.language ?? "python"} />
-                    ) : (
-                      <div
-                        className="flex-1 flex items-center justify-center"
-                        style={{ padding: "var(--space-6)" }}
-                      >
-                        <p className="t-13 text-text-ghost">Aucun code disponible.</p>
-                      </div>
-                    )}
-                  </motion.div>
-                )}
-
-                {activeTab === "versions" && (
-                  <motion.div
-                    key="versions"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="flex flex-col"
-                  >
-                    <VersionsList versions={versions} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Footer */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span
-            className={`inline-block size-(--size-dot) rounded-full shrink-0 ${buildStatusDotClass(meta.buildStatus)}`}
-          />
-          <span className="t-11 text-text-ghost">E2B sandbox · {meta.language ?? "python"}</span>
+          {artifactId && (
+            <span className="t-11 font-mono text-text-decor-25">{artifactId.slice(0, 8)}</span>
+          )}
         </div>
-
-        {artifactId && (
-          <span className="t-11 font-mono text-text-decor-25">{artifactId.slice(0, 8)}</span>
-        )}
-      </div>
+      </StageLayout>
     </motion.section>
   );
 }

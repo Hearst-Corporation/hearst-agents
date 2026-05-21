@@ -6,6 +6,7 @@ import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { StageLayout } from "../_shell/StageLayout";
 import { ConfirmModal } from "../components/ConfirmModal";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
@@ -216,275 +217,266 @@ export function SimulationStage({ mode = "simulation" }: Props) {
       className="preserve-3d flex w-full flex-col"
       style={{ gap: "var(--space-10)" }}
     >
-      {/* Header */}
-      <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <h2 className="t-28 font-light text-text">
-          {phase === "idle"
+      <StageLayout
+        eyebrow="Simulation"
+        title={
+          phase === "idle"
             ? "Chambre de simulation"
             : phase === "running"
               ? "Raisonnement…"
-              : "Scénarios"}
-        </h2>
-        <p
-          className="t-13 font-light text-text-ghost"
-          style={{ lineHeight: "var(--leading-base)" }}
-        >
-          {phase === "idle"
-            ? "DeepSeek R1 génère des scénarios business probabilistes."
-            : phase === "running"
-              ? "DeepSeek R1 raisonne sur votre scénario — 30-50 secondes."
-              : `${scenarios.length} scénario${scenarios.length > 1 ? "s" : ""} générés.`}
-        </p>
-      </div>
+              : "Scénarios"
+        }
+        subtitle="DeepSeek R1 · Raisonnement stratégique"
+      >
+        {/* Idle — formulaire */}
+        {phase === "idle" && (
+          <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
+            <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+              <span className="t-11 font-light text-text-ghost">Scénario</span>
+              <textarea
+                value={scenarioInput}
+                onChange={(e) => setScenarioInput(e.target.value)}
+                placeholder="ex: lancer une nouvelle ligne SaaS PME en Europe au Q3, budget 800k€"
+                rows={4}
+                className="w-full bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost resize-y focus:outline-none focus:border-(--border-input)"
+                style={{
+                  padding: "var(--space-3) var(--space-4)",
+                  border: "1px solid var(--border-shell)",
+                  borderRadius: "var(--radius-md)",
+                  background: "var(--surface-1)",
+                  lineHeight: "var(--leading-base)",
+                  transition: "border-color var(--duration-base)",
+                }}
+              />
+            </div>
 
-      {/* Idle — formulaire */}
-      {phase === "idle" && (
-        <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
-          <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-            <span className="t-11 font-light text-text-ghost">Scénario</span>
-            <textarea
-              value={scenarioInput}
-              onChange={(e) => setScenarioInput(e.target.value)}
-              placeholder="ex: lancer une nouvelle ligne SaaS PME en Europe au Q3, budget 800k€"
-              rows={4}
-              className="w-full bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost resize-y focus:outline-none focus:border-(--border-input)"
+            <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+              <div className="flex items-center justify-between">
+                <span className="t-11 font-light text-text-ghost">Variables clés</span>
+                <button
+                  type="button"
+                  onClick={() => addVariable()}
+                  className="t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
+                  style={{
+                    padding: "var(--space-1) var(--space-3)",
+                    border: "1px solid var(--border-shell)",
+                    borderRadius: "var(--radius-pill)",
+                  }}
+                >
+                  + Ajouter
+                </button>
+              </div>
+              <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+                {variables.map((variable, idx) => (
+                  <div key={idx} className="flex items-center" style={{ gap: "var(--space-2)" }}>
+                    <input
+                      type="text"
+                      value={variable.key}
+                      onChange={(e) => updateVariable(idx, { key: e.target.value })}
+                      placeholder="Variable"
+                      className="flex-1 min-w-0 bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost focus:outline-none focus:border-(--border-input)"
+                      style={{
+                        padding: "var(--space-2) var(--space-3)",
+                        border: "1px solid var(--border-shell)",
+                        borderRadius: "var(--radius-sm)",
+                        background: "var(--surface-1)",
+                        transition: "border-color var(--duration-base)",
+                      }}
+                    />
+                    <input
+                      type="text"
+                      value={variable.value}
+                      onChange={(e) => updateVariable(idx, { value: e.target.value })}
+                      placeholder="Valeur"
+                      className="flex-1 min-w-0 bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost focus:outline-none focus:border-(--border-input)"
+                      style={{
+                        padding: "var(--space-2) var(--space-3)",
+                        border: "1px solid var(--border-shell)",
+                        borderRadius: "var(--radius-sm)",
+                        background: "var(--surface-1)",
+                        transition: "border-color var(--duration-base)",
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeVariable(idx)}
+                      disabled={variables.length === 1}
+                      className="t-15 text-text-ghost hover:text-(--danger) transition-colors disabled:opacity-25 disabled:cursor-not-allowed focus-visible:outline-none"
+                      style={{
+                        width: "var(--space-6)",
+                        height: "var(--space-6)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                      aria-label="Retirer"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bannière undo suppression variable */}
+            {undoRemoved && (
+              <div
+                className="flex items-center justify-between"
+                style={{
+                  padding: "var(--space-2) var(--space-4)",
+                  background: "var(--surface-2)",
+                  border: "1px solid var(--border-shell)",
+                  borderRadius: "var(--radius-sm)",
+                }}
+              >
+                <span className="t-11 font-light text-text-ghost">Variable retirée.</span>
+                <button
+                  type="button"
+                  onClick={handleUndoRemove}
+                  className="t-11 font-medium text-text-muted hover:text-text-faint transition-colors focus-visible:outline-none"
+                >
+                  Rétablir
+                </button>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={() => void launchSimulation()}
+              disabled={!scenarioInput.trim()}
+              className="self-start t-13 font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
               style={{
-                padding: "var(--space-3) var(--space-4)",
-                border: "1px solid var(--border-shell)",
-                borderRadius: "var(--radius-md)",
-                background: "var(--surface-1)",
-                lineHeight: "var(--leading-base)",
-                transition: "border-color var(--duration-base)",
+                padding: "var(--space-2-5) var(--space-6)",
+                background: "var(--surface-2)",
+                border: "1px solid var(--border-input)",
+                borderRadius: "var(--radius-pill)",
+                color: "var(--text-muted)",
               }}
-            />
+            >
+              Lancer la simulation
+            </button>
           </div>
+        )}
 
-          <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-            <div className="flex items-center justify-between">
-              <span className="t-11 font-light text-text-ghost">Variables clés</span>
+        {/* Running */}
+        {phase === "running" && (
+          <div className="flex flex-col items-start" style={{ gap: "var(--space-4)" }}>
+            <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
+              <span
+                className="rounded-full animate-pulse shrink-0"
+                style={{
+                  width: "var(--space-2)",
+                  height: "var(--space-2)",
+                  background: "var(--accent-agent)",
+                  flexShrink: 0,
+                }}
+                aria-hidden
+              />
+              <span
+                className="t-13 font-light text-text-ghost"
+                style={{ lineHeight: "var(--leading-snug)" }}
+              >
+                {scenarioInput}
+              </span>
+            </div>
+            <p className="t-11 font-light text-text-ghost">DeepSeek R1 raisonne — 30-50 secondes</p>
+          </div>
+        )}
+
+        {/* Done — résultats */}
+        {phase === "done" && (
+          <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
+            {reasoning && (
+              <div
+                style={{
+                  border: "1px solid var(--border-shell)",
+                  borderRadius: "var(--radius-md)",
+                  overflow: "hidden",
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setThinkingOpen((o) => !o)}
+                  className="w-full flex items-center justify-between t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
+                  style={{
+                    padding: "var(--space-3) var(--space-4)",
+                    background: "var(--surface-1)",
+                  }}
+                >
+                  <span>Raisonnement DeepSeek</span>
+                  <span>{thinkingOpen ? "−" : "+"}</span>
+                </button>
+                {thinkingOpen && (
+                  <pre
+                    className="t-11 font-mono text-text-ghost overflow-auto"
+                    style={{
+                      padding: "var(--space-3) var(--space-4)",
+                      maxHeight: "var(--max-height-simulation-reasoning)",
+                      whiteSpace: "pre-wrap",
+                      lineHeight: "var(--leading-relaxed)",
+                    }}
+                  >
+                    {reasoning}
+                  </pre>
+                )}
+              </div>
+            )}
+
+            <motion.div
+              variants={{ show: { transition: { staggerChildren: 0.08 } } }}
+              initial="hidden"
+              animate="show"
+              className="flex flex-col"
+              style={{ gap: "var(--space-4)" }}
+            >
+              {scenarios.map((scenario, idx) => (
+                <ScenarioCard key={idx} scenario={scenario} />
+              ))}
+            </motion.div>
+
+            <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
+              {assetId !== null && (
+                <button
+                  type="button"
+                  onClick={() => setStageMode({ mode: "asset", assetId })}
+                  className="t-13 font-medium text-text-muted transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
+                  style={{
+                    padding: "var(--space-2) var(--space-5)",
+                    background: "var(--surface-2)",
+                    border: "1px solid var(--border-input)",
+                    borderRadius: "var(--radius-pill)",
+                  }}
+                >
+                  Voir l'asset
+                </button>
+              )}
               <button
                 type="button"
-                onClick={() => addVariable()}
-                className="t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
+                onClick={reset}
+                className="t-13 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
                 style={{
-                  padding: "var(--space-1) var(--space-3)",
+                  padding: "var(--space-2) var(--space-5)",
                   border: "1px solid var(--border-shell)",
                   borderRadius: "var(--radius-pill)",
                 }}
               >
-                + Ajouter
+                Nouvelle simulation
               </button>
-            </div>
-            <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-              {variables.map((variable, idx) => (
-                <div key={idx} className="flex items-center" style={{ gap: "var(--space-2)" }}>
-                  <input
-                    type="text"
-                    value={variable.key}
-                    onChange={(e) => updateVariable(idx, { key: e.target.value })}
-                    placeholder="Variable"
-                    className="flex-1 min-w-0 bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost focus:outline-none focus:border-(--border-input)"
-                    style={{
-                      padding: "var(--space-2) var(--space-3)",
-                      border: "1px solid var(--border-shell)",
-                      borderRadius: "var(--radius-sm)",
-                      background: "var(--surface-1)",
-                      transition: "border-color var(--duration-base)",
-                    }}
-                  />
-                  <input
-                    type="text"
-                    value={variable.value}
-                    onChange={(e) => updateVariable(idx, { value: e.target.value })}
-                    placeholder="Valeur"
-                    className="flex-1 min-w-0 bg-transparent t-13 font-light text-text-faint placeholder:text-text-ghost focus:outline-none focus:border-(--border-input)"
-                    style={{
-                      padding: "var(--space-2) var(--space-3)",
-                      border: "1px solid var(--border-shell)",
-                      borderRadius: "var(--radius-sm)",
-                      background: "var(--surface-1)",
-                      transition: "border-color var(--duration-base)",
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeVariable(idx)}
-                    disabled={variables.length === 1}
-                    className="t-15 text-text-ghost hover:text-(--danger) transition-colors disabled:opacity-25 disabled:cursor-not-allowed focus-visible:outline-none"
-                    style={{
-                      width: "var(--space-6)",
-                      height: "var(--space-6)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    aria-label="Retirer"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
             </div>
           </div>
+        )}
 
-          {/* Bannière undo suppression variable */}
-          {undoRemoved && (
-            <div
-              className="flex items-center justify-between"
-              style={{
-                padding: "var(--space-2) var(--space-4)",
-                background: "var(--surface-2)",
-                border: "1px solid var(--border-shell)",
-                borderRadius: "var(--radius-sm)",
-              }}
-            >
-              <span className="t-11 font-light text-text-ghost">Variable retirée.</span>
-              <button
-                type="button"
-                onClick={handleUndoRemove}
-                className="t-11 font-medium text-text-muted hover:text-text-faint transition-colors focus-visible:outline-none"
-              >
-                Rétablir
-              </button>
-            </div>
-          )}
-
-          <button
-            type="button"
-            onClick={() => void launchSimulation()}
-            disabled={!scenarioInput.trim()}
-            className="self-start t-13 font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
-            style={{
-              padding: "var(--space-2-5) var(--space-6)",
-              background: "var(--surface-2)",
-              border: "1px solid var(--border-input)",
-              borderRadius: "var(--radius-pill)",
-              color: "var(--text-muted)",
-            }}
-          >
-            Lancer la simulation
-          </button>
-        </div>
-      )}
-
-      {/* Running */}
-      {phase === "running" && (
-        <div className="flex flex-col items-start" style={{ gap: "var(--space-4)" }}>
-          <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-            <span
-              className="rounded-full animate-pulse shrink-0"
-              style={{
-                width: "var(--space-2)",
-                height: "var(--space-2)",
-                background: "var(--accent-agent)",
-                flexShrink: 0,
-              }}
-              aria-hidden
-            />
-            <span
-              className="t-13 font-light text-text-ghost"
-              style={{ lineHeight: "var(--leading-snug)" }}
-            >
-              {scenarioInput}
-            </span>
-          </div>
-          <p className="t-11 font-light text-text-ghost">DeepSeek R1 raisonne — 30-50 secondes</p>
-        </div>
-      )}
-
-      {/* Done — résultats */}
-      {phase === "done" && (
-        <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
-          {reasoning && (
-            <div
-              style={{
-                border: "1px solid var(--border-shell)",
-                borderRadius: "var(--radius-md)",
-                overflow: "hidden",
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setThinkingOpen((o) => !o)}
-                className="w-full flex items-center justify-between t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
-                style={{
-                  padding: "var(--space-3) var(--space-4)",
-                  background: "var(--surface-1)",
-                }}
-              >
-                <span>Raisonnement DeepSeek</span>
-                <span>{thinkingOpen ? "−" : "+"}</span>
-              </button>
-              {thinkingOpen && (
-                <pre
-                  className="t-11 font-mono text-text-ghost overflow-auto"
-                  style={{
-                    padding: "var(--space-3) var(--space-4)",
-                    maxHeight: "var(--max-height-simulation-reasoning)",
-                    whiteSpace: "pre-wrap",
-                    lineHeight: "var(--leading-relaxed)",
-                  }}
-                >
-                  {reasoning}
-                </pre>
-              )}
-            </div>
-          )}
-
-          <motion.div
-            variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-            initial="hidden"
-            animate="show"
-            className="flex flex-col"
-            style={{ gap: "var(--space-4)" }}
-          >
-            {scenarios.map((scenario, idx) => (
-              <ScenarioCard key={idx} scenario={scenario} />
-            ))}
-          </motion.div>
-
-          <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-            {assetId !== null && (
-              <button
-                type="button"
-                onClick={() => setStageMode({ mode: "asset", assetId })}
-                className="t-13 font-medium text-text-muted transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
-                style={{
-                  padding: "var(--space-2) var(--space-5)",
-                  background: "var(--surface-2)",
-                  border: "1px solid var(--border-input)",
-                  borderRadius: "var(--radius-pill)",
-                }}
-              >
-                Voir l'asset
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={reset}
-              className="t-13 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
-              style={{
-                padding: "var(--space-2) var(--space-5)",
-                border: "1px solid var(--border-shell)",
-                borderRadius: "var(--radius-pill)",
-              }}
-            >
-              Nouvelle simulation
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Confirm restart simulation */}
-      <ConfirmModal
-        open={confirmResetOpen}
-        title="Redémarrer la simulation ?"
-        description="Les scenarios et le raisonnement actuels seront perdus (re-génération 30-50s)."
-        confirmLabel="Redémarrer"
-        variant="danger"
-        onConfirm={handleConfirmReset}
-        onCancel={() => setConfirmResetOpen(false)}
-      />
+        {/* Confirm restart simulation */}
+        <ConfirmModal
+          open={confirmResetOpen}
+          title="Redémarrer la simulation ?"
+          description="Les scenarios et le raisonnement actuels seront perdus (re-génération 30-50s)."
+          confirmLabel="Redémarrer"
+          variant="danger"
+          onConfirm={handleConfirmReset}
+          onCancel={() => setConfirmResetOpen(false)}
+        />
+      </StageLayout>
     </motion.section>
   );
 }

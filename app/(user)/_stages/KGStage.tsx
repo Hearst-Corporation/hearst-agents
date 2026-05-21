@@ -20,6 +20,7 @@ import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { StageLayout } from "../_shell/StageLayout";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -664,84 +665,74 @@ export function KGStage({ mode }: KGStageProps) {
         </span>
       )}
 
-      {/* Header */}
-      <header className="flex flex-col gap-2">
-        <p className="t-13 uppercase tracking-(--tracking-caption) text-(--text-muted)">
-          {loading ? "Chargement…" : "Knowledge Graph · entités · relations"}
-        </p>
-        <h1 className="t-30 font-medium tracking-(--tracking-tight)">
-          {loading ? "Knowledge Graph" : headerTitle}
-        </h1>
-        {!loading && !error && displayNodes.length > 0 && (
-          <p className="t-14 text-(--text-faint)">
-            {displayEdges.length} liaison{displayEdges.length !== 1 ? "s" : ""}
-            {clusters > 1 ? ` · ${clusters} cluster${clusters > 1 ? "s" : ""}` : ""}
-          </p>
+      <StageLayout
+        eyebrow="Knowledge Graph"
+        title={loading ? "Knowledge Graph" : headerTitle}
+        subtitle={selectedDisplayNode ? undefined : "Graphe de connaissances · Hearst Cortex"}
+      >
+        {/* Loading skeleton */}
+        {loading && (
+          <div className="min-h-(--min-height-kg-skeleton) animate-pulse rounded-xl bg-(--surface-1)" />
         )}
-      </header>
 
-      {/* Loading skeleton */}
-      {loading && (
-        <div className="min-h-(--min-height-kg-skeleton) animate-pulse rounded-xl bg-(--surface-1)" />
-      )}
+        {/* Error */}
+        {!loading && error && <StageErrorBanner message={error} variant="emphasis" />}
 
-      {/* Error */}
-      {!loading && error && <StageErrorBanner message={error} variant="emphasis" />}
+        {/* Empty state */}
+        {isEmpty && <EmptyKGState />}
 
-      {/* Empty state */}
-      {isEmpty && <EmptyKGState />}
-
-      {/* Contenu principal */}
-      {!loading && !error && displayNodes.length > 0 && (
-        <div className="flex flex-col gap-5">
-          {/* Vue Graph ou Liste */}
-          {viewMode === "graph" ? (
-            <GraphView
-              nodes={displayNodes}
-              edges={displayEdges}
-              selectedNode={selectedNode}
-              onSelectNode={setSelectedNode}
-            />
-          ) : (
-            <ListView
-              nodes={displayNodes}
-              edges={displayEdges}
-              selectedNode={selectedNode}
-              onSelectNode={setSelectedNode}
-            />
-          )}
-
-          {/* Panneau détail nœud sélectionné */}
-          <AnimatePresence mode="wait">
-            {selectedDisplayNode && (
-              <DetailPanel
-                key={selectedDisplayNode.id}
-                node={selectedDisplayNode}
+        {/* Contenu principal */}
+        {!loading && !error && displayNodes.length > 0 && (
+          <div className="flex flex-col gap-5">
+            {/* Vue Graph ou Liste */}
+            {viewMode === "graph" ? (
+              <GraphView
+                nodes={displayNodes}
                 edges={displayEdges}
-                onClose={() => setSelectedNode(null)}
+                selectedNode={selectedNode}
+                onSelectNode={setSelectedNode}
+              />
+            ) : (
+              <ListView
+                nodes={displayNodes}
+                edges={displayEdges}
+                selectedNode={selectedNode}
+                onSelectNode={setSelectedNode}
               />
             )}
-          </AnimatePresence>
 
-          {/* Footer toggle */}
-          <div className="flex justify-center gap-1 py-2">
-            {(["graph", "list"] as ViewMode[]).map((m) => (
-              <button
-                key={m}
-                type="button"
-                onClick={() => setViewMode(m)}
-                className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border ${
-                  viewMode === m
-                    ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
-                    : "border-(--line) bg-transparent text-(--text-faint)"
-                }`}
-              >
-                {m === "graph" ? "Graphe" : "Liste"}
-              </button>
-            ))}
+            {/* Panneau détail nœud sélectionné */}
+            <AnimatePresence mode="wait">
+              {selectedDisplayNode && (
+                <DetailPanel
+                  key={selectedDisplayNode.id}
+                  node={selectedDisplayNode}
+                  edges={displayEdges}
+                  onClose={() => setSelectedNode(null)}
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Footer toggle */}
+            <div className="flex justify-center gap-1 py-2">
+              {(["graph", "list"] as ViewMode[]).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setViewMode(m)}
+                  className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border ${
+                    viewMode === m
+                      ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
+                      : "border-(--line) bg-transparent text-(--text-faint)"
+                  }`}
+                >
+                  {m === "graph" ? "Graphe" : "Liste"}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </StageLayout>
     </motion.section>
   );
 }

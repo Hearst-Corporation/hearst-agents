@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { StageLayout } from "../_shell/StageLayout";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -55,39 +56,39 @@ export function VoiceStage({ mode }: { mode: string }) {
       animate="show"
       className="preserve-3d flex w-full flex-col gap-16"
     >
-      <header className="text-center">
-        <p className="t-13 tracking-(--tracking-micro) text-(--text-faint)">
-          Voice · Mode conversationnel
-        </p>
-      </header>
+      <StageLayout
+        eyebrow="Voice"
+        title="Mode conversationnel"
+        subtitle="Session vocale temps réel"
+      >
+        <div className="flex flex-col items-center gap-8 py-12 text-center">
+          {/* Sphère inactive */}
+          <div
+            className="rounded-full border border-(--line-strong) bg-(--surface) opacity-50 shrink-0"
+            style={{ width: "var(--space-24)", height: "var(--space-24)" }}
+            aria-hidden="true"
+          />
 
-      <div className="flex flex-col items-center gap-8 py-12 text-center">
-        {/* Sphère inactive */}
-        <div
-          className="rounded-full border border-(--line-strong) bg-(--surface) opacity-50 shrink-0"
-          style={{ width: "var(--space-24)", height: "var(--space-24)" }}
-          aria-hidden="true"
-        />
+          <div className="flex flex-col gap-3">
+            <p className="t-15 font-medium text-(--text-muted)">Mode voix non disponible</p>
+            <p
+              className="t-13 text-(--text-ghost) leading-relaxed"
+              style={{ maxWidth: "var(--width-prose-narrow)" }}
+            >
+              La session vocale temps réel n&apos;est pas encore branchée. Le chat texte couvre les
+              mêmes intentions en attendant.
+            </p>
+          </div>
 
-        <div className="flex flex-col gap-3">
-          <p className="t-15 font-medium text-(--text-muted)">Mode voix non disponible</p>
-          <p
-            className="t-13 text-(--text-ghost) leading-relaxed"
-            style={{ maxWidth: "var(--width-prose-narrow)" }}
+          <button
+            type="button"
+            onClick={() => setStageMode({ mode: "chat" })}
+            className="vision-btn-primary t-12 px-(--space-5) py-(--space-2) rounded-(--radius-pill) border-0 font-medium"
           >
-            La session vocale temps réel n&apos;est pas encore branchée. Le chat texte couvre les
-            mêmes intentions en attendant.
-          </p>
+            Ouvrir le chat texte
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setStageMode({ mode: "chat" })}
-          className="vision-btn-primary t-12 px-(--space-5) py-(--space-2) rounded-(--radius-pill) border-0 font-medium"
-        >
-          Ouvrir le chat texte
-        </button>
-      </div>
+      </StageLayout>
     </motion.section>
   );
 }

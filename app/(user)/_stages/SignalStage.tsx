@@ -6,6 +6,7 @@ import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import type { AmbientSignal, AmbientSignalKind } from "@/lib/cockpit/ambient-signals";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { StageLayout } from "../_shell/StageLayout";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -381,125 +382,120 @@ export function SignalStage({ mode }: { mode: string }) {
         </span>
       )}
 
-      {/* Header */}
-      <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <h2 className="t-28 font-light text-text">Signaux</h2>
-        <p
-          className="t-13 font-light text-text-ghost"
-          style={{ lineHeight: "var(--leading-base)" }}
-        >
-          Activité ambient — missions, connexions, briefings, vidéos.
-        </p>
-      </div>
-
-      {/* Filtres */}
-      <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-        <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-light text-text-ghost shrink-0 w-(--width-signal-filter-label)">
-            Fenêtre
-          </span>
-          <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
-            {RANGE_OPTIONS.map((opt) => (
-              <FilterPill
-                key={opt.key}
-                label={opt.label}
-                active={range === opt.key}
-                onClick={() => setRange(opt.key)}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-light text-text-ghost shrink-0 w-(--width-signal-filter-label)">
-            Type
-          </span>
-          <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
-            {KIND_OPTIONS.map((opt) => (
-              <FilterPill
-                key={opt.key}
-                label={opt.label}
-                active={kindFilter === opt.key}
-                onClick={() => setKindFilter(opt.key)}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Corps + sidebar */}
-      <div className="flex min-w-0" style={{ gap: "var(--space-8)" }}>
-        {/* Timeline */}
-        <div className="flex-1 min-w-0">
-          {loading && <SignalSkeleton />}
-          {!loading && error && (
-            <div
-              className="t-13 font-light text-(--danger)"
-              style={{
-                padding: "var(--space-4) var(--space-5)",
-                background: "color-mix(in srgb, var(--danger) 6%, transparent)",
-                borderLeft: "2px solid color-mix(in srgb, var(--danger) 35%, transparent)",
-                borderRadius: "var(--radius-sm)",
-              }}
-            >
-              Erreur — {error}
-            </div>
-          )}
-          {!loading && !error && filtered.length === 0 && (
-            <p className="t-13 font-light text-text-ghost">
-              {kindFilter === "all"
-                ? "Aucun signal sur cette fenêtre. L'agent veille."
-                : "Aucun signal de ce type sur cette fenêtre."}
-            </p>
-          )}
-          {!loading && !error && filtered.length > 0 && (
-            <motion.div
-              variants={LIST_VARIANTS}
-              initial="hidden"
-              animate="show"
-              className="flex flex-col"
-              style={{ gap: "var(--space-3)" }}
-            >
-              {filtered.map((sig) => (
-                <SignalCard
-                  key={sig.id}
-                  signal={sig}
-                  nowMs={nowMs}
-                  highlighted={sig.id === selectedSignalId}
-                  onInvestigate={() => onInvestigate(sig)}
+      <StageLayout
+        eyebrow="Signaux"
+        title="Flux de signaux"
+        subtitle="Événements temps réel · Hearst Cortex"
+      >
+        {/* Filtres */}
+        <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+          <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
+            <span className="t-11 font-light text-text-ghost shrink-0 w-(--width-signal-filter-label)">
+              Fenêtre
+            </span>
+            <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
+              {RANGE_OPTIONS.map((opt) => (
+                <FilterPill
+                  key={opt.key}
+                  label={opt.label}
+                  active={range === opt.key}
+                  onClick={() => setRange(opt.key)}
                 />
               ))}
-            </motion.div>
-          )}
+            </div>
+          </div>
+          <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
+            <span className="t-11 font-light text-text-ghost shrink-0 w-(--width-signal-filter-label)">
+              Type
+            </span>
+            <div className="flex flex-wrap" style={{ gap: "var(--space-1-5)" }}>
+              {KIND_OPTIONS.map((opt) => (
+                <FilterPill
+                  key={opt.key}
+                  label={opt.label}
+                  active={kindFilter === opt.key}
+                  onClick={() => setKindFilter(opt.key)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Sidebar stats */}
-        <aside className="hidden lg:flex flex-col shrink-0 w-(--width-signal-stats-aside) gap-6 pt-1">
-          <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-            <span className="t-11 font-light text-text-ghost">Cumul</span>
-            <p className="t-28 font-light text-text">{stats.total}</p>
-            <p className="t-11 font-light text-text-ghost">
-              signal{stats.total > 1 ? "aux" : ""} sur la fenêtre
-            </p>
-          </div>
-          <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-            <span className="t-11 font-light text-text-ghost">Répartition</span>
-            {(Object.keys(stats.byKind) as Array<AmbientSignal["kind"]>).map((kind) => (
+        {/* Corps + sidebar */}
+        <div className="flex min-w-0" style={{ gap: "var(--space-8)" }}>
+          {/* Timeline */}
+          <div className="flex-1 min-w-0">
+            {loading && <SignalSkeleton />}
+            {!loading && error && (
               <div
-                key={kind}
-                className="flex items-center justify-between"
-                style={{ gap: "var(--space-2)" }}
+                className="t-13 font-light text-(--danger)"
+                style={{
+                  padding: "var(--space-4) var(--space-5)",
+                  background: "color-mix(in srgb, var(--danger) 6%, transparent)",
+                  borderLeft: "2px solid color-mix(in srgb, var(--danger) 35%, transparent)",
+                  borderRadius: "var(--radius-sm)",
+                }}
               >
-                <span className="t-11 font-light text-text-ghost truncate flex-1 min-w-0">
-                  {KIND_LABEL[kind]}
-                </span>
-                <span className="t-11 font-mono tabular-nums text-text-faint shrink-0">
-                  {stats.byKind[kind]}
-                </span>
+                Erreur — {error}
               </div>
-            ))}
+            )}
+            {!loading && !error && filtered.length === 0 && (
+              <p className="t-13 font-light text-text-ghost">
+                {kindFilter === "all"
+                  ? "Aucun signal sur cette fenêtre. L'agent veille."
+                  : "Aucun signal de ce type sur cette fenêtre."}
+              </p>
+            )}
+            {!loading && !error && filtered.length > 0 && (
+              <motion.div
+                variants={LIST_VARIANTS}
+                initial="hidden"
+                animate="show"
+                className="flex flex-col"
+                style={{ gap: "var(--space-3)" }}
+              >
+                {filtered.map((sig) => (
+                  <SignalCard
+                    key={sig.id}
+                    signal={sig}
+                    nowMs={nowMs}
+                    highlighted={sig.id === selectedSignalId}
+                    onInvestigate={() => onInvestigate(sig)}
+                  />
+                ))}
+              </motion.div>
+            )}
           </div>
-        </aside>
-      </div>
+
+          {/* Sidebar stats */}
+          <aside className="hidden lg:flex flex-col shrink-0 w-(--width-signal-stats-aside) gap-6 pt-1">
+            <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
+              <span className="t-11 font-light text-text-ghost">Cumul</span>
+              <p className="t-28 font-light text-text">{stats.total}</p>
+              <p className="t-11 font-light text-text-ghost">
+                signal{stats.total > 1 ? "aux" : ""} sur la fenêtre
+              </p>
+            </div>
+            <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+              <span className="t-11 font-light text-text-ghost">Répartition</span>
+              {(Object.keys(stats.byKind) as Array<AmbientSignal["kind"]>).map((kind) => (
+                <div
+                  key={kind}
+                  className="flex items-center justify-between"
+                  style={{ gap: "var(--space-2)" }}
+                >
+                  <span className="t-11 font-light text-text-ghost truncate flex-1 min-w-0">
+                    {KIND_LABEL[kind]}
+                  </span>
+                  <span className="t-11 font-mono tabular-nums text-text-faint shrink-0">
+                    {stats.byKind[kind]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </StageLayout>
     </motion.section>
   );
 }

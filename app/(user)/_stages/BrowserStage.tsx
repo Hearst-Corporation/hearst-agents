@@ -18,7 +18,7 @@ import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
-import { STAGE_REGISTRY } from "./registry";
+import { StageLayout } from "../_shell/StageLayout";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -494,57 +494,46 @@ export function BrowserStage({ mode }: { mode: string }) {
     >
       {demoActive && <DemoBanner />}
 
-      {/* Header */}
-      <header className="flex flex-col gap-2">
-        <p className="t-13 text-(--text-muted) tracking-(--tracking-micro)">
-          Browserbase · Stagehand · navigateur cloud
-        </p>
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <h1 className="t-28 font-medium tracking-(--tracking-tight)">Session active</h1>
-            {STAGE_REGISTRY.browser.tagline && (
-              <p className="t-13 text-(--text-muted) leading-(--leading-normal)">
-                {STAGE_REGISTRY.browser.tagline}
-              </p>
-            )}
-          </div>
-          <ModeToggle auto={autoMode} onToggle={handleToggleMode} />
-        </div>
-      </header>
+      <StageLayout
+        eyebrow="Browserbase"
+        title="Session active"
+        subtitle="Navigation cloud · Stagehand · Browserbase"
+        actions={<ModeToggle auto={autoMode} onToggle={handleToggleMode} />}
+      >
+        {/* Chargement */}
+        {fetchState === "loading" && <LoadingState />}
 
-      {/* Chargement */}
-      {fetchState === "loading" && <LoadingState />}
-
-      {/* Erreur fetch */}
-      {fetchState === "error" && fetchError && (
-        <StageErrorBanner message={fetchError} title="Erreur session" variant="emphasis" />
-      )}
-
-      {/* Frame navigateur */}
-      {(fetchState === "ready" || fetchState === "idle") && (
-        <SessionFrame sessionId={sessionId} url={currentUrl} sessionInfo={sessionInfo} />
-      )}
-
-      {/* Steps Stagehand */}
-      <div className="flex flex-col gap-1">
-        <p className="t-11 text-(--text-ghost) mb-2 tracking-(--tracking-micro)">
-          {steps.length > 0
-            ? `Étapes Stagehand — ${doneCount(steps)} / ${steps.length}`
-            : "Étapes Stagehand — en attente de données"}
-        </p>
-        {steps.length > 0 ? (
-          <AnimatePresence initial={false}>
-            {steps.map((step, idx) => (
-              <StepRow key={step.id} step={step} index={idx} />
-            ))}
-          </AnimatePresence>
-        ) : (
-          <p className="t-13 text-(--text-ghost) py-2">
-            Les étapes s&apos;afficheront ici quand la session Browserbase transmettra des
-            événements.
-          </p>
+        {/* Erreur fetch */}
+        {fetchState === "error" && fetchError && (
+          <StageErrorBanner message={fetchError} title="Erreur session" variant="emphasis" />
         )}
-      </div>
+
+        {/* Frame navigateur */}
+        {(fetchState === "ready" || fetchState === "idle") && (
+          <SessionFrame sessionId={sessionId} url={currentUrl} sessionInfo={sessionInfo} />
+        )}
+
+        {/* Steps Stagehand */}
+        <div className="flex flex-col gap-1">
+          <p className="t-11 text-(--text-ghost) mb-2 tracking-(--tracking-micro)">
+            {steps.length > 0
+              ? `Étapes Stagehand — ${doneCount(steps)} / ${steps.length}`
+              : "Étapes Stagehand — en attente de données"}
+          </p>
+          {steps.length > 0 ? (
+            <AnimatePresence initial={false}>
+              {steps.map((step, idx) => (
+                <StepRow key={step.id} step={step} index={idx} />
+              ))}
+            </AnimatePresence>
+          ) : (
+            <p className="t-13 text-(--text-ghost) py-2">
+              Les étapes s&apos;afficheront ici quand la session Browserbase transmettra des
+              événements.
+            </p>
+          )}
+        </div>
+      </StageLayout>
     </motion.section>
   );
 }
