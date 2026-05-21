@@ -16,7 +16,6 @@ import { MissionListStage } from "../_stages/MissionListStage";
 import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import type { RailItem, StageKey } from "../_stages/types";
-import { ChatDock } from "../components/ChatDock";
 
 /* Stages non-critiques — lazy-load pour réduire le bundle initial */
 const ArtifactStage = dynamic(() =>
@@ -160,7 +159,6 @@ export function CockpitXClient({
         }
         railTitle="ARBITRAGE REQUIS"
         railItems={railItems}
-        composer={<ChatDock />}
       />
     );
   }
@@ -200,12 +198,7 @@ export function CockpitXClient({
   })();
 
   return (
-    <Shell
-      centerContent={stageContent}
-      railTitle={stageRailTitle}
-      railItems={stageRailItems}
-      composer={<ChatDock />}
-    />
+    <Shell centerContent={stageContent} railTitle={stageRailTitle} railItems={stageRailItems} />
   );
 }
 
