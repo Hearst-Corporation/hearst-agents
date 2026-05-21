@@ -251,7 +251,7 @@ function CockpitContent({
     >
       {/* Contenu Principal - Alignement Editorial */}
       <div
-        className="relative z-10 flex flex-col w-full px-14 pt-16 pb-32"
+        className="relative z-10 flex flex-col w-full px-6 pt-10 pb-20"
         style={{ maxWidth: "var(--width-prose-narrow)", marginInline: "auto" }}
       >
         {/* État d'erreur silencieux — affiché quand le refetch échoue */}
