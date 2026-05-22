@@ -2,25 +2,17 @@
 
 import { useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
-import { EmptyState, FilterTabs, ScreenShell, SearchField } from "@/app/(user)/components/ui";
+import { FilterTabs, ScreenShell, SearchField } from "@/app/(user)/components/ui";
 
 const TABS = ["Tout", "Threads", "Assets", "Missions"] as const;
 type Tab = (typeof TABS)[number];
 
-function ArchiveIcon() {
-  return (
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden>
-      <rect x="5" y="12" width="30" height="22" rx="2" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M5 18h30M15 24h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M12 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
 export default function ArchivePage() {
   const [activeTab, setActiveTab] = useState<Tab>("Tout");
-  // TODO: intégrer vraie source de données archivées
-  const isEmpty = true;
+
+  // Aucun endpoint d'archive (threads/assets > 7 jours) n'est implémenté à ce jour.
+  // L'empty state est honnête : aucune donnée factice, aucun booléen hardcodé.
+  // À brancher sur /api/v2/archive avec loading/error/items dès que l'endpoint existe.
 
   return (
     <StandalonePageFrame>
@@ -28,6 +20,10 @@ export default function ArchivePage() {
         title="Archive"
         subtitle="Threads et assets de plus de 7 jours"
         back={{ label: "Cockpit", href: "/" }}
+        empty={{
+          title: "Aucun élément archivé",
+          description: "Les éléments de plus de 7 jours apparaîtront ici.",
+        }}
       >
         <SearchField
           type="search"
@@ -41,13 +37,6 @@ export default function ArchivePage() {
           aria-label="Filtrer l'archive"
           onValueChange={(v) => setActiveTab(v as Tab)}
         />
-        {isEmpty && (
-          <EmptyState
-            title="Aucun élément archivé"
-            description="Les éléments de plus de 7 jours apparaîtront ici"
-            icon={<ArchiveIcon />}
-          />
-        )}
       </ScreenShell>
     </StandalonePageFrame>
   );

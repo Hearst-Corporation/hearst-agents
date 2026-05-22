@@ -107,86 +107,6 @@ function badgeClass(mission: ApiMission): { className: string; pulse: boolean } 
   };
 }
 
-// ── Démo dev-only ────────────────────────────────────────────────────────────
-// Affiché uniquement en dev quand la liste réelle est vide, pour développer
-// le design sans dépendre de l'API. Inchangé en production.
-
-const IS_DEV = process.env.NODE_ENV !== "production";
-
-const DEMO_MISSIONS: ApiMission[] = [
-  {
-    id: "demo-1",
-    name: "Veille concurrentielle hebdomadaire",
-    input:
-      "Surveiller les annonces produit des trois principaux concurrents et produire une synthèse priorisée.",
-    schedule: "0 8 * * 1",
-    enabled: true,
-    createdAt: new Date("2026-04-22T09:12:00").getTime(),
-    lastRunAt: new Date("2026-05-12T08:03:00").getTime(),
-    lastRunStatus: "success",
-  },
-  {
-    id: "demo-2",
-    name: "Synthèse des tickets support critiques",
-    input: "Agréger les tickets P0/P1 ouverts depuis 24h et alerter l'astreinte.",
-    schedule: "0 * * * *",
-    enabled: true,
-    createdAt: new Date("2026-05-02T14:40:00").getTime(),
-    lastRunAt: new Date("2026-05-18T07:00:00").getTime(),
-  },
-  {
-    id: "demo-3",
-    name: "Relance commerciale prospects dormants",
-    input:
-      "Identifier les prospects sans contact depuis 30 jours et préparer un email de relance personnalisé.",
-    schedule: "0 9 * * 2",
-    enabled: false,
-    createdAt: new Date("2026-03-15T11:05:00").getTime(),
-    lastRunAt: new Date("2026-05-13T09:00:00").getTime(),
-    lastRunStatus: "awaiting_approval",
-  },
-  {
-    id: "demo-4",
-    name: "Rapport financier mensuel",
-    input: "Compiler les indicateurs de revenus et générer le rapport pour la direction.",
-    schedule: "manual",
-    enabled: false,
-    createdAt: new Date("2026-02-01T08:00:00").getTime(),
-    lastRunAt: new Date("2026-05-01T18:30:00").getTime(),
-    lastRunStatus: "success",
-  },
-  {
-    id: "demo-5",
-    name: "Modération des avis clients",
-    input: "Analyser les nouveaux avis publics et signaler les contenus à risque.",
-    schedule: "0 12 * * *",
-    enabled: true,
-    createdAt: new Date("2026-04-30T16:20:00").getTime(),
-    lastRunAt: new Date("2026-05-17T12:00:00").getTime(),
-    lastRunStatus: "failed",
-    lastError: "Quota API dépassé",
-  },
-  {
-    id: "demo-6",
-    name: "Onboarding automatique nouveaux clients",
-    input: "Envoyer la séquence de bienvenue et créer les accès dès la signature d'un contrat.",
-    schedule: "0 10 * * *",
-    enabled: true,
-    createdAt: new Date("2026-05-10T10:00:00").getTime(),
-  },
-  {
-    id: "demo-7",
-    name: "Sauvegarde des exports analytics",
-    input: "Exporter les données analytics de la semaine et les archiver sur Drive.",
-    schedule: "0 23 * * 0",
-    enabled: false,
-    createdAt: new Date("2026-01-20T22:00:00").getTime(),
-    lastRunAt: new Date("2026-05-11T23:00:00").getTime(),
-    lastRunStatus: "blocked",
-    lastError: "Espace de stockage insuffisant",
-  },
-];
-
 function formatDate(ts: number): string {
   return new Date(ts).toLocaleDateString("fr-FR", {
     day: "numeric",
@@ -217,14 +137,6 @@ function LoadingSkeleton() {
         <div key={i} className="h-20 animate-pulse rounded-xl bg-(--surface-2)" />
       ))}
     </div>
-  );
-}
-
-function DemoBadge() {
-  return (
-    <span className="t-9 font-mono uppercase self-start px-(--space-2) py-(--space-1) rounded-(--radius-sm) bg-(--surface-1) text-(--text-faint) tracking-(--tracking-badge)">
-      Démo · données fictives (dev)
-    </span>
   );
 }
 
@@ -350,20 +262,14 @@ export function MissionListStage({ mode }: { mode: string }) {
     };
   }, []);
 
-  // Démo dev-only : liste réelle vide + pas de chargement + pas d'erreur →
-  // on rend le chemin plein avec des demandes fictives. Données réelles
-  // prioritaires : dès qu'une demande réelle existe, la démo disparaît.
-  const showDemo = IS_DEV && !loading && !fetchError && missions.length === 0;
-  const displayMissions = missions.length > 0 ? missions : showDemo ? DEMO_MISSIONS : [];
-
   useEffect(() => {
-    if (displayMissions.length === 0) {
+    if (missions.length === 0) {
       useStageData.getState().clearShellData();
       return;
     }
     useStageData.getState().setShellData(
-      `Demandes (${displayMissions.length})`,
-      displayMissions.slice(0, 5).map(
+      `Demandes (${missions.length})`,
+      missions.slice(0, 5).map(
         (m): RailItem => ({
           t: m.name,
           s: missionStatusLabel(m),
@@ -374,7 +280,7 @@ export function MissionListStage({ mode }: { mode: string }) {
     return () => {
       useStageData.getState().clearShellData();
     };
-  }, [displayMissions]);
+  }, [missions]);
 
   function handleNewMission() {
     useStageStore
@@ -401,23 +307,20 @@ export function MissionListStage({ mode }: { mode: string }) {
           </Action>
         }
       >
-        {/* Badge démo — dev uniquement, liste réelle vide */}
-        {showDemo && <DemoBadge />}
-
         {/* Loading */}
         {loading && <LoadingSkeleton />}
 
         {/* Erreur */}
         {!loading && fetchError && <StageErrorBanner message={fetchError} variant="emphasis" />}
 
-        {/* Empty state — prod, ou dev sans démo possible */}
-        {!loading && !fetchError && missions.length === 0 && !showDemo && <MissionListEmpty />}
+        {/* Empty state */}
+        {!loading && !fetchError && missions.length === 0 && <MissionListEmpty />}
 
-        {/* Liste (données réelles ou démo dev) */}
-        {!loading && !fetchError && displayMissions.length > 0 && (
+        {/* Liste */}
+        {!loading && !fetchError && missions.length > 0 && (
           <div className="flex flex-col gap-2">
             <AnimatePresence initial={false}>
-              {displayMissions.map((mission, idx) => (
+              {missions.map((mission, idx) => (
                 <MissionCard
                   key={mission.id}
                   mission={mission}

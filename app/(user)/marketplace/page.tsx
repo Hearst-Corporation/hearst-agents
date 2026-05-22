@@ -10,24 +10,20 @@ import {
   SearchField,
   StageErrorBanner,
 } from "@/app/(user)/components/ui";
+import type { MarketplaceKind, MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
-type KindLabel = "workflow" | "rapport" | "persona";
+// Sous-ensemble des kinds affichés dans cette page
+type DisplayKind = Extract<
+  MarketplaceKind,
+  "workflow" | "report_spec" | "persona" | "creative_prompt"
+>;
 
-interface Template {
-  id: number;
-  title: string;
-  description: string;
-  author: string;
-  uses: number;
-  kind: KindLabel;
-}
-
-const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
+const KIND_STYLES: Record<DisplayKind, { badge: string; label: string }> = {
   workflow: {
     badge: "bg-(--color-info)/10 text-(--color-info) border border-(--color-info)/25",
     label: "Workflow",
   },
-  rapport: {
+  report_spec: {
     badge: "bg-(--accent-llm)/10 text-(--accent-llm) border border-(--accent-llm)/25",
     label: "Rapport",
   },
@@ -35,20 +31,25 @@ const KIND_STYLES: Record<KindLabel, { badge: string; label: string }> = {
     badge: "bg-(--accent-teal-surface) text-(--accent-teal) border border-(--accent-teal-border)",
     label: "Persona",
   },
+  creative_prompt: {
+    badge: "bg-(--color-warning)/10 text-(--color-warning) border border-(--color-warning)/25",
+    label: "Créatif",
+  },
 };
 
-const FILTERS = ["Tout", "Workflow", "Rapport", "Persona"] as const;
+const FILTERS = ["Tout", "Workflow", "Rapport", "Persona", "Créatif"] as const;
 type Filter = (typeof FILTERS)[number];
 
-// Map label de filtre → valeur kind
-const FILTER_TO_KIND: Partial<Record<Filter, KindLabel>> = {
+// Map label de filtre → valeur kind API
+const FILTER_TO_KIND: Partial<Record<Filter, DisplayKind>> = {
   Workflow: "workflow",
-  Rapport: "rapport",
+  Rapport: "report_spec",
   Persona: "persona",
+  Créatif: "creative_prompt",
 };
 
 function useTemplates() {
-  const [templates, setTemplates] = useState<Template[]>([]);
+  const [templates, setTemplates] = useState<MarketplaceTemplateSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,59 +58,12 @@ function useTemplates() {
       try {
         setLoading(true);
         setError(null);
-        // Mock async — endpoint peut être créé ultérieurement
-        await new Promise((r) => setTimeout(r, 600));
-        const mockTemplates: Template[] = [
-          {
-            id: 1,
-            title: "Brief Rédactionnel Hebdo",
-            description: "Génère le planning éditorial de la semaine depuis les trends.",
-            author: "equipe-hearst",
-            uses: 482,
-            kind: "workflow",
-          },
-          {
-            id: 2,
-            title: "Rapport Performance Édition",
-            description: "Consolide les KPIs d'une édition : vues, taux de rebond, RPM.",
-            author: "analytics-lab",
-            uses: 317,
-            kind: "rapport",
-          },
-          {
-            id: 3,
-            title: "Persona Directeur Hôtel",
-            description: "Agent spécialisé RevPAR, OCC, satisfaction client hôtellerie.",
-            author: "hospitality-hub",
-            uses: 204,
-            kind: "persona",
-          },
-          {
-            id: 4,
-            title: "Veille Concurrents Médias",
-            description: "Scrape et synthétise les publications concurrentes chaque matin.",
-            author: "equipe-hearst",
-            uses: 391,
-            kind: "workflow",
-          },
-          {
-            id: 5,
-            title: "Rapport Audience Mensuel",
-            description: "Tableau de bord audience : acquisition, rétention, géo.",
-            author: "data-studio",
-            uses: 158,
-            kind: "rapport",
-          },
-          {
-            id: 6,
-            title: "Persona Journaliste Enquête",
-            description: "Assiste la rédaction longue : vérification sources, angles narratifs.",
-            author: "newsroom-ai",
-            uses: 276,
-            kind: "persona",
-          },
-        ];
-        setTemplates(mockTemplates);
+        const res = await fetch("/api/v2/marketplace/templates?limit=60");
+        if (!res.ok) {
+          throw new Error(`Erreur ${res.status} lors du chargement des templates`);
+        }
+        const data = (await res.json()) as { templates: MarketplaceTemplateSummary[] };
+        setTemplates(data.templates ?? []);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Erreur inconnue");
         setTemplates([]);
@@ -173,7 +127,8 @@ export default function MarketplacePage() {
               style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
             >
               {filteredTemplates.map((t) => {
-                const { badge, label } = KIND_STYLES[t.kind];
+                const kindStyle = KIND_STYLES[t.kind as DisplayKind] ?? KIND_STYLES.workflow;
+                const { badge, label } = kindStyle;
                 return (
                   <PanelCard key={t.id} hover className="flex flex-col gap-3">
                     <span
@@ -193,9 +148,13 @@ export default function MarketplacePage() {
                     </div>
                     <div className="flex items-center justify-between mt-auto pt-1">
                       <p className="t-11 font-light text-text-ghost">
-                        <span className="text-text-muted">{t.author}</span>
-                        <span style={{ margin: "0 var(--space-1-5)" }}>·</span>
-                        {t.uses.toLocaleString("fr-FR")} utilisations
+                        {t.authorDisplayName && (
+                          <>
+                            <span className="text-text-muted">{t.authorDisplayName}</span>
+                            <span style={{ margin: "0 var(--space-1-5)" }}>·</span>
+                          </>
+                        )}
+                        {t.cloneCount.toLocaleString("fr-FR")} utilisations
                       </p>
                       <Action
                         variant="secondary"

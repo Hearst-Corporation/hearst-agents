@@ -1,66 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
 import { Action, PanelCard, ScreenShell, SectionEyebrow } from "@/app/(user)/components/ui";
 
-interface WorkflowCard {
-  id: string;
-  title: string;
-  description: string;
-}
-
-function useHospitalityData() {
-  const [workflows, setWorkflows] = useState<WorkflowCard[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [pmsConnected, setPmsConnected] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        // Mock async — simule l'absence de connecteur PMS
-        await new Promise((r) => setTimeout(r, 400));
-        const mockWorkflows: WorkflowCard[] = [
-          {
-            id: "checkin",
-            title: "Check-in automatisé",
-            description:
-              "Envoie automatiquement les instructions d'arrivée 24h avant, adapte le message selon le profil.",
-          },
-          {
-            id: "nuit",
-            title: "Rapport nuit mensuel",
-            description:
-              "Consolide les données nuitées, incidents et taux d'occupation en un rapport PDF envoyé le 1er du mois.",
-          },
-        ];
-        setWorkflows(mockWorkflows);
-        setPmsConnected(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return { workflows, loading, pmsConnected };
-}
+// Aucun endpoint hospitality/PMS n'existe à ce jour.
+// pmsConnected reste false jusqu'à l'implémentation d'un connecteur réel.
+const pmsConnected = false;
 
 export default function HospitalityPage() {
-  const { workflows, loading, pmsConnected } = useHospitalityData();
-
   return (
     <StandalonePageFrame>
       <ScreenShell
         title="Hospitality"
         subtitle="Cockpit vertical hôtellerie"
         back={{ label: "Cockpit", href: "/" }}
-        loading={loading}
-        loadingVariant="rows"
         empty={
-          !loading && !pmsConnected
+          !pmsConnected
             ? {
                 title: "Connectez un PMS",
                 description:
@@ -70,16 +25,7 @@ export default function HospitalityPage() {
             : false
         }
       >
-        {!loading && !pmsConnected && (
-          <div style={{ marginBottom: "var(--space-8)", maxWidth: "var(--width-center-max)" }}>
-            <PanelCard className="t-13 font-light text-text-muted">
-              Les indicateurs s&apos;afficheront une fois un PMS (Mews / Cloudbeds / Opera)
-              connecté.
-            </PanelCard>
-          </div>
-        )}
-
-        {!loading && pmsConnected && (
+        {pmsConnected && (
           <div style={{ maxWidth: "var(--width-center-max)" }}>
             <SectionEyebrow id="kpi">Indicateurs clés</SectionEyebrow>
             <PanelCard className="flex items-center justify-center text-center" padding="lg">
@@ -94,36 +40,6 @@ export default function HospitalityPage() {
                 </p>
               </div>
             </PanelCard>
-          </div>
-        )}
-
-        {!loading && (
-          <div style={{ maxWidth: "var(--width-center-max)" }}>
-            <SectionEyebrow id="workflows">Workflows</SectionEyebrow>
-            <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-              {workflows.map((w) => (
-                <PanelCard key={w.id} className="flex items-center gap-5">
-                  <div className="flex-1 min-w-0">
-                    <p className="t-13 font-medium text-text">{w.title}</p>
-                    <p
-                      className="t-11 font-light text-text-faint leading-relaxed"
-                      style={{ marginTop: "var(--space-0-5)" }}
-                    >
-                      {w.description}
-                    </p>
-                  </div>
-                  <Action
-                    variant="secondary"
-                    tone="neutral"
-                    size="sm"
-                    disabled
-                    aria-label="Bientôt disponible — nécessite un connecteur PMS"
-                  >
-                    Bientôt disponible
-                  </Action>
-                </PanelCard>
-              ))}
-            </div>
 
             <div style={{ marginTop: "var(--space-10)" }}>
               <SectionEyebrow id="persona">Persona</SectionEyebrow>

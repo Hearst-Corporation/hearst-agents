@@ -81,100 +81,7 @@ function toolSubLine(tc: ToolCall): string {
   return toolStateLabel(tc.state);
 }
 
-// ── Démo dev-only ────────────────────────────────────────────────────────────
-// Affiché uniquement en dev quand le store est vide (run jamais lancé), pour
-// développer le design sans dépendre d'un run réel. Le store global N'EST PAS
-// muté : on dérive un fallback local. Inchangé en production.
-
-const IS_DEV = process.env.NODE_ENV !== "production";
-
-const DEMO_MESSAGES: StreamingMessage[] = [
-  {
-    id: "demo-m1",
-    role: "user",
-    content: "Peux-tu me préparer une synthèse des ventes de la semaine ?",
-    isStreaming: false,
-  },
-  {
-    id: "demo-m2",
-    role: "assistant",
-    content:
-      "Bien sûr. Je récupère les données de ventes des 7 derniers jours et je compile les indicateurs clés.",
-    isStreaming: false,
-  },
-  {
-    id: "demo-m3",
-    role: "user",
-    content: "Ajoute aussi la comparaison avec la semaine précédente.",
-    isStreaming: false,
-  },
-  {
-    id: "demo-m4",
-    role: "assistant",
-    content:
-      "Noté. Voici la synthèse : 142 commandes pour 38 400 € de chiffre d'affaires, soit +12 % vs la semaine précédente. Le panier moyen progresse de 4 %. Le canal email reste le premier contributeur.",
-    isStreaming: false,
-  },
-  {
-    id: "demo-m5",
-    role: "user",
-    content: "Parfait, envoie ça à l'équipe commerciale par email.",
-    isStreaming: false,
-  },
-  {
-    id: "demo-m6",
-    role: "assistant",
-    content: "Je prépare l'email et je le soumets à ton approbation avant envoi.",
-    isStreaming: false,
-  },
-];
-
-const DEMO_TOOLCALLS: ToolCall[] = [
-  {
-    id: "demo-tc1",
-    name: "analytics.fetch_sales",
-    input: { range: "7d", compare: "previous_week" },
-    output: { orders: 142, revenue: 38400 },
-    state: "done",
-    startedAt: Date.now() - 9000,
-    endedAt: Date.now() - 7000,
-  },
-  {
-    id: "demo-tc2",
-    name: "report.build_summary",
-    input: { format: "markdown" },
-    state: "done",
-    startedAt: Date.now() - 6800,
-    endedAt: Date.now() - 5200,
-  },
-  {
-    id: "demo-tc3",
-    name: "gmail.create_draft",
-    input: { to: "equipe-commerciale@hearst.io", subject: "Synthèse des ventes — semaine" },
-    state: "running",
-    startedAt: Date.now() - 1200,
-  },
-];
-
 // ── Sub-composants ───────────────────────────────────────────────────────────
-
-function DemoBadge() {
-  return (
-    <span
-      className="t-9 font-mono uppercase"
-      style={{
-        alignSelf: "flex-start",
-        padding: "var(--space-1) var(--space-2)",
-        borderRadius: "var(--radius-sm)",
-        background: "var(--surface-1)",
-        color: "var(--text-faint)",
-        letterSpacing: "var(--tracking-badge)",
-      }}
-    >
-      Démo · données fictives (dev)
-    </span>
-  );
-}
 
 function EmptyChatState() {
   return (
@@ -318,19 +225,12 @@ export function ChatStage({ mode }: { mode: string }) {
     [messages.length, toolCalls.length, runState],
   );
 
-  // Démo dev-only : store vide (run jamais lancé) → on dérive un fallback
-  // LOCAL. Le store global reste intact (pas de setState dessus). Données
-  // réelles prioritaires : dès qu'un message/tool/run existe, la démo cède.
-  const showDemo = IS_DEV && isEmpty;
-  const displayMessages = showDemo ? DEMO_MESSAGES : messages;
-  const displayToolCalls = showDemo ? DEMO_TOOLCALLS : toolCalls;
-
   // Pousse les 5 derniers tool calls dans shellData → ContextRail miroir
   useEffect(() => {
     const items: RailItem[] =
-      displayToolCalls.length === 0
+      toolCalls.length === 0
         ? []
-        : displayToolCalls
+        : toolCalls
             .slice(-5)
             .reverse()
             .map((tc) => ({
@@ -342,13 +242,13 @@ export function ChatStage({ mode }: { mode: string }) {
     return () => {
       useStageData.getState().clearShellData();
     };
-  }, [displayToolCalls]);
+  }, [toolCalls]);
 
   // Auto-scroll vers le bas à chaque update messages/toolCalls
   const bottomRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [displayMessages, displayToolCalls]);
+  }, [messages, toolCalls]);
 
   // Run lancé mais aucun contenu assistant visible encore. On vérifie que
   // l'assistant n'a pas encore émis de delta (pas messages.length === 0
@@ -371,14 +271,11 @@ export function ChatStage({ mode }: { mode: string }) {
       className="preserve-3d flex w-full flex-col gap-16"
     >
       <div className="flex flex-col gap-8">
-        {showDemo && <DemoBadge />}
+        {isEmpty && <EmptyChatState />}
 
-        {isEmpty && !showDemo && <EmptyChatState />}
+        {!isEmpty && messages.map((msg, idx) => <ChatBubble key={msg.id} msg={msg} index={idx} />)}
 
-        {(!isEmpty || showDemo) &&
-          displayMessages.map((msg, idx) => <ChatBubble key={msg.id} msg={msg} index={idx} />)}
-
-        {displayToolCalls.length > 0 && <ToolCallList toolCalls={displayToolCalls} />}
+        {toolCalls.length > 0 && <ToolCallList toolCalls={toolCalls} />}
 
         {isStreamingSilent && <StreamingPlaceholder />}
 
