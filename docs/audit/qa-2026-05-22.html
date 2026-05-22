@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>QA UI/UX — Hearst OS (post-fix round 2) — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>QA UI/UX — Hearst OS (post-fix round 2)</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-22 11:41</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> 792739d1</span>
+      <span><b>Scope</b> app complète</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">35</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">1</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">22</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">16</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">3</div><div class="kpi-label">Score /10</div></div>
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Layout &amp; Alignment</span>
+        <span class="section-agent">agent-1</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">onFocusCapture mute borderColor directement via DOM</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:369">app/(user)/_shell/RightRailChat.tsx:369</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>onFocusCapture={(e) =&gt; { (e.currentTarget).style.borderColor = &quot;var(--accent-teal)&quot;; }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par className=&quot;... focus-within:border-(--accent-teal)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mutation DOM impérative — fragile, bypasse Tailwind. CSS :focus-within est plus robuste et performant.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">h-[calc(100%-57px)] magic number 57px non tokenisé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:172">app/(user)/_shell/ChatDrawer.tsx:172</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;h-[calc(100%-57px)]&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer var(--height-drawer-header) = 57px puis h-[calc(100%-var(--height-drawer-header))]</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si la hauteur du header drawer change, ce calc se casse silencieusement.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">zIndex: 45 numérique au lieu de var(--z-backdrop)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_shell/AdminShell.tsx:68">app/admin/_shell/AdminShell.tsx:68</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ zIndex: 45 }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>zIndex: &quot;var(--z-backdrop)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bypasse l'échelle token. --z-backdrop: 45 existe dans globals.css.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">zIndex: 50 numérique au lieu de var(--z-modal)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_shell/AdminShell.tsx:73">app/admin/_shell/AdminShell.tsx:73</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ zIndex: 50 }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>zIndex: &quot;var(--z-modal)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bypasse l'échelle token. --z-modal: 50 existe dans globals.css.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">minHeight: 22px / maxHeight: 120px hardcodés textarea</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:390">app/(user)/_shell/RightRailChat.tsx:390</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>minHeight: &quot;22px&quot;, maxHeight: &quot;120px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer --min-height-textarea: 22px et --max-height-textarea: 120px</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeurs magiques non maintenables.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Barre de progression height: 2px / borderRadius: 1px hardcodés</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:75">app/(user)/_shell/KpiGrid.tsx:75</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>height: &quot;2px&quot;, borderRadius: &quot;1px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer --size-progress-track: 2px ou utiliser var(--size-progress-segment-h)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Token --size-progress-segment-h (4px) existe mais diffère de 2px utilisé ici.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">57px header hauteur non documentée dans le token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:172">app/(user)/_shell/ChatDrawer.tsx:172</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>h-[calc(100%-57px)]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer --height-drawer-header: 57px token</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeur orpheline.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">zIndex: 10 hors échelle token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:353">app/public/approvals/[token]/page.tsx:353</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>zIndex: 10</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Documenter l'intention ou mapper sur --z-noise (1) / --z-sticky (20)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>z=10 est hors scale définie dans globals.css.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">zIndex: 10 hors échelle token (report public)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:136">app/public/reports/[token]/page.tsx:136</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>zIndex: 10</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Même recommandation que approvals</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même problème.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Interaction &amp; States</span>
+        <span class="section-agent">agent-2</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">7</span>
+          <span class="badge badge-p2">3</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">FAB bouton chat sans focus-visible ring</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:95">app/(user)/_shell/ChatDrawer.tsx:95</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full text-black transition-transform hover:scale-105 active:scale-95 xl:hidden&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bouton FAB non accessible au clavier — point d'entrée du chat sur mobile.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Onglets ArtifactStage sans focus-visible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:526">app/(user)/_stages/ArtifactStage.tsx:526</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className={`t-11 font-medium rounded-pill px-2.5 py-1 border-none cursor-pointer transition-colors...`}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Navigation clavier dans les onglets sans feedback.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">KGStage boutons utilisent transition-all</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:723">app/(user)/_stages/KGStage.tsx:723</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition-all</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>transition-[background,border-color,color] duration-200</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Anime toutes les propriétés CSS — cause du jank sur les nœuds du graphe.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Nœuds graphe KG sans focus-visible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:373">app/(user)/_stages/KGStage.tsx:373</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className={`kg-node... cursor-pointer`}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter tabIndex={0} + focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Navigation clavier dans le graphe impossible.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">ListView KG items sans focus-visible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:430">app/(user)/_stages/KGStage.tsx:430</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;flex items-center gap-3 px-3.5 py-2.5 rounded-lg cursor-pointer transition-[background,border-color] border...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même problème accessibilité liste KG.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Textarea Scénario sans focus-visible ring</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:252">app/(user)/_stages/SimulationStage.tsx:252</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>focus:outline-none focus:border-(--border-input)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>focus: s'active aussi au clic — doit être focus-visible: pour ne s'activer qu'au clavier.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Inputs Variable/Valeur sans focus-visible ring</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:279">app/(user)/_stages/SimulationStage.tsx:279</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>focus:outline-none focus:border-(--border-input)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même problème que textarea.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ProviderChip sans focus-visible ring</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ProviderChip.tsx:122">app/(user)/components/ProviderChip.tsx:122</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className sans focus-visible</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Élément interactif implicite sans feedback clavier.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ArtifactStage loading sans skeleton — CLS</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:500">app/(user)/_stages/ArtifactStage.tsx:500</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>LoadingState() avec pulsing dot uniquement</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter skeleton placeholder hauteur code editor + preview</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Layout shift brutal à l'arrivée du code.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Messages overflow-y-auto dans main overflow-y-auto</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:282">app/(user)/_shell/RightRailChat.tsx:282</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;flex-1 overflow-y-auto flex flex-col gap-0.5 min-h-0&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier si intentionnel ; si oui documenter, sinon retirer l'un des deux</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Scrolls imbriqués causent du jank au scroll et deux scrollbars concurrentes.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Visual Consistency</span>
+        <span class="section-agent">agent-3</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">1</span>
+          <span class="badge badge-p1">10</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">text-text-on-accent-teal — classe Tailwind inexistante</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:263">app/(user)/_stages/BrowserStage.tsx:263</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>text-text-on-accent-teal</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>text-(--text-on-accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind n'a pas cette classe. La couleur ne s'applique pas → texte potentiellement illisible sur fond accentué.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">text-text-on-accent-teal inexistante dans Action.tsx</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/Action.tsx:77">app/(user)/components/ui/Action.tsx:77</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>text-text-on-accent-teal</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>text-(--text-on-accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même bug que BrowserStage — token CSS non mappé en classe Tailwind.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">text-background inexistante dans Action.tsx</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/Action.tsx:79">app/(user)/components/ui/Action.tsx:79</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>text-background</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>text-(--bg)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind n'a pas .text-background. Le texte des boutons neutral n'a pas de couleur appliquée.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pattern [var(--*)] au lieu de (--*) — 3 violations</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:259">app/(user)/_shell/RightRailChat.tsx:259</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>border-[var(--border-shell)] hover:bg-[var(--surface-hover)] focus-visible:ring-[var(--accent-teal)]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>border-(--border-shell) hover:bg-(--surface-hover) focus-visible:ring-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Incohérent avec le reste du projet qui utilise la syntaxe (--token). Les deux fonctionnent mais mélanger les deux fragmente le DS.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pattern [var(--*)] — 4 violations sur le bouton fermeture</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:153">app/(user)/_shell/ChatDrawer.tsx:153</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>text-[var(--text-ghost)] hover:text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:ring-[var(--accent-teal)]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>text-(--text-ghost) hover:text-(--text) hover:bg-(--surface-2) focus-visible:ring-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même incohérence de pattern.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Skip link focus:text-black hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ClientProviders.tsx:140">app/(user)/components/ClientProviders.tsx:140</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>focus:text-black focus:px-4 focus:py-2 focus:rounded-[var(--radius-sm)]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>focus:text-(--text-on-accent) focus:px-(--space-4) focus:py-(--space-2) focus:rounded-(--radius-sm)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>text-black bypasse les tokens. Sur thème clair, le contraste peut casser.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">border-(--accent) — token --accent non défini</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ThemePicker.tsx:74">app/admin/_components/ThemePicker.tsx:74</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>border-(--accent)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>border-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>--accent n'est pas défini dans globals.css. La bordure active du ThemePicker est absente.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">focus-visible:ring-[var(--accent-teal-border-hover)] pattern arbitraire</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ChatWindow.tsx:154">app/admin/_components/ChatWindow.tsx:154</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>focus-visible:ring-[var(--accent-teal-border-hover)]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>focus-visible:ring-(--accent-teal-border-hover)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même incohérence pattern arbitrary [var(--)] vs standard (--token).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">bg-bg-soft — classe Tailwind inexistante</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ChatWindow.tsx:154">app/admin/_components/ChatWindow.tsx:154</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>bg-bg-soft</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>bg-(--bg-soft)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind n'a pas .bg-bg-soft. Le background de cet input est absent.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Chat input focus background rgba(255,255,255,0.08) encore présent</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/globals.css:864">app/globals.css:864</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>background: rgba(255,255,255,0.08);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>background: var(--surface-2);</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le batch précédent a tokénisé les bulles mais oublié le focus background du ct-chat-input.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">var(--text-on-accent) fallback masque un token mal nommé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:229">app/public/reports/[token]/page.tsx:229</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>color: &quot;var(--text-on-accent, var(--text))&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>color: &quot;var(--text-on-accent-teal)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>--text-on-accent n'existe pas ; le fallback mask silencieusement l'erreur de nommage.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">active:scale-[0.985] valeur arbitraire non standard</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx:160">app/login/page.tsx:160</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>active:scale-[0.985]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>active:scale-95 (0.95)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>0.985 n'est pas dans l'échelle Tailwind. Simplifier ou créer un token.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CodeMirror tooltip font-size: 13px non tokénisé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/globals.css:4084">app/globals.css:4084</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>font-size: 13px;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>font-size: var(--font-size-13);</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Oublié lors du batch de tokénisation.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CodeMirror gutter font-size: 14px non tokénisé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/globals.css:4135">app/globals.css:4135</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>font-size: 14px;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>font-size: var(--font-size-14);</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même oubli CodeMirror.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">rounded-full au lieu de rounded-(--radius-pill)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ThemePicker.tsx:116">app/admin/_components/ThemePicker.tsx:116</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-full</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>rounded-(--radius-pill)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Token --radius-pill existe pour ça. Utiliser Tailwind rounded-full bypasse le token.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">MobileBottomNav token via style prop au lieu de className</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/MobileBottomNav.tsx:122">app/(user)/components/MobileBottomNav.tsx:122</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ color: ... ? &quot;var(--text-on-accent-teal)&quot; : ... }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser className avec token intégré si possible</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mélange de className et style prop pour les couleurs.</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>P0 — Critique immédiat</h3>
+              <ul><li>BrowserStage.tsx:263 — text-text-on-accent-teal → text-(--text-on-accent-teal)</li><li>Action.tsx:77 — même fix</li><li>Action.tsx:79 — text-background → text-(--bg)</li><li>ChatWindow.tsx:154 — bg-bg-soft → bg-(--bg-soft)</li></ul>
+            </div><div class="plan-batch">
+              <h3>P1 — Cohérence DS prioritaire</h3>
+              <ul><li>RightRailChat.tsx — onFocusCapture DOM mutation → focus-within CSS</li><li>RightRailChat.tsx — pattern [var(--*)] → (--*) sur bouton reset</li><li>ChatDrawer.tsx — même pattern [var(--*)] → (--*) + FAB focus-visible</li><li>AdminShell.tsx — zIndex 45/50 → var(--z-backdrop)/var(--z-modal)</li><li>ThemePicker.tsx — border-(--accent) → border-(--accent-teal)</li><li>globals.css:864 — rgba(255,255,255,0.08) → var(--surface-2) dans ct-chat-input focus</li><li>KGStage.tsx — focus-visible sur nœuds + listview + transition-all</li><li>SimulationStage.tsx — focus: → focus-visible: sur textarea + inputs</li><li>ChatDrawer.tsx:172 — créer --height-drawer-header + calc tokenisé</li><li>reports/[token]/page.tsx — var(--text-on-accent) → var(--text-on-accent-teal)</li></ul>
+            </div><div class="plan-batch">
+              <h3>P2 — Polish</h3>
+              <ul><li>globals.css CodeMirror font-size 13px/14px → var(--font-size-*)</li><li>KpiGrid.tsx — 2px/1px progress bar → tokens</li><li>login.tsx — active:scale-[0.985] → active:scale-95</li><li>ThemePicker.tsx — rounded-full → rounded-(--radius-pill)</li><li>Créer tokens --min-height-textarea, --max-height-textarea, --height-drawer-header</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-22 11:41
+  </footer>
+</div>
+</body>
+</html>

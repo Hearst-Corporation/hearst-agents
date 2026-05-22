@@ -4,10 +4,10 @@ import { getServerSupabase } from "@/lib/platform/db/supabase";
 export const dynamic = "force-dynamic";
 
 const SEVERITY_COLORS: Record<string, string> = {
-  info: "text-cyan-accent bg-(--accent-teal)/10",
-  warning: "text-warn bg-(--warn)/10",
-  error: "text-danger bg-(--danger)/10",
-  critical: "text-danger bg-(--danger)/15",
+  info: "text-(--accent-teal) bg-(--accent-teal)/10",
+  warning: "text-(--warn) bg-(--warn)/10",
+  error: "text-(--danger) bg-(--danger)/10",
+  critical: "text-(--danger) bg-(--danger)/12",
 };
 
 export default async function AuditPage() {

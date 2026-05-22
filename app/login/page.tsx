@@ -172,7 +172,7 @@ function LoginContent() {
 
           {/* Error */}
           {error && (
-            <div className="mt-5 flex flex-col items-center gap-3 rounded-lg border border-red-500/10 bg-red-500/4 px-4 py-3 text-center t-13 leading-normal text-red-400/70">
+            <div className="mt-5 flex flex-col items-center gap-3 rounded-lg border border-(--danger)/10 bg-(--danger)/4 px-4 py-3 text-center t-13 leading-normal text-(--danger)/70">
               <span>
                 {error === "OAuthCallback"
                   ? "L'authentification a été annulée ou a échoué. Veuillez réessayer."

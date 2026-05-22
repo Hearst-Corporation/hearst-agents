@@ -74,10 +74,10 @@ const SIZE_CLASSES: Record<ActionSize, string> = {
 };
 
 const PRIMARY_TONE: Record<ActionTone, string> = {
-  brand: "bg-(--accent-teal) text-text-on-accent-teal hover:opacity-90 active:opacity-80",
+  brand: "bg-(--accent-teal) text-(--text-on-accent-teal) hover:opacity-90 active:opacity-80",
   gold: "bg-gold text-text hover:opacity-90 active:opacity-80",
-  neutral: "bg-text text-background hover:opacity-90 active:opacity-80",
-  danger: "bg-(--danger) text-background hover:opacity-90 active:opacity-80",
+  neutral: "bg-text text-(--bg) hover:opacity-90 active:opacity-80",
+  danger: "bg-(--danger) text-(--bg) hover:opacity-90 active:opacity-80",
 };
 
 const SECONDARY_TONE: Record<ActionTone, string> = {

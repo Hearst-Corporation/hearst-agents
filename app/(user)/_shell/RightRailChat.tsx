@@ -256,16 +256,7 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
             setIsStreaming(false);
             setInputValue("");
           }}
-          className="w-7 h-7 rounded-lg border border-[var(--border-shell)] bg-transparent text-[var(--text-ghost)] flex items-center justify-center cursor-pointer shrink-0 transition-[background,color] duration-150"
-          style={{}}
-          onMouseEnter={(e) => {
-            (e.target as HTMLButtonElement).style.background = "var(--surface-hover)";
-            (e.target as HTMLButtonElement).style.color = "var(--text)";
-          }}
-          onMouseLeave={(e) => {
-            (e.target as HTMLButtonElement).style.background = "transparent";
-            (e.target as HTMLButtonElement).style.color = "var(--text-ghost)";
-          }}
+          className="w-7 h-7 rounded-lg border border-[var(--border-shell)] bg-transparent text-[var(--text-ghost)] flex items-center justify-center cursor-pointer shrink-0 transition-[background,color] duration-150 hover:bg-[var(--surface-hover)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
         >
           <svg
             width="13"
@@ -317,7 +308,7 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
             <div
               className="t-13 max-w-[90%] whitespace-pre-wrap break-words"
               style={{
-                lineHeight: 1.6,
+                lineHeight: "var(--leading-relaxed, 1.6)",
                 fontFamily: "var(--font-satoshi)",
                 letterSpacing: "-0.005em",
                 padding: msg.role === "user" ? "var(--space-2) var(--space-3)" : "0",
@@ -366,7 +357,7 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
         }}
       >
         <div
-          className="flex items-end gap-2 bg-[var(--surface-1)] border border-[var(--border-shell)] rounded-xl px-3-5 py-2 transition-colors duration-150"
+          className="flex items-end gap-2 bg-[var(--surface-1)] border border-[var(--border-shell)] rounded-xl px-3.5 py-2 transition-colors duration-150"
           style={{}}
           onFocusCapture={(e) => {
             (e.currentTarget as HTMLDivElement).style.borderColor = "var(--accent-teal)";
@@ -393,19 +384,21 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
               outline: "none",
               color: "var(--text)",
               fontFamily: "var(--font-satoshi)",
-              lineHeight: 1.5,
+              lineHeight: "var(--leading-relaxed, 1.5)",
               resize: "none",
               overflow: "hidden",
-              minHeight: "var(--space-[22px])",
-              maxHeight: "var(--space-[120px])",
+              minHeight: "22px",
+              maxHeight: "120px",
               padding: 0,
+              opacity: isStreaming ? 0.5 : 1,
+              cursor: isStreaming ? "not-allowed" : "auto",
             }}
           />
           <button
             type="button"
             onClick={() => void handleSubmit()}
             disabled={isStreaming || !inputValue.trim()}
-            className="w-8 h-8 rounded-lg border-none flex items-center justify-center shrink-0 transition-[background,color] duration-150"
+            className="w-8 h-8 rounded-lg border-none flex items-center justify-center shrink-0 transition-[background,color] duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
             style={{
               background:
                 inputValue.trim() && !isStreaming ? "var(--accent-teal)" : "var(--surface-1)",

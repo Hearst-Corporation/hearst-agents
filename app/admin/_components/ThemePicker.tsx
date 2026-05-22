@@ -71,11 +71,12 @@ export function ThemePicker({ themes }: Props) {
               type="button"
               onClick={() => pick(t.slug)}
               aria-pressed={isActive}
-              className={`group relative text-left bg-(--bg-elev) rounded-(--radius-2xl) overflow-hidden border transition-all duration-200 hover:-translate-y-0.5 ${
+              className={`group relative text-left bg-(--bg-elev) rounded-(--radius-2xl) overflow-hidden border transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal) ${
                 isActive
-                  ? "border-(--accent) shadow-[0_0_0_1px_var(--accent)]"
+                  ? "border-(--accent-teal)"
                   : "border-(--border) hover:border-(--text-muted)"
               }`}
+              style={isActive ? { boxShadow: "0 0 0 1px var(--accent-teal)" } : undefined}
             >
               <div className="relative aspect-[16/10] bg-black overflow-hidden">
                 <Image

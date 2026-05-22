@@ -150,18 +150,7 @@ export function ChatDrawer() {
                     setOpen(false);
                     fabRef.current?.focus();
                   }}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-150"
-                  style={{
-                    color: "var(--text-ghost)",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.color = "var(--text)";
-                    (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.color = "var(--text-ghost)";
-                    (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-                  }}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-150 text-[var(--text-ghost)] hover:text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
                   aria-label="Fermer le chat"
                 >
                   <svg

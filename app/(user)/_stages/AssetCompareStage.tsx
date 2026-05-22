@@ -494,7 +494,7 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
               onClick={() => setViewMode(v)}
               aria-pressed={viewMode === v}
               className={[
-                "px-4 py-1.5 rounded-full border t-13 font-medium cursor-pointer transition-all duration-200 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
+                "px-4 py-1.5 rounded-full border t-13 font-medium cursor-pointer transition-[background,border-color,color] duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)",
                 viewMode === v
                   ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
                   : "border-(--line) bg-transparent text-(--text-muted)",

@@ -19,7 +19,7 @@ export const PAGE_AREA_STYLE: React.CSSProperties = {
   width: "100%",
   maxWidth: "var(--width-cockpit-max)",
   marginInline: "auto",
-  padding: "var(--space-6) var(--space-6) var(--space-20)",
+  paddingInline: "var(--space-6)",
 };
 
 export const EYEBROW_STYLE: React.CSSProperties = {

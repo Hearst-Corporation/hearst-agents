@@ -62,7 +62,7 @@ export function CommandeurResultRow({
       disabled={disabled}
       onClick={onSelect}
       onMouseEnter={onHover}
-      className={`w-full py-3 flex items-baseline gap-6 text-left transition-[transform,color] duration-(--duration-slow) ${
+      className={`w-full py-3 flex items-baseline gap-6 text-left transition-[transform,color] duration-(--duration-slow) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal) rounded-sm ${
         disabled
           ? "opacity-20 cursor-not-allowed"
           : active

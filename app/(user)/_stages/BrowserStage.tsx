@@ -252,7 +252,7 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       initial="hidden"
       animate="visible"
       layout
-      className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg border transition-[opacity,background,border-color] duration-300 ease-[ease] ${
+      className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg border transition-[opacity,background,border-color] duration-200 ${
         isRunning
           ? "bg-(--accent-llm)/6 border-(--accent-llm)/15"
           : "border-(--line) bg-transparent"
@@ -260,7 +260,7 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
     >
       <div
         className={`size-6 rounded-full flex items-center justify-center t-11 font-semibold shrink-0 ${stepDotClass(step.status)} ${
-          isDone || isRunning || isError ? "text-text-on-accent-teal" : "text-text-ghost"
+          isDone || isRunning || isError ? "text-(--text-on-accent-teal)" : "text-text-ghost"
         }`}
       >
         {isDone ? "✓" : isError ? "✕" : isRunning ? "…" : index + 1}
