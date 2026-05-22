@@ -25,7 +25,8 @@ export type JobKind =
   | "inbox-fetch"
   | "daily-brief"
   | "simulation"
-  | "swarm-run";
+  | "swarm-run"
+  | "computer-action-run";
 
 // ── Payloads par JobKind (discriminated union) ───────────────
 
@@ -189,6 +190,16 @@ export interface SwarmRunInput extends JobScopeFields {
   runId: string;
 }
 
+export interface ComputerActionRunInput extends JobScopeFields {
+  jobKind: "computer-action-run";
+  /** Description précise de la tâche computer-use à exécuter. */
+  task: string;
+  /** Contexte optionnel passé à HEARST.AI core/. */
+  context?: Record<string, unknown>;
+  /** Run ID Helm pré-créé dans `runs` (le worker UPDATE plutôt qu'INSERT). */
+  runId: string;
+}
+
 export type JobPayload =
   | ImageGenInput
   | AudioGenInput
@@ -202,7 +213,8 @@ export type JobPayload =
   | InboxFetchInput
   | DailyBriefInput
   | SimulationInput
-  | SwarmRunInput;
+  | SwarmRunInput
+  | ComputerActionRunInput;
 
 // ── Result canonique ─────────────────────────────────────────
 

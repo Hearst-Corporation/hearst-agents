@@ -172,4 +172,17 @@ export const JOB_QUEUE_CONFIGS: Record<JobKind, JobQueueConfig> = {
     removeOnComplete: 50,
     removeOnFail: { age: 7 * 24 * 3600 },
   },
+  "computer-action-run": {
+    queueName: "computer-action-run",
+    // HEARST.AI core/ computer-use : timeout serveur = 300s. Concurrency basse
+    // (actions machine séquentielles, partage le même agent distant).
+    concurrency: 2,
+    // 360s : 300s API distante + marge réseau + persistence.
+    maxDurationMs: 360_000,
+    retryAttempts: 1,
+    retryDelayMs: 15_000,
+    priority: 2,
+    removeOnComplete: 50,
+    removeOnFail: { age: 7 * 24 * 3600 },
+  },
 };

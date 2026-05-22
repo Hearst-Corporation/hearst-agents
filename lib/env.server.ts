@@ -83,6 +83,16 @@ function validateEnv(): void {
     );
   }
 
+  // HEARST.AI core/ computer-use — optionnel mais warn en prod si absent.
+  // Sans HEARST_ACTION_URL, start_computer_action retourne { ok:false, error:"not_configured" }
+  // (fail-soft, jamais de throw). Le tool reste accessible mais inactif.
+  if (isProd && !process.env.HEARST_ACTION_URL) {
+    console.warn(
+      "[ENV] HEARST_ACTION_URL not set — start_computer_action tool will return not_configured. " +
+        "Set HEARST_ACTION_URL + HEARST_ACTION_API_KEY to enable computer-use via HEARST.AI core/.",
+    );
+  }
+
   // Jobs async : warn si ni Redis ni Inngest ne sont configurés en prod.
   // Sans l'un ou l'autre, enqueueJob() throw sur tous les job types sauf daily-brief.
   // Solution recommandée sur Vercel : set INNGEST_EVENT_KEY + INNGEST_SIGNING_KEY.

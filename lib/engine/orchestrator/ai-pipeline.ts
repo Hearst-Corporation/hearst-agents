@@ -41,6 +41,7 @@ import { flushLangfuse, startTrace } from "@/lib/observability/langfuse";
 import { getDefaultPersona, getPersonaById, getPersonaForSurface } from "@/lib/personas/store";
 import { getApplicableReports } from "@/lib/reports/catalog";
 import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
+import { buildComputerActionTools } from "@/lib/tools/native/computer-action";
 import { buildCortexSearchTools } from "@/lib/tools/native/cortex-search";
 import { buildEnrichTools } from "@/lib/tools/native/enrich";
 import { buildExtrasMediaTools } from "@/lib/tools/native/extras-media";
@@ -554,6 +555,7 @@ export async function runAiPipeline(
   });
   const cortexSearchTools = buildCortexSearchTools({ scope: pipelineScope });
   const swarmTools = buildSwarmTools({ scope: pipelineScope });
+  const computerActionTools = buildComputerActionTools({ scope: pipelineScope });
   const missionTools = buildMissionTools({
     engine,
     eventBus,
@@ -575,6 +577,7 @@ export async function runAiPipeline(
     ...kgQueryTools,
     ...cortexSearchTools,
     ...swarmTools,
+    ...computerActionTools,
     ...missionTools,
     ...meetingsTools,
     ...toAiTools(filteredComposio, { userId: input.userId, tenantId: resolvedTenantId }),

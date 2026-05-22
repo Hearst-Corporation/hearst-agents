@@ -99,6 +99,8 @@ export function classifyExecutionTier(message: string): TierClassification {
 const TIER_GATED_TOOLS: Record<string, ExecutionTier> = {
   // kickoff_swarm = swarm hive 4-8 min : réservé au tier "swarm".
   kickoff_swarm: "swarm",
+  // start_computer_action = computer-use distant jusqu'à 300s : réservé au tier "action".
+  start_computer_action: "action",
 };
 
 /**

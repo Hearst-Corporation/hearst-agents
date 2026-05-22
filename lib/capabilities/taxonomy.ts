@@ -734,7 +734,11 @@ export const DOMAIN_TAXONOMY: Record<Domain, DomainEntry> = {
 // supprimés par l'intersection _allowedTools (F-011), car absents de chaque
 // DomainEntry.tools — donc jamais invocables. Injectés dans
 // CapabilityScope.allowedTools par resolveCapabilityScope().
-export const CROSS_DOMAIN_TOOLS: string[] = ["cortex_search", "kickoff_swarm"];
+export const CROSS_DOMAIN_TOOLS: string[] = [
+  "cortex_search",
+  "kickoff_swarm",
+  "start_computer_action",
+];
 
 // ── Resolver Functions ──────────────────────────────────────
 

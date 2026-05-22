@@ -9,6 +9,7 @@
 
 import { audioGenFunction } from "./audio-gen";
 import { codeExecFunction } from "./code-exec";
+import { computerActionRunFunction } from "./computer-action-run";
 import { dailyBriefFunction } from "./daily-brief";
 import { documentParseFunction } from "./document-parse";
 import { imageGenFunction } from "./image-gen";
@@ -31,4 +32,6 @@ export const inngestFunctions = [
   documentParseFunction,
   // Swarms hive-engine (réflexion multi-agent, 4-8 min)
   swarmRunFunction,
+  // Computer-use distant HEARST.AI core/ (jusqu'à 300s)
+  computerActionRunFunction,
 ];
