@@ -123,6 +123,7 @@ export const useStageStore = create<StageState>((set, get) => ({
     const needsCheck = [
       "asset",
       "asset_compare",
+      "mission",
       "browser",
       "meeting",
       "kg",
