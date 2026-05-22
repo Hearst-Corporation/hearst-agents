@@ -1903,6 +1903,37 @@ body {
 
 /* ── Typography utilities ───────────────── */
 
+/* Page header canon — source unique des en-têtes de page (stages + standalone).
+ * Calé sur le dashboard cockpit : eyebrow teal + H1 t-28 fluide light éditorial
+ * + sous-titre t-13 light. Le rythme vertical (margin-bottom) voyage avec les
+ * classes → identique partout. Le t-34 reste réservé au greeting du dashboard. */
+.ct-eyebrow {
+  font-family: var(--font-satoshi);
+  font-size: clamp(11px, 0.286vw + 9.167px, 16.5px);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caption);
+  color: var(--accent-teal);
+  margin-bottom: var(--space-2);
+}
+
+.ct-title {
+  font-family: var(--font-satoshi);
+  font-size: clamp(28px, 0.729vw + 23.333px, 42px);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-editorial);
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+.ct-sub {
+  font-family: var(--font-satoshi);
+  font-size: clamp(13px, 0.339vw + 10.833px, 19.5px);
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
 .halo-title-xl {
   font-size: clamp(56px, 1.458vw + 46.667px, 84px);
   font-weight: 900;

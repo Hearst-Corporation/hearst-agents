@@ -1,14 +1,12 @@
 "use client";
 
 /**
- * PageLayout — layout commun pour toutes les pages (style ct-page-area).
+ * PageLayout — layout commun pour les pages (conteneur .ct-page-area).
  *
- * Fournit :
- *   - .ct-eyebrow (cyan #2ecFC2)
- *   - .ct-title
- *   - .ct-sub
- *   - .ct-card (composant CtCard)
- *   - Grande marge à droite pour le chat
+ * Les en-têtes (eyebrow / titre / sous-titre) sont rendus via les classes
+ * canon `.ct-eyebrow` / `.ct-title` / `.ct-sub` définies dans globals.css
+ * (source unique partagée avec StageLayout et PageHeader). Ici on n'expose
+ * plus que les styles de conteneur/carte qui n'ont pas d'équivalent classe.
  */
 
 import { ReactNode } from "react";
@@ -20,34 +18,6 @@ export const PAGE_AREA_STYLE: React.CSSProperties = {
   maxWidth: "var(--width-cockpit-max)",
   marginInline: "auto",
   paddingInline: "var(--space-6)",
-};
-
-export const EYEBROW_STYLE: React.CSSProperties = {
-  fontSize: "var(--font-size-11, 11px)",
-  fontWeight: "var(--weight-semibold)" as unknown as number,
-  textTransform: "uppercase",
-  letterSpacing: "var(--tracking-caption)",
-  color: "var(--accent-teal)",
-  marginBottom: "var(--space-2)",
-  fontFamily: "var(--font-satoshi)",
-};
-
-export const TITLE_STYLE: React.CSSProperties = {
-  fontSize: "var(--font-size-24, 24px)",
-  fontWeight: "var(--weight-semibold)" as unknown as number,
-  color: "var(--text)",
-  marginBottom: "var(--space-1)",
-  lineHeight: "var(--line-height-tight, 1.2)",
-  fontFamily: "var(--font-satoshi)",
-  letterSpacing: "var(--tracking-tight)",
-};
-
-export const SUB_STYLE: React.CSSProperties = {
-  fontSize: "var(--font-size-13, 13px)",
-  color: "var(--text-muted)",
-  marginBottom: "var(--space-4)",
-  fontFamily: "var(--font-satoshi)",
-  letterSpacing: "-0.01em",
 };
 
 export const CARD_STYLE: React.CSSProperties = {
@@ -84,17 +54,9 @@ interface PageLayoutProps {
 export function PageLayout({ eyebrow = "Cockpit", title, subtitle, children }: PageLayoutProps) {
   return (
     <div style={PAGE_AREA_STYLE}>
-      <div className="ct-eyebrow" style={EYEBROW_STYLE}>
-        {eyebrow}
-      </div>
-      <h1 className="ct-title" style={TITLE_STYLE}>
-        {title}
-      </h1>
-      {subtitle && (
-        <p className="ct-sub" style={SUB_STYLE}>
-          {subtitle}
-        </p>
-      )}
+      <div className="ct-eyebrow">{eyebrow}</div>
+      <h1 className="ct-title">{title}</h1>
+      {subtitle && <p className="ct-sub">{subtitle}</p>}
       {children}
     </div>
   );

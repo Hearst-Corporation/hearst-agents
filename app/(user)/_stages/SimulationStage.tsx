@@ -470,7 +470,7 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
       }}
     >
       <header className="flex items-start justify-between gap-4">
-        <h3 className="t-15 font-semibold text-text-muted">{scenario.name}</h3>
+        <h3 className="t-14 font-medium text-(--text-soft)">{scenario.name}</h3>
         <span
           className="t-11 font-mono tabular-nums shrink-0"
           style={{ color: pct >= 60 ? "var(--text-faint)" : "var(--text-ghost)" }}

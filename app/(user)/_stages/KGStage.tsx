@@ -484,9 +484,7 @@ function DetailPanel({
           <p className="t-11 text-(--text-muted) uppercase tracking-(--tracking-caption) mb-1">
             {node.type}
           </p>
-          <h3 className="t-18 font-medium tracking-(--tracking-tight-sm) text-(--text-soft)">
-            {node.label}
-          </h3>
+          <h3 className="t-14 font-medium text-(--text-soft)">{node.label}</h3>
         </div>
         <button
           type="button"

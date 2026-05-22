@@ -5,8 +5,9 @@
  *
  * Source unique pour les <h1> de toutes les pages /reports, /missions,
  * /runs, /assets, /apps, /archive, /notifications, /settings/* et leurs
- * deep-links. Visuel cohérent : t-28 font-light + tracking-tight, optionnel
- * subtitle, breadcrumb, slot actions à droite, ou CTA "back" côté gauche.
+ * deep-links. Titre + sous-titre rendus via les classes canon `.ct-title` /
+ * `.ct-sub` (globals.css), partagées avec StageLayout → en-tête identique
+ * partout. Slot actions à droite, breadcrumb ou CTA "back" côté gauche.
  *
  * Tokens uniquement (CLAUDE.md §1).
  */
@@ -50,7 +51,7 @@ const ChevronLeftIcon = () => (
 
 export function PageHeader({ title, subtitle, breadcrumb, actions, back }: PageHeaderProps) {
   return (
-    <header className="flex flex-col px-12 py-6" style={{ gap: "var(--space-2)" }}>
+    <header className="flex flex-col px-6 py-6" style={{ gap: "var(--space-2)" }}>
       {/* Top row : breadcrumb OU back link.
          Pivot UI 2026-05-01 : back link en typo régulière (pas mono caps
          tracking-marquee) — voix éditoriale, plus calme. PulseBar fournit déjà
@@ -82,9 +83,9 @@ export function PageHeader({ title, subtitle, breadcrumb, actions, back }: PageH
 
       {/* Title row */}
       <div className="flex items-start justify-between" style={{ gap: "var(--space-4)" }}>
-        <div className="flex flex-col min-w-0" style={{ gap: "var(--space-2)" }}>
-          <h1 className="t-28 font-medium tracking-tight text-text">{title}</h1>
-          {subtitle && <p className="t-13 font-light text-text-muted">{subtitle}</p>}
+        <div className="flex flex-col min-w-0">
+          <h1 className="ct-title">{title}</h1>
+          {subtitle && <p className="ct-sub">{subtitle}</p>}
         </div>
         {actions && (
           <div className="flex items-center shrink-0" style={{ gap: "var(--space-2)" }}>

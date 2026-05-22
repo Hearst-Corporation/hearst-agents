@@ -158,7 +158,7 @@ function AssetPane({
         <StageErrorBanner message="Asset introuvable" title="Erreur" variant="default" />
       ) : (
         <>
-          <h3 className="truncate t-14 font-semibold text-(--text-soft)" title={asset.title}>
+          <h3 className="truncate t-14 font-medium text-(--text-soft)" title={asset.title}>
             {asset.title}
           </h3>
 

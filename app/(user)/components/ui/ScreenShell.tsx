@@ -6,11 +6,11 @@
  * Pattern unique = une seule façon d'organiser un écran :
  *
  *   ┌──────────────────────────────────────┐
- *   │ <PageHeader>  titre + actions        │  ← px-12 py-6
+ *   │ <PageHeader>  titre + actions        │  ← px-6 py-6
  *   ├──────────────────────────────────────┤
- *   │ [optionnel] stats / KPIs en bande    │  ← px-12 py-4, border-b
+ *   │ [optionnel] stats / KPIs en bande    │  ← px-6 py-4, border-b
  *   ├──────────────────────────────────────┤
- *   │ <main scroll>  contenu               │  ← px-12 py-6, overflow-y-auto
+ *   │ <main scroll>  contenu               │  ← px-6 py-6, overflow-y-auto
  *   │   (loading | empty | enfant)         │
  *   └──────────────────────────────────────┘
  *
@@ -115,7 +115,7 @@ export function ScreenShell({
           className="flex items-center shrink-0 border-b"
           style={{
             gap: "var(--space-4)",
-            padding: "var(--space-4) var(--space-12)",
+            padding: "var(--space-4) var(--space-6)",
             borderColor: "var(--border-shell)",
           }}
         >
@@ -125,7 +125,7 @@ export function ScreenShell({
 
       <div
         className={`flex-1 no-scrollbar scroll-fade-bottom ${scrollable ? "overflow-y-auto" : ""}`}
-        style={{ padding: "var(--space-6) var(--space-12)" }}
+        style={{ padding: "var(--space-6) var(--space-6)" }}
       >
         {loading ? (
           loadingVariant === "cards" ? (

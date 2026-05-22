@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { EYEBROW_STYLE, PAGE_AREA_STYLE, SUB_STYLE, TITLE_STYLE } from "./PageLayout";
+import { PAGE_AREA_STYLE } from "./PageLayout";
 
 interface StageLayoutProps {
   eyebrow: string;
@@ -21,24 +21,15 @@ export function StageLayout({ eyebrow, title, subtitle, actions, children }: Sta
             alignItems: "flex-start",
             justifyContent: "space-between",
             gap: "var(--space-4)",
-            marginBottom: subtitle ? "var(--space-1)" : "0",
           }}
         >
           <div>
-            <div className="ct-eyebrow" style={EYEBROW_STYLE}>
-              {eyebrow}
-            </div>
-            <h1 className="ct-title" style={TITLE_STYLE}>
-              {title}
-            </h1>
+            <div className="ct-eyebrow">{eyebrow}</div>
+            <h1 className="ct-title">{title}</h1>
           </div>
           {actions && <div style={{ flexShrink: 0, paddingTop: "var(--space-1)" }}>{actions}</div>}
         </div>
-        {subtitle && (
-          <p className="ct-sub" style={SUB_STYLE}>
-            {subtitle}
-          </p>
-        )}
+        {subtitle && <p className="ct-sub">{subtitle}</p>}
       </div>
       {children}
     </div>
