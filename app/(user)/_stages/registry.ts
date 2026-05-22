@@ -238,3 +238,27 @@ export const LEFT_RAIL_ORDER: readonly StageKey[] = [
 export function getStageLabel(key: StageKey): string {
   return STAGE_REGISTRY[key].label;
 }
+
+/**
+ * RAIL_STAGES — ordre des boutons stages exposés dans le LeftRail (groupe
+ * du haut). 11 stages ; `cockpit` est géré séparément via le logo, et
+ * `connections` via le bouton badge en bas. Le Commandeur (⌘K) est ajouté
+ * dynamiquement par LeftRail après ce groupe.
+ *
+ * Règle : ne pas inclure "cockpit" (logo) ni "connections" (badge bottom).
+ * Cet ordre est distinct de LEFT_RAIL_ORDER (qui liste les 13 modes complets
+ * pour d'autres usages) — ne pas fusionner.
+ */
+export const RAIL_STAGES: readonly StageKey[] = [
+  "chat",
+  "mission",
+  "asset",
+  "asset_compare",
+  "browser",
+  "kg",
+  "voice",
+  "simulation",
+  "meeting",
+  "artifact",
+  "signal",
+] as const;

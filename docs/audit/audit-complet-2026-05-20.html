@@ -1,0 +1,1806 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Audit complet Hearst OS — 11 axes — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Audit complet Hearst OS — 11 axes</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-20 22:48</span>
+      <span><b>Branche</b> polish/ui-iconbutton-stages-cleanup</span>
+      <span><b>Commit</b> 70058f8a</span>
+      <span><b>Scope</b> Cartographie · Interface · QA · Expérience · Flows · Sécurité · Performance · Code · Dépendances · Horizon 2026 · Battle Plan</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">119</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">8</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">49</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">54</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">5.4</div><div class="kpi-label">Score /10</div></div>
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title">Supprimer la fonction locale IconButton dans RowActions.tsx et importer la primitive globale (gain immediat + remove ~40 lignes JS de hover).</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Sweep bg-black/text-white -&gt; bg-(--bg)/text-(--text) dans Shell.tsx, (user)/layout.tsx, login/page.tsx (4 fichiers, 6 occurrences).</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Creer classe utilitaire .focus-ring dans globals.css et la propager (~50 usages convergent en 1 token).</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Remplacer les 17 fontWeight:300/500/600 des pages publiques par var(--weight-*) ou classes Tailwind.</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Migrer les 8 stages avec &lt;button vision-btn-primary&gt; vers &lt;Action variant=primary&gt;.</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Remplacer les 15 `text-(--text-decor-25)` sur texte par `text-(--text-faint)` (15min, gain WCAG immédiat)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter `focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)` sur les 7 `outline-none` orphelins (10min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Supprimer les 4 LoadingSkeleton locaux dans _stages, remplacer par &lt;RowSkeleton/&gt; (20min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Augmenter padding-y MobileBottomNav à var(--space-3) + minHeight var(--space-12) (5min, touch targets conformes)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Migrer les 3 'Chargement…' restants vers &lt;RowSkeleton count={2}/&gt; (10min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Normaliser AppLogo size={28|32|40|48} en size='xs'|'sm'|'md'|'lg' (30min, refactor connections/*)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Désactiver visuellement (ou retirer) FilterTabs et 'Tout marquer comme lu' tant que pas branché — évite l'effet 'bouton mort' (15 min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Wrapper handleDisconnect dans un ConfirmModal danger — pattern déjà en place sur WebhooksSection (10 min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter app/(user)/loading.tsx avec un Skeleton shell léger (10 min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Émettre un toast.error sur Hearst Card !r.ok au lieu de fail-soft total (5 min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Lier FieldError aux inputs via aria-describedby + aria-invalid (refactor 30 min, gros gain a11y)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Migrer OnboardingTour vers useModalA11y (15 min, focus trap + scroll lock + restore gratuits)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter back={{label:'Cockpit', href:'/'}} dans /notifications, /reports, /settings, /reports/studio (4 lignes, supprime 4 dead-ends)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter onClick signOut sur UserAvatar (LeftRail.tsx:245) — résout l'impossibilité de logout pour les users non-admin</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Remplacer NextError par un rendu Hearst dans global-error.tsx (cohérence langue + back link)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter une entrée 'Se déconnecter' dans use-commandeur-actions.ts pour exposer signOut via Cmd+K en attendant un menu profil</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Décider : monter OnboardingTour ou supprimer le composant + endpoint set-industry pour aligner code/docs</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Valider le schéma URL dans IPC shell:open-external (5 lignes, élimine XSS→OS pivot en Electron)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Préfixer le path dans IPC navigate avec une regex /^\/[\w\-/]*$/ (3 lignes)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Fail-closed dans /api/v2/meetings/webhook si RECALL_WEBHOOK_SECRET absent en prod (cohérence avec Stripe)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Remplacer isSafeUrl par assertSafeUrl dans lib/reports/sources/http.ts (1 import + 1 await)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Restrictive RLS user_tokens : revoke select to authenticated, anon</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Migrer la police Satoshi vers next/font/local (gain LCP -200/-400ms, 2h)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter loading.tsx Skeleton sur app/(user)/cockpit-x + _stages + app/admin (perçu FMP instantané, 1h)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Pause polls PulseBar/connections/oauth quand document.visibilityState === 'hidden' (-50% req background, 30min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Convertir 3-5 endpoints read-only stables en edge runtime + unstable_cache (TTFB -30%, 1h)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Strip robotflow theme du public ou convertir en AVIF (gain bundle Vercel -21MB, 30min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Lazy-load Sentry replayIntegration via requestIdleCallback (gain ~80KB gz initial, 15min)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Remplacer console.log lib/jobs/* par pino logger (déjà en deps, 1h)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Supprimer 99 fichiers backup docs/spatial/_BACKUP_* (deja sauvegardes hors-git selon CLAUDE.md) + exclure dans tsconfig exclude -&gt; tsbuildinfo divise par 3</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Etendre lib/env.server.ts Zod pour STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, KIMI_API_KEY - supprime 6 ! (P1 securite gratuite)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Wrapper hook useDerivedReset() pour absorber 41 eslint-disable react-hooks/set-state-in-effect - 1 PR, gain net dette</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Activer les 5 it.skip Arcjet derriere flag CI -&gt; couverture rate-limit restauree</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Remplacer 26 console.log de ai-pipeline.ts par logger.debug - 1 fichier, 1 import</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Suppression lot 1 : lib/ui/format-time.ts, lib/utils/date-format.ts, lib/assets/content-parser.ts (3 fichiers 0 import verifie)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Migrer `overrides` → `pnpm.overrides` dans package.json (5 min, ferme la vuln postcss + active les 4 pins OTel)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter `three @react-three/fiber @react-three/drei @react-three/postprocessing gsap leva` aux deps OU exclure /spatial-safe du build (P0)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Créer `.depcheckrc` pour ignorer pino-pretty/tailwindcss/wait-on (évite faux positifs futurs)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Remplacer `googleapis` par les sous-modules `@googleapis/*` (gain ~150 MB)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Supprimer lib/llm/anthropic.ts marqué deprecated OU réactiver Claude 4.7 — choisir, pas les deux (1 décision, -1 surface attaque, -3 deps)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Activer `experimental.ppr = 'incremental'` + annoter shell statique → TTFB -50% sans refacto (1 ligne next.config.ts + Suspense)</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Câbler Axiom (token présent, 0 import) OU le retirer de SERVICES.md → -1 service payé inutile</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Ajouter 3-5 routes streaming chat en `runtime = 'edge'` (test perf, rollback trivial) — gain TTFB visible utilisateur</span>
+              
+              
+            </li><li>
+              <span class="qw-title">Drizzle migration pilote sur 1 table (users ou conversations) pour valider DX avant grand chantier ORM</span>
+              
+              
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Cartographie</span>
+        <span class="section-agent">map-adrien</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      <p class="section-summary">Hearst OS — Next.js 15 App Router + React 19. Codebase mature (988 fichiers sources TS/TSX) avec stack solide (Tailwind v4, Zustand, NextAuth, Supabase, Inngest, BullMQ, Sentry, Langfuse). Surface API massive (168 routes, dont 84 sur /v2/) avec coverage Zod partielle (47/168 ~28%). 62 features documentées dont 32 verrouillées. 327 fichiers de tests, 2991 cas Vitest (manifest), 24 e2e Playwright.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">50 routes API mutation sans validation Zod</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Surface API v2/ très large (84 routes)</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">21 features 'draft' qa-* non clôturées</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Mega-fichiers (&gt;700 LOC) côté orchestrator + stages</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Ratio tests/source faible côté app+lib</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">9 features in_progress P1/P2</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CSP encore en 'unsafe-inline' sur script-src</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Interface</span>
+        <span class="section-agent">adrien-auditer-interface</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">7</span>
+          <span class="badge badge-p2">6</span>
+        </span>
+      </summary>
+      <p class="section-summary">Le DS Cockpit est en place (tokens --ct-*, primitives Action/IconButton/PanelCard recemment ajoutees) mais l'adoption est incoherente: 129 &lt;button&gt; bruts contre 18 &lt;Action&gt;, une seconde primitive IconButton dupliquee vit dans RowActions.tsx, et la hierarchie typographique H1 oscille entre 4 systemes (t-24/font-light admin, t-28 PageHeader, t-30 font-medium stages, t-48/t-64 cockpit-x). Aucun hex hardcode en TSX hors SVG logos, mais globals.css contient ~20 border-radius magiques (1/2/6/7/10/13/14/18px) hors echelle de tokens.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Primitive IconButton dupliquee (locale vs globale)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/RowActions.tsx:55">app/(user)/components/RowActions.tsx:55</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Fonction locale `IconButton` re-implemente le comportement de app/(user)/components/ui/IconButton.tsx (commit 70058f8a) avec hover en onMouseEnter/Leave inline + size-touch-target au lieu de w-(--size-icon-sm).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Importer la primitive UI &lt;IconButton&gt; depuis ./ui (passer icon + label + onClick). Supprimer la fonction locale + handlers JS. Ajouter tone=danger au TONE_CLASS global si besoin.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Hierarchie H1 fragmentee — 4 systemes concurrents</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/**/page.tsx + app/(user)/_stages/**/*.tsx + app/(user)/components/PageHeader.tsx + app/(user)/cockpit-x/CockpitXClient.tsx">app/admin/**/page.tsx + app/(user)/_stages/**/*.tsx + app/(user)/components/PageHeader.tsx + app/(user)/cockpit-x/CockpitXClient.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>admin = `t-24 font-light` (15 occurrences), PageHeader = `t-28 font-medium tracking-tight`, stages = `t-30 font-medium tracking-tight` (MissionStage, KGStage, AssetStage, MissionListStage), cockpit-x = `t-48`/`t-64 font-light`.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Promouvoir &lt;PageHeader&gt; comme source unique pour H1 OU creer tokens semantiques (t-h1-page=28/medium, t-h1-stage=30/medium, t-h1-admin=24/light) documentes dans SPEC.md.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Action primitive sous-adoptee — 129 &lt;button&gt; bruts vs 18 &lt;Action&gt;</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/**/*.tsx (global)">app/**/*.tsx (global)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Action.tsx (variant primary/secondary/ghost/link + 4 tones) couvre tous les cas mais seulement 18 usages reels; les stages utilisent encore &lt;button className=...&gt; avec styles inline (ex: VoiceStage.tsx:83 `vision-btn-primary t-12 px-(--space-5)`, SignalStage.tsx:160, KGStage.tsx:490/729, SimulationStage.tsx x7).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Sweep cible: remplacer chaque &lt;button&gt; sans state custom (drag/portail) par &lt;Action&gt;. La classe legacy vision-btn-primary peut etre supprimee de globals.css apres migration.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Border-radius hors echelle de tokens dans globals.css</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/globals.css">app/globals.css</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Valeurs magiques: 1px, 2px, 6px, 7px, 10px, 13px, 14px, 18px alors que l'echelle officielle est --radius-xs=4, sm=8, md=12, lg=16, xl=20, 2xl=24. Le token --radius-card=10px existe (ligne 143) mais n'est pas reutilise.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Mapper chaque valeur vers le token le plus proche (6-&gt;xs, 7-&gt;xs, 10-&gt;radius-card, 13-&gt;md, 14-&gt;lg, 18-&gt;xl). Supprimer les 1px/2px (probablement decoratifs, a passer en var(--space-px)).</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Focus ring incoherent — 5 couleurs + 3 epaisseurs</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/**/*.tsx (global)">app/**/*.tsx (global)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Mix de `ring-1 ring-(--accent-teal-border-hover)` (Action, IconButton), `ring-1 ring-(--accent-llm)/50` (BrowserStage:297), `ring-2 ring-(--accent-teal-border)` (login:157), `ring-2 ring-(--accent-teal)/50` (AssetCompareStage:497), `outline-2 outline-(--accent-teal)` (MissionListStage:279).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Standardiser via une classe utilitaire .focus-ring dans globals.css = `outline-none ring-1 ring-(--accent-teal-border-hover) ring-offset-0`. Update SPEC.md.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Tailwind literals bg-black + bg-white dans shells racine</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/layout.tsx">app/(user)/layout.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>`bg-black text-white` utilise comme arriere-plan racine au lieu de `bg-(--bg) text-(--text)`; en dark theme c'est invisible mais bloque tout futur light theme.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par `bg-(--bg) text-(--text)` partout. ThemePicker:80 (`bg-black` derriere Image preview) peut rester si volontaire.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Decimal Tailwind spacing (21 occurrences) hors tokens --space-*</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionStage.tsx">app/(user)/_stages/MissionStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>`gap-3.5`, `py-2.5`, `px-3.5`, `px-1.5`, `py-1.5` melanges avec `px-(--space-3)`. Pas dans l'echelle --space-* (qui a --space-2-5 et --space-1-5 nommes).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par les tokens existants `px-(--space-2-5)` etc. ou aligner sur l'entier (3.5 -&gt; 4).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">rounded-2xl literal au lieu de --radius-2xl token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ThemePicker.tsx:74">app/admin/_components/ThemePicker.tsx:74</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>`rounded-2xl` au lieu de `rounded-(--radius-2xl)` — 0 occurrence de `rounded-(--radius-*)` dans l'app (toutes Tailwind literal).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit accepter Tailwind rounded comme alias autorise (a documenter), soit migrer vers `rounded-(--radius-2xl)`.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Style inline paddingTop:'4px' magic number</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:444">app/(user)/_stages/ArtifactStage.tsx:444</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;div style={{ paddingTop: '4px' }}&gt; — 4px = var(--space-1).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par className=&quot;pt-(--space-1)&quot; ou style={{ paddingTop: 'var(--space-1)' }}.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ease-[ease] arbitraire au lieu de var(--ease-*)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:255">app/(user)/_stages/BrowserStage.tsx:255</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>`duration-300 ease-[ease]` — la valeur `ease` n'existe pas comme token, duration-300 hors echelle (--duration-base, --duration-slow).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par `duration-(--duration-base) ease-(--ease-standard)`.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">leading-[1.15] / leading-[1.55] / leading-[1.6] arbitraires (login)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx">app/login/page.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>3 line-heights hardcodes alors que les tokens --leading-tight/snug/base/relaxed existent.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par `leading-(--leading-tight)` (1.15), `leading-(--leading-base)` (~1.5), `leading-(--leading-relaxed)` (~1.6).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">fontWeight numerique hardcode dans pages publiques</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx">app/public/approvals/[token]/page.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ fontWeight: 300 }}, fontWeight: 500, fontWeight: 600 — 17 occurrences. Le token --weight-light/--weight-medium/--weight-semibold existe (utilise dans connections/AppDrawer.tsx).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par style={{ fontWeight: 'var(--weight-light)' }} ou classes Tailwind font-light/font-medium/font-semibold.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">z-index sauvage z-5 sur AssetStage badges</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx">app/(user)/_stages/AssetStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>`z-5` n'est pas dans l'echelle Tailwind par defaut (0,10,20,30,40,50). Suffisant pour overlay mais incoherent avec le reste.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par z-10, aligner avec l'echelle.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">QA UI/UX</span>
+        <span class="section-agent">qa</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">3</span>
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      <p class="section-summary">Audit QA UI/UX senior — Hearst OS (cockpit dark-only). Le DS a de bonnes fondations (tokens space/text/icon-size, primitives EmptyState/Skeleton/Action/IconButton, useModalA11y excellent), mais l'adoption est inconsistante en aval : 4 stages ré-implémentent leur LoadingSkeleton localement, 15 occurrences utilisent --text-decor-25 (token marqué 'jamais du texte lisible') sur du texte porteur (titres, statuts, dates), 7 fichiers ont outline-none sans focus-visible (régression a11y), MobileBottomNav a des touch targets &lt;44px, et 30+ durations Framer-Motion sont hardcodées (0.3/0.35/0.4/0.5/0.6) sans token motion. Pas de mode clair, pas de prefers-reduced-motion sauf 1 occurrence isolée.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">outline-none sans focus-visible — keyboard navigation invisible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/Commandeur.tsx">app/(user)/components/Commandeur.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>7 fichiers utilisent `outline-none` sans aucun `focus-visible:` de remplacement. Commandeur input central (palette ⌘K) — element principal du cockpit — n'a aucun indicateur focus. AssetCompareModal a 2 inputs sans ring focus.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter `focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)` ou `focus-visible:border-(--accent-teal)` sur tous les éléments listés. Lint rule personnalisée pour bloquer `outline-none` sans focus-visible co-occurrent.</code></div>
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">--text-decor-25 (opacity 25%) utilisé sur du texte lisible — WCAG AA fail</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx">app/(user)/_stages/AssetCompareStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>globals.css:42 documente `--text-decor-25` comme 'décoratif pur : séparateurs, filigrane — jamais du texte lisible'. Pourtant 15 occurrences l'appliquent sur : titre d'asset (`assetA.title`), statut session ('Session inactive'), date de création, kind de l'asset, intervals horaires de missions. Contraste réel ≈ 2.6:1 sur fond shell — fail WCAG AA (min 4.5:1).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par `--text-faint` (0.45 ≈ 4.5:1) ou `--text-ghost` (0.42). Réserver `--text-decor-25` aux séparateurs `·` purement décoratifs. Ajouter règle Stylelint qui rejette `text-(--text-decor-25)` en classe text-* dans tsx.</code></div>
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">MobileBottomNav — touch targets sous le minimum 44px iOS/WCAG 2.5.5</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/MobileBottomNav.tsx">app/(user)/components/MobileBottomNav.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Chaque bouton de nav a `padding: var(--space-2)` (8px) + glyphe t-15 + label t-11. Hauteur calculée ≈ 8 + 16 + 4 + 14 + 8 = ~50px en théorie mais lineHeight 1 sur le glyphe et t-11 (10px) donnent un hit-box visuel proche de 40-42px. Sur iPhone SE (320px), 5 boutons partageant `flex: 1.6/1/1/1/1` → boutons non-emphasis &lt; 60px de largeur.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter `minHeight: var(--space-12)` (48px) sur chaque button, augmenter padding-y à var(--space-3). Tester sur 320px avec Playwright responsive viewport.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">LoadingSkeleton dupliqué × 4 — primitive RowSkeleton/CardSkeleton non adoptée</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionListStage.tsx">app/(user)/_stages/MissionListStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>RowSkeleton/CardSkeleton existent (ui/Skeleton.tsx, 87L, documenté en remplacement justement de ce pattern). 4 stages persistent à coder `h-20 animate-pulse rounded-xl bg-(--surface-2)` avec heights divergents (h-20/h-14/h-16). Inconsistance visuelle entre pages de mêmes formats.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer les 4 fonctions LoadingSkeleton par `&lt;RowSkeleton count={3} /&gt;` ou `&lt;CardSkeleton /&gt;`. Supprimer les définitions locales. Test : screenshot Playwright comparaison avant/après sur les 4 pages.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Durées Framer-Motion hardcodées (0.3/0.35/0.4/0.5/0.6) — aucun token motion</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/*.tsx (30+ occurrences), app/(user)/_shell/RightRail.tsx:16">app/(user)/_stages/*.tsx (30+ occurrences), app/(user)/_shell/RightRail.tsx:16</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>globals.css définit `--duration-fast/base/slow/emphasis/vision` en ms (75/150/200/300/400) mais les composants Framer-Motion passent `duration: 0.4` en secondes sans piocher dans ces tokens. Résultat : 5 valeurs distinctes (0.3, 0.35, 0.4, 0.5, 0.6) coexistent pour des animations équivalentes.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer `lib/motion/tokens.ts` qui exporte `MOTION_FAST/BASE/SLOW/EMPHASIS/VISION` en secondes (0.075, 0.15, 0.20, 0.30, 0.40). Faire un codemod jscodeshift sur `transition: { duration:` pour mapper les valeurs proches au token le plus proche.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">prefers-reduced-motion non respecté hors d'une seule règle CSS</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/globals.css">app/globals.css</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Une seule règle `@media (prefers-reduced-motion: reduce)` dans tout le projet, sur `.sf-dot`. MissionListStage:294, BrowserStage:175,214,229, MeetingStage:449 utilisent `transition={{ repeat: Infinity, duration: 1.4 }}` sans garde useReducedMotion(). Animations pulse infinies qui ne s'arrêtent jamais pour utilisateurs sensibles aux animations.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Importer `useReducedMotion` de framer-motion dans tout stage utilisant `repeat: Infinity`, et passer `repeat: shouldReduceMotion ? 0 : Infinity`. Wrapper utilitaire `useMotionRepeat(infinity)` factorisable.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Hover-only state sans focus-visible équivalent dans les stages</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionListStage.tsx">app/(user)/_stages/MissionListStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>MissionCard a `hover:bg-(--surface-1)` + `focus-visible:outline-(--accent-teal)` mais beaucoup de cards (PanelCard hover=true, MeetingStage ActionItemsList sont en lecture seule donc OK). Inversement, PanelCard avec hover=true n'a aucun focus-visible : si on l'utilise dans un contexte clickable plus tard, régression silencieuse. Ratio hover:9 vs focus:3 vs active:1 dans _stages.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Convention : tout composant avec `hover:` doit avoir un `focus-visible:` correspondant. Ajouter ESLint rule custom ou test Vitest snapshot qui vérifie la coprésence.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">AppLogo — 5 tailles distinctes (28/32/40/48) sans token icon-size</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppDrawer.tsx">app/(user)/components/connections/AppDrawer.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>globals.css définit `--size-icon-xs/sm/md/lg` (28/32/36/48px). AppLogo reçoit `size={28|32|40|48}` en prop directe, dont 40 qui n'existe pas dans l'échelle. Inconsistance visuelle entre catalog (28), search (32), suggestions (40), drawer/connected (48).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>AppLogo accepte `size: 'xs'|'sm'|'md'|'lg'` au lieu de pixels. Mapper sur --size-icon-*. Supprimer la valeur 40 (intermédiaire non-token).</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Texte 'Chargement…' plat persiste en 3 endroits malgré primitive Skeleton</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx">app/(user)/_stages/KGStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Skeleton.tsx commentaire ligne 7 : 'Remplace le pattern Chargement… en texte plat (8 pages user)'. 3 restent encore. Pattern visuel hétérogène : skeleton bars / spinner / 'Chargement…' texte mono.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer les 3 cas restants par &lt;RowSkeleton count={2} /&gt; ou retirer le texte si transient (&lt;200ms).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Padding inconsistant px-5 py-4 vs px-(--space-N) — tokens non utilisés en TSX</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionListStage.tsx">app/(user)/_stages/MissionListStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>40 occurrences de Tailwind p-{N} dans _stages vs 13 occurrences de p-(--space-N). Mélange `px-5 py-4 rounded-xl` (Tailwind raw scale, 20/16/12) vs `px-(--space-4) py-(--space-3)` (16/12). Px-5 = 20px, mais --space-5 = 20px : équivalent ici, mais incohérent côté maintenance.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Codemod : tous les `p-{N}|px-{N}|py-{N}|m-{N}` dans /_stages remplacés par `p-(--space-{N})` pour homogénéité. Test : tsc + Playwright screenshot diff.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Pas de mode clair — assumes dark uniquement</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/globals.css (3718 lignes, 0 `prefers-color-scheme">app/globals.css (3718 lignes, 0 `prefers-color-scheme</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Tous les tokens `--text-*` sont en `rgba(255,255,255,X)`. Aucune media query `prefers-color-scheme: light`. Utilisateurs macOS/iOS en light mode forcé peuvent avoir le shell dark, mais aucune fallback ou guard si OS lit `color-scheme: light` dans les widgets natifs (calendar picker, native inputs).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit afficher `&lt;html data-theme='dark'&gt;` et `color-scheme: dark` explicite, soit prévoir une variante. P2 car shell volontairement dark — confirmer choix design avec Adrien.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Tailwind raw classes vs CSS tokens — confusion px-5 (Tailwind 1.25rem) vs --space-5 (20px)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/Pattern global">Pattern global</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Tailwind v4 `px-5` = 1.25rem = 20px par défaut. `--space-5` = 20px (globals.css:126). Coïncidence aujourd'hui, divergence demain si on touche au scale. Risque de drift silencieux.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Documenter dans CLAUDE.md la règle 'tokens d'abord, Tailwind raw scale en derniers recours'. Activer le linter Tailwind safelist limité aux tokens.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Toast positionnement bottom-right sur mobile chevauche MobileBottomNav</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/ToastHost.tsx">app/(user)/components/ui/ToastHost.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>ToastHost en `bottom: var(--space-6)` (24px) et MobileBottomNav fixed bottom 0 + safe-area. Sur mobile, les toasts apparaissent par-dessus la nav primaire. zIndex toast=70, nav z-sticky ≈ 30 : toast au-dessus mais cache les boutons nav.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Adapter `bottom` du ToastHost en mobile : `bottom: calc(var(--height-mobile-nav, 64px) + var(--space-3))` quand md:hidden. Ou repositionner top-right sur &lt; md.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">DemoBadge / ActionsBadge / FocusBadge — patterns badge dupliqués sans primitive</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionListStage.tsx">app/(user)/_stages/MissionListStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>3+ implémentations de badges/chips avec rounded-full + t-9/t-11 + uppercase + padding micro. Pattern stable (typo + bg + border + tracking) mais pas extrait.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer `app/(user)/components/ui/Badge.tsx` avec variants `tone='demo'|'success'|'warn'|'info'|'neutral'` et `size='xs'|'sm'`. Migrer les 3+ usages.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Expérience</span>
+        <span class="section-agent">adrien-auditer-experience</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      <p class="section-summary">UX globalement solide : login propre (open-redirect bloqué, callbackUrl whitelisté), error boundaries présents au niveau (user) et admin, primitives EmptyState/Skeleton/StageErrorBanner/ToastHost diffusées, ConfirmModal réutilisable avec focus trap (useModalA11y), ARIA modal/aria-modal respecté sur 8+ modales. Friction principale : pages 'showcase' (notifications, marketplace, archive, reports) exposent des contrôles non branchés (FilterTabs sans onClick, SearchField disabled, boutons 'Tout marquer comme lu' sans handler) — l'utilisateur clique et rien ne se passe. Disconnect d'un service tiers (Composio) déclenche un DELETE immédiat sans ConfirmModal alors que la primitive existe. OnboardingTour utilise role='dialog' brut sans focus trap (tab échappe). Aucun loading.tsx au niveau routes Next.js (transitions blanches). FieldError affiche un message mais sans liaison aria-describedby avec l'input → screen readers n'annoncent pas les erreurs. Mobile : PulseBarQuickActions cachés en &lt;md (perte d'entry points). Hearst Card click 'silent fail' (catch vide + early return sans toast).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">FilterTabs non fonctionnels — clic sans effet sur 4 pages</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/FilterTabs.tsx:30">app/(user)/components/ui/FilterTabs.tsx:30</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Le composant rend des &lt;button role='tab'&gt; sans prop onChange/onClick. Consommé par notifications/page.tsx, marketplace/page.tsx, archive/page.tsx, reports/page.tsx avec un `active` hardcodé. L'utilisateur clique sur 'Critique', 'Alerte', etc. et rien ne se passe — pas de filtre appliqué, pas même un feedback visuel d'état actif.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter `onChange: (tab: string) =&gt; void` à FilterTabsProps, propager onClick sur chaque bouton. Côté pages, lever l'état local + filtrer la liste. Tant que la feature n'est pas branchée, désactiver les tabs (`disabled` + tooltip 'bientôt') au lieu d'exposer un contrôle mort.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Bouton 'Tout marquer comme lu' notifications sans handler</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/notifications/page.tsx:34">app/(user)/notifications/page.tsx:34</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;Action variant='link' tone='brand' size='sm'&gt;Tout marquer comme lu&lt;/Action&gt; n'a pas d'onClick. Action visuellement primaire, créée pour rassurer mais pure décoration. Même pattern probable sur marketplace/archive.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Câbler à une mutation /api/notifications/mark-all-read OU retirer le bouton tant que la feature n'existe pas. Sinon ajouter un `disabled` + label 'Bientôt'.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Disconnect d'un service tiers déclenché sans confirmation</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppDrawer.tsx:121">app/(user)/components/connections/AppDrawer.tsx:121</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Le bouton 'Déconnecter &lt;app&gt;' (tone='danger') appelle onDisconnect direct, qui exécute DELETE /api/composio/connections/&lt;id&gt; (use-connections-hub.ts:424). Aucun ConfirmModal — un clic accidentel révoque immédiatement Notion, Slack, etc. La primitive ConfirmModal existe déjà et est utilisée sur les webhooks.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Wrapper handleDisconnect dans un ConfirmModal (variant='danger', title='Déconnecter ${app.name} ?', description='Hearst perdra l'accès. Réautoriser nécessite de reconnecter manuellement.', confirmLabel='Déconnecter'). Pattern identique à WebhooksSection.tsx:173.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">OnboardingTour sans focus trap — tab échappe le dialog</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/OnboardingTour.tsx">app/(user)/components/OnboardingTour.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Rend `role='dialog'` mais N'UTILISE PAS useModalA11y. Pas d'aria-modal, pas de scroll lock, pas de focus restore. Le handler Escape custom (l.95-103) couvre seulement Escape/Enter/ArrowRight — Tab continue de naviguer vers le contenu sous le scrim.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer le handler keyboard custom par `useModalA11y(open, { onClose: close, autoFocus: true })`. Ajouter `aria-modal='true'` et `aria-labelledby` sur le titre de la slide. Garder l'override pour Enter/ArrowRight (navigation slides) en complément.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Erreurs de validation formulaires non liées aux inputs (a11y)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/ValidatedForm.tsx:39">app/(user)/components/ui/ValidatedForm.tsx:39</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>FieldError rend `&lt;p className='t-9 text-(--danger)'&gt;` mais sans `id`. Les inputs (admin/agents/new/page.tsx, DocumentParseModal.tsx) n'ont pas d'`aria-describedby` ni d'`aria-invalid`. Conséquence : un user JAWS/NVDA ne sait pas qu'un champ est en erreur ni laquelle.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>FieldError reçoit `id={`${name}-error`}`. Sur chaque input lié, ajouter `aria-invalid={!!errors[name]}` et `aria-describedby={errors[name] ? '${name}-error' : undefined}`. Refactor possible via un wrapper &lt;Field name=...&gt; qui injecte les deux automatiquement.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Marketplace expose un SearchField disabled + tabs morts + cards mock</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/marketplace/page.tsx">app/(user)/marketplace/page.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Toute la page tourne sur MOCK_TEMPLATES, SearchField a `disabled` mais reste visuellement présent, FilterTabs non branchés (cf. finding #1), commentaire l.8 'en attente de branchement GET /api/v2/marketplace/templates'. Risque : un utilisateur clique 'Cloner' sur une carte mock et obtient un échec ou un comportement inattendu.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit afficher un EmptyState 'Marketplace bientôt disponible' jusqu'au branchement réel, soit cacher la page derrière un feature flag. Si gardé en preview, ajouter un bandeau explicite 'Données de démonstration — branchement en cours'.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Aucun loading.tsx au niveau routes — transitions blanches</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app">app/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>`find app -name 'loading.tsx'` retourne 0 fichier. Next.js 15 utilise Suspense via loading.tsx pour streamer la première frame. Pendant le RSC fetch (HomePage await loadInitialCockpitData), l'utilisateur voit un flash blanc/noir sans feedback.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter au minimum app/(user)/loading.tsx avec un skeleton shell léger (PulseBar grise + zone stage Skeleton) et app/admin/loading.tsx similaire. Réutiliser la primitive `Skeleton` existante.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Hearst Card quick-action — fail silencieux sans feedback</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/PulseBar.tsx">app/(user)/components/PulseBar.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>onOpenHearstCard : `if (!r.ok) return;` et `catch { /* Fail-soft : pas de toast bruyant */ }`. L'utilisateur clique l'icône Card dans la PulseBar, ne voit rien se passer, ne sait pas si c'est un problème ou si l'app génère en background.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Au minimum un toast.error sur !r.ok (titre 'Carte indisponible', detail 'Réessayez dans un instant'). Garder le fail-soft sur catch (réseau) mais ajouter un toast informatif court.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Mobile : entry points cachés (Video, Focus, Signal, Card, Connections meter)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/PulseBar.tsx">app/(user)/components/PulseBar.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>PulseBarQuickActions a `className='hidden md:flex'` et le connections meter a `className='hidden md:flex'`. Conséquence : sur mobile (&lt;768px), aucun moyen de lancer une vidéo, basculer le mode focus, ouvrir le signal board, ou voir l'état des connexions. MobileBottomNav ne couvre pas ces features.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit ajouter une icône 'menu' dans MobileBottomNav qui ouvre un sheet listant ces actions, soit déplacer les essentielles (Video, Focus) dans le bottom nav comme bouton secondaire.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ReportEditor — état d'erreur générique sans message actionnable</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/reports/ReportEditor.tsx">app/(user)/components/reports/ReportEditor.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Sur échec save/load template : `setSaveStatus('error')` + reset 3s, mais aucun toast ni message contextualisé sur la cause (404 ? 500 ? 401 ?). L'utilisateur voit juste 'error' brièvement puis 'idle'.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Lire le code HTTP de la réponse et différencier : 401→'Session expirée', 409→'Nom déjà pris', 500→'Erreur serveur, réessayez'. Émettre un toast.error en plus du status visuel pour persistance.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Touch targets PulseBar/MobileBottomNav potentiellement &lt;44px</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/MobileBottomNav.tsx">app/(user)/components/MobileBottomNav.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Chaque bouton a `padding: var(--space-2)` (~8px) autour d'un glyph 15px + label 11px. Hauteur totale ~36-40px — sous le seuil Apple HIG (44px) et WCAG AAA (44x44). 'qa-video', 'qa-focus' etc. dans PulseBar idem (size='xs').</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Forcer `min-height: 44px` sur les boutons MobileBottomNav et `min-height: 44px; min-width: 44px` sur les IconButton size='xs' présents sur mobile (sinon laisser à xs).</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Flows</span>
+        <span class="section-agent">flow</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">2</span>
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      <p class="section-summary">Cartographie 51 pages + cockpit mono-route (12 stages). Le shell visionOS est solide pour le happy path (login Google/Outlook -&gt; '/' -&gt; CockpitXClient -&gt; stages via LeftRail/Cmd+K/hotkeys). Mais 5 ruptures structurelles cassent les parcours secondaires : (1) OnboardingTour et flow vertical industriel codés mais JAMAIS montés, (2) AUCUN bouton logout dans l'app user (uniquement admin), (3) pages /settings, /notifications, /reports n'ont pas de back link, (4) deeplinks /runs/[id] 404, (5) layout user ne redirige pas les non-auth vers /login. Fragilité supplémentaire : aucune route dynamique [id] dans (user), stage state non persisté URL (P1 connu qa-stage-persistance-url), chat-context PII persistée en localStorage non purgée au logout.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">OnboardingTour codé mais jamais monté — feature onboarding dead code</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/OnboardingTour.tsx">app/(user)/components/OnboardingTour.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>grep `OnboardingTour` retourne uniquement OnboardingTour.tsx + __tests__/ui/onboarding-tour.test.tsx. Aucun import dans layout.tsx, page.tsx, CockpitXClient.tsx, ou Shell.tsx. La feature spec docs/features/onboarding.md (verrouillé v1.0) déclare aussi 'app/(user)/onboarding/vertical/page.tsx' qui n'existe PAS. POST /api/onboarding/set-industry existe mais aucun caller. Conséquence : 100% des first-login users n'ont aucune intro, aucun choix de vertical, atterrissent direct sur CockpitXClient cockpit vide.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit (a) monter &lt;OnboardingTour /&gt; dans CockpitXClient quand !data &amp;&amp; data-driven-empty, soit (b) supprimer le composant + spec + endpoint set-industry pour aligner docs/code. Décision Adrien requise.</code></div>
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Aucun bouton Se déconnecter dans l'app user — seul l'admin en a un</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:245">app/(user)/_shell/LeftRail.tsx:245</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>signOut() n'apparaît qu'en app/admin/_shell/AdminSidebar.tsx:142. UserAvatar (LeftRail.tsx:245) est affiché mais NON-cliquable (pas de onClick, pas de menu). Commandeur (use-commandeur-actions.ts) n'expose pas d'action logout dans ses 18+ entries. Page /settings liste 'Profil' et 'Tenant' en disabled='Bientôt'. Conséquence : un user non-admin ne peut sortir de sa session que via DevTools ou en tapant manuellement /api/auth/signout. Pas conforme P0 spec auth.md.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter onClick={() =&gt; signOut({callbackUrl: '/login'})} sur UserAvatar OU ajouter une entrée 'Se déconnecter' dans use-commandeur-actions.ts. Bonus : appeler useChatContext.getState().clearChips() avant signOut pour purger PII localStorage.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Layout (user) ne redirige pas vers /login — fail-soft silencieux</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/layout.tsx">app/(user)/layout.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>app/admin/layout.tsx fait `if (!session?.user) redirect('/login?callbackUrl=/admin')`. app/(user)/layout.tsx n'a AUCUN check serveur — pas de getServerSession, pas de redirect. Les RSC (loadInitialCockpitData) sont 'fail-soft' (renvoient null) et CockpitXClient rend Shell + EmptyState au lieu de rediriger. Un user non authentifié voit donc un cockpit vide sans message clair. ChatDock détecte 401 et toast 'Session expirée' (ChatDock.tsx:372) mais ne route pas vers login.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Dans (user)/layout.tsx, ajouter en server component : if (!session &amp;&amp; !devBypass) redirect('/login?callbackUrl=' + currentPath). OU brancher le 401 toast sur signIn() côté client.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Deeplinks /runs/[id] et toute route dynamique → 404</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/use-commandeur-sections.ts:139">app/(user)/components/use-commandeur-sections.ts:139</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Commandeur fait `router.push(`/runs/${r.id}`)` mais aucune route dynamique [id] n'existe dans app/(user) (find -type d -name '[*]' = vide). La page /runs/page.tsx est un alias static qui force initialMode='mission' sans lire searchParams.id. Idem : aucune route /missions/[id], /assets/[id], /reports/[id]. Conséquence : clic sur résultat 'Run' dans Cmd+K → 404 not-found.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit créer app/(user)/runs/[id]/page.tsx qui passe l'id à CockpitXClient via setMode({mode:'mission', missionId}), soit faire pointer router.push vers /?stage=mission&amp;missionId=... (cohérent avec spec qa-stage-persistance-url).</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pages /settings, /notifications, /reports sans back link — dead-end</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/notifications/page.tsx:30">app/(user)/notifications/page.tsx:30</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>ScreenShell support back={{label, href}} (utilisé dans /hospitality:33, /archive:24, /marketplace:110, /settings/alerting:11) MAIS ABSENT dans /notifications/page.tsx, /reports/page.tsx, /settings/page.tsx, /reports/studio/page.tsx. Ces pages utilisent StandalonePageFrame (pas de LeftRail !), donc l'utilisateur n'a AUCUN moyen UI de revenir au cockpit — il doit browser-back ou retaper l'URL. Très mauvaise UX sur mobile (pas de LeftRail du tout).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter back={{label: 'Cockpit', href: '/'}} aux ScreenShell des 4 pages listées. Coût : 4 lignes.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Persistance chat-context (PII) non purgée au logout</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/chat-context.ts:42">stores/chat-context.ts:42</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>useChatContext utilise zustand/persist avec key 'hearst-chat-context' qui contient des chips {label, payload} pouvant inclure des noms de missions/assets/reports privés. Le signOut() admin ne déclenche aucun clearChips() ni localStorage.removeItem. Cf. comment dans navigation.ts:209 ('F-077: Reset all messages—never persist content in localStorage') : le pattern est connu mais incohérent. Un user qui se logge sur le même device après un autre garde les chips du précédent.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Wrapper signOut → useChatContext.getState().clearChips() + localStorage.removeItem('hearst-chat-context') + useNavigationStore.getState().reset() avant signOut(). Mutualiser dans lib/auth/sign-out.ts.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Aucun switch de vertical/industrie côté UI malgré endpoint persist</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/onboarding/set-industry/route.ts">app/api/onboarding/set-industry/route.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Endpoint POST /api/onboarding/set-industry persiste l'industry dans tenant_settings et invalide le cache (route.ts existe). Mais aucun caller dans tout app/ : pas de page /onboarding/vertical, pas d'option dans /settings (Profil/Tenant = disabled). /hospitality est une page hardcodée mock (workflows 'checkin' / 'rapport nuit' inline), pas alimentée par tenant_settings.industry. Conséquence : le découpage industriel (Hospitality/SaaS/E-com/Finance/Healthcare) du spec onboarding.md est entièrement théorique.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit (a) implémenter app/(user)/onboarding/vertical/page.tsx avec les 6 industries déclarées dans la spec, soit (b) marquer la feature onboarding 'in_progress' et masquer la promesse. Décision produit.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Global error boundary affiche NextError default au lieu de Hearst UI</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/global-error.tsx:24">app/global-error.tsx:24</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>global-error.tsx render `&lt;NextError statusCode={0} /&gt;` (composant Next.js intégré, UI brute anglaise). Si Sentry remonte l'erreur on a au moins l'observabilité, mais l'utilisateur voit un écran générique anglophone sans CTA back to cockpit ni branding Hearst. /not-found.tsx et /(user)/error.tsx ont un design Hearst custom — incohérence.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer NextError par un rendu Hearst aligné sur not-found.tsx : div centré tokens + Link href='/' label 'Retour au cockpit'. Garder captureException.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Stage state non synchronisé avec l'URL — F5 perd le contexte</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/stage.ts:115">stores/stage.ts:115</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Spec dédiée existe : docs/features/qa-stage-persistance-url.md (statut: draft, P1). useStageStore comment ligne 115 : 'ce store n'est PAS persisté'. F5 sur /cockpit-x après Cmd+2 (Chat) → user retombe sur Cockpit. Pas de share URL possible. Cmd+1..9 modifie state mais pas l'URL. Connu, non corrigé.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Implémenter le sync setMode &lt;-&gt; router.replace('/?stage=...&amp;missionId=...') + lecture useSearchParams au boot. Effort 1 demi-journée, gain UX énorme.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">BrowserStage et VoiceStage avec TODO SSE backend non branché</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:383">app/(user)/_stages/BrowserStage.tsx:383</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>BrowserStage contient 3 TODO 'route /api/v2/browser/sessions/[id]/steps non encore créée'. L'utilisateur peut accéder au stage via LeftRail/Cmd+K mais le streaming des étapes ne s'affichera jamais (no-op silencieux). Pas d'EmptyState explicite 'fonctionnalité en cours'.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter un banner discret 'Beta — streaming en cours d'intégration' OU disabled le bouton browser dans LeftRail jusqu'au branchement SSE.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">9 features 'in_progress' dans _manifest.json sans feature-flag UI</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/docs/features/_manifest.json:6">docs/features/_manifest.json:6</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>manifest dit 'in_progress: 9' (sur 62). Aucune mécanique de feature-flag par tenant côté UI (lib/platform/settings/feature_flags existe mais l'UI admin /admin/settings:60 affiche 'Aucun feature flag configuré'). Toutes les features in_progress sont donc exposées à tous les users en prod sans contrôle.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Brancher les features in_progress sur tenant_settings.feature_flags + useFeatureFlag hook + admin UI pour toggle. À traiter par feature.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Onboarding tour storage key sur localStorage cross-device (PII?) inconsistant</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/OnboardingTour.tsx:18">app/(user)/components/OnboardingTour.tsx:18</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>STORAGE_KEY 'hearst.onboarded' = localStorage. Comme le tour n'est jamais monté c'est moot, mais la spec onboarding.md I-2 mentionne 'Phase 2 prévue : persister dans users.onboarded_at' — donc le contrat est connu incomplet. Un user qui changera de browser/device verra le tour à nouveau (si jamais monté).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers une colonne users.onboarded_at (migration + API) OU laisser localStorage en assumant la limitation côté spec.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Sécurité</span>
+        <span class="section-agent">adrien-auditer-securite</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      <p class="section-summary">Posture sécurité globale très mature pour un projet solo : auth NextAuth correctement isolée (allowlist domaines en prod, dev-bypass fail-closed via boot guard, JWT user.id UUID), CSRF Origin check + Arcjet rate-limit dans proxy.ts, SSRF guard avec DNS lookup (assertSafeUrl), HITL HMAC signé sur tools write-side (NEXTAUTH_SECRET), token OAuth chiffré AES-256-GCM avec rotation keyId, spotlighting OWASP LLM01 (fenceUntrusted), upload PDF avec cap 25MB + magic-bytes, webhooks Stripe/Recall HMAC. Audit massif 2026-05-10 a déjà clôturé 91/131 findings. Restent quelques angles morts : CSP autorise 'unsafe-inline' script-src en prod (TODO nonce documenté), 3 IPC Electron acceptent des inputs non validés (shell.openExternal, navigate, oauth:open-popup), 1 RLS Supabase USING(true) sur user_tokens (atténuée car table en service_role uniquement), endpoint /api/v2/meetings/webhook accepte sans signature si RECALL_WEBHOOK_SECRET absent (warn-only).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Electron IPC shell:open-external accepte n'importe quelle URL sans validation de schéma</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/electron/main.ts">electron/main.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>ipcMain.handle('shell:open-external', (_e, url: string) =&gt; { void shell.openExternal(url) }) — aucune validation. Le renderer (CSP 'unsafe-inline' actif) peut donc invoquer hearstBridge.shell.openExternal('file:///etc/passwd') ou un schéma 'javascript:'/'smb:'/'ssh:' depuis n'importe quel XSS DOM-based.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Valider le schéma (https/http only) et l'allowlist d'hôtes avant shell.openExternal. Ex: const u = new URL(url); if (!['http:', 'https:', 'mailto:'].includes(u.protocol)) throw.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Electron IPC navigate accepte un path arbitraire concaténé à loadURL</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/electron/main.ts">electron/main.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>ipcMain.on('navigate', (_e, path: string) =&gt; { mainWindow?.loadURL(`${base}${path}`) }). Si path commence par '//evil.com' ou contient '@evil.com', loadURL part hors origine. Plus grave : injection 'javascript:' contourne webSecurity puisque c'est le main process qui appelle loadURL.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Valider que path commence par '/' et pas par '//', refuser tout caractère non path-safe. Idéalement: webContents.send('renderer:navigate', { path }) côté renderer plutôt qu'un nouveau loadURL.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">CSP autorise 'unsafe-inline' script-src en production</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/next.config.ts">next.config.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>script-src 'self' 'unsafe-inline' ... — TODO documenté pour migration vers strict-dynamic + nonce middleware. Toute XSS DOM/réflectée devient exploitable (cookies vol via fetch, escalade vers les 3 IPC ci-dessus en mode Electron).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Implémenter middleware nonce (Next.js 15 generateNonces()) et remplacer 'unsafe-inline' par 'strict-dynamic' + nonce. Sentry/Langfuse déjà listés en https sources.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Webhook Recall.ai accepte les events sans signature si RECALL_WEBHOOK_SECRET absent</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/meetings/webhook/route.ts (verdict warn-only)">app/api/v2/meetings/webhook/route.ts (verdict warn-only)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Commentaire : 'On vérifie la signature HMAC quand RECALL_WEBHOOK_SECRET est set, sinon on accepte avec un warn.' — en prod sans secret configuré, n'importe qui peut POST /api/v2/meetings/webhook et empoisonner le cache mémoire (recordWebhookEvent) avec n'importe quelle transcription / bot_id.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>En production (NODE_ENV=production), fail-closed si RECALL_WEBHOOK_SECRET absent : retourner 503. Aligner sur env.server.ts qui throw déjà pour STRIPE_WEBHOOK_SECRET.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">RLS user_tokens policy USING(true) WITH CHECK(true)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/supabase/migrations/0011_user_tokens.sql">supabase/migrations/0011_user_tokens.sql</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Policy 'Service role full access' open. Atténuée car la table n'est accédée que via service_role (lib/platform/auth/tokens.ts) et les anon/authenticated clients n'ont pas accès aux tokens chiffrés. Mais expose à un risque si quelqu'un branche un jour un anon client sur cette table.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par RESTRICTIVE policy bloquant le rôle authenticated/anon : USING (auth.role() = 'service_role') WITH CHECK (auth.role() = 'service_role'). Ou simplement: revoke select sur authenticated.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">lib/reports/sources/http.ts utilise SSRF guard local sans DNS lookup (rebinding possible)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/sources/http.ts">lib/reports/sources/http.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Guard regex-only sur hostname (pas de dns.lookup), ne protège pas contre DNS rebinding (un domaine résolu en 127.0.0.1 au 2e DNS lookup). lib/security/ssrf-guard.ts:assertSafeUrl avec DNS existe et est utilisé partout ailleurs (llamaparse, integrations, browser, webhooks).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer isSafeUrl par await assertSafeUrl(url, { allowedSchemes: ['https:'] }) + redirect:'manual' + AbortSignal.timeout sur le fetch.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">RLS run_steps/run_logs/artifacts gardent USING(true)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/supabase/migrations/0028_rls_user_scoped.sql">supabase/migrations/0028_rls_user_scoped.sql</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Commentaire dans la migration : 'Run_steps / run_logs / artifacts — keep auth USING(true)'. Si la Supabase anon key est ever leaked ou utilisée côté client par erreur (Realtime subscriptions), les logs d'exécution d'autres users sont lisibles.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Scoper via JOIN sur runs.user_id (USING (run_id IN (SELECT id FROM runs WHERE user_id = auth.uid()))) ou interdire SELECT à anon/authenticated.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Electron IPC oauth:open-popup ne valide pas l'URL OAuth</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/electron/main.ts">electron/main.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>opts.url passé à popup.loadURL sans whitelist domaine. Un XSS dans le renderer pourrait ouvrir une popup phishing accounts.evil.com avec apparence Electron native (BrowserWindow modal).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Valider opts.url contre une allowlist OAuth (accounts.google.com, login.microsoftonline.com, slack.com). Refuser sinon.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">/api/auth/dev-login HTML inline servi sans nonce CSP</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/auth/dev-login/route.ts">app/api/auth/dev-login/route.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>La route renvoie un HTML inline avec un &lt;script&gt; exécutant fetch CSRF. En cas de bypass mal configuré (HEARST_DEV_AUTH_BYPASS=1 forwardé par erreur), ce script s'exécute. Risque résiduel limité car isDevBypassEnabled fail-fast en prod via env.server.ts.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Garder fail-closed en prod (déjà en place). Ajouter un nonce CSP au script inline pour défense en profondeur.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Performance</span>
+        <span class="section-agent">adrien-auditer-performance</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">5</span>
+          <span class="badge badge-p2">6</span>
+        </span>
+      </summary>
+      <p class="section-summary">Stack Next.js 16 + React 19 avec React Compiler activé (auto-mémo) — atout majeur. Bons points : code-splitting via next/dynamic sur 11 stages cockpit, framer-motion utilisé partout (acceptable), 1 seul &lt;img&gt; tag, 0 lodash/moment, Sentry Replay sampling 0% normale. Trois faiblesses systémiques : (1) police Satoshi chargée via CDN render-blocking au lieu de next/font (FOIT, pas de subset), (2) 0 loading.tsx sur 51 pages = aucun streaming Suspense côté server, (3) 7+ polls setInterval client 60s (PulseBar x3, layout connections, AdminTopbarKpis 30s, oauth poll) qui s'additionnent. Aucun N+1 Supabase détecté côté backend (Promise.all présent). Pas d'edge runtime sur 168 routes API alors que health/status/signals seraient candidats. Bundle initial alourdi par 148 'use client' / 195 .tsx (76%) — React Compiler atténue les renders mais pas la taille du bundle.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Police Satoshi chargée via CDN render-blocking au lieu de next/font</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/layout.tsx:47">app/layout.tsx:47</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;link href=&quot;https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&amp;display=swap&quot; rel=&quot;stylesheet&quot; /&gt; — 5 poids chargés via CDN externe, render-blocking, pas de subset, dépendance latence fontshare.com</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers next/font/local en self-hostant les .woff2 Satoshi Variable dans public/fonts/. Avantages : preload automatique, font-display: swap, CSS inline (zero FOUT), aucun CDN externe, retire fontshare du CSP. Gain estimé : -200/-400ms LCP.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Aucun loading.tsx — zéro Suspense boundary server sur 51 pages</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/ (0 loading.tsx pour 51 page.tsx)">app/ (0 loading.tsx pour 51 page.tsx)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>find app -name 'loading.tsx' → 0 résultats. Sur navigation lourde (Cockpit, Mission, KGStage 747L, Admin Health 555L), l'utilisateur voit un écran figé pendant chaque transition.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter loading.tsx au moins sur app/(user)/cockpit-x, app/(user)/_stages/*, app/admin/health, app/admin/metrics. Skeleton Cockpit pour streaming RSC. Gain UX immédiat sur First Meaningful Paint perçu.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">7+ polls client setInterval superposés sans coordination ni pause background</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/PulseBar.tsx">app/(user)/components/PulseBar.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>PulseBar ouvre 3 polls 60s (connections, signals, rotation). Plus AdminTopbarKpis, FlowEdge, use-replay, oauth-completion-poll. Pas de pause sur document.visibilityState === 'hidden'.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Mutualiser via 1 hook useBroadcastPoll + écouter visibilitychange pour pause quand tab background (-50% req). Migrer PulseBar vers SSE (/api/v2/right-panel/stream existe déjà). Gain : -10 req/min/utilisateur.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Aucun edge runtime sur 168 routes API — TTFB sous-optimal pour read-only</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/**/route.ts (0 edge / 168 nodejs)">app/api/**/route.ts (0 edge / 168 nodejs)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>grep 'runtime = &quot;edge&quot;' → 0 résultat. Plusieurs routes lookup légères (health, status, signals, themes) pourraient bénéficier d'edge runtime (latence &lt;50ms global vs 200-400ms nodejs cold start).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Lister les routes read-only sans dépendance node-only (crypto/fs/ioredis/exceljs/pdfkit) : /api/health/*, /api/v2/cockpit/signals, /api/themes. Ajouter `export const runtime = 'edge'` + remplacer @supabase/supabase-js par fetch direct si nécessaire.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Aucun cache Next.js (unstable_cache / force-cache / 'use cache')</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/, lib/ (0 occurrence)">app/, lib/ (0 occurrence)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Une seule route déclare `export const revalidate` (app/api/health/llm/route.ts:34). 7 fetch internes utilisent `cache: &quot;no-store&quot;`. Données stables (taxonomy 930L, themes, brand kit) re-fetchées à chaque requête.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Identifier 5-10 endpoints stables (taxonomy, themes catalog, persona library, capabilities) et appliquer `unstable_cache()` revalidate 5-60min + tag-based invalidation. Ajouter `export const revalidate` sur pages SSR statiques. Gain : -30/-60% TTFB.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PulseBar.tsx 510 lignes monolithique avec 3 useEffect-polls</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/PulseBar.tsx (510L)">app/(user)/components/PulseBar.tsx (510L)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Composant mounted dans le shell user (présent sur toutes les pages /user/*). Tient 3 setInterval + filtre useMemo + signal rotation. À chaque navigation interne, re-évalue tout.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Découper en PulseBarSignals + PulseBarConnections + PulseBarRotation. Extraire les polls dans des hooks dédiés (use-poll-signals, use-poll-connections). Isolation des re-renders.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Sentry Session Replay actif 100% sur erreur — ~80KB JS eager</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/instrumentation-client.ts">instrumentation-client.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>replaysOnErrorSampleRate: 1.0 + replayIntegration loaded eagerly au boot. Le SDK Replay (~80KB gz) est chargé même si aucune erreur.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Lazy-load Replay integration via Sentry.addIntegration() en post-init dans requestIdleCallback. Réduit le bundle initial client de ~80KB gz. Mesurer avec @next/bundle-analyzer.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">console.log présents en code serveur (jobs/workers/OAuth)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/jobs/*.ts, lib/connectors/composio/*.ts, lib/platform/auth/*.ts (20+ occurrences)">lib/jobs/*.ts, lib/connectors/composio/*.ts, lib/platform/auth/*.ts (20+ occurrences)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>lib/jobs/workers/inbox-fetch.ts:66, lib/jobs/inngest/functions/weekly-digest.ts:121, lib/platform/auth/tokens.ts:269 etc. Logs partent sur stdout Vercel sans niveau filtrable.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par pino (déjà installé : 'pino' + 'pino-pretty' en deps). Niveau debug en dev, info+ en prod. Évite pollution logs Vercel et permet filtrage.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">public/ 22MB dont 21MB de thème robotflow (PNG/JPG webflow non-optimisés)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/public/themes/robotflowtemplate-webflow-io">public/themes/robotflowtemplate-webflow-io/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>du -sh public/themes → 22M dont 21M dans robotflowtemplate-webflow-io. PNG/JPG webflow servis statiquement, AVIF/WebP absent.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit déplacer en cold storage S3/R2 et lazy-load quand thème activé, soit convertir en AVIF/WebP via next/image (gain x3 à x5). Sinon : exclure via .vercelignore si plus utilisé.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">148/195 .tsx en 'use client' (76%) — surface client maximale</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/ (148 use client / 195 tsx)">app/ (148 use client / 195 tsx)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Trop de composants côté client par défaut. Le shell user (layout) est légitimement client (SessionProvider/hotkeys), mais plusieurs pages admin (settings, agents/new, runs/[id]) pourraient être Server Components avec interactions en client islands.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit ciblé sur app/admin/* : transformer pages purement read-only en Server Components, fetch côté serveur, garder en client uniquement formulaires/boutons. React Compiler optimise les renders mais pas le bundle.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">87/215 onClick utilisent une fonction inline arrow non-stable</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/, components">app/, components/</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>40% des handlers onClick sont créés inline. React Compiler couvre la plupart mais pas dans tous les cas (composants opt-out, props complexes, listes &gt;50 items).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Pas d'action urgente — React Compiler gère. Audit ponctuel recommandé sur composants .map avec onClick inline (KGStage, MissionListStage). Hot paths : extraire en useCallback ou annoter 'use memo'.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Code</span>
+        <span class="section-agent">adrien-auditer-code</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">5</span>
+          <span class="badge badge-p2">9</span>
+        </span>
+      </summary>
+      <p class="section-summary">Audit qualite code Hearst OS (Next.js 15 / React 19). Pas de cycle d'import (madge OK). Dette principale : 234 fichiers et 172 exports/389 types non utilises detectes par knip (134 fichiers reels hors backups/sandbox). 96 eslint-disable (dont 41 react-hooks/set-state-in-effect, pattern recurrent a factoriser). 49 occurrences any/as any concentrees sur le contournement Supabase typegen (sb.from('table' as any) as any). 600 console.* dont 85 console.log/debug en code lib/api (lib/engine/orchestrator/ai-pipeline.ts: 26 traces). 6 process.env.X! non guardes (Stripe + Kimi). 6 TODOs tous recents (&lt;7j, non obsoletes). 68 test.skip, majoritairement guardes par env (acceptable) sauf 5 arcjet rate-limit jamais actives. 0 @ts-ignore / 0 biome-ignore (bonne hygiene). 25 fichiers &gt; 500 lignes dont database.types.ts (4721, genere), ai-pipeline.ts (1446), CockpitXClient.tsx (791), ChatDock.tsx (691).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pattern (sb.from('table' as any) as any) duplique - Supabase typegen contourne</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/jobs/workers/simulation.ts">lib/jobs/workers/simulation.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Double cast as any repete sur ~12 sites pour bypasser les types generes de database.types.ts. Perte totale du controle de type sur les requetes DB.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Regenerer types Supabase (supabase gen types) puis remplacer par sb.from('table_name') type. Si table absente du schema : ajouter migration + regen.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">process.env.X! sur secrets critiques sans guard runtime (Stripe + Kimi)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/credits/stripe.ts">lib/credits/stripe.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>new Stripe(process.env.STRIPE_SECRET_KEY!) et apiKey: process.env.KIMI_API_KEY! - non-null assertion sans validation Zod. Existe lib/env.server.ts mais ces vars n'y sont pas validees.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Etendre lib/env.server.ts (Zod) pour valider STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, KIMI_API_KEY au boot. Remplacer ! par acces a l'objet valide.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">85 console.log/debug en code prod (lib/, app/api/)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts (26), lib/engine/runtime/missions/scheduler.ts (23), lib/marketplace/store.ts (13), lib/platform/auth/tokens.ts (11)">lib/engine/orchestrator/ai-pipeline.ts (26), lib/engine/runtime/missions/scheduler.ts (23), lib/marketplace/store.ts (13), lib/platform/auth/tokens.ts (11)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Logs verbeux laisses dans le pipeline IA et le scheduler missions - risque fuite donnees prompt/token cote serverless logs.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par logger structure (pino/winston) avec niveau debug desactive en prod, ou conditionner if (process.env.NODE_ENV !== 'production').</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">41 eslint-disable react-hooks/set-state-in-effect - pattern transverse non capture</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/*, app/(user)/components/*, app/admin/_canvas/*">app/(user)/_stages/*, app/(user)/components/*, app/admin/_canvas/*</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Le meme pattern (SSR-safe mounted, reset on prop change, derived state) est repete ~41 fois avec eslint-disable. Justifie individuellement mais signal d'une primitive manquante.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire un hook useDerivedReset(deps, reset) ou useMounted() qui internalise le disable. Reduire la surface des suppressions a 1 site.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">5 test.skip permanents sur Arcjet rate-limit (couverture securite absente)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/__tests__/security/arcjet.test.ts">__tests__/security/arcjet.test.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>5 it.skip sans condition runtime - les tests de rate-limit (429, header Retry-After, isolation NAT) ne tournent JAMAIS en CI. Couverture securite = 0 sur cette feature.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer via mock Arcjet ou variable ARCJET_TEST_MODE=1. Si vraiment impossible localement : test.skip(!process.env.CI_ARCJET, ...) + job CI dedie.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">134 fichiers exportes jamais importes (knip, hors sandbox)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/ui/format-time.ts, lib/utils/date-format.ts, lib/assets/content-parser.ts, lib/engine/runtime/index.ts, lib/llm/index.ts, lib/themes/index.ts (+128)">lib/ui/format-time.ts, lib/utils/date-format.ts, lib/assets/content-parser.ts, lib/engine/runtime/index.ts, lib/llm/index.ts, lib/themes/index.ts (+128)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Valides manuellement : 3/3 fichiers sondes ont 0 import interne. Beaucoup d'index.ts barrel obsoletes (probable refacto post-flatten).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer par lots (par dossier metier). Garder les index.ts uniquement s'ils re-exportent des primitives partagees. Re-run knip apres chaque lot.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">172 exports orphelins + 389 types orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/auth/index.ts (12 exports zombis), lib/marketplace/types.ts, lib/contracts/jobs.ts, lib/contracts/missions.ts, lib/reports/catalog/index.ts">lib/platform/auth/index.ts (12 exports zombis), lib/marketplace/types.ts, lib/contracts/jobs.ts, lib/contracts/missions.ts, lib/reports/catalog/index.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Schemas Zod et payload types definis mais jamais consommes (ex: ImageGenPayload, AudioGenPayload, CodeExecPayload - anciens contrats job remplaces).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Lot par lot : confirmer que les schemas ne sont pas utilises via API runtime (resolver dynamique?), puis purge. Risque P0 si schema dynamiquement reference par nom.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">49 occurrences any/as any/&lt;any&gt; hors couche DB</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/chat-input/ChatInput.tsx">app/(user)/components/chat-input/ChatInput.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Au-dela du contournement Supabase (P1 separe), any epars sur ref forwarding, query builders dynamiques, payload JSON-shape.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Typer ref via React.RefObject&lt;HTMLInputElement&gt;, query builder via generic, payload via discriminated union. Garder uniquement module.hot (HMR Webpack legal).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Fichiers &gt; 500 lignes (10 candidats split)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts (1446), lib/capabilities/taxonomy.ts (930), app/(user)/cockpit-x/CockpitXClient.tsx (791), lib/llm/router.ts (787), app/(user)/_stages/KGStage.tsx (747), app/(user)/components/ChatDock.tsx (691)">lib/engine/orchestrator/ai-pipeline.ts (1446), lib/capabilities/taxonomy.ts (930), app/(user)/cockpit-x/CockpitXClient.tsx (791), lib/llm/router.ts (787), app/(user)/_stages/KGStage.tsx (747), app/(user)/components/ChatDock.tsx (691)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Pages stages et orchestrators depassent 500 lignes - couplage fort, tests difficiles. ChatDock.tsx melange UI/state/SSE.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Decouper par responsabilite : extraire hooks/sub-components dans des fichiers freres (ai-pipeline -&gt; providers/, planning/, fallback/).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Backups spatial-rnd dans docs/spatial - 99 fichiers .ts/.tsx pollues dans index TS</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/* (et _WORKING_)">docs/spatial/_BACKUP_SPATIAL_RND_BUGGY_2026-05-12/* (et _WORKING_)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>99 fichiers TypeScript orphelins dans docs/ - scannes par knip/tsc, gonflent tsbuildinfo (1.4 MB) et metrics audit.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Exclure docs/spatial/_BACKUP_* dans tsconfig.json (exclude) et dans knip.json. Ou deplacer vers .gitignore + repo separe (backup officiel hors-git existe deja selon CLAUDE.md).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">6 TODO/FIXME actifs (recents, tracabilite OK)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx">app/(user)/_stages/BrowserStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Tous dates &lt;7 jours via git log. Pas obsoletes mais a tagguer issue tracker (zero reference GH issue dans le texte).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter reference issue GH (// TODO(#123): ...) pour tracabilite, ou ouvrir issues stub.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Magic strings Supabase table names dupliquees</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/personas/store.ts (personas), lib/voice/transcript-store.ts (transcripts), lib/cockpit/ambient-signals.ts, lib/tools/native/hearst-actions.ts (simulation_runs)">lib/personas/store.ts (personas), lib/voice/transcript-store.ts (transcripts), lib/cockpit/ambient-signals.ts, lib/tools/native/hearst-actions.ts (simulation_runs)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Noms de tables Supabase tapes en litteral string dans ~15 fichiers, sans constante centrale. Renommer une table = grep manuel.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Constants lib/db/tables.ts (export const TABLES = { personas: 'personas', ... } as const).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">screenshot.mjs et scripts orphelins a la racine</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/screenshot.mjs (knip flagged orphan)">screenshot.mjs (knip flagged orphan)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Script racine non reference par package.json scripts ni autres scripts.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Deplacer dans scripts/dev/ ou supprimer si remplace par playwright.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Index barrel orphelins (chat-input/index.ts, ui/index.ts, _stages/registry.ts)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/chat-input/index.ts, app/(user)/components/ui/index.ts, app/(user)/_stages/registry.ts">app/(user)/components/chat-input/index.ts, app/(user)/components/ui/index.ts, app/(user)/_stages/registry.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Barrels re-exportant des modules consommes directement par chemin - perte d'utilite.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Decider une politique : soit propager les imports vers le barrel, soit supprimer.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Dépendances</span>
+        <span class="section-agent">adrien-auditer-dependances</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">1</span>
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      <p class="section-summary">Stack pnpm@10.11.0 saine côté lockfile (sync OK, frozen-install passe). 3 vulnérabilités modérées dont 1 réelle (postcss 8.4.31 imbriqué dans next 16.2.6 via XSS GHSA-qx2v-qp2m-jg93) et 2 faux positifs (ws 8.18.0/8.18.3 dans des chaînes @privy-io/wagmi/viem non installées). Vulnérabilité postcss non corrigée car `overrides` (syntaxe npm) n'est pas pris en compte par pnpm : il faut migrer vers `pnpm.overrides`. 6 packages 3D (three, @react-three/fiber/drei/postprocessing, gsap, leva) sont importés par 22 fichiers de `components/spatial-safe/` mais ABSENTS de package.json ET node_modules — la route /spatial-safe est cassée au build. 2 majors outdated (prisma 6→7 mais pas utilisé directement, hors arbre). Pas de licence GPL/AGPL problématique. node_modules pèse 3.6G (googleapis seul = 194M).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Imports `three`/`@react-three/*`/`gsap`/`leva` orphelins dans /spatial-safe (build cassé)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/three, @react-three/fiber, @react-three/drei, @react-three/postprocessing, gsap, leva">three, @react-three/fiber, @react-three/drei, @react-three/postprocessing, gsap, leva</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>depcheck signale 6 paquets manquants utilisés dans 22 fichiers de components/spatial-safe/* + hooks/spatial-safe/* + app/spatial-safe/page.tsx. `find node_modules` confirme absence totale. La route /spatial-safe est en lecture seule (CLAUDE.md), donc le build prod doit la couvrir → next build échouera dès qu'il indexe cette page.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter ces 6 packages à package.json (versions compatibles React 19, voir BACKUP_SPATIAL_WORKING) OU exclure /spatial-safe du build via une route configuration (dynamic + skip-static).</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">postcss 8.4.31 vulnérable (XSS) embarqué dans next, override npm ignoré par pnpm</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/postcss@8.4.31 (via next@16.2.6)">postcss@8.4.31 (via next@16.2.6)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>pnpm audit JSON: GHSA-qx2v-qp2m-jg93 (CVE-2026-41305) MODERATE. `pnpm ls postcss --depth=Infinity` montre 8.4.31 sous next, malgré `overrides: { postcss: '&gt;=8.5.10' }` dans package.json. pnpm n'honore que le champ `pnpm.overrides`, pas `overrides`. Versions postcss installées en parallèle : 8.4.31, 8.5.14, 8.5.15.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer `&quot;overrides&quot;: { ... }` par `&quot;pnpm&quot;: { &quot;overrides&quot;: { &quot;postcss&quot;: &quot;&gt;=8.5.10&quot;, ... } }` dans package.json puis `pnpm install`. Vérifier que les 4 overrides OpenTelemetry sont migrés aussi.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Overrides OpenTelemetry inactifs (syntaxe npm dans projet pnpm)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/@opentelemetry/auto-instrumentations-node, exporter-prometheus, sdk-node">@opentelemetry/auto-instrumentations-node, exporter-prometheus, sdk-node</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Même cause racine que postcss : `overrides` au lieu de `pnpm.overrides`. Les pins de version pour resserrer @opentelemetry/* (instrumentation tunnel/AWS via Sentry) ne sont pas appliqués.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migration unique vers `pnpm.overrides` couvrant les 4 entrées en une PR.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Majors outdated dans le store (prisma 6→7) — deps transitives</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/prisma@6.19.3, @prisma/client@6.19.3, @anthropic-ai/sdk@0.96.0">prisma@6.19.3, @prisma/client@6.19.3, @anthropic-ai/sdk@0.96.0</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>pnpm outdated --format json: prisma &amp; @prisma/client en major drift v6→v7. Pas listés en deps directes (transitives). 9 minors disponibles (framer-motion 12.38→12.39, viem 2.48→2.50, lucide-react, posthog-js, tsx, eslint, etc.) sur paquets également transitifs.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ignorer pour l'instant (deps indirectes). Re-check après bump Sentry/upstream.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">next-auth v4 (legacy) sur Next 16</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/next-auth@4.24.14">next-auth@4.24.14</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>next-auth v4 supporte officiellement Next 16 via peerDeps, mais Auth.js v5 (`@auth/core` + `next-auth@5`) est la version recommandée depuis 2024. Pas de breach immédiat, mais dette technique à planifier.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Roadmap migration Auth.js v5 (refactor handlers + session callbacks). Pas urgent.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Faux positifs depcheck (pino-pretty, tailwindcss, @tailwindcss/postcss, wait-on)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/pino-pretty@13.1.3, tailwindcss@4.3.0, @tailwindcss/postcss@4.3.0, wait-on@9.0.10">pino-pretty@13.1.3, tailwindcss@4.3.0, @tailwindcss/postcss@4.3.0, wait-on@9.0.10</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>depcheck signale 4 paquets inutilisés, tous en fait actifs : pino-pretty (transport runtime de pino), tailwindcss + @tailwindcss/postcss (chargés par postcss.config.mjs), wait-on (script dev:electron).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter ces 4 entrées dans .depcheckrc → ignore_patterns pour les futurs runs.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">node_modules obèse (3.6 GB), googleapis seul à 194 MB</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/googleapis@171.4.0">googleapis@171.4.0</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>du -sh : node_modules = 3.6G, node_modules/.pnpm/googleapis@171.4.0 = 194M (tout l'arbre Google APIs). 4 fichiers seulement importent depuis googleapis (gmail/calendar/drive/auth).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par des SDK granulaires (`@googleapis/gmail`, `@googleapis/drive`, `@googleapis/calendar`) — économie ~150 MB et meilleur tree-shaking.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Faux positif pnpm audit pour `ws` (chaînes @privy-io/wagmi non installées)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/ws (transitif fantôme)">ws (transitif fantôme)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>pnpm audit JSON liste 2 findings ws@8.18.0 et 8.18.3 via @privy-io/react-auth → x402 → wagmi → viem → ws. Aucune trace dans pnpm-lock.yaml ni node_modules (privy/x402/viem/wagmi absents). Toutes les `ws` réellement installées sont 8.20.1 (patchée).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aucune action — bug de l'audit pnpm sur peer-deps optionnelles. Documenter dans .audit-ignore.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Horizon 2026</span>
+        <span class="section-agent">horizon-adrien</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">2</span>
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">6</span>
+        </span>
+      </summary>
+      <p class="section-summary">Stack Hearst OS globalement moderne (Next 16, React 19.2, React Compiler, Tailwind v4, Biome 2, pnpm 10, pgvector, Sentry/Langfuse), mais 5 décrochages 2026 : NextAuth v4 (EOL — successeur Auth.js v5 / Better Auth), absence totale d'ORM typé (Supabase JS direct, 0 Drizzle/Prisma), provider Claude marqué deprecated au profit de Kimi alors que prompt caching + batch + extended thinking Claude 4.7 sont des features supérieures, CI sans preview env ni feature-flag system, et 100% des routes en runtime nodejs (zéro edge) malgré streaming chat lourd. Observabilité triple (Sentry+Langfuse+Axiom payé non câblé). Bonnes pratiques : React Compiler activé, CSP stricte, prompt caching ephemeral auto sur Anthropic, circuit breaker + rate limiter LLM custom solides.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">NextAuth v4 (next-auth@4.24.14) — fin de vie 2026</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>package.json `next-auth: ^4.24.14`. 9+ refs `getServerSession` dans lib/platform/auth, lib/connectors/google, etc. v4 ne reçoit plus de patchs sécurité depuis Auth.js v5 GA. Pas compatible long terme avec React 19 / Next 16 RSC patterns.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers Auth.js v5 (next-auth@5, app router natif, `auth()` helper RSC) OU bascule complète Supabase Auth (déjà 82 migrations Supabase, simplifie OAuth Google scopes via supabase.auth.signInWithOAuth + accès `provider_token` dans session). Économie : -1 service, -1 schéma users à synchroniser.</code></div>
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Provider LLM principal = Kimi (Moonshot) — Claude 4.7 deprecated en code</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>lib/llm/anthropic.ts ligne 1-6 : `@deprecated Ce provider Anthropic est obsolète. L'application utilise maintenant Kimi via SDK OpenAI-compatible`. Pricing.ts liste claude-opus-4-7 / sonnet-4-6 / haiku-4-5 mais router charge Kimi par défaut. CLAUDE.md global Adrien parle de Claude Opus/Sonnet 4.7 comme cible.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Décision stack : (a) garder Kimi pour coût mais réactiver Claude Opus 4.7 pour raisonnement complexe + tool-use (cache hit ratio Claude &gt; Kimi sur prompts répétés), ou (b) si Kimi reste défaut, supprimer lib/llm/anthropic.ts + 4 deps Anthropic dans package.json. État actuel = double maintenance morte.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Zéro ORM typé — 168 imports Supabase JS bruts</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>0 occurrence drizzle/prisma. database.types.ts généré, mais chaque requête réécrit `.from().select().eq()` sans inférence relationnelle, sans migrations versionnées côté code (82 .sql manuels), sans transactions atomiques.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Drizzle ORM (compat Supabase Postgres + edge runtime + 0 codegen runtime) — migration progressive table par table. Bénéfices : types relationnels auto, schema-as-code, `drizzle-kit migrate` remplace les 82 .sql manuels, transactions, prepared statements pour pgvector.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">100% routes API en runtime nodejs — 0 edge</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>87/168 routes déclarent `export const runtime = &quot;nodejs&quot;`, 0 déclare edge. Streaming chat (api/agents/[id]/chat) idéal pour edge runtime (TTFB &lt;50ms, Vercel Functions standard ~200ms).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit route-by-route : tout ce qui ne touche que Supabase + LLM streaming (chat, briefing, conversations) doit passer en `runtime = &quot;edge&quot;`. Garder nodejs pour : Stripe, exceljs, pdfkit, googleapis, bullmq. Gain : -60-70% latence streaming user-perceived.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Aucun système de feature flags</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>0 dep GrowthBook/LaunchDarkly/PostHog/Flagsmith. Le AGENT-LOCK.json couvre verrouillage agents mais pas rollout progressif features users. F-078, F-XXX rollback = redeploy complet.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>PostHog (déjà l'observabilité produit + flags + experiments + session replay dans un seul service = simplification stack) OU @vercel/flags + edge config. PostHog mieux : remplace une partie d'Axiom (analytics produit), donne flags, A/B tests, session replay. Économie potentielle : Axiom downgrade.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Observabilité triple non rationalisée (Sentry + Langfuse + Axiom)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>Sentry câblé (next.config.ts withSentryConfig, instrumentation-client.ts, sentry.edge/server.config.ts). Langfuse câblé (lib/observability/langfuse.ts + langfuse-redact.ts). Axiom : token présent dans SERVICES.md mais 0 import dans le code (`grep axiom` retourne vide).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Décision : (a) supprimer Axiom (payé non câblé) OU (b) câbler logs Pino → Axiom et supprimer doublon Sentry breadcrumbs. Garder Langfuse pour LLM-only, Sentry pour erreurs+perf web. PostHog (cf P1 flags) remplace analytics produit.</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de Vercel AI SDK pour streaming UI — gestion manuelle</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>lib/llm/anthropic.ts streamChat custom (~100 lignes), ChatStage Zustand store custom, pas de `useChat` du @ai-sdk/react. @ai-sdk/anthropic dans deps mais seulement `import type { Tool } from &quot;ai&quot;` en utilisation.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Adopter AI SDK 6.x côté serveur (`streamText` + `toUIMessageStreamResponse`) + `@ai-sdk/react` côté client (`useChat`). Gain : streaming tool-calls natif, Resumable Streams (resume après refresh), generative UI, tokens usage typed. Suppression lib/llm custom (~500 lignes).</code></div>
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Pas de PPR / dynamicIO Next 16</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>next.config.ts active uniquement `reactCompiler: true` + `output: standalone`. Pas de `experimental.ppr`, pas de `dynamicIO`, pas de `cacheLife`/`cacheTag`. 0 occurrence `unstable_cache` / `&quot;use cache&quot;` dans app/.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer `experimental.ppr = &quot;incremental&quot;` puis annoter shell (sidebar, header) en static, panels dynamiques en Suspense. Adopter `&quot;use cache&quot;` directive pour data fetching SSR répétitif (briefings, configs). Gain : TTFB &lt;100ms même pages dynamiques.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CI sans preview env Vercel ni cache lockfile partagé</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>.github/workflows/ci.yml : 4 jobs séquentiels (typecheck → audit → test → e2e). Pas de matrix, pas de turborepo cache, pas de Vercel Preview URL injection pour e2e (E2E_BASE_URL fallback localhost:3000). Build re-run dans test job.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>(a) Activer `actions/cache` plus agressif sur pnpm store (~70% faster install), (b) e2e job utilise `vercel pull &amp;&amp; vercel build &amp;&amp; vercel deploy --prebuilt` pour Preview URL réelle, (c) ajouter Turbo Remote Cache (gratuit pour pnpm via @vercel/remote-cache).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Pas de Storybook ni de playground composants</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>0 dep storybook, pas de .storybook/, pas de packages/ui isolé (sauf hearst-cockpit-shell-0.4.0.tgz local). 16 stores Zustand sans devtools wrapper visible dans grep.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Storybook 9 + Vitest integration (composant tests dans Storybook directement). Alternative légère : Ladle (plus rapide, Vite). Permet design QA isolé des features. Couplé à Chromatic pour visual regression (remplace partiellement playwright visual-regression).</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Supabase Edge Functions non exploitées</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>supabase/ ne contient que /migrations (82 fichiers .sql). Pas de supabase/functions/. Tout passe par Next.js API routes Vercel.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Pour webhooks haut débit (Stripe, Inngest, OAuth callbacks) et tâches CPU-light proches DB (refresh embeddings, RLS-aware mutations), Supabase Edge Functions (Deno, gratuit jusqu'à 500K req/mois) déchargent Vercel Functions. Latence DB &lt;5ms vs ~30ms Vercel→Supabase EU.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Stack jobs hybride bullmq + Inngest sans frontière claire</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>package.json : bullmq@5.76 + inngest@4.4 coexistent. lib/jobs/ contient configs.ts, queue.ts, workers/, scheduled/, inngest/.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Choisir : (a) Inngest pour tout (durable functions, retries, observabilité, gratuit jusqu'à 50K steps/mois, intègre Vercel native) — supprimer bullmq + Redis pour jobs. (b) bullmq pour throughput haut + Inngest pour orchestration. Documenter la frontière dans ARCHITECTURE.md.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">16 stores Zustand fragmentés sans devtools/persist standardisés</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>stores/ contient 16 fichiers (chat-context, chat-stage, focal, focus-mode, navigation, notifications, oauth, reports, runtime, selection, services, stage-data, stage, video-quick-launch, voice, working-document).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit groupage (chat-context+chat-stage = un seul ?), wrapper standard `createStore(name, fn)` qui applique `devtools` + `subscribeWithSelector` + `persist` configurable. Considérer Jotai pour state local éphémère (focal, selection) — Zustand pour stores cross-feature.</code></div>
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Pas de monorepo / packages workspaces malgré packages/ + lab/</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>packages/ existe, lab/cli-os/ existe (sandbox Vite indépendante), hearst-cockpit-shell-0.4.0.tgz importé en file:. pnpm-workspace.yaml ? non visible.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Activer pnpm workspaces + Turborepo (turbo.json) — packages/cockpit-shell, packages/ui-primitives, app/ comme app principale. Cache build partagé, déploiement multi-target (web + Electron + lab) coordonné. Étape vers SDK Hearst exportable.</code></div>
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Battle Plan</span>
+        <span class="section-agent">battle-status</span>
+        <span class="section-counts">
+          
+          
+          <span class="badge badge-p2">6</span>
+        </span>
+      </summary>
+      <p class="section-summary">Battle Plan sécurité 2026-05-10 : 44/52 batchs done (P0→P10 + GO-LIVE à 100%), 8 batchs Phase 11 deferred post-go-live. 91/131 findings closed (39 P0, 40 P1, 12 P2), 39 pending dont 6 P0 + 12 P1 tous mappés sur batchs Phase 11 deferred. Aucun batch éligible immédiat — go-live techniquement prêt.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Asset/report scoping fail-open quand provenance manque</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Search leak unscoped run metadata</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Layout (user) = 'use client' racine — shell hydraté client-side</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Zéro Server Action — Next 16 sous-utilisé</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Zéro caching Next.js — chaque navigation hit DB + LLM</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">14× new Anthropic() non mémoïsé — perte keep-alive HTTP</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>P0 — Bloquants (action immédiate)</h3>
+              <ul><li>[QA UI/UX] outline-none sans focus-visible — keyboard navigation invisible — app/(user)/components/Commandeur.tsx</li><li>[QA UI/UX] --text-decor-25 (opacity 25%) utilisé sur du texte lisible — WCAG AA fail — app/(user)/_stages/AssetCompareStage.tsx</li><li>[QA UI/UX] MobileBottomNav — touch targets sous le minimum 44px iOS/WCAG 2.5.5 — app/(user)/components/MobileBottomNav.tsx</li><li>[Flows] OnboardingTour codé mais jamais monté — feature onboarding dead code — app/(user)/components/OnboardingTour.tsx</li><li>[Flows] Aucun bouton Se déconnecter dans l'app user — seul l'admin en a un — app/(user)/_shell/LeftRail.tsx</li><li>[Dépendances] Imports `three`/`@react-three/*`/`gsap`/`leva` orphelins dans /spatial-safe (build cassé) — three, @react-three/fiber, @react-three/drei, @react-three/postprocessing, gsap, leva</li><li>[Horizon 2026] NextAuth v4 (next-auth@4.24.14) — fin de vie 2026</li><li>[Horizon 2026] Provider LLM principal = Kimi (Moonshot) — Claude 4.7 deprecated en code</li><li>[Battle Plan] Asset/report scoping fail-open quand provenance manque</li><li>[Battle Plan] Search leak unscoped run metadata</li><li>[Battle Plan] Layout (user) = 'use client' racine — shell hydraté client-side</li><li>[Battle Plan] Zéro Server Action — Next 16 sous-utilisé</li><li>[Battle Plan] Zéro caching Next.js — chaque navigation hit DB + LLM</li><li>[Battle Plan] 14× new Anthropic() non mémoïsé — perte keep-alive HTTP</li></ul>
+            </div><div class="plan-batch">
+              <h3>P1 — Cohérence &amp; dette (sprint courant)</h3>
+              <ul><li>[Cartographie] 50 routes API mutation sans validation Zod</li><li>[Cartographie] Surface API v2/ très large (84 routes)</li><li>[Cartographie] 21 features 'draft' qa-* non clôturées</li><li>[Interface] Primitive IconButton dupliquee (locale vs globale)</li><li>[Interface] Hierarchie H1 fragmentee — 4 systemes concurrents</li><li>[Interface] Action primitive sous-adoptee — 129 &lt;button&gt; bruts vs 18 &lt;Action&gt;</li><li>[Interface] Border-radius hors echelle de tokens dans globals.css</li><li>[Interface] Focus ring incoherent — 5 couleurs + 3 epaisseurs</li><li>[Interface] Tailwind literals bg-black + bg-white dans shells racine</li><li>[Interface] Decimal Tailwind spacing (21 occurrences) hors tokens --space-*</li><li>[QA UI/UX] LoadingSkeleton dupliqué × 4 — primitive RowSkeleton/CardSkeleton non adoptée</li><li>[QA UI/UX] Durées Framer-Motion hardcodées (0.3/0.35/0.4/0.5/0.6) — aucun token motion</li><li>[QA UI/UX] prefers-reduced-motion non respecté hors d'une seule règle CSS</li><li>[QA UI/UX] Hover-only state sans focus-visible équivalent dans les stages</li><li>[QA UI/UX] AppLogo — 5 tailles distinctes (28/32/40/48) sans token icon-size</li><li>[QA UI/UX] Texte 'Chargement…' plat persiste en 3 endroits malgré primitive Skeleton</li><li>[Expérience] FilterTabs non fonctionnels — clic sans effet sur 4 pages</li><li>[Expérience] Bouton 'Tout marquer comme lu' notifications sans handler</li><li>[Expérience] Disconnect d'un service tiers déclenché sans confirmation</li><li>[Expérience] OnboardingTour sans focus trap — tab échappe le dialog</li><li>[Expérience] Erreurs de validation formulaires non liées aux inputs (a11y)</li><li>[Expérience] Marketplace expose un SearchField disabled + tabs morts + cards mock</li><li>[Flows] Layout (user) ne redirige pas vers /login — fail-soft silencieux</li><li>[Flows] Deeplinks /runs/[id] et toute route dynamique → 404</li><li>[Flows] Pages /settings, /notifications, /reports sans back link — dead-end</li><li>[Flows] Persistance chat-context (PII) non purgée au logout</li><li>[Flows] Aucun switch de vertical/industrie côté UI malgré endpoint persist</li><li>[Flows] Global error boundary affiche NextError default au lieu de Hearst UI</li><li>[Sécurité] Electron IPC shell:open-external accepte n'importe quelle URL sans validation de schéma</li><li>[Sécurité] Electron IPC navigate accepte un path arbitraire concaténé à loadURL</li><li>[Sécurité] CSP autorise 'unsafe-inline' script-src en production</li><li>[Sécurité] Webhook Recall.ai accepte les events sans signature si RECALL_WEBHOOK_SECRET absent</li><li>[Performance] Police Satoshi chargée via CDN render-blocking au lieu de next/font</li><li>[Performance] Aucun loading.tsx — zéro Suspense boundary server sur 51 pages</li><li>[Performance] 7+ polls client setInterval superposés sans coordination ni pause background</li><li>[Performance] Aucun edge runtime sur 168 routes API — TTFB sous-optimal pour read-only</li><li>[Performance] Aucun cache Next.js (unstable_cache / force-cache / 'use cache')</li><li>[Code] Pattern (sb.from('table' as any) as any) duplique - Supabase typegen contourne</li><li>[Code] process.env.X! sur secrets critiques sans guard runtime (Stripe + Kimi)</li><li>[Code] 85 console.log/debug en code prod (lib/, app/api/)</li><li>[Code] 41 eslint-disable react-hooks/set-state-in-effect - pattern transverse non capture</li><li>[Code] 5 test.skip permanents sur Arcjet rate-limit (couverture securite absente)</li><li>[Dépendances] postcss 8.4.31 vulnérable (XSS) embarqué dans next, override npm ignoré par pnpm</li><li>[Dépendances] Overrides OpenTelemetry inactifs (syntaxe npm dans projet pnpm)</li><li>[Horizon 2026] Zéro ORM typé — 168 imports Supabase JS bruts</li><li>[Horizon 2026] 100% routes API en runtime nodejs — 0 edge</li><li>[Horizon 2026] Aucun système de feature flags</li><li>[Horizon 2026] Observabilité triple non rationalisée (Sentry + Langfuse + Axiom)</li><li>[Horizon 2026] Pas de Vercel AI SDK pour streaming UI — gestion manuelle</li><li>[Horizon 2026] Pas de PPR / dynamicIO Next 16</li></ul>
+            </div><div class="plan-batch">
+              <h3>P2 — Polish &amp; horizon (backlog)</h3>
+              <ul><li>[Cartographie] Mega-fichiers (&gt;700 LOC) côté orchestrator + stages</li><li>[Cartographie] Ratio tests/source faible côté app+lib</li><li>[Cartographie] 9 features in_progress P1/P2</li><li>[Cartographie] CSP encore en 'unsafe-inline' sur script-src</li><li>[Interface] rounded-2xl literal au lieu de --radius-2xl token</li><li>[Interface] Style inline paddingTop:'4px' magic number</li><li>[Interface] ease-[ease] arbitraire au lieu de var(--ease-*)</li><li>[Interface] leading-[1.15] / leading-[1.55] / leading-[1.6] arbitraires (login)</li><li>[Interface] fontWeight numerique hardcode dans pages publiques</li><li>[Interface] z-index sauvage z-5 sur AssetStage badges</li><li>[QA UI/UX] Padding inconsistant px-5 py-4 vs px-(--space-N) — tokens non utilisés en TSX</li><li>[QA UI/UX] Pas de mode clair — assumes dark uniquement</li><li>[QA UI/UX] Tailwind raw classes vs CSS tokens — confusion px-5 (Tailwind 1.25rem) vs --space-5 (20px)</li><li>[QA UI/UX] Toast positionnement bottom-right sur mobile chevauche MobileBottomNav</li><li>[QA UI/UX] DemoBadge / ActionsBadge / FocusBadge — patterns badge dupliqués sans primitive</li><li>[Expérience] Aucun loading.tsx au niveau routes — transitions blanches</li><li>[Expérience] Hearst Card quick-action — fail silencieux sans feedback</li><li>[Expérience] Mobile : entry points cachés (Video, Focus, Signal, Card, Connections meter)</li><li>[Expérience] ReportEditor — état d'erreur générique sans message actionnable</li><li>[Expérience] Touch targets PulseBar/MobileBottomNav potentiellement &lt;44px</li><li>[Flows] Stage state non synchronisé avec l'URL — F5 perd le contexte</li><li>[Flows] BrowserStage et VoiceStage avec TODO SSE backend non branché</li><li>[Flows] 9 features 'in_progress' dans _manifest.json sans feature-flag UI</li><li>[Flows] Onboarding tour storage key sur localStorage cross-device (PII?) inconsistant</li><li>[Sécurité] RLS user_tokens policy USING(true) WITH CHECK(true)</li><li>[Sécurité] lib/reports/sources/http.ts utilise SSRF guard local sans DNS lookup (rebinding possible)</li><li>[Sécurité] RLS run_steps/run_logs/artifacts gardent USING(true)</li><li>[Sécurité] Electron IPC oauth:open-popup ne valide pas l'URL OAuth</li><li>[Sécurité] /api/auth/dev-login HTML inline servi sans nonce CSP</li><li>[Performance] PulseBar.tsx 510 lignes monolithique avec 3 useEffect-polls</li><li>[Performance] Sentry Session Replay actif 100% sur erreur — ~80KB JS eager</li><li>[Performance] console.log présents en code serveur (jobs/workers/OAuth)</li><li>[Performance] public/ 22MB dont 21MB de thème robotflow (PNG/JPG webflow non-optimisés)</li><li>[Performance] 148/195 .tsx en 'use client' (76%) — surface client maximale</li><li>[Performance] 87/215 onClick utilisent une fonction inline arrow non-stable</li><li>[Code] 134 fichiers exportes jamais importes (knip, hors sandbox)</li><li>[Code] 172 exports orphelins + 389 types orphelins</li><li>[Code] 49 occurrences any/as any/&lt;any&gt; hors couche DB</li><li>[Code] Fichiers &gt; 500 lignes (10 candidats split)</li><li>[Code] Backups spatial-rnd dans docs/spatial - 99 fichiers .ts/.tsx pollues dans index TS</li><li>[Code] 6 TODO/FIXME actifs (recents, tracabilite OK)</li><li>[Code] Magic strings Supabase table names dupliquees</li><li>[Code] screenshot.mjs et scripts orphelins a la racine</li><li>[Code] Index barrel orphelins (chat-input/index.ts, ui/index.ts, _stages/registry.ts)</li><li>[Dépendances] Majors outdated dans le store (prisma 6→7) — deps transitives</li><li>[Dépendances] next-auth v4 (legacy) sur Next 16</li><li>[Dépendances] Faux positifs depcheck (pino-pretty, tailwindcss, @tailwindcss/postcss, wait-on)</li><li>[Dépendances] node_modules obèse (3.6 GB), googleapis seul à 194 MB</li><li>[Dépendances] Faux positif pnpm audit pour `ws` (chaînes @privy-io/wagmi non installées)</li><li>[Horizon 2026] CI sans preview env Vercel ni cache lockfile partagé</li><li>[Horizon 2026] Pas de Storybook ni de playground composants</li><li>[Horizon 2026] Supabase Edge Functions non exploitées</li><li>[Horizon 2026] Stack jobs hybride bullmq + Inngest sans frontière claire</li><li>[Horizon 2026] 16 stores Zustand fragmentés sans devtools/persist standardisés</li><li>[Horizon 2026] Pas de monorepo / packages workspaces malgré packages/ + lab/</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Généré le 2026-05-20 — 11 agents parallèles · audit-adrien --max · Hearst OS · 2026-05-20 22:48
+  </footer>
+</div>
+</body>
+</html>

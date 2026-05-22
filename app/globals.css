@@ -580,9 +580,37 @@
   --ct-product-halo: #f59e0b;
   --ct-product-hyper: #3b82f6;
   --ct-product-hustle: #10b981;
+  /* Presentation : app sœur autonome (Supabase + Vercel dédiés). Violet pour
+   * la distinguer des 4 produits commerciaux. Surface = entrée LeftRail. */
+  --ct-product-presentation: #a855f7;
 }
 
 /* ── Left Rail — classes manquantes dans @hearst/cockpit-shell/tokens.css ── */
+
+/**
+ * ct-rail-left--scrollable — modificateur qui rend le rail scrollable
+ * verticalement tout en masquant la scrollbar (technique no-scrollbar).
+ * À ajouter sur <aside className="ct-rail-left ct-rail-left--scrollable no-scrollbar">.
+ * La largeur 88px provient de @hearst/cockpit-shell/tokens.css — ne pas redéfinir.
+ */
+.ct-rail-left--scrollable {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.ct-rail-left--scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+/**
+ * Quand le contenu dépasse la hauteur visible (≈ 22 items × 44px ≈ 968px),
+ * le ct-spacer ne doit pas forcer une hauteur flex:1 qui empêche le scroll.
+ * On lui assigne un min-height fixe à la place du flex:1.
+ */
+.ct-rail-left--scrollable .ct-spacer {
+  flex: 0 0 auto;
+  min-height: 8px;
+}
 
 .ct-logo-slot {
   display: flex;
@@ -705,6 +733,25 @@
 .ct-rail-settings:hover {
   background: rgba(255,255,255,0.07);
   color: var(--text, #fff);
+}
+.ct-rail-settings.accent {
+  background: color-mix(in srgb, var(--accent-teal) 15%, transparent);
+  color: var(--accent-teal);
+  text-decoration: none;
+}
+.ct-rail-settings.accent:hover {
+  background: color-mix(in srgb, var(--accent-teal) 25%, transparent);
+  color: var(--accent-teal);
+}
+
+/* ct-rail-badge active state (connexions) */
+.ct-rail-badge.accent {
+  background: color-mix(in srgb, var(--accent-teal) 15%, transparent);
+  color: var(--accent-teal);
+}
+.ct-rail-badge.accent:hover {
+  background: color-mix(in srgb, var(--accent-teal) 25%, transparent);
+  color: var(--accent-teal);
 }
 
 /* ── Chat right rail — classes manquantes dans le package ── */

@@ -121,6 +121,12 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
     <SessionProvider>
       <CockpitShell appId="helm" headless products={HELM_PRODUCTS}>
         <div className="h-dvh w-full overflow-hidden bg-black text-white antialiased">
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-4 focus:left-4 focus:bg-[var(--accent-teal)] focus:text-black focus:px-4 focus:py-2 focus:rounded-[var(--radius-sm)] text-sm font-medium"
+          >
+            Aller au contenu
+          </a>
           {children}
           <Commandeur />
           <VoiceMount />

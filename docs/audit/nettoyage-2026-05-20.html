@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Nettoyage codebase Hearst OS — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Nettoyage codebase Hearst OS</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-20 22:26</span>
+      <span><b>Branche</b> polish/ui-iconbutton-stages-cleanup</span>
+      <span><b>Commit</b> 70058f8a</span>
+      <span><b>Scope</b> repo entier (hors spatial-safe/, lab/, app/api/)</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">60</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">90</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">260</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">342</div><div class="kpi-label">P2 — dette</div></div>
+    
+  </section>
+
+  
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Exports orphelins (knip)</span>
+        
+        <span class="section-counts">
+          <span class="badge badge-p0">5</span>
+          <span class="badge badge-p1">25</span>
+          
+        </span>
+      </summary>
+      <p class="section-summary">162 findings — 5 fichiers jamais importés, 70 exports morts, 87 deps/index racines.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/chat-input/index.ts">app/(user)/components/chat-input/index.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/assets/content-parser.ts">lib/assets/content-parser.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/ui/format-time.ts">lib/ui/format-time.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/utils/date-format.ts">lib/utils/date-format.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/screenshot.mjs">screenshot.mjs</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/registry.ts:218">app/(user)/_stages/registry.ts:218</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/registry.ts:238">app/(user)/_stages/registry.ts:238</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/RailSection.tsx:31">app/(user)/components/ui/RailSection.tsx:31</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/hooks/use-oauth-expiry.ts:86">app/hooks/use-oauth-expiry.ts:86</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/e2e/reports/fixtures.ts:14">e2e/reports/fixtures.ts:14</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/agents/dual-apps.ts:19">lib/agents/dual-apps.ts:19</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/browser/stagehand-executor.ts:531">lib/browser/stagehand-executor.ts:531</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/connections/oauth-refresh.ts:31">lib/connections/oauth-refresh.ts:31</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/connectors/composio/apps.ts:71">lib/connectors/composio/apps.ts:71</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/core/types/focal.ts:105">lib/core/types/focal.ts:105</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/system-prompt.ts:86">lib/engine/orchestrator/system-prompt.ts:86</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/system-prompt.ts:161">lib/engine/orchestrator/system-prompt.ts:161</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/system-prompt.ts:184">lib/engine/orchestrator/system-prompt.ts:184</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/planner/mission-engine.ts:53">lib/engine/planner/mission-engine.ts:53</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/planner/mission-engine.ts:53">lib/engine/planner/mission-engine.ts:53</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/missions/types.ts:35">lib/engine/runtime/missions/types.ts:35</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/missions/types.ts:44">lib/engine/runtime/missions/types.ts:44</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/prompt-guard.ts:28">lib/engine/runtime/prompt-guard.ts:28</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/prompt-guard.ts:69">lib/engine/runtime/prompt-guard.ts:69</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/marketplace/types.ts:18">lib/marketplace/types.ts:18</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/marketplace/types.ts:44">lib/marketplace/types.ts:44</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/marketplace/types.ts:57">lib/marketplace/types.ts:57</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/marketplace/types.ts:77">lib/marketplace/types.ts:77</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/monitoring/web-vitals-store.ts:132">lib/monitoring/web-vitals-store.ts:132</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/multi-tenant/types.ts:27">lib/multi-tenant/types.ts:27</a></div>
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Dead code TypeScript (ts-prune)</span>
+        
+        <span class="section-counts">
+          <span class="badge badge-p0">8</span>
+          <span class="badge badge-p1">5</span>
+          
+        </span>
+      </summary>
+      <p class="section-summary">325 symboles morts détectés — hotspots barrel exports (lib/domain, lib/llm, ui/index).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/registry.ts:238">app/(user)/_stages/registry.ts:238</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/registry.ts:218">app/(user)/_stages/registry.ts:218</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/index.ts:8">app/(user)/components/ui/index.ts:8</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/index.ts:14">app/(user)/components/ui/index.ts:14</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/index.ts:22">app/(user)/components/ui/index.ts:22</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/hooks/use-oauth-expiry.ts:86">app/hooks/use-oauth-expiry.ts:86</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/assets/content-parser.ts:38">lib/assets/content-parser.ts:38</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/connectors/composio/index.ts:2">lib/connectors/composio/index.ts:2</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/domain/index.ts">lib/domain/index.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/index.ts">lib/llm/index.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/contracts/jobs.ts">lib/contracts/jobs.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/contracts/missions.ts">lib/contracts/missions.ts</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/contracts/reports.ts">lib/contracts/reports.ts</a></div>
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Magic numbers &amp; inline styles</span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      <p class="section-summary">Hygiène excellente : 0 hex brand, 0 spacing arbitraire Tailwind, 95% inline styles tokenisés. 3 cas mineurs.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:444">app/(user)/_stages/ArtifactStage.tsx:444</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:380">app/public/approvals/[token]/page.tsx:380</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:162">app/public/reports/[token]/page.tsx:162</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:384">app/public/approvals/[token]/page.tsx:384</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:420">app/public/reports/[token]/page.tsx:420</a></div>
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Dettes lint (Biome 2.4.15)</span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      <p class="section-summary">État remarquable : 0 P0, 1 P1 fixable auto, 1 P2 (artifact graphify).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/archive/page.tsx:4">app/(user)/archive/page.tsx:4</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/graphify-out/graph.json">graphify-out/graph.json</a></div>
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">TODO / FIXME / HACK</span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      <p class="section-summary">10 TODO actifs, 0 FIXME/HACK. Tous &lt; 30j sauf 1 (export-job.ts à 21j). Codebase fraîche.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/next.config.ts:12">next.config.ts:12</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:383">app/(user)/_stages/BrowserStage.tsx:383</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:409">app/(user)/_stages/BrowserStage.tsx:409</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:415">app/(user)/_stages/BrowserStage.tsx:415</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/delegate/api.ts:398">lib/engine/runtime/delegate/api.ts:398</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/missions/export-job.ts:140">lib/engine/runtime/missions/export-job.ts:140</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/DocumentParseModal.tsx:187">app/(user)/components/DocumentParseModal.tsx:187</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/focus-mode.ts:17">stores/focus-mode.ts:17</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:29">app/admin/health/page.tsx:29</a></div>
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/admin/health.ts:17">lib/admin/health.ts:17</a></div>
+      
+      
+      
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>Batch 1 — Fichiers morts confirmés (P0, safe-delete)</h3>
+              <ul><li>Supprimer app/(user)/components/chat-input/index.ts (re-export vide non consommé)</li><li>Supprimer lib/assets/content-parser.ts (isHtmlContent orphelin)</li><li>Supprimer lib/ui/format-time.ts</li><li>Supprimer lib/utils/date-format.ts</li><li>Supprimer screenshot.mjs (script racine non utilisé)</li><li>Supprimer app/hooks/use-oauth-expiry.ts (hook orphelin)</li><li>Fix lint : pnpm exec biome check --write app/(user)/archive/page.tsx</li><li>Validation : npm run validate (typecheck + lint + test)</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 2 — Exports orphelins (P1, audit puis prune)</h3>
+              <ul><li>Auditer app/(user)/components/ui/index.ts : barrel jamais consommé → 2 options : (a) supprimer le barrel et importer directement, (b) accepter et marquer @public</li><li>Prune lib/engine/orchestrator/system-prompt.ts : PLAN_TOOL, RESPOND_TOOL, REQUEST_CONNECTION_TOOL (vérifier engine/runtime n'y accède pas en dynamique)</li><li>Prune lib/marketplace/types.ts : 4 schémas Zod jamais référencés</li><li>Prune lib/engine/planner/mission-engine.ts : getActiveMissions, getDueMissions</li><li>Prune lib/agents/dual-apps.ts : DUAL_APP_GROUPS</li><li>Prune lib/browser/stagehand-executor.ts : getBrowserExecutor</li><li>Prune lib/connections/oauth-refresh.ts : ExpiringConnectionSchema</li><li>Prune lib/core/types/focal.ts : mapFocalObjects</li><li>Prune lib/multi-tenant/types.ts : DEFAULT_SPACE_ID</li><li>Prune app/(user)/_stages/registry.ts : LEFT_RAIL_ORDER, getStageLabel</li><li>Prune e2e/reports/fixtures.ts : THREAD_ID</li><li>Prune lib/monitoring/web-vitals-store.ts : recordVital</li><li>Prune lib/engine/runtime/prompt-guard.ts : validatePromptArtifact, loadPromptContent</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 3 — Audit barrels lib/* (P1, prudence)</h3>
+              <ul><li>Auditer lib/domain/index.ts : 22 re-exports flaggés — vérifier consommateurs SDK/API</li><li>Auditer lib/llm/index.ts : 8 re-exports — vérifier circuit-breaker / error handling dynamique</li><li>Auditer lib/contracts/jobs.ts | missions.ts | reports.ts : Payload types via Zod inference ?</li><li>Auditer lib/connectors/composio/index.ts : 7 exports flaggés — vérifier loader dynamique</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 4 — Magic numbers ArtifactStage + pages public (P1/P2)</h3>
+              <ul><li>Remplacer paddingTop: &quot;4px&quot; → var(--space-1) dans app/(user)/_stages/ArtifactStage.tsx:444</li><li>Remplacer fontWeight: 300 → var(--weight-light) dans app/public/approvals/[token]/page.tsx:384</li><li>Remplacer fontWeight: 500 → var(--weight-medium) dans app/public/reports/[token]/page.tsx:420</li><li>Optionnel : créer token --size-logo-sm: 16px et l'appliquer aux 2 pages public</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 5 — TODO actifs P1 (suivi, pas suppression)</h3>
+              <ul><li>next.config.ts:12 — Créer ticket dédié CSP nonce + middleware</li><li>BrowserStage.tsx 383/409/415 — Trouver propriétaire route /api/v2/browser/sessions/[id]/steps, dégager dépendance bloquée</li><li>lib/engine/runtime/delegate/api.ts:398 — Arbitrer format web_search (Anthropic vs OpenAI/Kimi)</li><li>lib/engine/runtime/missions/export-job.ts:140 — Approche 21j, surveiller dérive vers obsolète</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-20 22:26
+  </footer>
+</div>
+</body>
+</html>

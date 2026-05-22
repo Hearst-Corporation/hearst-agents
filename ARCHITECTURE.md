@@ -26,7 +26,7 @@ Vue condensée de l'architecture. Pour les détails exhaustifs voir [README.md](
 
 | Segment | Rôle |
 | --- | --- |
-| `app/(user)/` | Cockpit utilisateur (3 colonnes post-pivot). Sous-routes : `apps`, `archive`, `assets`, `briefing`, `hospitality`, `marketplace`, `missions`, `notifications`, `onboarding`, `personas`, `reports`, `runs`, `settings`. Layout = `SessionProvider` + shell. |
+| `app/(user)/` | Cockpit utilisateur — modèle **3 colonnes unique** : `LeftRail` (88px, menu + liens) / centre (`Shell.tsx`, Stage actif ou page ScreenShell) / `RightRailChat` (Kimi, 320px). Routes réelles : `/` (cockpit), `/copilote`, `/browser`, `/missions`, `/missions/builder`, `/run` (`/runs`→301→`/run`), `/connections` (`/apps`→301→`/connections`), `/reports`, `/reports/studio`, `/marketplace`, `/notifications`, `/archive`, `/hospitality`, `/settings`, `/settings/alerting`, `/cockpit-x` (test). Les pages "standalone" passent par `StandalonePageFrame` → `Shell`. Layout = `SessionProvider` + shell. |
 | `app/admin/` | Console admin. Inclut `agent-driven-dev` (gouvernance + verrou ADD), `agents`, `analytics`, `audit`, `health`, `metrics`, `runs`, `settings`. |
 | `app/api/` | Routes serveur (Next 16 route handlers). Domaines : `agents`, `auth`, `briefing`, `composio`, `connections`, `health`, `inngest`, `integrations`, `notifications`, `onboarding`, `orchestrate`, `prompts`, `reports`, `signals`, `tools`, `v2`, `webhooks`, `workflows`. |
 | `app/login/` | Pages NextAuth (signin, callback, error). |
@@ -35,31 +35,29 @@ Vue condensée de l'architecture. Pour les détails exhaustifs voir [README.md](
 | `app/global-error.tsx` | Boundary Sentry global. |
 | `app/globals.css` | Tokens Tailwind v4 + `@theme inline` (318+ tokens). |
 
-## Cockpit post-pivot 2026-04-29
+## Cockpit — modèle 3 colonnes (Shell visionOS)
 
-L'app est un **cockpit polymorphe** structuré en 3 colonnes :
+L'app est un **cockpit polymorphe** avec une seule navigation : rail gauche / centre / chat droite.
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│  PulseBar (top, sticky) — Cmd+K, statut, breadcrumb              │
-├──────────────┬──────────────────────────────────┬────────────────┤
+┌──────────────┬──────────────────────────────────┬────────────────┐
 │              │                                  │                │
-│ TimelineRail │            Stage                 │  ContextRail   │
-│  (gauche)    │      (centre, 7 modes)           │   (droite)     │
+│  LeftRail    │     Stage central / Page         │  RightRailChat │
+│  88px, glass │  (scrollable, overflow-y-auto)   │  320px, Kimi   │
 │              │                                  │                │
-│ Now / Today  │  Brief / Mission / Asset /       │ Sections       │
-│ Week / Arch. │  Persona / Report / Watch /      │ polymorphes    │
-│              │  Settings                        │ par Stage      │
+│  • setMode() │  Stage actif (cockpit/chat/…)    │  Chat Kimi K2  │
+│  • Links     │  OU page ScreenShell             │  toujours      │
+│    /conn     │  (via StandalonePageFrame)        │  visible       │
+│    /reports  │                                  │                │
+│    …         │                                  │                │
 │              │                                  │                │
 └──────────────┴──────────────────────────────────┴────────────────┘
-                  ChatDock (bottom, collapsible)
 ```
 
-**Selection-then-act** : un clic agent / mission / asset reste en cockpit, alimente `useSelectionStore`. Le switch Stage devient explicite (bouton, hotkey, Cmd+K).
-
-**ContextRail polymorphe** : structure fixe **par Stage**, pas universelle. Sections changent selon le Stage actif.
-
-Voir specs : [docs/features/cockpit.md](docs/features/cockpit.md), [docs/features/timeline-rail.md](docs/features/timeline-rail.md), [docs/features/context-rail.md](docs/features/context-rail.md).
+- Shell : `app/(user)/_shell/Shell.tsx` — orchestrateur unique.
+- Stages (modes internes, via `useStageStore.setMode`) : `cockpit`, `chat`, `asset`, `asset_compare`, `mission`, `browser`, `meeting`, `kg`, `voice`, `simulation`, `artifact`, `signal`, `connections`.
+- Pages-routes standalone : enveloppées dans `StandalonePageFrame` → rend `Shell` → héritent rail + chat automatiquement.
+- Commutation stage : Cmd+K (Commandeur), hotkeys Cmd+1..9, ou l'agent orchestrateur via tool calls.
 
 ## Lib (`lib/` — 51 dossiers)
 

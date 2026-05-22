@@ -119,6 +119,21 @@ export const useStageStore = create<StageState>((set, get) => ({
 
   setMode: (payload) => {
     const prev = get().current;
+    // Guard anti-double : if switching to same mode with same payload, no-op
+    const needsCheck = [
+      "asset",
+      "asset_compare",
+      "browser",
+      "meeting",
+      "kg",
+      "voice",
+      "simulation",
+      "artifact",
+      "signal",
+    ].includes(payload.mode);
+    if (prev.mode === payload.mode) {
+      if (!needsCheck || JSON.stringify(prev) === JSON.stringify(payload)) return;
+    }
     const nextLastAssetId = payload.mode === "asset" ? payload.assetId : get().lastAssetId;
     const nextLastMissionId =
       payload.mode === "mission" ? (payload.missionId ?? get().lastMissionId) : get().lastMissionId;

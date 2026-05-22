@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>QA UI/UX — Hearst OS Cockpit (re-run) — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding.done { opacity: 0.45; border-left-color: var(--accent) !important; }
+  .finding.done .finding-title { text-decoration: line-through; }
+  .finding.done .finding-title::after { content: " ✓ corrigé"; color: var(--accent); font-size: 11px; font-weight: 600; text-decoration: none; letter-spacing: 0.03em; }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>QA UI/UX — Hearst OS Cockpit (re-run)</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-21 00:25</span>
+      <span><b>Branche</b> polish/ui-iconbutton-stages-cleanup</span>
+      <span><b>Commit</b> 1a6b7455</span>
+      <span><b>Scope</b> app complète</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">33</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">5</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">13</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">29</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">0</div><div class="kpi-label">Score /10</div></div>
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Layout &amp; Alignment</span>
+        <span class="section-agent">agent-1</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      <p class="section-summary">Discipline tokens excellente : 95% des inline styles utilisent var(--*), 0 arbitrary px Tailwind, 0 P0 (aucun chevauchement, layout responsive cohérent). 4 P1 (grids inline répétés, maxWidth dupliqués), 6 P2 (magic px isolés / décoratifs).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1 done">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">gridTemplateColumns inline répété 2x sans token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:471">app/admin/health/page.tsx:471</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: &quot;1.4fr 0.8fr 0.8fr 2fr&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>--grid-health-services token globals.css</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Élimine duplication, centralise grille table admin</span></div>
+    </div>
+    <div class="finding sev-p1 done">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">gridTemplateColumns métrique répété 2x</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:386">app/admin/metrics/page.tsx:386</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: &quot;1fr 1fr 1fr auto auto auto&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>--grid-metrics-cols token</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cohérence horizontale pages admin</span></div>
+    </div>
+    <div class="finding sev-p1 done">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">maxWidth répété 3x sans token (540/1080px)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/hearst-card/[token]/page.tsx:187">app/public/hearst-card/[token]/page.tsx:187</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>maxWidth: &quot;540px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--width-prose-narrow) ou --width-hearst-card</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Maintenance : token centralisé vs 3 copies</span></div>
+    </div>
+    <div class="finding sev-p1 done">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">maxWidth répété 4x (720/560/880px)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:189">app/public/reports/[token]/page.tsx:189</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>maxWidth: &quot;720px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>--width-report-card + harmonisation</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Grille rapports incohérente (3 valeurs différentes)</span></div>
+    </div>
+    <div class="finding sev-p2 done">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">paddingTop magic px</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:444">app/(user)/_stages/ArtifactStage.tsx:444</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>paddingTop: &quot;4px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--space-1) (4px existe)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cohérence tokens</span></div>
+    </div>
+    <div class="finding sev-p2 done">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Avatar logo 32px hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/hearst-card/[token]/page.tsx:206">app/public/hearst-card/[token]/page.tsx:206</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>width: &quot;32px&quot;, height: &quot;32px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--size-icon-sm) (2rem)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Token sémantique existe</span></div>
+    </div>
+    <div class="finding sev-p2 done">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Touch target 44px hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/MobileBottomNav.tsx:104">app/(user)/components/MobileBottomNav.tsx:104</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>minHeight: &quot;44px&quot;, minWidth: &quot;44px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--size-touch-target) (44px existe)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Token disponible non utilisé</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Logo SVG hauteur inline (isolé)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:380">app/public/approvals/[token]/page.tsx:380</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>height: &quot;16px&quot;, width: &quot;auto&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Acceptable (SVG décoratif isolé)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pas de duplication</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Divider 1px (décoratif)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:222">app/(user)/_shell/LeftRail.tsx:222</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>height: &quot;1px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Acceptable</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Ligne décorative, cas courant accepté</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Interaction &amp; States</span>
+        <span class="section-agent">agent-2</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">5</span>
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">7</span>
+        </span>
+      </summary>
+      <p class="section-summary">161 refs loading, modales 13/15 WCAG-compliant (focus trap + Escape via useModalA11y). 5 P0 (buttons standalone sans focus-visible — a11y clavier). 7 P1 (durations hardcodées, overflow imbriqués 3 niveaux). 13 P2 (timeouts magic ms à tokeniser). Primitives Action/IconButton = best practice à généraliser.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Bouton déconnexion sans focus-visible ring</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:139">app/(user)/_shell/LeftRail.tsx:139</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>px-3 py-2 hover:text-(--danger) hover:bg-(--surface-2) transition-colors</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Clavier-only users ne voient pas le focus. Bloque a11y</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Button 'Voir tous' visible seulement au hover</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/PulseBar.tsx:453">app/(user)/components/PulseBar.tsx:453</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>t-9 opacity-0 group-hover:opacity-100</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ focus-visible:opacity-100</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Inaccessible au clavier (jamais visible sans souris)</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Bouton close drawer sans outline focus</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppDrawer.tsx:68">app/(user)/components/connections/AppDrawer.tsx:68</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>t-11 font-medium text-text-faint hover:text-text transition-colors</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A11y clavier</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Boutons report (edit/download/share) sans focus-visible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ReportActions.tsx:154">app/(user)/components/ReportActions.tsx:154</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;button className=...&gt; inline x3</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Wrapper &lt;Action&gt; primitive ou focus-visible:ring-1</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>3 actions principales inaccessibles au clavier</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Button delete row table sans focus indicator</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/TenantsTable.tsx:62">app/admin/_components/TenantsTable.tsx:62</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;button className=...&gt; inline</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>&lt;Action&gt; primitive ou focus-visible:ring-1</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Action destructive sans focus visible = risque a11y</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">setTimeout 300ms loader hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionStage.tsx:447">app/(user)/_stages/MissionStage.tsx:447</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setTimeout(() =&gt; setShowLoader(true), 300)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>const LOADER_DELAY ou --duration-delay-loader</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Magic number, pas centralisé</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">setTimeout 1500ms feedback save</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ThemePicker.tsx:44">app/admin/_components/ThemePicker.tsx:44</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setTimeout(() =&gt; setSaveState(&quot;idle&quot;), 1500)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>const TOAST_PERSIST = 1500</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Magic number feedback</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">3 niveaux overflow imbriqués (scroll trap potentiel)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/CanvasShell.tsx:198">app/admin/_canvas/CanvasShell.tsx:198</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>div overflow-hidden &gt; section overflow-hidden &gt; section overflow-hidden</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Auditer scroll behavior sur zoom/mobile</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Risque user piégé en scrolling sur petit écran</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">setTimeout 4000ms undo hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/chat/ContextChips.tsx:32">app/(user)/components/chat/ContextChips.tsx:32</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setTimeout(() =&gt; setUndoChip(null), 4000)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>const UNDO_PERSIST = 4000</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Magic number undo window</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">setTimeout 1500ms feedback x3 (copy/delete/edit)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/chat/BlockActions.tsx:179">app/(user)/components/chat/BlockActions.tsx:179</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>window.setTimeout(() =&gt; setFeedback(null), 1500)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>const FEEDBACK_DURATION = 1500</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Magic number répété 3x</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Status error sans feedback visuel sur input</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/DocumentParseModal.tsx:56">app/(user)/components/DocumentParseModal.tsx:56</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setStatus(&quot;error&quot;); setErrorMsg(msg)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter border error au input quand status === 'error'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>User ne voit pas quel champ est invalide</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Transition inline 0.2s hardcodée</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/SignalStage.tsx:172">app/(user)/components/SignalStage.tsx:172</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: &quot;color 0.2s, border-color 0.2s, background 0.2s&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--duration-fast)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Token existe</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Progress bar transition 200ms</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/OnboardingTour.tsx:166">app/(user)/components/OnboardingTour.tsx:166</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: &quot;width 200ms ease&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--duration-base)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cohérence DS</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Toast transition 120ms hardcodée</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/ToastHost.tsx:166">app/(user)/components/ui/ToastHost.tsx:166</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: &quot;background 120ms ease, color 120ms ease&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>--duration-flash: 120ms</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tokeniser flash duration</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Confirm button loading sans aria-busy</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ConfirmModal.tsx:100">app/(user)/components/ConfirmModal.tsx:100</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>button disabled lors loading</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ aria-busy={loading}</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A11y screen readers</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">UserAvatar focus-visible OK mais hover absent</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:103">app/(user)/_shell/LeftRail.tsx:103</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-full focus-visible:ring-1 (sans hover:bg)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ hover:bg-(--surface-1)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Feedback hover manquant</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Stagger animation 400ms + idx*140ms sans token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:321">app/(user)/_stages/KGStage.tsx:321</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setTimeout(... 400 + idx * 140)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>--duration-vis-base / --duration-vis-stagger</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Timing pattern non tokenisé</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Vote button transition 200ms x2</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/vote-form.tsx:191">app/public/approvals/[token]/vote-form.tsx:191</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: &quot;opacity 200ms ease&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--duration-base)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cohérence DS</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Visual Consistency</span>
+        <span class="section-agent">agent-3</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      <p class="section-summary">Score interne 95/100. 0 hex brand hardcodé (themeColor opt-out commenté, logos tiers Google/Azure légitimes). 0 radius arbitraire, 0 shadow hardcodée — 100% tokens. Buttons admin 100% primitive Action, user wrapper a11y légitime. 1 P1 : role=button sur div (KGStage).</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">role='button' sur &lt;div&gt; (déprécié a11y)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:370">app/(user)/_stages/KGStage.tsx:370</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;div role=&quot;button&quot; ...&gt; x2 (l.370, l.419)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par &lt;button&gt; ou &lt;Action&gt; primitive</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Navigation clavier désactivée sur div role=button</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Hex #000 + #4A8B86 dans style dev-login</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/auth/dev-login/route.ts:29">app/api/auth/dev-login/route.ts:29</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>#000, #4A8B86 dans &lt;style&gt; inline</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Acceptable (route dev non-prod)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Hors production, page technique</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Logos tiers hex (Google/Azure)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx:40">app/login/page.tsx:40</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>#4285F4 #34A853 #FBBC05 #EA4335 #0078D4 ...</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Acceptable (logos immuables third-party)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Couleurs de marque externes, non tokenisables</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PWA themeColor hex (opt-out commenté)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/layout.tsx:24">app/layout.tsx:24</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>#16161B (lint-visual-disable-file)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Idéalement dériver du token --color-background</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Spec PWA requise, déjà documenté en opt-out</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Radius card 10px vs panel 24px (intentionnel)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:102">app/(user)/_stages/AssetCompareStage.tsx:102</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-(--radius-card) vs rounded-(--radius-2xl)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Acceptable (différenciation thumb vs panel)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Hiérarchie visuelle intentionnelle</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">rounded-xl iframe vs rounded-lg controls (intentionnel)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:194">app/(user)/_stages/BrowserStage.tsx:194</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-xl (194) + rounded-lg (255)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Acceptable (frame vs controls)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Hiérarchie visuelle</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>Batch P0 — A11y focus-visible (5 items, ~45min)</h3>
+              <ul><li>LeftRail.tsx:139 — bouton déconnexion : ajouter focus-visible:ring-1</li><li>PulseBar.tsx:453 — bouton 'Voir tous' : ajouter focus-visible:opacity-100</li><li>AppDrawer.tsx:68 — bouton close : ajouter focus-visible:ring-1</li><li>ReportActions.tsx:154 — wrapper les 3 boutons dans &lt;Action&gt; primitive</li><li>TenantsTable.tsx:62 — bouton delete : &lt;Action&gt; ou focus-visible:ring-1</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch P1 — Cohérence + a11y (13 items, ~2h30)</h3>
+              <ul><li>KGStage.tsx:370,419 — remplacer div role=button par &lt;Action&gt;/&lt;button&gt;</li><li>Centraliser gridTemplateColumns admin (health, metrics) en tokens globals.css</li><li>Harmoniser maxWidth dupliqués (hearst-card 540/1080px, reports 720/560/880px) → tokens largeur</li><li>Extraire setTimeout magic ms en constantes nommées (MissionStage, ThemePicker, ContextChips, BlockActions)</li><li>DocumentParseModal — feedback visuel error sur input invalide</li><li>Auditer overflow imbriqués CanvasShell (3 niveaux) sur mobile/zoom</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch P2 — Polish (29 items, ~2h)</h3>
+              <ul><li>Tokeniser transitions inline ms (SignalStage 0.2s, OnboardingTour 200ms, ToastHost 120ms, vote-form 200ms)</li><li>Tokeniser stagger KGStage (400ms + 140ms)</li><li>aria-busy sur ConfirmModal loading button</li><li>hover:bg sur UserAvatar LeftRail</li><li>Utiliser tokens existants : --size-touch-target (MobileBottomNav), --space-1 (ArtifactStage), --size-icon-sm (hearst-card logo)</li><li>Documenter opt-outs légitimes (themeColor, logos tiers, radius intentionnels)</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-21 00:25
+  </footer>
+</div>
+</body>
+</html>
