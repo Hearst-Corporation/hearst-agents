@@ -98,3 +98,7 @@ next-env.d.ts
 /supabase/.branches/
 SERVICES.md
 docs/api-config/SERVICES.md
+
+# SDK package build + deps
+packages/*/node_modules
+packages/*/dist

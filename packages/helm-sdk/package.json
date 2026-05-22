@@ -1,0 +1,40 @@
+{
+  "name": "@hearst/helm-sdk",
+  "version": "0.1.0",
+  "description": "TypeScript client SDK for the Helm (hearst-os) API",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "hearst",
+    "helm",
+    "sdk",
+    "ai",
+    "orchestrator"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5",
+    "vitest": "^4.1.4"
+  }
+}

@@ -15,18 +15,10 @@ import { startJobRun } from "@/lib/jobs/inngest/run-persistence";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { resolveSwarmName } from "@/lib/swarms/registry";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
-
-/** Map UUID → nom lisible pour les 5 swarms connus. Fallback = l'UUID lui-même. */
-const SWARM_NAMES: Record<string, string> = {
-  "bfe5d377-15a6-45a2-8536-7ebd89b9141e": "Cortex Note Action Advisor",
-  "48b401ac-3a11-43bb-b032-c663203cd402": "Revue de projet",
-  "aaaaaaaa-0002-0002-0002-000000000002": "Deep Research Agent",
-  "aaaaaaaa-0001-0001-0001-000000000001": "Market Intelligence Scout",
-  "7c4d9ac9-778c-4731-b287-e42c45e40f86": "EmailAssistant",
-};
 
 interface KickoffSwarmArgs {
   swarm_id: string;
@@ -93,7 +85,7 @@ export function buildSwarmTools(opts: { scope: TenantScope }): AiToolMap {
           workspaceId,
           estimatedCostUsd: 0,
           swarmId,
-          swarmName: SWARM_NAMES[swarmId] ?? swarmId,
+          swarmName: resolveSwarmName(swarmId),
           context: args.context ?? {},
           runId,
         });
