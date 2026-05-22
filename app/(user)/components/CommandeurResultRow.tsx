@@ -20,6 +20,7 @@ export type CommandeurResultKind =
   | "kg";
 
 interface CommandeurResultRowProps {
+  id: string;
   kind: CommandeurResultKind;
   label: string;
   hint?: string;
@@ -42,6 +43,7 @@ const KIND_GLYPH: Record<CommandeurResultKind, string> = {
 };
 
 export function CommandeurResultRow({
+  id,
   kind,
   label,
   hint,
@@ -55,6 +57,7 @@ export function CommandeurResultRow({
   const renderedGlyph = glyph ?? KIND_GLYPH[kind];
   return (
     <button
+      id={id}
       type="button"
       disabled={disabled}
       onClick={onSelect}

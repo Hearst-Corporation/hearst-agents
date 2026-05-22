@@ -83,7 +83,7 @@ export function ConfirmModal({
       aria-modal="true"
       aria-labelledby="confirm-modal-title"
       data-testid="confirm-modal"
-      aria-disabled={loading ? "true" : undefined}
+      aria-busy={loading}
       className="fixed inset-0 flex items-center justify-center"
       style={{
         zIndex: "var(--z-modal)" as unknown as number,

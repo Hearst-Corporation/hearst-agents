@@ -215,12 +215,15 @@ export function Commandeur() {
           ref={dialogRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Palette de commandes"
+          aria-labelledby="cmdk-title"
           className="w-full max-w-(--width-3xl) overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
           style={{ background: "transparent" }}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center gap-8 px-12 py-8">
+            <h2 id="cmdk-title" className="sr-only">
+              Palette de commandes
+            </h2>
             <input
               type="text"
               value={query}
@@ -231,7 +234,11 @@ export function Commandeur() {
             {loading && <span className="t-11 font-light text-text-faint">Recherche…</span>}
           </div>
 
-          <div className="max-h-(--max-height-commandeur-list) overflow-y-auto px-12 pb-16 scroll-pb-16 scrollbar-hide">
+          <div
+            className="max-h-(--max-height-commandeur-list) overflow-y-auto px-12 pb-16 scroll-pb-16 scrollbar-hide"
+            role="listbox"
+            aria-activedescendant={activeIndex >= 0 ? `cmdk-row-${activeIndex}` : undefined}
+          >
             {sections.length === 0 ? (
               <p className="t-13 text-text-ghost font-light">Aucun résultat.</p>
             ) : (
@@ -249,6 +256,7 @@ export function Commandeur() {
                       return (
                         <CommandeurResultRow
                           key={row.id}
+                          id={`cmdk-row-${myIndex}`}
                           kind={row.kind}
                           label={row.label}
                           hint={row.hint}
