@@ -8,7 +8,11 @@ interface ChatMessage {
   content: string;
 }
 
-export function RightRailChat() {
+interface RightRailChatProps {
+  inDrawer?: boolean;
+}
+
+export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
   const [inputValue, setInputValue] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -158,12 +162,12 @@ export function RightRailChat() {
   return (
     <aside
       aria-label="Chat avec Kimi"
-      className="vision-rail-right preserve-3d relative z-20 hidden xl:flex shrink-0 flex-col"
+      className={`vision-rail-right preserve-3d relative z-20 shrink-0 flex-col ${inDrawer ? "flex h-full w-full" : "hidden xl:flex"}`}
       style={{
-        width: "var(--ct-rail-right)",
-        minWidth: "var(--ct-rail-right)",
+        width: inDrawer ? "100%" : "var(--ct-rail-right)",
+        minWidth: inDrawer ? "100%" : "var(--ct-rail-right)",
         background: "var(--surface-1)",
-        borderLeft: "1px solid var(--border-shell)",
+        borderLeft: inDrawer ? "none" : "1px solid var(--border-shell)",
         height: "100%",
       }}
     >

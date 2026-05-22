@@ -30,7 +30,9 @@
  */
 
 import type { ReactNode } from "react";
+
 import { AmbientLayers } from "./AmbientLayers";
+import { ChatDrawer } from "./ChatDrawer";
 import { LeftRail } from "./LeftRail";
 import { RightRailChat } from "./RightRailChat";
 
@@ -90,6 +92,8 @@ export function Shell({ centerContent, composer, scrollable = true }: ShellProps
           <RightRailChat />
         </div>
       </div>
+
+      <ChatDrawer />
     </div>
   );
 }
