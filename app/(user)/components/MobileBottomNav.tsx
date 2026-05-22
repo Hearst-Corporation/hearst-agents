@@ -43,6 +43,7 @@ export function MobileBottomNav() {
   const currentMode = useStageStore((s) => s.current.mode);
   const lastMissionId = useStageStore((s) => s.lastMissionId);
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
+  const commandeurOpen = useStageStore((s) => s.commandeurOpen);
 
   const handlePress = (id: NavItem["id"]) => {
     switch (id) {
@@ -88,6 +89,7 @@ export function MobileBottomNav() {
     >
       {ITEMS.map((item) => {
         const active = isActive(item.id);
+        const isCommandeurButton = item.id === "commandeur" || item.id === "today";
         return (
           <button
             key={item.id}
@@ -95,6 +97,7 @@ export function MobileBottomNav() {
             onClick={() => handlePress(item.id)}
             aria-label={item.label}
             aria-current={active ? "page" : undefined}
+            {...(isCommandeurButton && { "aria-expanded": commandeurOpen })}
             data-testid={`mobile-nav-${item.id}`}
             data-active={active}
             className="flex flex-col items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"

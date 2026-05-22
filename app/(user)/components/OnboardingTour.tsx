@@ -14,6 +14,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { Action } from "./ui";
 
 const STORAGE_KEY = "hearst.onboarded";
@@ -107,10 +108,14 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
 
   const slide = SLIDES[step];
 
+  // Hook a11y : focus trap + scroll lock + restore focus
+  const dialogRef = useModalA11y<HTMLDivElement>(open, {
+    onClose: close,
+    autoFocus: false,
+  });
+
   return (
     <div
-      role="dialog"
-      aria-label="Bienvenue dans Hearst OS"
       style={{
         position: "fixed",
         inset: 0,
@@ -124,6 +129,11 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
       }}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Bienvenue dans Hearst OS"
+        aria-describedby="onboarding-desc"
         className="flex flex-col w-full max-w-(--width-2xl)"
         style={{
           background: "var(--bg-elev)",
@@ -152,7 +162,9 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
 
         <h2 className="t-28 font-medium text-text-l1 leading-tight mb-5">{slide.title}</h2>
 
-        <p className="t-15 font-light text-text-l2 leading-relaxed mb-10">{slide.body}</p>
+        <p id="onboarding-desc" className="t-15 font-light text-text-l2 leading-relaxed mb-10">
+          {slide.body}
+        </p>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>

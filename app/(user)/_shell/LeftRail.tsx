@@ -23,8 +23,8 @@ function UserAvatar() {
       <button
         type="button"
         className="ct-avatar"
-        title="Profil"
-        aria-label="Profil utilisateur"
+        title="Déconnexion"
+        aria-label="Déconnexion"
         onClick={() => void signOut({ callbackUrl: "/login" })}
       >
         <img
@@ -40,8 +40,8 @@ function UserAvatar() {
     <button
       type="button"
       className="ct-avatar"
-      title="Profil"
-      aria-label="Profil utilisateur"
+      title="Déconnexion"
+      aria-label="Déconnexion"
       onClick={() => void signOut({ callbackUrl: "/login" })}
     >
       {initial}
@@ -266,6 +266,7 @@ const RAIL_PAGES = [
 
 export function LeftRail() {
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
+  const commandeurOpen = useStageStore((s) => s.commandeurOpen);
   const setMode = useStageStore((s) => s.setMode);
   const currentMode = useStageStore((s) => s.current.mode);
   const pathname = usePathname();
@@ -299,7 +300,7 @@ export function LeftRail() {
               className={`ct-rail-action${active ? " accent" : ""}`}
               title={title}
               aria-label={label}
-              aria-current={active ? "page" : undefined}
+              aria-pressed={active}
               onClick={() => setMode(idlePayload(key as StageMode))}
             >
               <StageIcon mode={key as StageMode} />
@@ -313,6 +314,7 @@ export function LeftRail() {
           className="ct-rail-action"
           title="Commandeur (⌘K)"
           aria-label="Commandeur"
+          aria-expanded={commandeurOpen}
           onClick={() => setCommandeurOpen(true)}
         >
           <svg

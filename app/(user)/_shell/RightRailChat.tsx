@@ -209,6 +209,8 @@ export function RightRailChat() {
             Kimi
           </div>
           <div
+            role="status"
+            aria-live="polite"
             className="t-11"
             style={{
               color: isStreaming ? "var(--accent-teal)" : "var(--text-ghost)",
@@ -252,6 +254,7 @@ export function RightRailChat() {
         <button
           type="button"
           title="Nouvelle conversation"
+          aria-label="Nouvelle conversation"
           onClick={() => {
             if (abortRef.current) abortRef.current.abort();
             conversationIdRef.current = crypto.randomUUID();
@@ -305,6 +308,10 @@ export function RightRailChat() {
       {/* Messages */}
       <div
         ref={listRef}
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+        aria-busy={isStreaming}
         style={{
           flex: 1,
           overflowY: "auto",
@@ -428,6 +435,7 @@ export function RightRailChat() {
             className="ct-chat-input t-14"
             placeholder="Demandez à Kimi…"
             aria-label="Message à Kimi"
+            aria-describedby="chat-hint"
             value={inputValue}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
@@ -485,6 +493,7 @@ export function RightRailChat() {
           </button>
         </div>
         <div
+          id="chat-hint"
           className="t-10"
           style={{
             color: "var(--text-ghost)",

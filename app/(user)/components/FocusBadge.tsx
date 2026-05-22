@@ -25,6 +25,7 @@ export function FocusBadge() {
       type="button"
       onClick={disable}
       aria-label="Désactiver le mode focus (Échap)"
+      aria-pressed={enabled}
       className="fixed flex items-center cursor-pointer"
       style={{
         top: "var(--space-3)",
