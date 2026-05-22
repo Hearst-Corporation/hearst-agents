@@ -1,8 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
-import { Action, FilterTabs, PanelCard, ScreenShell } from "@/app/(user)/components/ui";
+import {
+  Action,
+  FilterTabs,
+  PanelCard,
+  RowSkeleton,
+  ScreenShell,
+  StageErrorBanner,
+} from "@/app/(user)/components/ui";
 
 type StatusLabel = "publié" | "brouillon" | "archivé";
 type DomainLabel = "Performance" | "Audience" | "Revenue" | "Hôtellerie";
@@ -15,41 +22,6 @@ interface Report {
   updatedAt: string;
   authorInitials: string;
 }
-
-const REPORTS: Report[] = [
-  {
-    id: 1,
-    title: "Performance Édition Printemps",
-    domain: "Performance",
-    status: "publié",
-    updatedAt: "17 mai 2026",
-    authorInitials: "AB",
-  },
-  {
-    id: 2,
-    title: "Audience Q1 2026",
-    domain: "Audience",
-    status: "publié",
-    updatedAt: "14 mai 2026",
-    authorInitials: "LC",
-  },
-  {
-    id: 3,
-    title: "Revenue Publicitaire Avril",
-    domain: "Revenue",
-    status: "brouillon",
-    updatedAt: "10 mai 2026",
-    authorInitials: "AB",
-  },
-  {
-    id: 4,
-    title: "RevPAR Semaine 20",
-    domain: "Hôtellerie",
-    status: "publié",
-    updatedAt: "16 mai 2026",
-    authorInitials: "MR",
-  },
-];
 
 const STATUS_STYLES: Record<StatusLabel, string> = {
   publié: "bg-(--color-success)/10 text-(--color-success) border border-(--color-success)/25",
@@ -67,11 +39,59 @@ const DOMAIN_STYLES: Record<DomainLabel, string> = {
 const FILTERS = ["Tout", "Performance", "Audience", "Revenue", "Hôtellerie"] as const;
 type Filter = (typeof FILTERS)[number];
 
+function useReports() {
+  const [reports, setReports] = useState<Report[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetch("/api/reports");
+        if (!res.ok) {
+          throw new Error(`Erreur API: ${res.status}`);
+        }
+        const data = await res.json();
+        // Transformer les rapports du catalogue en Report
+        const transformedReports: Report[] = (data.reports || []).map((r: any) => ({
+          id: r.id,
+          title: r.title,
+          domain: (r.domain || "Performance") as DomainLabel,
+          status: (r.status === "ready"
+            ? "publié"
+            : r.status === "partial"
+              ? "brouillon"
+              : "archivé") as StatusLabel,
+          updatedAt: new Date().toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+          authorInitials: "HR",
+        }));
+        setReports(transformedReports);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Erreur inconnue");
+        setReports([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReports();
+  }, []);
+
+  return { reports, loading, error };
+}
+
 export default function ReportsPage() {
   const [activeFilter, setActiveFilter] = useState<Filter>("Tout");
+  const { reports, loading, error } = useReports();
 
   const filteredReports =
-    activeFilter === "Tout" ? REPORTS : REPORTS.filter((r) => r.domain === activeFilter);
+    activeFilter === "Tout" ? reports : reports.filter((r) => r.domain === activeFilter);
 
   return (
     <StandalonePageFrame>
@@ -83,42 +103,61 @@ export default function ReportsPage() {
             Nouveau rapport
           </Action>
         }
+        loading={loading}
+        loadingVariant="rows"
+        empty={
+          !loading && reports.length === 0 && !error
+            ? {
+                title: "Aucun rapport",
+                description: "Commencez par créer votre premier rapport.",
+                cta: { label: "Nouveau rapport", href: "/reports/studio" },
+              }
+            : false
+        }
       >
-        <FilterTabs
-          tabs={FILTERS}
-          active={activeFilter}
-          aria-label="Filtrer les rapports"
-          onValueChange={(v) => setActiveFilter(v as Filter)}
-        />
+        {error && <StageErrorBanner message={error} />}
 
-        <div
-          className="grid grid-cols-1 md:grid-cols-2"
-          style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
-        >
-          {filteredReports.map((r) => (
-            <PanelCard key={r.id} hover className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <span
-                  className={`t-9 font-medium rounded-pill ${STATUS_STYLES[r.status]}`}
-                  style={{ padding: "var(--space-1) var(--space-2-5)" }}
-                >
-                  {r.status.charAt(0).toUpperCase() + r.status.slice(1)}
-                </span>
-                <div
-                  className="flex items-center justify-center rounded-full bg-(--surface-2) t-11 font-medium text-text-muted"
-                  style={{ width: "var(--size-avatar-sm)", height: "var(--size-avatar-sm)" }}
-                >
-                  {r.authorInitials}
-                </div>
-              </div>
-              <div>
-                <p className="t-13 font-medium text-text">{r.title}</p>
-                <p className={`t-11 font-medium mt-1 ${DOMAIN_STYLES[r.domain]}`}>{r.domain}</p>
-              </div>
-              <p className="t-11 font-light text-text-ghost mt-auto">Mis à jour le {r.updatedAt}</p>
-            </PanelCard>
-          ))}
-        </div>
+        {!error && (
+          <>
+            <FilterTabs
+              tabs={FILTERS}
+              active={activeFilter}
+              aria-label="Filtrer les rapports"
+              onValueChange={(v) => setActiveFilter(v as Filter)}
+            />
+
+            <div
+              className="grid grid-cols-1 md:grid-cols-2"
+              style={{ gap: "var(--space-4)", maxWidth: "var(--width-center-max)" }}
+            >
+              {filteredReports.map((r) => (
+                <PanelCard key={r.id} hover className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`t-9 font-medium rounded-pill ${STATUS_STYLES[r.status]}`}
+                      style={{ padding: "var(--space-1) var(--space-2-5)" }}
+                    >
+                      {r.status.charAt(0).toUpperCase() + r.status.slice(1)}
+                    </span>
+                    <div
+                      className="flex items-center justify-center rounded-full bg-(--surface-2) t-11 font-medium text-text-muted"
+                      style={{ width: "var(--size-avatar-sm)", height: "var(--size-avatar-sm)" }}
+                    >
+                      {r.authorInitials}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="t-13 font-medium text-text">{r.title}</p>
+                    <p className={`t-11 font-medium mt-1 ${DOMAIN_STYLES[r.domain]}`}>{r.domain}</p>
+                  </div>
+                  <p className="t-11 font-light text-text-ghost mt-auto">
+                    Mis à jour le {r.updatedAt}
+                  </p>
+                </PanelCard>
+              ))}
+            </div>
+          </>
+        )}
       </ScreenShell>
     </StandalonePageFrame>
   );
