@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Audit transversal — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Audit transversal</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-22 05:37</span>
+      <span><b>Branche</b> feat/memoire-federee-cortex</span>
+      <span><b>Commit</b> 84d09962</span>
+      <span><b>Scope</b> complet</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">14</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">0</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">8</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">6</div><div class="kpi-label">P2 — dette</div></div>
+    
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title">isDirty via useMemo dans agents/new</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/new/page.tsx">app/admin/agents/new/page.tsx</a>
+              <span class="qw-effort">5 min</span>
+            </li><li>
+              <span class="qw-title">&lt;img&gt; -&gt; next/image dans LeftRail</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx">app/(user)/_shell/LeftRail.tsx</a>
+              <span class="qw-effort">5 min</span>
+            </li><li>
+              <span class="qw-title">Override uuid@&gt;=11.1.1 dans package.json</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a>
+              <span class="qw-effort">10 min</span>
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Sécurité</span>
+        <span class="section-agent">OWASP</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">3</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Tenant/Workspace IDs en fallback dans page token-gated</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/hearst-card/[userId]/[yearMonth]/page.tsx:102">app/hearst-card/[userId]/[yearMonth]/page.tsx:102</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>tenantId = process.env.HEARST_TENANT_ID ?? &quot;&quot;; workspaceId = process.env.HEARST_WORKSPACE_ID ?? &quot;&quot;;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Encoder tenant/workspace IDs dans le payload signé du token plutôt que de retomber sur les env vars en mode ?token=.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le mode token (screenshotter) bypass l'auth et lit les IDs système depuis l'env. Un porteur de token peut inférer/manipuler ces IDs.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Endpoint de vote d'approbation : opération mutante sans rate-limit</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/approvals/[token]/vote/route.ts:25">app/api/v2/approvals/[token]/vote/route.ts:25</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>export async function POST(req, { params: { token } }) — seule la signature HMAC fait office d'auth</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter rate-limit par token/IP, conserver la validation d'expiration, logger chaque changement de vote avec timestamp.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Changement d'état critique (vote, potentiellement déclenchement de run) sans rate-limit visible. Spam/bruteforce possible si le token fuit.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Webhook meeting : injection de payload si secret absent (dev)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/meetings/webhook/route.ts:34">app/api/v2/meetings/webhook/route.ts:34</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>if (verdict.reason === &quot;no_secret&quot;) { if (NODE_ENV===&quot;production&quot;) {...} else { console.warn(); /* passe */ } }</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Exiger RECALL_WEBHOOK_SECRET en prod toujours ; en dev exiger un flag explicite (ALLOW_UNVERIFIED_WEBHOOKS_DEV) sinon 503.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bypass silencieux de la vérification de signature en dev. Si NODE_ENV mal configuré en prod, injection d'événements meeting falsifiés (transcripts, statuts).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Endpoint cron : CRON_SECRET en Bearer plain, pas de signature</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/hearst-card/revoke/route.ts:77">app/api/hearst-card/revoke/route.ts:77</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) return 401;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Validation HMAC-SHA256 avec timestamp anti-replay, secret &gt;= 32 octets, comparaison constante.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bearer plain : vulnérable aux secrets faibles, fuite dans les logs, replay. Signature horodatée plus robuste.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SUPABASE_SERVICE_ROLE_KEY lu dans un server component (pas de fuite client, mais pattern à éviter)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:72">app/public/approvals/[token]/page.tsx:72</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const key = process.env.SUPABASE_SERVICE_ROLE_KEY; createClient(url, key, ...)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Déplacer la requête Supabase service-role dans une fonction serveur dédiée / route handler avec input strict, jamais directement dans le corps d'une page.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Vérifié : server component sans &quot;use client&quot;, donc PAS de fuite au bundle. Risque résiduel uniquement si converti en client ou loggé. Best-practice, pas une vuln active.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Endpoint health LLM expose des détails infra (providers up/down, fallback)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/health/llm/route.ts">app/api/health/llm/route.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>GET /api/health/llm (admin requis) retourne le détail des providers</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Séparer /api/health/public (juste {ok}) du /api/health/llm admin ; rate-limit + log d'accès.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Auth admin OK, mais le détail des chaînes de fallback aide un attaquant à cartographier l'infra.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Endpoint debug retourne l'objet session complet (raw)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/debug/session/route.ts:13">app/api/debug/session/route.ts:13</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>if (NODE_ENV===&quot;production&quot;) return 403; return NextResponse.json({ session, raw: session });</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer l'endpoint ou exiger un flag explicite (DEBUG_SESSION_ENDPOINT=1) en plus du check NODE_ENV ; ne jamais exposer le raw session.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si NODE_ENV mal configuré (staging/prod), le JWT session complet fuit (structure auth interne, user IDs).</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Performance</span>
+        <span class="section-agent">perf</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">3</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">JSON.stringify x2 à chaque render pour calculer isDirty</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/new/page.tsx:38">app/admin/agents/new/page.tsx:38</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const isDirty = JSON.stringify(form) !== JSON.stringify(initialFormRef.current);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>const isDirty = useMemo(() =&gt; JSON.stringify(form) !== JSON.stringify(initialFormRef.current), [form]);</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Sérialisation O(n) à chaque render dans le corps du composant. useMemo limite au changement de form.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Balise &lt;img&gt; native au lieu de next/image</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:290">app/(user)/_shell/LeftRail.tsx:290</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;img src=&quot;/hearst-h.svg&quot; alt=&quot;Helm&quot; style={{ width: 22, height: 24, opacity: 0.9 }} /&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>import Image from 'next/image'; &lt;Image src=&quot;/hearst-h.svg&quot; alt=&quot;Helm&quot; width={22} height={24} style={{ opacity: 0.9 }} /&gt;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>next/image apporte lazy-loading, srcset et conversion de format automatiques.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">JSON.stringify appelé dans un helper utilisé pendant le render</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ChatStage.tsx:75">app/(user)/_stages/ChatStage.tsx:75</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const str = typeof tc.input === &quot;string&quot; ? tc.input : JSON.stringify(tc.input);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Mémoïser le rendu de la liste de tool calls si elle re-render fréquemment.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pour de gros objets d'input, sérialisation répétée à chaque render de la liste.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CockpitXClient : 945 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:945">app/(user)/cockpit-x/CockpitXClient.tsx:945</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>export function CockpitXClient({ ... }) { /* 945 lignes */ }</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire CockpitContent, la logique de switch de mode et le lookup du stage registry.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Monolithe : lisibilité réduite, scope de re-render large, mémoïsation grossière.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">KGStage : 738 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:738">app/(user)/_stages/KGStage.tsx:738</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>export function KGStage({ mode }: StageProps) { /* 738 lignes */ }</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire le rendu SVG, le calcul de layout des nodes, le builder des rail items.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Extraction logique pour organisation et testabilité.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Architecture</span>
+        <span class="section-agent">ADD</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">currentRunId dupliqué entre useChatStageStore et useRuntimeStore</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/chat-stage.ts:50">stores/chat-stage.ts:50</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>useChatStageStore.currentRunId?: string (ligne 50) ET useRuntimeStore.currentRunId: string | null (ligne 68)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Retirer currentRunId de useChatStageStore, le lire depuis useRuntimeStore via selector. Source de vérité unique.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Risque de désync : si useRuntimeStore change mais useChatStageStore reste stale, les composants voient un ID obsolète.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Dépendances</span>
+        <span class="section-agent">deps</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">uuid &lt; 11.1.1 : bounds check buffer manquant (CVSS 7.5)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json:84">package.json:84</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Transitif : @arcjet/next -&gt; uuid@10.0.0 ; exceljs -&gt; uuid@8.3.2</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Upgrade @arcjet/next et exceljs, ou ajouter un override forçant uuid@&gt;=11.1.1.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Les méthodes v3/v5/v6 de uuid &lt; 11.1.1 ne valident pas les bornes de buffer (écritures partielles silencieuses).</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>P0 critiques</h3>
+              <ul><li>Aucun P0 confirmé après vérification.</li></ul>
+            </div><div class="plan-batch">
+              <h3>P1 cohérence</h3>
+              <ul><li>Rate-limit + log sur l'endpoint vote approvals</li><li>Forcer RECALL_WEBHOOK_SECRET en prod, flag explicite en dev</li><li>Signature HMAC horodatée pour le cron revoke (vs Bearer plain)</li><li>Encoder tenant/workspace IDs dans le token signé (hearst-card)</li><li>isDirty via useMemo + &lt;img&gt; -&gt; next/image</li><li>Dédupliquer currentRunId (source unique useRuntimeStore)</li><li>Override uuid@&gt;=11.1.1</li></ul>
+            </div><div class="plan-batch">
+              <h3>P2 dettes</h3>
+              <ul><li>Déplacer le service-role Supabase hors du corps de page</li><li>Séparer /api/health/public minimal du /api/health/llm admin</li><li>Supprimer/flagger /api/debug/session</li><li>Découper CockpitXClient (945L) et KGStage (738L)</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-22 05:37
+  </footer>
+</div>
+</body>
+</html>
