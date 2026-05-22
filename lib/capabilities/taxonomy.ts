@@ -722,6 +722,20 @@ export const DOMAIN_TAXONOMY: Record<Domain, DomainEntry> = {
   },
 };
 
+// ── Cross-domain tools ──────────────────────────────────────
+//
+// Tools TRANSVERSES disponibles dans TOUS les domaines, indépendamment du
+// domaine résolu par resolveDomain(). La mémoire long-terme (cortex_search)
+// et la réflexion multi-agent (kickoff_swarm) ne sont pas spécifiques à un
+// domaine métier : l'utilisateur peut demander « qu'est-ce que j'avais décidé
+// sur X » ou « lance une analyse complète » dans n'importe quel contexte.
+//
+// Sans cette liste, ces tools sont montés dans aiTools (ai-pipeline) PUIS
+// supprimés par l'intersection _allowedTools (F-011), car absents de chaque
+// DomainEntry.tools — donc jamais invocables. Injectés dans
+// CapabilityScope.allowedTools par resolveCapabilityScope().
+export const CROSS_DOMAIN_TOOLS: string[] = ["cortex_search", "kickoff_swarm"];
+
 // ── Resolver Functions ──────────────────────────────────────
 
 const _allDomains = Object.keys(DOMAIN_TAXONOMY) as Domain[];

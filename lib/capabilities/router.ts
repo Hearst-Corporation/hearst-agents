@@ -11,6 +11,7 @@
 import type { ToolContext } from "@/lib/tools/types";
 import {
   type Capability,
+  CROSS_DOMAIN_TOOLS,
   DOMAIN_TAXONOMY,
   type Domain,
   isAgentValidForDomain,
@@ -137,7 +138,7 @@ export function resolveCapabilityScope(message: string, surface?: string): Capab
     domain,
     capabilities: entry.capabilities,
     providers: entry.providers,
-    allowedTools: entry.tools,
+    allowedTools: [...entry.tools, ...CROSS_DOMAIN_TOOLS],
     validAgents: entry.validAgents,
     retrievalMode,
     toolContext,
