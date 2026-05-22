@@ -73,7 +73,7 @@ describe("WorkingDocument", () => {
       });
     });
 
-    const closeBtn = screen.getByTitle("Réduire (Cmd+B)");
+    const closeBtn = screen.getByRole("button", { name: /Réduire le document/i });
     fireEvent.click(closeBtn);
 
     expect(useWorkingDocumentStore.getState().isOpen).toBe(false);

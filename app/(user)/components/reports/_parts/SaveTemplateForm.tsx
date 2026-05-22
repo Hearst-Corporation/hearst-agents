@@ -1,6 +1,7 @@
 "use client";
 
 import type { RefObject } from "react";
+import { Action } from "@/app/(user)/components/ui";
 
 interface SaveTemplateFormProps {
   saveName: string;
@@ -70,37 +71,26 @@ export function SaveTemplateForm({
         }}
       />
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-        <button
-          type="button"
+        <Action
+          variant="primary"
+          tone="brand"
+          size="sm"
           onClick={onConfirm}
           disabled={!saveName.trim() || isSaving}
-          data-testid="report-editor-save-confirm"
-          className="t-9 font-mono uppercase text-(--accent-teal) disabled:opacity-40 disabled:cursor-not-allowed"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            border: "1px solid var(--accent-teal)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "opacity var(--duration-fast) var(--ease-standard)",
-          }}
+          loading={isSaving}
+          testId="report-editor-save-confirm"
         >
           {isSaving ? "Sauvegarde…" : "Confirmer"}
-        </button>
-        <button
-          type="button"
+        </Action>
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
           onClick={onCancel}
-          data-testid="report-editor-save-cancel"
-          className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
+          testId="report-editor-save-cancel"
         >
           Annuler
-        </button>
+        </Action>
       </div>
     </div>
   );

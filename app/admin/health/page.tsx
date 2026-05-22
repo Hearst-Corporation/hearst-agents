@@ -30,6 +30,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Action } from "@/app/(user)/components/ui";
 
 // ---------------------------------------------------------------------------
 // Types (miroir du payload de /api/health/llm)
@@ -365,12 +366,9 @@ export default function HealthPage() {
           <h1 className="t-24 font-light text-text">Santé système</h1>
           {!loading && llmHealth && <StatusPill status={overall} />}
         </div>
-        <button
-          onClick={fetchAll}
-          className="t-13 text-text-faint hover:text-text transition-colors px-(--space-3) py-(--space-1) rounded-(--radius-sm) border border-(--border-shell) hover:border-(--border-soft)"
-        >
+        <Action variant="secondary" tone="neutral" size="sm" onClick={fetchAll}>
           Rafraîchir
-        </button>
+        </Action>
       </div>
 
       {/* Erreur globale */}

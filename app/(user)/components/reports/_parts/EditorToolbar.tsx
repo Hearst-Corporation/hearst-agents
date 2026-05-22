@@ -1,5 +1,7 @@
 "use client";
 
+import { Action } from "@/app/(user)/components/ui";
+
 type SaveStatus = "idle" | "form" | "saved" | "error";
 type LoadStatus = "idle" | "loading_list" | "list" | "loading_spec" | "error";
 
@@ -24,55 +26,37 @@ export function EditorToolbar({
 }: EditorToolbarProps) {
   return (
     <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-      <button
-        type="button"
+      <Action
+        variant="secondary"
+        tone="neutral"
+        size="sm"
         onClick={onReset}
-        data-testid="report-editor-reset"
-        className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
-        style={{
-          padding: "var(--space-2) var(--space-3)",
-          border: "1px solid var(--surface-2)",
-          borderRadius: "var(--radius-xs)",
-          background: "transparent",
-          transition: "color var(--duration-fast) var(--ease-standard)",
-        }}
+        testId="report-editor-reset"
       >
         Reset
-      </button>
-      <button
-        type="button"
+      </Action>
+      <Action
+        variant="secondary"
+        tone="neutral"
+        size="sm"
         onClick={onToggleJson}
-        data-testid="report-editor-json-toggle"
         aria-expanded={jsonOpen}
-        className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
-        style={{
-          padding: "var(--space-2) var(--space-3)",
-          border: "1px solid var(--surface-2)",
-          borderRadius: "var(--radius-xs)",
-          background: "transparent",
-          transition: "color var(--duration-fast) var(--ease-standard)",
-        }}
+        testId="report-editor-json-toggle"
       >
         {jsonOpen ? "Masquer JSON" : "Voir JSON"}
-      </button>
+      </Action>
 
       {/* Sauvegarder comme template */}
       {saveStatus === "idle" && (
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone="brand"
+          size="sm"
           onClick={onOpenSaveForm}
-          data-testid="report-editor-save-template"
-          className="t-9 font-mono uppercase text-(--accent-teal) hover:text-text-soft"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            border: "1px solid var(--accent-teal)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
+          testId="report-editor-save-template"
         >
           Sauvegarder template
-        </button>
+        </Action>
       )}
       {saveStatus === "saved" && (
         <span
@@ -94,21 +78,15 @@ export function EditorToolbar({
 
       {/* Charger un template */}
       {loadStatus === "idle" && (
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
           onClick={onOpenLoadList}
-          data-testid="report-editor-load-template"
-          className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
+          testId="report-editor-load-template"
         >
           Charger template
-        </button>
+        </Action>
       )}
       {(loadStatus === "loading_list" || loadStatus === "loading_spec") && (
         <span className="t-9 font-mono uppercase text-text-faint">Chargement…</span>

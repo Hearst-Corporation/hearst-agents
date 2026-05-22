@@ -1,5 +1,6 @@
 "use client";
 
+import { IconButton } from "@/app/(user)/components/ui";
 import type { BlockSpec } from "@/lib/reports/spec/schema";
 
 export interface BlockEditorRowProps {
@@ -57,40 +58,24 @@ export function BlockEditorRow({
         </div>
       </div>
       <div className="flex items-center" style={{ gap: "var(--space-1)" }}>
-        <button
-          type="button"
+        <IconButton
+          icon="↑"
+          label={`Remonter ${block.id}`}
+          size="xs"
+          tone="muted"
           onClick={onMoveUp}
           disabled={!canMoveUp}
-          aria-label={`Remonter ${block.id}`}
-          data-testid={`report-editor-up-${block.id}`}
-          className="t-9 font-mono text-text-muted hover:text-(--accent-teal) disabled:opacity-30 disabled:cursor-not-allowed"
-          style={{
-            padding: "var(--space-1) var(--space-2)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
-        >
-          {"↑"}
-        </button>
-        <button
-          type="button"
+          testId={`report-editor-up-${block.id}`}
+        />
+        <IconButton
+          icon="↓"
+          label={`Descendre ${block.id}`}
+          size="xs"
+          tone="muted"
           onClick={onMoveDown}
           disabled={!canMoveDown}
-          aria-label={`Descendre ${block.id}`}
-          data-testid={`report-editor-down-${block.id}`}
-          className="t-9 font-mono text-text-muted hover:text-(--accent-teal) disabled:opacity-30 disabled:cursor-not-allowed"
-          style={{
-            padding: "var(--space-1) var(--space-2)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
-        >
-          {"↓"}
-        </button>
+          testId={`report-editor-down-${block.id}`}
+        />
       </div>
     </li>
   );

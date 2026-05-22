@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Action } from "@/app/(user)/components/ui";
 
 /**
  * BlockEditor — mode édition d'un block.
@@ -78,26 +79,26 @@ export function BlockEditor({ initialValue, onSave, onCancel }: BlockEditorProps
         className="flex items-center"
         style={{ gap: "var(--space-3)", paddingLeft: "var(--space-4)" }}
       >
-        <button
-          type="button"
+        <Action
+          variant="ghost"
+          tone="neutral"
+          size="sm"
           onClick={onCancel}
           aria-label="Annuler l'édition"
-          data-testid="block-editor-cancel"
-          className="t-11 font-light text-text-faint hover:text-text transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
-          style={{ transitionDuration: "var(--duration-base)" }}
+          testId="block-editor-cancel"
         >
           Annuler
-        </button>
-        <button
-          type="button"
+        </Action>
+        <Action
+          variant="ghost"
+          tone="brand"
+          size="sm"
           onClick={() => onSave(value)}
           aria-label="Enregistrer le block"
-          data-testid="block-editor-save"
-          className="t-11 font-medium text-(--accent-teal) hover:text-(--accent-teal) transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
-          style={{ transitionDuration: "var(--duration-base)" }}
+          testId="block-editor-save"
         >
           Enregistrer
-        </button>
+        </Action>
         <span className="t-11 font-light text-text-faint" aria-hidden>
           ESC · ⌘+↵
         </span>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Action } from "@/app/(user)/components/ui";
 import type { TemplateSummary } from "@/lib/reports/templates/schema";
 
 interface LoadTemplateListProps {
@@ -23,21 +24,15 @@ export function LoadTemplateList({ templateList, onLoad, onCancel }: LoadTemplat
     >
       <div className="flex items-center justify-between">
         <span className="t-9 font-mono uppercase text-text-muted">Templates disponibles</span>
-        <button
-          type="button"
+        <Action
+          variant="ghost"
+          tone="neutral"
+          size="sm"
           onClick={onCancel}
-          data-testid="report-editor-load-cancel"
-          className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
-          style={{
-            padding: "var(--space-1) var(--space-2)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
+          testId="report-editor-load-cancel"
         >
           Fermer
-        </button>
+        </Action>
       </div>
       {templateList.length === 0 ? (
         <span className="t-11 text-text-faint" data-testid="report-editor-load-empty">

@@ -3,11 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { ConfirmModal } from "@/app/(user)/components/ConfirmModal";
-import {
-  FieldError,
-  fieldA11yProps,
-  ValidatedForm,
-} from "@/app/(user)/components/ui/ValidatedForm";
+import { Action, FieldError, fieldA11yProps, ValidatedForm } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
 import { createAgentSchema } from "@/lib/domain/schemas";
 
@@ -219,22 +215,18 @@ export default function NewAgentPage() {
             </div>
 
             <div className="flex items-center justify-between gap-(--space-3) pt-(--space-2)">
-              <button
-                type="button"
+              <Action
+                variant="ghost"
+                tone="neutral"
                 onClick={handleCancelClick}
                 disabled={validating}
-                className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--border-shell) text-text-muted hover:text-text hover:bg-(--surface-1) transition-colors disabled:opacity-50"
-                data-testid="agent-new-cancel"
+                testId="agent-new-cancel"
               >
                 Annuler
-              </button>
-              <button
-                type="submit"
-                disabled={validating}
-                className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
-              >
+              </Action>
+              <Action type="submit" variant="primary" tone="brand" loading={validating}>
                 {validating ? "Création..." : "Créer l'agent"}
-              </button>
+              </Action>
             </div>
           </form>
         )}

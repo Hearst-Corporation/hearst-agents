@@ -23,6 +23,7 @@
  */
 
 import { useEffect, useRef } from "react";
+import { Action } from "@/app/(user)/components/ui";
 import { useWorkingDocumentStore } from "@/stores/working-document";
 
 export interface ExpandBlockDetail {
@@ -102,15 +103,16 @@ export function WorkingDocument() {
           placeholder="Sans titre"
           aria-label="Titre du document"
         />
-        <button
+        <Action
+          variant="ghost"
+          tone="neutral"
+          size="sm"
           onClick={close}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
-          title="Réduire (Cmd+B)"
-          type="button"
+          hotkey="⌘B"
+          aria-label="Réduire le document (Cmd+B)"
         >
-          <span>← Réduire</span>
-          <span className="t-9 font-mono tabular-nums opacity-60">⌘B</span>
-        </button>
+          ← Réduire
+        </Action>
       </header>
 
       {/* Body — contenu markdown éditable */}
@@ -140,20 +142,22 @@ export function WorkingDocument() {
           borderTop: "1px solid var(--border-shell)",
         }}
       >
-        <button
-          type="button"
-          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
-          title="Sauvegarder ce document comme asset réutilisable"
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
+          aria-label="Sauvegarder ce document comme asset réutilisable"
         >
           Sauvegarder comme asset
-        </button>
-        <button
-          type="button"
-          className="inline-flex items-center px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-(--accent-teal-border-hover) transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)"
-          title="Convertir ce document en mission planifiée"
+        </Action>
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
+          aria-label="Convertir ce document en mission planifiée"
         >
           Convertir en mission
-        </button>
+        </Action>
       </footer>
     </aside>
   );

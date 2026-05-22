@@ -11,6 +11,7 @@
  */
 
 import { type JSX, useCallback, useEffect, useState } from "react";
+import { Action, IconButton } from "@/app/(user)/components/ui";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 import type { VersionDiff } from "@/lib/reports/versions/diff";
 import type { VersionSummary } from "@/lib/reports/versions/store";
@@ -114,19 +115,7 @@ export function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelPro
       {/* Header */}
       <div className="flex items-center justify-between" style={{ gap: "var(--space-2)" }}>
         <span className="t-13 font-medium text-text-muted">Historique</span>
-        <button
-          type="button"
-          onClick={onClose}
-          className="t-11 font-medium text-text-faint hover:text-(--accent-teal)"
-          style={{
-            background: "transparent",
-            border: "none",
-            cursor: "pointer",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
-        >
-          ✕
-        </button>
+        <IconButton icon="✕" label="Fermer l'historique" size="xs" tone="muted" onClick={onClose} />
       </div>
 
       {/* États */}
@@ -211,10 +200,6 @@ function VersionRow({
   const isRestoring = restoring === v.versionNumber;
   const compareLabel =
     compareA === v.versionNumber ? "A" : compareB === v.versionNumber ? "B" : "Comparer";
-  const compareColor =
-    compareA === v.versionNumber || compareB === v.versionNumber
-      ? "var(--accent-teal)"
-      : "var(--text-muted)";
 
   return (
     <div
@@ -236,39 +221,24 @@ function VersionRow({
         {v.signalsCount} signal{v.signalsCount !== 1 ? "s" : ""}
       </span>
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone={compareA === v.versionNumber || compareB === v.versionNumber ? "brand" : "neutral"}
+          size="sm"
           onClick={onSelectCompare}
-          className="t-11 font-medium"
-          style={{
-            color: compareColor,
-            background: "transparent",
-            border: "1px solid var(--border-default)",
-            borderRadius: "var(--radius-xs)",
-            padding: "var(--space-1) var(--space-2)",
-            cursor: "pointer",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
         >
           {compareLabel}
-        </button>
-        <button
-          type="button"
+        </Action>
+        <Action
+          variant="ghost"
+          tone="neutral"
+          size="sm"
           onClick={onRestore}
           disabled={isRestoring}
-          className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
-          style={{
-            background: "transparent",
-            border: "1px solid var(--border-default)",
-            borderRadius: "var(--radius-xs)",
-            padding: "var(--space-1) var(--space-2)",
-            cursor: isRestoring ? "not-allowed" : "pointer",
-            opacity: isRestoring ? 0.5 : 1,
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
+          loading={isRestoring}
         >
-          {isRestoring ? "…" : "Restaurer"}
-        </button>
+          Restaurer
+        </Action>
       </div>
     </div>
   );
@@ -291,25 +261,18 @@ function CompareSection({
 }: CompareSectionProps): JSX.Element {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-      <button
-        type="button"
+      <Action
+        variant="secondary"
+        tone="neutral"
+        size="sm"
         onClick={onCompare}
         disabled={diffLoading}
-        className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
-        style={{
-          background: "transparent",
-          border: "1px solid var(--border-default)",
-          borderRadius: "var(--radius-xs)",
-          padding: "var(--space-2) var(--space-3)",
-          cursor: diffLoading ? "not-allowed" : "pointer",
-          opacity: diffLoading ? 0.6 : 1,
-          transition: "color var(--duration-fast) var(--ease-standard)",
-        }}
+        loading={diffLoading}
       >
         {diffLoading
           ? "Comparaison…"
           : `Comparer v${Math.min(compareA, compareB)} → v${Math.max(compareA, compareB)}`}
-      </button>
+      </Action>
 
       {diffs !== null && (
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>

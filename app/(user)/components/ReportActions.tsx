@@ -15,7 +15,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { toast } from "@/app/hooks/use-toast";
-import { Action } from "./ui";
+import { Action, IconButton } from "./ui";
 
 interface ReportActionsProps {
   /** L'asset.id du report (optionnel — sans, on n'expose pas les actions). */
@@ -33,16 +33,24 @@ export function ReportActions({ reportId, title }: ReportActionsProps) {
   return (
     <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
       <ExportMenu reportId={reportId} title={title} />
-      <ActionButton
-        label="Partager"
+      <Action
+        variant="secondary"
+        tone="neutral"
+        size="sm"
         onClick={() => setPanel(panel === "share" ? null : "share")}
-        active={panel === "share"}
-      />
-      <ActionButton
-        label="Commenter"
+        aria-pressed={panel === "share"}
+      >
+        Partager
+      </Action>
+      <Action
+        variant="secondary"
+        tone="neutral"
+        size="sm"
         onClick={() => setPanel(panel === "comments" ? null : "comments")}
-        active={panel === "comments"}
-      />
+        aria-pressed={panel === "comments"}
+      >
+        Commenter
+      </Action>
       {/* Mount conditionnel : le parent contrôle mount/unmount via `panel`,
           donc tant que SharePopover/CommentsDrawer est monté il est ouvert. */}
       {panel === "share" && <SharePopover reportId={reportId} onClose={() => setPanel(null)} />}
@@ -75,7 +83,15 @@ function ExportMenu({ reportId, title }: { reportId: string; title?: string }) {
 
   return (
     <div className="relative">
-      <ActionButton label="Exporter" onClick={() => setOpen((v) => !v)} active={open} />
+      <Action
+        variant="secondary"
+        tone="neutral"
+        size="sm"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        Exporter
+      </Action>
       {open && (
         <div
           role="menu"
@@ -188,21 +204,15 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
           <p className="t-9" style={{ color: "var(--danger)", margin: 0 }}>
             Erreur : {error}
           </p>
-          <button
-            type="button"
+          <Action
+            variant="ghost"
+            tone="neutral"
+            size="sm"
             onClick={() => void generate()}
             disabled={loading}
-            className="t-9 font-light"
-            style={{
-              padding: "var(--space-1) var(--space-2)",
-              border: "1px solid var(--surface-2)",
-              borderRadius: "var(--radius-xs)",
-              background: "transparent",
-              color: "var(--text-muted)",
-            }}
           >
             Réessayer
-          </button>
+          </Action>
         </div>
       )}
       {shareUrl && (
@@ -232,23 +242,16 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
               Expire le {new Date(expiresAt).toLocaleString("fr-FR")}
             </p>
           )}
-          <button
-            type="button"
+          <Action
+            variant="secondary"
+            tone="neutral"
+            size="sm"
             onClick={() => {
               if (shareUrl) void navigator.clipboard?.writeText(shareUrl);
             }}
-            className="t-11 font-light"
-            style={{
-              marginTop: "var(--space-2)",
-              padding: "var(--space-2) var(--space-3)",
-              border: "1px solid var(--surface-2)",
-              borderRadius: "var(--radius-xs)",
-              background: "transparent",
-              color: "var(--text-muted)",
-            }}
           >
             Copier
-          </button>
+          </Action>
         </div>
       )}
     </PopoverShell>
@@ -392,34 +395,6 @@ function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () =
 
 // ── UI primitives ────────────────────────────────────────────
 
-function ActionButton({
-  label,
-  onClick,
-  active,
-}: {
-  label: string;
-  onClick: () => void;
-  active?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="t-11 font-light hover:text-(--accent-teal)"
-      style={{
-        padding: "var(--space-2) var(--space-3)",
-        border: "1px solid var(--surface-2)",
-        borderRadius: "var(--radius-xs)",
-        background: "transparent",
-        color: active ? "var(--accent-teal)" : "var(--text-muted)",
-        transition: "color var(--duration-fast) var(--ease-standard)",
-      }}
-    >
-      {label}
-    </button>
-  );
-}
-
 function MenuItem({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
     <button
@@ -504,20 +479,7 @@ function PopoverShell({
         >
           {title}
         </h3>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Fermer"
-          className="t-11 font-light"
-          style={{
-            padding: "var(--space-1) var(--space-2)",
-            background: "transparent",
-            color: "var(--text-muted)",
-            border: 0,
-          }}
-        >
-          ×
-        </button>
+        <IconButton icon="×" label="Fermer" size="xs" tone="muted" onClick={onClose} />
       </div>
       {children}
     </div>

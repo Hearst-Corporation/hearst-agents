@@ -9,6 +9,7 @@
 
 import type { JSX } from "react";
 import { ReportActions } from "@/app/(user)/components/ReportActions";
+import { Action } from "@/app/(user)/components/ui";
 
 interface ReportHeaderProps {
   assetId?: string | null;
@@ -41,40 +42,28 @@ export function ReportHeader({
     >
       {showActions && assetId && <ReportActions reportId={assetId} title={assetTitle} />}
       {showActions && (
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
           onClick={onToggleHistory}
-          data-testid="report-layout-history-toggle"
+          testId="report-layout-history-toggle"
           aria-expanded={historyOpen}
-          className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
         >
           {historyOpen ? "Fermer" : "Historique"}
-        </button>
+        </Action>
       )}
       {editable && (
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
           onClick={onToggleEditor}
-          data-testid="report-layout-edit-toggle"
+          testId="report-layout-edit-toggle"
           aria-expanded={editorOpen}
-          className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
         >
           {editorOpen ? "Fermer" : "Éditer"}
-        </button>
+        </Action>
       )}
     </div>
   );

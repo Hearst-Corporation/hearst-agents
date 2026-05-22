@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { Action } from "@/app/(user)/components/ui";
 
 export function RestoreAgentButton({ agentId }: { agentId: string }) {
   const router = useRouter();
@@ -32,14 +33,16 @@ export function RestoreAgentButton({ agentId }: { agentId: string }) {
         placeholder="Raison de restauration"
         className="w-full px-(--space-3) py-(--space-2) rounded-(--radius-sm) bg-surface-1 border border-(--line) text-text t-12 placeholder:text-text-faint focus:border-(--accent-teal) focus:outline-none transition-colors"
       />
-      <button
-        type="button"
+      <Action
+        variant="primary"
+        tone="brand"
         onClick={submit}
         disabled={isPending || !reason.trim()}
-        className="w-full px-(--space-3) py-(--space-2) rounded-(--radius-sm) bg-(--accent-teal) text-(--text-on-accent-teal) t-12 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+        loading={isPending}
+        className="w-full"
       >
-        {isPending ? "Restauration…" : "Restaurer l'agent"}
-      </button>
+        Restaurer l'agent
+      </Action>
     </div>
   );
 }

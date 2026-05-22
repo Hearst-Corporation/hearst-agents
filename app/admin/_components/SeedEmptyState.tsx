@@ -14,7 +14,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { EmptyState } from "@/app/(user)/components/ui/EmptyState";
+import { Action, EmptyState } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
 
 export type SeedResource = "agents" | "tools" | "datasets" | "workflows" | "skills";
@@ -68,14 +68,16 @@ export default function SeedEmptyState({
         <p className="t-12 text-text-muted">
           Tu peux générer plus de samples dev pour étoffer cette section.
         </p>
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
           onClick={onSeed}
           disabled={seeding}
-          className="t-12 font-medium px-(--space-3) py-(--space-1) rounded-(--radius-xs) border border-(--accent-teal)/40 text-(--accent-teal) hover:bg-(--accent-teal)/10 transition-colors disabled:opacity-40"
+          loading={seeding}
         >
-          {seeding ? "Seed en cours…" : "+ samples dev"}
-        </button>
+          + samples dev
+        </Action>
       </div>
     );
   }
@@ -90,14 +92,16 @@ export default function SeedEmptyState({
         >
           {createLabel}
         </Link>
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone="neutral"
+          size="sm"
           onClick={onSeed}
           disabled={seeding}
-          className="t-12 px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors disabled:opacity-40"
+          loading={seeding}
         >
-          {seeding ? "Seed en cours…" : "Charger les données dev"}
-        </button>
+          Charger les données dev
+        </Action>
       </div>
       {error && <p className="t-11 text-(--danger) max-w-md">{error}</p>}
     </div>

@@ -43,6 +43,10 @@ interface ActionBaseProps {
   className?: string;
   /** Aria-label obligatoire si pas de children visible (icon-only). */
   "aria-label"?: string;
+  /** État d'un toggle/disclosure (ex : panneau JSON ouvert). Forwarded au <button>. */
+  "aria-expanded"?: boolean;
+  /** État pressé d'un toggle. Forwarded au <button>. */
+  "aria-pressed"?: boolean;
   testId?: string;
 }
 
@@ -210,6 +214,8 @@ export function Action(props: ActionProps) {
       disabled={isDisabled}
       aria-busy={loading || undefined}
       aria-label={props["aria-label"]}
+      aria-expanded={props["aria-expanded"]}
+      aria-pressed={props["aria-pressed"]}
       data-testid={testId}
       className={composed}
     >

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Action } from "@/app/(user)/components/ui";
 
 interface AgentLockState {
   locked: boolean;
@@ -64,14 +65,16 @@ export default function AgentLockCard({ initial }: Props) {
               {state.reason && <p className="t-12 text-text-soft italic">« {state.reason} »</p>}
             </div>
           </div>
-          <button
-            type="button"
+          <Action
+            variant="secondary"
+            tone="brand"
             onClick={toggle}
             disabled={busy}
-            className="shrink-0 px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/40 bg-(--accent-teal-bg-active) text-(--accent-teal) t-12 font-medium hover:bg-(--accent-teal)/20 transition-colors disabled:opacity-50"
+            loading={busy}
+            className="shrink-0"
           >
-            {busy ? "…" : "Déverrouiller"}
-          </button>
+            Déverrouiller
+          </Action>
         </div>
         {error && <p className="t-12 text-danger">{error}</p>}
       </div>
@@ -104,14 +107,16 @@ export default function AgentLockCard({ initial }: Props) {
           maxLength={280}
           className="flex-1 t-12 bg-(--surface-2) border border-line rounded-(--radius-sm) px-(--space-3) py-(--space-2) text-text placeholder:text-text-ghost focus:border-(--accent-teal) focus:outline-none"
         />
-        <button
-          type="button"
+        <Action
+          variant="secondary"
+          tone="danger"
           onClick={toggle}
           disabled={busy}
-          className="shrink-0 px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--danger)/40 bg-(--danger)/10 text-danger t-12 font-medium hover:bg-(--danger)/20 transition-colors disabled:opacity-50"
+          loading={busy}
+          className="shrink-0"
         >
-          {busy ? "…" : "Verrouiller les agents"}
-        </button>
+          Verrouiller les agents
+        </Action>
       </div>
       {error && <p className="t-12 text-danger">{error}</p>}
     </div>
