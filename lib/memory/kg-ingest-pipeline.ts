@@ -12,6 +12,7 @@
  */
 
 import { upsertEmbedding } from "@/lib/embeddings/store";
+import { pushToCortexMemory } from "./cortex-client";
 import { extractEntities, sanitizeKgLabel, upsertEdge, upsertNode } from "./kg";
 import { __clearKgContextCache } from "./kg-context";
 import { buildNodeExcerpt } from "./kg-excerpt";
@@ -161,4 +162,14 @@ export function fireAndForgetIngestTurn(input: IngestTurnInput): void {
   void ingestConversationTurn(input).catch((err) => {
     console.warn("[kg-ingest-pipeline] background ingest failed:", err);
   });
+
+  // Fédération mémoire ÉCRITURE : pousse le tour vers Cortex (LTM partagée).
+  // Hérite du throttle (5min) + des seuils de longueur ci-dessus. Fire-and-forget,
+  // fail-soft : aucune erreur ne remonte, le KG local reste prioritaire.
+  void pushToCortexMemory({
+    userId: input.userId,
+    tenantId: input.tenantId,
+    userMessage: input.userMessage,
+    assistantReply: input.assistantReply,
+  }).catch((err) => console.warn("[kg-ingest-pipeline] cortex push failed:", err));
 }
