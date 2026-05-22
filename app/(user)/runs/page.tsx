@@ -1,15 +1,14 @@
 /**
- * /runs — alias de /run (Stage Mission). Certains liens / habitudes
- * pointent vers le pluriel ; on évite un 404 en réutilisant la même
- * entrée cockpit.
+ * /runs — alias historique de /run (Stage Mission).
+ *
+ * Anciennement une copie du cockpit ; désormais une simple redirection
+ * permanente vers /run pour garantir une source de vérité unique (pas de
+ * divergence de comportement entre les deux routes). Les liens/habitudes
+ * pointant vers le pluriel restent fonctionnels.
  */
 
-import { CockpitXClient } from "../cockpit-x/CockpitXClient";
-import { loadInitialCockpitData } from "../lib/cockpit-entry";
+import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-
-export default async function RunsPage() {
-  const initialCockpitData = await loadInitialCockpitData("RSC /runs");
-  return <CockpitXClient initialCockpitData={initialCockpitData} initialMode="mission" />;
+export default function RunsPage() {
+  redirect("/run");
 }

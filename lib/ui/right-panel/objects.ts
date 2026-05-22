@@ -1,10 +1,10 @@
 /**
  * Right Panel Focal Objects — Re-export from canonical source (stores/focal)
  *
- * ⚠️ DEPRECATED: Import directly from `@/stores/focal` or `@/lib/core/types`
- * for new code. This file exists for backward compatibility only.
+ * ⚠️ DEPRECATED: Import directly from `@/stores/focal` for new code.
+ * This file exists for backward compatibility only.
  *
- * Canonical source: stores/focal.ts (client) re-exported via lib/core/types/index.ts
+ * Canonical source: stores/focal.ts (client)
  */
 
 import type { FormattedSection, OutputTone } from "@/lib/engine/runtime/formatting/pipeline";

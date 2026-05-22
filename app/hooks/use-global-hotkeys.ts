@@ -12,7 +12,6 @@
  *               à ⌘7, accessible même quand un autre Stage est actif)
  * - ⌘⇧F       : toggle Mode Focus (S4-B — Stage 100vw, Rails masqués)
  * - ⌘B        : toggle WorkingDocument (Thinking Canvas — Lot C)
- * - ⌘G        : toggle VideoQuickLaunch (S2-A — panel ⌘G + SSE progress)
  * - ⌘⌫        : back stage
  * - Échap     : sort du Mode Focus si actif
  *
@@ -23,7 +22,6 @@
 import { useEffect } from "react";
 import { useFocusMode } from "@/stores/focus-mode";
 import { STAGE_HOTKEYS, useStageStore } from "@/stores/stage";
-import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 import { useVoiceStore } from "@/stores/voice";
 import { useWorkingDocumentStore } from "@/stores/working-document";
 
@@ -93,15 +91,6 @@ export function useGlobalHotkeys() {
       if (e.key === "b" || e.key === "B") {
         e.preventDefault();
         useWorkingDocumentStore.getState().toggle();
-        return;
-      }
-
-      // ⌘G → toggle VideoQuickLaunch (S2-A). Autorisé même en input pour
-      // ouvrir le panel depuis n'importe quel contexte (le panel ouvre son
-      // propre textarea — l'utilisateur peut continuer à taper dedans).
-      if (e.key === "g" || e.key === "G") {
-        e.preventDefault();
-        useVideoQuickLaunchStore.getState().toggle();
         return;
       }
 

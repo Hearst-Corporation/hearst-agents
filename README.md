@@ -2,7 +2,87 @@
 
 Système d'action centré chat avec orchestration v2, artifacts file-backed, et missions récurrentes.
 
-**UI — Ghost Protocol (26/04/2026)** : surface cockpit sombre (`app/globals.css` tokens), typographie Satoshi + Geist Mono, séparateurs `var(--line)`, glyphes SVG filaires (`app/(user)/components/ghost-icons.tsx`), intégrations affichées en `ServiceIdGlyph` (plus d’emojis dans l’UI). Classes utilitaires Ghost (`.ghost-meta-label`, `.ghost-btn-solid`, modales, skeleton scanline) et `.status-dot*` (`box-shadow: none`) sont définies dans `app/globals.css` et couvertes par `__tests__/ui/design-tokens.test.ts`. La landing admin (`app/admin/page.tsx`) est l’**accueil** (raccourcis) ; le graphe live est sur **`/admin/pipeline`** (`CanvasShell` / `FlowCanvas`, `data-pipeline-visual="orbit"`). La colonne droite du canvas (`w-[var(--width-context)]`) empile **fiche stage** (`NodeDetailPanel`) et **derniers runs** (`RunRail`). **Pas de route canvas en double** : un seul canvas sur `/admin/pipeline` ; `/admin/audit` reste le journal. La liste Skills pointe vers `/admin/skills/[id]` (`app/admin/skills/[id]/page.tsx`).
+> 🤖 **Pour les agents IA** : lis [`docs/LLM_PROJECT_MAP.md`](docs/LLM_PROJECT_MAP.md) **avant toute modification**. Voir aussi la section [« For AI agents »](#for-ai-agents) ci-dessous.
+
+---
+
+## Stack
+
+- **Next.js 15** (App Router) + **React 19**
+- **Tailwind v4** (`@import "tailwindcss"`, `@theme inline`) — tokens design `--ct-*` / classes `.t-N` dans `app/globals.css`
+- **Police** : Satoshi Variable + Geist Mono
+- **Auth** : NextAuth (`SessionProvider` dans `app/(user)/layout.tsx`)
+- **État client** : Zustand (`stores/`)
+- **Shell** : `@hearst/cockpit-shell`
+- **3D** : `@react-three/fiber` (HaloAgentCore, spatial-safe)
+- **Tests** : Vitest (unit) + Playwright (e2e/visual)
+- **Lint** : Biome + linter visuel custom (`scripts/lint-visual.mjs`)
+- **Deploy** : Vercel ; desktop optionnel via Electron
+
+## Structure des dossiers
+
+Convention de **colocation** Next.js App Router (pas de `components/ui|features|layout` global). Détail complet dans [`docs/LLM_PROJECT_MAP.md`](docs/LLM_PROJECT_MAP.md).
+
+```
+app/
+  (user)/            cockpit authentifié
+    _shell/          shell de rendu (Shell, LeftRail, RightRailChat, KpiGrid…)
+    _stages/         12 vues plein-écran (registry.ts pilote la nav)
+    components/      composants métier user, par domaine
+      ui/            ★ design system primitif canonique
+    lib/ hooks/      helpers/hooks du segment user
+  admin/             back-office (gouvernance ADD, agents, métriques)
+  api/               route handlers REST + SSE
+  hooks/             ★ hooks transversaux app-level
+components/spatial-safe/   🔒 couche 3D figée (lecture seule)
+lib/                 logique métier serveur/pure (LLM, engine, connecteurs…)
+stores/              état global Zustand (16 stores)
+docs/                doc projet + protocole ADD + LLM_PROJECT_MAP.md
+```
+
+## Commandes
+
+```bash
+npm run dev          # Next dev sur :4102
+npm run build        # build prod (bloque si lint:visual échoue)
+npm run typecheck    # tsc --noEmit
+npm run lint         # biome check + lint visuel (tokens --ct-*)
+npm run test         # vitest run
+npm run test:e2e     # playwright
+npm run validate     # typecheck + lint + test (à lancer avant tout patch)
+npx knip             # détection code mort (filtrer .claude/worktrees)
+```
+
+## Conventions de composants
+
+- **Une primitive par rôle** : bouton `<Action>`, bouton icône `<IconButton>`, carte `<PanelCard>`, modale via `useModalA11y`. Cherche dans `app/(user)/components/ui/` avant de créer.
+- **Où ajouter** : primitive générique → `components/ui/` ; composant métier → `components/<domaine>/` ; vue plein-écran → `_stages/` (+ `registry.ts`) ; hook transversal → `app/hooks/` ; hook d'une seule feature → colocalisé ; logique pure → `lib/<domaine>/`.
+- **Où NE PAS ajouter** : pas de feature dans `components/ui/`, pas de primitive générique dans un dossier feature, **rien dans `spatial-safe/`** (🔒), rien dans `lab/` (sandbox isolée).
+- **Tokens uniquement** : couleurs/espacements/typo via `--ct-*` et `.t-N` (`app/globals.css`). Pas de hex hardcodé (le linter visuel bloque).
+
+<a name="for-ai-agents"></a>
+## For AI agents
+
+Avant toute modification, lis :
+- [`docs/LLM_PROJECT_MAP.md`](docs/LLM_PROJECT_MAP.md) — carte du projet, sources de vérité, patterns supprimés
+- `README.md` (ce fichier)
+- `package.json`, `tsconfig.json`, `next.config.ts`
+- `CLAUDE.md` + `docs/AGENT-DRIVEN-DEV.md` + `docs/AGENT-LOCK.json` (protocole ADD + verrou)
+
+Règles :
+- **Cherche avant de créer** un fichier (`grep` nom + rôle).
+- **Préfère éditer** un composant existant plutôt qu'en créer un nouveau.
+- **Ne duplique pas** les primitives UI (un seul `Action`, `PanelCard`, etc.).
+- **N'ajoute pas de provider** sauf s'il est monté dans un layout.
+- **Ne déplace pas** de fichier sans corriger les imports ET mettre à jour la doc.
+- **Ne réorganise pas** vers une structure `ui/features/layout` générique : déménagement massif proscrit.
+- **Lance toujours** `npm run validate` (typecheck + lint + test) avant de proposer un patch.
+- **Justifie** chaque suppression, fusion ou déplacement (preuve d'absence d'usage).
+- **Respecte les zones 🔒** : `spatial-safe/`, features ADD verrouillées, `lab/`.
+
+---
+
+**UI — Ghost Protocol (26/04/2026)** : surface cockpit sombre (`app/globals.css` tokens), typographie Satoshi + Geist Mono, séparateurs `var(--line)`, glyphes SVG filaires, intégrations affichées en `ServiceIdGlyph` (plus d’emojis dans l’UI). Classes utilitaires Ghost (`.ghost-meta-label`, `.ghost-btn-solid`, modales, skeleton scanline) et `.status-dot*` (`box-shadow: none`) sont définies dans `app/globals.css` et couvertes par `__tests__/ui/design-tokens.test.ts`. La landing admin (`app/admin/page.tsx`) est l’**accueil** (raccourcis) ; le graphe live est sur **`/admin/pipeline`** (`CanvasShell` / `FlowCanvas`, `data-pipeline-visual="orbit"`). La colonne droite du canvas (`w-[var(--width-context)]`) empile **fiche stage** (`NodeDetailPanel`) et **derniers runs** (`RunRail`). **Pas de route canvas en double** : un seul canvas sur `/admin/pipeline` ; `/admin/audit` reste le journal. La liste Skills pointe vers `/admin/skills/[id]` (`app/admin/skills/[id]/page.tsx`).
 
 > 🚀 **Quick Start** : `npm run dev` = hearst-os seul sur `:4102`. `npm run launch` = stack complète. `npm run dev:electron` = Next dev + fenêtre Electron.
 

@@ -2,7 +2,7 @@
  * UI primitives — design system Hearst OS.
  *
  * Re-exporte les primitives unifiées du DS pour import simple :
- *   import { Action, SectionHeader, RailSection } from "@/app/(user)/components/ui";
+ *   import { Action, SectionHeader, PanelCard } from "@/app/(user)/components/ui";
  */
 
 export type { ActionSize, ActionTone, ActionVariant } from "./Action";
@@ -13,7 +13,6 @@ export { FormInput, FormTextarea } from "./FormField";
 export type { IconButtonProps } from "./IconButton";
 export { IconButton } from "./IconButton";
 export { PanelCard } from "./PanelCard";
-export { RailSection } from "./RailSection";
 export { ScreenShell } from "./ScreenShell";
 export { SearchField } from "./SearchField";
 export { SectionEyebrow } from "./SectionEyebrow";
