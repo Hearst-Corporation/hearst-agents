@@ -53,7 +53,7 @@ export async function startJobRun(sb: DB, args: StartJobRunArgs): Promise<string
 
 export interface EndJobRunArgs {
   runId: string | null;
-  status: "completed" | "failed";
+  status: "completed" | "failed" | "awaiting_approval" | "awaiting_clarification";
   costUsd?: number;
   output?: Json;
   error?: string;

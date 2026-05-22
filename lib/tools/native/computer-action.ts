@@ -66,9 +66,7 @@ export function buildComputerActionTools(opts: { scope: TenantScope }): AiToolMa
         // Run tracée AVANT l'enqueue → visible immédiatement dans les dashboards.
         const runId = sb
           ? await startJobRun(sb, {
-              // TODO: migration — ajouter "computer_action" à l'enum run_kind DB.
-              // En attendant on réutilise "tool_test" (neutre, visible dashboards).
-              kind: "tool_test" as Parameters<typeof startJobRun>[1]["kind"],
+              kind: "computer_action",
               userId,
               tenantId,
               input: { task, context: args.context ?? {} } as unknown as Json,

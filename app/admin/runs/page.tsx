@@ -42,6 +42,8 @@ const statusColor: Record<string, string> = {
   pending: "text-text-muted",
   cancelled: "text-text-muted",
   timeout: "text-(--warn)",
+  awaiting_approval: "text-(--warn)",
+  awaiting_clarification: "text-(--warn)",
 };
 
 const kindLabel: Record<string, string> = {

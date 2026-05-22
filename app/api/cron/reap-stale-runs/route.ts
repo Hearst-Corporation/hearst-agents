@@ -60,6 +60,8 @@ const RUN_KIND_MAX_DURATION_MS: Record<RunKind, number> = {
   code_exec: JOB_QUEUE_CONFIGS["code-exec"].maxDurationMs,
   // Un swarm hive-engine tourne 4-8 min → reprend le maxDurationMs de sa queue.
   swarm: JOB_QUEUE_CONFIGS["swarm-run"].maxDurationMs,
+  // computer-use peut durer jusqu'à 5 min + marge → 6 min (360s).
+  computer_action: JOB_QUEUE_CONFIGS["computer-action-run"].maxDurationMs,
 };
 
 /** Cutoff variants : pas de kind exploitable → on garde un global prudent. */

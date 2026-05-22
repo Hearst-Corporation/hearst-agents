@@ -38,6 +38,7 @@ const VALID_RUN_KINDS = new Set<string>([
   "doc_parse",
   "code_exec",
   "swarm",
+  "computer_action",
 ]);
 
 export const dynamic = "force-dynamic";

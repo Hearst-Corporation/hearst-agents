@@ -4528,7 +4528,8 @@ export type Database = {
         | "video_gen"
         | "doc_parse"
         | "code_exec"
-        | "swarm";
+        | "swarm"
+        | "computer_action";
       run_status:
         | "pending"
         | "running"
@@ -4695,6 +4696,7 @@ export const Constants = {
         "doc_parse",
         "code_exec",
         "swarm",
+        "computer_action",
       ],
       run_status: [
         "pending",
