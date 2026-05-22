@@ -56,8 +56,6 @@ export const createPersonaSchema = z.object({
   isDefault: z.boolean().optional(),
 });
 
-export type CreatePersonaPayload = z.infer<typeof createPersonaSchema>;
-
 // ── PATCH /api/v2/personas/[id] — mise à jour partielle ──────
 
 /**
@@ -79,8 +77,6 @@ export const updatePersonaSchema = z.object({
   isDefault: z.boolean().optional(),
 });
 
-export type UpdatePersonaPayload = z.infer<typeof updatePersonaSchema>;
-
 // ── POST /api/v2/personas/ab-test — comparaison voix ─────────
 
 /**
@@ -93,5 +89,3 @@ export const abTestPersonaSchema = z.object({
   personaIdA: z.string().min(1).max(120),
   personaIdB: z.string().min(1).max(120),
 });
-
-export type AbTestPersonaPayload = z.infer<typeof abTestPersonaSchema>;

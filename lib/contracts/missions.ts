@@ -65,8 +65,6 @@ export const createMissionSchema = z.object({
   approvalMode: approvalModeSchema.optional(),
 });
 
-export type CreateMissionPayload = z.infer<typeof createMissionSchema>;
-
 // ── PATCH /api/v2/missions — bulk toggle ────────────────────
 
 /**
@@ -77,8 +75,6 @@ export const toggleMissionSchema = z.object({
   id: z.string().min(1),
   enabled: z.boolean(),
 });
-
-export type ToggleMissionPayload = z.infer<typeof toggleMissionSchema>;
 
 // ── PATCH /api/v2/missions/[id] — update ────────────────────
 
@@ -100,8 +96,6 @@ export const updateMissionSchema = z.object({
   approvalMode: approvalModeSchema.optional(),
 });
 
-export type UpdateMissionPayload = z.infer<typeof updateMissionSchema>;
-
 // ── POST /api/v2/missions/[id]/run — exécution manuelle ─────
 
 /**
@@ -110,16 +104,10 @@ export type UpdateMissionPayload = z.infer<typeof updateMissionSchema>;
  */
 export const runMissionSchema = z.object({}).strict();
 
-export type RunMissionPayload = z.infer<typeof runMissionSchema>;
-
 // ── POST /api/v2/missions/[id]/pause ────────────────────────
 
 export const pauseMissionSchema = z.object({}).strict();
 
-export type PauseMissionPayload = z.infer<typeof pauseMissionSchema>;
-
 // ── POST /api/v2/missions/[id]/resume ───────────────────────
 
 export const resumeMissionSchema = z.object({}).strict();
-
-export type ResumeMissionPayload = z.infer<typeof resumeMissionSchema>;

@@ -24,8 +24,6 @@ export const imageGenSchema = z.object({
   style: z.enum(["editorial", "cinematic", "flat-illustration", "portrait", "product"]).optional(),
 });
 
-export type ImageGenPayload = z.infer<typeof imageGenSchema>;
-
 // ── audio-gen (ElevenLabs TTS) ───────────────────────────
 
 export const audioGenSchema = z.object({
@@ -41,8 +39,6 @@ export const audioGenSchema = z.object({
   personaId: z.string().optional(),
 });
 
-export type AudioGenPayload = z.infer<typeof audioGenSchema>;
-
 // ── code-exec (E2B sandbox) ──────────────────────────────
 
 export const codeExecSchema = z.object({
@@ -51,8 +47,6 @@ export const codeExecSchema = z.object({
   timeoutMs: z.number().int().min(1_000).max(120_000).optional(),
   threadId: z.string().optional(),
 });
-
-export type CodeExecPayload = z.infer<typeof codeExecSchema>;
 
 // ── document-parse (LlamaCloud) ──────────────────────────
 
@@ -68,5 +62,3 @@ export const documentParseSchema = z.object({
   fileName: z.string().optional(),
   threadId: z.string().optional(),
 });
-
-export type DocumentParsePayload = z.infer<typeof documentParseSchema>;

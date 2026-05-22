@@ -21,5 +21,3 @@ export const startRunSchema = z.object({
   /** Note libre attachée au run (audit trail). */
   notes: z.string().max(2000).optional(),
 });
-
-export type StartRunPayload = z.infer<typeof startRunSchema>;
