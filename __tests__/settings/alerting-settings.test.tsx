@@ -74,15 +74,17 @@ async function waitForLoaded() {
 // ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe("AlertingSettings — rendu", () => {
-  it("affiche le loader pendant le chargement puis le contenu", async () => {
+  it("affiche le contenu une fois les préférences chargées", async () => {
     mockFetch();
     render(<AlertingSettings />);
 
-    // Loader visible initialement
-    expect(screen.getByText(/chargement des préférences/i)).toBeTruthy();
+    // Depuis le refactor loading standardisé (857d7eed), AlertingSettings
+    // rend directement ses sections (plus de loader plein écran) : le
+    // SaveHeader expose "Enregistrer" dès le premier render.
+    expect(screen.getByText("Enregistrer")).toBeTruthy();
 
     await waitForLoaded();
-    expect(screen.getByText("Enregistrer")).toBeTruthy();
+    expect(screen.getByText("Webhooks")).toBeTruthy();
   });
 
   it("affiche les sections Webhooks, Email, Slack, Signal Types", async () => {

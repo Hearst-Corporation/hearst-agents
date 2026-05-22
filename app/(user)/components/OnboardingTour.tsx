@@ -104,15 +104,20 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
     return () => window.removeEventListener("keydown", handler);
   }, [open, close, handleNext]);
 
+  // Hook a11y : focus trap + scroll lock + restore focus.
+  // Appelé inconditionnellement (no-op tant que open=false) — must be above
+  // l'early return pour respecter les rules-of-hooks de React.
+  // closeOnEscape=false : l'effet local ci-dessus possède déjà Escape (+
+  // Enter/ArrowRight pour la navigation), on évite ainsi un double handler.
+  const dialogRef = useModalA11y<HTMLDivElement>(open, {
+    onClose: close,
+    closeOnEscape: false,
+    autoFocus: false,
+  });
+
   if (!open) return null;
 
   const slide = SLIDES[step];
-
-  // Hook a11y : focus trap + scroll lock + restore focus
-  const dialogRef = useModalA11y<HTMLDivElement>(open, {
-    onClose: close,
-    autoFocus: false,
-  });
 
   return (
     <div
