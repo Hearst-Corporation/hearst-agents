@@ -37,9 +37,10 @@ import { RightRailChat } from "./RightRailChat";
 export type ShellProps = {
   centerContent: ReactNode;
   composer?: ReactNode;
+  scrollable?: boolean;
 };
 
-export function Shell({ centerContent, composer }: ShellProps) {
+export function Shell({ centerContent, composer, scrollable = true }: ShellProps) {
   return (
     <div className="perspective-scene relative flex h-screen w-screen overflow-hidden bg-black text-white">
       <AmbientLayers />
@@ -52,14 +53,21 @@ export function Shell({ centerContent, composer }: ShellProps) {
           {/* Main content area (Scrollable + Floating Footer ancré dessus) */}
           <div className="preserve-3d relative flex min-w-0 flex-1 flex-col overflow-hidden">
             {/* Centre scrollable — translateZ(-15px) pour profondeur subtile */}
-            <main className="vision-content-depth preserve-3d flex flex-1 flex-col overflow-y-auto pt-6 pb-48 2xl:pb-56">
+            <main
+              id="main-content"
+              className={
+                "vision-content-depth preserve-3d flex flex-1 flex-col pt-6 px-4 md:px-6 " +
+                (scrollable ? "overflow-y-auto " : "") +
+                (composer ? "pb-48 2xl:pb-56" : "pb-6")
+              }
+            >
               {centerContent}
             </main>
 
             {/* Fade noir bas — masque le texte qui défile sous le composer */}
             <div
               aria-hidden
-              className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-32"
+              className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-32 2xl:h-40"
               style={{
                 background:
                   "linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 40%, transparent 100%)",
@@ -69,7 +77,7 @@ export function Shell({ centerContent, composer }: ShellProps) {
             {/* Composer chat — remplace le FloatingFooter (P8) */}
             {composer && (
               <div
-                className="absolute right-0 bottom-0 left-0 z-[25] pointer-events-none flex justify-center"
+                className="absolute right-0 bottom-0 left-0 z-30 pointer-events-none flex justify-center"
                 style={{
                   paddingBottom: "var(--space-6)",
                 }}

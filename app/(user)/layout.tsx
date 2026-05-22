@@ -34,6 +34,14 @@ import { useVoiceStore } from "@/stores/voice";
  * choisit "helm" pour stabilité — à arbitrer plus tard si convergence
  * naming nécessaire.
  */
+/**
+ * URL canonique de l'app sœur "hearst-presentation" (Next.js autonome, Supabase
+ * + Vercel dédiés). Surchargeable par env (déploiement) — jamais un secret, juste
+ * un domaine public. Fallback = domaine Vercel par défaut du projet.
+ */
+const PRESENTATION_URL =
+  process.env.NEXT_PUBLIC_PRESENTATION_URL ?? "https://hearst-presentation.vercel.app";
+
 const HELM_PRODUCTS: CockpitProduct[] = [
   { id: "helm", name: "Helm", short: "HE", color: "var(--accent-teal)" },
   {
@@ -64,6 +72,13 @@ const HELM_PRODUCTS: CockpitProduct[] = [
     color: "var(--ct-product-hustle)",
     url: "https://dropship-platform-amber.vercel.app",
   },
+  {
+    id: "presentation",
+    name: "Hearst Presentation",
+    short: "HP",
+    color: "var(--ct-product-presentation)",
+    url: PRESENTATION_URL,
+  },
 ];
 
 function VoiceMount() {
@@ -75,10 +90,11 @@ function VoiceMount() {
 function FocusModeStyles() {
   const enabled = useFocusMode((s) => s.enabled);
   if (!enabled) return null;
+  // overrides @hearst/cockpit-shell inline styles — !important requis car cockpit-shell pose ces valeurs en style inline
   return (
     <style>{`
       .vision-rail-right { display: none !important; }
-      .vision-content-depth { max-width: 100vw !important; padding-right: 2rem !important; }
+      .vision-content-depth { max-width: 100vw !important; padding-right: var(--space-8) !important; }
     `}</style>
   );
 }
@@ -104,7 +120,7 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
   return (
     <SessionProvider>
       <CockpitShell appId="helm" headless products={HELM_PRODUCTS}>
-        <div className="h-screen w-full overflow-hidden bg-black text-white antialiased">
+        <div className="h-dvh w-full overflow-hidden bg-black text-white antialiased">
           {children}
           <Commandeur />
           <VoiceMount />
