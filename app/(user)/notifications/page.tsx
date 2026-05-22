@@ -31,6 +31,13 @@ export default function NotificationsPage() {
   const [activeTab, setActiveTab] = useState<Tab>("Tout");
   const markAllRead = useNotificationsStore((s) => s.markAllRead);
   const unreadCount = useNotificationsStore((s) => s.unreadCount);
+  const notifications = useNotificationsStore((s) => s.notifications);
+
+  // Filtrer par tab active (severity)
+  const filteredNotifs = notifications.filter((n) => {
+    if (activeTab === "Tout") return true;
+    return n.severity === activeTab.toLowerCase();
+  });
 
   return (
     <StandalonePageFrame>
@@ -51,11 +58,13 @@ export default function NotificationsPage() {
           aria-label="Filtrer les notifications"
           onValueChange={(v) => setActiveTab(v as Tab)}
         />
-        <EmptyState
-          title="Aucune notification"
-          description="Tout est calme pour l'instant"
-          icon={<BellIcon />}
-        />
+        {filteredNotifs.length === 0 && (
+          <EmptyState
+            title="Aucune notification"
+            description="Tout est calme pour l'instant"
+            icon={<BellIcon />}
+          />
+        )}
       </ScreenShell>
     </StandalonePageFrame>
   );

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
-import { FilterTabs, ScreenShell, SearchField } from "@/app/(user)/components/ui";
+import { EmptyState, FilterTabs, ScreenShell, SearchField } from "@/app/(user)/components/ui";
 
 const TABS = ["Tout", "Threads", "Assets", "Missions"] as const;
 type Tab = (typeof TABS)[number];
@@ -19,6 +19,8 @@ function ArchiveIcon() {
 
 export default function ArchivePage() {
   const [activeTab, setActiveTab] = useState<Tab>("Tout");
+  // TODO: intégrer vraie source de données archivées
+  const isEmpty = true;
 
   return (
     <StandalonePageFrame>
@@ -26,11 +28,6 @@ export default function ArchivePage() {
         title="Archive"
         subtitle="Threads et assets de plus de 7 jours"
         back={{ label: "Cockpit", href: "/" }}
-        empty={{
-          title: "Aucun élément archivé",
-          description: "Les éléments de plus de 7 jours apparaîtront ici",
-          icon: <ArchiveIcon />,
-        }}
       >
         <SearchField
           type="search"
@@ -44,6 +41,13 @@ export default function ArchivePage() {
           aria-label="Filtrer l'archive"
           onValueChange={(v) => setActiveTab(v as Tab)}
         />
+        {isEmpty && (
+          <EmptyState
+            title="Aucun élément archivé"
+            description="Les éléments de plus de 7 jours apparaîtront ici"
+            icon={<ArchiveIcon />}
+          />
+        )}
       </ScreenShell>
     </StandalonePageFrame>
   );

@@ -23,14 +23,6 @@ import { WebhooksSection } from "./WebhooksSection";
 export function AlertingSettings() {
   const { state, dispatch, handleSave, testChannel } = useAlertingPrefs();
 
-  if (state.loading) {
-    return (
-      <div className="flex items-center justify-center p-12" style={{ color: "var(--text-faint)" }}>
-        <span className="t-13">Chargement des préférences…</span>
-      </div>
-    );
-  }
-
   const { prefs } = state;
 
   return (
