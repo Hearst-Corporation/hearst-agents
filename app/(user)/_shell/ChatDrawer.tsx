@@ -92,7 +92,7 @@ export function ChatDrawer() {
         ref={fabRef}
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full text-black transition-transform hover:scale-105 active:scale-95 xl:hidden"
+        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full text-black transition-transform hover:scale-105 active:scale-95 xl:hidden focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)"
         style={{
           background: "var(--accent-teal)",
           boxShadow: "var(--shadow-card)",
@@ -141,7 +141,10 @@ export function ChatDrawer() {
               {/* Header drawer */}
               <div
                 className="flex items-center justify-between border-b px-4 py-3"
-                style={{ borderColor: "var(--border-shell)" }}
+                style={{
+                  borderColor: "var(--border-shell)",
+                  height: "var(--height-drawer-header, 57px)",
+                }}
               >
                 <span className="t-15 font-medium text-text">Chat</span>
                 <button
@@ -150,7 +153,7 @@ export function ChatDrawer() {
                     setOpen(false);
                     fabRef.current?.focus();
                   }}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-150 text-[var(--text-ghost)] hover:text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-150 text-(--text-ghost) hover:text-(--text) hover:bg-(--surface-2) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)"
                   aria-label="Fermer le chat"
                 >
                   <svg
@@ -169,7 +172,7 @@ export function ChatDrawer() {
               </div>
 
               {/* Contenu chat */}
-              <div className="h-[calc(100%-57px)]">
+              <div className="h-[calc(100%-var(--height-drawer-header,57px))]">
                 <RightRailChat inDrawer />
               </div>
             </motion.div>

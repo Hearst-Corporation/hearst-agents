@@ -181,8 +181,11 @@
   --max-height-page-content: 70vh;
   --height-textarea-sm: 120px;
   --height-textarea-md: 200px;
-  
+  --height-chat-input-min: 22px; /* Minimal height for chat input textarea */
+  --height-chat-input-max: 120px; /* Maximum height for chat input textarea */
+
   --height-mobile-nav: 56px;
+  --height-drawer-header: 57px; /* Height of ChatDrawer header for calc() */
   /** Grid template colonnes — Audit log table (cf. app/admin/audit/page.tsx).
    * Time | Action | Resource (flex) | Status | Severity. */
   --grid-audit: 160px 100px 1fr 80px 100px;
@@ -863,7 +866,7 @@
 .ct-chat-input::placeholder { color: var(--text-faint); }
 .ct-chat-input:focus {
   border-color: var(--accent-teal);
-  background: rgba(255,255,255,0.08);
+  background: var(--surface-2);
 }
 .ct-chat-input:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -4081,7 +4084,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   border-radius: var(--ct-radius-base, 10px);
   color: var(--ct-text-primary);
   font-family: inherit;
-  font-size: 13px;
+  font-size: var(--font-size-13, 13px);
   line-height: 1.4;
   padding: 9px 12px;
   outline: none;
@@ -4132,7 +4135,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--font-size-14, 14px);
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;

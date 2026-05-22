@@ -371,7 +371,7 @@ function GraphView({ nodes, edges, selectedNode, onSelectNode }: GraphViewProps)
             role="button"
             tabIndex={0}
             aria-pressed={isSelected}
-            className={`kg-node${node.center ? " center" : ""}${visNodes[node.id] ? " vis" : ""}${isSelected ? " sel" : ""} cursor-pointer`}
+            className={`kg-node${node.center ? " center" : ""}${visNodes[node.id] ? " vis" : ""}${isSelected ? " sel" : ""} cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)`}
             // left/top = positions dynamiques du graphe → conservés en style JS
             style={{ left: `${node.cx}%`, top: `${node.cy}%` }}
             onClick={() => onSelectNode(isSelected ? null : node.id)}
@@ -427,7 +427,7 @@ function ListView({ nodes, edges, selectedNode, onSelectNode }: ListViewProps) {
                 onSelectNode(isSelected ? null : node.id);
               }
             }}
-            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg cursor-pointer transition-[background,border-color] border ${
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg cursor-pointer transition-[background,border-color] border focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal) ${
               isSelected
                 ? "bg-(--accent-teal)/7 border-(--accent-teal)/20"
                 : "bg-(--surface-1) border-(--line-strong)"
@@ -492,7 +492,7 @@ function DetailPanel({
           type="button"
           onClick={onClose}
           aria-label="Fermer le panneau"
-          className="bg-(--surface-1) border border-(--line) rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50 focus-visible:outline-none"
+          className="bg-(--surface-1) border border-(--line) rounded-lg text-(--text-faint) cursor-pointer t-14 px-2.5 py-1 shrink-0 focus-visible:ring-1 focus-visible:ring-(--accent-teal) focus-visible:outline-none"
         >
           ✕
         </button>
@@ -720,7 +720,7 @@ export function KGStage({ mode }: KGStageProps) {
                   key={m}
                   type="button"
                   onClick={() => setViewMode(m)}
-                  className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border ${
+                  className={`px-4 py-1.5 rounded-lg t-13 font-medium cursor-pointer transition-all border focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal) ${
                     viewMode === m
                       ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
                       : "border-(--line) bg-transparent text-(--text-faint)"

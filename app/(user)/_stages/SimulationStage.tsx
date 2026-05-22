@@ -381,7 +381,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                 <button
                   type="button"
                   onClick={() => setThinkingOpen((o) => !o)}
-                  className="w-full flex items-center justify-between t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
+                  className="w-full flex items-center justify-between t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)"
                   style={{
                     padding: "var(--space-3) var(--space-4)",
                     background: "var(--surface-1)",

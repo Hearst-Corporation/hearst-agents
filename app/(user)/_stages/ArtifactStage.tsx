@@ -523,7 +523,7 @@ export function ArtifactStage({ mode }: { mode: string }) {
                       key={tab.key}
                       type="button"
                       onClick={() => setActiveTab(tab.key)}
-                      className={`t-11 font-medium rounded-pill px-2.5 py-1 border-none cursor-pointer transition-colors ${
+                      className={`t-11 font-medium rounded-pill px-2.5 py-1 border-none cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal) ${
                         activeTab === tab.key
                           ? "bg-(--surface-2) text-text"
                           : "bg-transparent text-text-ghost hover:text-text-muted"

@@ -10,9 +10,7 @@
 
 import { NextResponse } from "next/server";
 import { getCockpitToday } from "@/lib/cockpit/today";
-import { logger } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { redactId } from "@/lib/utils/redact";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -32,20 +30,6 @@ export async function GET() {
       tenantId: scope.tenantId,
       workspaceId: scope.workspaceId,
     });
-
-    // DIAG TEMPORAIRE — bug "missions vides chez Adrien". Log le scope vu
-    // par cette requête + le nombre de missions retournées. Permet de comparer
-    // ce que reçoit Chrome user vs Playwright et identifier la divergence.
-    // À retirer après résolution.
-    logger.info(
-      {
-        userId: redactId(scope.userId),
-        tenantId: scope.tenantId,
-        workspaceId: scope.workspaceId,
-        missionsRunning: payload.missionsRunning?.length ?? 0,
-      },
-      "[cockpit-today] payload ready",
-    );
 
     return NextResponse.json({
       ...payload,

@@ -256,7 +256,7 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
             setIsStreaming(false);
             setInputValue("");
           }}
-          className="w-7 h-7 rounded-lg border border-[var(--border-shell)] bg-transparent text-[var(--text-ghost)] flex items-center justify-center cursor-pointer shrink-0 transition-[background,color] duration-150 hover:bg-[var(--surface-hover)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
+          className="w-7 h-7 rounded-lg border border-(--border-shell) bg-transparent text-(--text-ghost) flex items-center justify-center cursor-pointer shrink-0 transition-[background,color] duration-150 hover:bg-(--surface-hover) hover:text-(--text) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)"
         >
           <svg
             width="13"
@@ -357,14 +357,8 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
         }}
       >
         <div
-          className="flex items-end gap-2 bg-[var(--surface-1)] border border-[var(--border-shell)] rounded-xl px-3.5 py-2 transition-colors duration-150"
+          className="flex items-end gap-2 bg-(--surface-1) border border-(--border-shell) rounded-xl px-3.5 py-2 transition-colors duration-150 group focus-within:border-(--accent-teal)"
           style={{}}
-          onFocusCapture={(e) => {
-            (e.currentTarget as HTMLDivElement).style.borderColor = "var(--accent-teal)";
-          }}
-          onBlurCapture={(e) => {
-            (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border-shell)";
-          }}
         >
           <textarea
             ref={inputRef}
@@ -387,8 +381,8 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
               lineHeight: "var(--leading-relaxed, 1.5)",
               resize: "none",
               overflow: "hidden",
-              minHeight: "22px",
-              maxHeight: "120px",
+              minHeight: "var(--height-chat-input-min)",
+              maxHeight: "var(--height-chat-input-max)",
               padding: 0,
               opacity: isStreaming ? 0.5 : 1,
               cursor: isStreaming ? "not-allowed" : "auto",
@@ -398,7 +392,7 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
             type="button"
             onClick={() => void handleSubmit()}
             disabled={isStreaming || !inputValue.trim()}
-            className="w-8 h-8 rounded-lg border-none flex items-center justify-center shrink-0 transition-[background,color] duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
+            className="w-8 h-8 rounded-lg border-none flex items-center justify-center shrink-0 transition-[background,color] duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)"
             style={{
               background:
                 inputValue.trim() && !isStreaming ? "var(--accent-teal)" : "var(--surface-1)",
