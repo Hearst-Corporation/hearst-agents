@@ -40,6 +40,7 @@ import { logger } from "@/lib/observability/logger";
 import { SYSTEM_CONFIG } from "@/lib/system/config";
 import { registerRun, unregisterRun } from "./abort-registry";
 import { runAiPipeline } from "./ai-pipeline";
+import { classifyExecutionTier, gateToolsByTier } from "./execution-tier";
 import {
   getBlockedReasonForProviders,
   getRequiredProvidersForInput,
@@ -270,8 +271,23 @@ async function runPipeline(
   input._capabilityDomain = capScope.domain;
   input._allowedTools = capScope.allowedTools;
 
+  // ── Execution tier : borne les tools coûteux AVANT le LLM ──────────────
+  // Consolide les signaux (action machine / intent complexe / recherche /
+  // recall) en un tier pur, zéro LLM. kickoff_swarm (swarm hive 4-8 min) n'est
+  // proposé au modèle que sur le tier "swarm" → anti-sur-déclenchement coûteux.
+  // Le tier GUIDE (borne le toolset), le LLM décide ; fail-soft → "direct".
+  const { tier: executionTier, reason: tierReason } = classifyExecutionTier(input.message);
+  input._allowedTools = gateToolsByTier(input._allowedTools, executionTier);
+
   logger.info(
-    { mode: decision.mode, reason: decision.reason, domain: capScope.domain, scheduleDetected },
+    {
+      mode: decision.mode,
+      reason: decision.reason,
+      domain: capScope.domain,
+      tier: executionTier,
+      tierReason,
+      scheduleDetected,
+    },
     "[ExecutionMode] resolved",
   );
 
