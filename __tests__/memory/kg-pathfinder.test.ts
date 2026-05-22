@@ -45,14 +45,6 @@ vi.mock("@/lib/platform/db/supabase", () => ({
         },
         eq(col: string, val: unknown) {
           this._filters[col] = val;
-          if (col === "tenant_id") {
-            // Dernière clause attendue → on résout la query.
-            mockState.calls++;
-            const filtered = rows.filter(
-              (r) => r.user_id === this._filters.user_id && r.tenant_id === this._filters.tenant_id,
-            );
-            return Promise.resolve({ data: filtered, error: null });
-          }
           if (col === "id") {
             // findPath case fromId === toId → getNode → .eq(id).maybeSingle
             const target = rows.find(
@@ -65,7 +57,19 @@ vi.mock("@/lib/platform/db/supabase", () => ({
               maybeSingle: () => Promise.resolve({ data: target ?? null, error: null }),
             };
           }
+          // Pour user_id et tenant_id : stocker le filtre et rester chaînable.
           return this;
+        },
+        order(_col: string, _opts?: unknown) {
+          return this;
+        },
+        limit(_n: number) {
+          // Fin de chaîne réelle → résoudre la query maintenant.
+          mockState.calls++;
+          const filtered = rows.filter(
+            (r) => r.user_id === this._filters.user_id && r.tenant_id === this._filters.tenant_id,
+          );
+          return Promise.resolve({ data: filtered, error: null });
         },
       };
       return builder;

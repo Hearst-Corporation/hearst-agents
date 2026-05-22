@@ -182,6 +182,7 @@ function MissionCard({
       exit="exit"
       role="button"
       tabIndex={0}
+      aria-label={`Ouvrir la mission ${mission.name}`}
       onClick={onClick}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {

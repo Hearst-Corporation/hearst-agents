@@ -84,23 +84,29 @@ async function loadActiveUsersWithSlack(): Promise<ActiveUserScope[]> {
       workspaceId: u.tenant_ids?.[0] ?? "",
     }));
 
-  // Filtre ceux ayant Slack connecté.
-  const out: ActiveUserScope[] = [];
-  for (const c of candidates) {
-    try {
-      const conns = await getConnectionsByScope({
-        tenantId: c.tenantId,
-        workspaceId: c.workspaceId,
-        userId: c.userId,
-      });
-      const hasSlack = conns.some(
-        (cn) => cn.status === "connected" && cn.provider === SLACK_PROVIDER,
-      );
-      if (hasSlack) out.push(c);
-    } catch (err) {
-      await reportError("loadActiveUsersWithSlack:scope", err);
-    }
-  }
+  // Filtre ceux ayant Slack connecté — en parallèle pour éviter N+1 séquentiel.
+  const results = await Promise.allSettled(
+    candidates.map(async (c) => {
+      try {
+        const conns = await getConnectionsByScope({
+          tenantId: c.tenantId,
+          workspaceId: c.workspaceId,
+          userId: c.userId,
+        });
+        const hasSlack = conns.some(
+          (cn) => cn.status === "connected" && cn.provider === SLACK_PROVIDER,
+        );
+        return hasSlack ? c : null;
+      } catch (err) {
+        await reportError("loadActiveUsersWithSlack:scope", err);
+        return null;
+      }
+    }),
+  );
+
+  const out: ActiveUserScope[] = results
+    .map((r) => (r.status === "fulfilled" ? r.value : null))
+    .filter((v): v is ActiveUserScope => v !== null);
 
   return out;
 }

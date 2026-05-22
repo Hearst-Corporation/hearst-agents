@@ -7,10 +7,12 @@ import { Action } from "@/app/(user)/components/ui";
 export function RestoreAgentButton({ agentId }: { agentId: string }) {
   const router = useRouter();
   const [reason, setReason] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const submit = () => {
     if (!reason.trim()) return;
+    setError(null);
     startTransition(async () => {
       const res = await fetch("/api/orchestrator/quarantine", {
         method: "POST",
@@ -20,6 +22,9 @@ export function RestoreAgentButton({ agentId }: { agentId: string }) {
       if (res.ok) {
         setReason("");
         router.refresh();
+      } else {
+        const body = await res.json().catch(() => null);
+        setError(body?.error ?? "Échec de la restauration. Réessaie.");
       }
     });
   };
@@ -43,6 +48,11 @@ export function RestoreAgentButton({ agentId }: { agentId: string }) {
       >
         Restaurer l'agent
       </Action>
+      {error ? (
+        <p className="t-11 text-(--danger)" role="alert">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

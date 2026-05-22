@@ -87,10 +87,19 @@ vi.mock("@/lib/platform/db/supabase", () => ({
                 ...builder,
                 eq: vi.fn(() => ({
                   ...builder,
+                  // ilike path: search query (already has .limit at end)
                   ilike: vi.fn(() => ({
+                    order: vi.fn().mockReturnThis(),
                     limit: vi.fn().mockResolvedValue({ data: mockNodes, error: null }),
                   })),
-                  in: vi.fn().mockResolvedValue({ data: mockNodes, error: null }),
+                  // in path: getNodesByIds — chain ends at .limit()
+                  in: vi.fn(() => ({
+                    order: vi.fn().mockReturnThis(),
+                    limit: vi.fn().mockResolvedValue({ data: mockNodes, error: null }),
+                  })),
+                  // getGraph nodes path: .order().limit()
+                  order: vi.fn().mockReturnThis(),
+                  limit: vi.fn().mockResolvedValue({ data: mockNodes, error: null }),
                 })),
               })),
               // Direct read by id: return all nodes as data array
@@ -107,7 +116,12 @@ vi.mock("@/lib/platform/db/supabase", () => ({
               ...builder,
               eq: vi.fn(() => ({
                 ...builder,
-                eq: vi.fn().mockResolvedValue({ data: mockEdges, error: null }),
+                eq: vi.fn(() => ({
+                  ...builder,
+                  // getGraph edges path: .order().limit()
+                  order: vi.fn().mockReturnThis(),
+                  limit: vi.fn().mockResolvedValue({ data: mockEdges, error: null }),
+                })),
               })),
             })),
           };

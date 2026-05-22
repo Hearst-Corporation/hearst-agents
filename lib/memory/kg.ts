@@ -493,6 +493,12 @@ interface CacheEntry {
 const KG_CACHE = new Map<string, CacheEntry>();
 const KG_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
+// Garde-fous OOM : plafonnent le nombre de rows ramenées par getGraph().
+// Sans limite, un graphe mal maîtrisé (millions de nœuds/arêtes) peut saturer
+// la mémoire Node.js du worker Next.js. Les plus récents sont prioritaires.
+const KG_NODE_LIMIT = 2000;
+const KG_EDGE_LIMIT = 6000;
+
 function getCacheKey(scope: KgScope): string {
   return `${scope.userId}:${scope.tenantId}`;
 }
@@ -512,16 +518,40 @@ export async function getGraph(scope: KgScope): Promise<KgGraph> {
 
   const [{ data: nodes, error: nodesError }, { data: edges, error: edgesError }] =
     await Promise.all([
-      sb.from("kg_nodes").select("*").eq("user_id", scope.userId).eq("tenant_id", scope.tenantId),
-      sb.from("kg_edges").select("*").eq("user_id", scope.userId).eq("tenant_id", scope.tenantId),
+      sb
+        .from("kg_nodes")
+        .select("*")
+        .eq("user_id", scope.userId)
+        .eq("tenant_id", scope.tenantId)
+        .order("created_at", { ascending: false })
+        .limit(KG_NODE_LIMIT),
+      sb
+        .from("kg_edges")
+        .select("*")
+        .eq("user_id", scope.userId)
+        .eq("tenant_id", scope.tenantId)
+        .order("created_at", { ascending: false })
+        .limit(KG_EDGE_LIMIT),
     ]);
 
   if (nodesError) throw new Error(`[kg] getGraph nodes failed: ${nodesError.message}`);
   if (edgesError) throw new Error(`[kg] getGraph edges failed: ${edgesError.message}`);
 
+  const loadedNodes = (nodes ?? []) as KgNode[];
+  const loadedEdges = (edges ?? []) as KgEdge[];
+
+  // Cohérence post-limit : filtre les edges dont l'un des endpoints (source_id
+  // ou target_id) ne figure pas dans les nodes effectivement chargés.
+  // Sans ce filtre, un edge peut référencer un node absent du graphe quand
+  // KG_NODE_LIMIT coupe la liste de nodes avant KG_EDGE_LIMIT.
+  const nodeIdSet = new Set(loadedNodes.map((n) => n.id));
+  const filteredEdges = loadedEdges.filter(
+    (e) => nodeIdSet.has(e.source_id) && nodeIdSet.has(e.target_id),
+  );
+
   const graph: KgGraph = {
-    nodes: (nodes ?? []) as KgNode[],
-    edges: (edges ?? []) as KgEdge[],
+    nodes: loadedNodes,
+    edges: filteredEdges,
   };
 
   KG_CACHE.set(cacheKey, { graph, timestamp: Date.now() });

@@ -135,6 +135,12 @@ export function WorkingDocument() {
       </div>
 
       {/* Footer — actions */}
+      {/*
+       * B2 — Boutons désactivés en attente du Lot A (BlockActions.Expand) et
+       * du backend assets/missions qui exposeront les contrats nécessaires.
+       * Aucun endpoint n'est inventé. Re-câbler dès que useAssetsStore.add()
+       * et useMissionStore.createFromDocument() seront disponibles.
+       */}
       <footer
         className="flex items-center justify-end gap-3 flex-shrink-0"
         style={{
@@ -146,7 +152,8 @@ export function WorkingDocument() {
           variant="secondary"
           tone="neutral"
           size="sm"
-          aria-label="Sauvegarder ce document comme asset réutilisable"
+          disabled
+          aria-label="Sauvegarder comme asset — bientôt disponible"
         >
           Sauvegarder comme asset
         </Action>
@@ -154,7 +161,8 @@ export function WorkingDocument() {
           variant="secondary"
           tone="neutral"
           size="sm"
-          aria-label="Convertir ce document en mission planifiée"
+          disabled
+          aria-label="Convertir en mission — bientôt disponible"
         >
           Convertir en mission
         </Action>

@@ -350,9 +350,30 @@ export function BrowserStage({ mode }: { mode: string }) {
 
     const controller = new AbortController();
 
+    // Backoff exponentiel : 5s → 10s → 20s → 40s → cap 60s.
+    // Réinitialisé à 5s sur réponse ok ; augmenté sur erreur/non-ok.
+    const POLL_BASE = 5_000;
+    const POLL_CAP = 60_000;
+    const delayRef = { current: POLL_BASE };
+    const timerRef = { current: undefined as ReturnType<typeof setTimeout> | undefined };
+    // Garde "vol en cours" — empêche deux chaînes de polling concurrentes
+    // (ex: onglet re-visible pendant qu'un fetch est en await).
+    const inFlightRef = { current: false };
+
+    const schedule = () => {
+      // Pause onglet inactif : on ne planifie pas si caché.
+      if (document.hidden) return;
+      timerRef.current = setTimeout(() => void poll(), delayRef.current);
+    };
+
     const poll = async () => {
+      // Guard double-scheduling : un seul poll en vol à la fois.
+      if (inFlightRef.current) return;
+      inFlightRef.current = true;
+
       // Guard terminal : si la session est déjà dans un état final, on s'arrête.
       if (sessionInfo && TERMINAL_STATUSES.has(sessionInfo.status)) {
+        inFlightRef.current = false;
         controller.abort();
         return;
       }
@@ -363,20 +384,45 @@ export function BrowserStage({ mode }: { mode: string }) {
           signal: controller.signal,
           credentials: "include",
         });
-        if (!res.ok) return; // 404 ou autre → on ignore silencieusement
+        if (!res.ok) {
+          // Réponse non-ok → backoff exponentiel.
+          delayRef.current = Math.min(delayRef.current * 2, POLL_CAP);
+          inFlightRef.current = false;
+          schedule();
+          return;
+        }
         // TODO: brancher setSteps() quand /api/v2/browser/sessions/[id]/steps est dispo.
         await res.json();
+        // Réponse ok → reset du délai.
+        delayRef.current = POLL_BASE;
       } catch (err) {
-        if ((err as Error).name === "AbortError") return;
-        // Erreur réseau silencieuse — on laisse le polling continuer
+        if ((err as Error).name === "AbortError") {
+          inFlightRef.current = false;
+          return;
+        }
+        // Erreur réseau → backoff exponentiel, polling continue.
+        delayRef.current = Math.min(delayRef.current * 2, POLL_CAP);
       }
+
+      inFlightRef.current = false;
+      schedule();
     };
 
-    const interval = setInterval(poll, 5000);
-    void poll(); // appel immédiat
+    // Reprend le polling immédiatement au retour sur l'onglet.
+    // Ne relance que si aucun poll n'est déjà en vol.
+    const onVisibilityChange = () => {
+      if (!document.hidden && !inFlightRef.current) {
+        clearTimeout(timerRef.current);
+        void poll();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    void poll(); // appel immédiat au montage
 
     return () => {
-      clearInterval(interval);
+      clearTimeout(timerRef.current);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       controller.abort();
     };
   }, [sessionId, sessionInfo]);
