@@ -7,7 +7,7 @@
  * Les valeurs `:root` posées ici sont surchargées dans le bloc
  * `[data-product="helm"]` plus bas (cascade : même spécificité, dernier
  * déclaré gagne) → le visuel reste visionOS. */
-@import "@hearst/cockpit-shell/tokens.css";
+@import "@hearst/cockpit-shell/tokens.css" layer(components);
 
 :root {
   
