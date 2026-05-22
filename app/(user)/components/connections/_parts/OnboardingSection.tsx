@@ -45,7 +45,7 @@ function StarterTile({ app, onClick }: { app: ComposioApp; onClick: () => void }
       onClick={onClick}
       className="group flex flex-col items-center gap-2 transition-opacity hover:opacity-90"
     >
-      <AppLogo app={app} size={48} />
+      <AppLogo app={app} size="lg" />
       <span
         className="t-11 text-center group-hover:text-(--accent-teal) transition-colors"
         style={{

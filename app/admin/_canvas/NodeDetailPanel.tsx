@@ -1,5 +1,6 @@
 "use client";
 
+import { IconButton } from "@/app/(user)/components/ui";
 import { type NodeState, useCanvasStore } from "./store";
 import type { CanvasNode, NodeId } from "./topology";
 
@@ -97,24 +98,25 @@ export default function NodeDetailPanel({ node, onClear }: Props) {
           <span className="t-13 font-medium text-text truncate">{node.label}</span>
           <span className="t-11 text-text-muted truncate">{KIND_LABEL[node.id]}</span>
         </div>
-        <button
-          type="button"
+        <IconButton
+          icon={
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          }
+          label="Fermer"
           onClick={onClear}
-          className="shrink-0 flex items-center justify-center size-(--space-7) rounded-(--radius-xs) text-text-muted hover:text-text hover:bg-surface transition-colors duration-(--duration-base)"
-          title="Fermer"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          >
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
-        </button>
+          tone="muted"
+          size="sm"
+        />
       </header>
 
       <div className="flex-1 overflow-y-auto px-(--space-4) py-(--space-3)">

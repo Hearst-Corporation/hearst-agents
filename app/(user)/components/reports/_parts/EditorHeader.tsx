@@ -1,5 +1,7 @@
 "use client";
 
+import { Action } from "@/app/(user)/components/ui";
+
 interface EditorHeaderProps {
   visibleCount: number;
   totalCount: number;
@@ -22,22 +24,16 @@ export function EditorHeader({ visibleCount, totalCount, onClose }: EditorHeader
         </span>
       </div>
       {onClose && (
-        <button
-          type="button"
+        <Action
+          variant="ghost"
+          tone="neutral"
+          size="sm"
           onClick={onClose}
           aria-label="Fermer l'éditeur"
-          data-testid="report-editor-close"
-          className="t-11 font-light text-text-muted hover:text-text-soft"
-          style={{
-            padding: "var(--space-1) var(--space-3)",
-            border: "1px solid var(--surface-2)",
-            borderRadius: "var(--radius-xs)",
-            background: "transparent",
-            transition: "color var(--duration-fast) var(--ease-standard)",
-          }}
+          testId="report-editor-close"
         >
           Fermer
-        </button>
+        </Action>
       )}
     </header>
   );

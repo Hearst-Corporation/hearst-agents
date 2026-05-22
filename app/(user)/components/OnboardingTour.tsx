@@ -14,6 +14,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
+import { Action } from "./ui";
 
 const STORAGE_KEY = "hearst.onboarded";
 
@@ -138,15 +139,15 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
           <span className="t-9 font-medium" style={{ color: "var(--gold)" }}>
             {slide.eyebrow}
           </span>
-          <button
-            type="button"
+          <Action
+            variant="ghost"
+            tone="neutral"
+            size="sm"
             onClick={close}
-            className="t-11 font-light transition-opacity hover:opacity-80"
-            style={{ color: "var(--text-faint)" }}
             aria-label="Passer l'onboarding"
           >
             Passer
-          </button>
+          </Action>
         </div>
 
         <h2 className="t-28 font-medium text-text-l1 leading-tight mb-5">{slide.title}</h2>
@@ -169,20 +170,15 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
             ))}
           </div>
 
-          <button
-            type="button"
+          <Action
+            variant="primary"
+            tone="brand"
+            size="sm"
             onClick={handleNext}
-            className="t-13 font-medium transition-opacity hover:opacity-90"
-            style={{
-              padding: "var(--space-3) var(--space-6)",
-              borderRadius: "var(--radius-pill)",
-              background: "var(--accent-teal)",
-              color: "var(--bg)",
-            }}
-            data-testid="onboarding-next"
+            testId="onboarding-next"
           >
             {slide.cta}
-          </button>
+          </Action>
         </div>
       </div>
     </div>

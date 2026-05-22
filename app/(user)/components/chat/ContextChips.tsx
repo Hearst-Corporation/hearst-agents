@@ -13,6 +13,7 @@
  */
 
 import { useRef, useState } from "react";
+import { Action, IconButton } from "@/app/(user)/components/ui";
 import type { ContextChip } from "@/stores/chat-context";
 import { useChatContext } from "@/stores/chat-context";
 
@@ -65,25 +66,26 @@ export function ContextChips() {
           >
             {chip.label}
           </button>
-          <button
-            type="button"
+          <IconButton
+            icon={
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              >
+                <path d="M2 2 L8 8 M8 2 L2 8" />
+              </svg>
+            }
+            label={`Retirer ${chip.label}`}
+            tone="muted"
+            size="xs"
             onClick={() => handleRemove(chip)}
-            aria-label={`Retirer ${chip.label}`}
-            className="text-text-faint hover:text-(--danger) transition-colors flex items-center justify-center"
-            data-testid={`context-chip-remove-${chip.id}`}
-          >
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 10 10"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            >
-              <path d="M2 2 L8 8 M8 2 L2 8" />
-            </svg>
-          </button>
+            testId={`context-chip-remove-${chip.id}`}
+          />
         </span>
       ))}
 
@@ -94,13 +96,9 @@ export function ContextChips() {
           style={{ padding: "var(--space-2) var(--space-3)" }}
         >
           <span className="t-11 font-light text-text-ghost">{undoChip.label} retiré.</span>
-          <button
-            type="button"
-            onClick={handleUndo}
-            className="t-11 font-medium text-text-muted hover:text-text-soft transition-colors"
-          >
+          <Action variant="ghost" tone="neutral" size="sm" onClick={handleUndo}>
             Rétablir
-          </button>
+          </Action>
         </span>
       )}
     </div>

@@ -18,6 +18,7 @@
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useSelectionStore } from "@/stores/selection";
 import { useStageStore } from "@/stores/stage";
+import { Action } from "./ui";
 
 export interface Source {
   id: string;
@@ -133,21 +134,15 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
               {FORMATTER.format(new Date(activeSource.fetchedAt))}
             </p>
           )}
-          <button
-            type="button"
+          <Action
+            variant="secondary"
+            tone="brand"
+            size="sm"
             onClick={() => openSource(activeSource)}
-            className="t-11 font-medium text-(--accent-teal)"
-            style={{
-              marginTop: "var(--space-2)",
-              padding: "var(--space-1) var(--space-2)",
-              background: "transparent",
-              border: "1px solid var(--accent-teal)",
-              borderRadius: "var(--radius-xs)",
-              cursor: "pointer",
-            }}
+            className="mt-2"
           >
             Ouvrir source
-          </button>
+          </Action>
         </div>
       )}
     </div>

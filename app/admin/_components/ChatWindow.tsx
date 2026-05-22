@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Action } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 
 interface Message {
@@ -152,13 +153,16 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
           placeholder="Message…"
           className="flex-1 rounded-(--radius-sm) bg-bg-soft border border-(--border-input) px-(--space-3) py-(--space-2) t-13 text-text placeholder:text-text-faint focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
         />
-        <button
+        <Action
+          variant="primary"
+          tone="brand"
+          size="sm"
           onClick={send}
           disabled={loading || !input.trim()}
-          className="t-12 font-medium px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
+          loading={loading}
         >
-          {loading ? "…" : "Envoyer"}
-        </button>
+          Envoyer
+        </Action>
       </div>
     </div>
   );

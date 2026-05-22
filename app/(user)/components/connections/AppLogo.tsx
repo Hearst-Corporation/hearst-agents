@@ -2,16 +2,32 @@
 
 import type { ComposioApp } from "./types";
 
-// Logo (couleur native marque, frame neutre). Utilisé partout dans le hub :
-// stage tiles, suggestions, wallpaper, search results, drawer header.
-export function AppLogo({ app, size = 16 }: { app: ComposioApp; size?: number }) {
+/**
+ * Logo d'app (couleur native marque, frame neutre). Utilisé partout dans le
+ * hub connexions : stage tiles, suggestions, wallpaper, search results, drawer.
+ *
+ * Échelle nommée (pas de px arbitraire) :
+ *   sm = 28px (catalogue dense, résultats de recherche)
+ *   md = 40px (suggestions)
+ *   lg = 48px (drawer header, tuiles starter/connectées)
+ */
+export type AppLogoSize = "sm" | "md" | "lg";
+
+const SIZE_PX: Record<AppLogoSize, number> = {
+  sm: 28,
+  md: 40,
+  lg: 48,
+};
+
+export function AppLogo({ app, size = "md" }: { app: ComposioApp; size?: AppLogoSize }) {
+  const px = SIZE_PX[size];
   const wrapperClass =
     "shrink-0 inline-flex items-center justify-center overflow-hidden rounded-none";
-  const inner = size >= 32 ? Math.round(size * 0.78) : size;
+  const inner = px >= 32 ? Math.round(px * 0.78) : px;
 
   if (app.logo?.startsWith("http")) {
     return (
-      <span className={wrapperClass} style={{ width: size, height: size }}>
+      <span className={wrapperClass} style={{ width: px, height: px }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={app.logo}
@@ -41,8 +57,8 @@ export function AppLogo({ app, size = 16 }: { app: ComposioApp; size?: number })
     <span
       className={wrapperClass}
       style={{
-        width: size,
-        height: size,
+        width: px,
+        height: px,
         fontSize: inner * 0.6,
         background: "var(--surface-2)",
         color: "var(--text-faint)",

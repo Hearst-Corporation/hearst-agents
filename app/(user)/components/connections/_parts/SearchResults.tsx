@@ -44,7 +44,7 @@ export function SearchResultsSection({
               borderBottom: "1px solid var(--border-soft)",
             }}
           >
-            <AppLogo app={app} size={32} />
+            <AppLogo app={app} size="sm" />
             <div className="flex-1 min-w-0">
               <div
                 className="t-13 truncate"

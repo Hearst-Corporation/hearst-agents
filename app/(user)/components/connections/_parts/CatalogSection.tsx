@@ -182,7 +182,7 @@ function WallpaperTile({
         filter,
       }}
     >
-      <AppLogo app={app} size={28} />
+      <AppLogo app={app} size="sm" />
       {connected && (
         <span
           aria-hidden

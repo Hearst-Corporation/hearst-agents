@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { StageLayout } from "../_shell/StageLayout";
+import { Action } from "../components/ui";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -80,13 +81,9 @@ export function VoiceStage({ mode }: { mode: string }) {
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setStageMode({ mode: "chat" })}
-            className="vision-btn-primary t-12 px-(--space-5) py-(--space-2) rounded-(--radius-pill) border-0 font-medium"
-          >
+          <Action variant="primary" tone="brand" onClick={() => setStageMode({ mode: "chat" })}>
             Ouvrir le chat texte
-          </button>
+          </Action>
         </div>
       </StageLayout>
     </motion.section>

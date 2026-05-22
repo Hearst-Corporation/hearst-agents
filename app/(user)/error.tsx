@@ -2,6 +2,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 import { useEffect } from "react";
+import { Action } from "@/app/(user)/components/ui";
 
 export default function UserError({
   error,
@@ -17,13 +18,9 @@ export default function UserError({
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
       <p className="t-13 text-text-muted">Une erreur inattendue s&apos;est produite.</p>
-      <button
-        type="button"
-        onClick={reset}
-        className="t-12 rounded-(--radius-sm) border border-(--border-shell) px-(--space-4) py-(--space-2) text-text-muted hover:text-text transition-colors"
-      >
+      <Action variant="secondary" tone="neutral" size="sm" onClick={reset}>
         Réessayer
-      </button>
+      </Action>
     </div>
   );
 }

@@ -75,7 +75,7 @@ export function AppDrawer({
         {/* Body scrollable — titre, description, liste d'actions */}
         <div className="flex-1 overflow-y-auto px-6 py-6">
           <div className="flex items-center gap-4 mb-4">
-            <AppLogo app={app} size={48} />
+            <AppLogo app={app} size="lg" />
             <div className="min-w-0">
               <h2
                 className="t-18 m-0"

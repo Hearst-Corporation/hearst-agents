@@ -59,7 +59,7 @@ function StageTile({
        *  (warn = OAuth en cours, error = à reconnecter). Section
        *  « Connectés » ⇒ pas besoin de signaler que c'est connecté. */}
       <span className="relative inline-flex">
-        <AppLogo app={app} size={48} />
+        <AppLogo app={app} size="lg" />
         {dotColor && (
           <span
             aria-hidden

@@ -10,6 +10,7 @@
  */
 
 import { useState } from "react";
+import { Action } from "@/app/(user)/components/ui";
 
 interface ApprovalVoteFormProps {
   token: string;
@@ -30,10 +31,8 @@ type SubmitState =
 export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps) {
   const [comment, setComment] = useState("");
   const [state, setState] = useState<SubmitState>({ kind: "idle" });
-  // presetAction sert à mettre visuellement en avant le bouton choisi
-  // dans l'email (ring de focus). Le clic reste obligatoire (CSRF-safe).
-  const approvePreselect = presetAction === "approved";
-  const rejectPreselect = presetAction === "rejected";
+  // presetAction indique le bouton pré-sélectionné depuis l'email (CSRF-safe :
+  // le clic reste obligatoire). Exposé via aria-pressed pour l'accessibilité.
 
   const submit = async (vote: "approved" | "rejected") => {
     setState({ kind: "submitting" });
@@ -173,46 +172,30 @@ export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps)
           marginTop: "var(--space-4)",
         }}
       >
-        <button
-          type="button"
+        <Action
+          variant="primary"
+          tone="brand"
+          size="md"
           onClick={() => submit("approved")}
           disabled={submitting}
-          style={{
-            flex: 1,
-            padding: "var(--space-3) var(--space-5)",
-            background: "var(--accent-teal)",
-            color: "var(--text-on-accent, var(--bg))",
-            border: approvePreselect ? "2px solid var(--accent-teal)" : "none",
-            borderRadius: "var(--radius-pill, 9999px)",
-            fontWeight: 500,
-            fontSize: "14px",
-            cursor: submitting ? "not-allowed" : "pointer",
-            opacity: submitting ? 0.5 : 1,
-            transition: "opacity 200ms ease",
-          }}
+          loading={submitting}
+          aria-pressed={presetAction === "approved"}
+          className="flex-1"
         >
-          {submitting ? "Envoi…" : "Approuver"}
-        </button>
-        <button
-          type="button"
+          Approuver
+        </Action>
+        <Action
+          variant="secondary"
+          tone="danger"
+          size="md"
           onClick={() => submit("rejected")}
           disabled={submitting}
-          style={{
-            flex: 1,
-            padding: "var(--space-3) var(--space-5)",
-            background: "transparent",
-            color: "var(--text)",
-            border: rejectPreselect ? "2px solid var(--text)" : "1px solid var(--border-subtle)",
-            borderRadius: "var(--radius-pill, 9999px)",
-            fontWeight: 500,
-            fontSize: "14px",
-            cursor: submitting ? "not-allowed" : "pointer",
-            opacity: submitting ? 0.5 : 1,
-            transition: "opacity 200ms ease",
-          }}
+          loading={submitting}
+          aria-pressed={presetAction === "rejected"}
+          className="flex-1"
         >
-          {submitting ? "Envoi…" : "Rejeter"}
-        </button>
+          Rejeter
+        </Action>
       </div>
       {state.kind === "error" ? (
         <p

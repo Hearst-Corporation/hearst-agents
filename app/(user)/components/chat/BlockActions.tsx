@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode, useCallback, useState } from "react";
+import { Action } from "@/app/(user)/components/ui";
 import type { BlockActionId } from "./BlockTypes";
 
 /**
@@ -202,24 +203,19 @@ export function BlockActions({ onAction, editable = true }: BlockActionsProps) {
         const isEdit = action.id === "edit";
         const disabled = isEdit && !editable;
         return (
-          <button
+          <Action
             key={action.id}
-            type="button"
+            variant="ghost"
+            tone="neutral"
+            size="sm"
             aria-label={action.ariaLabel}
-            data-testid={`block-action-${action.id}`}
+            testId={`block-action-${action.id}`}
             disabled={disabled}
             onClick={() => fire(action.id, action.label)}
-            className="inline-flex items-center t-11 font-light text-text-faint hover:text-(--accent-teal) disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-transparent"
-            style={{
-              gap: "var(--space-2)",
-              transitionDuration: "var(--duration-base)",
-            }}
+            iconLeft={action.icon}
           >
-            <span aria-hidden className="inline-flex">
-              {action.icon}
-            </span>
-            <span>{action.label}</span>
-          </button>
+            {action.label}
+          </Action>
         );
       })}
       {feedback && (

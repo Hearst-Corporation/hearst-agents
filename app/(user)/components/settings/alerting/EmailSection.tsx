@@ -5,7 +5,7 @@
  */
 
 import type { Dispatch } from "react";
-import { PanelCard } from "@/app/(user)/components/ui";
+import { Action as DsAction, PanelCard } from "@/app/(user)/components/ui";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import { parseEmailInput } from "./helpers";
 import { Btn, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
@@ -91,21 +91,15 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
                     </span>
                   ))}
                 </div>
-                <button
-                  type="button"
-                  className="t-9 mt-1"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "var(--accent-teal)",
-                    cursor: "pointer",
-                    padding: 0,
-                    letterSpacing: "var(--tracking-caption)",
-                  }}
+                <DsAction
+                  variant="ghost"
+                  tone="neutral"
+                  size="sm"
                   onClick={handleEmailRecipientsBlur}
+                  className="mt-1"
                 >
                   Valider les adresses
-                </button>
+                </DsAction>
               </div>
 
               <div>

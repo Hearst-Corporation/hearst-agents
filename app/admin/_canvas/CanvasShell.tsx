@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Action, IconButton } from "@/app/(user)/components/ui";
 import FlowCanvas from "./FlowCanvas";
 import FlowLegend from "./FlowLegend";
 import NodeDetailPanel from "./NodeDetailPanel";
@@ -121,46 +122,46 @@ export default function CanvasShell() {
 
           <div className="flex items-center gap-(--space-4) shrink-0">
             <FlowLegend />
-            <button
-              type="button"
+            <Action
+              variant="secondary"
+              tone="brand"
+              size="sm"
               onClick={onLiveToggle}
-              className={[
-                "flex items-center gap-(--space-2) t-10 font-mono uppercase tracking-(--tracking-stretch) px-(--space-3) py-(--space-1) rounded-(--radius-xs) border transition-[border-color,background-color,color,box-shadow] duration-(--duration-slow) ease-(--ease-standard) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/80",
-                mode === "live"
-                  ? "border-(--accent-teal)/60 text-(--accent-teal) bg-(--accent-teal)/10 shadow-(--glow-cyan-sm)"
-                  : "border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 hover:bg-(--accent-teal)/5",
-              ].join(" ")}
+              iconLeft={
+                <span
+                  className={[
+                    "size-(--space-2) rounded-(--radius-pill)",
+                    mode === "live"
+                      ? "bg-(--accent-teal) animate-pulse shadow-(--glow-cyan-sm)"
+                      : "bg-text-ghost",
+                  ].join(" ")}
+                />
+              }
             >
-              <span
-                className={[
-                  "size-(--space-2) rounded-(--radius-pill)",
-                  mode === "live"
-                    ? "bg-(--accent-teal) animate-pulse shadow-(--glow-cyan-sm)"
-                    : "bg-text-ghost",
-                ].join(" ")}
-              />
               {mode === "live" ? "Live actif" : "Activer le live"}
-            </button>
-            <button
-              type="button"
+            </Action>
+            <IconButton
+              icon={
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d={asideCollapsed ? "M9 18l6-6-6-6" : "M15 18l-6-6 6-6"} />
+                  <path d="M3 4v16" opacity="0.4" />
+                </svg>
+              }
+              label={asideCollapsed ? "Afficher le panneau droit" : "Masquer le panneau droit"}
               onClick={toggleAsideCollapsed}
-              title={asideCollapsed ? "Afficher le panneau droit" : "Masquer le panneau droit"}
-              className="hidden lg:flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors duration-(--duration-base) ease-(--ease-standard) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/80"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d={asideCollapsed ? "M9 18l6-6-6-6" : "M15 18l-6-6 6-6"} />
-                <path d="M3 4v16" opacity="0.4" />
-              </svg>
-            </button>
+              tone="muted"
+              size="sm"
+              className="hidden lg:inline-flex"
+            />
           </div>
         </header>
 

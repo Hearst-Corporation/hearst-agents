@@ -31,6 +31,7 @@ import { SearchResultsSection } from "./connections/_parts/SearchResults";
 import { SuggestionsGrid } from "./connections/_parts/SuggestionsSection";
 import { AppDrawer } from "./connections/AppDrawer";
 import { useConnectionsHub } from "./connections/use-connections-hub";
+import { Action } from "./ui";
 
 export function ConnectionsHub() {
   const hub = useConnectionsHub();
@@ -93,13 +94,14 @@ export function ConnectionsHub() {
             />
             {hub.attentionFilter && (
               <div className="pb-3">
-                <button
-                  type="button"
+                <Action
+                  variant="ghost"
+                  tone="neutral"
+                  size="sm"
                   onClick={hub.onClearAttentionFilter}
-                  className="t-11 font-medium text-text-accent-teal-deep hover:text-(--accent-teal) transition-colors"
                 >
                   ← Voir tout le catalogue
-                </button>
+                </Action>
               </div>
             )}
             {!hub.attentionFilter && (

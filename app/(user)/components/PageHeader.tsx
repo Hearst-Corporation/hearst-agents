@@ -14,6 +14,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Breadcrumb, type Crumb } from "./Breadcrumb";
+import { Action } from "./ui";
 
 interface BackLink {
   label: string;
@@ -57,14 +58,15 @@ export function PageHeader({ title, subtitle, breadcrumb, actions, back }: PageH
          visuelle juste sous PulseBar 48px. */}
       {back ? (
         back.onClick ? (
-          <button
-            type="button"
+          <Action
+            variant="ghost"
+            tone="neutral"
+            size="sm"
             onClick={back.onClick}
-            className="inline-flex items-center gap-2 t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit bg-transparent border-0 p-0 cursor-pointer"
+            iconLeft={<ChevronLeftIcon />}
           >
-            <ChevronLeftIcon />
-            <span>{back.label}</span>
-          </button>
+            {back.label}
+          </Action>
         ) : back.href ? (
           <Link
             href={back.href}

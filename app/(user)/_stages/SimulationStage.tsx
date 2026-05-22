@@ -8,6 +8,7 @@ import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { StageLayout } from "../_shell/StageLayout";
 import { ConfirmModal } from "../components/ConfirmModal";
+import { Action, IconButton } from "../components/ui";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -253,18 +254,9 @@ export function SimulationStage({ mode = "simulation" }: Props) {
             <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
               <div className="flex items-center justify-between">
                 <span className="t-11 font-light text-text-ghost">Variables clés</span>
-                <button
-                  type="button"
-                  onClick={() => addVariable()}
-                  className="t-11 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
-                  style={{
-                    padding: "var(--space-1) var(--space-3)",
-                    border: "1px solid var(--border-shell)",
-                    borderRadius: "var(--radius-pill)",
-                  }}
-                >
+                <Action variant="ghost" tone="neutral" size="sm" onClick={() => addVariable()}>
                   + Ajouter
-                </button>
+                </Action>
               </div>
               <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
                 {variables.map((variable, idx) => (
@@ -297,22 +289,14 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                         transition: "border-color var(--duration-base)",
                       }}
                     />
-                    <button
-                      type="button"
+                    <IconButton
+                      icon="×"
+                      label="Retirer"
+                      tone="muted"
+                      size="xs"
                       onClick={() => removeVariable(idx)}
                       disabled={variables.length === 1}
-                      className="t-15 text-text-ghost hover:text-(--danger) transition-colors disabled:opacity-25 disabled:cursor-not-allowed focus-visible:outline-none"
-                      style={{
-                        width: "var(--space-6)",
-                        height: "var(--space-6)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                      aria-label="Retirer"
-                    >
-                      ×
-                    </button>
+                    />
                   </div>
                 ))}
               </div>
@@ -330,31 +314,21 @@ export function SimulationStage({ mode = "simulation" }: Props) {
                 }}
               >
                 <span className="t-11 font-light text-text-ghost">Variable retirée.</span>
-                <button
-                  type="button"
-                  onClick={handleUndoRemove}
-                  className="t-11 font-medium text-text-muted hover:text-text-faint transition-colors focus-visible:outline-none"
-                >
+                <Action variant="ghost" tone="neutral" size="sm" onClick={handleUndoRemove}>
                   Rétablir
-                </button>
+                </Action>
               </div>
             )}
 
-            <button
-              type="button"
+            <Action
+              variant="primary"
+              tone="brand"
               onClick={() => void launchSimulation()}
               disabled={!scenarioInput.trim()}
-              className="self-start t-13 font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
-              style={{
-                padding: "var(--space-2-5) var(--space-6)",
-                background: "var(--surface-2)",
-                border: "1px solid var(--border-input)",
-                borderRadius: "var(--radius-pill)",
-                color: "var(--text-muted)",
-              }}
+              className="self-start"
             >
               Lancer la simulation
-            </button>
+            </Action>
           </div>
         )}
 
@@ -436,32 +410,18 @@ export function SimulationStage({ mode = "simulation" }: Props) {
 
             <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
               {assetId !== null && (
-                <button
-                  type="button"
+                <Action
+                  variant="secondary"
+                  tone="neutral"
+                  size="sm"
                   onClick={() => setStageMode({ mode: "asset", assetId })}
-                  className="t-13 font-medium text-text-muted transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--border-input)"
-                  style={{
-                    padding: "var(--space-2) var(--space-5)",
-                    background: "var(--surface-2)",
-                    border: "1px solid var(--border-input)",
-                    borderRadius: "var(--radius-pill)",
-                  }}
                 >
-                  Voir l'asset
-                </button>
+                  Voir l&apos;asset
+                </Action>
               )}
-              <button
-                type="button"
-                onClick={reset}
-                className="t-13 font-light text-text-ghost hover:text-text-faint transition-colors focus-visible:outline-none"
-                style={{
-                  padding: "var(--space-2) var(--space-5)",
-                  border: "1px solid var(--border-shell)",
-                  borderRadius: "var(--radius-pill)",
-                }}
-              >
+              <Action variant="secondary" tone="neutral" size="sm" onClick={reset}>
                 Nouvelle simulation
-              </button>
+              </Action>
             </div>
           </div>
         )}

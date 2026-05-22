@@ -1,5 +1,7 @@
 "use client";
 
+import { Action, IconButton } from "@/app/(user)/components/ui";
+
 interface PersistedEvent {
   type: string;
   ts: number;
@@ -105,66 +107,65 @@ export default function RunWaterfall({
       <div className="flex items-center gap-(--space-4)">
         <div className="flex items-center gap-(--space-2) shrink-0">
           {/* Rembobiner */}
-          <button
-            type="button"
+          <IconButton
+            icon={
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M1 4v6h6" />
+                <path d="M3.51 15a9 9 0 1 0 .49-3.49" />
+              </svg>
+            }
+            label="Rembobiner"
             onClick={onReset}
             disabled={disabled}
-            title="Rembobiner"
-            className="flex items-center justify-center size-(--space-7) rounded-(--radius-xs) text-text-muted hover:text-text hover:bg-bg disabled:opacity-40 disabled:pointer-events-none transition-colors duration-(--duration-base)"
-          >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M1 4v6h6" />
-              <path d="M3.51 15a9 9 0 1 0 .49-3.49" />
-            </svg>
-          </button>
+            tone="muted"
+            size="sm"
+          />
 
           {/* Play / Pause */}
-          <button
-            type="button"
+          <IconButton
+            icon={
+              isPlaying ? (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16" rx="1" />
+                  <rect x="14" y="4" width="4" height="16" rx="1" />
+                </svg>
+              ) : (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M5 3l14 9-14 9V3z" />
+                </svg>
+              )
+            }
+            label={isPlaying ? "Pause" : "Lecture"}
             onClick={onPlayToggle}
             disabled={disabled}
-            title={isPlaying ? "Pause" : "Lecture"}
-            className="flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-(--accent-teal)/40 text-(--accent-teal) hover:bg-(--accent-teal)/10 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-(--duration-base)"
-          >
-            {isPlaying ? (
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                <rect x="6" y="4" width="4" height="16" rx="1" />
-                <rect x="14" y="4" width="4" height="16" rx="1" />
-              </svg>
-            ) : (
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M5 3l14 9-14 9V3z" />
-              </svg>
-            )}
-          </button>
+            tone="accent"
+            size="sm"
+          />
         </div>
 
         {/* Vitesses */}
         <div className="flex items-center gap-(--space-1) shrink-0">
           {SPEEDS.map((s) => (
-            <button
+            <Action
               key={s}
-              type="button"
+              variant="ghost"
+              tone="neutral"
+              size="sm"
               onClick={() => onSpeedChange(s)}
               disabled={disabled}
-              className={[
-                "t-10 px-(--space-2) py-(--space-1) rounded-(--radius-xs) transition-colors duration-(--duration-base) disabled:opacity-40 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
-                speed === s
-                  ? "bg-(--accent-teal)/15 text-(--accent-teal)"
-                  : "text-text-muted hover:text-text hover:bg-surface",
-              ].join(" ")}
+              aria-pressed={speed === s}
             >
               {s}×
-            </button>
+            </Action>
           ))}
         </div>
 

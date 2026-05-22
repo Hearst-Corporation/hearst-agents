@@ -88,20 +88,9 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
           </span>
         </div>
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-          <button
-            type="button"
-            onClick={resetAll}
-            className="t-9 font-mono uppercase text-text-muted hover:text-text-soft transition-colors"
-            style={{
-              padding: "var(--space-2) var(--space-3)",
-              border: "1px solid var(--surface-2)",
-              borderRadius: "var(--radius-xs)",
-              background: "transparent",
-            }}
-            data-testid="editor-reset"
-          >
+          <Action variant="ghost" tone="neutral" size="sm" onClick={resetAll} testId="editor-reset">
             Reset
-          </button>
+          </Action>
           <Action
             variant="primary"
             tone="brand"
