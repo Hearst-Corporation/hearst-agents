@@ -170,25 +170,19 @@ export function RightRailChat() {
       {/* Header */}
       <div
         style={{
-          padding: "16px 16px 12px",
+          padding: "var(--space-4) var(--space-4) var(--space-3)",
           borderBottom: "1px solid var(--border-shell)",
           flexShrink: 0,
           display: "flex",
           alignItems: "center",
-          gap: "var(--space-2-5, 10px)",
+          gap: "var(--space-2-5)",
         }}
       >
         <div
+          className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
           style={{
-            width: 28,
-            height: 28,
-            borderRadius: 8,
             background: "color-mix(in srgb, var(--accent-teal) 15%, transparent)",
             border: "1px solid color-mix(in srgb, var(--accent-teal) 30%, transparent)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
           }}
         >
           <svg viewBox="560 455 155 170" width="12" height="13" fill="var(--accent-teal)">
@@ -198,9 +192,8 @@ export function RightRailChat() {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
-            className="font-semibold"
+            className="font-semibold t-12"
             style={{
-              fontSize: 12,
               color: "var(--text)",
               fontFamily: "var(--font-satoshi)",
               letterSpacing: "-0.01em",
@@ -211,25 +204,19 @@ export function RightRailChat() {
           <div
             role="status"
             aria-live="polite"
-            className="t-11"
+            className="t-11 flex items-center"
             style={{
               color: isStreaming ? "var(--accent-teal)" : "var(--text-ghost)",
               fontFamily: "var(--font-satoshi)",
-              marginTop: 1,
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
+              gap: "var(--space-1)",
             }}
           >
             {isStreaming ? (
               <>
                 <span
+                  className="w-1.5 h-1.5 rounded-full inline-block"
                   style={{
-                    width: 5,
-                    height: 5,
-                    borderRadius: "50%",
                     background: "var(--accent-teal)",
-                    display: "inline-block",
                     animation: "pulse 1.2s infinite",
                   }}
                 />
@@ -238,12 +225,9 @@ export function RightRailChat() {
             ) : (
               <>
                 <span
+                  className="w-1.5 h-1.5 rounded-full inline-block"
                   style={{
-                    width: 5,
-                    height: 5,
-                    borderRadius: "50%",
                     background: "var(--color-online)",
-                    display: "inline-block",
                   }}
                 />
                 En ligne
@@ -268,20 +252,8 @@ export function RightRailChat() {
             setIsStreaming(false);
             setInputValue("");
           }}
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: 7,
-            border: "1px solid var(--border-shell)",
-            background: "transparent",
-            color: "var(--text-ghost)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            flexShrink: 0,
-            transition: "background 0.15s, color 0.15s",
-          }}
+          className="w-7 h-7 rounded-lg border border-[var(--border-shell)] bg-transparent text-[var(--text-ghost)] flex items-center justify-center cursor-pointer shrink-0 transition-[background,color] duration-150"
+          style={{}}
           onMouseEnter={(e) => {
             (e.target as HTMLButtonElement).style.background = "var(--surface-hover)";
             (e.target as HTMLButtonElement).style.color = "var(--text)";
@@ -312,87 +284,65 @@ export function RightRailChat() {
         aria-live="polite"
         aria-relevant="additions"
         aria-busy={isStreaming}
+        className="flex-1 overflow-y-auto flex flex-col gap-0.5 min-h-0"
         style={{
-          flex: 1,
-          overflowY: "auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          padding: "12px 0",
-          minHeight: 0,
+          padding: "var(--space-3) 0",
         }}
       >
         {messages.map((msg) => (
           <div
             key={msg.id}
+            className="flex flex-col gap-0.5"
             style={{
-              padding: "4px 16px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
+              padding: "var(--space-1) var(--space-4)",
               alignItems: msg.role === "user" ? "flex-end" : "flex-start",
             }}
           >
             {msg.role === "assistant" && (
               <div
-                className="t-10 font-semibold"
+                className="t-10 font-semibold uppercase pl-0.5 mb-0.5"
                 style={{
                   color: "var(--text-ghost)",
                   fontFamily: "var(--font-satoshi)",
-                  textTransform: "uppercase",
                   letterSpacing: "var(--tracking-caption)",
-                  paddingLeft: 2,
-                  marginBottom: 2,
                 }}
               >
                 Kimi
               </div>
             )}
             <div
-              className="t-13"
+              className="t-13 max-w-[90%] whitespace-pre-wrap break-words"
               style={{
                 lineHeight: 1.6,
                 fontFamily: "var(--font-satoshi)",
                 letterSpacing: "-0.005em",
-                padding: msg.role === "user" ? "8px 12px" : "0",
-                borderRadius: msg.role === "user" ? 10 : 0,
+                padding: msg.role === "user" ? "var(--space-2) var(--space-3)" : "0",
+                borderRadius: msg.role === "user" ? "var(--radius-lg)" : "0",
                 background: msg.role === "user" ? "var(--surface-msg-user)" : "transparent",
                 border: msg.role === "user" ? "1px solid var(--border-shell)" : "none",
                 color: msg.role === "user" ? "var(--text)" : "var(--text-muted)",
-                maxWidth: "90%",
-                whiteSpace: "pre-wrap",
-                wordBreak: "break-word",
               }}
             >
               {msg.content || (
-                <span style={{ display: "inline-flex", gap: 3, alignItems: "center" }}>
+                <span className="inline-flex gap-0.75 items-center">
                   <span
+                    className="w-1.5 h-1.5 rounded-full inline-block"
                     style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
                       background: "var(--accent-teal)",
-                      display: "inline-block",
                       animation: "pulse 1.2s infinite",
                     }}
                   />
                   <span
+                    className="w-1.5 h-1.5 rounded-full inline-block"
                     style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
                       background: "var(--accent-teal)",
-                      display: "inline-block",
                       animation: "pulse 1.2s infinite 0.2s",
                     }}
                   />
                   <span
+                    className="w-1.5 h-1.5 rounded-full inline-block"
                     style={{
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
                       background: "var(--accent-teal)",
-                      display: "inline-block",
                       animation: "pulse 1.2s infinite 0.4s",
                     }}
                   />
@@ -405,23 +355,15 @@ export function RightRailChat() {
 
       {/* Input */}
       <div
+        className="shrink-0"
         style={{
-          padding: "10px 12px 14px",
+          padding: "var(--space-2-5) var(--space-3) var(--space-3-5)",
           borderTop: "1px solid var(--border-shell)",
-          flexShrink: 0,
         }}
       >
         <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            gap: 8,
-            background: "var(--surface-1)",
-            border: "1px solid var(--border-shell)",
-            borderRadius: 12,
-            padding: "8px 8px 8px 14px",
-            transition: "border-color 0.15s",
-          }}
+          className="flex items-end gap-2 bg-[var(--surface-1)] border border-[var(--border-shell)] rounded-xl px-3-5 py-2 transition-colors duration-150"
+          style={{}}
           onFocusCapture={(e) => {
             (e.currentTarget as HTMLDivElement).style.borderColor = "var(--accent-teal)";
           }}
@@ -450,8 +392,8 @@ export function RightRailChat() {
               lineHeight: 1.5,
               resize: "none",
               overflow: "hidden",
-              minHeight: 22,
-              maxHeight: 120,
+              minHeight: "var(--space-[22px])",
+              maxHeight: "var(--space-[120px])",
               padding: 0,
             }}
           />
@@ -459,21 +401,13 @@ export function RightRailChat() {
             type="button"
             onClick={() => void handleSubmit()}
             disabled={isStreaming || !inputValue.trim()}
+            className="w-8 h-8 rounded-lg border-none flex items-center justify-center shrink-0 transition-[background,color] duration-150"
             style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
-              border: "none",
               background:
                 inputValue.trim() && !isStreaming ? "var(--accent-teal)" : "var(--surface-1)",
               color:
                 inputValue.trim() && !isStreaming ? "var(--color-on-accent)" : "var(--text-ghost)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               cursor: inputValue.trim() && !isStreaming ? "pointer" : "default",
-              flexShrink: 0,
-              transition: "background 0.15s, color 0.15s",
             }}
             aria-label="Envoyer"
           >
@@ -494,12 +428,10 @@ export function RightRailChat() {
         </div>
         <div
           id="chat-hint"
-          className="t-10"
+          className="t-10 mt-1.5 pl-0.5"
           style={{
             color: "var(--text-ghost)",
             fontFamily: "var(--font-satoshi)",
-            marginTop: 6,
-            paddingLeft: 2,
           }}
         >
           Shift+Entrée pour saut de ligne

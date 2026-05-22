@@ -326,8 +326,8 @@ function CockpitContent({
             {firstName ? `Bonjour, ${firstName}.` : "Bonjour."}
           </h1>
           <p
+            className="t-15"
             style={{
-              fontSize: "var(--ct-font-md, 15px)",
               color: "var(--text-muted)",
               fontWeight: 300,
             }}
