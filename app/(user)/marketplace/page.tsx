@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
 import {
   Action,
-  CardSkeleton,
   FilterTabs,
   PanelCard,
   ScreenShell,

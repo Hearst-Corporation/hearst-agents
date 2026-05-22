@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { StandalonePageFrame } from "@/app/(user)/components/standalone/StandalonePageFrame";
-import {
-  Action,
-  PanelCard,
-  RowSkeleton,
-  ScreenShell,
-  SectionEyebrow,
-} from "@/app/(user)/components/ui";
+import { Action, PanelCard, ScreenShell, SectionEyebrow } from "@/app/(user)/components/ui";
 
 interface WorkflowCard {
   id: string;
