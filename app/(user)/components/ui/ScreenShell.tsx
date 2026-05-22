@@ -66,6 +66,9 @@ interface ScreenShellProps {
   // - `transparent` = laisse passer le shell parent
   background?: "surface" | "elevated" | "base" | "transparent";
 
+  // Scrollable (défaut true). Si false, pas de overflow-y-auto.
+  scrollable?: boolean;
+
   testId?: string;
 }
 
@@ -81,6 +84,7 @@ export function ScreenShell({
   empty,
   children,
   background = "surface",
+  scrollable = true,
   testId,
 }: ScreenShellProps) {
   const bg =
@@ -120,7 +124,7 @@ export function ScreenShell({
       )}
 
       <div
-        className="flex-1 overflow-y-auto no-scrollbar scroll-fade-bottom"
+        className={`flex-1 no-scrollbar scroll-fade-bottom ${scrollable ? "overflow-y-auto" : ""}`}
         style={{ padding: "var(--space-6) var(--space-12)" }}
       >
         {loading ? (
