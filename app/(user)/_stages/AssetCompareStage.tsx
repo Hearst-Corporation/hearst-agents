@@ -11,7 +11,8 @@
 
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { EmptyState } from "@/app/(user)/components/ui";
+import { StageLayout } from "@/app/(user)/_shell/StageLayout";
+import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import type { Asset } from "@/lib/assets/types";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -154,7 +155,7 @@ function AssetPane({
       </header>
 
       {isError || asset === null ? (
-        <p className="t-13 text-(--danger)/70">Asset introuvable</p>
+        <StageErrorBanner message="Asset introuvable" title="Erreur" variant="default" />
       ) : (
         <>
           <h3 className="truncate t-14 font-semibold text-(--text-soft)" title={asset.title}>
@@ -456,54 +457,54 @@ export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string })
       animate="show"
       className="preserve-3d flex w-full flex-col gap-8"
     >
-      {/* En-tête */}
-      <div className="flex items-end justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <h2 className="t-20 font-semibold text-(--text-soft)">Comparer</h2>
-          <p className="t-13 text-(--text-muted)">
-            2 assets — {viewMode === "split" ? "vue divisée" : "vue superposée"}
-          </p>
-        </div>
-      </div>
+      <StageLayout
+        eyebrow="Comparaison"
+        title="Comparer"
+        subtitle={`2 assets — ${viewMode === "split" ? "vue divisée" : "vue superposée"}`}
+      >
+        {/* Erreurs asset A/B */}
+        {errorA && <StageErrorBanner message="Asset introuvable (gauche)" />}
+        {errorB && <StageErrorBanner message="Asset introuvable (droite)" />}
 
-      {/* Zone principale */}
-      {isLoading ? (
-        <div className="flex gap-4">
-          {[0, 1].map((i) => (
-            <div
-              key={i}
-              className="animate-pulse flex-[0_0_calc(50%-var(--space-2))] h-(--height-compare-viewer) bg-(--surface-2) rounded-(--radius-2xl)"
-            />
+        {/* Zone principale */}
+        {isLoading ? (
+          <div className="flex gap-4">
+            {[0, 1].map((i) => (
+              <div
+                key={i}
+                className="animate-pulse flex-[0_0_calc(50%-var(--space-2))] h-(--height-compare-viewer) bg-(--surface-2) rounded-(--radius-2xl)"
+              />
+            ))}
+          </div>
+        ) : viewMode === "split" ? (
+          <div className="flex gap-4 items-stretch">
+            <AssetPane asset={assetA} label="Gauche" isError={errorA} />
+            <AssetPane asset={assetB} label="Droite" isError={errorB} />
+          </div>
+        ) : (
+          <OverlaySlider assetA={assetA} assetB={assetB} />
+        )}
+
+        {/* Footer toggle Split / Overlay */}
+        <footer className="flex items-center justify-center gap-2 pt-1">
+          {(["split", "overlay"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              onClick={() => setViewMode(v)}
+              aria-pressed={viewMode === v}
+              className={[
+                "px-4 py-1.5 rounded-full border t-13 font-medium cursor-pointer transition-all duration-200 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
+                viewMode === v
+                  ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
+                  : "border-(--line) bg-transparent text-(--text-muted)",
+              ].join(" ")}
+            >
+              {v === "split" ? "Vue divisée" : "Vue superposée"}
+            </button>
           ))}
-        </div>
-      ) : viewMode === "split" ? (
-        <div className="flex gap-4 items-stretch">
-          <AssetPane asset={assetA} label="Gauche" isError={errorA} />
-          <AssetPane asset={assetB} label="Droite" isError={errorB} />
-        </div>
-      ) : (
-        <OverlaySlider assetA={assetA} assetB={assetB} />
-      )}
-
-      {/* Footer toggle Split / Overlay */}
-      <footer className="flex items-center justify-center gap-2 pt-1">
-        {(["split", "overlay"] as const).map((v) => (
-          <button
-            key={v}
-            type="button"
-            onClick={() => setViewMode(v)}
-            aria-pressed={viewMode === v}
-            className={[
-              "px-4 py-1.5 rounded-full border t-13 font-medium cursor-pointer transition-all duration-200 focus-visible:ring-1 focus-visible:ring-(--accent-teal)/50",
-              viewMode === v
-                ? "border-(--accent-teal)/30 bg-(--accent-teal)/8 text-(--accent-teal)/85"
-                : "border-(--line) bg-transparent text-(--text-muted)",
-            ].join(" ")}
-          >
-            {v === "split" ? "Vue divisée" : "Vue superposée"}
-          </button>
-        ))}
-      </footer>
+        </footer>
+      </StageLayout>
     </motion.section>
   );
 }

@@ -8,7 +8,7 @@ import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { StageLayout } from "../_shell/StageLayout";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { Action, IconButton } from "../components/ui";
+import { Action, IconButton, StageErrorBanner } from "../components/ui";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
 
@@ -60,6 +60,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
   const [reasoning, setReasoning] = useState<string | null>(null);
   const [assetId, setAssetId] = useState<string | null>(null);
   const [thinkingOpen, setThinkingOpen] = useState(false);
+  const [simulationError, setSimulationError] = useState<string | null>(null);
   const autoRanRef = useRef(false);
   // Confirm avant de jeter scenarios + reasoning (30-50s de regen DeepSeek
   // perdus si l'utilisateur clique par erreur).
@@ -171,6 +172,7 @@ export function SimulationStage({ mode = "simulation" }: Props) {
       setScenarios([]);
       setReasoning(null);
       setAssetId(null);
+      setSimulationError(null);
 
       try {
         const res = await fetch("/api/v2/simulations/start", {
@@ -181,7 +183,9 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         });
         const data = (await res.json()) as SimulationResponse;
         if (!res.ok || !Array.isArray(data.scenarios)) {
-          toast.error("Échec simulation", sanitizeApiError(data.message ?? data.error));
+          const errorMsg = sanitizeApiError(data.message ?? data.error);
+          setSimulationError(errorMsg);
+          toast.error("Échec simulation", errorMsg);
           setPhase("idle");
           // Reset autoRanRef sur path d'erreur — sinon un retry manuel (ou
           // remount avec même initialScenario) reste gated et ne relance jamais.
@@ -192,8 +196,11 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         setReasoning(data.reasoning ?? null);
         setAssetId(data.assetId ?? null);
         setPhase("done");
+        setSimulationError(null);
       } catch (err) {
-        toast.error("Erreur réseau", sanitizeApiError(err));
+        const errorMsg = sanitizeApiError(err);
+        setSimulationError(errorMsg);
+        toast.error("Erreur réseau", errorMsg);
         setPhase("idle");
         autoRanRef.current = false;
       }
@@ -229,6 +236,9 @@ export function SimulationStage({ mode = "simulation" }: Props) {
         }
         subtitle="DeepSeek R1 · Raisonnement stratégique"
       >
+        {/* Bannière erreur — affichée prioritairement */}
+        {simulationError && <StageErrorBanner message={simulationError} />}
+
         {/* Idle — formulaire */}
         {phase === "idle" && (
           <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>

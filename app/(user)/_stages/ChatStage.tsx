@@ -300,6 +300,12 @@ function StreamingPlaceholder() {
 
 // ── Composant principal ──────────────────────────────────────────────────────
 
+/**
+ * ChatStage : conversationnel pur, pas de header eyebrow/title/subtitle.
+ * Les messages forment l'identité visuelle ; ajouter un StageLayout briserait
+ * l'UX chat immersive. Le stage est intentionnellement headerless.
+ */
+
 export function ChatStage({ mode }: { mode: string }) {
   const messages = useChatStageStore((s) => s.messages);
   const toolCalls = useChatStageStore((s) => s.toolCalls);

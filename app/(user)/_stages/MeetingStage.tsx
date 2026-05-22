@@ -13,7 +13,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
+import { StageLayout } from "@/app/(user)/_shell/StageLayout";
+import { Action, EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { sanitizeApiError } from "@/app/(user)/lib/sanitize-error";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -203,6 +204,35 @@ function DemoBanner() {
     >
       Démo · données fictives (dev)
     </div>
+  );
+}
+
+/**
+ * Badge Live avec pulsation — affiché si meeting en direct.
+ */
+function LiveBadge({ elapsed }: { elapsed: string }) {
+  return (
+    <div className="inline-flex items-center gap-1.5">
+      <motion.span
+        className="inline-block size-(--size-dot) rounded-full bg-(--danger)"
+        animate={{ opacity: [1, 0.3, 1] }}
+        transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+      />
+      <Action variant="primary" tone="danger" size="sm" disabled>
+        En direct · {elapsed}
+      </Action>
+    </div>
+  );
+}
+
+/**
+ * Badge Terminé — affiché si meeting terminé.
+ */
+function FinishedBadge() {
+  return (
+    <Action variant="secondary" tone="neutral" size="sm" disabled>
+      Terminé
+    </Action>
   );
 }
 
@@ -430,69 +460,52 @@ export function MeetingStage({ mode }: { mode: string }) {
 
       {/* Content */}
       {meetingId && (
-        <div className="flex flex-col gap-8">
+        <>
           {demoActive && <DemoBanner />}
 
-          <header className="flex flex-col gap-2">
-            <p className="t-11 uppercase tracking-(--tracking-wide) text-text-ghost">
-              {data
+          <StageLayout
+            eyebrow={
+              data
                 ? `Recall.ai · ${segments.length} segment${segments.length !== 1 ? "s" : ""}`
-                : "Connexion…"}
-            </p>
-            <h1 className="t-28 font-medium tracking-tight text-text flex items-center gap-3.5 flex-wrap">
-              {data?.meetingId ?? meetingId}
-              {live && (
-                <span className="inline-flex items-center gap-1.5 t-11 font-medium text-(--danger) px-2.5 py-1 rounded-pill bg-(--danger-surface) border border-(--danger-border)">
-                  <motion.span
-                    className="inline-block size-(--size-dot) rounded-full bg-(--danger)"
-                    animate={{ opacity: [1, 0.3, 1] }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
-                  />
-                  En direct · {elapsed}
-                </span>
+                : "Connexion…"
+            }
+            title={data?.meetingId ?? meetingId}
+            subtitle={
+              data
+                ? `${[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length} speaker${
+                    [...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length !==
+                    1
+                      ? "s"
+                      : ""
+                  }${actionItems.length > 0 ? ` · ${actionItems.length} action${actionItems.length > 1 ? "s" : ""} extraites` : ""}`
+                : undefined
+            }
+            actions={live ? <LiveBadge elapsed={elapsed} /> : data ? <FinishedBadge /> : undefined}
+          >
+            {/* Loading */}
+            {loading && !data && <LoadingSkeleton />}
+
+            {/* Error */}
+            {error && <StageErrorBanner message={error} />}
+
+            {/* Transcript */}
+            <AnimatePresence initial={false}>
+              {segments.length > 0 && (
+                <div className="flex flex-col gap-5">
+                  {segments.map((seg, idx) => (
+                    <TranscriptBubble key={`${seg.speaker}-${seg.start}`} seg={seg} index={idx} />
+                  ))}
+                </div>
               )}
-              {data && !live && (
-                <span className="t-11 font-medium text-text-faint px-2.5 py-1 rounded-pill bg-(--surface-1)">
-                  Terminé
-                </span>
-              )}
-            </h1>
-            {data && (
-              <p className="t-13 text-text-faint">
-                {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length}{" "}
-                speaker
-                {[...new Set(segments.map((s) => String(s.speaker)).filter(Boolean))].length !== 1
-                  ? "s"
-                  : ""}
-                {actionItems.length > 0 &&
-                  ` · ${actionItems.length} action${actionItems.length > 1 ? "s" : ""} extraites`}
-              </p>
-            )}
-          </header>
+            </AnimatePresence>
 
-          {/* Loading */}
-          {loading && !data && <LoadingSkeleton />}
+            {/* Action items */}
+            <ActionItemsList items={actionItems} />
 
-          {/* Error */}
-          {error && <StageErrorBanner message={error} />}
-
-          {/* Transcript */}
-          <AnimatePresence initial={false}>
-            {segments.length > 0 && (
-              <div className="flex flex-col gap-5">
-                {segments.map((seg, idx) => (
-                  <TranscriptBubble key={`${seg.speaker}-${seg.start}`} seg={seg} index={idx} />
-                ))}
-              </div>
-            )}
-          </AnimatePresence>
-
-          {/* Action items */}
-          <ActionItemsList items={actionItems} />
-
-          {/* Sentinel auto-scroll */}
-          <div ref={bottomRef} aria-hidden="true" />
-        </div>
+            {/* Sentinel auto-scroll */}
+            <div ref={bottomRef} aria-hidden="true" />
+          </StageLayout>
+        </>
       )}
     </motion.section>
   );

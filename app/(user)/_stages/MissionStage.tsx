@@ -22,6 +22,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { StageLayout } from "@/app/(user)/_shell/StageLayout";
 import { Action, EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
@@ -272,40 +273,37 @@ function LoadingSkeleton() {
   );
 }
 
-function MissionHeader({ mission }: { mission: ApiMission }) {
+/**
+ * Badge statut mission — rendu via prop actions de StageLayout.
+ * Détermine la couleur et le contenu selon lastRunStatus.
+ */
+function MissionStatusBadge({ mission }: { mission: ApiMission }) {
   const status = missionStatusLabel(mission);
   const isRunning = mission.enabled && !mission.lastRunStatus;
   const isError = mission.lastRunStatus === "failed" || mission.lastRunStatus === "blocked";
   const isApproval = mission.lastRunStatus === "awaiting_approval";
 
-  const badgeClass = isError
-    ? "bg-(--danger)/10 border border-(--danger)/35 text-(--danger)"
+  const tone: "danger" | "gold" | "brand" | "neutral" = isError
+    ? "danger"
     : isApproval
-      ? "bg-(--gold-surface) border border-(--gold-border) text-(--gold)"
+      ? "gold"
       : isRunning
-        ? "bg-(--accent-teal-surface) border border-(--accent-teal-border) text-(--accent-teal)"
-        : "bg-(--surface-1) border border-(--line) text-text-muted";
+        ? "brand"
+        : "neutral";
 
   return (
-    <header className="flex flex-col gap-2">
-      <p className="t-13 text-(--text-ghost)">Demande active</p>
-      <h1 className="t-30 font-medium tracking-tight flex items-center gap-3.5">
-        {mission.name}
-        <span
-          className={`inline-flex items-center gap-1.5 t-11 px-2 py-0.5 rounded-full ${badgeClass}`}
-        >
-          {isRunning && (
-            <motion.span
-              className="w-(--size-dot) h-(--size-dot) rounded-full bg-(--accent-teal) inline-block"
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
-            />
-          )}
-          {status}
-        </span>
-      </h1>
-      <p className="t-14 text-(--text-faint)">{mission.input.slice(0, 120)}</p>
-    </header>
+    <div className="inline-flex items-center gap-1.5">
+      {isRunning && (
+        <motion.span
+          className="w-(--size-dot) h-(--size-dot) rounded-full bg-(--accent-teal) inline-block"
+          animate={{ opacity: [1, 0.3, 1] }}
+          transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+        />
+      )}
+      <Action variant="secondary" tone={tone} size="sm" disabled>
+        {status}
+      </Action>
+    </div>
   );
 }
 
@@ -557,9 +555,12 @@ export function MissionStage({ mode }: { mode: string }) {
 
       {/* Contenu mission (données réelles ou démo dev) */}
       {!loading && !fetchError && activeMission && (
-        <>
-          <MissionHeader mission={activeMission} />
-
+        <StageLayout
+          eyebrow="Demande active"
+          title={activeMission.name}
+          subtitle={activeMission.input.slice(0, 120)}
+          actions={<MissionStatusBadge mission={activeMission} />}
+        >
           {/* Suivi de la demande (jalons dérivés du statut — pas les vraies steps
               d'exécution agent ; celles-ci viendront du run output) */}
           <div className="flex flex-col gap-2">
@@ -580,7 +581,7 @@ export function MissionStage({ mode }: { mode: string }) {
               </AnimatePresence>
             </div>
           </div>
-        </>
+        </StageLayout>
       )}
     </motion.section>
   );

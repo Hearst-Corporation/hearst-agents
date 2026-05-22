@@ -14,9 +14,47 @@ import { useEffect } from "react";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { StageLayout } from "../_shell/StageLayout";
-import { Action } from "../components/ui";
+import { EmptyState } from "../components/ui";
 import type { RailItem } from "./types";
 import { VISION_EASE } from "./types";
+
+/**
+ * Icône microphone SVG simple pour VoiceStage.
+ */
+function MicrophoneIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path
+        d="M16 2C13.2386 2 11 4.23858 11 7V14C11 16.7614 13.2386 19 16 19C18.7614 19 21 16.7614 21 14V7C21 4.23858 18.7614 2 16 2Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7 14C7 18.4183 10.5817 22 16 22C21.4183 22 25 18.4183 25 14"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16 22V28"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 28H20"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 // ── Variants ─────────────────────────────────────────────────────────────────
 
@@ -62,29 +100,15 @@ export function VoiceStage({ mode }: { mode: string }) {
         title="Mode conversationnel"
         subtitle="Session vocale temps réel"
       >
-        <div className="flex flex-col items-center gap-8 py-12 text-center">
-          {/* Sphère inactive */}
-          <div
-            className="rounded-full border border-(--line-strong) bg-(--surface) opacity-50 shrink-0"
-            style={{ width: "var(--space-24)", height: "var(--space-24)" }}
-            aria-hidden="true"
-          />
-
-          <div className="flex flex-col gap-3">
-            <p className="t-15 font-medium text-(--text-muted)">Mode voix non disponible</p>
-            <p
-              className="t-13 text-(--text-ghost) leading-relaxed"
-              style={{ maxWidth: "var(--width-prose-narrow)" }}
-            >
-              La session vocale temps réel n&apos;est pas encore branchée. Le chat texte couvre les
-              mêmes intentions en attendant.
-            </p>
-          </div>
-
-          <Action variant="primary" tone="brand" onClick={() => setStageMode({ mode: "chat" })}>
-            Ouvrir le chat texte
-          </Action>
-        </div>
+        <EmptyState
+          icon={<MicrophoneIcon />}
+          title="Mode voix non disponible"
+          description="La session vocale temps réel n'est pas encore branchée. Le chat texte couvre les mêmes intentions en attendant."
+          cta={{
+            label: "Ouvrir le chat texte",
+            onClick: () => setStageMode({ mode: "chat" }),
+          }}
+        />
       </StageLayout>
     </motion.section>
   );
