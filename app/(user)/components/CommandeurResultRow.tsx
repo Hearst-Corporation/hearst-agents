@@ -94,9 +94,7 @@ export function CommandeurResultRow({
         </span>
       )}
       {hotkey && (
-        <span className="t-11 font-light ml-auto shrink-0" style={{ color: "var(--text-ghost)" }}>
-          {hotkey}
-        </span>
+        <span className="t-11 font-light ml-auto shrink-0 text-(--text-ghost)">{hotkey}</span>
       )}
     </button>
   );

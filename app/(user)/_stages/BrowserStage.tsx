@@ -119,7 +119,7 @@ function stepDotClass(status: StepStatus): string {
       return "bg-(--danger)";
     case "pending":
     default:
-      return "bg-text-ghost/30";
+      return "bg-(--text-ghost)/30";
   }
 }
 
@@ -269,7 +269,7 @@ function StepRow({ step, index }: { step: BrowserStep; index: number }) {
       <div className="flex-1 t-13 text-(--text-soft) leading-(--leading-base)">{step.label}</div>
 
       <span
-        className={`t-11 font-medium px-2 py-0.5 rounded-pill shrink-0 ${
+        className={`t-11 font-medium px-2 py-0.5 rounded-(--radius-pill) shrink-0 ${
           isError
             ? "bg-(--danger)/10 text-(--danger)"
             : isRunning
