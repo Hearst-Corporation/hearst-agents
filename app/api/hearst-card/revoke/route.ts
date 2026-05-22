@@ -8,7 +8,7 @@
  * Body : { token: string }
  */
 
-import { createHash } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
@@ -75,7 +75,14 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   const authHeader = req.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
-  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+  // Early-return si le secret n'est pas configuré
+  if (!cronSecret) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
+  // Comparaison à temps constant pour éviter les timing attacks
+  const expected = Buffer.from(`Bearer ${cronSecret}`, "utf8");
+  const received = Buffer.from(authHeader ?? "", "utf8");
+  if (expected.length !== received.length || !timingSafeEqual(expected, received)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 

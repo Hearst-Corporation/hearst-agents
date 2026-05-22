@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
   const verdict = verifyWebhookSignature({ rawBody, signature, timestamp });
 
-  // Cas 1 — secret manquant : refus strict en prod, accept silencieux en dev
+  // Cas 1 — secret manquant : refus strict en prod et en dev sauf flag explicite
   if (verdict.reason === "no_secret") {
     if (process.env.NODE_ENV === "production") {
       console.error(
@@ -46,8 +46,12 @@ export async function POST(req: NextRequest) {
       );
       return NextResponse.json({ error: "webhook_secret_not_configured" }, { status: 503 });
     }
+    // En dev, n'accepter que si ALLOW_UNVERIFIED_WEBHOOKS_DEV === "1"
+    if (process.env.ALLOW_UNVERIFIED_WEBHOOKS_DEV !== "1") {
+      return NextResponse.json({ error: "webhook_secret_not_configured" }, { status: 503 });
+    }
     console.warn(
-      "[meetings/webhook] RECALL_WEBHOOK_SECRET absent (dev) — payload accepté sans vérif",
+      "[meetings/webhook] RECALL_WEBHOOK_SECRET absent (dev) — payload accepté sans vérif (ALLOW_UNVERIFIED_WEBHOOKS_DEV=1)",
     );
     // tombe through pour traiter le payload
   } else if (!verdict.valid) {

@@ -14,6 +14,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { getApprovalState, recordVote } from "@/lib/missions/approvals";
 import { logger } from "@/lib/observability/logger";
+import { protectPublic } from "@/lib/security/arcjet";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,10 @@ const voteBodySchema = z.object({
 });
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ token: string }> }) {
+  // Rate-limit + bot detection avant tout traitement du payload
+  const denied = await protectPublic(req);
+  if (denied) return denied;
+
   const { token } = await params;
 
   let body: { vote: "approved" | "rejected"; comment?: string };

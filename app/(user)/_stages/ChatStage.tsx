@@ -11,7 +11,7 @@
  */
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useMemo, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { EmptyState, StageErrorBanner } from "@/app/(user)/components/ui";
 import { type StreamingMessage, type ToolCall, useChatStageStore } from "@/stores/chat-stage";
 import { useStageStore } from "@/stores/stage";
@@ -223,7 +223,8 @@ function ChatBubble({ msg, index }: { msg: StreamingMessage; index: number }) {
   );
 }
 
-function ToolCallCard({ tc }: { tc: ToolCall }) {
+// perf: évite le re-render si tc n'a pas changé (shallow compare)
+const ToolCallCard = memo(function ToolCallCard({ tc }: { tc: ToolCall }) {
   const isRunning = tc.state === "running";
   const isError = tc.state === "error";
   const isDone = tc.state === "done";
@@ -263,7 +264,7 @@ function ToolCallCard({ tc }: { tc: ToolCall }) {
       </div>
     </motion.div>
   );
-}
+});
 
 function ToolCallList({ toolCalls }: { toolCalls: readonly ToolCall[] }) {
   return (

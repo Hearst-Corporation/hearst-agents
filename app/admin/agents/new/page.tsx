@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ConfirmModal } from "@/app/(user)/components/ConfirmModal";
 import { Action, FieldError, fieldA11yProps, ValidatedForm } from "@/app/(user)/components/ui";
 import { toast } from "@/app/hooks/use-toast";
@@ -35,7 +35,10 @@ export default function NewAgentPage() {
   });
 
   const initialFormRef = useRef(form);
-  const isDirty = JSON.stringify(form) !== JSON.stringify(initialFormRef.current);
+  const isDirty = useMemo(
+    () => JSON.stringify(form) !== JSON.stringify(initialFormRef.current),
+    [form],
+  );
 
   const handleCancelClick = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -10,8 +10,9 @@ import { authOptions } from "@/lib/platform/auth/options";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  if (process.env.NODE_ENV === "production") {
-    return NextResponse.json({ error: "not_available_in_production" }, { status: 403 });
+  // Double condition : hors production ET flag explicite requis
+  if (process.env.NODE_ENV === "production" || process.env.DEBUG_SESSION_ENDPOINT !== "1") {
+    return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
 
   const session = await getServerSession(authOptions);

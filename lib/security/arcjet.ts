@@ -137,6 +137,38 @@ export async function extractUserIdFromRequest(req: NextRequest): Promise<string
   }
 }
 
+/**
+ * Helper de protection pour les endpoints publics (pas d'auth session).
+ *
+ * Utilise l'instance `aj` (100 req/min/IP) — suffisant pour les endpoints
+ * publics qui n'exécutent pas de LLM. Mêmes règles shield + detectBot.
+ *
+ * No-op gracieux si ARCJET_KEY absente (`aj === null`).
+ *
+ * Usage :
+ * ```ts
+ * const denied = await protectPublic(req);
+ * if (denied) return denied;
+ * ```
+ *
+ * @returns NextResponse 429/403 si bloqué, null sinon.
+ */
+export async function protectPublic(req: NextRequest): Promise<NextResponse | null> {
+  if (!aj) return null;
+  const decision = await aj.protect(req, { requested: 1 });
+  if (!decision.isDenied()) return null;
+  if (decision.reason.isRateLimit()) {
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+  }
+  if (decision.reason.isBot()) {
+    return NextResponse.json({ error: "bot_detected" }, { status: 403 });
+  }
+  if (decision.reason.isShield()) {
+    return NextResponse.json({ error: "request_blocked" }, { status: 403 });
+  }
+  return NextResponse.json({ error: "denied" }, { status: 403 });
+}
+
 export async function protectLlmJob(
   req: NextRequest,
   userId?: string,

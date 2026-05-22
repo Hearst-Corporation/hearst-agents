@@ -15,7 +15,7 @@ describe("useChatStageStore", () => {
     useChatStageStore.getState().reset();
   });
 
-  it("resetForNewRun remet l'état (messages vides, runState streaming, runId set)", () => {
+  it("resetForNewRun vide messages et toolCalls, passe runState à streaming et efface runError", () => {
     const store = useChatStageStore.getState();
 
     // Pollue d'abord avec quelques messages / outils
@@ -31,7 +31,6 @@ describe("useChatStageStore", () => {
     expect(after.messages).toEqual([]);
     expect(after.toolCalls).toEqual([]);
     expect(after.runState).toBe("streaming");
-    expect(after.currentRunId).toBe("run_abc");
     expect(after.runError).toBeUndefined();
     expect(after.tokenEstimate).toBeUndefined();
   });

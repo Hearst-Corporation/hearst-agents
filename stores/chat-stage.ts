@@ -47,7 +47,6 @@ interface ChatStageState {
   runState: RunState;
   runError?: string;
   tokenEstimate?: TokenEstimate;
-  currentRunId?: string;
 
   // Actions
   resetForNewRun: (runId: string) => void;
@@ -67,7 +66,6 @@ const INITIAL_STATE = {
   runState: "idle" as RunState,
   runError: undefined as string | undefined,
   tokenEstimate: undefined as TokenEstimate | undefined,
-  currentRunId: undefined as string | undefined,
 };
 
 /**
@@ -85,11 +83,10 @@ function genId(): string {
 export const useChatStageStore = create<ChatStageState>()((set) => ({
   ...INITIAL_STATE,
 
-  resetForNewRun: (runId) =>
+  resetForNewRun: (_runId) =>
     set({
       ...INITIAL_STATE,
       runState: "streaming",
-      currentRunId: runId,
     }),
 
   appendUserMessage: (content, id) =>
