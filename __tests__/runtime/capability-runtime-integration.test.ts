@@ -14,6 +14,7 @@ import {
   scopeRequiresProviders,
 } from "@/lib/capabilities/router";
 import {
+  CROSS_DOMAIN_TOOLS,
   DOMAIN_TAXONOMY,
   type Domain,
   getValidAgentsForDomain,
@@ -79,7 +80,7 @@ describe("A — Capability Router", () => {
     const entry = DOMAIN_TAXONOMY[domain];
     expect(scope.capabilities).toEqual(entry.capabilities);
     expect(scope.providers).toEqual(entry.providers);
-    expect(scope.allowedTools).toEqual(entry.tools);
+    expect(scope.allowedTools).toEqual([...entry.tools, ...CROSS_DOMAIN_TOOLS]);
     expect(scope.validAgents).toEqual(entry.validAgents);
     expect(scope.needsProviderData).toEqual(
       expect.objectContaining({

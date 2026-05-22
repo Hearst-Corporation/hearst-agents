@@ -76,7 +76,7 @@ export function ThemePicker({ themes }: Props) {
                   ? "border-(--accent-teal)"
                   : "border-(--border) hover:border-(--text-muted)"
               }`}
-              style={isActive ? { boxShadow: "0 0 0 1px var(--accent-teal)" } : undefined}
+              style={isActive ? { boxShadow: "var(--shadow-ring-accent-teal)" } : undefined}
             >
               <div className="relative aspect-[16/10] bg-black overflow-hidden">
                 <Image
