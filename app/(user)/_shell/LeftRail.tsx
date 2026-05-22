@@ -271,12 +271,16 @@ export function LeftRail() {
   const currentMode = useStageStore((s) => s.current.mode);
   const pathname = usePathname();
 
+  // Les stages ne sont accentués que quand on est sur une page de stage (cockpit ou autre)
+  // et non sur une page standalone (reports, marketplace, etc.)
+  const isStageActive = pathname === "/" || pathname === "/cockpit-x";
+
   return (
     <aside className="ct-rail-left ct-rail-left--scrollable no-scrollbar">
       {/* Logo → cockpit */}
       <button
         type="button"
-        className={`ct-logo-slot${currentMode === "cockpit" ? " accent" : ""}`}
+        className={`ct-logo-slot${isStageActive && currentMode === "cockpit" ? " accent" : ""}`}
         title="Helm — Accueil"
         aria-label="Helm — Accueil"
         onClick={() => {
@@ -290,7 +294,7 @@ export function LeftRail() {
       <div className="ct-rail-actions">
         {RAIL_STAGES.map((key) => {
           const def = STAGE_REGISTRY[key];
-          const active = currentMode === key;
+          const active = isStageActive && currentMode === key;
           const label = def.navLabel;
           const title = def.hotkey ? `${label} (${def.hotkey})` : label;
           return (
@@ -356,7 +360,9 @@ export function LeftRail() {
               </a>
             );
           }
-          const active = pathname?.startsWith(href) ?? false;
+          // Matching exact pour la plupart des pages, startsWith uniquement pour /settings qui a des sous-routes
+          const active =
+            href === "/settings" ? (pathname?.startsWith(href) ?? false) : pathname === href;
           return (
             <Link
               key={key}
