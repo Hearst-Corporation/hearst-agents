@@ -32,6 +32,7 @@ import { inngest } from "@/lib/jobs/inngest/client";
 import { endJobRun } from "@/lib/jobs/inngest/run-persistence";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { ComputerActionRunInput } from "@/lib/jobs/types";
+import { pushArtifactToCortex } from "@/lib/memory/cortex-client";
 import { createNotification } from "@/lib/notifications/in-app";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -163,6 +164,26 @@ export const computerActionRunFunction = inngest.createFunction(
           },
         }).catch(() => {});
       }
+    });
+
+    // Ré-ingestion mémoire Cortex (ROADMAP #5 : la mémoire grandit de ses propres
+    // actions). On ne pousse que les runs "completed" — les HITL / failed ne doivent
+    // pas polluer la mémoire avec des artefacts incomplets. Fail-soft total.
+    await step.run("push-to-cortex", async () => {
+      const { runStatus } = mapActionResultToRunStatus(actionResult);
+      if (runStatus !== "completed") return;
+      await pushArtifactToCortex({
+        kind: "action",
+        task: payload.task,
+        result: actionResult.reply?.trim() || "(action terminée sans reply)",
+        userId: payload.userId ?? "",
+        tenantId: payload.tenantId,
+        runId: helmRunId,
+        extraMeta: {
+          actionStatus: actionResult.status,
+          route: actionResult.route ?? null,
+        },
+      }).catch(() => {});
     });
 
     return {

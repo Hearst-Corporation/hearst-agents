@@ -30,9 +30,6 @@ const TIMEOUT_MS = 2_500;
 const CORTEX_SEARCH_ENDPOINT = "/api/search";
 const CORTEX_SEARCH_MODE = "hybrid";
 const CORTEX_SOURCE_TAG = "cortex_ltm";
-// Segments de path identifiant une note originaire de Helm (anti-boucle C3)
-const HELM_PATH_SEGMENT = "/helm/";
-const HELM_PATH_PREFIX = "helm/";
 
 // JWT Cortex — doit matcher lib/server/auth.ts côté Cortex (iss/aud/algo).
 const CORTEX_JWT_ISS = "cortex";
@@ -148,15 +145,13 @@ export async function searchCortexMemory(params: {
 
     return results
       .filter((r) => {
-        // ANTI-BOUCLE (C3) : exclure les points qui proviennent de Helm
-        // lui-même pour éviter de réinjecter des souvenirs Helm→Cortex→Helm.
-        // Les notes Helm dans Cortex sont stockées sous "00_Inbox/helm/..." OU "helm/..."
-        // → double garde : segment dans le path ET source explicite.
-        const pathIsHelm =
-          typeof r.path === "string" &&
-          (r.path.includes(HELM_PATH_SEGMENT) || r.path.startsWith(HELM_PATH_PREFIX));
-        const sourceIsHelm = r.source === "helm";
-        return !pathIsHelm && !sourceIsHelm;
+        // ANTI-BOUCLE (C3, allégé) : on n'exclut plus que les chat-turns (source
+        // "helm") pour éviter la réinjection Helm→Cortex→Helm des tours de dialogue.
+        // Les artefacts swarm/action (source "helm-swarm" / "helm-action") sont
+        // désormais RETRIEVABLE volontairement — c'est le but de ROADMAP #5 :
+        // la mémoire grandit de ses propres actions. La garde path-based est supprimée.
+        const sourceIsHelmTurn = r.source === "helm";
+        return !sourceIsHelmTurn;
       })
       .filter((r) => {
         // Ne conserver que les résultats avec un contenu textuel exploitable
@@ -258,6 +253,79 @@ export async function pushToCortexMemory(params: {
     return true;
   } catch (err: unknown) {
     console.warn("[cortex-client] push error — skip", err instanceof Error ? err.name : "unknown");
+    return false;
+  } finally {
+    clearTimeout(timerId);
+  }
+}
+
+/**
+ * Pousse un artefact produit par Helm (résultat swarm ou computer-action) vers
+ * Cortex en tant que mémoire long-terme retrievable (ROADMAP #5 : « la mémoire
+ * grandit de ses propres actions »).
+ *
+ * Contrairement à pushToCortexMemory (chat-turns, source "helm"), les artefacts
+ * produits ici utilisent source "helm-swarm" / "helm-action" et NE SONT PAS exclus
+ * par l'anti-boucle C3 → le moteur peut recall ses propres outputs lors du search.
+ *
+ * Fail-soft total : env manquante, result vide, ou toute erreur réseau → false,
+ * jamais de throw. Appelé en fire-and-forget depuis les Inngest functions.
+ */
+export async function pushArtifactToCortex(params: {
+  kind: "swarm" | "action";
+  task: string;
+  result: string;
+  userId: string;
+  tenantId: string;
+  runId?: string;
+  extraMeta?: Record<string, unknown>;
+}): Promise<boolean> {
+  const baseUrl = process.env.CORTEX_URL;
+  const secret = process.env.HELM_WEBHOOK_SECRET;
+  if (!baseUrl || !secret) {
+    console.warn("[cortex-client] CORTEX_URL ou HELM_WEBHOOK_SECRET absent — artifact push skip");
+    return false;
+  }
+
+  const result = (params.result ?? "").trim();
+  if (!result) return false;
+
+  // ⚠️ La signature HMAC porte sur la string EXACTE envoyée → sérialiser une
+  // seule fois et signer/poster ce même `body` (jamais re-stringify).
+  const body = JSON.stringify({
+    event: `memory.${params.kind}_result`,
+    timestamp: new Date().toISOString(),
+    payload: {
+      user_id: params.userId,
+      tenant_id: params.tenantId,
+      source: `helm-${params.kind}`,
+      task: (params.task ?? "").slice(0, 500),
+      result: result.slice(0, 8000),
+      run_id: params.runId ?? undefined,
+      meta: params.extraMeta ?? {},
+    },
+  });
+  const signature = createHmac("sha256", secret).update(body).digest("hex");
+
+  const controller = new AbortController();
+  const timerId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try {
+    const res = await fetch(`${baseUrl.replace(/\/$/, "")}${CORTEX_INGEST_ENDPOINT}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-helm-signature": signature },
+      body,
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      console.warn(`[cortex-client] artifact push HTTP ${res.status} — skip`);
+      return false;
+    }
+    return true;
+  } catch (err: unknown) {
+    console.warn(
+      "[cortex-client] artifact push error — skip",
+      err instanceof Error ? err.name : "unknown",
+    );
     return false;
   } finally {
     clearTimeout(timerId);

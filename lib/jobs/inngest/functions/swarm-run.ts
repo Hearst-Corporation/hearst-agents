@@ -16,6 +16,7 @@ import { inngest } from "@/lib/jobs/inngest/client";
 import { endJobRun } from "@/lib/jobs/inngest/run-persistence";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { SwarmRunInput } from "@/lib/jobs/types";
+import { pushArtifactToCortex } from "@/lib/memory/cortex-client";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getSwarmRun, kickoffSwarm } from "@/lib/swarms/client";
 
@@ -91,6 +92,24 @@ export const swarmRunFunction = inngest.createFunction(
           tokensOut: final.tokensOut ?? 0,
         },
         error: isFailed ? errorMsg : undefined,
+      }).catch(() => {});
+    });
+
+    // Step 4 — ré-ingestion mémoire Cortex (ROADMAP #5 : la mémoire grandit de
+    // ses propres actions). Fail-soft total : jamais de throw → ne casse pas le job.
+    await step.run("push-to-cortex", async () => {
+      if (final.status !== "completed" || !final.resultText?.trim()) return;
+      await pushArtifactToCortex({
+        kind: "swarm",
+        task: payload.swarmName ?? payload.swarmId,
+        result: final.resultText,
+        userId: payload.userId,
+        tenantId: payload.tenantId,
+        runId: helmRunId,
+        extraMeta: {
+          swarmId: payload.swarmId,
+          engineRunId: kicked.engineRunId,
+        },
       }).catch(() => {});
     });
 

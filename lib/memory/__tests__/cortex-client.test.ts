@@ -6,7 +6,8 @@
  *   (b) CORTEX_PUBLIC_API_KEY absent → [] sans fetch
  *   (c) fetch rejette (erreur réseau) → []
  *   (d) HTTP 500 → []
- *   (e) filtre anti-boucle C3 : path "helm/foo.md" exclu
+ *   (e) filtre anti-boucle C3 allégé (ROADMAP #5) : seul source="helm" exclu,
+ *       path-based exclude supprimé — artefacts swarm/action passent
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -141,8 +142,11 @@ describe("searchCortexMemory", () => {
     expect(results).toEqual([]);
   });
 
-  // (e) Anti-boucle C3 : plusieurs formats de path Helm sont filtrés
-  it("(e) filtre les résultats Helm — path legacy helm/, path réel 00_Inbox/helm/..., source helm", async () => {
+  // (e) Anti-boucle C3 allégée (ROADMAP #5) : seul source="helm" (chat-turns)
+  // est exclu. Les path-based guards sont supprimés — les artefacts swarm/action
+  // (source "helm-swarm" / "helm-action") et les notes dont le PATH contient
+  // "helm/" mais la SOURCE n'est pas "helm" sont maintenant RETRIEVABLE.
+  it("(e) filtre uniquement source=helm ; les paths helm/* sans source=helm passent désormais", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
@@ -151,23 +155,7 @@ describe("searchCortexMemory", () => {
           query: "test",
           count: 4,
           results: [
-            // Format legacy : path commence par "helm/"
-            {
-              path: "helm/foo.md",
-              title: "Helm note legacy",
-              score: 0.99,
-              source: "obsidian",
-              content_preview: "Contenu Helm legacy — à exclure.",
-            },
-            // Format réel Cortex : path contient le segment "/helm/"
-            {
-              path: "00_Inbox/helm/2026-05-20-foo.md",
-              title: "Helm Inbox note",
-              score: 0.95,
-              source: "obsidian",
-              content_preview: "Contenu Inbox Helm — à exclure.",
-            },
-            // Source "helm" explicite → exclu même si path correct
+            // Source "helm" explicite (chat-turn) → exclu (seule règle active)
             {
               path: "03_Areas/some-note.md",
               title: "Note avec source helm",
@@ -175,7 +163,23 @@ describe("searchCortexMemory", () => {
               source: "helm",
               content_preview: "Source helm explicite — à exclure.",
             },
-            // Seul résultat valide
+            // Path "helm/foo.md" mais source "obsidian" → PASSE (path-guard supprimé)
+            {
+              path: "helm/foo.md",
+              title: "Artefact helm path, source obsidian",
+              score: 0.99,
+              source: "obsidian",
+              content_preview: "Contenu artefact helm legacy — désormais retrievable.",
+            },
+            // Artefact swarm — source "helm-swarm" → PASSE (seul source="helm" exclu)
+            {
+              path: "helm/swarm/2026-05-23-swarm.md",
+              title: "Résultat swarm",
+              score: 0.88,
+              source: "helm-swarm",
+              content_preview: "Résultat d'un swarm CrewAI.",
+            },
+            // Résultat Cortex normal
             {
               path: "04_Resources/notion.md",
               title: "Note Cortex valide",
@@ -190,9 +194,12 @@ describe("searchCortexMemory", () => {
 
     const results = await searchCortexMemory({ query: "test anti-boucle" });
 
-    // Seul le résultat non-Helm doit passer
-    expect(results).toHaveLength(1);
-    expect(results[0].sourceId).toBe("04_Resources/notion.md");
-    expect(results[0].similarity).toBe(0.65);
+    // Seul source="helm" est exclu → 3 résultats passent
+    expect(results).toHaveLength(3);
+    const sourceIds = results.map((r) => r.sourceId);
+    expect(sourceIds).toContain("helm/foo.md");
+    expect(sourceIds).toContain("helm/swarm/2026-05-23-swarm.md");
+    expect(sourceIds).toContain("04_Resources/notion.md");
+    expect(sourceIds).not.toContain("03_Areas/some-note.md");
   });
 });
