@@ -10,6 +10,7 @@ import {
   SearchField,
   StageErrorBanner,
 } from "@/app/(user)/components/ui";
+import { toast } from "@/app/hooks/use-toast";
 import type { MarketplaceKind, MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
 // Sous-ensemble des kinds affichés dans cette page
@@ -80,12 +81,33 @@ function useTemplates() {
 
 export default function MarketplacePage() {
   const [activeFilter, setActiveFilter] = useState<Filter>("Tout");
+  const [query, setQuery] = useState("");
+  const [installingId, setInstallingId] = useState<string | null>(null);
   const { templates, loading, error } = useTemplates();
 
-  const filteredTemplates =
-    activeFilter === "Tout"
-      ? templates
-      : templates.filter((t) => t.kind === FILTER_TO_KIND[activeFilter]);
+  const filteredTemplates = templates.filter((t) => {
+    const matchesFilter = activeFilter === "Tout" || t.kind === FILTER_TO_KIND[activeFilter];
+    const q = query.trim().toLowerCase();
+    const matchesSearch =
+      !q || t.title.toLowerCase().includes(q) || (t.description ?? "").toLowerCase().includes(q);
+    return matchesFilter && matchesSearch;
+  });
+
+  async function handleInstall(templateId: string) {
+    setInstallingId(templateId);
+    try {
+      const res = await fetch(`/api/v2/marketplace/templates/${templateId}/clone`, {
+        method: "POST",
+      });
+      if (!res.ok) throw new Error("Clone failed");
+      toast.success("Template installé", "Le template a été ajouté à votre espace.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Échec de l'installation", "Impossible d'installer ce template.");
+    } finally {
+      setInstallingId(null);
+    }
+  }
 
   return (
     <StandalonePageFrame>
@@ -112,7 +134,12 @@ export default function MarketplacePage() {
               className="flex flex-col sm:flex-row sm:items-center"
               style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}
             >
-              <SearchField placeholder="Rechercher un template…" className="flex-1" />
+              <SearchField
+                placeholder="Rechercher un template…"
+                className="flex-1"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
               <FilterTabs
                 tabs={FILTERS}
                 active={activeFilter}
@@ -161,8 +188,10 @@ export default function MarketplacePage() {
                         tone="neutral"
                         size="sm"
                         aria-label={`Installer ${t.title}`}
+                        onClick={() => handleInstall(t.id)}
+                        disabled={installingId === t.id}
                       >
-                        Installer
+                        {installingId === t.id ? "Installation…" : "Installer"}
                       </Action>
                     </div>
                   </PanelCard>

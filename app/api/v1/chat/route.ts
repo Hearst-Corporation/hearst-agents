@@ -13,7 +13,6 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { orchestrate } from "@/lib/engine/orchestrator";
-import { getTenantUsage } from "@/lib/llm/usage-tracker";
 import { MAX_MESSAGES_PER_CONVERSATION } from "@/lib/memory/store";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { hasApiScope, withApiAuth } from "@/lib/platform/http/api-auth";
@@ -41,19 +40,6 @@ const PRICE_CAP_USD = 0.5;
 export const POST = withApiAuth("POST /api/v1/chat", async (req: NextRequest, { tenant }) => {
   if (!hasApiScope(tenant, "write")) {
     return NextResponse.json({ error: "insufficient_scope" }, { status: 403 });
-  }
-
-  // Daily cost cap — no-op si ORCHESTRATE_COST_CAP_USD absent ou à 0
-  const dailyCap = Number(process.env.ORCHESTRATE_COST_CAP_USD ?? 0);
-  if (dailyCap > 0) {
-    const todayUsage = await getTenantUsage(tenant.tenantId, 1);
-    const usedToday = todayUsage?.total_cost_usd ?? 0;
-    if (usedToday >= dailyCap) {
-      return NextResponse.json(
-        { error: "daily_cost_cap_reached", cap: dailyCap, used: usedToday },
-        { status: 429, headers: { "Retry-After": "3600" } },
-      );
-    }
   }
 
   let body: unknown;

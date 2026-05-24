@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ConfirmModal } from "../ConfirmModal";
 import { Action } from "../ui";
 import { AppLogo } from "./AppLogo";
 import {
@@ -37,6 +38,7 @@ export function AppDrawer({
   const { app, connectedAccount } = state;
   const isConnected = !!connectedAccount;
   const [showAll, setShowAll] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const totalActions = actions?.length ?? 0;
   const visibleActions = showAll ? (actions ?? []) : (actions ?? []).slice(0, ACTIONS_PREVIEW);
@@ -118,7 +120,7 @@ export function AppDrawer({
             <Action
               variant="secondary"
               tone="danger"
-              onClick={onDisconnect}
+              onClick={() => setConfirmOpen(true)}
               loading={busy}
               className="w-full"
             >
@@ -139,6 +141,21 @@ export function AppDrawer({
           )}
         </div>
       </aside>
+
+      <ConfirmModal
+        open={confirmOpen}
+        title={`Déconnecter ${app.name} ?`}
+        description="Cette action est irréversible."
+        variant="danger"
+        confirmLabel="Déconnecter"
+        cancelLabel="Annuler"
+        loading={busy}
+        onConfirm={() => {
+          onDisconnect?.();
+          setConfirmOpen(false);
+        }}
+        onCancel={() => setConfirmOpen(false)}
+      />
     </>
   );
 }

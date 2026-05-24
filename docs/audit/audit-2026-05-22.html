@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Audit transversal — Hearst OS</title>
+<title>Audit complet (expert) — Hearst OS — Hearst OS</title>
 <style>
   :root {
     --bg: #0a0a0a;
@@ -81,21 +81,21 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>Audit transversal</h1>
+    <h1>Audit complet (expert) — Hearst OS</h1>
     <div class="meta">
-      <span><b>Date</b> 2026-05-22 05:37</span>
-      <span><b>Branche</b> feat/memoire-federee-cortex</span>
-      <span><b>Commit</b> 84d09962</span>
-      <span><b>Scope</b> complet</span>
+      <span><b>Date</b> 2026-05-22 16:16</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> fc596909</span>
+      
     </div>
   </header>
 
   <section class="kpis">
-    <div class="kpi accent"><div class="kpi-value">14</div><div class="kpi-label">Findings</div></div>
-    <div class="kpi p0"><div class="kpi-value">0</div><div class="kpi-label">P0 — critique</div></div>
-    <div class="kpi p1"><div class="kpi-value">8</div><div class="kpi-label">P1 — important</div></div>
-    <div class="kpi p2"><div class="kpi-value">6</div><div class="kpi-label">P2 — dette</div></div>
-    
+    <div class="kpi accent"><div class="kpi-value">130</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">11</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">58</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">78</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">3.1</div><div class="kpi-label">Score /10</div></div>
   </section>
 
   
@@ -103,17 +103,37 @@
       <h2>Quick wins</h2>
       <ol class="quick-wins">
         <li>
-              <span class="qw-title">isDirty via useMemo dans agents/new</span>
-              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/new/page.tsx">app/admin/agents/new/page.tsx</a>
-              <span class="qw-effort">5 min</span>
+              <span class="qw-title"></span>
+              
+              
             </li><li>
-              <span class="qw-title">&lt;img&gt; -&gt; next/image dans LeftRail</span>
-              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx">app/(user)/_shell/LeftRail.tsx</a>
-              <span class="qw-effort">5 min</span>
+              <span class="qw-title"></span>
+              
+              
             </li><li>
-              <span class="qw-title">Override uuid@&gt;=11.1.1 dans package.json</span>
-              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a>
-              <span class="qw-effort">10 min</span>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
+            </li><li>
+              <span class="qw-title"></span>
+              
+              
             </li>
       </ol>
     </section>
@@ -123,12 +143,1422 @@
     
     <details class="section" open>
       <summary>
-        <span class="section-name">Sécurité</span>
-        <span class="section-agent">OWASP</span>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          <span class="badge badge-p0">3</span>
+          <span class="badge badge-p1">11</span>
+          <span class="badge badge-p2">17</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Shell racine bg-black/text-white au lieu de --bg/--text</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/Shell.tsx:47">app/(user)/_shell/Shell.tsx:47</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;... bg-black text-white&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;... bg-(--bg) text-(--text)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le conteneur racine de TOUTE l'app user force une couleur primitive au lieu du token thémable --bg. Toute mutation de thème est cassée à ce niveau.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">ClientProviders enveloppe h-dvh bg-black text-white (idem Shell)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ClientProviders.tsx:137">app/(user)/components/ClientProviders.tsx:137</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;h-dvh w-full overflow-hidden bg-black text-white antialiased&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;h-dvh w-full overflow-hidden bg-(--bg) text-(--text) antialiased&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Deuxième couche racine qui fixe noir absolu — override tout theming produit (hive/halo/hyper). P0 car bloque la feature ThemePicker.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Login page bg-black/text-white hardcodé sur 3 branches de rendu</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx:119">app/login/page.tsx:119</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;... bg-black ... text-white&quot; (lignes 107, 119, 242)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;... bg-(--bg) ... text-(--text)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Page publique hors thème. Repose sur noir absolu alors que --bg-deep / --ct-bg-deep est défini. Si le produit passe en mode light partiel, la page reste noire.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">RightRailChat — rounded-xl (16 occurrences) au lieu de rounded-(--radius-xl)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:360">app/(user)/_shell/RightRailChat.tsx:360</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-xl (×13 dans _shell, ×3 dans _stages dont RightRailChat l.360)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>rounded-(--radius-xl) ou rounded-(--radius-2xl) selon la hiérarchie</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le token --radius-xl est disponible mais ignoré ; les composants dérivent indépendamment du scale de radius défini dans les tokens.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">RightRailChat — duration-150 hardcodé (×3) au lieu de duration-(--duration-fast)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:259">app/(user)/_shell/RightRailChat.tsx:259</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition-[background,color] duration-150</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>transition-[background,color] duration-(--duration-fast)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>--duration-fast est un token disponible. Les 3 occurrences dans RightRailChat bypassent le système et pourraient diverger si le token change.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">SignalStage — transition inline 0.2s hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SignalStage.tsx:120">app/(user)/_stages/SignalStage.tsx:120</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: &quot;color 0.2s, border-color 0.2s, background 0.2s&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>transition: `color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard)`</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Durée en secondes brutes, aucun token. Cassé si --duration-fast change.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">CockpitXClient — ease cubique [0.22,1,0.36,1] dupliqué 3× sans token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:922">app/(user)/cockpit-x/CockpitXClient.tsx:922</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} (×3 dans CockpitXClient + KpiGrid + ToastHost)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire dans une constante CSS var(--ease-spring) ou passer par --ct-ease</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>La courbe [0.22,1,0.36,1] est magique. Elle est répétée 4 fois dans l'app sans token — toute harmonisation future nécessite 4 éditions manuelles.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">KpiGrid — fontSize: '12px' hardcodé (delta-unit vs système t-*)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:90">app/(user)/_shell/KpiGrid.tsx:90</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fontSize: &quot;12px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;t-12&quot; (classe utilitaire du DS) ou var(--text-12)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le système utilise des classes t-[N] pour toutes les tailles. Un px direct échappe à la grille typographique et sera oublié si on change l'échelle de base.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">vote-form — fontSize: '13px' hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/vote-form.tsx:162">app/public/approvals/[token]/vote-form.tsx:162</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fontSize: &quot;13px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;t-13&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Incohérent avec le reste du DS qui utilise t-13.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">CockpitXClient — padding: '2px 8px' hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:435">app/(user)/cockpit-x/CockpitXClient.tsx:435</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>padding: &quot;2px 8px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>padding: &quot;var(--space-0-5) var(--space-2)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Deux valeurs brutes non tokenisées. Le token --space-0-5 (2px) et --space-2 (8px) existent dans le DS.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Approvals page — maxWidth 560px/640px hardcodés (2 branches de rendu)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:156">app/public/approvals/[token]/page.tsx:156</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>maxWidth: &quot;560px&quot; / maxWidth: &quot;640px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>maxWidth: &quot;var(--width-content-narrow)&quot; / &quot;var(--width-content-md)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeurs magiques non tokenisées. La page public/reports utilise aussi 720px/880px. 6 valeurs distinctes sans token width.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">ChatDrawer FAB — text-black + bg-(--accent-teal) + bottom-6/right-6/h-14/w-14 hardcodés</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:95">app/(user)/_shell/ChatDrawer.tsx:95</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;... h-14 w-14 ... rounded-full text-black ...&quot; + style={{ background: 'var(--accent-teal)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>text-(--text-on-accent-teal) (token existant), h-(--size-fab) w-(--size-fab) via token, bottom-(--space-6) right-(--space-6)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>text-black est un hardcode — le token --text-on-accent-teal (#000000) existe déjà. h-14/w-14 et bottom-6/right-6 sont des magic numbers Tailwind.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">AnalyticsKpiCard — tracking-tight Tailwind au lieu de tracking-(--tracking-tight)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/AnalyticsKpiCard.tsx:32">app/admin/_components/AnalyticsKpiCard.tsx:32</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;... t-28 tracking-tight&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className=&quot;... t-28 tracking-(--tracking-tight)&quot;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind tracking-tight est une valeur fixe (-0.025em) non alignée sur le token --tracking-tight du DS.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">RightRailChat — w-7 h-7 / w-8 h-8 hardcodés pour boutons d'action (3 occurrences)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:186">app/(user)/_shell/RightRailChat.tsx:186</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;w-7 h-7 rounded-lg ...&quot; / className=&quot;w-8 h-8 rounded-lg ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>w-(--size-icon-btn) h-(--size-icon-btn) ou size-(--space-7) / size-(--space-8) avec token</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>3 boutons icônes ont des tailles différentes (7, 7, 8) sans token. Incohérence de hiérarchie et impossible à harmoniser centralement.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">OnboardingTour — transition 'width 200ms ease' hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/OnboardingTour.tsx:184">app/(user)/components/OnboardingTour.tsx:184</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: &quot;width 200ms ease&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>transition: `width var(--duration-base) var(--ease-standard)`</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>200ms et ease sont dupliqués ici hors token.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ToastHost — 'background 120ms ease, color 120ms ease' hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/ToastHost.tsx:166">app/(user)/components/ui/ToastHost.tsx:166</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: &quot;background 120ms ease, color 120ms ease&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>transition: `background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard)`</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>120ms hors token. Valeur arbitraire non référencée dans le système.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">BrowserStage — duration-200 hardcodé (×2) + px-3.5/py-2.5 magic numbers</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:223">app/(user)/_stages/BrowserStage.tsx:223</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>duration-200 (×2), px-3.5, py-2.5</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>duration-(--duration-base), px-(--space-3-5) py-(--space-2-5)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind duration-200 ≠ --duration-base (180ms). Décalage subtil d'animation. Les fractions de spacing (3.5, 2.5) sont des primitives Tailwind non alignées sur le scale --space-*.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AssetCompareStage — duration-200 + rounded-full hors token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:497">app/(user)/_stages/AssetCompareStage.tsx:497</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>duration-200, rounded-full</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>duration-(--duration-base), rounded-(--radius-pill)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>rounded-full est un alias Tailwind pour 9999px. Le token --radius-pill existe et devrait être utilisé.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">KGStage — rounded-xl + p-5 + gap-4 sans token (×3 occurrences)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:351">app/(user)/_stages/KGStage.tsx:351</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-xl, p-5, gap-4, px-2.5 py-1.5</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>rounded-(--radius-xl), p-(--space-5), gap-(--space-4)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeurs Tailwind primitives utilisées dans des composants qui devraient utiliser le scale tokenisé.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ArtifactStage — rounded-xl (×4) + border-l-2 hors token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:127">app/(user)/_stages/ArtifactStage.tsx:127</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-xl (×4), border-l-2</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>rounded-(--radius-xl), border-l-(--border-width-accent)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>border-l-2 est une valeur fixe ; cohérence avec StageErrorBanner qui utilise border-l-2 également — devrait être un token partagé.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">MeetingStage — size-8 rounded-full pour avatar + h-14 pour skeleton</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MeetingStage.tsx:191">app/(user)/_stages/MeetingStage.tsx:191</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>size-8 rounded-full, h-14</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>size-(--size-avatar-sm) rounded-(--radius-pill), h-(--space-14)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Avatar et skeletons avec dimensions primitives non tokenisées.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Reports public — maxWidth 720px/880px/560px hardcodés (5 valeurs)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:189">app/public/reports/[token]/page.tsx:189</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>maxWidth: &quot;720px&quot;, &quot;880px&quot;, &quot;560px&quot; (plusieurs lignes)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--width-content-md), var(--width-content-lg), var(--width-content-narrow)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>5 largeurs max différentes en px bruts dans un seul fichier. Aucune cohérence avec le système de width tokens.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">KpiGrid — borderRadius: '1px' + height: '2px'/'1px' hardcodés</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:85">app/(user)/_shell/KpiGrid.tsx:85</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>borderRadius: &quot;1px&quot;, height: &quot;2px&quot;, height: &quot;1px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>borderRadius: &quot;var(--radius-px)&quot;, height: &quot;var(--space-px)&quot; (ou border-token)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Magic pixels sub-token pour la barre de progression KPI.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CockpitXClient — width: '6px' + height: '6px' hardcodés pour indicateur</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:299">app/(user)/cockpit-x/CockpitXClient.tsx:299</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>width: &quot;6px&quot;, height: &quot;6px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>width: &quot;var(--size-dot)&quot;, height: &quot;var(--size-dot)&quot; (token existant pour dots)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le token --size-dot est utilisé ailleurs dans l'app ; ici on le recrée en dur.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ThemePicker — bg-black pour conteneur preview theme</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ThemePicker.tsx:81">app/admin/_components/ThemePicker.tsx:81</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;relative aspect-[16/10] bg-black overflow-hidden&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>bg-(--bg) ou bg-(--ct-bg-deep)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Preview du thème avec noir absolu — paradoxal dans un sélecteur de thème. Le rendu ne reflète pas le fond réel du produit.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CatalogSection/ConnectedStage — boxShadow '0 0 4px/8px color-mix(...)' hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/_parts/CatalogSection.tsx:194">app/(user)/components/connections/_parts/CatalogSection.tsx:194</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>boxShadow: `0 0 4px color-mix(in srgb, ${dotColor} 60%, transparent)`</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>boxShadow: `var(--glow-dot)` avec dotColor comme variable CSS locale</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Les valeurs px du glow (4px, 8px) sont magiques. Un token --glow-dot permettrait l'harmonisation.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SimulationStage — div absolute sans z-index (barre progression overlay)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:488">app/(user)/_stages/SimulationStage.tsx:488</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>position: 'absolute', top: 0, left: 0 — sans zIndex</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter zIndex: 1 ou zIndex: 'var(--z-above-base)' pour garantir le rendu au-dessus de la barre de fond</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>L'élément absolu peut être masqué si un sibling reçoit un z-index plus tard. Risque de régression visuelle.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">MissionListStage — duration-150 + rounded-xl + px-5/py-4 hors token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionListStage.tsx:193">app/(user)/_stages/MissionListStage.tsx:193</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>duration-150, rounded-xl, px-5, py-4</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>duration-(--duration-fast), rounded-(--radius-xl), px-(--space-5), py-(--space-4)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern répété de Tailwind primitives plutôt que tokens DS.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CockpitXClient — Framer Motion duration 0.6 hors token (animation de page)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:245">app/(user)/cockpit-x/CockpitXClient.tsx:245</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire const SPRING_TRANSITION = { duration: 0.4, ease: [0.22, 1, 0.36, 1] } partagé</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>0.6s vs 0.4s dans le même fichier (ligne 922) — deux valeurs incohérentes pour des transitions de page similaires.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ChatStage — rounded-xl + border-l-2 border-(--accent-teal) + leading-relaxed</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ChatStage.tsx:198">app/(user)/_stages/ChatStage.tsx:198</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-xl border-l-2 border-(--accent-teal) ... leading-relaxed</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>rounded-(--radius-xl), border-l-(--border-width-accent), leading-(--leading-relaxed)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>leading-relaxed est Tailwind (1.625) ≠ var(--leading-relaxed) qui peut différer. border-l-2 est un magic number.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">BrowserStage — dots OS chrome hardcodés avec bg-(--accent-teal)/45 (alias teal pour macOS green)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:169">app/(user)/_stages/BrowserStage.tsx:169</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>bg-(--danger)/45, bg-(--warn)/45, bg-(--accent-teal)/45</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Soit des tokens sémantiques --os-chrome-red/yellow/green, soit la même couleur harmonisée</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utiliser --accent-teal pour simuler le vert macOS est sémantiquement incorrect — le token représente l'accent produit, pas une couleur d'UI système.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          <span class="badge badge-p0">3</span>
+          <span class="badge badge-p1">13</span>
+          <span class="badge badge-p2">8</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">UserAvatar — signOut déclenché sans confirmation</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:28-45">app/(user)/_shell/LeftRail.tsx:28-45</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter un ConfirmModal ('Vous déconnectez ?') ou un popover avec bouton explicite. Pattern déjà disponible dans le projet.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Risque de perte de travail non sauvegardé (WorkingDocument, SimulationStage en cours) sur un clic accidentel. Aucune récupération possible.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Restaurer une version sans confirmation</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx:163">app/(user)/components/report-layout/VersionHistoryPanel.tsx:163</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ouvrir un ConfirmModal avant handleRestore (pattern ConfirmModal déjà utilisé dans ReportEditor pour le même type d'action Reset).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Action destructive irréversible (le rendu courant est remplacé) déclenchée en un seul clic depuis une liste.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">ExportMenu — role=menu sans role=menuitem ni gestion clavier</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ReportActions.tsx:84-116">app/(user)/components/ReportActions.tsx:84-116</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter role='menuitem' sur chaque MenuItem, gérer KeyDown (ArrowDown, ArrowUp, Escape, Home, End) via useEffect ou un hook dédié, ajouter aria-haspopup='menu' sur le bouton 'Exporter'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Un dropdown avec role=menu incomplet est inutilisable au clavier et trompe les AT : le lecteur d'écran annonce 'menu' mais ne reçoit aucun menuitem navigable.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">AppDrawer — backdrop sans Escape / focus trap manquant</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppDrawer.tsx:48-52">app/(user)/components/connections/AppDrawer.tsx:48-52</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Câbler useModalA11y sur la ref du panneau aside (lockBodyScroll:true, onClose). Supprimer la logique maison du backdrop.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisation clavier impossible : Tab échappe du drawer, Escape n'a aucun effet. Violation WCAG 2.1 AA 2.1.2 No Keyboard Trap.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">LiveBadge et FinishedBadge — disabled sans aria-label descriptif</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MeetingStage.tsx:135,147">app/(user)/_stages/MeetingStage.tsx:135,147</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-label='Réunion en direct — 3:24' / aria-label='Réunion terminée' sur les deux composants badge.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Friction lecteur d'écran : l'état du meeting n'est pas intelligible hors contexte visuel.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Formulaire webhook — labels sans htmlFor</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/WebhooksSection.tsx:88,98">app/(user)/components/settings/alerting/WebhooksSection.tsx:88,98</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter id='webhook-url' sur &lt;Input&gt; et htmlFor='webhook-url' sur le &lt;label&gt;. Même traitement pour 'Signaux déclencheurs'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Clic sur le label ne focalise pas le champ. Les AT ne peuvent pas annoncer le label du champ.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Formulaire email — labels sans htmlFor</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/EmailSection.tsx:68,106">app/(user)/components/settings/alerting/EmailSection.tsx:68,106</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter id='email-recipients' sur l'Input et htmlFor correspondant sur le label.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Identique WebhooksSection — clic label ineffectif, AT n'annonce pas le bon champ.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Lien 'Voir →' sans aria-label contextuel</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SignalStage.tsx:183">app/(user)/_stages/SignalStage.tsx:183</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-label={`Voir ${kindLabel(signal.kind)} — ${signal.narration.slice(0,40)}`}.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Violation WCAG 2.4.6 (Descriptive Labels). Liste de liens 'Voir →' ambigüe pour navigation clavier.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Tabs Artifact sans aria-controls / aria-selected correct</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:432-443">app/(user)/_stages/ArtifactStage.tsx:432-443</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter role='tab', aria-controls='panel-{key}', aria-selected={activeTab===tab.key} sur les boutons. Ajouter role='tabpanel', id='panel-{key}', aria-labelledby correspondant sur le contenu. Gérer ArrowLeft/ArrowRight.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tabs sans ARIA complet : lecteur d'écran ne perçoit pas la relation bouton ↔ panneau.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Toggle Graphe/Liste — boutons sans aria-pressed ni role tab</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:557-572">app/(user)/_stages/KGStage.tsx:557-572</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-pressed={viewMode===m} ou les convertir en role='tab' dans un role='tablist'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Friction lecteur d'écran : état actif du toggle non perçu par les AT.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Context chip — bouton label sans aria-label</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/chat/ContextChips.tsx:54-66">app/(user)/components/chat/ContextChips.tsx:54-66</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-label={`Focaliser sur ${chip.label}`} sur ce bouton. Le bouton de suppression a déjà un bon aria-label via IconButton.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Ambiguïté : deux boutons cliquables sur la même chip, un sans aria-label explicite.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Textarea simulation — pas d'aria-describedby pour l'erreur inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:248-262">app/(user)/_stages/SimulationStage.tsx:248-262</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-required='true' sur la textarea et, en cas d'erreur, un &lt;p id='scenario-error' role='alert'&gt; avec aria-describedby='scenario-error' sur la textarea.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Validation uniquement par toast : les AT ne font pas le lien entre l'erreur et le champ source.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Images de comparaison sans alt dans AssetPane</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:110-116">app/(user)/_stages/AssetCompareStage.tsx:110-116</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-label={asset.title} sur &lt;video&gt; dans AssetPreview.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Vidéo sans label : les AT annoncent 'vidéo' sans contexte du contenu.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">SharePopover — bouton 'Copier' sans feedback d'état</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ReportActions.tsx:126-260">app/(user)/components/ReportActions.tsx:126-260</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter un état local copied:boolean, changer le label en 'Copié ✓' pendant 1.5s, et/ou émettre un toast.success.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>L'utilisateur ne sait pas si la copie a réussi. Pattern UX standard manquant.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Grille rapports filtrée — pas d'empty state quand filtre actif retourne 0</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/reports/page.tsx:131-156">app/(user)/reports/page.tsx:131-156</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter un EmptyState inline dans la grille : 'Aucun rapport pour ce domaine.'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>L'utilisateur voit une grille vide sans explication — il peut croire que la page a planté.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Notifications filtrées — empty state non contextualisé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/notifications/page.tsx:61">app/(user)/notifications/page.tsx:61</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser un message conditionnel : activeTab !== 'Tout' ? 'Aucune notification de type ${activeTab}.' : 'Tout est calme.'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Friction d'orientation : l'utilisateur ne comprend pas que le filtre est actif.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AssetSlot — spinner 'breath' sans aria-busy ni role status</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx:159-215">app/(user)/_stages/AssetStage.tsx:159-215</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter role='status' aria-label='Génération en cours…' sur le div breath quand status==='running'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>État de loading non annoncé aux AT — contenu attendu perçu comme absent.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SessionFrame — URL pill non lisible par les AT</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:163-207">app/(user)/_stages/BrowserStage.tsx:163-207</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer 🔒 par une span aria-hidden + ajouter aria-label='URL courante : {url}' sur le conteneur pill.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Emoji prononcé par les AT + changement d'URL non annoncé = friction de navigation.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Formulaire Slack — label 'URL webhook Slack' sans htmlFor</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/SlackSection.tsx:51">app/(user)/components/settings/alerting/SlackSection.tsx:51</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter id='slack-webhook-url' sur l'Input et htmlFor='slack-webhook-url' sur le label.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Clic label ineffectif, AT n'annonce pas le bon label.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CollapsedReasoning — button toggle sans aria-expanded</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:381-406">app/(user)/_stages/SimulationStage.tsx:381-406</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-expanded={thinkingOpen} aria-controls='reasoning-panel' et id='reasoning-panel' sur le pre.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Les AT ne savent pas si le panneau est ouvert ou fermé.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AppLogo — logo décoratif sans alt='' explicite correct</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppLogo.tsx:32-53">app/(user)/components/connections/AppLogo.tsx:32-53</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>En fallback, créer un &lt;span aria-hidden='true'&gt;{initial}&lt;/span&gt; et une &lt;span className='sr-only'&gt;{app.name}&lt;/span&gt; plutôt que de modifier textContent.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le fallback JS bypass les méchanismes AT — l'initiale peut être lue sans contexte.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">DetailPanel du KG — pas de focus trap ni restore focus</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:330-414">app/(user)/_stages/KGStage.tsx:330-414</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter role='dialog' aria-label='Détail nœud {node.label}' sur le motion.div. Câbler useModalA11y ou gérer manuellement le restore focus sur le nœud correspondant.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Panel avec UI complexe (liaisons, propriétés) mais sans focus management — friction clavier.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Toggle switch — focus-visible ring manquant</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/primitives.tsx:39-91">app/(user)/components/settings/alerting/primitives.tsx:39-91</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter className='focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal-border-hover)' sur le button Toggle.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>WCAG 2.4.7 Focus Visible : tout élément interactif doit avoir un indicateur de focus visible.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">StepRow pending — aria-disabled sans tabIndex=-1</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionStage.tsx:329-347">app/(user)/_stages/MissionStage.tsx:329-347</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter tabIndex={isPending ? -1 : undefined} sur le motion.div.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Les éléments aria-disabled restent tabulables — friction de navigation clavier.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CSP script-src autorise 'unsafe-inline' en production</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/next.config.ts:15">next.config.ts:15</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>script-src 'self' 'unsafe-inline' ... — 'unsafe-inline' est present meme en prod (seul 'unsafe-eval'/'wasm-unsafe-eval' sont conditionnes a isDev). style-src a aussi 'unsafe-inline'.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer 'unsafe-inline' par 'strict-dynamic' + nonce par requete (generateNonces / middleware proxy.ts), comme deja note dans le TODO(nonces) ligne 12.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Sans nonce, une injection HTML (meme via une dependance future) pourrait executer du JS inline. Defense-en-profondeur : le reste de la CSP (frame-ancestors none, base-uri self, form-action self) est correct, et aucun dangerouslySetInnerHTML n'existe dans le code aujourd'hui.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">new Function(args.code) utilise comme validateur de syntaxe JS</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/tools/native/extras-media.ts:126">lib/tools/native/extras-media.ts:126</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>new Function(args.code) appele dans checkCodeSafety pour detecter une SyntaxError avant execution sandboxee. Le constructeur Function compile le code (pas d'execution du corps, mais parsing).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par un parseur AST pur (ex: acorn.parse / @babel/parser) qui ne compile jamais le code, ou s'appuyer uniquement sur le sandbox E2B pour la validation.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>new Function ne fait que compiler (le corps n'est pas invoque) donc pas d'exec directe, et le commentaire impose le sandbox E2B avant prod. Defense-en-profondeur : eliminer toute primitive de compilation dynamique du chemin serveur.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ALLOW_UNVERIFIED_WEBHOOKS_DEV permet d'accepter un webhook Recall sans signature</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/meetings/webhook/route.ts:50">app/api/v2/meetings/webhook/route.ts:50</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>En dev, si RECALL_WEBHOOK_SECRET absent ET ALLOW_UNVERIFIED_WEBHOOKS_DEV=1, le payload est accepte sans verification HMAC (warn seulement).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Garder ce flag strictement dev (deja le cas : prod renvoie 503). Documenter qu'il ne doit jamais etre present en env prod-like, idealement ajouter un hard-fail au boot si flag=1 + NODE_ENV=production (comme dev-bypass).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>En production le code renvoie deja 503 si le secret manque, donc non exploitable en prod. Defense-en-profondeur : un flag de contournement de signature reste un vecteur si mal positionne en env.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Comparaison CRON_SECRET non timing-safe (string ===)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/cron/reap-stale-runs/route.ts:74">app/api/cron/reap-stale-runs/route.ts:74</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>authHeader !== `Bearer ${secret}` — comparaison de chaine standard, vulnerable theoriquement aux timing attacks. A noter : app/api/hearst-card/revoke/route.ts (ligne 85) utilise deja timingSafeEqual correctement.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner reap-stale-runs sur le pattern de hearst-card/revoke : crypto.timingSafeEqual sur des Buffers de meme longueur.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Exploitation d'un timing attack sur un secret de cron est tres difficile en pratique (jitter reseau, secret long). Defense-en-profondeur : harmoniser les deux routes cron sur la comparaison constante.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          <span class="badge badge-p0">3</span>
+          <span class="badge badge-p1">10</span>
+          <span class="badge badge-p2">7</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">MeetingStage polling setInterval 5s sans backoff ni visibilitychange</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MeetingStage.tsx:285">app/(user)/_stages/MeetingStage.tsx:285</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setInterval(fetchMeeting, 5_000)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Migrer vers usePoll (hooks/usePoll.ts) avec enabled={!document.hidden} et stop sur statuts terminaux</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Polling continu toutes les 5s même onglet inactif. BrowserStage déjà corrigé, même pattern non traité.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">AdminTopbarKpis: polling 5s sur toutes les pages admin sans guard visibilité</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_shell/AdminTopbarKpis.tsx:67">app/admin/_shell/AdminTopbarKpis.tsx:67</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>REFRESH_MS=5000, setInterval(fetchMetrics) — endpoint lit 1000 rows DB</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Passer à 30s, ajouter visibilitychange guard, backoff exponentiel</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>12 fetches/min × 1000 rows DB par tab admin. Monté dans AdminTopbar donc actif sur chaque sous-page.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">ChatBubble non mémoïsé — re-render O(N) à chaque token SSE</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ChatStage.tsx:99">app/(user)/_stages/ChatStage.tsx:99</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>function ChatBubble(...) — pas de memo()</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>const ChatBubble = memo(function ChatBubble(...))</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>ToolCallCard déjà memo'd. À 50+ messages, chaque token SSE re-rend toutes les bulles.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">ChatStage/MissionStage/MissionListStage importés statiquement — framer-motion dans bundle initial</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:13">app/(user)/cockpit-x/CockpitXClient.tsx:13</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>import statique des 3 stages (lignes 13-15)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>dynamic() comme ArtifactStage ligne 20</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Ces 3 stages importent framer-motion (~50kB gz). Tous les autres stages utilisent dynamic().</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Compteur 1Hz setInterval 'il y a X secondes'</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:345">app/admin/health/page.tsx:345</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setInterval(() =&gt; setSecondsSinceUpdate(...), 1000)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Intervalle 10s ou useMemo lazy + visibilitychange guard</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>setState 1/s même onglet inactif. Même pattern metrics/page.tsx:192.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Compteur 1Hz setInterval — metrics page</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:192">app/admin/metrics/page.tsx:192</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setInterval(() =&gt; setSecondsSinceUpdate(...), 1000)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Intervalle 10s + guard visibilitychange</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même problème que health/page.tsx.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">SignalCard: closure inline par item, composant non mémoïsé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SignalStage.tsx:389">app/(user)/_stages/SignalStage.tsx:389</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>onInvestigate={() =&gt; onInvestigate(sig)}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>memo() sur SignalCard, signalId en prop, handler stable</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tick nowMs 60s re-rend toute la liste; closures inline empêchent bail-out.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">MissionCard: closure inline par item, composant non mémoïsé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionListStage.tsx:329">app/(user)/_stages/MissionListStage.tsx:329</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>onClick={() =&gt; setMode({mode:'mission',missionId:mission.id})}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>memo() sur MissionCard, missionId en prop, handler stable</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Chaque re-render crée N closures et force N re-renders.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">agent_skills SELECT sans .limit() — à chaque message chat</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/agents/[id]/chat/route.ts:172">app/api/agents/[id]/chat/route.ts:172</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>.from('agent_skills').select(...).eq('agent_id',id).order('priority')</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter .limit(20) — cohérent avec agent_memory ligne 181</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Agent 50+ skills retourne tout à chaque message, bloat contexte LLM.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Liste agents admin sans .limit() — full table scan</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/page.tsx:29">app/admin/agents/page.tsx:29</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>.select(...).order('created_at')</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter .limit(100) + pagination</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Centaines d'agents = scan complet à chaque navigation.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">.in(assetIds) sans cap — clause IN très large</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/cockpit/ambient-signals.ts:282">lib/cockpit/ambient-signals.ts:282</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>assetIds = Array.from(new Set(...)) non bornée</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>assetIds.slice(0,50) avant la 2e query</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>IN(...) SQL très large dégrade le planning, risque timeout.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">agent_skills detail agent admin sans .limit()</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/[id]/page.tsx:36">app/admin/agents/[id]/page.tsx:36</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>.from('agent_skills').select('skills(...)').eq('agent_id',id)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter .limit(50)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Même pattern non borné.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">getScheduledMissions: filtrage tenant/type en JS après limit(100)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/state/adapter.ts:503">lib/engine/runtime/state/adapter.ts:503</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Fetch 100 rows, filtre actions.type==='scheduled' + tenant en JS</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Pousser filtres en DB (index JSONB actions-&gt;&gt;'type'), filtrer user_id systématiquement</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si 100 premières rows non-scheduled → résultat vide silencieux; filtrage tenant JS contourne RLS.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">JSON.stringify(run.input/output) inline dans JSX</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/runs/[id]/page.tsx:91">app/admin/runs/[id]/page.tsx:91</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>{JSON.stringify(run.input,null,2)} lignes 91,99,148,156</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>useMemo(() =&gt; JSON.stringify(run.input,null,2),[run.input])</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Outputs LLM &gt;100kB; stringify synchrone bloque le main thread.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Images compare stage sans loading='lazy'</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:111">app/(user)/_stages/AssetCompareStage.tsx:111</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;img&gt; lignes 111,244,265 sans attribut loading</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>loading='lazy' sur thumbnail; documenter eager sur slider</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Stage secondaire on-demand; thumbs fetchés eagerly avant activation.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AssetStage thumbnail sans loading='lazy'</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx:181">app/(user)/_stages/AssetStage.tsx:181</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;img src={asset.thumbnail}&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>loading='lazy'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Thumbnails lourds; lazy diffère le fetch hors viewport.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AppLogo logos externes sans lazy — 30+ requêtes simultanées</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppLogo.tsx:32">app/(user)/components/connections/AppLogo.tsx:32</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;img src={app.logo}&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>loading='lazy'</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>ConnectionsHub rend 1 logo/intégration; sans lazy tous fetchés au mount.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">console.error/warn non gardés en prod (connections-hub, VoicePulse, VersionHistoryPanel)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/use-connections-hub.ts:113">app/(user)/components/connections/use-connections-hub.ts:113</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.error(...) sans guard NODE_ENV</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>if (process.env.NODE_ENV!=='production') ou logger structuré</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Sérialisation args en prod; expose détails d'erreurs internes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">useEffect eslint-disable exhaustive-deps — steps stale dans ContextRail</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionStage.tsx:429">app/(user)/_stages/MissionStage.tsx:429</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>eslint-disable-next-line — steps absent des deps</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Inclure steps ou dériver dans l'effect</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Rail affiche steps stales après update mission.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Double JSON.stringify pour dirty-check dans useMemo — O(N)/frappe</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/reports/ReportEditor.tsx:90">app/(user)/components/reports/ReportEditor.tsx:90</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>() =&gt; JSON.stringify(spec) !== JSON.stringify(initialSpec)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>fast-deep-equal ou flag dirty via reducer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Specs volumineux; double sérialisation à chaque frappe ajoute latence.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          <span class="badge badge-p0">2</span>
+          <span class="badge badge-p1">9</span>
+          <span class="badge badge-p2">10</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">export-job throw sur chemin asset non branché (22j)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/missions/export-job.ts:141">lib/engine/runtime/missions/export-job.ts:141</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Implémenter getSpec via assets/adapter ou injecter dans ExportJobRunner.deps</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>La branche TODO lance une Error en prod : tout export de rapport avec assetId est cassé.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Polling SSE /api/v2/browser/sessions/[id]/steps no-op (route inexistante)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:335">app/(user)/_stages/BrowserStage.tsx:335</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer la route backend OU remplacer par état statique et supprimer le fetch 404</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>404 à chaque cycle sans bénéfice UI — bruit réseau + fausse promesse de live-steps.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">(sb as any) — 18 occurrences dans 7 fichiers</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/sharing/store.ts">lib/reports/sharing/store.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supabase gen types typescript après migrations, supprimer les casts</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tables simulation_runs/personas/report_shares/report_templates/asset_dedup/hearst_card_tokens absentes de database.types.ts.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">rawDb() SupabaseClient&lt;any&gt; dans 3 fichiers</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/cockpit/ambient-signals.ts:105">lib/cockpit/ambient-signals.ts:105</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>SupabaseClient&lt;Database&gt; + helper partagé lib/db/client.ts</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>transcript-store.ts:56 et v2/search/route.ts:38 idem.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">runAiPipeline — 1038 lignes (70% du fichier 1473L)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts:436">lib/engine/orchestrator/ai-pipeline.ts:436</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire buildTools()/handleToolCall()/streamLoop(); orchestrateur &lt;150L</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Concentre tool-building, streaming, retry, circuit-breaker, cost, persistance.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">52 exports, 0 import nommé hors fichier</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/events/types.ts">lib/events/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier narrowing interne sse-adapter.ts; rendre non-exportés ou supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>RunCreated/Started/Completed/Failed/Aborted Event jamais importés nommément.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">30 exports, seuls RunKind/TraceKind consommés</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/domain/types.ts">lib/domain/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer les réexports inutilisés</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Agent/Skill/Tool/Conversation shadow par database.types.ts — dette migration v2.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">4 exports Workflow* 0 import externe</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/workflows/types.ts">lib/workflows/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier usage interne executor.ts; sinon supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dead code candidat.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">resolveSpaceId/ScopedMetadata/DEFAULT_SPACE_ID/SpaceId jamais importés</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/multi-tenant/types.ts">lib/multi-tenant/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Consolider dans active-space.ts</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Phase 2 — risque divergence.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">web_search tool commenté (incompat Anthropic vs OpenAI/Kimi)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/delegate/api.ts:405">lib/engine/runtime/delegate/api.ts:405</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Wrapper de normalisation du format tool</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Outil désactivé dans le delegate API post-migration Kimi.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">7 eslint-disable react-hooks/exhaustive-deps</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/hooks/use-realtime-payload.ts">hooks/use-realtime-payload.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Auditer chaque cas; useCallback ou documenter</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>use-realtime-payload(×2), ReportEditor, MissionStage, SimulationStage(×2), VersionHistoryPanel.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">18 exports orphelins settings</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/settings/index.ts">lib/platform/settings/index.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Importer via index ou supprimer le barrel</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Call-sites importent direct depuis ./cache ou ./system.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">19 exports catalog (lookup dynamique probable)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/catalog/index.ts">lib/reports/catalog/index.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Marquer @public si lookup dynamique</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bruit knip.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">75 eslint-disable no-explicit-any dans 14 fichiers tools</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/tools/native">lib/tools/native/</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Typer via ToolInput&lt;T&gt; générique</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Surface tools non typée.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Provider déprécié 374L encore atteignable</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/anthropic.ts">lib/llm/anthropic.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer + retirer case router</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Doublon avec expert F11.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">5 sous-types RightPanel* 0 import externe</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/ui/right-panel/types.ts">lib/ui/right-panel/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Importer ou @internal</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Orphelins post-refacto.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">7 types orphelins architecture-map</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/architecture-map/types.ts">lib/architecture-map/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer ou @public</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bruit.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">9 composants exportés non consommés post-refacto DS</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/index.ts">app/(user)/components/ui/index.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Nettoyer le barrel</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dette refacto DS.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">21 exports dont recordAuthFailure jamais appelé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/auth/index.ts">lib/platform/auth/index.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier recordAuthFailure (sécu) puis nettoyer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>recordAuthFailure non câblé = télémétrie auth manquante.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Zod schemas internes exposés (versions + marketplace)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/versions/store.ts">lib/reports/versions/store.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ne pas exporter les schemas internes</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>4+4 schemas exposés.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Module hom/ orphan admin-only sans tests</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/hom">lib/hom/</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Confirmer usage ou archiver</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Module sans couverture.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">9</span>
+          <span class="badge badge-p2">11</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">three not declared in package.json — used in spatial-safe components</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Add three to dependencies (currently only @types/three is a devDep)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>hooks/spatial-safe/useSpatialR3F.ts and components/spatial-safe/orbital/OrbitalRing.tsx import three directly. No runtime dep declared — CI build can silently break if hoisting changes.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">@react-three/fiber not declared in package.json — used in spatial-safe</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Add @react-three/fiber to dependencies</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>hooks/spatial-safe/useSpatialR3F.ts and components/spatial-safe/orbital/OrbitalRing.tsx import @react-three/fiber. Ghost dep relying on transitive hoisting — CI risk.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">@react-three/drei not declared in package.json — used in spatial-safe</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Add @react-three/drei to dependencies</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>components/spatial-safe/orbital/OrbitalRing.tsx and components/spatial-safe/materials/GlassMaterial.tsx import @react-three/drei. Ghost dep — unresolvable in strict pnpm mode.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">playwright-core not declared — used in production lib/browser code and API route</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Add playwright-core to dependencies (not devDependencies)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>lib/browser/stagehand-executor.ts, lib/browser/playwright-bridge.ts and app/api/v2/hearst-card route import playwright-core. Only @playwright/test is declared as devDep — breaks prod bundle.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">@types/node: v20 declared, v25 available (MAJOR gap)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Update @types/node to ^25 in devDependencies</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Current ^20 lags 5 major versions behind. Missing Node.js built-in type definitions (crypto, stream, etc.) that changed significantly. Security patches not covered.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">typescript: v5 declared, v6.0.3 available (MAJOR)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Plan migration to typescript ^6 — review breaking changes first</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>TypeScript 6 includes strict mode tightening and new decorator semantics. Staying on v5 risks drift; however migration requires testing — flag as P1 planned work.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">jsdom: v26.1.0 installed, v29.1.1 available (3 MAJOR versions)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Update jsdom to ^29 in devDependencies</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>jsdom v27/v28/v29 include security fixes and improved spec compliance. Large version gap may mask test inaccuracies.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">electron: v41.6.1 installed, v42.2.0 available (MAJOR)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Update electron to ^42 in devDependencies</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Electron 42 bundles Chromium/Node.js security patches. Production desktop builds ship with v41 which has known Chromium CVEs from EOL support window.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">googleapis: v171.4.0, v172.0.0 available (MAJOR minor gap)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Update googleapis to ^172 in dependencies</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Major version bump may include breaking API changes or deprecated endpoints. Confirm Google API surface used before upgrading.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CVE-2026-41907 uuid &lt;11.1.1 via @arcjet/next (v10.0.0)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Await @arcjet/next upgrade or override uuid&gt;=11.1.1 in pnpm.overrides</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>uuid v3/v5/v6 missing buffer bounds check (CVSS 7.5 GHSA-w5hq-g745-h8pq). Indirect dep via @arcjet/next&gt;@arcjet/protocol&gt;typeid-js&gt;uuid@10.0.0</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CVE-2026-41907 uuid &lt;11.1.1 via exceljs (v8.3.2)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Await exceljs upgrade or override uuid&gt;=11.1.1 in pnpm.overrides</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>uuid v3/v5/v6 missing buffer bounds check (CVSS 7.5 GHSA-w5hq-g745-h8pq). Indirect dep via exceljs&gt;uuid@8.3.2</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">pino-pretty in dependencies — should be devDependencies</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Move pino-pretty from dependencies to devDependencies</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>pino-pretty is only used conditionally in dev/test via pino transport in lib/observability/logger.ts. Including it in prod deps inflates bundle and surfaces unnecessary packages in prod node_modules.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@tailwindcss/postcss declared as devDep but not used directly</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Verify if @tailwindcss/postcss is consumed via tailwindcss v4 peer — remove if redundant</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>depcheck reports @tailwindcss/postcss as unused devDependency. tailwindcss v4 may bundle this internally.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">wait-on declared as devDep but depcheck reports unused</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json">package.json</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Verify usage in dev:electron script — if only used in npm scripts, depcheck may false-positive. Keep if used.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>depcheck flags wait-on as unused devDependency. However package.json scripts use it: wait-on http://localhost:9001. Low-risk false positive — confirm before removing.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@img/sharp-libvips-darwin-arm64@1.2.4 — LGPL-3.0-or-later</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/pnpm-lock.yaml">pnpm-lock.yaml</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ensure LGPL compliance: dynamic linking, license attribution in distribution</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>LGPL-3.0 requires that end-users can replace the library. In Electron distributable this is particularly important — static linking could trigger copyleft obligations.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">jszip@3.10.1 — (MIT OR GPL-3.0-or-later)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/pnpm-lock.yaml">pnpm-lock.yaml</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Explicitly pin to MIT variant; confirm dual-license in NOTICE file</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dual license MIT OR GPL-3.0-or-later. The OR means MIT is available but must be explicitly chosen and documented to avoid GPL viral spread in the distributable.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">lightningcss@1.32.0 and lightningcss-darwin-arm64@1.32.0 — MPL-2.0</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/pnpm-lock.yaml">pnpm-lock.yaml</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>MPL-2.0 is file-level copyleft. No action needed if source not modified; add attribution.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>MPL-2.0 requires source disclosure only for modified lightningcss files. As a build-time dep it is generally safe but requires attribution and no modification of its source.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">postcss-values-parser@6.0.2 — MPL-2.0</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/pnpm-lock.yaml">pnpm-lock.yaml</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Build-time only — add attribution in NOTICES. Avoid modifying its source.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>MPL-2.0 file-level copyleft. postcss-values-parser is a build/lint dependency; low risk but requires attribution if redistributed.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@react-three/fiber, @react-three/drei, three — used in source but absent from lockfile</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/pnpm-lock.yaml">pnpm-lock.yaml</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Add missing deps to package.json then run pnpm install to regenerate lockfile</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>depcheck confirms @react-three/fiber, @react-three/drei, three are imported in spatial-safe but not in pnpm-lock.yaml as declared deps. This creates a phantom dependency situation — builds succeed only due to hoisting.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">playwright-core absent from pnpm-lock.yaml as a declared production dep</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/pnpm-lock.yaml">pnpm-lock.yaml</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Declare playwright-core in dependencies and run pnpm install</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>playwright-core is referenced in production code (lib/browser/, API routes) but only present transitively via @playwright/test devDep. In production builds devDeps are excluded.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
         <span class="section-counts">
           
           <span class="badge badge-p1">4</span>
-          <span class="badge badge-p2">3</span>
+          <span class="badge badge-p2">6</span>
         </span>
       </summary>
       
@@ -137,201 +1567,112 @@
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Tenant/Workspace IDs en fallback dans page token-gated</span>
+        <span class="finding-title">AnthropicProvider déprécié toujours instancié dans le router prod</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/hearst-card/[userId]/[yearMonth]/page.tsx:102">app/hearst-card/[userId]/[yearMonth]/page.tsx:102</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>tenantId = process.env.HEARST_TENANT_ID ?? &quot;&quot;; workspaceId = process.env.HEARST_WORKSPACE_ID ?? &quot;&quot;;</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Encoder tenant/workspace IDs dans le payload signé du token plutôt que de retomber sur les env vars en mode ?token=.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Le mode token (screenshotter) bypass l'auth et lit les IDs système depuis l'env. Un porteur de token peut inférer/manipuler ces IDs.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/router.ts:49">lib/llm/router.ts:49</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>router.ts:12 importe AnthropicProvider (lib/llm/anthropic.ts @deprecated); router.ts:49 l'instancie sous case 'anthropic'. ANTHROPIC_API_KEY si défini est consommé.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Retirer le case 'anthropic', supprimer lib/llm/anthropic.ts, révoquer ANTHROPIC_API_KEY si plus utilisé.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Module déprécié encore atteignable en prod = chemin non testé/non monitoré consommant une clé.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Endpoint de vote d'approbation : opération mutante sans rate-limit</span>
+        <span class="finding-title">Mismatch projet SUPABASE_SERVICE_ROLE_KEY documenté en git (à confirmer)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/approvals/[token]/vote/route.ts:25">app/api/v2/approvals/[token]/vote/route.ts:25</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export async function POST(req, { params: { token } }) — seule la signature HMAC fait office d'auth</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter rate-limit par token/IP, conserver la validation d'expiration, logger chaque changement de vote avec timestamp.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Changement d'état critique (vote, potentiellement déclenchement de run) sans rate-limit visible. Spam/bruteforce possible si le token fuit.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/docs/ + .env (commits historiques) — À VÉRIFIER">docs/ + .env (commits historiques) — À VÉRIFIER</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Doc historique : service_role JWT pour projet LEGACY tandis que SUPABASE_URL pointe MAIN. (Claim de l'auditeur sur historique git — à vérifier contre l'état réel des env Vercel.)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier la cohérence clé/URL en prod; régénérer le service_role depuis le bon projet si mismatch confirmé.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Un service_role pour le mauvais projet peut casser/contourner la RLS silencieusement.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Webhook meeting : injection de payload si secret absent (dev)</span>
+        <span class="finding-title">Fixtures de test au format clé API réelle (sk-ant-*, sk-proj-*) déclenchent les scanners</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/meetings/webhook/route.ts:34">app/api/v2/meetings/webhook/route.ts:34</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>if (verdict.reason === &quot;no_secret&quot;) { if (NODE_ENV===&quot;production&quot;) {...} else { console.warn(); /* passe */ } }</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Exiger RECALL_WEBHOOK_SECRET en prod toujours ; en dev exiger un flag explicite (ALLOW_UNVERIFIED_WEBHOOKS_DEV) sinon 503.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Bypass silencieux de la vérification de signature en dev. Si NODE_ENV mal configuré en prod, injection d'événements meeting falsifiés (transcripts, statuts).</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/__tests__/llm/errors.test.ts">__tests__/llm/errors.test.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>'sk-ant-abc123xyz789' / 'sk-proj-def456uvw123' en fixtures (synthétiques, pas de vraies clés).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par placeholders manifestement invalides (sk-ant-TESTONLY_NOT_REAL) ou allowlist .gitleaks.toml.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Les scanners (Gitleaks/truffleHog/GitHub) firent à chaque push → fatigue d'alerte, CI potentiellement bloqué.</span></div>
     </div>
     <div class="finding sev-p1">
       <div class="finding-head">
         <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Endpoint cron : CRON_SECRET en Bearer plain, pas de signature</span>
+        <span class="finding-title">IDs de projets Supabase incrustés en permanence dans l'historique</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/hearst-card/revoke/route.ts:77">app/api/hearst-card/revoke/route.ts:77</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) return 401;</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Validation HMAC-SHA256 avec timestamp anti-replay, secret &gt;= 32 octets, comparaison constante.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Bearer plain : vulnérable aux secrets faibles, fuite dans les logs, replay. Signature horodatée plus robuste.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/docs/ markdown (historique git)">docs/ markdown (historique git)</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>3 project IDs exposés dans la doc committée (non rotatable).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>RLS exhaustive sur les 3 projets, restreindre les scopes anon, auditer les projets LEGACY/SHARED.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Les project IDs permettent l'énumération REST/RLS ciblée — défense au niveau policy.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">SUPABASE_SERVICE_ROLE_KEY lu dans un server component (pas de fuite client, mais pattern à éviter)</span>
+        <span class="finding-title">Types Supabase auto-générés : 4725 lignes committées comme source</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:72">app/public/approvals/[token]/page.tsx:72</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>const key = process.env.SUPABASE_SERVICE_ROLE_KEY; createClient(url, key, ...)</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Déplacer la requête Supabase service-role dans une fonction serveur dédiée / route handler avec input strict, jamais directement dans le corps d'une page.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Vérifié : server component sans &quot;use client&quot;, donc PAS de fuite au bundle. Risque résiduel uniquement si converti en client ou loggé. Best-practice, pas une vuln active.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/database.types.ts">lib/database.types.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>4725 lignes; chaque migration = diff massif.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>.gitignore + génération CI (supabase gen types), ou split par domaine.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Fichiers auto-générés en git gonflent les diffs et cassent blame/bisect.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Endpoint health LLM expose des détails infra (providers up/down, fallback)</span>
+        <span class="finding-title">Pipeline IA : 1473 lignes (runAiPipeline ~1038L)</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/health/llm/route.ts">app/api/health/llm/route.ts</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>GET /api/health/llm (admin requis) retourne le détail des providers</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Séparer /api/health/public (juste {ok}) du /api/health/llm admin ; rate-limit + log d'accès.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Auth admin OK, mais le détail des chaînes de fallback aide un attaquant à cartographier l'infra.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts">lib/engine/orchestrator/ai-pipeline.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Un fichier pour planning+exécution+streaming+error handling.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire planner/executor/stream-adapter/error-handler + barrel index.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>&gt;500L sur chemin chaud = dur à tester/reviewer, hot-spot de conflits.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">Endpoint debug retourne l'objet session complet (raw)</span>
+        <span class="finding-title">Provider LLM déprécié 374L encore importé en prod</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/debug/session/route.ts:13">app/api/debug/session/route.ts:13</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>if (NODE_ENV===&quot;production&quot;) return 403; return NextResponse.json({ session, raw: session });</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Supprimer l'endpoint ou exiger un flag explicite (DEBUG_SESSION_ENDPOINT=1) en plus du check NODE_ENV ; ne jamais exposer le raw session.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Si NODE_ENV mal configuré (staging/prod), le JWT session complet fuit (structure auth interne, user IDs).</span></div>
-    </div>
-      </div>
-    </details>
-    <details class="section" open>
-      <summary>
-        <span class="section-name">Performance</span>
-        <span class="section-agent">perf</span>
-        <span class="section-counts">
-          
-          <span class="badge badge-p1">2</span>
-          <span class="badge badge-p2">3</span>
-        </span>
-      </summary>
-      
-      <div class="findings">
-        
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">JSON.stringify x2 à chaque render pour calculer isDirty</span>
-        
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/new/page.tsx:38">app/admin/agents/new/page.tsx:38</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>const isDirty = JSON.stringify(form) !== JSON.stringify(initialFormRef.current);</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>const isDirty = useMemo(() =&gt; JSON.stringify(form) !== JSON.stringify(initialFormRef.current), [form]);</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Sérialisation O(n) à chaque render dans le corps du composant. useMemo limite au changement de form.</span></div>
-    </div>
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">Balise &lt;img&gt; native au lieu de next/image</span>
-        
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:290">app/(user)/_shell/LeftRail.tsx:290</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>&lt;img src=&quot;/hearst-h.svg&quot; alt=&quot;Helm&quot; style={{ width: 22, height: 24, opacity: 0.9 }} /&gt;</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>import Image from 'next/image'; &lt;Image src=&quot;/hearst-h.svg&quot; alt=&quot;Helm&quot; width={22} height={24} style={{ opacity: 0.9 }} /&gt;</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>next/image apporte lazy-loading, srcset et conversion de format automatiques.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/anthropic.ts">lib/llm/anthropic.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>@deprecated mais router.ts l'instancie; importe @anthropic-ai/sdk inutilement.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Retirer case router, supprimer le fichier, MAJ test cache-control vers Kimi.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Code mort atteignable = surface de bug latente sans couverture de test.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">JSON.stringify appelé dans un helper utilisé pendant le render</span>
+        <span class="finding-title">Module health admin 860L avec décision Hume non tranchée</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ChatStage.tsx:75">app/(user)/_stages/ChatStage.tsx:75</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>const str = typeof tc.input === &quot;string&quot; ? tc.input : JSON.stringify(tc.input);</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Mémoïser le rendu de la liste de tool calls si elle re-render fréquemment.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Pour de gros objets d'input, sérialisation répétée à chaque render de la liste.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/admin/health.ts">lib/admin/health.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>860L; TODO ligne 17 'Hume reste TODO'; health/page.tsx (553L) en dépend.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Trancher la décision Hume, extraire les streams par provider sous lib/admin/health/.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Décision archi non tranchée dans le plus gros fichier admin = dérive.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">CockpitXClient : 945 lignes</span>
+        <span class="finding-title">3 TODO SSE — route /api/v2/browser/sessions/[id]/steps inexistante</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:945">app/(user)/cockpit-x/CockpitXClient.tsx:945</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function CockpitXClient({ ... }) { /* 945 lignes */ }</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire CockpitContent, la logique de switch de mode et le lookup du stage registry.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Monolithe : lisibilité réduite, scope de re-render large, mémoïsation grossière.</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx">app/(user)/_stages/BrowserStage.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Lignes 335/382/394 : route SSE absente, steps no-op silencieux.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Créer la route SSE OU état UI désactivé explicite + ticket de suivi.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>No-op silencieux : la stage paraît active mais ne produit aucune donnée.</span></div>
     </div>
     <div class="finding sev-p2">
       <div class="finding-head">
         <span class="badge badge-p2">P2</span>
-        <span class="finding-title">KGStage : 738 lignes</span>
+        <span class="finding-title">web_search format incompatible Anthropic vs OpenAI/Kimi</span>
         
       </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:738">app/(user)/_stages/KGStage.tsx:738</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>export function KGStage({ mode }: StageProps) { /* 738 lignes */ }</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire le rendu SVG, le calcul de layout des nodes, le builder des rail items.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Extraction logique pour organisation et testabilité.</span></div>
-    </div>
-      </div>
-    </details>
-    <details class="section" open>
-      <summary>
-        <span class="section-name">Architecture</span>
-        <span class="section-agent">ADD</span>
-        <span class="section-counts">
-          
-          <span class="badge badge-p1">1</span>
-          
-        </span>
-      </summary>
-      
-      <div class="findings">
-        
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">currentRunId dupliqué entre useChatStageStore et useRuntimeStore</span>
-        
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/chat-stage.ts:50">stores/chat-stage.ts:50</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>useChatStageStore.currentRunId?: string (ligne 50) ET useRuntimeStore.currentRunId: string | null (ligne 68)</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Retirer currentRunId de useChatStageStore, le lire depuis useRuntimeStore via selector. Source de vérité unique.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Risque de désync : si useRuntimeStore change mais useChatStageStore reste stale, les composants voient un ID obsolète.</span></div>
-    </div>
-      </div>
-    </details>
-    <details class="section" open>
-      <summary>
-        <span class="section-name">Dépendances</span>
-        <span class="section-agent">deps</span>
-        <span class="section-counts">
-          
-          <span class="badge badge-p1">1</span>
-          
-        </span>
-      </summary>
-      
-      <div class="findings">
-        
-    <div class="finding sev-p1">
-      <div class="finding-head">
-        <span class="badge badge-p1">P1</span>
-        <span class="finding-title">uuid &lt; 11.1.1 : bounds check buffer manquant (CVSS 7.5)</span>
-        
-      </div>
-      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/package.json:84">package.json:84</a></div>
-      <div class="finding-row"><span class="k">Actuel</span><code>Transitif : @arcjet/next -&gt; uuid@10.0.0 ; exceljs -&gt; uuid@8.3.2</code></div>
-      <div class="finding-row"><span class="k">Suggéré</span><code>Upgrade @arcjet/next et exceljs, ou ajouter un override forçant uuid@&gt;=11.1.1.</code></div>
-      <div class="finding-row"><span class="k">Pourquoi</span><span>Les méthodes v3/v5/v6 de uuid &lt; 11.1.1 ne valident pas les bornes de buffer (écritures partielles silencieuses).</span></div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/delegate/api.ts:405">lib/engine/runtime/delegate/api.ts:405</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>TODO:405 — depuis migration Kimi, web_search peut échouer silencieusement.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Adaptateur de format normalisant web_search vers OpenAI + tests par provider.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mismatch de format = missions agent avec recherche web échouent/sautent sans signal.</span></div>
     </div>
       </div>
     </details>
@@ -343,19 +1684,19 @@
       <div class="plan-grid">
         <div class="plan-batch">
               <h3>P0 critiques</h3>
-              <ul><li>Aucun P0 confirmé après vérification.</li></ul>
+              <ul><li>Shell.tsx + ClientProviders + login : bg-black/text-white shadow le thème produit (DS)</li><li>Polling runaway non traités : MeetingStage 5s + AdminTopbarKpis 5s×1000rows (perf)</li><li>ChatBubble non mémoïsé → re-render O(N) par token SSE</li><li>AppDrawer role=dialog sans focus trap (a11y)</li><li>NotificationsPage + admin/metrics : états loading/empty ignorés</li><li>export-job.ts:141 throw sur asset non branché + BrowserStage SSE no-op</li></ul>
             </div><div class="plan-batch">
-              <h3>P1 cohérence</h3>
-              <ul><li>Rate-limit + log sur l'endpoint vote approvals</li><li>Forcer RECALL_WEBHOOK_SECRET en prod, flag explicite en dev</li><li>Signature HMAC horodatée pour le cron revoke (vs Bearer plain)</li><li>Encoder tenant/workspace IDs dans le token signé (hearst-card)</li><li>isDirty via useMemo + &lt;img&gt; -&gt; next/image</li><li>Dédupliquer currentRunId (source unique useRuntimeStore)</li><li>Override uuid@&gt;=11.1.1</li></ul>
+              <h3>P1 cohérence/sécurité</h3>
+              <ul><li>Régénérer database.types.ts → éliminer 18 (sb as any) + 3 rawDb()</li><li>VÉRIFIER mismatch SUPABASE_SERVICE_ROLE_KEY projet (claim expert) + rotation si confirmé</li><li>Retirer AnthropicProvider déprécié du router prod + révoquer clé</li><li>.limit() sur 4 requêtes Supabase non bornées (agent_skills, agents, ambient-signals)</li><li>a11y forms : htmlFor/id manquants (agents/new, EmailSection, WebhooksSection, analytics)</li><li>var(--accent-teal)→--ct-accent (66 occ), majeurs outdated, ghost deps three/playwright</li></ul>
             </div><div class="plan-batch">
               <h3>P2 dettes</h3>
-              <ul><li>Déplacer le service-role Supabase hors du corps de page</li><li>Séparer /api/health/public minimal du /api/health/llm admin</li><li>Supprimer/flagger /api/debug/session</li><li>Découper CockpitXClient (945L) et KGStage (738L)</li></ul>
+              <ul><li>Split ai-pipeline.ts 1473L + database.types.ts en gitignore/CI</li><li>420 exports orphelins (knip) — confirmer les morts (workflows/types, right-panel/types, ui/index)</li><li>Licences à documenter (sharp LGPL, jszip MIT|GPL, lightningcss MPL) → NOTICE</li><li>uuid CVE transitive (override), pino-pretty→devDeps, 4 P2 sécu défense-profondeur</li><li>console.* prod gardés, images loading=lazy, skeletons role=status/aria-busy</li></ul>
             </div>
       </div>
     </section>
 
   <footer>
-    Hearst OS · 2026-05-22 05:37
+    Hearst OS · 2026-05-22 16:16
   </footer>
 </div>
 </body>

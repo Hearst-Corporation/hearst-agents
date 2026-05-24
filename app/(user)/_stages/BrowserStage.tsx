@@ -188,20 +188,11 @@ function SessionFrame({
       </div>
 
       {/* Viewport — placeholder aspect-video, PAS d'iframe (XSS / cross-origin) */}
-      <div className="aspect-video bg-(--surface-1) flex flex-col items-center justify-center gap-(--space-2-5)">
-        {isActive ? (
-          <>
-            <motion.div
-              className="size-2 rounded-full bg-(--accent-llm)/75"
-              animate={{ opacity: [1, 0.25, 1], scale: [1, 1.3, 1] }}
-              transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-            />
-            <span className="t-13 text-(--text-muted)">Session Browserbase active</span>
-            <span className="t-11 text-(--text-muted) font-mono">{sessionId.slice(0, 16)}…</span>
-          </>
-        ) : (
-          <span className="t-13 text-(--text-ghost)">Session inactive</span>
-        )}
+      <div className="aspect-video bg-(--surface-1) flex flex-col items-center justify-center gap-(--space-2-5) rounded-(--radius-sm) border border-(--border-shell)">
+        <span className="t-13 text-(--text-ghost)">
+          Visualisation du navigateur en cours de développement
+        </span>
+        <span className="t-11 text-(--text-muted)">Session : {sessionId.slice(0, 16)}…</span>
       </div>
     </div>
   );

@@ -200,19 +200,16 @@ export async function chatWithProfile(
 
       try {
         const provider = getProvider(profile.provider);
-        const response = await retryWithBackoff(
-          () =>
-            provider.chat({
-              model: profile.model,
-              messages,
-              temperature: overrides?.temperature ?? profile.temperature,
-              max_tokens: overrides?.max_tokens ?? profile.max_tokens,
-              top_p: overrides?.top_p ?? profile.top_p,
-              timeoutMs: overrides?.timeoutMs,
-              signal: wallclock.signal,
-            }),
-          3,
-          profile.provider,
+        const response = await retryWithBackoff(() =>
+          provider.chat({
+            model: profile.model,
+            messages,
+            temperature: overrides?.temperature ?? profile.temperature,
+            max_tokens: overrides?.max_tokens ?? profile.max_tokens,
+            top_p: overrides?.top_p ?? profile.top_p,
+            timeoutMs: overrides?.timeoutMs,
+            signal: wallclock.signal,
+          }),
         );
 
         response.cost_usd = computeCost(
@@ -348,22 +345,19 @@ export async function* streamChatWithProfile(
 
       try {
         const provider = getProvider(profile.provider);
-        const stream = await retryWithBackoff(
-          () =>
-            Promise.resolve(
-              provider.streamChat({
-                model: profile.model,
-                messages,
-                temperature: overrides?.temperature ?? profile.temperature,
-                max_tokens: overrides?.max_tokens ?? profile.max_tokens,
-                top_p: overrides?.top_p ?? profile.top_p,
-                stream: true,
-                timeoutMs: overrides?.timeoutMs,
-                signal: wallclock.signal,
-              }),
-            ),
-          3,
-          profile.provider,
+        const stream = await retryWithBackoff(() =>
+          Promise.resolve(
+            provider.streamChat({
+              model: profile.model,
+              messages,
+              temperature: overrides?.temperature ?? profile.temperature,
+              max_tokens: overrides?.max_tokens ?? profile.max_tokens,
+              top_p: overrides?.top_p ?? profile.top_p,
+              stream: true,
+              timeoutMs: overrides?.timeoutMs,
+              signal: wallclock.signal,
+            }),
+          ),
         );
 
         let first = true;
@@ -495,19 +489,16 @@ export async function smartChat(
 
       try {
         const provider = getProvider(attempt.provider);
-        const response = await retryWithBackoff(
-          () =>
-            provider.chat({
-              model: attempt.model,
-              messages: opts.messages,
-              temperature: opts.temperature,
-              max_tokens: opts.max_tokens,
-              top_p: opts.top_p,
-              timeoutMs: opts.timeoutMs,
-              signal: wallclock.signal,
-            }),
-          3,
-          attempt.provider,
+        const response = await retryWithBackoff(() =>
+          provider.chat({
+            model: attempt.model,
+            messages: opts.messages,
+            temperature: opts.temperature,
+            max_tokens: opts.max_tokens,
+            top_p: opts.top_p,
+            timeoutMs: opts.timeoutMs,
+            signal: wallclock.signal,
+          }),
         );
 
         if (opts.max_cost_per_run && response.cost_usd > opts.max_cost_per_run) {
@@ -651,22 +642,19 @@ export async function* smartStreamChat(
 
       try {
         const provider = getProvider(attempt.provider);
-        const stream = await retryWithBackoff(
-          () =>
-            Promise.resolve(
-              provider.streamChat({
-                model: attempt.model,
-                messages: opts.messages,
-                temperature: opts.temperature,
-                max_tokens: opts.max_tokens,
-                top_p: opts.top_p,
-                stream: true,
-                timeoutMs: opts.timeoutMs,
-                signal: wallclock.signal,
-              }),
-            ),
-          3,
-          attempt.provider,
+        const stream = await retryWithBackoff(() =>
+          Promise.resolve(
+            provider.streamChat({
+              model: attempt.model,
+              messages: opts.messages,
+              temperature: opts.temperature,
+              max_tokens: opts.max_tokens,
+              top_p: opts.top_p,
+              stream: true,
+              timeoutMs: opts.timeoutMs,
+              signal: wallclock.signal,
+            }),
+          ),
         );
 
         if (attemptIndex > 0 && opts.tracer) {

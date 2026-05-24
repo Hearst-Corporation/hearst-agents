@@ -70,9 +70,6 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
       onClick={(e) => {
         if (e.target === e.currentTarget) handleCancel();
       }}
-      onKeyDown={(e) => {
-        if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) handleCancel();
-      }}
     >
       <div
         ref={dialogRef}
