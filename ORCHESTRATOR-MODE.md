@@ -55,7 +55,7 @@
 | **R3** | Chaque prompt est un fichier MD autonome : `docs/audit/prompt-batch-{N}.md` |
 | **R4** | Le prompt doit contenir : contexte + items numérotés + SEARCH/REPLACE exacts + validation `pnpm typecheck && pnpm lint` |
 | **R5** | Strictement aligné sur le plan consolidé (pas d'ajout ni d'omission d'items) |
-| **R6** | Le prompt doit rappeler les règles de sécurité (spatial-safe, agent-lock, etc.) |
+| **R6** | Le prompt doit rappeler les règles de sécurité (agent-lock, etc.) |
 
 ---
 
@@ -79,7 +79,7 @@ Si un des critères échoue → **PROMPT DE CORRECTION**.
 
 ## Contexte
 - Stack : Next.js 16, Tailwind v4, React 19, Zustand 5
-- Règles strictes : spatial-safe, agent-lock, pas de logique métier modifiée
+- Règles strictes : agent-lock, pas de logique métier modifiée
 - Commits atomiques en français
 
 ## Items à corriger

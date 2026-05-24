@@ -91,21 +91,3 @@ Français pour tout : réponses, commits, commentaires code, microcopy UI.
 - La navigation suit `lab/cli-os/src/lib/navigation-truth.ts` qui dérive du code réel
 
 Run : `cd lab/cli-os && pnpm install && pnpm dev` → `localhost:5173`.
-
-## 🔒 INTERDICTION ABSOLUE — `/spatial-safe` (sauvegarde de référence)
-
-La route **`/spatial-safe`** et tous ses fichiers associés sont une **sauvegarde figée** de la scène Spatial qui fonctionne (Spline central + panels HTML). Ils servent de filet de sécurité si on casse `/spatial` pendant un chantier R&D.
-
-**Aucun agent, aucune slash command, aucun script ne doit modifier les fichiers suivants** sans accord explicite et écrit d'Adrien :
-
-- `app/spatial-safe/` (page + layout)
-- `components/spatial-safe/` (core, overlays, panels, orbital, materials, motion)
-- `hooks/spatial-safe/`
-- `lib/spatial-safe/`
-- `styles/spatial-safe/`
-- `providers/spatial-safe/`
-- `docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/` (backup physique hors-git)
-
-Ces zones sont en **lecture seule pour tous les agents**. Pas d'Edit, pas de Write, pas de `mv`, pas de `rm`. Refactor structurel global → exclure `spatial-safe/` du scope.
-
-Si tu dois faire évoluer la sauvegarde (nouvelle version validée), Adrien exécute la mise à jour lui-même ou te donne l'autorisation explicite.

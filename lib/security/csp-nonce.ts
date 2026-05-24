@@ -72,8 +72,6 @@ export function buildCsp(nonce: string, isDev: boolean): string {
       "wss://*.supabase.co",
       "https://*.upstash.io",
       "https://api.hypercli.com",
-      "https://prod.spline.design",
-      "https://*.spline.design",
       "https://unpkg.com",
     ].join(" "),
     "frame-ancestors 'none'",

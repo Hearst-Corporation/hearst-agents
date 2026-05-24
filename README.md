@@ -14,7 +14,6 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 - **Auth** : NextAuth (`SessionProvider` dans `app/(user)/layout.tsx`)
 - **État client** : Zustand (`stores/`)
 - **Shell** : `@hearst/cockpit-shell`
-- **3D** : `@react-three/fiber` (HaloAgentCore, spatial-safe)
 - **Tests** : Vitest (unit) + Playwright (e2e/visual)
 - **Lint** : Biome + linter visuel custom (`scripts/lint-visual.mjs`)
 - **Deploy** : Vercel ; desktop optionnel via Electron
@@ -34,7 +33,6 @@ app/
   admin/             back-office (gouvernance ADD, agents, métriques)
   api/               route handlers REST + SSE
   hooks/             ★ hooks transversaux app-level
-components/spatial-safe/   🔒 couche 3D figée (lecture seule)
 lib/                 logique métier serveur/pure (LLM, engine, connecteurs…)
 stores/              état global Zustand (16 stores)
 docs/                doc projet + protocole ADD + LLM_PROJECT_MAP.md
@@ -57,7 +55,7 @@ npx knip             # détection code mort (filtrer .claude/worktrees)
 
 - **Une primitive par rôle** : bouton `<Action>`, bouton icône `<IconButton>`, carte `<PanelCard>`, modale via `useModalA11y`. Cherche dans `app/(user)/components/ui/` avant de créer.
 - **Où ajouter** : primitive générique → `components/ui/` ; composant métier → `components/<domaine>/` ; vue plein-écran → `_stages/` (+ `registry.ts`) ; hook transversal → `app/hooks/` ; hook d'une seule feature → colocalisé ; logique pure → `lib/<domaine>/`.
-- **Où NE PAS ajouter** : pas de feature dans `components/ui/`, pas de primitive générique dans un dossier feature, **rien dans `spatial-safe/`** (🔒), rien dans `lab/` (sandbox isolée).
+- **Où NE PAS ajouter** : pas de feature dans `components/ui/`, pas de primitive générique dans un dossier feature, rien dans `lab/` (sandbox isolée).
 - **Tokens uniquement** : couleurs/espacements/typo via `--ct-*` et `.t-N` (`app/globals.css`). Pas de hex hardcodé (le linter visuel bloque).
 
 <a name="for-ai-agents"></a>
@@ -78,7 +76,7 @@ Règles :
 - **Ne réorganise pas** vers une structure `ui/features/layout` générique : déménagement massif proscrit.
 - **Lance toujours** `npm run validate` (typecheck + lint + test) avant de proposer un patch.
 - **Justifie** chaque suppression, fusion ou déplacement (preuve d'absence d'usage).
-- **Respecte les zones 🔒** : `spatial-safe/`, features ADD verrouillées, `lab/`.
+- **Respecte les zones 🔒** : features ADD verrouillées, `lab/`.
 
 ---
 
@@ -329,7 +327,6 @@ flowchart TD
 - fichiers de preview non branchés
 - captures, prototypes, snippets jetables
 - code runtime/orchestrator si la demande est purement visuelle
-- **`/spatial-safe` et tous ses fichiers associés** (`app/spatial-safe/`, `components/spatial-safe/`, `hooks/spatial-safe/`, `lib/spatial-safe/`, `styles/spatial-safe/`, `providers/spatial-safe/`, `docs/spatial/_BACKUP_SPATIAL_WORKING_*/`) — **lecture seule absolue**. C'est la sauvegarde de référence de la scène Spatial fonctionnelle. Détails dans `CLAUDE.md` et `docs/AGENT-DRIVEN-DEV.md`.
 
 ### Why Agents Get Confused
 

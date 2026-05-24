@@ -6,7 +6,6 @@ Compact guide for any agent (OpenCode, Claude, etc.) working in this repo.
 
 1. **Check `docs/AGENT-LOCK.json`** — if `locked === true`, refuse all edits/destructive actions. Inform the user to unlock at `/admin/agent-driven-dev`.
 2. **Check feature lock** — 32/32 features are locked. Before modifying anything, read `docs/features/<id>.md` for the feature's invariants. See `docs/AGENT-DRIVEN-DEV.md` for the full protocol.
-3. **Read-only zones** — never edit `app/spatial-safe/`, `components/spatial-safe/`, `hooks/spatial-safe/`, `lib/spatial-safe/`, `providers/spatial-safe/`, `styles/spatial-safe/`, or `docs/spatial/_BACKUP_*`.
 
 ## 📦 Package manager
 
