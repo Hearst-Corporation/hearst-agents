@@ -41,6 +41,8 @@ const REDACT_PATHS = [
   "*.apiKey",
   "*.api_key",
   "*.authorization",
+  "*.email",
+  "*.phone",
   "token",
   "access_token",
   "refresh_token",

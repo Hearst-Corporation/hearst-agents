@@ -12,6 +12,7 @@ export interface SafeErrorContext {
  * - Message générique en prod (jamais de stack ni détail interne)
  * - Message complet en dev pour debug
  * - Toujours un `request_id` pour corrélation avec les logs Sentry/Langfuse
+ * - Header `X-Request-Id` pour corrélation rapide DevTools/Sentry
  *
  * Toujours logger le détail complet via `logger.error` (PII redacted via Pino redact paths).
  */
@@ -21,7 +22,16 @@ export function safeErrorResponse(
   status: number = 500,
 ): NextResponse {
   const requestId = randomUUID();
-  const message = cause instanceof Error ? cause.message : String(cause);
+
+  // Fallback cause.message : supporte les objets non-Error avec .message
+  // (ex : Supabase brut { message, code, details })
+  const messageRaw =
+    cause instanceof Error
+      ? cause.message
+      : typeof cause === "object" && cause !== null && "message" in cause
+        ? String((cause as { message: unknown }).message)
+        : String(cause);
+
   const stack = cause instanceof Error ? cause.stack : undefined;
 
   logger.error(
@@ -30,19 +40,21 @@ export function safeErrorResponse(
       route: ctx.route,
       tenant_id: ctx.scope?.tenantId,
       user_id: ctx.scope?.userId,
-      err_message: message,
+      err_message: messageRaw,
       err_stack: stack,
     },
     `[${ctx.route}] unhandled exception`,
   );
 
   const isProd = process.env.NODE_ENV === "production";
-  return NextResponse.json(
+  const res = NextResponse.json(
     {
       error: "internal_server_error",
-      message: isProd ? "Une erreur interne est survenue. Réessayez plus tard." : message,
+      message: isProd ? "Une erreur interne est survenue. Réessayez plus tard." : messageRaw,
       request_id: requestId,
     },
     { status },
   );
+  res.headers.set("X-Request-Id", requestId);
+  return res;
 }

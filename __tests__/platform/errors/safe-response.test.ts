@@ -2,7 +2,8 @@
  * safeErrorResponse — Tests unitaires
  *
  * Vérifie que le helper ne leak jamais de stack en prod,
- * retourne le message complet en dev, inclut toujours un request_id
+ * retourne le message complet en dev, inclut toujours un request_id,
+ * set le header X-Request-Id, gère les objets non-Error avec .message,
  * et appelle logger.error avec le contexte complet.
  */
 
@@ -26,15 +27,24 @@ vi.mock("@/lib/observability/logger", () => ({
   }),
 }));
 
+// Mock NextResponse avec headers.set simulé
 vi.mock("next/server", () => {
   return {
     NextResponse: {
-      json: vi.fn((body: unknown, init?: { status?: number }) => ({
-        _body: body,
-        _status: init?.status ?? 200,
-        json: async () => body,
-        status: init?.status ?? 200,
-      })),
+      json: vi.fn((body: unknown, init?: { status?: number }) => {
+        const headersMap = new Map<string, string>();
+        return {
+          _body: body,
+          _status: init?.status ?? 200,
+          json: async () => body,
+          status: init?.status ?? 200,
+          headers: {
+            set: (key: string, value: string) => headersMap.set(key, value),
+            get: (key: string) => headersMap.get(key) ?? null,
+            _map: headersMap,
+          },
+        };
+      }),
     },
   };
 });
@@ -166,5 +176,38 @@ describe("safeErrorResponse", () => {
     expect(bodyStr).not.toContain("SELECT");
     expect(bodyStr).not.toContain("route.ts");
     expect(bodyStr).not.toContain("stack");
+  });
+
+  // AC4 — nouveau : header X-Request-Id
+  it("set le header X-Request-Id égal au request_id du body", () => {
+    vi.stubEnv("NODE_ENV", "production");
+
+    const res = safeErrorResponse(new Error("boom"), { route: "GET /api/test" }) as unknown as {
+      _body: { request_id: string };
+      headers: { get: (k: string) => string | null };
+    };
+
+    const headerValue = res.headers.get("X-Request-Id");
+    expect(headerValue).toBeTruthy();
+    expect(headerValue).toBe(res._body.request_id);
+  });
+
+  // AC4 — nouveau : fallback cause.message pour objets non-Error (pattern Supabase)
+  it("extrait le message d'un objet non-Error avec champ .message (pattern Supabase)", () => {
+    vi.stubEnv("NODE_ENV", "development");
+
+    const supabaseError = {
+      message: "constraint violation",
+      code: "23505",
+      details: "Key (id)...",
+    };
+    const res = safeErrorResponse(supabaseError, { route: "POST /api/test" }) as unknown as {
+      _body: { message: string };
+    };
+
+    expect(res._body.message).toBe("constraint violation");
+    expect(mockLoggerError).toHaveBeenCalledOnce();
+    const [logCtx] = mockLoggerError.mock.calls[0];
+    expect(logCtx.err_message).toBe("constraint violation");
   });
 });
