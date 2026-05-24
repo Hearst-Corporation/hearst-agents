@@ -1,63 +1,56 @@
 /**
- * retryWithBackoff — helper d'isolation pour les retries LLM transitoires.
+ * retryWithBackoff — logique de retry avec backoff exponentiel + jitter.
  *
- * Extrait de router.ts (qui l'appelait 4× en hot path) pour améliorer la
- * testabilité et éviter la duplication.
- *
- * Stratégie :
- * - Retry sur erreurs transitoires uniquement (429, 500, 502, 503, 504).
- * - Backoff exponentiel avec jitter ±20%.
- * - Cap configurable via provider (utilise SOFT_THROTTLE_CAP_MS par défaut,
- *   HARD_THROTTLE_CAP_MS si provider retry-after est explicite).
- *
- * @internal — ne pas importer depuis les couches UI ou API.
+ * Extrait de router.ts pour être testable isolément.
+ * Supporte un 3e arg optionnel `provider` utilisé pour logguer un warn structuré
+ * quand le Retry-After du provider dépasse HARD_THROTTLE_CAP_MS.
  */
 
-/** Cap dur pour les delays issus d'un Retry-After explicite (429). */
+import { logger } from "@/lib/observability/logger";
+
+/** Plafond dur sur le délai de retry : 60 s. Au-delà, on cap et on log un warn. */
 export const HARD_THROTTLE_CAP_MS = 60_000;
 
-/** Cap doux pour le backoff exponentiel générique. */
-export const SOFT_THROTTLE_CAP_MS = 30_000;
-
 /**
- * Détermine si une erreur est transitoire (5xx ou 429).
- * Seule la regex sur error.message est utilisée (les SDK LLM y incluent le code HTTP).
- */
-export function isTransientError(err: unknown): boolean {
-  if (!(err instanceof Error)) return false;
-  return /\b(429|500|502|503|504)\b/.test(err.message);
-}
-
-/**
- * Extrait le nombre de ms à attendre depuis un header Retry-After ou un
- * message d'erreur LLM (ex : "retry after 12s").
- * Retourne 0 si non trouvé.
+ * Extrait un délai Retry-After (ms) depuis un message d'erreur.
+ * Supporte :
+ *  - "retry-after: 30" (HTTP header textuel dans l'erreur)
+ *  - "retry after 45 seconds"
+ *  - "retryAfterMs: 120000"
+ * Retourne 0 si rien n'est trouvé.
  */
 export function extractRetryAfterMs(err: unknown): number {
   if (!(err instanceof Error)) return 0;
   const msg = err.message;
 
-  // "retry-after: 500ms" (ms en premier pour éviter le faux-positif du match secondes)
-  const msMatch = msg.match(/retry[-\s]after[:\s]+(\d+(?:\.\d+)?)\s*ms/i);
-  if (msMatch) {
-    return Math.min(Math.round(parseFloat(msMatch[1])), HARD_THROTTLE_CAP_MS);
-  }
+  // retryAfterMs: <number> (millisecondes directes)
+  const msMatch = msg.match(/retryAfterMs[:\s]+(\d+)/i);
+  if (msMatch) return parseInt(msMatch[1], 10);
 
-  // "retry-after: 30" ou "retry after 30s" (secondes, ne doit pas matcher "ms")
-  const secMatch = msg.match(/retry[-\s]after[:\s]+(\d+(?:\.\d+)?)\s*(?:s\b)?(?!\s*ms)/i);
-  if (secMatch) {
-    return Math.min(Math.round(parseFloat(secMatch[1]) * 1000), HARD_THROTTLE_CAP_MS);
-  }
+  // retry-after: <seconds> ou retry after <seconds>
+  const secMatch = msg.match(/retry[- ]after[:\s]+(\d+)/i);
+  if (secMatch) return parseInt(secMatch[1], 10) * 1000;
+
+  // "after X seconds"
+  const afterSecMatch = msg.match(/after\s+(\d+)\s+second/i);
+  if (afterSecMatch) return parseInt(afterSecMatch[1], 10) * 1000;
 
   return 0;
 }
 
+function isTransientError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  return /\b(429|500|502|503|504)\b/.test(err.message);
+}
+
 /**
- * Exécute `fn` avec retry + backoff exponentiel sur erreurs transitoires.
+ * Retente `fn` jusqu'à `maxRetries` fois sur erreur transiente (429, 5xx).
+ * Le délai est exponentiel avec jitter ±20 %.
+ * Si le provider fournit un Retry-After, on l'utilise à la place (cappé à HARD_THROTTLE_CAP_MS).
  *
- * @param fn          - La fonction async à exécuter.
- * @param maxRetries  - Nombre maximum de tentatives supplémentaires (défaut : 3).
- * @param provider    - Nom du provider LLM (optionnel, pour les logs).
+ * @param fn          Fonction async à retenter.
+ * @param maxRetries  Nombre max de tentatives supplémentaires (défaut 3).
+ * @param provider    Nom du provider LLM — utilisé dans le warn structuré si Retry-After dépasse le cap.
  */
 export async function retryWithBackoff<T>(
   fn: () => Promise<T>,
@@ -72,22 +65,25 @@ export async function retryWithBackoff<T>(
       attempt++;
       if (!isTransientError(e) || attempt > maxRetries) throw e;
 
-      // Essaie d'extraire un Retry-After explicite depuis le message
       const retryAfterMs = extractRetryAfterMs(e);
-
       let delayMs: number;
+
       if (retryAfterMs > 0) {
-        delayMs = retryAfterMs;
+        if (retryAfterMs > HARD_THROTTLE_CAP_MS) {
+          logger.warn(
+            {
+              provider,
+              requestedDelayMs: retryAfterMs,
+              capMs: HARD_THROTTLE_CAP_MS,
+            },
+            "[router] hard retry-after exceeded HARD_THROTTLE_CAP — capping defensively, prod alert recommandée",
+          );
+        }
+        delayMs = Math.min(retryAfterMs, HARD_THROTTLE_CAP_MS);
       } else {
         const base = 2 ** (attempt - 1) * 1000;
         const jitter = base * 0.2 * (Math.random() * 2 - 1);
-        delayMs = Math.min(base + jitter, SOFT_THROTTLE_CAP_MS);
-      }
-
-      if (provider) {
-        console.warn(
-          `[retryWithBackoff] ${provider} attempt ${attempt}/${maxRetries} failed, retrying in ${Math.round(delayMs)}ms`,
-        );
+        delayMs = base + jitter;
       }
 
       await new Promise((r) => setTimeout(r, delayMs));

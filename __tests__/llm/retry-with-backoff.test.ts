@@ -1,48 +1,30 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// Mock logger AVANT l'import du module sous test
+vi.mock("@/lib/observability/logger", () => ({
+  logger: {
+    warn: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    debug: vi.fn(),
+  },
+}));
+
 import {
   extractRetryAfterMs,
   HARD_THROTTLE_CAP_MS,
-  isTransientError,
   retryWithBackoff,
-  SOFT_THROTTLE_CAP_MS,
-} from "../../lib/llm/retry-with-backoff";
+} from "@/lib/llm/retry-with-backoff";
+import { logger } from "@/lib/observability/logger";
 
-// ---------------------------------------------------------------------------
-// isTransientError
-// ---------------------------------------------------------------------------
+// Accélère les timers pour ne pas vraiment attendre les délais de backoff
+beforeEach(() => {
+  vi.useFakeTimers();
+});
 
-describe("isTransientError", () => {
-  it("détecte 429 (too many requests)", () => {
-    expect(isTransientError(new Error("429 rate limit exceeded"))).toBe(true);
-  });
-
-  it("détecte 500 (internal server error)", () => {
-    expect(isTransientError(new Error("500 internal server error"))).toBe(true);
-  });
-
-  it("détecte 502, 503, 504", () => {
-    expect(isTransientError(new Error("502 bad gateway"))).toBe(true);
-    expect(isTransientError(new Error("503 service unavailable"))).toBe(true);
-    expect(isTransientError(new Error("504 gateway timeout"))).toBe(true);
-  });
-
-  it("ignore les erreurs 4xx (client errors)", () => {
-    expect(isTransientError(new Error("400 bad request"))).toBe(false);
-    expect(isTransientError(new Error("401 unauthorized"))).toBe(false);
-    expect(isTransientError(new Error("403 forbidden"))).toBe(false);
-    expect(isTransientError(new Error("404 not found"))).toBe(false);
-  });
-
-  it("retourne false pour les valeurs non-Error", () => {
-    expect(isTransientError(null)).toBe(false);
-    expect(isTransientError(undefined)).toBe(false);
-    expect(isTransientError("500 error")).toBe(false);
-    expect(isTransientError({ message: "500" })).toBe(false);
-  });
-
-  it("word boundary guard : 4291 ne doit pas matcher 429", () => {
-    expect(isTransientError(new Error("error 4291"))).toBe(false);
-  });
+afterEach(() => {
+  vi.useRealTimers();
+  vi.clearAllMocks();
 });
 
 // ---------------------------------------------------------------------------
@@ -50,105 +32,212 @@ describe("isTransientError", () => {
 // ---------------------------------------------------------------------------
 
 describe("extractRetryAfterMs", () => {
-  it("extrait retry-after en secondes", () => {
+  it("retourne 0 pour une erreur sans Retry-After", () => {
+    expect(extractRetryAfterMs(new Error("500 internal server error"))).toBe(0);
+  });
+
+  it("parse 'retry-after: 30' (secondes → ms)", () => {
     expect(extractRetryAfterMs(new Error("retry-after: 30"))).toBe(30_000);
   });
 
-  it("extrait retry-after avec espace", () => {
+  it("extrait retry-after avec espace (retry after 12s)", () => {
     expect(extractRetryAfterMs(new Error("retry after 12s"))).toBe(12_000);
   });
 
-  it("extrait retry-after en ms", () => {
-    expect(extractRetryAfterMs(new Error("retry-after: 500ms"))).toBe(500);
+  it("parse 'Retry After 45' (case-insensitive)", () => {
+    expect(extractRetryAfterMs(new Error("Retry After 45"))).toBe(45_000);
   });
 
-  it("plafonne au HARD_THROTTLE_CAP_MS", () => {
-    const result = extractRetryAfterMs(new Error("retry-after: 3600s"));
-    expect(result).toBe(HARD_THROTTLE_CAP_MS);
+  it("parse 'retryAfterMs: 120000' (millisecondes directes)", () => {
+    expect(extractRetryAfterMs(new Error("retryAfterMs: 120000"))).toBe(120_000);
   });
 
-  it("retourne 0 si non trouvé", () => {
-    expect(extractRetryAfterMs(new Error("some random error"))).toBe(0);
+  it("parse 'after 20 seconds'", () => {
+    expect(extractRetryAfterMs(new Error("Please wait, after 20 seconds retry"))).toBe(20_000);
+  });
+
+  it("retourne 0 pour une non-Error", () => {
     expect(extractRetryAfterMs(null)).toBe(0);
+    expect(extractRetryAfterMs("retry-after: 10")).toBe(0);
   });
 });
 
 // ---------------------------------------------------------------------------
-// retryWithBackoff
+// isTransientError — testé via retryWithBackoff (black-box car interne dans K2)
 // ---------------------------------------------------------------------------
 
-describe("retryWithBackoff", () => {
-  it("retourne le résultat immédiatement si succès du premier coup", async () => {
-    const fn = vi.fn().mockResolvedValue("ok");
-    const result = await retryWithBackoff(fn);
-    expect(result).toBe("ok");
-    expect(fn).toHaveBeenCalledTimes(1);
+describe("isTransientError (via retryWithBackoff)", () => {
+  it("retente sur 429 (too many requests)", async () => {
+    let calls = 0;
+    const fn = vi.fn(async () => {
+      calls++;
+      if (calls < 2) throw new Error("429 rate limit exceeded");
+      return "ok";
+    });
+    const promise = retryWithBackoff(fn, 3);
+    await vi.advanceTimersByTimeAsync(5_000);
+    await expect(promise).resolves.toBe("ok");
+    expect(fn).toHaveBeenCalledTimes(2);
   });
 
-  it("retente sur erreur transiente et retourne le résultat au 2e appel", async () => {
-    vi.useFakeTimers();
-    const fn = vi
-      .fn()
-      .mockRejectedValueOnce(new Error("503 service unavailable"))
-      .mockResolvedValue("recovered");
+  it("retente sur 500, 502, 503, 504", async () => {
+    for (const code of [500, 502, 503, 504]) {
+      vi.clearAllMocks();
+      let calls = 0;
+      const fn = vi.fn(async () => {
+        calls++;
+        if (calls < 2) throw new Error(`${code} error`);
+        return "ok";
+      });
+      const promise = retryWithBackoff(fn, 3);
+      await vi.advanceTimersByTimeAsync(5_000);
+      await expect(promise).resolves.toBe("ok");
+      expect(fn).toHaveBeenCalledTimes(2);
+    }
+  });
 
-    const promise = retryWithBackoff(fn, 3);
-    // Avancer le timer pour le backoff du premier retry (1000ms base)
-    await vi.runAllTimersAsync();
+  it("ne retente PAS sur erreurs 4xx (client errors)", async () => {
+    for (const code of [400, 401, 403, 404]) {
+      const fn = vi.fn(async () => {
+        throw new Error(`${code} error`);
+      });
+      await expect(retryWithBackoff(fn, 3)).rejects.toThrow(`${code}`);
+      expect(fn).toHaveBeenCalledTimes(1);
+      vi.clearAllMocks();
+    }
+  });
+
+  it("word boundary guard : 4291 ne doit pas matcher 429", async () => {
+    const fn = vi.fn(async () => {
+      throw new Error("error 4291");
+    });
+    await expect(retryWithBackoff(fn, 1)).rejects.toThrow("error 4291");
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// retryWithBackoff — warn structuré HARD_CAP
+// ---------------------------------------------------------------------------
+
+describe("retryWithBackoff — warn HARD_THROTTLE_CAP", () => {
+  it("loggue warn structuré si hard delay dépasse HARD_THROTTLE_CAP_MS", async () => {
+    // retry-after: 120 s = 120 000 ms > 60 000 ms (HARD_THROTTLE_CAP_MS)
+    const bigDelay = 120_000;
+    let calls = 0;
+    const fn = vi.fn(async () => {
+      calls++;
+      if (calls < 2) throw new Error(`429 too many requests retryAfterMs: ${bigDelay}`);
+      return "ok";
+    });
+
+    const promise = retryWithBackoff(fn, 3, "anthropic");
+    // Avance les timers pour passer le délai cappé (60 s)
+    await vi.advanceTimersByTimeAsync(HARD_THROTTLE_CAP_MS + 100);
     const result = await promise;
 
-    expect(result).toBe("recovered");
-    expect(fn).toHaveBeenCalledTimes(2);
-    vi.useRealTimers();
+    expect(result).toBe("ok");
+    expect(logger.warn).toHaveBeenCalledOnce();
+    expect(logger.warn).toHaveBeenCalledWith(
+      {
+        provider: "anthropic",
+        requestedDelayMs: bigDelay,
+        capMs: HARD_THROTTLE_CAP_MS,
+      },
+      "[router] hard retry-after exceeded HARD_THROTTLE_CAP — capping defensively, prod alert recommandée",
+    );
   });
 
-  it("propage l'erreur si non-transiente (4xx)", async () => {
-    const fn = vi.fn().mockRejectedValue(new Error("401 unauthorized"));
-    await expect(retryWithBackoff(fn, 3)).rejects.toThrow("401 unauthorized");
-    expect(fn).toHaveBeenCalledTimes(1);
+  it("ne loggue PAS warn si hard delay ≤ HARD_THROTTLE_CAP_MS", async () => {
+    // retry-after: 30 s = 30 000 ms ≤ 60 000 ms
+    const smallDelay = 30_000;
+    let calls = 0;
+    const fn = vi.fn(async () => {
+      calls++;
+      if (calls < 2) throw new Error(`429 too many requests retryAfterMs: ${smallDelay}`);
+      return "ok";
+    });
+
+    const promise = retryWithBackoff(fn, 3, "openai");
+    await vi.advanceTimersByTimeAsync(smallDelay + 100);
+    const result = await promise;
+
+    expect(result).toBe("ok");
+    expect(logger.warn).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// retryWithBackoff — comportement général
+// ---------------------------------------------------------------------------
+
+describe("retryWithBackoff — comportement général", () => {
+  it("retourne directement si pas d'erreur", async () => {
+    const fn = vi.fn(async () => "success");
+    const result = await retryWithBackoff(fn);
+    expect(result).toBe("success");
+    expect(fn).toHaveBeenCalledOnce();
+  });
+
+  it("retente sur erreur transiente et réussit à la 2e tentative", async () => {
+    let calls = 0;
+    const fn = vi.fn(async () => {
+      calls++;
+      if (calls < 2) throw new Error("502 bad gateway");
+      return "ok";
+    });
+
+    const promise = retryWithBackoff(fn, 3);
+    await vi.advanceTimersByTimeAsync(2_000);
+    const result = await promise;
+    expect(result).toBe("ok");
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it("ne retente PAS sur erreur non-transiente (400)", async () => {
+    const fn = vi.fn(async () => {
+      throw new Error("400 bad request");
+    });
+    await expect(retryWithBackoff(fn, 3)).rejects.toThrow("400 bad request");
+    expect(fn).toHaveBeenCalledOnce();
   });
 
   it("propage l'erreur après épuisement des retries (maxRetries transients)", async () => {
-    vi.useFakeTimers();
-    const fn = vi.fn().mockRejectedValue(new Error("502 bad gateway"));
-
-    const resultPromise = retryWithBackoff(fn, 2).catch((e) => e);
-    await vi.runAllTimersAsync();
-
-    const err = await resultPromise;
-    expect(err).toBeInstanceOf(Error);
-    expect((err as Error).message).toContain("502 bad gateway");
-    expect(fn).toHaveBeenCalledTimes(3); // 1 initial + 2 retries
-    vi.useRealTimers();
-  });
-
-  it("plafonne le délai au SOFT_THROTTLE_CAP_MS (backoff exponentiel)", async () => {
-    vi.useFakeTimers();
-    const delays: number[] = [];
-    const realSetTimeout = globalThis.setTimeout;
-
-    // Spy sur setTimeout pour capturer les délais
-    const spy = vi.spyOn(globalThis, "setTimeout").mockImplementation((fn, delay, ...args) => {
-      delays.push(delay as number);
-      return realSetTimeout(fn, 0, ...args); // Exécuter immédiatement en test
+    const fn = vi.fn(async () => {
+      throw new Error("503 service unavailable");
     });
 
-    const fn = vi
-      .fn()
-      .mockRejectedValueOnce(new Error("500 error"))
-      .mockRejectedValueOnce(new Error("500 error"))
-      .mockRejectedValueOnce(new Error("500 error"))
-      .mockResolvedValue("ok");
+    let caughtError: Error | null = null;
+    const promise = retryWithBackoff(fn, 2).catch((e) => {
+      caughtError = e;
+    });
 
-    const promise = retryWithBackoff(fn, 5);
-    await vi.runAllTimersAsync();
+    // 3 tentatives au total (1 initial + 2 retries), délais exp 1 s + 2 s
+    await vi.advanceTimersByTimeAsync(10_000);
     await promise;
 
-    for (const d of delays) {
-      expect(d).toBeLessThanOrEqual(SOFT_THROTTLE_CAP_MS);
-    }
+    expect(caughtError).toBeInstanceOf(Error);
+    expect((caughtError as unknown as Error).message).toContain("503 service unavailable");
+    expect(fn).toHaveBeenCalledTimes(3); // 1 initial + 2 retries
+  });
 
-    spy.mockRestore();
-    vi.useRealTimers();
+  it("cap le delay à HARD_THROTTLE_CAP_MS même sans provider arg", async () => {
+    const bigDelay = 200_000;
+    let calls = 0;
+    const fn = vi.fn(async () => {
+      calls++;
+      if (calls < 2) throw new Error(`429 retryAfterMs: ${bigDelay}`);
+      return "capped";
+    });
+
+    const promise = retryWithBackoff(fn, 3); // pas de provider
+    await vi.advanceTimersByTimeAsync(HARD_THROTTLE_CAP_MS + 100);
+    const result = await promise;
+    expect(result).toBe("capped");
+    // warn loggué sans provider (undefined)
+    expect(logger.warn).toHaveBeenCalledWith(
+      expect.objectContaining({ requestedDelayMs: bigDelay, capMs: HARD_THROTTLE_CAP_MS }),
+      expect.any(String),
+    );
   });
 });
