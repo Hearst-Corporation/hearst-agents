@@ -218,6 +218,33 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
     };
   }, [onMouseMove, onMouseUp]);
 
+  // Clavier WCAG 2.1.1 — le slider est opérable sans souris.
+  const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    const STEP = 1;
+    const STEP_LARGE = 10;
+    let handled = false;
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+      setSliderX((x) => Math.min(100, x + STEP));
+      handled = true;
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+      setSliderX((x) => Math.max(0, x - STEP));
+      handled = true;
+    } else if (e.key === "PageUp") {
+      setSliderX((x) => Math.min(100, x + STEP_LARGE));
+      handled = true;
+    } else if (e.key === "PageDown") {
+      setSliderX((x) => Math.max(0, x - STEP_LARGE));
+      handled = true;
+    } else if (e.key === "Home") {
+      setSliderX(0);
+      handled = true;
+    } else if (e.key === "End") {
+      setSliderX(100);
+      handled = true;
+    }
+    if (handled) e.preventDefault();
+  }, []);
+
   const previewA = assetA?.contentRef ?? "";
   const previewB = assetB?.contentRef ?? "";
   const isImageA =
@@ -232,16 +259,18 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
     <div
       ref={containerRef}
       role="slider"
-      aria-label="Comparateur d'assets — faites glisser pour comparer"
+      tabIndex={0}
+      aria-label="Curseur de comparaison"
       aria-valuenow={Math.round(sliderX)}
       aria-valuemin={0}
       aria-valuemax={100}
-      tabIndex={0}
-      className="relative w-full h-(--height-compare-viewer) rounded-xl overflow-hidden bg-(--bg) border border-(--line-strong) cursor-col-resize select-none"
+      aria-valuetext={`${Math.round(sliderX)}% gauche`}
+      className="relative w-full h-(--height-compare-viewer) rounded-xl overflow-hidden bg-(--bg) border border-(--line-strong) cursor-col-resize select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal)"
       onMouseDown={(e) => {
         dragging.current = true;
         updateFromEvent(e.clientX);
       }}
+      onKeyDown={onKeyDown}
     >
       {/* Couche gauche (A) — plein */}
       <div className="absolute inset-0 flex items-center justify-center">

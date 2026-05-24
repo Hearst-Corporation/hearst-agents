@@ -200,9 +200,11 @@ export function Commandeur() {
 
   return (
     <>
-      <button
-        type="button"
-        aria-label="Fermer la palette de commandes"
+      {/* Backdrop WAI-ARIA : div sans rôle interactif — conforme HTML5.
+          Fermeture au clic (onClick) + Escape géré via capture listener document.
+          Ne PAS convertir en <button> : interdit d'englober des éléments interactifs. */}
+      <div
+        role="presentation"
         className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
         style={{
           zIndex: "var(--z-modal)" as unknown as number,
@@ -287,7 +289,7 @@ export function Commandeur() {
             )}
           </div>
         </div>
-      </button>
+      </div>
       {compareModal}
     </>
   );
