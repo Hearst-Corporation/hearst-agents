@@ -31,6 +31,15 @@ const providers: Record<string, LLMProvider> = {};
 
 const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
 
+/**
+ * Cap défensif sur les délais "hard" issus de retry-after providers.
+ *
+ * Si Anthropic/OpenAI répond retry-after > 60s et que le router capait
+ * silencieusement, on risquait une boucle 429 invisible. Ce cap + le warn
+ * ci-dessous donnent visibilité Sentry/Langfuse pour le monitoring ops.
+ */
+export const HARD_THROTTLE_CAP_MS = 60_000;
+
 /** Clears cached LLM provider singletons (use in tests between cases / `vi.resetModules` alternative). */
 export function resetLlmProviderCache(): void {
   for (const k of Object.keys(providers)) {
@@ -78,10 +87,22 @@ function isTransientError(err: unknown): boolean {
   return /\b(429|500|502|503|504)\b/.test(err.message);
 }
 
-/** Délai hard max défensif : évite un blocage indéfini en cas de retry-after aberrant. */
-const HARD_THROTTLE_CAP_MS = 60_000;
 /** Délai soft max : cap préventif pour les délais proactifs. */
 const SOFT_THROTTLE_CAP_MS = 1_000;
+
+/**
+ * Extrait le délai retry-after (ms) depuis le message d'une erreur provider.
+ * Supporte "retry-after: Xs" injecté par certains SDK (Anthropic, OpenAI).
+ * Retourne 0 si non trouvé.
+ */
+function extractRetryAfterMs(err: unknown): number {
+  if (!(err instanceof Error)) return 0;
+  // Cherche "retry-after: <n>" ou "retry_after=<n>" dans le message/cause
+  const msg = err.message ?? "";
+  const m = msg.match(/retry.after[=:\s]+(\d+(?:\.\d+)?)/i);
+  if (m) return Math.round(parseFloat(m[1]) * 1000);
+  return 0;
+}
 
 async function retryWithBackoff<T>(
   fn: () => Promise<T>,
@@ -112,7 +133,22 @@ async function retryWithBackoff<T>(
       if (!isTransientError(e) || attempt > maxRetries) throw e;
       const base = 2 ** (attempt - 1) * 1000;
       const jitter = base * 0.2 * (Math.random() * 2 - 1);
-      await new Promise((r) => setTimeout(r, base + jitter));
+      const computedDelay = base + jitter;
+
+      // Détecte un retry-after "hard" du provider (ex. Anthropic 429 avec delay explicite)
+      const hardDelayMs = extractRetryAfterMs(e);
+      if (hardDelayMs > HARD_THROTTLE_CAP_MS) {
+        logger.warn(
+          {
+            provider: provider ?? "unknown",
+            requestedDelayMs: hardDelayMs,
+            capMs: HARD_THROTTLE_CAP_MS,
+          },
+          "[router] hard retry-after exceeded HARD_THROTTLE_CAP — capping defensively, prod alert recommandée",
+        );
+      }
+
+      await new Promise((r) => setTimeout(r, computedDelay));
     }
   }
 }

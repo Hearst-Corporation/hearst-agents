@@ -6,10 +6,17 @@
  *   les routes retournent 429 avec Retry-After.
  * - Si ORCHESTRATE_COST_CAP_USD est absent ou 0, aucun 429 n'est émis
  *   (comportement actuel préservé).
+ *
+ * Tests : secondsUntilMidnightUtc
+ *
+ * Vérifie que le helper produit des valeurs cohérentes selon l'heure UTC,
+ * et qu'il respecte le minimum de 1 seconde (protection contre timestamp
+ * exactement à minuit).
  */
 
 import { NextRequest } from "next/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { secondsUntilMidnightUtc } from "../../lib/llm/usage-tracker";
 
 // ─── Mocks hoisted ──────────────────────────────────────────────────────────
 
@@ -27,9 +34,13 @@ vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: mocks.requireScope,
 }));
 
-vi.mock("@/lib/llm/usage-tracker", () => ({
-  getTenantUsage: mocks.getTenantUsage,
-}));
+vi.mock("@/lib/llm/usage-tracker", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/llm/usage-tracker")>();
+  return {
+    ...actual,
+    getTenantUsage: mocks.getTenantUsage,
+  };
+});
 
 vi.mock("@/lib/engine/orchestrator", () => ({
   orchestrate: mocks.orchestrate,
@@ -235,5 +246,54 @@ describe("POST /api/v1/chat — daily cost cap", () => {
     await POST(makePostReq("http://localhost/api/v1/chat", { message: "bonjour" }));
 
     expect(mocks.getTenantUsage).not.toHaveBeenCalled();
+  });
+});
+
+// ─── secondsUntilMidnightUtc ──────────────────────────────────────────────
+
+describe("secondsUntilMidnightUtc", () => {
+  it("retourne ~43200s à 12:00 UTC", () => {
+    // 2026-05-24 12:00:00 UTC
+    const noon = new Date(Date.UTC(2026, 4, 24, 12, 0, 0, 0));
+    const result = secondsUntilMidnightUtc(noon);
+    // Minuit UTC le lendemain = 43200 secondes
+    expect(result).toBe(43200);
+  });
+
+  it("retourne ~60s à 23:59:00 UTC", () => {
+    // 2026-05-24 23:59:00 UTC
+    const almostMidnight = new Date(Date.UTC(2026, 4, 24, 23, 59, 0, 0));
+    const result = secondsUntilMidnightUtc(almostMidnight);
+    // 60 secondes exactes restantes
+    expect(result).toBe(60);
+  });
+
+  it("retourne minimum 1s quand on est à moins d'1s de minuit", () => {
+    // 2026-05-24 23:59:59.999 UTC — 1ms avant minuit
+    const justBeforeMidnight = new Date(Date.UTC(2026, 4, 24, 23, 59, 59, 999));
+    const result = secondsUntilMidnightUtc(justBeforeMidnight);
+    // Math.floor(0.001s) = 0 → min 1
+    expect(result).toBe(1);
+  });
+
+  it("retourne 86400s exactement à minuit UTC (début de journée)", () => {
+    // 2026-05-24 00:00:00 UTC — minuit pile (début de journée)
+    const midnight = new Date(Date.UTC(2026, 4, 24, 0, 0, 0, 0));
+    const result = secondsUntilMidnightUtc(midnight);
+    expect(result).toBe(86400);
+  });
+
+  it("est cohérent avec le reset UTC journalier (valeur < 86401)", () => {
+    const now = new Date();
+    const result = secondsUntilMidnightUtc(now);
+    expect(result).toBeGreaterThanOrEqual(1);
+    expect(result).toBeLessThanOrEqual(86400);
+  });
+
+  it("utilise Date.now() par défaut quand aucun paramètre fourni", () => {
+    // Ne doit pas throw et doit retourner un nombre positif
+    const result = secondsUntilMidnightUtc();
+    expect(typeof result).toBe("number");
+    expect(result).toBeGreaterThanOrEqual(1);
   });
 });

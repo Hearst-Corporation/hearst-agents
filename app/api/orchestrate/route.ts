@@ -4,7 +4,8 @@ import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { orchestrate } from "@/lib/engine/orchestrator";
 import { ensureSchedulerStarted } from "@/lib/engine/runtime/missions/scheduler-init";
-import { getTenantUsage } from "@/lib/llm/usage-tracker";
+import { RateLimitExceededError } from "@/lib/llm/errors";
+import { getTenantUsage, secondsUntilMidnightUtc } from "@/lib/llm/usage-tracker";
 import { MAX_MESSAGES_PER_CONVERSATION } from "@/lib/memory/store";
 import { authOptions } from "@/lib/platform/auth/options";
 import { requireScope } from "@/lib/platform/auth/scope";
@@ -195,22 +196,39 @@ export async function POST(req: NextRequest) {
 
   const cappedHistory = (parsed.data.history ?? []).slice(-MAX_MESSAGES_PER_CONVERSATION);
 
-  const stream = orchestrate(db, {
-    userId: scope.userId,
-    message: parsed.data.message,
-    conversationId: parsed.data.conversation_id,
-    surface: parsed.data.surface,
-    threadId: parsed.data.thread_id,
-    focalContext: parsed.data.focal_context,
-    conversationHistory: cappedHistory.length > 0 ? cappedHistory : undefined,
-    attachedAssetIds: validatedAssetIds,
-    personaId: parsed.data.persona_id,
-    // missionId n'est pas accepté depuis le chat public — ownership validé via /api/v2/missions/[id]/run
-    tenantId: scope.tenantId,
-    workspaceId: scope.workspaceId,
-    max_cost_usd: PRICE_CAP_USD,
-    userName: scope.userName,
-  });
+  let stream: ReadableStream<Uint8Array>;
+  try {
+    stream = orchestrate(db, {
+      userId: scope.userId,
+      message: parsed.data.message,
+      conversationId: parsed.data.conversation_id,
+      surface: parsed.data.surface,
+      threadId: parsed.data.thread_id,
+      focalContext: parsed.data.focal_context,
+      conversationHistory: cappedHistory.length > 0 ? cappedHistory : undefined,
+      attachedAssetIds: validatedAssetIds,
+      personaId: parsed.data.persona_id,
+      // missionId n'est pas accepté depuis le chat public — ownership validé via /api/v2/missions/[id]/run
+      tenantId: scope.tenantId,
+      workspaceId: scope.workspaceId,
+      max_cost_usd: PRICE_CAP_USD,
+      userName: scope.userName,
+    });
+  } catch (err) {
+    if (err instanceof RateLimitExceededError) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "rate_limit_exceeded", limitType: err.limitType }),
+        {
+          status: 429,
+          headers: {
+            "Content-Type": "application/json",
+            "Retry-After": String(secondsUntilMidnightUtc()),
+          },
+        },
+      );
+    }
+    throw err;
+  }
 
   return new Response(withHeartbeat(stream, scope.userId), {
     headers: {

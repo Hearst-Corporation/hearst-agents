@@ -76,6 +76,22 @@ export async function incrementTenantUsage(event: UsageEvent): Promise<void> {
 }
 
 /**
+ * Calcule les secondes restantes jusqu'à minuit UTC.
+ *
+ * Utilisé pour construire le header `Retry-After` des réponses 429 liées au
+ * cap journalier (réinitialisation à minuit UTC).
+ *
+ * @param now — date de référence (injectable pour tests)
+ * @returns nombre de secondes entières (minimum 1)
+ */
+export function secondsUntilMidnightUtc(now: Date = new Date()): number {
+  const tomorrow = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0, 0),
+  );
+  return Math.max(1, Math.floor((tomorrow.getTime() - now.getTime()) / 1000));
+}
+
+/**
  * Lecture rolling window pour reporting (dashboard /admin/health,
  * page tenant settings, etc.).
  *

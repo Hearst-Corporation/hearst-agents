@@ -13,7 +13,8 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { orchestrate } from "@/lib/engine/orchestrator";
-import { getTenantUsage } from "@/lib/llm/usage-tracker";
+import { RateLimitExceededError } from "@/lib/llm/errors";
+import { getTenantUsage, secondsUntilMidnightUtc } from "@/lib/llm/usage-tracker";
 import { MAX_MESSAGES_PER_CONVERSATION } from "@/lib/memory/store";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { hasApiScope, withApiAuth } from "@/lib/platform/http/api-auth";
@@ -75,14 +76,28 @@ export const POST = withApiAuth("POST /api/v1/chat", async (req: NextRequest, { 
 
   const cappedHistory = (parsed.data.history ?? []).slice(-MAX_MESSAGES_PER_CONVERSATION);
 
-  const stream = orchestrate(db, {
-    userId: tenant.userId ?? tenant.tenantId,
-    message: parsed.data.message,
-    conversationId: parsed.data.conversationId,
-    conversationHistory: cappedHistory.length > 0 ? cappedHistory : undefined,
-    tenantId: tenant.tenantId,
-    max_cost_usd: PRICE_CAP_USD,
-  });
+  let stream: ReadableStream<Uint8Array>;
+  try {
+    stream = orchestrate(db, {
+      userId: tenant.userId ?? tenant.tenantId,
+      message: parsed.data.message,
+      conversationId: parsed.data.conversationId,
+      conversationHistory: cappedHistory.length > 0 ? cappedHistory : undefined,
+      tenantId: tenant.tenantId,
+      max_cost_usd: PRICE_CAP_USD,
+    });
+  } catch (err) {
+    if (err instanceof RateLimitExceededError) {
+      return NextResponse.json(
+        { error: "rate_limit_exceeded", limitType: err.limitType },
+        {
+          status: 429,
+          headers: { "Retry-After": String(secondsUntilMidnightUtc()) },
+        },
+      );
+    }
+    throw err;
+  }
 
   return new Response(stream, {
     headers: {
