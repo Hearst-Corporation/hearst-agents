@@ -205,11 +205,10 @@ async function applyArcjet(
 let _envChecked = false;
 
 /**
- * Applique un correlationId et, si fourni, le nonce CSP sur la response.
- * Le nonce est set sur les RESPONSE headers (visible du browser) pour que
- * le browser reçoive la CSP dynamique. Il est aussi propagé dans les REQUEST
- * headers via NextResponse.next({ request: { headers: reqHeaders } }) pour
- * que les Server Components puissent le lire via headers().get(NONCE_HEADER).
+ * Applique un correlationId et, si fourni, le nonce CSP sur la RESPONSE.
+ * Set uniquement les response headers (x-correlation-id, x-csp-nonce, CSP).
+ * La propagation du nonce dans les REQUEST headers (pour Server Components)
+ * est gérée en amont par nextWithNonce() qui crée le NextResponse.next().
  */
 function applyCorrelationId(
   response: NextResponse,
@@ -294,8 +293,8 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     // isDevBypassEnabled() inclut un guard isProductionLike() qui refuse en prod.
     if (isDevBypassEnabled()) {
       console.log(`[Proxy] Dev bypass active — ${path}`);
-      // Routes API en dev bypass : pas de Server Component, pas de nonce dans req headers.
-      // On propage quand même pour uniformité (pas de risque).
+      // Routes API en dev bypass : propage les request headers (nonce inclus) pour uniformité.
+      // Pas de CSP sur la response (JSON, pas HTML).
       return applyCorrelationId(nextWithNonce(), correlationId);
     }
 
@@ -310,7 +309,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     }
 
     if (hasValidApiKey(req)) {
-      // Réponse API — pas de nonce dans req headers (pas de Server Component rendu).
+      // Réponse API — propage les request headers (nonce inclus). Pas de CSP sur la response.
       return applyCorrelationId(nextWithNonce(), correlationId);
     }
 

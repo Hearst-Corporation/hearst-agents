@@ -17,10 +17,7 @@ export function generateNonce(): string {
 /**
  * Nom du header HTTP interne utilisé pour propager le nonce du middleware
  * vers les Server Components (via `headers()` de next/headers).
- *
- * IMPORTANT: ce header est injecté dans les REQUEST headers (pas response)
- * via NextResponse.next({ request: { headers: reqHeaders } }) pour que
- * les Server Components puissent le lire via `headers().get(NONCE_HEADER)`.
+ * Injecté dans les REQUEST headers via NextResponse.next({ request: { headers } }).
  */
 export const NONCE_HEADER = "x-csp-nonce";
 
