@@ -104,7 +104,8 @@ function extractRetryAfterMs(err: unknown): number {
   return 0;
 }
 
-async function retryWithBackoff<T>(
+/** @internal — exposé pour tests unitaires uniquement, ne pas utiliser en prod */
+export async function retryWithBackoff<T>(
   fn: () => Promise<T>,
   maxRetries = 3,
   provider?: string,
