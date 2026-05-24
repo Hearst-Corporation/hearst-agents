@@ -118,10 +118,16 @@ export function ProviderChip({
         : "bg-(--accent-teal)";
 
   return (
-    <span
-      className="relative inline-flex items-center rounded-pill border border-(--border-shell) bg-surface-1 px-2 py-0.5 t-9 font-mono text-text-muted transition-colors hover:border-(--accent-teal-border) hover:text-text"
+    // Utilise <button type="button"> pour rendre le chip focusable et accessible :
+    // - tabIndex natif sans besoin de role override
+    // - aria-label supporté nativement par button
+    // - tooltip révélé au focus (onFocus/onBlur) pour les utilisateurs clavier
+    // Le chip n'a pas d'action click significative (tooltip only) mais doit être
+    // navigable au clavier pour permettre la lecture du tooltip de latence/coût.
+    <button
+      type="button"
+      className="relative inline-flex cursor-default items-center rounded-pill border border-(--border-shell) bg-surface-1 px-2 py-0.5 t-9 font-mono text-text-muted transition-colors hover:border-(--accent-teal-border) hover:text-text"
       style={{ gap: "var(--space-1)" }}
-      tabIndex={0}
       data-provider={providerId}
       data-status={status}
       onMouseEnter={() => setShowTooltip(true)}
@@ -154,6 +160,6 @@ export function ProviderChip({
           <span className="ml-2">{formatCost(costUSD)}</span>
         </span>
       )}
-    </span>
+    </button>
   );
 }

@@ -200,9 +200,14 @@ export function Commandeur() {
 
   return (
     <>
-      {/* Backdrop WAI-ARIA : div sans rôle interactif — conforme HTML5.
-          Fermeture au clic (onClick) + Escape géré via capture listener document.
-          Ne PAS convertir en <button> : interdit d'englober des éléments interactifs. */}
+      {/*
+        biome-ignore lint/a11y/noStaticElementInteractions: Backdrop modal WAI-ARIA — role="presentation" implicite sur le scrim.
+        Le click sur le backdrop ferme la palette (équivalent Escape). La gestion clavier complète
+        (Escape, ArrowUp/Down, Enter) est assurée par le listener window "keydown" en capture phase
+        (lignes 148-173) via useModalA11y. Convertir en <button> casserait le positionnement CSS.
+        biome-ignore lint/a11y/useKeyWithClickEvents: Voir justification noStaticElementInteractions ci-dessus —
+        les événements clavier sont gérés au niveau document (capture) par useModalA11y, pas inline.
+      */}
       <div
         role="presentation"
         className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
@@ -215,6 +220,11 @@ export function Commandeur() {
         }}
         onClick={() => setOpen(false)}
       >
+        {/*
+          biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation seul — empêche le clic sur le dialog
+          de fermer la palette (pas d'action utilisateur). Aucun keyboard handler requis ici car
+          le dialog a role="dialog" et le focus trap + Escape sont gérés par useModalA11y (ligne 180).
+        */}
         <div
           ref={dialogRef}
           role="dialog"
@@ -242,6 +252,7 @@ export function Commandeur() {
             className="max-h-(--max-height-commandeur-list) overflow-y-auto px-12 pb-16 scroll-pb-16 scrollbar-hide"
             role="listbox"
             aria-activedescendant={activeIndex >= 0 ? `cmdk-row-${activeIndex}` : undefined}
+            tabIndex={0}
           >
             {sections.length === 0 ? (
               <p className="t-13 text-text-ghost font-light">Aucun résultat.</p>

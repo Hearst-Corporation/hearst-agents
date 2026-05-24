@@ -57,6 +57,13 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
   }
 
   return (
+    /*
+     * biome-ignore lint/a11y/useKeyWithClickEvents: Backdrop modal WAI-ARIA pattern — le click
+     * sur le scrim (e.target === e.currentTarget) ferme la modale, équivalent à Escape.
+     * La gestion Escape et le focus trap sont assurés par useModalA11y (ligne 41) via
+     * un listener document keydown. Convertir le backdrop en <button> est invalide HTML5
+     * (fixed inset-0 avec contenu enfant dialog).
+     */
     <div
       role="dialog"
       aria-modal="true"

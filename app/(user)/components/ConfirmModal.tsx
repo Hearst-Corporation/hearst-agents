@@ -78,6 +78,13 @@ export function ConfirmModal({
   const isDanger = variant === "danger";
 
   return (
+    /*
+     * biome-ignore lint/a11y/useKeyWithClickEvents: Backdrop modal WAI-ARIA pattern — le click
+     * sur le scrim (e.target === e.currentTarget && !loading) ferme la modale, équivalent à Escape.
+     * Escape + focus trap sont gérés par useModalA11y (ligne 56). Pendant `loading`, le
+     * click-outside et Escape sont intentionnellement ignorés pour éviter les états zombies.
+     * Le backdrop est un élément de présentation fixe, pas un widget interactif.
+     */
     <div
       role="dialog"
       aria-modal="true"

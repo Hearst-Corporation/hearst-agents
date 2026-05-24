@@ -78,5 +78,28 @@
     "formatter": {
       "enabled": true
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "app/(user)/components/Commandeur.tsx",
+        "app/(user)/components/AssetCompareModal.tsx",
+        "app/(user)/components/ConfirmModal.tsx",
+        "app/(user)/components/ProviderChip.tsx",
+        "__tests__/components/RowActions.test.tsx",
+        "app/api/admin/analytics/usage/route.ts"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noStaticElementInteractions": "error",
+            "useKeyWithClickEvents": "error",
+            "useAriaActivedescendantWithTabindex": "error",
+            "noNoninteractiveTabindex": "error",
+            "useAriaPropsSupportedByRole": "error"
+          }
+        }
+      }
+    }
+  ]
 }

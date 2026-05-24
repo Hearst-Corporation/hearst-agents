@@ -37,6 +37,8 @@ describe("RowActions", () => {
     const inner = vi.fn();
     const outer = vi.fn();
     render(
+      // biome-ignore lint/a11y/noStaticElementInteractions: div wrapper de test jsdom pour vérifier stopPropagation — pas un composant prod
+      // biome-ignore lint/a11y/useKeyWithClickEvents: div wrapper de test jsdom — accessibilité clavier testée sur les boutons RowActions ci-dessus
       <div onClick={outer}>
         <RowActions actions={[{ id: "x", label: "Test", icon: "x", onClick: inner }]} />
       </div>,
