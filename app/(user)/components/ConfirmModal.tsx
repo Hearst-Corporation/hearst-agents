@@ -98,6 +98,10 @@ export function ConfirmModal({
       onClick={(e) => {
         if (e.target === e.currentTarget && !loading) onCancel();
       }}
+      onKeyDown={(e) => {
+        if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget && !loading)
+          onCancel();
+      }}
     >
       <div
         ref={dialogRef}

@@ -74,7 +74,12 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
                   placeholder="alice@example.com, bob@example.com"
                   type="text"
                 />
-                <div className="flex flex-wrap gap-1 mt-2" onBlur={handleEmailRecipientsBlur}>
+                <div
+                  role="group"
+                  aria-label="Destinataires"
+                  className="flex flex-wrap gap-1 mt-2"
+                  onBlur={handleEmailRecipientsBlur}
+                >
                   {prefs.email.recipients.map((r) => (
                     <span
                       key={r}

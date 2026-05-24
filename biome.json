@@ -29,7 +29,8 @@
       "!*.snap",
       "!**/*.html",
       "!**/*.css",
-      "!graphify-out"
+      "!graphify-out",
+      "!lab"
     ]
   },
   "formatter": {
@@ -45,6 +46,23 @@
       "correctness": {
         "noUnusedVariables": "warn",
         "noUnusedImports": "warn"
+      },
+      "a11y": {
+        "useAltText": "warn",
+        "useButtonType": "warn",
+        "useValidAnchor": "warn",
+        "useKeyWithClickEvents": "warn",
+        "useAriaPropsForRole": "warn",
+        "useValidAriaProps": "warn",
+        "useValidAriaValues": "warn",
+        "useValidLang": "warn",
+        "noAriaUnsupportedElements": "warn",
+        "noPositiveTabindex": "warn",
+        "useFocusableInteractive": "warn",
+        "useHeadingContent": "warn",
+        "noStaticElementInteractions": "warn",
+        "useAnchorContent": "warn",
+        "useValidAriaRole": "warn"
       }
     }
   },
