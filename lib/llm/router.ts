@@ -19,6 +19,7 @@ import { defaultMetrics } from "./metrics";
 import { OpenAIProvider } from "./openai";
 import { persistRun } from "./persist-run";
 import { defaultRateLimiter } from "./rate-limiter";
+import { retryWithBackoff } from "./retry-with-backoff";
 import type {
   ChatRequest,
   ChatResponse,
@@ -30,15 +31,6 @@ import type {
 const providers: Record<string, LLMProvider> = {};
 
 const MAX_AGENT_LOOP_MS = parseInt(process.env.MAX_AGENT_LOOP_MS ?? "180000");
-
-/**
- * Cap défensif sur les délais "hard" issus de retry-after providers.
- *
- * Si Anthropic/OpenAI répond retry-after > 60s et que le router capait
- * silencieusement, on risquait une boucle 429 invisible. Ce cap + le warn
- * ci-dessous donnent visibilité Sentry/Langfuse pour le monitoring ops.
- */
-export const HARD_THROTTLE_CAP_MS = 60_000;
 
 /** Clears cached LLM provider singletons (use in tests between cases / `vi.resetModules` alternative). */
 export function resetLlmProviderCache(): void {
@@ -80,83 +72,6 @@ function computeCost(
   costPer1kOut: number,
 ): number {
   return (tokensIn / 1000) * costPer1kIn + (tokensOut / 1000) * costPer1kOut;
-}
-
-function isTransientError(err: unknown): boolean {
-  if (!(err instanceof Error)) return false;
-  return /\b(429|500|502|503|504)\b/.test(err.message);
-}
-
-/** Délai soft max : cap préventif pour les délais proactifs. */
-const SOFT_THROTTLE_CAP_MS = 1_000;
-
-/**
- * Extrait le délai retry-after (ms) depuis le message d'une erreur provider.
- * Supporte "retry-after: Xs" injecté par certains SDK (Anthropic, OpenAI).
- * Retourne 0 si non trouvé.
- */
-function extractRetryAfterMs(err: unknown): number {
-  if (!(err instanceof Error)) return 0;
-  // Cherche "retry-after: <n>" ou "retry_after=<n>" dans le message/cause
-  const msg = err.message ?? "";
-  const m = msg.match(/retry.after[=:\s]+(\d+(?:\.\d+)?)/i);
-  if (m) return Math.round(parseFloat(m[1]) * 1000);
-  return 0;
-}
-
-/** @internal — exposé pour tests unitaires uniquement, ne pas utiliser en prod */
-export async function retryWithBackoff<T>(
-  fn: () => Promise<T>,
-  maxRetries = 3,
-  provider?: string,
-): Promise<T> {
-  let attempt = 0;
-  while (true) {
-    // Vérification proactive avant chaque tentative (pas seulement après erreur)
-    if (provider) {
-      const { delay, kind } = defaultRateLimiter.getNextDelayDetailed(provider);
-      if (delay > 0) {
-        const capped =
-          kind === "hard"
-            ? Math.min(delay, HARD_THROTTLE_CAP_MS)
-            : Math.min(delay, SOFT_THROTTLE_CAP_MS);
-        logger.warn(
-          { provider, delay, capped, kind },
-          `[router] ${kind} throttle ${capped}ms (raw=${delay}ms)`,
-        );
-        await new Promise((r) => setTimeout(r, capped));
-      }
-    }
-    try {
-      return await fn();
-    } catch (e) {
-      attempt++;
-      if (!isTransientError(e) || attempt > maxRetries) throw e;
-      const base = 2 ** (attempt - 1) * 1000;
-      const jitter = base * 0.2 * (Math.random() * 2 - 1);
-      const computedDelay = base + jitter;
-
-      // Détecte un retry-after "hard" du provider (ex. Anthropic 429 avec delay explicite)
-      const hardDelayMs = extractRetryAfterMs(e);
-      let actualDelay = computedDelay;
-      if (hardDelayMs > 0) {
-        // Applique le cap défensif et utilise le delay provider plutôt que le backoff exponentiel
-        actualDelay = Math.min(hardDelayMs, HARD_THROTTLE_CAP_MS);
-        if (hardDelayMs > HARD_THROTTLE_CAP_MS) {
-          logger.warn(
-            {
-              provider: provider ?? "unknown",
-              requestedDelayMs: hardDelayMs,
-              capMs: HARD_THROTTLE_CAP_MS,
-            },
-            "[router] hard retry-after exceeded HARD_THROTTLE_CAP — capping defensively, prod alert recommandée",
-          );
-        }
-      }
-
-      await new Promise((r) => setTimeout(r, actualDelay));
-    }
-  }
 }
 
 export async function resolveModelProfile(
@@ -242,19 +157,16 @@ export async function chatWithProfile(
 
       try {
         const provider = getProvider(profile.provider);
-        const response = await retryWithBackoff(
-          () =>
-            provider.chat({
-              model: profile.model,
-              messages,
-              temperature: overrides?.temperature ?? profile.temperature,
-              max_tokens: overrides?.max_tokens ?? profile.max_tokens,
-              top_p: overrides?.top_p ?? profile.top_p,
-              timeoutMs: overrides?.timeoutMs,
-              signal: wallclock.signal,
-            }),
-          3,
-          profile.provider,
+        const response = await retryWithBackoff(() =>
+          provider.chat({
+            model: profile.model,
+            messages,
+            temperature: overrides?.temperature ?? profile.temperature,
+            max_tokens: overrides?.max_tokens ?? profile.max_tokens,
+            top_p: overrides?.top_p ?? profile.top_p,
+            timeoutMs: overrides?.timeoutMs,
+            signal: wallclock.signal,
+          }),
         );
 
         response.cost_usd = computeCost(
@@ -390,22 +302,19 @@ export async function* streamChatWithProfile(
 
       try {
         const provider = getProvider(profile.provider);
-        const stream = await retryWithBackoff(
-          () =>
-            Promise.resolve(
-              provider.streamChat({
-                model: profile.model,
-                messages,
-                temperature: overrides?.temperature ?? profile.temperature,
-                max_tokens: overrides?.max_tokens ?? profile.max_tokens,
-                top_p: overrides?.top_p ?? profile.top_p,
-                stream: true,
-                timeoutMs: overrides?.timeoutMs,
-                signal: wallclock.signal,
-              }),
-            ),
-          3,
-          profile.provider,
+        const stream = await retryWithBackoff(() =>
+          Promise.resolve(
+            provider.streamChat({
+              model: profile.model,
+              messages,
+              temperature: overrides?.temperature ?? profile.temperature,
+              max_tokens: overrides?.max_tokens ?? profile.max_tokens,
+              top_p: overrides?.top_p ?? profile.top_p,
+              stream: true,
+              timeoutMs: overrides?.timeoutMs,
+              signal: wallclock.signal,
+            }),
+          ),
         );
 
         let first = true;
@@ -537,19 +446,16 @@ export async function smartChat(
 
       try {
         const provider = getProvider(attempt.provider);
-        const response = await retryWithBackoff(
-          () =>
-            provider.chat({
-              model: attempt.model,
-              messages: opts.messages,
-              temperature: opts.temperature,
-              max_tokens: opts.max_tokens,
-              top_p: opts.top_p,
-              timeoutMs: opts.timeoutMs,
-              signal: wallclock.signal,
-            }),
-          3,
-          attempt.provider,
+        const response = await retryWithBackoff(() =>
+          provider.chat({
+            model: attempt.model,
+            messages: opts.messages,
+            temperature: opts.temperature,
+            max_tokens: opts.max_tokens,
+            top_p: opts.top_p,
+            timeoutMs: opts.timeoutMs,
+            signal: wallclock.signal,
+          }),
         );
 
         if (opts.max_cost_per_run && response.cost_usd > opts.max_cost_per_run) {
@@ -693,22 +599,19 @@ export async function* smartStreamChat(
 
       try {
         const provider = getProvider(attempt.provider);
-        const stream = await retryWithBackoff(
-          () =>
-            Promise.resolve(
-              provider.streamChat({
-                model: attempt.model,
-                messages: opts.messages,
-                temperature: opts.temperature,
-                max_tokens: opts.max_tokens,
-                top_p: opts.top_p,
-                stream: true,
-                timeoutMs: opts.timeoutMs,
-                signal: wallclock.signal,
-              }),
-            ),
-          3,
-          attempt.provider,
+        const stream = await retryWithBackoff(() =>
+          Promise.resolve(
+            provider.streamChat({
+              model: attempt.model,
+              messages: opts.messages,
+              temperature: opts.temperature,
+              max_tokens: opts.max_tokens,
+              top_p: opts.top_p,
+              stream: true,
+              timeoutMs: opts.timeoutMs,
+              signal: wallclock.signal,
+            }),
+          ),
         );
 
         if (attemptIndex > 0 && opts.tracer) {

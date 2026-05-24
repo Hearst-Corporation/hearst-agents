@@ -1,3 +1,5 @@
+import { logger } from "@/lib/observability/logger";
+import { getRedis } from "@/lib/platform/redis/client";
 import { RateLimitExceededError } from "./errors";
 
 export interface RateLimiterOptions {
@@ -43,6 +45,75 @@ export interface ThrottleDecision {
   kind?: "hard" | "soft";
 }
 
+// ---------------------------------------------------------------------------
+// ProviderLimitsStore — couche d'abstraction multi-instance pour providerLimits
+// ---------------------------------------------------------------------------
+
+/**
+ * Store abstrait pour les rate-limit providers.
+ * Lecture : synchrone (in-memory local, hot path).
+ * Écriture : asynchrone best-effort (fire-and-forget vers Redis).
+ */
+export interface ProviderLimitsStore {
+  /** Lecture synchrone locale (zero-latency, chemin critique). */
+  getSync(provider: string): ProviderRateLimit | undefined;
+  /** Écriture async best-effort (in-memory + Redis si dispo). */
+  recordAsync(provider: string, limit: ProviderRateLimit): void;
+}
+
+/** Implémentation in-memory pure (défaut, tests, dev sans Redis). */
+export class InMemoryProviderLimits implements ProviderLimitsStore {
+  private readonly data = new Map<string, ProviderRateLimit>();
+
+  getSync(provider: string): ProviderRateLimit | undefined {
+    return this.data.get(provider);
+  }
+
+  recordAsync(provider: string, limit: ProviderRateLimit): void {
+    this.data.set(provider, { ...limit });
+  }
+}
+
+const REDIS_PL_PREFIX = "provider-limits:";
+
+/**
+ * Implémentation Redis (multi-instance Vercel serverless).
+ *
+ * Stratégie :
+ * - Lecture  : cache in-memory local (synchrone, zero-latency).
+ * - Écriture : in-memory immédiat + fire-and-forget Redis en arrière-plan.
+ * - Fail-soft: si Redis throw → warn + in-memory seul, jamais bloquant.
+ * - TTL Redis : 120 s (cohérent avec la fenêtre de reset typique OpenAI/Anthropic).
+ */
+export class RedisProviderLimits implements ProviderLimitsStore {
+  private readonly cache = new Map<string, ProviderRateLimit>();
+
+  constructor(
+    private readonly redis: {
+      set(key: string, value: string, mode?: "EX", ttlSeconds?: number): Promise<unknown>;
+    },
+  ) {}
+
+  getSync(provider: string): ProviderRateLimit | undefined {
+    return this.cache.get(provider);
+  }
+
+  recordAsync(provider: string, limit: ProviderRateLimit): void {
+    // Écriture in-memory immédiate (hot path sync)
+    this.cache.set(provider, { ...limit });
+
+    // Persistance Redis en arrière-plan (fire-and-forget)
+    const key = `${REDIS_PL_PREFIX}${provider}`;
+    const raw = JSON.stringify(limit);
+    Promise.resolve(this.redis.set(key, raw, "EX", 120)).catch((err: unknown) => {
+      logger.warn(
+        { err, provider },
+        "[rate-limiter] Redis provider-limits write failed (non-blocking)",
+      );
+    });
+  }
+}
+
 const RPM = Number(process.env.LLM_RATE_LIMIT_RPM ?? "60");
 const TPH = Number(process.env.LLM_RATE_LIMIT_TPH ?? "1000000");
 const MAX_USERS = Number(process.env.LLM_RATE_LIMIT_MAX_USERS ?? "10000");
@@ -54,12 +125,16 @@ export class LLMRateLimiter {
   private readonly cleanupIntervalMs = 60000; // Cleanup every 60s
 
   // --- État rate-limit par provider (HTTP headers, backoff proactif) -------
-  private providerLimits = new Map<string, ProviderRateLimit>();
+  private readonly store: ProviderLimitsStore;
   private lastThrottleLogAt = new Map<string, number>(); // debounce log 1/s/provider
   private readonly throttleLogDebounceMs = 1000;
   private readonly proactiveRequestsThreshold = 5;
   private readonly proactiveTokensThreshold = 1000;
   private readonly proactiveDelayCapMs = 1000;
+
+  constructor(store?: ProviderLimitsStore) {
+    this.store = store ?? new InMemoryProviderLimits();
+  }
 
   private cleanupIfNeeded(): void {
     const now = Date.now();
@@ -284,7 +359,7 @@ export class LLMRateLimiter {
     }
 
     const now = Date.now();
-    const prev = this.providerLimits.get(provider);
+    const prev = this.store.getSync(provider);
     const next: ProviderRateLimit = prev
       ? { ...prev, updatedAt: now }
       : {
@@ -385,7 +460,7 @@ export class LLMRateLimiter {
     }
 
     if (touched) {
-      this.providerLimits.set(provider, next);
+      this.store.recordAsync(provider, next);
     }
   }
 
@@ -401,7 +476,7 @@ export class LLMRateLimiter {
    * 6. Sinon → pas de throttle.
    */
   shouldThrottle(provider: string): ThrottleDecision {
-    const state = this.providerLimits.get(provider);
+    const state = this.store.getSync(provider);
     if (!state) return { throttle: false };
 
     const now = Date.now();
@@ -483,7 +558,7 @@ export class LLMRateLimiter {
    * Snapshot lecture seule de l'état rate-limit d'un provider (debug / metrics).
    */
   getProviderLimit(provider: string): ProviderRateLimit | undefined {
-    const state = this.providerLimits.get(provider);
+    const state = this.store.getSync(provider);
     return state ? { ...state } : undefined;
   }
 
@@ -501,4 +576,26 @@ export class LLMRateLimiter {
   }
 }
 
-export const defaultRateLimiter = new LLMRateLimiter();
+// ---------------------------------------------------------------------------
+// Factory — sélectionne le store selon l'environnement
+// ---------------------------------------------------------------------------
+
+function createDefaultProviderLimitsStore(): ProviderLimitsStore {
+  const upstashUrl = process.env.UPSTASH_REDIS_REST_URL;
+  const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (upstashUrl && upstashToken) {
+    try {
+      const redis = getRedis();
+      if (redis) {
+        return new RedisProviderLimits(redis);
+      }
+    } catch (err) {
+      logger.warn({ err }, "[rate-limiter] Redis init failed, falling back to in-memory store");
+    }
+  }
+
+  return new InMemoryProviderLimits();
+}
+
+export const defaultRateLimiter = new LLMRateLimiter(createDefaultProviderLimitsStore());
