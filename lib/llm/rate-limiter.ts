@@ -37,6 +37,10 @@ export interface ProviderRateLimit {
 export interface ThrottleDecision {
   throttle: boolean;
   reasonMs?: number;
+  /** "hard" = contrainte serveur dure (retry-after ou budget épuisé) — respecter pleinement.
+   *  "soft" = délai proactif préventif — peut être capé.
+   *  Absent si throttle === false. */
+  kind?: "hard" | "soft";
 }
 
 const RPM = Number(process.env.LLM_RATE_LIMIT_RPM ?? "60");
@@ -402,24 +406,24 @@ export class LLMRateLimiter {
 
     const now = Date.now();
 
-    // 2. retry-after explicite (priorité absolue, set sur 429)
+    // 2. retry-after explicite (priorité absolue, set sur 429) → HARD
     if (state.retryAfterMs && state.retryAfterSetAt) {
       const elapsed = now - state.retryAfterSetAt;
       const remaining = state.retryAfterMs - elapsed;
       if (remaining > 0) {
         this.logThrottle(provider, remaining, state);
-        return { throttle: true, reasonMs: remaining };
+        return { throttle: true, reasonMs: remaining, kind: "hard" };
       }
     }
 
-    // 3. Budget requests épuisé
+    // 3. Budget requests épuisé → HARD
     if (state.requestsRemaining === 0 && state.requestsResetAt > now) {
       const remaining = state.requestsResetAt - now;
       this.logThrottle(provider, remaining, state);
-      return { throttle: true, reasonMs: remaining };
+      return { throttle: true, reasonMs: remaining, kind: "hard" };
     }
 
-    // 4. Budget requests bas → throttle proactif court
+    // 4. Budget requests bas → throttle proactif court → SOFT
     if (
       Number.isFinite(state.requestsRemaining) &&
       state.requestsRemaining > 0 &&
@@ -433,11 +437,11 @@ export class LLMRateLimiter {
       );
       if (delay > 0) {
         this.logThrottle(provider, delay, state);
-        return { throttle: true, reasonMs: delay };
+        return { throttle: true, reasonMs: delay, kind: "soft" };
       }
     }
 
-    // 5. Budget tokens bas → throttle proactif similaire
+    // 5. Budget tokens bas → throttle proactif similaire → SOFT
     if (
       Number.isFinite(state.tokensRemaining) &&
       state.tokensRemaining > 0 &&
@@ -448,7 +452,7 @@ export class LLMRateLimiter {
       const delay = Math.min(Math.ceil(window / 10), this.proactiveDelayCapMs);
       if (delay > 0) {
         this.logThrottle(provider, delay, state);
-        return { throttle: true, reasonMs: delay };
+        return { throttle: true, reasonMs: delay, kind: "soft" };
       }
     }
 
@@ -457,10 +461,22 @@ export class LLMRateLimiter {
 
   /**
    * Helper : retourne le délai à attendre (ms) avant le prochain call. 0 si OK.
+   * Retro-compat — signature inchangée.
    */
   getNextDelay(provider: string): number {
     const decision = this.shouldThrottle(provider);
     return decision.throttle ? (decision.reasonMs ?? 0) : 0;
+  }
+
+  /**
+   * Helper étendu : retourne le délai ET le kind (hard / soft).
+   * - hard → contrainte serveur dure, respecter le délai complet.
+   * - soft → délai proactif, peut être capé côté consommateur.
+   */
+  getNextDelayDetailed(provider: string): { delay: number; kind: "hard" | "soft" } {
+    const decision = this.shouldThrottle(provider);
+    if (!decision.throttle) return { delay: 0, kind: "soft" };
+    return { delay: decision.reasonMs ?? 0, kind: decision.kind ?? "soft" };
   }
 
   /**

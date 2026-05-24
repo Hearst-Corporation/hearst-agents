@@ -78,6 +78,11 @@ function isTransientError(err: unknown): boolean {
   return /\b(429|500|502|503|504)\b/.test(err.message);
 }
 
+/** Délai hard max défensif : évite un blocage indéfini en cas de retry-after aberrant. */
+const HARD_THROTTLE_CAP_MS = 60_000;
+/** Délai soft max : cap préventif pour les délais proactifs. */
+const SOFT_THROTTLE_CAP_MS = 1_000;
+
 async function retryWithBackoff<T>(
   fn: () => Promise<T>,
   maxRetries = 3,
@@ -85,15 +90,19 @@ async function retryWithBackoff<T>(
 ): Promise<T> {
   let attempt = 0;
   while (true) {
-    // Throttle proactif : consulte l'état rate-limit du provider AVANT chaque tentative.
+    // Vérification proactive avant chaque tentative (pas seulement après erreur)
     if (provider) {
-      const proactiveDelay = Math.min(defaultRateLimiter.getNextDelay(provider), 1000);
-      if (proactiveDelay > 0) {
-        logger.debug(
-          { provider, delayMs: proactiveDelay },
-          `[router] proactive throttle ${proactiveDelay}ms for ${provider}`,
+      const { delay, kind } = defaultRateLimiter.getNextDelayDetailed(provider);
+      if (delay > 0) {
+        const capped =
+          kind === "hard"
+            ? Math.min(delay, HARD_THROTTLE_CAP_MS)
+            : Math.min(delay, SOFT_THROTTLE_CAP_MS);
+        logger.warn(
+          { provider, delay, capped, kind },
+          `[router] ${kind} throttle ${capped}ms (raw=${delay}ms)`,
         );
-        await new Promise((r) => setTimeout(r, proactiveDelay));
+        await new Promise((r) => setTimeout(r, capped));
       }
     }
     try {
