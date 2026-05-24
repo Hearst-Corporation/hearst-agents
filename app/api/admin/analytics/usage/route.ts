@@ -20,6 +20,7 @@ import {
   getCrossTenantTimeSeries,
 } from "@/lib/admin/usage/aggregate";
 import { withRoute } from "@/lib/observability/logger";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { isError, requireAdmin } from "../../_helpers";
 
 const log = withRoute("GET /api/admin/analytics/usage");
@@ -69,8 +70,6 @@ export async function GET(req: NextRequest) {
       timeSeries,
     });
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "aggregation_failed";
-    log.warn({ msg }, "analytics_aggregation_failed");
-    return NextResponse.json({ error: msg }, { status: 500 });
+    return safeErrorResponse(e, { route: "GET /api/admin/analytics/usage" });
   }
 }

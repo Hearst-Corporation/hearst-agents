@@ -14,6 +14,7 @@ import {
   getTenantUsage,
   getTopTenants,
 } from "@/lib/admin/usage/aggregate";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { isError, requireAdmin } from "../../_helpers";
 
 export const dynamic = "force-dynamic";
@@ -55,7 +56,6 @@ export async function GET(req: NextRequest) {
     const top = await getTopTenants(range, limit, kind);
     return NextResponse.json({ range, kind: kind ?? null, top });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : "aggregation_failed";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    return safeErrorResponse(err, { route: "GET /api/admin/analytics/tenants" });
   }
 }

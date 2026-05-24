@@ -9,6 +9,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { withScope } from "@/lib/platform/http/route-handler";
 
 export const runtime = "nodejs";
@@ -93,8 +94,9 @@ export const GET = withScope("GET /api/v2/daily-brief/history", async (req, { sc
 
     return NextResponse.json({ briefs });
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[daily-brief/history] failed:", message);
-    return NextResponse.json({ error: "history_failed", message }, { status: 500 });
+    return safeErrorResponse(err, {
+      route: "GET /api/v2/daily-brief/history",
+      scope: { userId: scope.userId },
+    });
   }
 });

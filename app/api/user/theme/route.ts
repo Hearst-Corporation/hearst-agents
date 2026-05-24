@@ -11,6 +11,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
 import { DEFAULT_THEME, isKnownTheme } from "@/lib/themes";
 
@@ -69,7 +70,10 @@ export async function POST(req: NextRequest) {
     );
 
   if (upsertError) {
-    return NextResponse.json({ error: upsertError.message }, { status: 500 });
+    return safeErrorResponse(new Error(upsertError.message), {
+      route: "POST /api/user/theme",
+      scope: { userId: scope.userId },
+    });
   }
 
   const res = NextResponse.json({ ok: true, slug }, { status: 200 });

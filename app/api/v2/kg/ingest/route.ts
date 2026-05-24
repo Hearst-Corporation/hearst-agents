@@ -11,6 +11,7 @@ import { z } from "zod";
 import { checkDailyCap } from "@/lib/credits/daily-caps";
 import { extractEntities, upsertEdge, upsertNode } from "@/lib/memory/kg";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 const kgIngestBodySchema = z
@@ -90,8 +91,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ entitiesCreated, edgesCreated });
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[kg/ingest] failed:", message);
-    return NextResponse.json({ error: "ingest_failed", message }, { status: 500 });
+    return safeErrorResponse(err, {
+      route: "POST /api/v2/kg/ingest",
+      scope: { userId: scope.userId, tenantId: scope.tenantId },
+    });
   }
 }

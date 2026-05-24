@@ -8,6 +8,7 @@
 
 import { NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { getTenantIndustry } from "@/lib/verticals/hospitality";
 
 export const runtime = "nodejs";
@@ -31,8 +32,9 @@ export async function GET() {
       { headers: { "Cache-Control": "private, max-age=300" } },
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[user/me/vertical] failed:", message);
-    return NextResponse.json({ error: "vertical_failed", message }, { status: 500 });
+    return safeErrorResponse(err, {
+      route: "GET /api/v2/user/me/vertical",
+      scope: { tenantId: scope.tenantId },
+    });
   }
 }

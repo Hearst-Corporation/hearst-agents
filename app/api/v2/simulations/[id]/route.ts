@@ -7,6 +7,7 @@
 
 import { NextResponse } from "next/server";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { withScope } from "@/lib/platform/http/route-handler";
 
 export const runtime = "nodejs";
@@ -60,9 +61,10 @@ export const GET = withScope<{ id: string }>(
         completedAt: row.completed_at,
       });
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      console.error("[simulations/get] failed:", message);
-      return NextResponse.json({ error: "get_failed", message }, { status: 500 });
+      return safeErrorResponse(err, {
+        route: "GET /api/v2/simulations/[id]",
+        scope: { userId: scope.userId, tenantId: scope.tenantId },
+      });
     }
   },
 );

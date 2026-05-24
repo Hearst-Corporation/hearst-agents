@@ -6,6 +6,7 @@ import {
 } from "@/lib/architecture-map/graph";
 import { invalidateCache, loadArchitectureMap } from "@/lib/architecture-map/load";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 
 export const dynamic = "force-dynamic";
 
@@ -34,10 +35,6 @@ export async function GET() {
       raw: map,
     });
   } catch (e) {
-    console.error("GET /api/v2/architecture:", e);
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Failed to load architecture map" },
-      { status: 500 },
-    );
+    return safeErrorResponse(e, { route: "GET /api/v2/architecture" });
   }
 }

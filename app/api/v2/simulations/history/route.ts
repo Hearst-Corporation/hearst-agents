@@ -8,6 +8,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -78,8 +79,9 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ runs });
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[simulations/history] failed:", message);
-    return NextResponse.json({ error: "history_failed", message }, { status: 500 });
+    return safeErrorResponse(err, {
+      route: "GET /api/v2/simulations/history",
+      scope: { userId: scope.userId, tenantId: scope.tenantId },
+    });
   }
 }
