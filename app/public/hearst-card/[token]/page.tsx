@@ -19,6 +19,7 @@ import { buildMonthlyCardData } from "@/lib/cockpit/monthly-card";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
 import { MonthlyCardView } from "@/lib/cockpit/monthly-card-view";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { NONCE_HEADER } from "@/lib/security/csp-nonce";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -120,7 +121,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function PublicHearstCardPage({ params }: PageProps) {
-  await headers();
+  const requestHeaders = await headers();
+  const nonce = requestHeaders.get(NONCE_HEADER) ?? "";
   const { token } = await params;
   const result = await loadCardForToken(token);
 
@@ -281,7 +283,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
           marginBottom: "var(--space-12)",
         }}
       >
-        <CopyLinkButton />
+        <CopyLinkButton nonce={nonce} />
         {pngUrl ? (
           <a
             href={pngUrl}
@@ -377,8 +379,10 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
  * Bouton "Copier le lien" — minimal, client-side via next/script.
  * Pas de useState/useEffect : on reste server component pur.
  * Le script est 100% statique (constante module COPY_LINK_SCRIPT) — zéro XSS.
+ * Le nonce CSP est propagé depuis le Server Component parent pour que le script
+ * inline soit autorisé par la CSP strict-dynamic.
  */
-function CopyLinkButton() {
+function CopyLinkButton({ nonce }: { nonce: string }) {
   return (
     <>
       <button
@@ -397,7 +401,7 @@ function CopyLinkButton() {
       >
         Copier le lien
       </button>
-      <Script id="hearst-card-copy-link-init" strategy="afterInteractive">
+      <Script id="hearst-card-copy-link-init" strategy="afterInteractive" nonce={nonce}>
         {COPY_LINK_SCRIPT}
       </Script>
     </>

@@ -1,24 +1,28 @@
 /**
  * Security Headers Test — F-078
  *
- * Valide que next.config.ts expose les headers de sécurité (CSP, HSTS, X-Frame, etc.)
- * via la fonction headers().
+ * Valide que next.config.ts expose les headers de sécurité statiques (HSTS,
+ * X-Frame, Permissions-Policy, Referrer-Policy, X-Content-Type-Options).
+ *
+ * NOTE : la CSP (Content-Security-Policy) est désormais générée dynamiquement
+ * per-request dans proxy.ts avec un nonce + 'strict-dynamic'. Elle n'est plus
+ * dans next.config.ts. Voir __tests__/security/csp-nonce.test.ts pour les tests CSP.
  */
 
 import { describe, expect, it } from "vitest";
 import nextConfig from "@/next.config";
 
-describe("CSP & Security Headers (F-078)", () => {
-  it("should have Content-Security-Policy header configured", async () => {
-    // Import next.config.ts et vérifier que headers() retourne CSP.
+describe("Static Security Headers (F-078)", () => {
+  it("should NOT have Content-Security-Policy in static headers (moved to middleware)", async () => {
+    // La CSP est générée dynamiquement dans proxy.ts (avec nonce per-request).
+    // Elle ne doit plus figurer dans next.config.ts pour éviter un double-header.
     const config = nextConfig as any;
     if (typeof config.headers === "function") {
       const headersResult = await config.headers();
       const cspHeader = headersResult[0]?.headers?.find(
         (h: any) => h.key === "Content-Security-Policy",
       );
-      expect(cspHeader).toBeDefined();
-      expect(cspHeader?.value).toContain("default-src 'self'");
+      expect(cspHeader).toBeUndefined();
     }
   });
 
@@ -81,18 +85,6 @@ describe("CSP & Security Headers (F-078)", () => {
         (h: any) => h.key === "X-Content-Type-Options",
       );
       expect(xContentTypeHeader?.value).toBe("nosniff");
-    }
-  });
-
-  it("should include api.hypercli.com in connect-src for Kimi orchestrator", async () => {
-    // Post Vague 2 fix headers-fixer — allow Kimi API calls
-    const config = nextConfig as any;
-    if (typeof config.headers === "function") {
-      const headersResult = await config.headers();
-      const cspHeader = headersResult[0]?.headers?.find(
-        (h: any) => h.key === "Content-Security-Policy",
-      );
-      expect(cspHeader?.value).toContain("api.hypercli.com");
     }
   });
 });

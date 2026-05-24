@@ -18,6 +18,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
 import { aj, ajLlmJobs, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
+import { buildCsp, generateNonce, NONCE_HEADER } from "@/lib/security/csp-nonce";
 
 const PUBLIC_PATHS = [
   "/login",
@@ -203,15 +204,31 @@ async function applyArcjet(
 
 let _envChecked = false;
 
-/** Applique un correlationId préétabli sur la response. */
-function applyCorrelationId(response: NextResponse, correlationId: string): NextResponse {
+/** Applique un correlationId et un nonce CSP sur la response. */
+function applyCorrelationId(
+  response: NextResponse,
+  correlationId: string,
+  nonce?: string,
+): NextResponse {
   response.headers.set("x-correlation-id", correlationId);
+  if (nonce) {
+    // Expose le nonce au client pour debug (header de réponse lisible côté JS)
+    response.headers.set("x-csp-nonce", nonce);
+    // CSP dynamique per-request avec nonce + strict-dynamic
+    const isDev = process.env.NODE_ENV === "development";
+    response.headers.set("Content-Security-Policy", buildCsp(nonce, isDev));
+  }
   return response;
 }
 
 export async function proxy(req: NextRequest): Promise<NextResponse> {
   // Générer ou réutiliser le correlation-id en premier — avant auth, avant Arcjet
   const correlationId = req.headers.get("x-correlation-id") ?? randomUUID();
+
+  // F-078-nonce : génère un nonce CSP per-request et l'injecte dans les headers
+  // de la requête pour que les Server Components puissent le lire via headers().
+  const nonce = generateNonce();
+  req.headers.set(NONCE_HEADER, nonce);
   // F-022 : env validation lazily, une seule fois, sans crasher le boot.
   // env.server.ts est un side-effect module (pas d'exports) : on l'importe
   // dans un bloc try/catch pour ne pas crash le middleware si une var manque.
@@ -247,7 +264,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   }
 
   if (isPublic(path)) {
-    return applyCorrelationId(NextResponse.next(), correlationId);
+    return applyCorrelationId(NextResponse.next(), correlationId, nonce);
   }
 
   if (path.startsWith("/api/")) {
@@ -284,7 +301,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   }
 
   if (jwtToken == null) {
-    if (isDevBypassEnabled()) return applyCorrelationId(NextResponse.next(), correlationId);
+    if (isDevBypassEnabled()) return applyCorrelationId(NextResponse.next(), correlationId, nonce);
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("callbackUrl", path);
     console.log(`[Proxy] Redirecting unauthenticated user to login — ${path}`);
@@ -304,7 +321,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     }
   }
 
-  return applyCorrelationId(NextResponse.next(), correlationId);
+  return applyCorrelationId(NextResponse.next(), correlationId, nonce);
 }
 
 export const config = {

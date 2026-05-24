@@ -2,8 +2,9 @@
 // Couleur theme hex requise par la spec PWA (Web App Manifest /
 // meta theme-color). Pas un magic number CSS — opt-out légitime.
 import type { Metadata, Viewport } from "next";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import "./globals.css";
+import { NONCE_HEADER } from "@/lib/security/csp-nonce";
 import { ToastHost } from "./(user)/components/ui/ToastHost";
 import { NoiseLayer } from "./components/system/NoiseLayer";
 import { ThemeHydrator } from "./components/system/ThemeHydrator";
@@ -33,6 +34,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const themeCookie = (await cookies()).get("theme")?.value ?? "default";
+  // Lit le nonce injecté par proxy.ts (middleware) pour les Server Components.
+  // Propagé via NONCE_HEADER (x-csp-nonce) dans les headers de requête.
+  const nonce = (await headers()).get(NONCE_HEADER) ?? "";
   return (
     <html
       lang="fr"
@@ -41,6 +45,8 @@ export default async function RootLayout({
       data-product="helm"
     >
       <head>
+        {/* Nonce CSP — lisible côté client par les scripts noncés (ex: Sentry, analytics). */}
+        {nonce && <meta name="csp-nonce" content={nonce} />}
         {/* Preconnect fontshare CDN — réduit la latence de connexion */}
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
         {/*

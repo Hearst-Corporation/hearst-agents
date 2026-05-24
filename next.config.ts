@@ -1,30 +1,11 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === "development";
-
-/* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ── */
+/* ── F-078: Sécurité HTTP headers statiques (HSTS, X-Frame, Permissions-Policy) ── */
+// NOTE : la CSP (Content-Security-Policy) est générée dynamiquement dans proxy.ts
+// avec un nonce per-request et 'strict-dynamic'. Elle n'est plus ici.
+// Voir lib/security/csp-nonce.ts → buildCsp().
 const securityHeaders = [
-  {
-    key: "Content-Security-Policy",
-    value: [
-      "default-src 'self'",
-      // TODO(nonces): remplacer 'unsafe-inline' par 'strict-dynamic' + nonce via middleware.ts
-      // quand le nonce middleware sera en place (generateNonces() Next.js 15).
-      // 'unsafe-eval' nécessaire en dev pour React/Webpack, supprimé en prod.
-      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' 'wasm-unsafe-eval'" : ""} https://*.sentry.io https://cloud.langfuse.com https://unpkg.com`,
-      "worker-src 'self' blob:",
-      "child-src 'self' blob:",
-      "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
-      "img-src 'self' data: https: blob:",
-      "media-src 'self' data: https: blob:",
-      "font-src 'self' data: https://cdn.fontshare.com",
-      "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io https://api.hypercli.com https://prod.spline.design https://*.spline.design https://unpkg.com",
-      "frame-ancestors 'none'",
-      "base-uri 'self'",
-      "form-action 'self'",
-    ].join("; "),
-  },
   {
     key: "Strict-Transport-Security",
     value: "max-age=63072000; includeSubDomains",
