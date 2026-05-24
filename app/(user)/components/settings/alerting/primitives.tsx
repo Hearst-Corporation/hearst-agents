@@ -18,11 +18,13 @@ export function SectionTitle({ children }: { children: ReactNode }) {
 export function Input({
   value,
   onChange,
+  onBlur,
   placeholder,
   type = "text",
 }: {
   value: string;
   onChange: (v: string) => void;
+  onBlur?: () => void;
   placeholder?: string;
   type?: string;
 }) {
@@ -31,6 +33,7 @@ export function Input({
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      onBlur={onBlur}
       placeholder={placeholder}
     />
   );

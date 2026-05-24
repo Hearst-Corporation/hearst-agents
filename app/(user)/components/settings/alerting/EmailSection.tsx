@@ -71,10 +71,11 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
                 <Input
                   value={state.emailInputRaw}
                   onChange={(v) => dispatch({ type: "SET_EMAIL_INPUT", raw: v })}
+                  onBlur={handleEmailRecipientsBlur}
                   placeholder="alice@example.com, bob@example.com"
                   type="text"
                 />
-                <div className="flex flex-wrap gap-1 mt-2" onBlur={handleEmailRecipientsBlur}>
+                <div className="flex flex-wrap gap-1 mt-2">
                   {prefs.email.recipients.map((r) => (
                     <span
                       key={r}
