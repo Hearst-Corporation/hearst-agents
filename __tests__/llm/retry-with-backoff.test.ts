@@ -117,7 +117,7 @@ describe("retryWithBackoff", () => {
 
     const err = await resultPromise;
     expect(err).toBeInstanceOf(Error);
-    expect(err.message).toContain("502 bad gateway");
+    expect((err as Error).message).toContain("502 bad gateway");
     expect(fn).toHaveBeenCalledTimes(3); // 1 initial + 2 retries
     vi.useRealTimers();
   });

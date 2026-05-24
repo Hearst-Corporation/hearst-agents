@@ -11,7 +11,7 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { LLMRateLimiter } from "../../lib/llm/rate-limiter";
-import { HARD_THROTTLE_CAP_MS } from "../../lib/llm/router";
+import { HARD_THROTTLE_CAP_MS } from "../../lib/llm/retry-with-backoff";
 
 // Mock du logger avant tout import dynamique
 vi.mock("../../lib/observability/logger", () => ({
