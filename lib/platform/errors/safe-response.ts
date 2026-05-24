@@ -5,7 +5,6 @@ import { logger } from "@/lib/observability/logger";
 export interface SafeErrorContext {
   route: string;
   scope?: { tenantId?: string; userId?: string };
-  cause?: unknown;
 }
 
 /**

@@ -137,18 +137,23 @@ async function retryWithBackoff<T>(
 
       // Détecte un retry-after "hard" du provider (ex. Anthropic 429 avec delay explicite)
       const hardDelayMs = extractRetryAfterMs(e);
-      if (hardDelayMs > HARD_THROTTLE_CAP_MS) {
-        logger.warn(
-          {
-            provider: provider ?? "unknown",
-            requestedDelayMs: hardDelayMs,
-            capMs: HARD_THROTTLE_CAP_MS,
-          },
-          "[router] hard retry-after exceeded HARD_THROTTLE_CAP — capping defensively, prod alert recommandée",
-        );
+      let actualDelay = computedDelay;
+      if (hardDelayMs > 0) {
+        // Applique le cap défensif et utilise le delay provider plutôt que le backoff exponentiel
+        actualDelay = Math.min(hardDelayMs, HARD_THROTTLE_CAP_MS);
+        if (hardDelayMs > HARD_THROTTLE_CAP_MS) {
+          logger.warn(
+            {
+              provider: provider ?? "unknown",
+              requestedDelayMs: hardDelayMs,
+              capMs: HARD_THROTTLE_CAP_MS,
+            },
+            "[router] hard retry-after exceeded HARD_THROTTLE_CAP — capping defensively, prod alert recommandée",
+          );
+        }
       }
 
-      await new Promise((r) => setTimeout(r, computedDelay));
+      await new Promise((r) => setTimeout(r, actualDelay));
     }
   }
 }

@@ -19,11 +19,8 @@ import {
   getCrossTenantOverview,
   getCrossTenantTimeSeries,
 } from "@/lib/admin/usage/aggregate";
-import { withRoute } from "@/lib/observability/logger";
 import { safeErrorResponse } from "@/lib/platform/errors/safe-response";
 import { isError, requireAdmin } from "../../_helpers";
-
-const log = withRoute("GET /api/admin/analytics/usage");
 
 export const dynamic = "force-dynamic";
 
