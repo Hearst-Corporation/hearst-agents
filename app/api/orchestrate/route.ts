@@ -1,8 +1,10 @@
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { orchestrate } from "@/lib/engine/orchestrator";
 import { ensureSchedulerStarted } from "@/lib/engine/runtime/missions/scheduler-init";
+import { getTenantUsage } from "@/lib/llm/usage-tracker";
 import { MAX_MESSAGES_PER_CONVERSATION } from "@/lib/memory/store";
 import { authOptions } from "@/lib/platform/auth/options";
 import { requireScope } from "@/lib/platform/auth/scope";
@@ -149,6 +151,19 @@ export async function POST(req: NextRequest) {
       JSON.stringify({ ok: false, error: error?.message ?? "not_authenticated" }),
       { status: error?.status ?? 401, headers: { "Content-Type": "application/json" } },
     );
+  }
+
+  // Daily cost cap — no-op si ORCHESTRATE_COST_CAP_USD absent ou à 0
+  const dailyCap = Number(process.env.ORCHESTRATE_COST_CAP_USD ?? 0);
+  if (dailyCap > 0) {
+    const todayUsage = await getTenantUsage(scope.tenantId, 1);
+    const usedToday = todayUsage?.total_cost_usd ?? 0;
+    if (usedToday >= dailyCap) {
+      return NextResponse.json(
+        { error: "daily_cost_cap_reached", cap: dailyCap, used: usedToday },
+        { status: 429, headers: { "Retry-After": "3600" } },
+      );
+    }
   }
 
   let body: unknown;
