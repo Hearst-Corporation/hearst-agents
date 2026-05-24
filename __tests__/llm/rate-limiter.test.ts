@@ -200,7 +200,6 @@ describe("RedisProviderLimits", () => {
     const limiterWithStore = new LLMRateLimiter(store);
 
     // Enregistrer des headers qui devraient déclencher un throttle
-    const now = Date.now();
     limiterWithStore.recordHeaders("openai", {
       "x-ratelimit-remaining-requests": "0",
       "x-ratelimit-reset-requests": "30s",

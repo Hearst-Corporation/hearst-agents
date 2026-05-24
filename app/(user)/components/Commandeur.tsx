@@ -200,14 +200,11 @@ export function Commandeur() {
 
   return (
     <>
-      {/*
-        biome-ignore lint/a11y/noStaticElementInteractions: Backdrop modal WAI-ARIA — role="presentation" implicite sur le scrim.
-        Le click sur le backdrop ferme la palette (équivalent Escape). La gestion clavier complète
-        (Escape, ArrowUp/Down, Enter) est assurée par le listener window "keydown" en capture phase
-        (lignes 148-173) via useModalA11y. Convertir en <button> casserait le positionnement CSS.
-        biome-ignore lint/a11y/useKeyWithClickEvents: Voir justification noStaticElementInteractions ci-dessus —
-        les événements clavier sont gérés au niveau document (capture) par useModalA11y, pas inline.
-      */}
+      {/* Backdrop modal WAI-ARIA — role="presentation" implicite sur le scrim.
+          Le click sur le backdrop ferme la palette (équivalent Escape). La gestion clavier complète
+          (Escape, ArrowUp/Down, Enter) est assurée par le listener window "keydown" en capture phase
+          (lignes 148-173) via useModalA11y. Convertir en <button> casserait le positionnement CSS.
+          biome-ignore lint/a11y: noStaticElementInteractions + useKeyWithClickEvents — role="presentation", keyboard géré par useModalA11y (window keydown capture) */}
       <div
         role="presentation"
         className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
