@@ -4,9 +4,12 @@
  * Valide que generateNonce() produit des valeurs cryptographiquement aléatoires
  * valides pour une utilisation comme nonce CSP, et que buildCsp() génère une
  * directive Content-Security-Policy cohérente avec 'strict-dynamic'.
+ *
+ * Test AC1/AC3 : vérifie que proxy() utilise NextResponse.next({ request: { headers } })
+ * pour propager le nonce aux Server Components.
  */
 
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildCsp, generateNonce, NONCE_HEADER } from "@/lib/security/csp-nonce";
 
 describe("CSP Nonce Helper (F-078-nonce)", () => {
@@ -90,5 +93,109 @@ describe("CSP Nonce Helper (F-078-nonce)", () => {
     const nonce = generateNonce();
     const csp = buildCsp(nonce, false);
     expect(csp).toContain("default-src 'self'");
+  });
+});
+
+/**
+ * AC3 — Test de propagation nonce via NextResponse.next({ request: { headers } })
+ *
+ * Valide que proxy() construit sa réponse avec les request headers modifiés
+ * (nonce inclus) pour que les Server Components puissent lire le nonce via
+ * headers().get(NONCE_HEADER).
+ *
+ * Approche : mock NextResponse.next pour capturer les arguments passés.
+ */
+describe("proxy() — nonce propagation (AC1/AC3 F-078-nonce-fix)", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    // Reset env mocks
+    vi.stubEnv("NEXTAUTH_URL", "https://app.hearst.ai");
+    vi.stubEnv("NEXTAUTH_SECRET", "test-secret-32bytes-minimum-ok!");
+    vi.stubEnv("NODE_ENV", "test");
+  });
+
+  it("should call NextResponse.next with { request: { headers } } containing the nonce", async () => {
+    // Mock next/server pour capturer les arguments
+    const capturedNextArgs: unknown[] = [];
+    const mockNextResponse = vi.fn((args?: unknown) => {
+      capturedNextArgs.push(args);
+      return {
+        headers: new Headers(),
+        status: 200,
+      };
+    });
+
+    vi.doMock("next/server", () => ({
+      NextResponse: {
+        next: mockNextResponse,
+        json: vi.fn((body, init) => ({ headers: new Headers(), ...init })),
+        redirect: vi.fn((url) => ({ headers: new Headers(), url })),
+      },
+    }));
+
+    vi.doMock("@/lib/platform/auth/dev-bypass", () => ({
+      isDevBypassEnabled: () => true, // bypass auth pour simplifier le test
+    }));
+
+    vi.doMock("@/lib/security/arcjet", () => ({
+      isArcjetEnabled: () => false,
+      aj: null,
+      ajLlmJobs: null,
+      ajOrchestrate: null,
+    }));
+
+    vi.doMock("next-auth/jwt", () => ({
+      getToken: vi.fn().mockResolvedValue({ sub: "user-123", refreshToken: "tok" }),
+    }));
+
+    const { proxy } = await import("@/proxy");
+
+    const req = new Request("https://app.hearst.ai/dashboard", {
+      method: "GET",
+      headers: { host: "app.hearst.ai" },
+    }) as unknown as import("next/server").NextRequest;
+
+    // Ajoute nextUrl (Next.js spécifique)
+    Object.defineProperty(req, "nextUrl", {
+      value: new URL("https://app.hearst.ai/dashboard"),
+      writable: false,
+    });
+
+    await proxy(req);
+
+    // Vérifier qu'au moins un appel NextResponse.next a reçu { request: { headers } }
+    const callsWithRequestHeaders = capturedNextArgs.filter(
+      (arg) =>
+        arg !== undefined &&
+        typeof arg === "object" &&
+        arg !== null &&
+        "request" in arg &&
+        typeof (arg as { request?: unknown }).request === "object",
+    );
+
+    expect(callsWithRequestHeaders.length).toBeGreaterThan(0);
+
+    // Vérifier que les headers propagés contiennent le nonce
+    const firstCall = callsWithRequestHeaders[0] as {
+      request: { headers: Headers };
+    };
+    const propagatedHeaders = firstCall.request?.headers;
+    expect(propagatedHeaders).toBeDefined();
+    if (propagatedHeaders instanceof Headers) {
+      const nonceValue = propagatedHeaders.get(NONCE_HEADER);
+      expect(nonceValue).toBeTruthy();
+      expect(typeof nonceValue).toBe("string");
+      // Le nonce doit être un base64 valide de 16 bytes (24 chars avec padding)
+      if (nonceValue) {
+        const decoded = Buffer.from(nonceValue, "base64");
+        expect(decoded.length).toBe(16);
+      }
+    }
+  });
+
+  it("NONCE_HEADER constant must be x-csp-nonce (stable key for Server Components)", () => {
+    // Régression guard : si ce header change, app/layout.tsx et les Server Components
+    // ne trouveront plus le nonce et la CSP sera cassée.
+    expect(NONCE_HEADER).toBe("x-csp-nonce");
   });
 });

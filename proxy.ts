@@ -204,7 +204,13 @@ async function applyArcjet(
 
 let _envChecked = false;
 
-/** Applique un correlationId et un nonce CSP sur la response. */
+/**
+ * Applique un correlationId et, si fourni, le nonce CSP sur la response.
+ * Le nonce est set sur les RESPONSE headers (visible du browser) pour que
+ * le browser reçoive la CSP dynamique. Il est aussi propagé dans les REQUEST
+ * headers via NextResponse.next({ request: { headers: reqHeaders } }) pour
+ * que les Server Components puissent le lire via headers().get(NONCE_HEADER).
+ */
 function applyCorrelationId(
   response: NextResponse,
   correlationId: string,
@@ -212,9 +218,9 @@ function applyCorrelationId(
 ): NextResponse {
   response.headers.set("x-correlation-id", correlationId);
   if (nonce) {
-    // Expose le nonce au client pour debug (header de réponse lisible côté JS)
+    // Expose le nonce sur la response (header debug côté browser/JS)
     response.headers.set("x-csp-nonce", nonce);
-    // CSP dynamique per-request avec nonce + strict-dynamic
+    // CSP dynamique per-request avec nonce + strict-dynamic (remplace la CSP statique)
     const isDev = process.env.NODE_ENV === "development";
     response.headers.set("Content-Security-Policy", buildCsp(nonce, isDev));
   }
@@ -225,10 +231,25 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   // Générer ou réutiliser le correlation-id en premier — avant auth, avant Arcjet
   const correlationId = req.headers.get("x-correlation-id") ?? randomUUID();
 
-  // F-078-nonce : génère un nonce CSP per-request et l'injecte dans les headers
-  // de la requête pour que les Server Components puissent le lire via headers().
+  // F-078-nonce : génère un nonce CSP per-request.
+  // PATTERN CORRECT pour Next.js App Router :
+  // 1. Créer une copie IMMUTABLE des request headers (Headers est mutable, mais
+  //    req.headers directement muté ne se propage PAS aux Server Components).
+  // 2. Injecter le nonce dans la copie.
+  // 3. Passer cette copie à NextResponse.next({ request: { headers: reqHeaders } })
+  //    → Next.js propage les headers modifiés aux Server Components via headers().
+  // 4. Set la CSP sur la RESPONSE (visible browser) séparément.
   const nonce = generateNonce();
-  req.headers.set(NONCE_HEADER, nonce);
+  const reqHeaders = new Headers(req.headers);
+  reqHeaders.set(NONCE_HEADER, nonce);
+
+  // Helper local : crée un NextResponse.next() qui propage les request headers modifiés.
+  // Utilisé pour toutes les réponses HTML (pas pour JSON/redirect terminaux).
+  const nextWithNonce = () =>
+    NextResponse.next({
+      request: { headers: reqHeaders },
+    });
+
   // F-022 : env validation lazily, une seule fois, sans crasher le boot.
   // env.server.ts est un side-effect module (pas d'exports) : on l'importe
   // dans un bloc try/catch pour ne pas crash le middleware si une var manque.
@@ -263,8 +284,9 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     if (denied) return applyCorrelationId(denied, correlationId);
   }
 
+  // Chemins publics (statiques, login, webhooks, health) : HTML potentiel → propage le nonce.
   if (isPublic(path)) {
-    return applyCorrelationId(NextResponse.next(), correlationId, nonce);
+    return applyCorrelationId(nextWithNonce(), correlationId, nonce);
   }
 
   if (path.startsWith("/api/")) {
@@ -272,12 +294,15 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     // isDevBypassEnabled() inclut un guard isProductionLike() qui refuse en prod.
     if (isDevBypassEnabled()) {
       console.log(`[Proxy] Dev bypass active — ${path}`);
-      return applyCorrelationId(NextResponse.next(), correlationId);
+      // Routes API en dev bypass : pas de Server Component, pas de nonce dans req headers.
+      // On propage quand même pour uniformité (pas de risque).
+      return applyCorrelationId(nextWithNonce(), correlationId);
     }
 
     // 3. CSRF Origin check (F-052) — après dev bypass (dev local peut skip).
     if (!isCsrfSafe(req)) {
       console.warn(`[Proxy] CSRF origin mismatch — ${req.method} ${path}`);
+      // Réponse terminale JSON — pas de Server Component — pas de nonce dans req.
       return applyCorrelationId(
         NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 }),
         correlationId,
@@ -285,15 +310,18 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     }
 
     if (hasValidApiKey(req)) {
-      return applyCorrelationId(NextResponse.next(), correlationId);
+      // Réponse API — pas de nonce dans req headers (pas de Server Component rendu).
+      return applyCorrelationId(nextWithNonce(), correlationId);
     }
 
     // Réutilise jwtToken déjà décodé (was: hasSession(req) → getToken() again).
     if (jwtToken != null) {
-      return applyCorrelationId(NextResponse.next(), correlationId);
+      // Route API authentifiée — propage les request headers (nonce inclus).
+      return applyCorrelationId(nextWithNonce(), correlationId);
     }
 
     console.warn(`[Proxy] Unauthorized API access — ${path}`);
+    // Réponse terminale JSON — pas de nonce nécessaire.
     return applyCorrelationId(
       NextResponse.json({ error: "unauthorized" }, { status: 401 }),
       correlationId,
@@ -301,10 +329,12 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   }
 
   if (jwtToken == null) {
-    if (isDevBypassEnabled()) return applyCorrelationId(NextResponse.next(), correlationId, nonce);
+    // Dev bypass sur pages HTML → propage le nonce pour les Server Components.
+    if (isDevBypassEnabled()) return applyCorrelationId(nextWithNonce(), correlationId, nonce);
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("callbackUrl", path);
     console.log(`[Proxy] Redirecting unauthenticated user to login — ${path}`);
+    // Redirect terminal — pas de Server Component — pas de nonce dans req.
     return applyCorrelationId(NextResponse.redirect(loginUrl), correlationId);
   }
 
@@ -317,11 +347,14 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
       signinUrl.searchParams.set("callbackUrl", path);
       signinUrl.searchParams.set("reason", "token_missing");
       console.warn(`[Proxy] Session without refreshToken — forcing re-auth — ${path}`);
+      // Redirect terminal — pas de nonce nécessaire.
       return applyCorrelationId(NextResponse.redirect(signinUrl), correlationId);
     }
   }
 
-  return applyCorrelationId(NextResponse.next(), correlationId, nonce);
+  // Page authentifiée HTML — CRITIQUE : propage le nonce dans les request headers
+  // pour que les Server Components le lisent via headers().get(NONCE_HEADER).
+  return applyCorrelationId(nextWithNonce(), correlationId, nonce);
 }
 
 export const config = {

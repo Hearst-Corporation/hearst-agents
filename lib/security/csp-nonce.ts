@@ -2,7 +2,8 @@
  * CSP Nonce helper — F-078-nonce
  *
  * Génère un nonce cryptographiquement aléatoire (16 bytes, base64) par requête.
- * Le nonce est propagé via le header `x-csp-nonce` (request → server components).
+ * Le nonce est propagé via le header `x-csp-nonce` dans les request headers,
+ * transmis aux Server Components via NextResponse.next({ request: { headers } }).
  * Le middleware construit la CSP dynamique avec `'nonce-${nonce}' 'strict-dynamic'`.
  */
 
@@ -16,6 +17,10 @@ export function generateNonce(): string {
 /**
  * Nom du header HTTP interne utilisé pour propager le nonce du middleware
  * vers les Server Components (via `headers()` de next/headers).
+ *
+ * IMPORTANT: ce header est injecté dans les REQUEST headers (pas response)
+ * via NextResponse.next({ request: { headers: reqHeaders } }) pour que
+ * les Server Components puissent le lire via `headers().get(NONCE_HEADER)`.
  */
 export const NONCE_HEADER = "x-csp-nonce";
 
