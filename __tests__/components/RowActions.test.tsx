@@ -37,7 +37,7 @@ describe("RowActions", () => {
     const inner = vi.fn();
     const outer = vi.fn();
     render(
-      <div onClick={outer}>
+      <div role="button" tabIndex={-1} onClick={outer} onKeyDown={outer}>
         <RowActions actions={[{ id: "x", label: "Test", icon: "x", onClick: inner }]} />
       </div>,
     );

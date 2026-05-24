@@ -231,6 +231,12 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
   return (
     <div
       ref={containerRef}
+      role="slider"
+      aria-label="Comparateur d'assets — faites glisser pour comparer"
+      aria-valuenow={Math.round(sliderX)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      tabIndex={0}
       className="relative w-full h-(--height-compare-viewer) rounded-xl overflow-hidden bg-(--bg) border border-(--line-strong) cursor-col-resize select-none"
       onMouseDown={(e) => {
         dragging.current = true;

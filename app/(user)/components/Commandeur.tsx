@@ -200,7 +200,9 @@ export function Commandeur() {
 
   return (
     <>
-      <div
+      <button
+        type="button"
+        aria-label="Fermer la palette de commandes"
         className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
         style={{
           zIndex: "var(--z-modal)" as unknown as number,
@@ -208,8 +210,14 @@ export function Commandeur() {
           backdropFilter: "var(--blur-lg)",
           WebkitBackdropFilter: "var(--blur-lg)",
           paddingTop: "15vh",
+          border: "none",
+          cursor: "default",
+          textAlign: "start",
         }}
         onClick={() => setOpen(false)}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setOpen(false);
+        }}
       >
         <div
           ref={dialogRef}
@@ -219,6 +227,7 @@ export function Commandeur() {
           className="w-full max-w-(--width-3xl) overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
           style={{ background: "transparent" }}
           onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
         >
           <div className="flex items-center gap-8 px-12 py-8">
             <h2 id="cmdk-title" className="sr-only">
@@ -278,7 +287,7 @@ export function Commandeur() {
             )}
           </div>
         </div>
-      </div>
+      </button>
       {compareModal}
     </>
   );

@@ -154,6 +154,7 @@ function LoginContent() {
               return (
                 <button
                   key={provider.id}
+                  type="button"
                   onClick={() => handleSignIn(provider.id)}
                   disabled={isDisabled}
                   aria-label={provider.label}
