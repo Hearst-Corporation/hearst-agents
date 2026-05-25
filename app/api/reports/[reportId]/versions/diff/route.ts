@@ -9,7 +9,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { diffReportVersionsQuerySchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { resolveAssetTenant } from "@/lib/reports/access";
 import { diffVersions } from "@/lib/reports/versions/diff";
 import { getVersion } from "@/lib/reports/versions/store";
 
@@ -18,31 +18,6 @@ export const dynamic = "force-dynamic";
 
 interface RouteContext {
   params: Promise<{ reportId: string }>;
-}
-
-async function resolveAssetTenant(
-  reportId: string,
-  callerUserId: string,
-  fallbackTenantId: string,
-): Promise<{ tenantId: string } | { error: "not_found" | "forbidden" | "unavailable" }> {
-  const sb = getServerSupabase();
-  if (!sb) return { error: "unavailable" };
-
-  const { data, error } = await sb
-    .from("assets")
-    .select("id, kind, provenance")
-    .eq("id", reportId)
-    .maybeSingle();
-  if (error) return { error: "unavailable" };
-  if (!data) return { error: "not_found" };
-  if (data.kind !== "report") return { error: "not_found" };
-
-  const provenance = (data.provenance ?? {}) as Record<string, unknown>;
-  if (provenance.userId !== undefined && provenance.userId !== callerUserId) {
-    return { error: "forbidden" };
-  }
-  const tenantId = (provenance.tenantId as string | undefined) ?? fallbackTenantId;
-  return { tenantId };
 }
 
 export async function GET(req: NextRequest, ctx: RouteContext) {
@@ -72,8 +47,7 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
 
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
-    const status =
-      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
+    const status = resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 

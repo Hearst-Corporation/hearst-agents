@@ -12,7 +12,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createReportCommentSchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { resolveAssetTenant } from "@/lib/reports/access";
 import { addComment, listComments } from "@/lib/reports/comments/store";
 
 export const runtime = "nodejs";
@@ -20,40 +20,6 @@ export const dynamic = "force-dynamic";
 
 interface RouteContext {
   params: Promise<{ reportId: string }>;
-}
-
-/**
- * Vérifie que l'asset existe et que le caller a accès. Retourne le tenant_id
- * effectif (provenance.tenantId fallback scope.tenantId) ou null si l'asset
- * n'existe pas / n'appartient pas au caller.
- *
- * Sécurité : on retourne `not_found` (404) pour les 3 cas — asset
- * absent, mauvais kind, et asset existe mais provenance.userId mismatch.
- * Sinon le 403 vs 404 leak l'existence du report à un attaquant cross-tenant.
- */
-async function resolveAssetTenant(
-  reportId: string,
-  callerUserId: string,
-  fallbackTenantId: string,
-): Promise<{ tenantId: string } | { error: "not_found" | "unavailable" }> {
-  const sb = getServerSupabase();
-  if (!sb) return { error: "unavailable" };
-
-  const { data, error } = await sb
-    .from("assets")
-    .select("id, kind, provenance")
-    .eq("id", reportId)
-    .maybeSingle();
-  if (error) return { error: "unavailable" };
-  if (!data) return { error: "not_found" };
-  if (data.kind !== "report") return { error: "not_found" };
-
-  const provenance = (data.provenance ?? {}) as Record<string, unknown>;
-  if (provenance.userId !== undefined && provenance.userId !== callerUserId) {
-    return { error: "not_found" };
-  }
-  const tenantId = (provenance.tenantId as string | undefined) ?? fallbackTenantId;
-  return { tenantId };
 }
 
 export async function GET(_req: NextRequest, ctx: RouteContext) {
