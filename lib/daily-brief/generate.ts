@@ -138,6 +138,7 @@ function buildUserMessage(d: DailyBriefData): string {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "Europe/Paris",
   });
   return [
     `Date : ${date}`,

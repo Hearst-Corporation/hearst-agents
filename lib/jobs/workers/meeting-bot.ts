@@ -200,7 +200,9 @@ async function runMeeting(
     id: botId,
     threadId: existing?.threadId ?? `meeting:${botId}`,
     kind: "event",
-    title: existing?.title ?? `Meeting · ${new Date(startedAt).toLocaleString("fr-FR")}`,
+    title:
+      existing?.title ??
+      `Meeting · ${new Date(startedAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}`,
     summary:
       finalTranscript.trim().length > 0
         ? `Réunion terminée · ${finalActionItems.length} action items`

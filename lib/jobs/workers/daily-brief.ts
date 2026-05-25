@@ -111,6 +111,7 @@ const handler: WorkerHandler<DailyBriefInput> = {
       day: "numeric",
       month: "long",
       year: "numeric",
+      timeZone: "Europe/Paris",
     });
 
     await storeAsset({
