@@ -67,6 +67,7 @@ function useReports() {
             year: "numeric",
             month: "long",
             day: "numeric",
+            timeZone: "Europe/Paris",
           }),
           authorInitials: "HR",
         }));
