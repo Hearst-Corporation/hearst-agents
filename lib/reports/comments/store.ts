@@ -164,7 +164,7 @@ export async function listComments(
 
 export type DeleteCommentOutcome =
   | { ok: true }
-  | { ok: false; reason: "not_found" | "forbidden" | "supabase_unavailable" | "delete_failed" };
+  | { ok: false; reason: "not_found" | "supabase_unavailable" | "delete_failed" };
 
 /**
  * Supprime un commentaire. Strict ownership : seul l'auteur (userId) peut
@@ -192,8 +192,11 @@ export async function deleteComment(
   if (!row) return { ok: false, reason: "not_found" };
 
   const r = row as { user_id: string; tenant_id: string };
-  if (r.tenant_id !== input.tenantId) return { ok: false, reason: "forbidden" };
-  if (r.user_id !== input.userId) return { ok: false, reason: "forbidden" };
+  // Sécurité : on retourne `not_found` (404) pour tenant ou user mismatch.
+  // 403 leak l'existence du comment à un attaquant qui forgerait un
+  // commentId. Cohérent avec lib/reports/access.ts (sweep P1.A itération 3).
+  if (r.tenant_id !== input.tenantId) return { ok: false, reason: "not_found" };
+  if (r.user_id !== input.userId) return { ok: false, reason: "not_found" };
 
   // 2. Delete
   const { error: delErr } = await sb.from("report_comments").delete().eq("id", input.commentId);

@@ -236,7 +236,7 @@ describe("deleteComment", () => {
     expect(r.ok).toBe(true);
   });
 
-  it("non-auteur même tenant → forbidden", async () => {
+  it("non-auteur même tenant → not_found (defense in depth : pas de leak existence)", async () => {
     const { client } = makeFakeClient();
     const created = await addComment(baseInput, client);
     if (!created) return;
@@ -246,10 +246,10 @@ describe("deleteComment", () => {
     );
     expect(r.ok).toBe(false);
     if (r.ok) return;
-    expect(r.reason).toBe("forbidden");
+    expect(r.reason).toBe("not_found");
   });
 
-  it("auteur mais autre tenant → forbidden (tenant isolation)", async () => {
+  it("auteur mais autre tenant → not_found (tenant isolation, pas de leak existence)", async () => {
     const { client } = makeFakeClient();
     const created = await addComment(baseInput, client);
     if (!created) return;
@@ -259,7 +259,7 @@ describe("deleteComment", () => {
     );
     expect(r.ok).toBe(false);
     if (r.ok) return;
-    expect(r.reason).toBe("forbidden");
+    expect(r.reason).toBe("not_found");
   });
 
   it("commentId inconnu → not_found", async () => {
