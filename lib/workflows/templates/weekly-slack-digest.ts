@@ -144,7 +144,7 @@ function fmtDate(ts: number, tz: string): string {
       minute: "2-digit",
     }).format(new Date(ts));
   } catch {
-    return new Date(ts).toLocaleString("fr-FR");
+    return new Date(ts).toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
   }
 }
 

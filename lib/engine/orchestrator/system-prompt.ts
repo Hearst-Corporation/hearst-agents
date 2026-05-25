@@ -174,6 +174,7 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "Europe/Paris",
   });
 
   const connectedApps = [...new Set(composioTools.map((t) => t.app))].sort();
