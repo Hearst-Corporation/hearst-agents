@@ -284,7 +284,8 @@ export default async function AgentDrivenDevPage() {
           </div>
 
           <p className="t-10 text-text-ghost">
-            Manifest généré le {new Date(manifest.generatedAt).toLocaleString("fr-FR")}.
+            Manifest généré le{" "}
+            {new Date(manifest.generatedAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}.
           </p>
         </>
       )}

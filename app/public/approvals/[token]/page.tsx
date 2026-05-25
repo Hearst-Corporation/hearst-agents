@@ -334,7 +334,7 @@ export default async function PublicApprovalPage({ params, searchParams }: PageP
           }}
         >
           Lien personnel — ne pas transférer. Valide jusqu&apos;au{" "}
-          {new Date(result.expiresAt).toLocaleString("fr-FR")}.
+          {new Date(result.expiresAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}.
         </p>
       </main>
       <MinimalFooter />

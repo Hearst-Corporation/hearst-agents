@@ -71,7 +71,10 @@ export function CommandCenterLive({ initial }: { initial: CommandCenterState }) 
           {connected ? "stream connecté" : "polling fallback"}
         </span>
         <span className="t-10 font-mono text-text-faint">
-          heartbeat {new Date(state.master_heartbeat).toLocaleTimeString("fr-FR")}
+          heartbeat{" "}
+          {new Date(state.master_heartbeat).toLocaleTimeString("fr-FR", {
+            timeZone: "Europe/Paris",
+          })}
         </span>
         <span className="t-10 font-mono text-text-faint ml-auto">
           phase: <span className="text-text">{state.phase}</span>

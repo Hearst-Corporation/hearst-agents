@@ -23,6 +23,7 @@ export function fmtTimestamp(ms: number): string {
       month: "short",
       hour: "2-digit",
       minute: "2-digit",
+      timeZone: "Europe/Paris",
     });
   } catch {
     return "—";
@@ -36,6 +37,7 @@ export function fmtIso(iso: string): string {
       month: "short",
       hour: "2-digit",
       minute: "2-digit",
+      timeZone: "Europe/Paris",
     });
   } catch {
     return "—";
