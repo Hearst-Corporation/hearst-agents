@@ -309,7 +309,11 @@ export function BrowserStage({ mode }: { mode: string }) {
         setCurrentUrl(data.connectUrl ?? data.debugViewerUrl ?? "");
         setFetchState("ready");
         setCaptureTs(
-          new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
+          new Date().toLocaleTimeString("fr-FR", {
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZone: "Europe/Paris",
+          }),
         );
       })
       .catch((err: unknown) => {
