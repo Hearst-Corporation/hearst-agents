@@ -80,6 +80,7 @@ function formatCreatedAt(ts: number): string {
       day: "2-digit",
       month: "short",
       year: "numeric",
+      timeZone: "Europe/Paris",
     }).format(new Date(ts));
   } catch {
     return String(ts);

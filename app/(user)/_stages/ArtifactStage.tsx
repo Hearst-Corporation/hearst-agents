@@ -185,7 +185,7 @@ function VersionsList({ versions }: { versions: VersionRow[] }) {
             </span>
             {v.createdAt && (
               <span className="t-9 text-text-decor-25">
-                {new Date(v.createdAt).toLocaleDateString("fr-FR")}
+                {new Date(v.createdAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}
               </span>
             )}
           </div>
@@ -311,7 +311,12 @@ export function ArtifactStage({ mode }: { mode: string }) {
       },
       ...(versions.length > 0 ? [{ t: "Versions", s: `${versions.length}` }] : []),
       ...(meta.createdAt
-        ? [{ t: "Créé", s: new Date(meta.createdAt).toLocaleDateString("fr-FR") }]
+        ? [
+            {
+              t: "Créé",
+              s: new Date(meta.createdAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" }),
+            },
+          ]
         : []),
     ];
 

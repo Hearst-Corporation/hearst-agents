@@ -112,6 +112,7 @@ function formatDate(ts: number): string {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "Europe/Paris",
   });
 }
 
