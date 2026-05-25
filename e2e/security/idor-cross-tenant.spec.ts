@@ -57,15 +57,14 @@ test.describe("@skip-ci IDOR cross-tenant — tenant A ne lit pas tenant B", () 
     expect(res.status()).toBe(404);
   });
 
-  test("GET /api/reports/[reportId]/comments (report tenant B) → 403 ou 404", async ({
-    request,
-  }) => {
+  test("GET /api/reports/[reportId]/comments (report tenant B) → 404", async ({ request }) => {
     test.skip(!RESOURCES.reportId, "HEARST_E2E_TENANT_B_REPORT_ID manquant");
     const res = await request.get(`/api/reports/${RESOURCES.reportId}/comments`, {
       headers: authHeaders,
     });
-    // /api/reports/[reportId]/comments distingue forbidden (provenance.userId
-    // mismatch) de not_found — les deux sont OK pour défense IDOR.
-    expect([403, 404]).toContain(res.status());
+    // La route retourne systématiquement 404 (jamais 403) pour les cas asset
+    // absent, mauvais kind, et provenance.userId mismatch — évite la fuite
+    // d'existence cross-tenant (le 403 révèle que l'asset existe).
+    expect(res.status(), "doit retourner 404 sans révéler l'existence").toBe(404);
   });
 });
