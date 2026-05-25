@@ -45,7 +45,9 @@ export default async function QuarantinePage() {
               {entry.triggered_at ? (
                 <Row
                   label="Triggered"
-                  value={new Date(entry.triggered_at).toLocaleString("fr-FR")}
+                  value={new Date(entry.triggered_at).toLocaleString("fr-FR", {
+                    timeZone: "Europe/Paris",
+                  })}
                 />
               ) : null}
               {entry.triggered_run ? <Row label="Run" value={entry.triggered_run} /> : null}
@@ -63,8 +65,8 @@ export default async function QuarantinePage() {
                     .reverse()
                     .map((h, i) => (
                       <div key={i} className="t-10 font-mono text-text-faint">
-                        {new Date(h.ts).toLocaleTimeString("fr-FR")} · {h.signal} ·{" "}
-                        {h.anomaly_score.toFixed(2)}
+                        {new Date(h.ts).toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" })} ·{" "}
+                        {h.signal} · {h.anomaly_score.toFixed(2)}
                       </div>
                     ))}
                 </div>

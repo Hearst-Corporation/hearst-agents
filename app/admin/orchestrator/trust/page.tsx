@@ -78,6 +78,7 @@ export default async function TrustPage() {
                     month: "2-digit",
                     hour: "2-digit",
                     minute: "2-digit",
+                    timeZone: "Europe/Paris",
                   })}
                 </span>
                 {(Object.keys(scores) as Array<keyof typeof scores>).map((k) => {

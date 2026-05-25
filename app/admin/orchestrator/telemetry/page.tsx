@@ -79,7 +79,7 @@ export default async function TelemetryPage({
                     className="px-(--space-3) py-(--space-1) border-b border-(--line) hover:bg-surface-1 transition-colors flex gap-(--space-2)"
                   >
                     <span className="t-10 text-text-faint shrink-0">
-                      {new Date(log.ts).toLocaleTimeString("fr-FR")}
+                      {new Date(log.ts).toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" })}
                     </span>
                     <span className={`t-10 shrink-0 w-(--space-12) ${tone}`}>{log.level}</span>
                     <span className="t-10 text-text-faint shrink-0">{log.span_id}</span>
