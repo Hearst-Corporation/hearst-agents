@@ -334,7 +334,7 @@ function renderApprovalEmail(input: {
   const subject = `[Hearst OS] Approbation requise — ${input.missionName}`;
   const safeMission = escapeHtml(input.missionName);
   const safeInput = escapeHtml(input.missionInput).slice(0, 600);
-  const expires = new Date(input.expiresAt).toLocaleString("fr-FR");
+  const expires = new Date(input.expiresAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
 
   const html = `<!DOCTYPE html>
 <!-- Palette inline : sync app/globals.css :root (visionOS DS). Email clients : pas de var(), hex/rgba copiés des tokens. -->

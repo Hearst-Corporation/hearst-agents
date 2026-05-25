@@ -52,6 +52,7 @@ function fmtDateEditorial(ts: number, locale = "fr-FR"): string {
       day: "2-digit",
       month: "long",
       year: "numeric",
+      timeZone: "Europe/Paris",
     }).format(new Date(ts));
   } catch {
     return new Date(ts).toISOString().slice(0, 10);

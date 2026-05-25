@@ -124,6 +124,7 @@ function buildWeeklyWindow(now: Date = new Date()): WeeklyDigestWindow {
   const fmt = new Intl.DateTimeFormat("fr-FR", {
     day: "numeric",
     month: "short",
+    timeZone: "Europe/Paris",
   });
   const label = `${fmt.format(monday)} → ${fmt.format(new Date(toMs))}`;
 

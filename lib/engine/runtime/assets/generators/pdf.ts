@@ -86,6 +86,7 @@ async function renderPdf(title: string, content: string): Promise<Buffer> {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "Europe/Paris",
     });
     doc
       .fontSize(9)

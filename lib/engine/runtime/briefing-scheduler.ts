@@ -43,7 +43,7 @@ export async function scheduleDailyBriefing(params: {
     id: assetId,
     threadId: `briefing:${userId}`,
     kind: "brief",
-    title: `Briefing matinal — ${new Date().toLocaleDateString("fr-FR")}`,
+    title: `Briefing matinal — ${new Date().toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}`,
     summary: briefing.text,
     provenance: {
       providerId: "system",

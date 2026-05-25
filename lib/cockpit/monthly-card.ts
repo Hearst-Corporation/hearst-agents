@@ -152,6 +152,7 @@ export function buildMonthlyWindow(yearMonth: string, now: Date = new Date()): M
   const fmt = new Intl.DateTimeFormat("fr-FR", {
     month: "long",
     year: "numeric",
+    timeZone: "Europe/Paris",
   });
   const labelRaw = fmt.format(start);
   const label = labelRaw.charAt(0).toUpperCase() + labelRaw.slice(1);
