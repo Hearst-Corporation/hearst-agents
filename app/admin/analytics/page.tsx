@@ -35,7 +35,11 @@ const KIND_OPTIONS = [
 ];
 
 function buildRange(preset: RangePreset): DateRange {
-  const end = new Date();
+  const now = new Date();
+  // Tronque à l'heure pleine UTC : SSR et client renvoient la même valeur
+  // dans la même heure → hydration safe (granularité heure, acceptable pour analytics).
+  now.setUTCMinutes(0, 0, 0);
+  const end = now;
   const start = new Date(end);
   const days = preset === "7d" ? 7 : preset === "90d" ? 90 : 30;
   start.setUTCDate(start.getUTCDate() - days);
