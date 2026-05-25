@@ -71,9 +71,9 @@
     "*.{md,css,yml,yaml}": []
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.71",
+    "@ai-sdk/anthropic": "^3.0.79",
     "@alloc/quick-lru": "^5.2.0",
-    "@anthropic-ai/sdk": "^0.95.1",
+    "@anthropic-ai/sdk": "^0.98.0",
     "@arcjet/next": "^1.4.0",
     "@aws-sdk/client-s3": "^3.1037.0",
     "@aws-sdk/lib-storage": "^3.1037.0",
