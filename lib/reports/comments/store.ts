@@ -179,7 +179,7 @@ export async function deleteComment(
   const sb = getClient(client);
   if (!sb) return { ok: false, reason: "supabase_unavailable" };
 
-  // 1. Lookup pour différencier 404 vs 403 (et garder la trace de l'identité tenant)
+  // 1. Lookup : vérifie ownership avant suppression physique
   const { data: row, error: fetchErr } = await sb
     .from("report_comments")
     .select("id, user_id, tenant_id")
