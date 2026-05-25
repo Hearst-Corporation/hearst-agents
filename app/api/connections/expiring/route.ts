@@ -12,22 +12,16 @@
 
 import { NextResponse } from "next/server";
 import { checkExpiringTokens } from "@/lib/connections/oauth-refresh";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { withScope } from "@/lib/platform/http/route-handler";
 
-export async function GET() {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
-  }
-
-  // En mono-tenant V1, tenantId === userId. À adapter quand multi-tenant.
-  const tenantId = userId;
+export const GET = withScope("GET /api/connections/expiring", async (_req, { scope }) => {
+  const tenantId = scope.tenantId;
 
   try {
-    const connections = await checkExpiringTokens({ userId, tenantId });
+    const connections = await checkExpiringTokens({ userId: scope.userId, tenantId });
     return NextResponse.json({ connections });
   } catch (err) {
     console.error("[GET /api/connections/expiring] Erreur:", err);
     return NextResponse.json({ connections: [] });
   }
-}
+});

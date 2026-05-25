@@ -10,21 +10,16 @@
  * complet, prêt à montrer à l'utilisateur en mode discovery.
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import {
   getComposio,
   getComposioInitError,
   getToolsForApp,
   isComposioConfigured,
 } from "@/lib/connectors/composio";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { withScope } from "@/lib/platform/http/route-handler";
 
-export async function GET(req: NextRequest) {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
-  }
-
+export const GET = withScope("GET /api/composio/app-actions", async (req, { scope }) => {
   if (!isComposioConfigured()) {
     return NextResponse.json(
       { ok: false, error: "composio_not_configured", message: "COMPOSIO_API_KEY not set" },
@@ -52,6 +47,6 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const tools = await getToolsForApp(userId, app);
+  const tools = await getToolsForApp(scope.userId, app);
   return NextResponse.json({ ok: true, tools });
-}
+});

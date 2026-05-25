@@ -8,22 +8,17 @@
  * The frontend reads `redirectUrl` and sends the user there to complete auth.
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 import { initiateConnection, isComposioConfigured } from "@/lib/connectors/composio";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 const bodySchema = z.object({
   appName: z.string().min(1).max(64),
   redirectUri: z.string().url().optional(),
 });
 
-export async function POST(req: NextRequest) {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
-  }
-
+export const POST = withScope("POST /api/composio/connect", async (req, { scope }) => {
   if (!isComposioConfigured()) {
     return NextResponse.json(
       { error: "composio_not_configured", message: "COMPOSIO_API_KEY not set" },
@@ -46,7 +41,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const result = await initiateConnection(userId, parsed.data.appName, parsed.data.redirectUri);
+  const result = await initiateConnection(
+    scope.userId,
+    parsed.data.appName,
+    parsed.data.redirectUri,
+  );
   if (!result.ok) {
     return NextResponse.json(
       {
@@ -64,4 +63,4 @@ export async function POST(req: NextRequest) {
     redirectUrl: result.redirectUrl,
     connectionId: result.connectionId,
   });
-}
+});

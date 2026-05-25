@@ -12,13 +12,9 @@ import {
   isComposioConfigured,
   listAvailableApps,
 } from "@/lib/connectors/composio";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { withScope } from "@/lib/platform/http/route-handler";
 
-export async function GET() {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
-  }
+export const GET = withScope("GET /api/composio/apps", async (_req, _ctx) => {
   if (!isComposioConfigured()) {
     return NextResponse.json(
       { ok: false, error: "composio_not_configured", message: "COMPOSIO_API_KEY not set" },
@@ -48,4 +44,4 @@ export async function GET() {
     );
   }
   return NextResponse.json({ ok: true, apps });
-}
+});

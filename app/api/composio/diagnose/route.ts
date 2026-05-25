@@ -7,7 +7,7 @@
  * — the response pinpoints the cause.
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import {
   getComposio,
   isComposioConfigured,
@@ -15,7 +15,7 @@ import {
   listConnections,
 } from "@/lib/connectors/composio";
 import { redactedError, withRoute } from "@/lib/observability/logger";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 const log = withRoute("GET /api/composio/diagnose");
 
@@ -26,11 +26,7 @@ interface RawAuthConfig {
   name?: string;
 }
 
-export async function GET(req: NextRequest) {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
-  }
+export const GET = withScope("GET /api/composio/diagnose", async (req, { scope }) => {
   if (!isComposioConfigured()) {
     return NextResponse.json({
       ok: false,
@@ -75,11 +71,14 @@ export async function GET(req: NextRequest) {
         .filter((it) => it.id && it.toolkit === slug);
     }
   } catch (err) {
-    log.error({ err: redactedError(err), userId, app: slug }, "auth_configs_list_failed");
+    log.error(
+      { err: redactedError(err), userId: scope.userId, app: slug },
+      "auth_configs_list_failed",
+    );
   }
 
   // 3. Is the user already connected?
-  const userConnections = await listConnections(userId, { includeInactive: true });
+  const userConnections = await listConnections(scope.userId, { includeInactive: true });
   const userConnection = userConnections.find((c) => c.appName === slug);
 
   return NextResponse.json({
@@ -94,7 +93,7 @@ export async function GET(req: NextRequest) {
     userConnection: userConnection ?? null,
     diagnosis: makeDiagnosis(!!appInCatalog, authConfigs.length, userConnection),
   });
-}
+});
 
 function makeDiagnosis(
   inCatalog: boolean,

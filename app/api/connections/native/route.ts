@@ -16,8 +16,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
 import { getTokenMeta } from "@/lib/platform/auth/tokens";
+import { withScope } from "@/lib/platform/http/route-handler";
 
 // Mapping provider → toolkits Composio équivalents. Quand le user a fait le
 // SSO Google avec ces scopes, ces 3 slugs sont automatiquement marqués
@@ -25,12 +25,7 @@ import { getTokenMeta } from "@/lib/platform/auth/tokens";
 const NATIVE_GOOGLE_SLUGS = ["gmail", "googlecalendar", "googledrive"];
 const NATIVE_MICROSOFT_SLUGS = ["outlook", "office365"];
 
-export async function GET() {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
-  }
-
+export const GET = withScope("GET /api/connections/native", async (_req, { scope }) => {
   const connections: Array<{
     id: string;
     appName: string;
@@ -40,7 +35,7 @@ export async function GET() {
 
   try {
     // Google : si on a un refresh ou access token non révoqué, le SSO est valide.
-    const googleMeta = await getTokenMeta(userId, "google");
+    const googleMeta = await getTokenMeta(scope.userId, "google");
     if (!googleMeta.revoked && (googleMeta.tokens.refreshToken || googleMeta.tokens.accessToken)) {
       for (const slug of NATIVE_GOOGLE_SLUGS) {
         connections.push({
@@ -54,7 +49,7 @@ export async function GET() {
 
     // Microsoft : idem (Azure AD provider). Si le user s'est loggé Outlook
     // SSO, on flag ces toolkits.
-    const msMeta = await getTokenMeta(userId, "microsoft");
+    const msMeta = await getTokenMeta(scope.userId, "microsoft");
     if (!msMeta.revoked && (msMeta.tokens.refreshToken || msMeta.tokens.accessToken)) {
       for (const slug of NATIVE_MICROSOFT_SLUGS) {
         connections.push({
@@ -73,4 +68,4 @@ export async function GET() {
   }
 
   return NextResponse.json({ connections });
-}
+});

@@ -9,14 +9,9 @@
 
 import { NextResponse } from "next/server";
 import { invalidateUserDiscovery } from "@/lib/connectors/composio/discovery";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { withScope } from "@/lib/platform/http/route-handler";
 
-export async function POST() {
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
-  }
-
-  invalidateUserDiscovery(userId);
+export const POST = withScope("POST /api/composio/invalidate-cache", async (_req, { scope }) => {
+  invalidateUserDiscovery(scope.userId);
   return NextResponse.json({ ok: true });
-}
+});
