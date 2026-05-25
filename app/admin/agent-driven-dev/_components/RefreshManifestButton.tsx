@@ -11,7 +11,7 @@ export default function RefreshManifestButton() {
     try {
       const res = await fetch("/api/admin/features-manifest", { method: "POST" });
       if (res.ok) {
-        setLastRefreshed(new Date().toLocaleTimeString("fr-FR"));
+        setLastRefreshed(new Date().toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" }));
         window.location.reload();
       }
     } finally {

@@ -104,7 +104,9 @@ export default async function AdminHomePage() {
                       : "Hors ligne"}
                 </span>
                 <span className="t-10 text-text-ghost font-mono">
-                  {new Date(health.timestamp).toLocaleTimeString("fr-FR")}
+                  {new Date(health.timestamp).toLocaleTimeString("fr-FR", {
+                    timeZone: "Europe/Paris",
+                  })}
                 </span>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-3)">
@@ -182,6 +184,7 @@ export default async function AdminHomePage() {
                       {new Date(run.created_at).toLocaleTimeString("fr-FR", {
                         hour: "2-digit",
                         minute: "2-digit",
+                        timeZone: "Europe/Paris",
                       })}
                     </span>
                   </div>

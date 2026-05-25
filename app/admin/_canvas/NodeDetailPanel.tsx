@@ -126,7 +126,9 @@ export default function NodeDetailPanel({ node, onClear }: Props) {
           {lastEventAt && (
             <StatRow
               label="Dernier événement"
-              value={new Date(lastEventAt).toLocaleTimeString("fr-FR")}
+              value={new Date(lastEventAt).toLocaleTimeString("fr-FR", {
+                timeZone: "Europe/Paris",
+              })}
             />
           )}
         </div>
