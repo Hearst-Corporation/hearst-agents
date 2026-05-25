@@ -67,7 +67,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       },
       "ApproveStep IDOR attempt blocked",
     );
-    return NextResponse.json({ error: "forbidden" }, { status: 403 });
+    // Sécurité : 404 uniforme (pas 403) — évite de révéler qu'un plan appartenant
+    // à un autre user existe avec cet id. Le log audit ci-dessus reste intact.
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
   // POURQUOI : on essaie d'approuver le plan via le store planner. Si l'`id`

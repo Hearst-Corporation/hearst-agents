@@ -44,8 +44,9 @@ export async function GET(
   if (!transcript) {
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
+  // Sécurité : 404 uniforme (pas 403) pour éviter la fuite d'existence cross-user.
   if (transcript.userId !== scope.userId) {
-    return NextResponse.json({ error: "forbidden" }, { status: 403 });
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
   return NextResponse.json(transcript);
 }
@@ -76,8 +77,9 @@ export async function PATCH(
   if (!existing) {
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
+  // Sécurité : 404 uniforme (pas 403) pour éviter la fuite d'existence cross-user.
   if (existing.userId !== scope.userId) {
-    return NextResponse.json({ error: "forbidden" }, { status: 403 });
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
   const ok = await linkTranscriptToThread(sessionId, threadId);

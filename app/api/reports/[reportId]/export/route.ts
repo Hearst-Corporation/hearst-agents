@@ -136,8 +136,9 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
   }
 
   const provenance = (asset.provenance ?? {}) as Record<string, unknown>;
+  // Sécurité : 404 uniforme (pas 403) pour éviter la fuite d'existence cross-user.
   if (provenance.userId !== undefined && provenance.userId !== scope.userId) {
-    return NextResponse.json({ error: "forbidden" }, { status: 403 });
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
   if (typeof asset.content_ref !== "string" || !asset.content_ref) {

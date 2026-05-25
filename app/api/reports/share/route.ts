@@ -77,11 +77,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "asset_not_found" }, { status: 404 });
   }
   const provenance = (asset.provenance ?? {}) as Record<string, unknown>;
+  // Sécurité : 404 uniforme pour éviter la fuite d'existence cross-user
+  // (un attaquant qui tente de partager un asset cross-user ne doit pas
+  // distinguer "n'existe pas" de "existe mais pas à toi").
   if (provenance.userId !== undefined && provenance.userId !== scope.userId) {
-    return NextResponse.json({ error: "forbidden" }, { status: 403 });
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
+  // kind != "report" : même logique — on ne révèle pas qu'un asset d'un
+  // autre kind existe avec cet id. 404 uniforme.
   if (asset.kind !== "report") {
-    return NextResponse.json({ error: "asset_not_report" }, { status: 400 });
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
   const shareId = crypto.randomUUID();
