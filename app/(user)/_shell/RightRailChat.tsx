@@ -26,10 +26,12 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const conversationIdRef = useRef<string | null>(null);
-  useEffect(() => {
+
+  const getConversationId = useCallback(() => {
     if (!conversationIdRef.current) {
       conversationIdRef.current = crypto.randomUUID();
     }
+    return conversationIdRef.current;
   }, []);
 
   useEffect(() => {
@@ -66,8 +68,8 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
         body: JSON.stringify({
           message: text,
           surface: "chat",
-          thread_id: conversationIdRef.current ?? "",
-          conversation_id: conversationIdRef.current ?? "",
+          thread_id: getConversationId(),
+          conversation_id: getConversationId(),
           history: messages
             .filter((m) => m.content.trim().length > 0)
             .slice(-10)
