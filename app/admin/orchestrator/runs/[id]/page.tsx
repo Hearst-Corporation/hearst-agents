@@ -50,7 +50,12 @@ export default async function RunDetailPage({ params }: { params: Promise<{ id: 
           </h3>
           <Row label="Triggered by" value={intake.triggered_by} />
           <Row label="Trigger kind" value={intake.trigger_kind} />
-          <Row label="Created at" value={new Date(intake.created_at).toLocaleString("fr-FR")} />
+          <Row
+            label="Created at"
+            value={new Date(intake.created_at).toLocaleString("fr-FR", {
+              timeZone: "Europe/Paris",
+            })}
+          />
           <Row label="Scope" value={intake.scope.join(", ")} />
         </Card>
 

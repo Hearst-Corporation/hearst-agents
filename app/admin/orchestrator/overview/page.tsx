@@ -82,7 +82,9 @@ export default async function OverviewPage() {
             <div className="flex items-baseline justify-between">
               <span className="t-12 text-text-muted">Master heartbeat</span>
               <span className="t-11 font-mono text-text-ghost">
-                {new Date(cc.master_heartbeat).toLocaleTimeString("fr-FR")}
+                {new Date(cc.master_heartbeat).toLocaleTimeString("fr-FR", {
+                  timeZone: "Europe/Paris",
+                })}
               </span>
             </div>
             <div className="flex items-baseline justify-between">
@@ -147,6 +149,7 @@ export default async function OverviewPage() {
                     month: "2-digit",
                     hour: "2-digit",
                     minute: "2-digit",
+                    timeZone: "Europe/Paris",
                   })}
                 </span>
               </Link>
