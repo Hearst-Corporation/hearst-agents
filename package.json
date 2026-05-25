@@ -88,7 +88,7 @@
     "bullmq": "^5.76.3",
     "exceljs": "^4.4.0",
     "framer-motion": "^12.38.0",
-    "googleapis": "^171.4.0",
+    "googleapis": "^172.0.0",
     "inngest": "^4.4.0",
     "ioredis": "^5.10.1",
     "langfuse": "^3.38.20",
