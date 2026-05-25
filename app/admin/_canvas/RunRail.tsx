@@ -43,7 +43,11 @@ function formatTs(ts: number): string {
   if (diffMin < 60) return `${diffMin}m`;
   const diffH = Math.floor(diffMin / 60);
   if (diffH < 24) return `${diffH}h`;
-  return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
+  return d.toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: "Europe/Paris",
+  });
 }
 
 function truncateInput(s: string, max = 38): string {

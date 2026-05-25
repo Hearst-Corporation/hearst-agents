@@ -59,7 +59,8 @@ export default function AgentLockCard({ initial }: Props) {
               </p>
               <p className="t-12 text-text-muted">
                 Verrouillé{" "}
-                {state.lockedAt && `le ${new Date(state.lockedAt).toLocaleString("fr-FR")}`}
+                {state.lockedAt &&
+                  `le ${new Date(state.lockedAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}`}
                 {state.lockedBy && ` · par ${state.lockedBy.slice(0, 8)}…`}
               </p>
               {state.reason && <p className="t-12 text-text-soft italic">« {state.reason} »</p>}
