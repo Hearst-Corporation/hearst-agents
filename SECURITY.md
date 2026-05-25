@@ -55,7 +55,7 @@ Arcjet applique : rate limit + bot detection + shield (XSS/SQLi). Désactivé si
 
 ## Rapports de vulnérabilités
 
-Email sécurité : **à définir** (placeholder `security@hearstcorporation.io`). En attendant, ouvrir une issue privée GitHub ou contacter Adrien direct.
+Email sécurité : **security@hearst.app**. Réponse sous 48h ouvrables. En cas d'urgence (RCE, données compromises), inclure `[URGENT]` dans le sujet.
 
 Ne pas divulguer publiquement avant patch (90 jours window standard).
 

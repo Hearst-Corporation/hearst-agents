@@ -1,11 +1,35 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
-/* ── F-078: Sécurité HTTP headers statiques (HSTS, X-Frame, Permissions-Policy) ── */
-// NOTE : la CSP (Content-Security-Policy) est générée dynamiquement dans proxy.ts
-// avec un nonce per-request et 'strict-dynamic'. Elle n'est plus ici.
-// Voir lib/security/csp-nonce.ts → buildCsp().
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+const isDev = process.env.NODE_ENV === "development";
+
+/* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ── */
 const securityHeaders = [
+  {
+    key: "Content-Security-Policy",
+    value: [
+      "default-src 'self'",
+      // TODO(nonces): remplacer 'unsafe-inline' par 'strict-dynamic' + nonce via middleware.ts
+      // quand le nonce middleware sera en place (generateNonces() Next.js 15).
+      // 'unsafe-eval' nécessaire en dev pour React/Webpack, supprimé en prod.
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' 'wasm-unsafe-eval'" : ""} https://*.sentry.io https://cloud.langfuse.com https://unpkg.com`,
+      "worker-src 'self' blob:",
+      "child-src 'self' blob:",
+      "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
+      "img-src 'self' data: https: blob:",
+      "media-src 'self' data: https: blob:",
+      "font-src 'self' data: https://cdn.fontshare.com",
+      "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io https://api.hypercli.com https://prod.spline.design https://*.spline.design https://unpkg.com",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join("; "),
+  },
   {
     key: "Strict-Transport-Security",
     value: "max-age=63072000; includeSubDomains",
@@ -52,20 +76,23 @@ const nextConfig: NextConfig = {
 const sentryProject = process.env.SENTRY_PROJECT;
 const sentryOrg = process.env.SENTRY_ORG;
 
-export default process.env.SENTRY_AUTH_TOKEN && sentryProject && sentryOrg
-  ? withSentryConfig(nextConfig, {
-      org: sentryOrg,
-      project: sentryProject,
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      // Silencieux en build local, verbeux en CI
-      silent: !process.env.CI,
-      // Upload une plus grande surface de fichiers client pour de meilleures stack traces
-      widenClientFileUpload: true,
-      // Upload sourcemaps mais ne les serve pas publiquement
-      sourcemaps: {
-        deleteSourcemapsAfterUpload: true,
-      },
-      // Tunnel les requêtes Sentry via /monitoring (contourne adblockers)
-      tunnelRoute: "/monitoring",
-    })
-  : nextConfig;
+const base =
+  process.env.SENTRY_AUTH_TOKEN && sentryProject && sentryOrg
+    ? withSentryConfig(nextConfig, {
+        org: sentryOrg,
+        project: sentryProject,
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+        // Silencieux en build local, verbeux en CI
+        silent: !process.env.CI,
+        // Upload une plus grande surface de fichiers client pour de meilleures stack traces
+        widenClientFileUpload: true,
+        // Upload sourcemaps mais ne les serve pas publiquement
+        sourcemaps: {
+          deleteSourcemapsAfterUpload: true,
+        },
+        // Tunnel les requêtes Sentry via /monitoring (contourne adblockers)
+        tunnelRoute: "/monitoring",
+      })
+    : nextConfig;
+
+export default withBundleAnalyzer(base);

@@ -2,6 +2,8 @@
 
 Auto-généré par `npm run routes:list`. Ne pas éditer à la main.
 
+> **Routes legacy stables** (non-versionnées, consommées par le frontend prod) : voir [docs/api-routes-legacy.md](api-routes-legacy.md).
+
 ## Index (153 routes)
 
 | Route | Méthodes | Fichier |
