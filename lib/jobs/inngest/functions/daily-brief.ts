@@ -121,6 +121,7 @@ export const dailyBriefFunction = inngest.createFunction(
         day: "numeric",
         month: "long",
         year: "numeric",
+        timeZone: "Europe/Paris",
       });
 
       const activeSources = data.sources.filter(

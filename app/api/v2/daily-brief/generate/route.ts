@@ -159,6 +159,7 @@ export async function POST(req: NextRequest) {
           day: "numeric",
           month: "long",
           year: "numeric",
+          timeZone: "Europe/Paris",
         });
 
         await storeAsset({

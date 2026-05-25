@@ -106,7 +106,7 @@ export async function POST(req: NextRequest) {
     id: meetingId,
     threadId,
     kind: "event",
-    title: `Meeting · ${provider} · ${new Date(startedAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`,
+    title: `Meeting · ${provider} · ${new Date(startedAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris" })}`,
     summary: "Réunion en cours",
     createdAt: startedAt,
     provenance: {
