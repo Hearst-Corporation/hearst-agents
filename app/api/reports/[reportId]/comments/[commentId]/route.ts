@@ -7,7 +7,7 @@
 
 import { type NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { resolveAssetTenant } from "@/lib/reports/access";
 import { deleteComment } from "@/lib/reports/comments/store";
 
 export const runtime = "nodejs";
@@ -27,20 +27,14 @@ export async function DELETE(_req: NextRequest, ctx: RouteContext) {
   }
 
   // Résoudre le tenantId effectif via l'asset (mêmes règles que GET/POST).
-  const sb = getServerSupabase();
-  if (!sb) {
-    return NextResponse.json({ error: "unavailable" }, { status: 503 });
+  // resolveAssetTenant vérifie provenance.userId === callerUserId → retourne
+  // not_found (404) sur cross-user, jamais 403 (leak d'existence).
+  const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
+  if ("error" in resolved) {
+    const status = resolved.error === "not_found" ? 404 : 503;
+    return NextResponse.json({ error: resolved.error }, { status });
   }
-  const { data: asset } = await sb
-    .from("assets")
-    .select("provenance")
-    .eq("id", reportId)
-    .maybeSingle();
-  if (!asset) {
-    return NextResponse.json({ error: "not_found" }, { status: 404 });
-  }
-  const provenance = (asset.provenance ?? {}) as Record<string, unknown>;
-  const tenantId = (provenance.tenantId as string | undefined) ?? scope.tenantId;
+  const { tenantId } = resolved;
 
   const outcome = await deleteComment({
     commentId,
@@ -49,13 +43,7 @@ export async function DELETE(_req: NextRequest, ctx: RouteContext) {
   });
   if (!outcome.ok) {
     const status =
-      outcome.reason === "not_found"
-        ? 404
-        : outcome.reason === "forbidden"
-          ? 403
-          : outcome.reason === "supabase_unavailable"
-            ? 503
-            : 500;
+      outcome.reason === "not_found" ? 404 : outcome.reason === "supabase_unavailable" ? 503 : 500;
     return NextResponse.json({ error: outcome.reason }, { status });
   }
   return NextResponse.json({ ok: true });
