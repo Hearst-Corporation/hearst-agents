@@ -94,6 +94,7 @@ export default function ArchivePage() {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "Europe/Paris",
     });
 
   return (

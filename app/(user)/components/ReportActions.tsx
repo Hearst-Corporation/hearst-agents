@@ -239,7 +239,7 @@ function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => 
                 marginTop: "var(--space-1)",
               }}
             >
-              Expire le {new Date(expiresAt).toLocaleString("fr-FR")}
+              Expire le {new Date(expiresAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}
             </p>
           )}
           <Action
@@ -346,7 +346,7 @@ function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () =
                   {c.body}
                 </p>
                 <p className="t-9 font-mono" style={{ color: "var(--text-faint)" }}>
-                  {new Date(c.createdAt).toLocaleString("fr-FR")}
+                  {new Date(c.createdAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}
                   {c.blockRef ? ` · bloc ${c.blockRef}` : ""}
                 </p>
               </li>

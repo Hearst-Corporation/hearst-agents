@@ -70,6 +70,7 @@ export function Commandeur() {
         hint: new Date(thread.lastActivity).toLocaleDateString("fr-FR", {
           day: "numeric",
           month: "short",
+          timeZone: "Europe/Paris",
         }),
         perform: () => {
           setActiveThread(thread.id);

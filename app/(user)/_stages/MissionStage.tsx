@@ -130,7 +130,7 @@ function deriveSteps(mission: ApiMission): MissionStep[] {
       name: "Demande créée",
       status: "done",
       desc: mission.input.slice(0, 120),
-      time: new Date(mission.createdAt).toLocaleDateString("fr-FR"),
+      time: new Date(mission.createdAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" }),
     },
     {
       id: `step-run-${mission.id}`,
@@ -144,12 +144,13 @@ function deriveSteps(mission: ApiMission): MissionStep[] {
             : mission.lastRunStatus === "awaiting_approval"
               ? "En attente d'approbation"
               : mission.lastRunAt
-                ? `Exécuté le ${new Date(mission.lastRunAt).toLocaleDateString("fr-FR")}`
+                ? `Exécuté le ${new Date(mission.lastRunAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}`
                 : "Jamais exécutée",
       time: mission.lastRunAt
         ? new Date(mission.lastRunAt).toLocaleTimeString("fr-FR", {
             hour: "2-digit",
             minute: "2-digit",
+            timeZone: "Europe/Paris",
           })
         : "—",
     },
