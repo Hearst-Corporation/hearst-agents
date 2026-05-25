@@ -365,7 +365,8 @@ export default async function PublicReportPage({ params }: PageProps) {
               marginTop: "var(--space-4)",
             }}
           >
-            Lien valide jusqu&apos;au {new Date(result.expiresAt).toLocaleString("fr-FR")}
+            Lien valide jusqu&apos;au{" "}
+            {new Date(result.expiresAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}
           </p>
         </header>
 

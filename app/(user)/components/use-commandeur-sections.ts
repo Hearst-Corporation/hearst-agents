@@ -134,7 +134,9 @@ export function useCommandeurSections({
             id: `run-${r.id}`,
             kind: "run" as const,
             label: r.label,
-            hint: r.createdAt ? new Date(r.createdAt).toLocaleDateString("fr-FR") : "",
+            hint: r.createdAt
+              ? new Date(r.createdAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })
+              : "",
             perform: () => {
               router.push(`/runs/${r.id}`);
               setOpen(false);

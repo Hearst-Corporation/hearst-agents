@@ -49,7 +49,7 @@ export default async function RunsPage() {
               >
                 <span className="col-span-3 t-11 font-mono text-text">{run.run_id}</span>
                 <span className="col-span-3 t-11 font-mono text-text-muted">
-                  {new Date(run.created_at).toLocaleString("fr-FR")}
+                  {new Date(run.created_at).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}
                 </span>
                 <span className={`col-span-3 t-12 ${tone}`}>{run.decision ?? "—"}</span>
                 <span className="col-span-3 t-11 text-(--accent-teal) text-right">détail →</span>

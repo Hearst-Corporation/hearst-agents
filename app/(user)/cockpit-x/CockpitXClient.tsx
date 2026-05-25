@@ -898,7 +898,11 @@ function formatTime(input: string | number | Date | null | undefined): string {
   if (!input) return "—";
   try {
     const d = new Date(input);
-    return d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+    return d.toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Europe/Paris",
+    });
   } catch {
     return "—";
   }

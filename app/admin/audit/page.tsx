@@ -65,7 +65,7 @@ export default async function AuditPage() {
             className="grid grid-cols-[var(--grid-audit)] gap-(--space-2) px-(--space-4) py-(--space-2) t-13 border-b border-line hover:bg-surface-2 transition-colors"
           >
             <span className="text-text-faint t-10 font-mono">
-              {new Date(log.timestamp).toLocaleString()}
+              {new Date(log.timestamp).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}
             </span>
             <span className="text-text-muted font-mono t-10 truncate">{log.action}</span>
             <span className="text-text-muted truncate">
