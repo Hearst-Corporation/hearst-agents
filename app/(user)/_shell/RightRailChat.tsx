@@ -25,7 +25,12 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
-  const conversationIdRef = useRef<string>(crypto.randomUUID());
+  const conversationIdRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!conversationIdRef.current) {
+      conversationIdRef.current = crypto.randomUUID();
+    }
+  }, []);
 
   useEffect(() => {
     if (listRef.current) {
@@ -61,8 +66,8 @@ export function RightRailChat({ inDrawer = false }: RightRailChatProps) {
         body: JSON.stringify({
           message: text,
           surface: "chat",
-          thread_id: conversationIdRef.current,
-          conversation_id: conversationIdRef.current,
+          thread_id: conversationIdRef.current ?? "",
+          conversation_id: conversationIdRef.current ?? "",
           history: messages
             .filter((m) => m.content.trim().length > 0)
             .slice(-10)

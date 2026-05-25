@@ -217,12 +217,18 @@ function CockpitContent({
   const setMode = useStageStore((s) => s.setMode);
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
   const firstName = session?.user?.name?.split(" ")[0] ?? null;
-  const todayLabel = new Date().toLocaleDateString("fr-FR", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const [todayLabel, setTodayLabel] = useState<string>("");
+  useEffect(() => {
+    setTodayLabel(
+      new Date().toLocaleDateString("fr-FR", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        timeZone: "Europe/Paris",
+      }),
+    );
+  }, []);
 
   const openCommandeur = useCallback(
     (prefilledQuery?: string) =>
