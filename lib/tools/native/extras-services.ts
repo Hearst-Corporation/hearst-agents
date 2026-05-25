@@ -229,7 +229,9 @@ const querySentryIssuesTool: Tool<QuerySentryIssuesArgs, unknown> = {
       if (issues.length === 0) return "Aucune issue Sentry pour cette query.";
       const summary = issues.map((i, idx) => {
         const count = i.count ?? "?";
-        const last = i.lastSeen ? new Date(i.lastSeen).toLocaleString("fr-FR") : "?";
+        const last = i.lastSeen
+          ? new Date(i.lastSeen).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })
+          : "?";
         return `${idx + 1}. [${i.level ?? "?"}] ${i.title} — ${count}× — last ${last}`;
       });
       return [`${issues.length} issue(s) Sentry :`, ...summary].join("\n");
@@ -415,7 +417,9 @@ const queryLangfuseTracesTool: Tool<QueryLangfuseTracesArgs, unknown> = {
       if (traces.length === 0) return "Aucune trace Langfuse.";
       const summary = traces.map((t, idx) => {
         const cost = t.totalCost ? `$${t.totalCost.toFixed(4)}` : "?";
-        const ts = t.timestamp ? new Date(t.timestamp).toLocaleString("fr-FR") : "?";
+        const ts = t.timestamp
+          ? new Date(t.timestamp).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })
+          : "?";
         return `${idx + 1}. ${t.name ?? "?"} — ${cost} — ${ts}`;
       });
       return [`${traces.length} trace(s) Langfuse :`, ...summary].join("\n");

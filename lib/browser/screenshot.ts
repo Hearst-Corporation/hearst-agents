@@ -94,7 +94,7 @@ export async function captureScreenshot(
 
   const asset = createAsset({
     type: "report",
-    name: `Screenshot ${sessionId.slice(0, 8)} ${new Date().toLocaleTimeString("fr-FR")}`,
+    name: `Screenshot ${sessionId.slice(0, 8)} ${new Date().toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" })}`,
     run_id: opts?.runId ?? sessionId,
     tenantId: scope.tenantId,
     workspaceId: scope.workspaceId,
@@ -138,7 +138,7 @@ export async function persistExtraction(
 ): Promise<Asset> {
   const asset = createAsset({
     type: "json",
-    name: `Extract ${sessionId.slice(0, 8)} ${new Date().toLocaleTimeString("fr-FR")}`,
+    name: `Extract ${sessionId.slice(0, 8)} ${new Date().toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" })}`,
     run_id: sessionId,
     tenantId: scope.tenantId,
     workspaceId: scope.workspaceId,
