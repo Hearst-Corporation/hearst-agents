@@ -26,12 +26,16 @@ interface RouteContext {
  * Vérifie que l'asset existe et que le caller a accès. Retourne le tenant_id
  * effectif (provenance.tenantId fallback scope.tenantId) ou null si l'asset
  * n'existe pas / n'appartient pas au caller.
+ *
+ * Sécurité : on retourne `not_found` (404) pour les 3 cas — asset
+ * absent, mauvais kind, et asset existe mais provenance.userId mismatch.
+ * Sinon le 403 vs 404 leak l'existence du report à un attaquant cross-tenant.
  */
 async function resolveAssetTenant(
   reportId: string,
   callerUserId: string,
   fallbackTenantId: string,
-): Promise<{ tenantId: string } | { error: "not_found" | "forbidden" | "unavailable" }> {
+): Promise<{ tenantId: string } | { error: "not_found" | "unavailable" }> {
   const sb = getServerSupabase();
   if (!sb) return { error: "unavailable" };
 
@@ -46,7 +50,7 @@ async function resolveAssetTenant(
 
   const provenance = (data.provenance ?? {}) as Record<string, unknown>;
   if (provenance.userId !== undefined && provenance.userId !== callerUserId) {
-    return { error: "forbidden" };
+    return { error: "not_found" };
   }
   const tenantId = (provenance.tenantId as string | undefined) ?? fallbackTenantId;
   return { tenantId };
@@ -63,8 +67,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
 
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
-    const status =
-      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
+    const status = resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 
@@ -102,8 +105,7 @@ export async function POST(req: NextRequest, ctx: RouteContext) {
 
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
-    const status =
-      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
+    const status = resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 
