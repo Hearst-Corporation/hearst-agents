@@ -35,7 +35,7 @@ export interface MissionLike {
 
 function formatLastRun(m: MissionLike): string {
   if (m.lastRunAt) {
-    return `Last run: ${new Date(m.lastRunAt).toLocaleString()}`;
+    return `Last run: ${new Date(m.lastRunAt).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}`;
   }
   if (m.lastRun) {
     return `Last run: ${m.lastRun}`;

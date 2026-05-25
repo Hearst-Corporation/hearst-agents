@@ -183,7 +183,11 @@ function formatCell(
   if (fmt === "date" && typeof v === "string") {
     // Affichage court FR : "12 avr." plutôt que "2026-04-12T00:00:00Z"
     try {
-      return new Date(v).toLocaleDateString("fr-FR", { day: "2-digit", month: "short" });
+      return new Date(v).toLocaleDateString("fr-FR", {
+        day: "2-digit",
+        month: "short",
+        timeZone: "Europe/Paris",
+      });
     } catch {
       return v;
     }

@@ -76,12 +76,24 @@ function pickTickStep(rangeMs: number): { stepMs: number; label: "day" | "week" 
 function fmtTick(ms: number, kind: "day" | "week" | "month"): string {
   const d = new Date(ms);
   if (kind === "day") {
-    return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
+    return d.toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      timeZone: "Europe/Paris",
+    });
   }
   if (kind === "week") {
-    return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short" });
+    return d.toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      timeZone: "Europe/Paris",
+    });
   }
-  return d.toLocaleDateString("fr-FR", { month: "short", year: "2-digit" });
+  return d.toLocaleDateString("fr-FR", {
+    month: "short",
+    year: "2-digit",
+    timeZone: "Europe/Paris",
+  });
 }
 
 export function Gantt({ range, tasks, height }: GanttProps) {
