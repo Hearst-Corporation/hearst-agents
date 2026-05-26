@@ -10,8 +10,10 @@
  * Dev fallback explicite et bruyant — jamais silencieux.
  */
 
+import { headers } from "next/headers";
 import { getServerSession } from "next-auth";
 import { redactId } from "@/lib/utils/redact";
+import { API_KEY_PREFIX, verifyApiKey } from "./api-key";
 import { getUserId } from "./get-user-id";
 import { authOptions } from "./options";
 
@@ -51,6 +53,15 @@ export async function resolveScope(
   options: ResolveScopeOptions = {},
 ): Promise<CanonicalScope | null> {
   const { requireTenant = false, requireWorkspace = false, context = "unknown" } = options;
+
+  // F1a.1 — Service token short-circuit (Bearer hsk_*) pour backend-to-backend.
+  // Si l'header `Authorization: Bearer hsk_*` est présent, on prend le path
+  // service-account. Selon le résultat :
+  //   - { matched: true, scope }   → return scope directement
+  //   - { matched: true, scope: null } → return null (clé valide mais sans user_id, rejected)
+  //   - { matched: false }         → fall-through au flow NextAuth normal
+  const bearer = await resolveBearerScope(context);
+  if (bearer.matched) return bearer.scope;
 
   const userId = await getUserId();
   if (!userId) {
@@ -119,6 +130,62 @@ export async function resolveScope(
     workspaceId,
     isDevFallback,
     ...(sessionUserName ? { userName: sessionUserName } : {}),
+  };
+}
+
+/**
+ * Lit l'header `Authorization: Bearer hsk_*` et retourne un scope service-account
+ * si la clé est valide via `verifyApiKey`.
+ *
+ * Retourne un wrapper discriminé :
+ *   - `{ matched: false }` : pas d'header Bearer hsk_ exploitable → fall-through
+ *     vers le flow NextAuth normal (header absent, format non-hsk_, headers()
+ *     throw en contexte statique).
+ *   - `{ matched: true, scope: CanonicalScope }` : clé valide → scope service.
+ *   - `{ matched: true, scope: null }` : clé matchée mais rejected (invalide,
+ *     révoquée, ou sans user_id) → résolution Scope = null, PAS de fall-through
+ *     pour éviter qu'une clé compromise puisse retomber sur la session cookie.
+ *
+ * Mode service : `userId = api_keys.user_id` (obligatoire, rejected si null),
+ * `tenantId = api_keys.tenant_id`, `workspaceId = tenantId` (one-to-one en mode
+ * backend-to-backend).
+ */
+async function resolveBearerScope(
+  context: string,
+): Promise<{ matched: false } | { matched: true; scope: CanonicalScope | null }> {
+  let authHeader: string | null = null;
+  try {
+    const headersList = await headers();
+    authHeader = headersList.get("authorization");
+  } catch {
+    return { matched: false };
+  }
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) return { matched: false };
+  const rawKey = authHeader.substring(7).trim();
+  if (!rawKey.startsWith(API_KEY_PREFIX)) return { matched: false };
+
+  const verified = await verifyApiKey(rawKey);
+  if (!verified) {
+    console.warn(`[Scope] Bearer ${API_KEY_PREFIX} key invalid ou révoquée (${context})`);
+    return { matched: true, scope: null };
+  }
+
+  if (!verified.userId) {
+    console.warn(
+      `[Scope] Bearer ${API_KEY_PREFIX} valide mais user_id null — rejected (${context}, tenant: ${redactId(verified.tenantId)})`,
+    );
+    return { matched: true, scope: null };
+  }
+
+  return {
+    matched: true,
+    scope: {
+      userId: verified.userId,
+      tenantId: verified.tenantId,
+      workspaceId: verified.tenantId,
+      isDevFallback: false,
+    },
   };
 }
 
