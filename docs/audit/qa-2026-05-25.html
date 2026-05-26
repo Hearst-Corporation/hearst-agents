@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>QA UI/UX — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>QA UI/UX</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-25 21:56</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> 20d7a303</span>
+      <span><b>Scope</b> app complète</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">74</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">3</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">38</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">33</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">0</div><div class="kpi-label">Score /10</div></div>
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title">Créer composant EmptyState et migrer TenantsTable + UsageTimeSeriesChart</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui">app/(user)/components/ui/</a>
+              <span class="qw-effort">30 min</span>
+            </li><li>
+              <span class="qw-title">Extraire scrollbar-thin en utility class globale (.scrollbar-thin)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/globals.css">app/globals.css</a>
+              <span class="qw-effort">10 min</span>
+            </li><li>
+              <span class="qw-title">Convertir transition-all vers transition-colors sur KGStage:562</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx">app/(user)/_stages/KGStage.tsx</a>
+              <span class="qw-effort">5 min</span>
+            </li><li>
+              <span class="qw-title">Remplacer tous transition: X 200ms ease par var(--duration-base) var(--ease-standard)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx + OnboardingTour + SignalStage">app/public/reports/[token]/page.tsx + OnboardingTour + SignalStage</a>
+              <span class="qw-effort">20 min</span>
+            </li><li>
+              <span class="qw-title">Ajouter focus-visible:ring sur login retry + AdminSidebar toggle</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx + app/admin/_shell/AdminSidebar.tsx">app/login/page.tsx + app/admin/_shell/AdminSidebar.tsx</a>
+              <span class="qw-effort">10 min</span>
+            </li><li>
+              <span class="qw-title">Refactor margin: 0 auto inline vers mx-auto + PublicPageLayout primitive</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/**/page.tsx">app/public/**/page.tsx</a>
+              <span class="qw-effort">45 min</span>
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Layout &amp; Alignment</span>
+        <span class="section-agent">agent-1</span>
+        <span class="section-counts">
+          <span class="badge badge-p0">3</span>
+          <span class="badge badge-p1">28</span>
+          <span class="badge badge-p2">9</span>
+        </span>
+      </summary>
+      <p class="section-summary">Magic numbers spacing, dimensions hardcodées, inline styles non factorisés. Patterns dupliqués (grid templates, scrollbar hacks, margin auto) dignes d'extraction en primitives.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">PAGE_AREA_STYLE export constant inline (foundation layout)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/PageLayout.tsx:17">app/(user)/_shell/PageLayout.tsx:17</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>width: &quot;100%&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Convertir en classe CSS réutilisable ou directive Tailwind</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Constante de layout racine en inline = impossible responsive, breaks mobile.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">Sidebar width conditionnelle inline (pas de transition CSS possible)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_shell/AdminShell.tsx:48">app/admin/_shell/AdminShell.tsx:48</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ width: isCollapsed ? 'var(--width-admin-sidebar-collapsed)' : 'var(--width-admin-sidebar)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser data-collapsed + CSS attr selector pour transition smooth</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Inline conditional = pas de transition CSS, layout shift visible au collapse.</span></div>
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">marginBottom: -960px hack compensation pour transform scale(0.5)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/hearst-card/[token]/page.tsx:268">app/public/hearst-card/[token]/page.tsx:268</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>marginBottom: &quot;-960px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Layout absolute + centering CSS, ou calc() basé sur scale et height réel</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Couplage fragile : si scale change ou taille image varie, casse silencieusement.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Grid template hardcodé (header webhooks)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:386">app/admin/metrics/page.tsx:386</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: '1fr 1fr 1fr auto auto auto'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire en const partagée header/body + CSS custom prop</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Duplication header/body (l.399) = désync au refactor.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Grid template row dupliqué (webhook row)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:399">app/admin/metrics/page.tsx:399</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: '1fr 1fr 1fr auto auto auto'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Réutiliser const header</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Violation DRY entre header (l.386) et row (l.399).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Grid 7 cols LLM provider hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:402">app/admin/health/page.tsx:402</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: '1.2fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr 1fr'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Const partagée + CSS variable</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>7 ratios figés = impossible ajout/retrait sans refactor + duplication l.419.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Grid services row cols dupliquées</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:419">app/admin/health/page.tsx:419</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: '1.2fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr 1fr'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Const partagée header/body</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Duplication exacte de l.402.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">3e variante grid hardcodée (services secondaires)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:469">app/admin/health/page.tsx:469</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: '1.4fr 0.8fr 0.8fr 2fr'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Const + CSS var</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Fragmentation de layout sur 3 tables admin/health.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Row services dupliquée</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:480">app/admin/health/page.tsx:480</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>gridTemplateColumns: '1.4fr 0.8fr 0.8fr 2fr'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Réutiliser const header</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dup header/body, déjà signalé pattern.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Avatar 32x32 hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/hearst-card/[token]/page.tsx:208">app/public/hearst-card/[token]/page.tsx:208</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>width: '32px', height: '32px'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--size-8) ou className size-8</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailles avatar incohérentes dans l'app (24/28/32/40 mélangés).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Reset margin inline + var(--text)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:90">app/public/approvals/[token]/page.tsx:90</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ color: 'var(--text)', margin: 0 }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className m-0 text-text</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Impossible de cascader, micro-fragmentation.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Bouton inline pill (réinvente Action)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/analytics/page.tsx:314">app/admin/analytics/page.tsx:314</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ padding: 'var(--space-1) var(--space-3)', borderRadius: 'var(--radius-pill)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser composant Action ou Pill primitive</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Boutons custom inline = fragmentation premium UI.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Progress bar height: '2px' magique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:75">app/(user)/_shell/KpiGrid.tsx:75</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>height: '2px'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Token --progress-thickness ou h-0.5</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Trop fin pour mobile dense, valeur magique.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Image styling inline complet</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:33">app/(user)/_shell/LeftRail.tsx:33</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className w-full h-full rounded-full object-cover</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Inline complet pour simple image avatar.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">flexShrink + paddingTop inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/StageLayout.tsx:30">app/(user)/_shell/StageLayout.tsx:30</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ flexShrink: 0, paddingTop: 'var(--space-1)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className shrink-0 pt-1</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Hack alignment fragile responsive.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">backgroundColor dynamique sans CSS var</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/FlowLegend.tsx:32">app/admin/_canvas/FlowLegend.tsx:32</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ backgroundColor: b.color }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>style={{ '--badge-color': b.color }} + className bg-[--badge-color]</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pass-through couleur sans système token.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Progress width calculée en JS via inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/RunWaterfall.tsx:86">app/admin/_canvas/RunWaterfall.tsx:86</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ width: `${progress * 100}%` }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Composant ProgressBar avec CSS transition</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pas d'animation possible, repaint JS.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Event dot left: pct inline (reflow)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/RunWaterfall.tsx:100">app/admin/_canvas/RunWaterfall.tsx:100</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ left: `${pos * 100}%` }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>transform translateX() pour GPU compositing</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Layout thrashing sur stream d'events.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Chart container styling inline complet</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/UsageTimeSeriesChart.tsx:29">app/admin/_components/UsageTimeSeriesChart.tsx:29</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ height, border: '1px solid var(--line-strong)', borderRadius: 'var(--radius-md)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className + height en CSS var</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Impossible theming, fragile responsive.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Wrapper padding+border+gap inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/UsageTimeSeriesChart.tsx:66">app/admin/_components/UsageTimeSeriesChart.tsx:66</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ gap: 'var(--space-2)', padding: 'var(--space-4)', border: '...' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className flex flex-col gap-2 p-4 border rounded-md</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern wrapper répété sans factorisation.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Empty state inline (pattern répété 3x+)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/TenantsTable.tsx:20">app/admin/_components/TenantsTable.tsx:20</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ padding: 'var(--space-6)', border: '...', borderRadius: '...', background: '...' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Composant EmptyState dans components/ui/</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Empty states fragmentés (charts/tables/lists).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Row hover conditional bg inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/TenantsTable.tsx:43">app/admin/_components/TenantsTable.tsx:43</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ background: selected ? '...' : undefined }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>data-selected + className hover:bg-(--surface-1)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Conditional inline = pas de cascade hover state.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Header section flex inline complet</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/hearst-card/[token]/page.tsx:187">app/public/hearst-card/[token]/page.tsx:187</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ width: '100%', maxWidth: '1080px', display: 'flex', alignItems: '...', gap: 'var(--space-3)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className w-full max-w-[1080px] flex items-center gap-3</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Layout en JS pour primitive flex.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Transform scale(0.5) + compensation inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/hearst-card/[token]/page.tsx:253">app/public/hearst-card/[token]/page.tsx:253</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ transform: 'scale(0.5)', transformOrigin: 'top center', marginBottom: '-960px' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>scale-50 className + CSS calc compensation</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Lié au P0 marginBottom: -960px.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">margin: '0 auto' inline (centering)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:155">app/public/approvals/[token]/page.tsx:155</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ margin: '0 auto' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className mx-auto max-w-[640px]</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Centering inline répété 5x dans /public.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Centering report inline (duplique pattern)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:190">app/public/reports/[token]/page.tsx:190</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ margin: '0 auto' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Layout wrapper PublicPageLayout</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Duplication centering /public.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">scrollbarWidth: 'thin' inline (Firefox-only)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:215">app/admin/metrics/page.tsx:215</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ scrollbarWidth: 'thin' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Classe globale .scrollbar-thin</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Non-standard CSS, indoc, duplication l.362 health.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">FilterToggle réinvente SegmentedControl</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/analytics/page.tsx:298">app/admin/analytics/page.tsx:298</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ gap: '...', padding: '...', border: '...', borderRadius: '...' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Composant SegmentedControl partagé</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Toggle UI répété 3x+.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">TenantDrillDown section panel inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/analytics/page.tsx:343">app/admin/analytics/page.tsx:343</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ gap: '...', padding: '...', border: '...', background: '...' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className gap-3 p-5 border rounded-md bg-elev</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>5+ variantes de panel hardcodées inline analytics.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Header section marginBottom inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:192">app/public/approvals/[token]/page.tsx:192</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ marginBottom: 'var(--space-8)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className mb-8 ou PageHeader component</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Header /public sans PageHeader primitive.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Legend chart inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/UsageTimeSeriesChart.tsx:130">app/admin/_components/UsageTimeSeriesChart.tsx:130</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ ... }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Composant ChartLegend</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Chart legend dupliquée.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Conflit margin: 0 + marginTop dans même style</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/page.tsx:100">app/public/approvals/[token]/page.tsx:100</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ marginTop: 'var(--space-2)', margin: 0 }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className m-0 mt-2</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Conflit prop : margin écrase marginTop selon l'ordre, résultat imprévisible.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">borderRadius: '1px' incohérent DS</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:77">app/(user)/_shell/KpiGrid.tsx:77</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>borderRadius: '1px'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--radius-xs) ou rounded-full</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Micro-détail hors échelle DS.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">fontSize: '12px' hardcodé (utility t-12 existe)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:90">app/(user)/_shell/KpiGrid.tsx:90</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fontSize: '12px'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className t-12</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bypass du système typographique défini dans globals.css.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Logo 22x24 (autres icônes : 18 ou 20)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:290">app/(user)/_shell/LeftRail.tsx:290</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ width: 22, height: 24 }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner sur échelle icônes existante</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailles icônes hétérogènes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Success box styling complet inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/vote-form.tsx:82">app/public/approvals/[token]/vote-form.tsx:82</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ padding: 'var(--space-5)', border: '...', borderRadius: '...' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Composant SuccessBox</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern card répété 10+ fois sans primitive.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Duplication scrollbar hack admin/health</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:362">app/admin/health/page.tsx:362</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ scrollbarWidth: 'thin' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utility class scrollbar-thin</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Duplication exacte.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">gap inline simple</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/analytics/page.tsx:355">app/admin/analytics/page.tsx:355</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ gap: 'var(--space-3)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className gap-3</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Inline pour 1 prop = surcoût lecture.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">gap inline list</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/analytics/page.tsx:370">app/admin/analytics/page.tsx:370</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ gap: 'var(--space-1)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className gap-1</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Idem.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Section marginBottom inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/StageLayout.tsx:17">app/(user)/_shell/StageLayout.tsx:17</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>style={{ marginBottom: 'var(--space-6)' }}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>className mb-6</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern PAGE_AREA_STYLE étendu.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Interaction &amp; States</span>
+        <span class="section-agent">agent-2</span>
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">15</span>
+          <span class="badge badge-p2">19</span>
+        </span>
+      </summary>
+      <p class="section-summary">Erreurs silencieuses (console.error sans UI), états loading sans skeleton, focus-visible manquants sur boutons critiques, durations hardcodées hors tokens.</p>
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Bouton retry login sans focus-visible ring</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx:182">app/login/page.tsx:182</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;... hover:text-text transition-colors disabled:opacity-50 ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--accent-teal)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Navigation clavier sans indicateur focus = a11y cassée sur page d'auth.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Toggle sidebar admin sans focus ring</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_shell/AdminSidebar.tsx:163">app/admin/_shell/AdminSidebar.tsx:163</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;flex items-center justify-center text-text-ghost hover:text-(--accent-teal) ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ focus-visible:ring</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Contrôle layout admin sans état focus visible.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Bouton nav LeftRail focus-visible à vérifier</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:23">app/(user)/_shell/LeftRail.tsx:23</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;button ...&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit complet LeftRail focus states</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Nav primaire = a11y critique clavier.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">transition-all sur bouton KG (perf)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:562">app/(user)/_stages/KGStage.tsx:562</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;... transition-all border ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>transition-colors duration-base</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>transition-all anime toutes les props = jank + animation parasites layout.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Transition 200ms hardcodée hors tokens</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/reports/[token]/page.tsx:234">app/public/reports/[token]/page.tsx:234</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: 'background 200ms ease, transform 200ms ease'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--duration-base) var(--ease-standard)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bypass timing tokens DS.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Popover absolute sans relative parent vérifié</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ReportActions.tsx:98">app/(user)/components/ReportActions.tsx:98</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;absolute right-0 z-10&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier parent ReportActions relative</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Anchor potentiel wrong container selon viewport.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Modal SimulationStage absolute sans containment clair</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:488">app/(user)/_stages/SimulationStage.tsx:488</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>position: 'absolute'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Parent flex relative explicite, doc stacking</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Modal absolute = overflow viewport possible.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Asset overlay absolute sur grid dynamique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx:171">app/(user)/_stages/AssetStage.tsx:171</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>position: 'absolute'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Wrapper relative explicite</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Clipping bords viewport possible sur grid.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Backdrop + drawer + bouton tous fixed (scroll lock mobile)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:124">app/(user)/_shell/ChatDrawer.tsx:124</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Multiples fixed coexistant</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier inert sur main, scroll-lock body</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Scrolls multiples sur mobile = friction.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Liste overflow-y-auto dans dialog fixed</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/Commandeur.tsx:249">app/(user)/components/Commandeur.tsx:249</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;max-h-(--max-height-commandeur-list) overflow-y-auto ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier max-height vs dialog height</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Scroll list + scroll dialog = scroll hijack clavier.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">BrowserStage fetch catch silencieux</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:315">app/(user)/_stages/BrowserStage.tsx:315</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>.catch((err: unknown) =&gt; { ... })</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>setFetchState('error') + &lt;StageErrorBanner&gt;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Erreurs invisibles utilisateur.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Composio connections : console.error uniquement</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/use-connections-hub.ts:113">app/(user)/components/connections/use-connections-hub.ts:113</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.error('[Composio] failed to load connections', err);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Dispatch error state pour UI banner</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Console invisible en prod/mobile, UX cassée.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Asset compare fail = flag bool sans message</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:384">app/(user)/_stages/AssetCompareStage.tsx:384</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>.catch(() =&gt; { if (!cancelled) setErrorA(true); })</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>setErrorA({ message: '...' })</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bool ne dit pas pourquoi à l'utilisateur.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Loading state transitionne mais LoadingState UI vide ?</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:296">app/(user)/_stages/BrowserStage.tsx:296</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setFetchState('loading');</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Skeleton/spinner explicite</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si LoadingState rend null = blank screen perçu.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">ConfirmModal : vérifier Escape guard pendant loading</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ConfirmModal.tsx:100">app/(user)/components/ConfirmModal.tsx:100</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>aria-busy={loading}; useModalA11y handles Escape (l.56)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Test e2e : Escape pendant action async</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si Escape close modal pendant requête = state inconsistant (P0 si reproductible).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Tour width 200ms ease hardcodé</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/OnboardingTour.tsx:184">app/(user)/_stages/OnboardingTour.tsx:184</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: 'width 200ms ease'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--duration-base) var(--ease-standard)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Timing OnboardingTour hors DS.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Signal transition 0.2s multi-props</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SignalStage.tsx:120">app/(user)/_stages/SignalStage.tsx:120</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: 'color 0.2s, border-color 0.2s, background 0.2s'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Var tokens duration/ease</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tokens DS bypassés (--duration-fast = 100ms, ici 200ms).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Toast transitions 120ms hardcodées</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/ToastHost.tsx:166">app/(user)/components/ui/ToastHost.tsx:166</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition: 'background 120ms ease, color 120ms ease'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--duration-fast) ou créer --duration-toast</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeur 120ms hors échelle.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">transition-[transform,color] arbitraire</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/CommandeurResultRow.tsx:65">app/(user)/components/CommandeurResultRow.tsx:65</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>transition-[transform,color] duration-(--duration-slow)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Séparer transition-transform et transition-colors</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Multi-property arbitraire = maintenance fragile.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">transition-colors sans duration explicite</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/FormField.tsx:13">app/(user)/components/ui/FormField.tsx:13</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;... transition-colors ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ duration-base</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Duration Tailwind default ne matche pas DS token.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Tooltip absolute complex transform</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ProviderChip.tsx:156">app/(user)/components/ProviderChip.tsx:156</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;absolute left-1/2 top-full ... -translate-x-1/2 ...&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier stacking context parent</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tooltips nested = stacking confus.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Tour overlay fixed sans z-index explicite</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/OnboardingTour.tsx:125">app/(user)/components/OnboardingTour.tsx:125</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>position: 'fixed'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>zIndex: 50+ explicite</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Risque de layering sous dialogues.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AppDrawer overflow-y-auto dans drawer fixed</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppDrawer.tsx:78">app/(user)/components/connections/AppDrawer.tsx:78</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>className=&quot;flex-1 overflow-y-auto px-6 py-6&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Test scroll mobile, scroll-lock parent</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Touch scroll hijack possible.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Toast fixed sans z-index explicite vs modals</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/ToastHost.tsx:190">app/(user)/components/ui/ToastHost.tsx:190</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>position: 'fixed'</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>zIndex 999+ explicite</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Toast doit toujours apparaître au-dessus modals.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">KG fetch error : message générique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:453">app/(user)/_stages/KGStage.tsx:453</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setError('KG fetch error')</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire message err.message</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Message inactionnable.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Version history : console.error sans UI</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/report-layout/VersionHistoryPanel.tsx:30">app/(user)/components/report-layout/VersionHistoryPanel.tsx:30</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.error('[VersionHistoryPanel] diff error:', e);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>setError state + ErrorBanner</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Échec invisible utilisateur.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Alerting prefs dispatch sans vérif rendu UI</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/useAlertingPrefs.ts:33">app/(user)/components/settings/alerting/useAlertingPrefs.ts:33</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>.catch(() =&gt; dispatch({ type: 'LOAD_ERROR' }))</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Vérifier AlertingSection rend error + retry</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dispatch ne garantit pas feedback visible.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Artifact fetch sans skeleton min-height</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:222">app/(user)/_stages/ArtifactStage.tsx:222</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>setFetchState('loading');</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>&lt;LoadingSkeleton minHeight=...&gt;</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Layout shift au load.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">loadingEvents sans aria-busy ni spinner</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/CanvasShell.tsx:51">app/admin/_canvas/CanvasShell.tsx:51</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>disabled={mode === 'live' || loadingEvents || ...}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>+ aria-busy={loadingEvents}</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A11y + perception loading manquante.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">loading prop Action : vérifier rendu visible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionStage.tsx:281">app/(user)/_stages/MissionStage.tsx:281</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>loading={approving}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit Action component spinner</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si pas de spinner, juste disabled = peu visible.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Chat submit loading sans feedback visible</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ChatWindow.tsx:162">app/admin/_components/ChatWindow.tsx:162</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>loading={loading}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Spinner ou texte progressif obligatoire</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Disabled seul = ambigu.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SignalEmpty générique sans CTA</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SignalStage.tsx:354">app/(user)/_stages/SignalStage.tsx:354</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>{!loading &amp;&amp; !error &amp;&amp; filtered.length === 0 &amp;&amp; &lt;SignalEmpty /&gt;}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Audit SignalEmpty pour CTA next-step</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Empty state = chance d'éduquer utilisateur.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Mission list empty sans CTA création</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionListStage.tsx:318">app/(user)/_stages/MissionListStage.tsx:318</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>{!loading &amp;&amp; !fetchError &amp;&amp; missions.length === 0 &amp;&amp; &lt;MissionListEmpty /&gt;}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>MissionListEmpty doit afficher CTA Creer mission</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pas de guidage = friction onboarding.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Opacity disabled sans transition explicite</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionStage.tsx:334">app/(user)/_stages/MissionStage.tsx:334</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>[rowClass, isPending ? 'opacity-35 pointer-events-none' : '']</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Préférer disabled attr + transition-opacity</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Sémantique faible + jump visuel sans transition.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Visual Consistency</span>
+        <span class="section-agent">agent-3</span>
+        <span class="section-counts">
+          
+          
+          
+        </span>
+      </summary>
+      <p class="section-summary">L'audit visuel n'a remonté aucun finding valide : tous les findings (~20) ciblaient la syntaxe Tailwind v4 shorthand text-(--var) / bg-(--var) qui EST légitime (équivalent court de text-[var(--var)], documenté). Ces patterns sont utilisés volontairement et conformément au DS (cf. note dans app/globals.css:1758). Faux positifs écartés. Une passe ciblée hex hardcodés / shadows hors --shadow-* reste à faire avec règles affinées.</p>
+      <div class="findings">
+        <div class="empty">Aucun finding.</div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>P0 — fixes critiques</h3>
+              <ul><li>app/(user)/_shell/PageLayout.tsx — convertir PAGE_AREA_STYLE en classe CSS réutilisable</li><li>app/admin/_shell/AdminShell.tsx — sidebar width via data-collapsed + CSS attr selector (pour transition)</li><li>app/public/hearst-card/[token]/page.tsx — refactor scale(0.5) + marginBottom: -960px en layout CSS pur</li></ul>
+            </div><div class="plan-batch">
+              <h3>P1 — cohérence DS &amp; a11y</h3>
+              <ul><li>Factoriser EmptyState, SegmentedControl, PublicPageLayout dans components/ui/</li><li>Migrer wrappers chart/panel inline (UsageTimeSeriesChart, TenantsTable, analytics) vers classNames Tailwind</li><li>Remplacer toutes durations hardcodées (120/200ms) par var(--duration-*) + var(--ease-standard)</li><li>Ajouter focus-visible:ring systématique sur tous button nav (LeftRail, AdminSidebar, login)</li><li>Convertir errors silencieuses (console.error vers state UI) dans BrowserStage, AssetCompareStage, use-connections-hub, VersionHistoryPanel</li><li>Extraire const partagée pour grid templates dupliqués (admin/health, admin/metrics)</li></ul>
+            </div><div class="plan-batch">
+              <h3>P2 — polish</h3>
+              <ul><li>Aligner échelle icônes (LeftRail 22x24 vs autres 18/20)</li><li>Tokeniser progress bar KpiGrid (2px / 1px vers --progress-thickness + --radius-xs)</li><li>Ajouter aria-busy sur loading buttons (CanvasShell, ChatWindow)</li><li>Audit empty states (SignalEmpty, MissionListEmpty) : CTA + copy guidance</li><li>Cleanup conflits style inline (margin: 0 + marginTop dans approvals/vote-form)</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Audit QA — agent-3 (Visual Consistency) a généré 100% de faux positifs sur la syntaxe shorthand Tailwind v4 text-(--var) qui est légitime. À relancer avec règles affinées (ciblage hex hardcodés #FFF/#000, shadows hors --shadow-*, divergence Button primitive admin/user). · Hearst OS · 2026-05-25 21:56
+  </footer>
+</div>
+</body>
+</html>

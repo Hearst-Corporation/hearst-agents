@@ -1,0 +1,2551 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Audit complet — Hearst OS — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Audit complet — Hearst OS</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-25 21:55</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> 20d7a303</span>
+      
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">207</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">0</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">39</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">168</div><div class="kpi-label">P2 — dette</div></div>
+    <div class="kpi accent"><div class="kpi-value">4.9</div><div class="kpi-label">Score /10</div></div>
+  </section>
+
+  
+    <section class="block">
+      <h2>Quick wins</h2>
+      <ol class="quick-wins">
+        <li>
+              <span class="qw-title">Page HTML dev-login hardcode #000 / #4A8B86 / monospace hors tokens</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/auth/dev-login/route.ts">app/api/auth/dev-login/route.ts</a>
+              
+            </li><li>
+              <span class="qw-title">fontSize: 12px hardcode dans la note KPI</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx">app/(user)/_shell/KpiGrid.tsx</a>
+              
+            </li><li>
+              <span class="qw-title">borderRadius: 1px hardcode (barre de progression)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx">app/(user)/_shell/KpiGrid.tsx</a>
+              
+            </li><li>
+              <span class="qw-title">handleTestWebhook swallow l'erreur sans feedback utilisateur</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx">app/admin/metrics/page.tsx</a>
+              
+            </li><li>
+              <span class="qw-title">Erreur fetch sur AssetStage affichee sans action recovery</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx">app/(user)/_stages/AssetStage.tsx</a>
+              
+            </li><li>
+              <span class="qw-title">Approval token URL logged in console when RESEND_API_KEY absent</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/missions/approvals.ts">lib/missions/approvals.ts</a>
+              
+            </li><li>
+              <span class="qw-title">RightPanel stream pingue toutes les 1s (PANEL_INTERVAL_MS=1000)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/right-panel/stream/route.ts">app/api/v2/right-panel/stream/route.ts</a>
+              
+            </li><li>
+              <span class="qw-title">MeetingStage refetch meeting toutes les 5s en boucle, meme onglet inactif</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MeetingStage.tsx">app/(user)/_stages/MeetingStage.tsx</a>
+              
+            </li><li>
+              <span class="qw-title">AdminTopbar refresh KPIs toutes les 5s en continu</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_shell/AdminTopbarKpis.tsx">app/admin/_shell/AdminTopbarKpis.tsx</a>
+              
+            </li><li>
+              <span class="qw-title">rawDb() + helpers retournent SupabaseClient&lt;any&gt; sur la route search</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/search/route.ts">app/api/v2/search/route.ts</a>
+              
+            </li><li>
+              <span class="qw-title">{ type: displayType } as any dans la pipeline IA (1473 lignes)</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts">lib/engine/orchestrator/ai-pipeline.ts</a>
+              
+            </li><li>
+              <span class="qw-title">toRunRecord(row: any) + toScheduledMission(row: any) sur l adapter d etat runtime</span>
+              <a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/state/adapter.ts">lib/engine/runtime/state/adapter.ts</a>
+              
+            </li>
+      </ol>
+    </section>
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">22</span>
+          <span class="badge badge-p2">18</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Page HTML dev-login hardcode #000 / #4A8B86 / monospace hors tokens</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/auth/dev-login/route.ts:29">app/api/auth/dev-login/route.ts:29</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>body{background:#000;color:#4A8B86;font-family:monospace;...}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser var(--bg) / var(--accent-teal) / var(--font-mono)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Route renvoie une page HTML inline qui ignore complètement le DS Cockpit ; toute évolution palette ne se propagera pas ici.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">fontSize: 12px hardcode dans la note KPI</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:90">app/(user)/_shell/KpiGrid.tsx:90</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fontSize: &quot;12px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Classe t-11 ou t-12 (token), ou var(--font-size-12)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Toutes les autres tailles utilisent t-* ou var(--font-size-*) ; pixel isole qui rompt la coherence si l echelle typo bouge.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">borderRadius: 1px hardcode (barre de progression)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:77">app/(user)/_shell/KpiGrid.tsx:77</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>borderRadius: &quot;1px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--radius-xs) ou ajouter token --radius-hairline</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Magic number duplique l.77 et l.85 ; aucun token equivalent ; echappe a la coherence des radii.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">height: 2px hardcode pour rail de progression</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:75">app/(user)/_shell/KpiGrid.tsx:75</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>height: &quot;2px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--height-progress-bar) a creer ou classe h-[--size-progress]</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Hauteur magique non factorisee ; si la barre se generalise (loaders, KPI, comparator) la divergence devient inevitable.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">padding: 2px 8px hardcode sur badge statut</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:435">app/(user)/cockpit-x/CockpitXClient.tsx:435</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>padding: &quot;2px 8px&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Aligner sur var(--space-0-5) var(--space-2) deja utilises ailleurs pour les pills</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le reste du fichier utilise var(--space-*) ; cette pill diverge en pur px, grain visuel different des autres badges.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">fontWeight: 300 inline sur un &lt;p&gt;</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:332">app/(user)/cockpit-x/CockpitXClient.tsx:332</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fontWeight: 300</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Classe font-light (deja utilisee partout)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Le projet utilise systematiquement les utilitaires Tailwind font-light/medium ; valeur numerique inline = inconsistance.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Dot 6px hardcodee avec borderRadius: 50%</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:300">app/(user)/cockpit-x/CockpitXClient.tsx:300</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>width: 6px, height: 6px, borderRadius: 50%</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Classe w-1.5 h-1.5 rounded-full ou tokens --size-dot + --radius-full</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern dot deja existant en Tailwind tokens dans RightRailChat (l.221, l.232) ; duplication inline cree 2 sources de verite.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">borderRadius: 50% inline avatar</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:33">app/(user)/_shell/LeftRail.tsx:33</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>borderRadius: &quot;50%&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--radius-full) ou classe rounded-full</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern rounded avatar duplique dans 3 endroits avec syntaxes differentes (Tailwind, inline 50%, CSS module).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">borderRadius: 0 hardcode fallback logo</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppLogo.tsx:65">app/(user)/components/connections/AppLogo.tsx:65</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>borderRadius: &quot;0&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--radius-none) ou supprimer (default = 0)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Override inutile qui empeche tout futur arrondi global ; signe d un design pas finalise.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">fontSize: inner * 0.6 (formule magique)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppLogo.tsx:62">app/(user)/components/connections/AppLogo.tsx:62</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fontSize: inner * 0.6</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Mapper sur classes t-* selon la taille du logo (sm/md/lg)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Formule arbitraire 0.6 sans token ; produit des tailles non-snap par rapport a l echelle typo.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Badge V{index}: top-2.5 left-2.5 z-[5] px-2 py-0.5</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx:199">app/(user)/_stages/AssetStage.tsx:199</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>absolute top-2.5 left-2.5 z-[5] px-2 py-0.5</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>top-(--space-2-5) left-(--space-2-5) z-10 px-(--space-2) py-(--space-0-5)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Echelle Tailwind brute alors que le reste du fichier utilise les vars Cockpit ; z-[5] arbitraire (non aligne avec z-10/z-20/z-30 utilises ailleurs).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Badge statut: bottom-2.5 right-2.5 z-[5] px-2.5 py-1</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx:204">app/(user)/_stages/AssetStage.tsx:204</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>absolute bottom-2.5 right-2.5 z-[5] px-2.5 py-1</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Memes tokens que l.199 (coherence intra-fichier)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Z-index magic + spacing hors token ; echelle z-* non documentee dans la SPEC = collisions probables.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">bg-black sur preview theme (Tailwind brut)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ThemePicker.tsx:81">app/admin/_components/ThemePicker.tsx:81</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>bg-black overflow-hidden</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>bg-(--bg-deep) ou bg-(--surface-0)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>bg-black pur = #000 ; la SPEC interdit toute couleur hors tokens, bg-deep est #1A050B (bordeaux profond).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Shell racine: bg-black text-white</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/Shell.tsx:47">app/(user)/_shell/Shell.tsx:47</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>bg-black text-white</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>bg-(--bg) text-(--text)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>C est LE shell d app ; il fixe les couleurs racine en Tailwind brut alors que tokens existent, toute bascule de theme inoperante.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Provider racine: bg-black text-white</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ClientProviders.tsx:137">app/(user)/components/ClientProviders.tsx:137</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>h-dvh w-full overflow-hidden bg-black text-white antialiased</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>bg-(--bg) text-(--text)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Second point d ancrage du shell ; meme probleme que Shell.tsx, propage sur toute l app authentifiee.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">bg-black text-white sur containers login (3 occurrences l.107/119/243)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx:107">app/login/page.tsx:107</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>bg-black text-white</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>bg-(--bg) text-(--text)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Login = premiere impression ; Tailwind brut empeche tout rebrand depuis tokens.core.json.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">SVG logos providers: 7 hex inline (#4285F4 #34A853 #FBBC05 #EA4335 #0078D4 #0364B8 #28A8EA)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx:40">app/login/page.tsx:40</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fill=#4285F4 ... fill=#0364B8</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Brand colors externes : isoler dans &lt;BrandIcons/&gt; et commenter exemption explicite</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>7 hex inline ; meme si brand colors externes, doivent etre references dans un seul fichier (BrandIcons) avec annotation, pas disperses dans la page login.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">themeColor: #16161B Next.js metadata hors token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/layout.tsx:25">app/layout.tsx:25</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>themeColor: &quot;#16161B&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Synchroniser sur var(--bg-deep) = #1A050B selon SPEC</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Couleur barre de statut mobile diverge de la couleur reelle du fond ; visuel split mobile/desktop des l ouverture.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">max-w-[90%] arbitrary sur bulle chat</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:309">app/(user)/_shell/RightRailChat.tsx:309</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>t-13 max-w-[90%]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>max-w-(--width-chat-bubble) (token a creer)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Arbitrary value % ; bulle chat doit etre tokenisee (meme valeur dans ChatWindow 80% l.138, divergence 80/90).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">max-w-[80%] arbitrary sur bulle chat admin (vs 90% user)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ChatWindow.tsx:138">app/admin/_components/ChatWindow.tsx:138</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>rounded-(--radius-sm) px-(--space-3) py-(--space-2) t-13 max-w-[80%]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Identique a RightRailChat, token --width-chat-bubble unique</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Duplication 80% ici vs 90% dans RightRailChat ; deux variantes du meme composant logique sans primitive partagee.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">aspect-[16/10] arbitrary</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_components/ThemePicker.tsx:81">app/admin/_components/ThemePicker.tsx:81</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>aspect-[16/10]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Classe aspect-video (16/9) ou token --aspect-preview</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Ratio non standard sans token ; rebascule visuelle si on touche la carte preview.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">opacity-[0.03] arbitrary</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/components/system/NoiseLayer.tsx:10">app/components/system/NoiseLayer.tsx:10</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>opacity-[0.03]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--opacity-noise) token, ou classe opacity-5</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeur 0.03 sur layer ambient critique ; merite un token (re-utilisable sur ambient/noise futurs).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">px-3.5 py-2 sur input chat (Tailwind brut)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:360">app/(user)/_shell/RightRailChat.tsx:360</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>px-3.5 py-2</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>px-(--space-3-5) py-(--space-2)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Reste du fichier melange Tailwind brut et var(--space-*) ; coherence intra-composant.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">padding: 0 brut vs autres paddings tokenises</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:386">app/(user)/_shell/RightRailChat.tsx:386</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>padding: 0</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Omettre ou utiliser token --space-0</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Padding brut nullifie un reset CSS implicite ; mineur mais signale absence de --space-0.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">flex-[1_1_auto] arbitrary</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:128">app/(user)/_stages/AssetCompareStage.tsx:128</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>flex-[1_1_auto]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Classe flex-auto</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind expose flex-auto pour 1 1 auto ; arbitrary inutile.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">flex-[0_0_calc(50%-var(--space-2))] arbitrary duplique (l.149 et l.510)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:149">app/(user)/_stages/AssetCompareStage.tsx:149</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>flex-[0_0_calc(50%-var(--space-2))]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire token --flex-half-with-gap ou util CSS .half-pane</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern duplique 2x dans le meme fichier ; merite extraction primitive.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">flex-[3] et flex-[2] arbitrary</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/CanvasShell.tsx:202">app/admin/_canvas/CanvasShell.tsx:202</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>flex-[3] / flex-[2]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Classes flex-grow-3 ou tokens --canvas-split-top/bottom</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Ratio split canvas non tokenise ; toute modif demande grep manuel.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">leading-[1.15] arbitrary sur h1 (vs 1.05 et 1.1 ailleurs)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx:135">app/login/page.tsx:135</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>leading-[1.15]</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--leading-display) token</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Leading magic ; KpiGrid utilise 1.1 (l.67), CockpitX 1.05 (l.322), login 1.15 = 3 valeurs proches non tokenisees.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">lineHeight: 1.1 numerique inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:67">app/(user)/_shell/KpiGrid.tsx:67</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>lineHeight: 1.1</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--leading-tight-display)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cf finding precedent : trois lineHeight magiques (1.05, 1.1, 1.15) qui doivent converger sur un token.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">lineHeight: 1.05 sur h1 (3e valeur leading non tokenisee)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:322">app/(user)/cockpit-x/CockpitXClient.tsx:322</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>lineHeight: 1.05</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--leading-display-tight)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Troisieme valeur leading magique non factorisee dans la famille display.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">letterSpacing: 0.01em inline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/KpiGrid.tsx:98">app/(user)/_shell/KpiGrid.tsx:98</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>letterSpacing: &quot;0.01em&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--tracking-fine)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Valeur magique alors que d autres letterSpacing utilisent var(--tracking-*) (cf l.65 meme fichier).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">text-black sur FAB chat</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:95">app/(user)/_shell/ChatDrawer.tsx:95</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>text-black transition-transform</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>text-(--bg) si fond accent clair, sinon text-(--text)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tailwind brut black ; bouton flottant unique mais reste une exception au DS.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">bg-black/60 overlay drawer (existe deja en token)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:124">app/(user)/_shell/ChatDrawer.tsx:124</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>bg-black/60</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>bg-(--overlay-scrim) deja utilise dans AssetCompareStage</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Token --overlay-scrim existe mais n est pas applique ici, divergence d opacite possible entre overlays.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">FAB bottom-6 right-6 h-14 w-14 (Tailwind brut)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/ChatDrawer.tsx:95">app/(user)/_shell/ChatDrawer.tsx:95</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fixed bottom-6 right-6 z-40 flex h-14 w-14</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Tokens --space-* et --size-fab</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Spacing/size hors tokens sur composant flottant ; doit etre tokenise pour coherence mobile.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">max-w-md sur drawer vs --ct-rail-right 420px</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/AppDrawer.tsx:59">app/(user)/components/connections/AppDrawer.tsx:59</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>fixed right-0 top-0 bottom-0 w-full max-w-md z-50</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>max-w-(--width-drawer-right) coherent avec --ct-rail-right 420px</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Drawer = meme role que RailRight (chat) mais largeur differente (max-w-md = 448px vs --ct-rail-right = 420px), deux variantes du meme panneau.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">z-20 / z-10 / z-[5] / z-30 / z-40 / z-50 : 6 valeurs z-index sans hierarchie</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/CanvasShell.tsx:118">app/admin/_canvas/CanvasShell.tsx:118</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>z-20 / z-10 / z-[5] / z-30 / z-40 / z-50</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Definir tokens --z-rail / --z-popover / --z-modal / --z-fab dans SPEC</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>6 valeurs z-index differentes sans hierarchie documentee ; collisions garanties a terme (cas tooltip z-30 sous FAB z-40).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">z-30 sur tooltip provider</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ProviderChip.tsx:156">app/(user)/components/ProviderChip.tsx:156</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>absolute left-1/2 top-full z-30 mt-1</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>z-(--z-popover) token a creer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Z-30 isole entre z-20 (panel) et z-40 (FAB) ; chevauchement tooltip/FAB possible.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">margin: 0 inline duplique dans 4 fichiers (ReportActions, ReportEditor, primitives.tsx)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/reports/ReportEditor.tsx:370">app/(user)/components/reports/ReportEditor.tsx:370</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>margin: 0</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Reset CSS global ou className utility .reset-m</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pattern margin: 0 duplique dans ReportActions l.477, ReportEditor l.370, alerting/primitives l.63 ; merite reset global.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">padding: 1px var(--space-1) (1px hardcode)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/primitives.tsx:160">app/(user)/components/settings/alerting/primitives.tsx:160</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>padding: &quot;1px var(--space-1)&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>var(--space-0-25) ou nouveau token --space-px</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Melange token + 1px brut ; valeur 1px duplique l.160 et l.195 du meme fichier.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">padding: 1px var(--space-2) - 3e occurrence idiome 1px+token</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/EmailSection.tsx:88">app/(user)/components/settings/alerting/EmailSection.tsx:88</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>padding: &quot;1px var(--space-2)&quot;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Token --space-px (a creer)</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>3e occurrence de l idiome 1px + space token, merite extraction systematique.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">2</span>
+          <span class="badge badge-p2">12</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">handleTestWebhook swallow l'erreur sans feedback utilisateur</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:201">app/admin/metrics/page.tsx:201</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>En cas d'echec fetch (network/HTTP non-ok), afficher toast.error('Test webhook echoue', err) au lieu du commentaire 'Pas bloquant — juste un test ping'. L'utilisateur reste sur ... puis revient a 'Tester' sans savoir si ca a marche.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>L'utilisateur clique 'Tester', voit ... pendant 1s, puis 'Tester' reapparait : impossible de savoir si le ping a reussi, echoue ou ete bloque par le proxy. Cas typique de friction silencieuse.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Erreur fetch sur AssetStage affichee sans action recovery</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetStage.tsx:252">app/(user)/_stages/AssetStage.tsx:252</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter &lt;StageErrorBanner message={error} onRetry={() =&gt; triggerRefetch()} /&gt; ou exposer un retry via un re-mount du hook. Pattern deja utilise sur admin/health (bouton 'Rafraichir').</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si l'asset principal fail au chargement (timeout, 500), l'utilisateur voit une banniere statique sans moyen de relancer — il doit recharger toute la page.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">label 'URL du webhook Slack' sans htmlFor + Input sans id</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/SlackSection.tsx:51">app/(user)/components/settings/alerting/SlackSection.tsx:51</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter id='slack-webhook-url' au composant &lt;Input&gt; et htmlFor='slack-webhook-url' au &lt;label&gt;. Idem pour les autres &lt;label&gt; isoles du fichier.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Lecteurs d'ecran ne lient pas le label au champ → utilisateur malvoyant entend juste 'Edition de texte' sans savoir ce qu'il saisit.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Labels 'Destinataires' et 'Signaux declencheurs' sans htmlFor</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/EmailSection.tsx:68">app/(user)/components/settings/alerting/EmailSection.tsx:68</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Lier chaque &lt;label&gt; a son &lt;Input&gt; via htmlFor/id (ex: 'email-recipients', 'email-signals').</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Meme probleme a11y que SlackSection — formulaire metier critique non navigable au lecteur d'ecran.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">label 'URL du webhook' sans htmlFor sur l'&lt;Input&gt;</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/settings/alerting/WebhooksSection.tsx:88">app/(user)/components/settings/alerting/WebhooksSection.tsx:88</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter id='new-webhook-url' au composant &lt;Input&gt; et htmlFor correspondant.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Lecteur d'ecran ne contextualise pas la saisie de l'URL.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">label 'Commentaire' sans htmlFor + textarea sans id</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/public/approvals/[token]/vote-form.tsx:136">app/public/approvals/[token]/vote-form.tsx:136</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>id='approval-comment' sur le &lt;textarea&gt; + htmlFor='approval-comment' sur le &lt;label&gt;.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Page publique — audience large, peut inclure approbateurs externes avec assistive tech. Pas de lien label/champ.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Action 'Installer' disabled pendant install mais aria-busy absent</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/marketplace/page.tsx:192">app/(user)/marketplace/page.tsx:192</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter aria-busy={installingId === t.id} et garder un toast.info('Installation en cours...') si la latence depasse 1.5s. Le seul feedback actuel est le texte 'Installation...' qui peut etre masque par le viewport.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si l'install est lente (&gt;3s), l'utilisateur peut cliquer ailleurs ou douter du process. Pas de progression visible globale.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Loading global = 'Chargement...' texte plain, pas de skeleton</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:232">app/admin/metrics/page.tsx:232</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Remplacer par &lt;Skeleton variant='cards' /&gt; ou &lt;Skeleton variant='rows' /&gt; pour coherence avec ScreenShell loadingVariant (utilise dans reports/archive/marketplace).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Incoherence visuelle avec le reste de l'app — admin/metrics utilise un placeholder texte pendant que les pages user montrent des skeletons. Deterioration progressive de la perception de vitesse.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Loading global = 'Chargement...' texte plain (idem metrics)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/health/page.tsx:382">app/admin/health/page.tsx:382</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Adopter Skeleton variant coherent avec les autres pages.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Meme remarque que metrics — incoherence de feedback de chargement entre admin et user.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Page serveur sans bouton retry sur catch DB</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/[id]/page.tsx">app/admin/agents/[id]/page.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Capturer try/catch cote serveur et passer une prop error au client + ajouter &lt;Action onClick={router.refresh()}&gt;Reessayer&lt;/Action&gt;.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Degradation silencieuse en cas d'incident Supabase — l'utilisateur doit recharger manuellement la page.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Empty state 'Aucun feature flag configure' minimaliste (juste texte)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/settings/page.tsx:59">app/admin/settings/page.tsx:59</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser &lt;EmptyState&gt; du DS avec icon + description courte. Pattern present dans admin/_components/SeedEmptyState.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Empty state textuel peu lisible, perdu dans la grille — l'admin ne sait pas s'il s'agit d'un bug ou d'un etat attendu.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Liste audit logs — pas de filtres ni de message contextuel quand vide</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/audit/page.tsx">app/admin/audit/page.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter SeedEmptyState ou decrire pourquoi c'est vide (jamais d'evenements ? filtre trop strict ?). Encourager generation seed dev.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Page admin importante (securite/forensics) — l'admin a besoin de savoir si le vide est normal ou pathologique.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">&lt;IconButton icon='x'&gt; avec disabled mais sans aria-disabled explicite</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:308">app/(user)/_stages/SimulationStage.tsx:308</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Verifier que IconButton propage disabled vers aria-disabled. Sinon ajouter aria-disabled={variables.length === 1}.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Lecteurs d'ecran sur certains navigateurs ne lisent pas l'etat desactive sans aria-disabled.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Erreur session voice masquee sous .catch(() =&gt; {}) silencieux</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/voice/VoicePulse.tsx:218">app/(user)/components/voice/VoicePulse.tsx:218</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>Logger via Sentry ou afficher un toast.error('Voice indisponible') quand audioCtxRef.current.close().catch(() =&gt; {}) ou audioEl.play().catch(() =&gt; {}) fail de maniere persistante.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bug silencieux : l'utilisateur clique sur le micro et rien ne se passe — aucune piste de diagnostic.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">1</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">Approval token URL logged in console when RESEND_API_KEY absent</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/missions/approvals.ts:491">lib/missions/approvals.ts:491</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.warn(`[approvals] RESEND_API_KEY absente — email non envoyé. Lien manuel pour ${r.email} : ${buildApprovalUrl(r.token)}`)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Logger uniquement l'id de l'approval (r.id) sans l'URL signée. Le token HMAC complet ne doit jamais transiter en clair par les logs — il vaut auth pendant toute la TTL.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si la prod boot sans RESEND_API_KEY (misconfig staging→prod), chaque approval crée une ligne de log contenant un token HMAC valide. Un attaquant ayant accès lecture logs (Vercel, Sentry, Axiom, Datadog) peut voter à la place de l'approveur sur toute mission ouverte.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Email complet loggé sur signIn rejet domaine</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/auth/options.ts:107">lib/platform/auth/options.ts:107</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.warn(`[Auth] signIn rejected: domain ${domain} not in allowlist (email=${email}, provider=${account?.provider})`)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Logger seulement le domain. email=${email} → email=${email.split('@')[0].slice(0,2)}***@${domain}.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>PII (email) écrit en clair dans tous les sinks de logs (Vercel, observability). Sur un grand volume de tentatives signIn, fuite cumulative d'emails.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Email participant loggé sur erreur KG lookup</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/cockpit/pre-meeting-intel.ts:415">lib/cockpit/pre-meeting-intel.ts:415</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.warn(`[pre-meeting-intel] KG lookup échoué pour ${att.email} :`, err)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Hash ou masquer l'email : `[pre-meeting-intel] KG lookup échoué pour &lt;email hashed&gt;`.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>PII (emails d'attendees calendar) dans les logs serveur. Sur error rates élevés, exposition multiple.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Cookie `theme` sans httpOnly ni secure</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/user/theme/route.ts:80">app/api/user/theme/route.ts:80</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>res.cookies.set('theme', slug, { path: '/', maxAge: 60*60*24*365, sameSite: 'lax' })</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Ajouter `secure: process.env.NODE_ENV === 'production'` pour empêcher la transmission en HTTP clair. `httpOnly: false` reste OK si le cookie doit être lu par CSS/JS.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cookie sans flag secure transitable en HTTP en dev, peut induire de mauvais patterns sur de futurs cookies sensibles. Valeur ici non critique.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">user_id loggé en plain text dans script audit</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/scripts/audit-broken-tokens.ts:161">scripts/audit-broken-tokens.ts:161</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.log(`  - user=${b.user_id} provider=${b.provider}`)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Script outillage dev — acceptable si non exécuté en CI/prod. Ajouter `// @dev-only` en header + guard `if (process.env.NODE_ENV === 'production') throw`.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Script ad-hoc qui logge des UUID users. Risque marginal (run manuel) mais si pipé dans un job CI, la sortie atterrit dans les logs CI.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">addComment re-fetch par body match (collision intra-user)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/comments/store.ts:120">lib/reports/comments/store.ts:120</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>.eq('body', input.body) ... .order('created_at', { ascending: false }).limit(1)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser `insert(...).select().single()` pour récupérer la row insérée directement via son id auto-généré, plutôt qu'un re-select par body match.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pas d'IDOR cross-tenant (filtre tenant_id+user_id+asset_id strict) mais collision intra-user possible : si l'user double-poste exactement le même body, l'API retourne potentiellement la ligne d'avant. Affecte cohérence, pas la sécurité cross-user.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">4</span>
+          <span class="badge badge-p2">13</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">RightPanel stream pingue toutes les 1s (PANEL_INTERVAL_MS=1000)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/right-panel/stream/route.ts:15">app/api/v2/right-panel/stream/route.ts:15</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const PANEL_INTERVAL_MS = 1000; ... panelTimer = setInterval(() =&gt; void sendPanel(), PANEL_INTERVAL_MS);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Passer a 2-5s en regime normal + backoff exponentiel si pas de delta (visibilitychange =&gt; pause).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Charge serveur N*users/s; SSE long-poll a 1Hz = 60 req/min par client ouvert, cout DB et CPU non-negligeable.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">MeetingStage refetch meeting toutes les 5s en boucle, meme onglet inactif</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MeetingStage.tsx:285">app/(user)/_stages/MeetingStage.tsx:285</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const interval = setInterval(fetchMeeting, 5_000);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Backoff + document.hidden pause + SSE/WebSocket vers /api/v2/right-panel/stream existant.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Polling 12 req/min par user actif. Sur reunion 60min: 720 fetch full meeting payload.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">AdminTopbar refresh KPIs toutes les 5s en continu</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_shell/AdminTopbarKpis.tsx:12">app/admin/_shell/AdminTopbarKpis.tsx:12</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const REFRESH_MS = 5000; ... const t = setInterval(fetchMetrics, REFRESH_MS);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>30s (aligne sur app/admin/metrics) ou SWR avec refreshInterval + revalidateOnFocus.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Topbar visible sur toutes les pages admin -&gt; 12 req/min permanente meme idle.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">OAuth popup poll a 500ms en boucle infinie tant que popup non close</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/connections/use-connections-hub.ts:525">app/(user)/components/connections/use-connections-hub.ts:525</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const id = window.setInterval(() =&gt; { ... if (popup.closed &amp;&amp; ...) }, 500);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser window.addEventListener('message') depuis la popup OAuth (postMessage) -&gt; evite polling.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>500ms = 120 ticks/min, lourd sur main thread quand popup reste ouverte longtemps.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">isDirty calcule JSON.stringify(form) a chaque render</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/agents/new/page.tsx:39">app/admin/agents/new/page.tsx:39</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>useMemo(() =&gt; JSON.stringify(form) !== JSON.stringify(initialFormRef.current), [form]);</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Comparer cles par cles (shallow) ou utiliser un dirty flag pose dans onChange.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Double stringify a chaque frappe; OK pour forme petite mais coute si form grossit.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">&lt;img&gt; natif au lieu de next/image</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/LeftRail.tsx:290">app/(user)/_shell/LeftRail.tsx:290</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>&lt;img src=&quot;/hearst-h.svg&quot; alt=&quot;Helm&quot; style={{ width: 22, height: 24, opacity: 0.9 }} /&gt;</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>next/image (Image) avec width/height ou en SVG inline (svg est deja vectoriel donc inline preferable).</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Coherence avec le reste du codebase qui utilise next/image; perte de lazy par defaut.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">key={idx} sur liste variables editable</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:273">app/(user)/_stages/SimulationStage.tsx:273</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>{variables.map((variable, idx) =&gt; (&lt;div key={idx} ...))}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Utiliser un id stable (variable.key + index si key vide) ou nanoid a la creation.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Re-render incorrect / focus perdu si reorder/insertion au milieu.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">key={idx} sur ScenarioCard</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:417">app/(user)/_stages/SimulationStage.tsx:417</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>{scenarios.map((scenario, idx) =&gt; (&lt;ScenarioCard key={idx} scenario={scenario} /&gt;))}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>key={scenario.id} si dispo, sinon scenario.title hash.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Memo break sur ScenarioCard; re-mount au lieu de re-render si liste change.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">key={i} sur ligne comparaison assets</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/AssetCompareStage.tsx:509">app/(user)/_stages/AssetCompareStage.tsx:509</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>key={i}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>key={item.id || item.assetId}.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Liste mutable; re-mount injustifie au moindre changement d'ordre.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">key={i} dans Waterfall (potentiellement 100+ rows)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/_canvas/RunWaterfall.tsx:95">app/admin/_canvas/RunWaterfall.tsx:95</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>key={i}</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>key={run.id} ou key={`${run.id}-${i}`}.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Waterfall reorder/filter typique -&gt; remount de toutes les barres a chaque update.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">4725 lignes (genere Supabase, peut etre split par schema)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/database.types.ts">lib/database.types.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Fichier monolithe importe dans tout le projet (lib/supabase).</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Genere supabase types par schema (--schema public) si dette de typing TSC.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Augmente la charge TSC + bundle si client importe ce module par megarde.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">1473 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts">lib/engine/orchestrator/ai-pipeline.ts</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Pipeline monolithique.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Decouper en steps (planner / executor / formatter) dans sous-modules.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Cout maintenance + TSC + risque de regressions.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">945 lignes (mais dynamic imports OK pour stages)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx">app/(user)/cockpit-x/CockpitXClient.tsx</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>Shell client avec 11 dynamic imports de stages.</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Extraire les handlers (mapping stage-&gt;route) dans un module dedie.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>OK perf bundle (dynamic OK) mais lecture/maintenance lourde.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">new Map(displayNodes.map(...)) recalcule a chaque render hors useMemo</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/KGStage.tsx:94">app/(user)/_stages/KGStage.tsx:94</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>const nodeMap = new Map(displayNodes.map((n) =&gt; [n.id, n]));</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>useMemo(() =&gt; new Map(displayNodes.map(...)), [displayNodes]);</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Pour KG avec 100+ noeuds = O(n) a chaque render incluant scroll/hover.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">for-of avec inserts Supabase sequentiels dans seed</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/admin/seed.ts:361">lib/admin/seed.ts:361</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>for (const agent of AGENTS) { await sb.from('agents').upsert(...) }</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Batch upsert: sb.from('agents').upsert(AGENTS) au lieu de boucle.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Seed-only mais multiplie aller-retours; sur 100+ entites = 100+ roundtrips.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">select('id, tenant_ids') sans limit sur table users</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/jobs/inngest/functions/weekly-digest.ts:73">lib/jobs/inngest/functions/weekly-digest.ts:73</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>await sb.from('users').select('id, tenant_ids');</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Pagine avec .range() ou batch via Inngest step.run('chunk-N').</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Si users grossit (10k+), fetch entier en RAM -&gt; OOM digest hebdo.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">console.log en code runtime (et 5 autres modules)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/runtime/hmr-cleanup.ts:42">lib/runtime/hmr-cleanup.ts:42</a></div>
+      <div class="finding-row"><span class="k">Actuel</span><code>console.log(`[HMR] Running ${cleanupRegistry.length} cleanup(s)`)</code></div>
+      <div class="finding-row"><span class="k">Suggéré</span><code>Logger pino (deja dans deps) ou guard par NODE_ENV !== 'production'.</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Bruit en prod + leak potentiel info; lib/engine/planner/debug.ts, lib/analytics/events.ts, lib/jobs/inngest/* idem.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">7</span>
+          <span class="badge badge-p2">92</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">rawDb() + helpers retournent SupabaseClient&lt;any&gt; sur la route search</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/api/v2/search/route.ts:38">app/api/v2/search/route.ts:38</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>typer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>search est une surface API publique sensible (cross-table) — perdre les types Supabase tue toute garantie de schema et masque les regressions silencieuses.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">{ type: displayType } as any dans la pipeline IA (1473 lignes)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts:406">lib/engine/orchestrator/ai-pipeline.ts:406</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>typer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>ai-pipeline.ts est le chemin chaud de l orchestrateur LLM ; un any sur le payload de type masque toute incoherence d output cote UI.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">toRunRecord(row: any) + toScheduledMission(row: any) sur l adapter d etat runtime</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/state/adapter.ts:192">lib/engine/runtime/state/adapter.ts:192</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>typer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Adapter persistence runs/missions = source de verite ; any masque tout drift entre schema DB et types runtime.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">toAsset(row: any) sur l adapter assets runtime</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/assets/adapter.ts:186">lib/engine/runtime/assets/adapter.ts:186</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>typer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Idem state adapter : perte de typage sur la frontiere persistence/runtime des assets.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">eslint-disable react-hooks/exhaustive-deps sur MissionStage (509 lignes)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/MissionStage.tsx:429">app/(user)/_stages/MissionStage.tsx:429</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>resoudre</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>exhaustive-deps desactive sur un stage critique mission ; risque de stale closure sur les actions utilisateur.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">2x eslint-disable exhaustive-deps dans SimulationStage (lignes 122, 216)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:122">app/(user)/_stages/SimulationStage.tsx:122</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>resoudre</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Double desactivation exhaustive-deps sur stage simulation ; effet de bord non-deterministe sur l etat des scenarios.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">eslint-disable exhaustive-deps sur l editeur reports</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/reports/ReportEditor.tsx:67">app/(user)/components/reports/ReportEditor.tsx:67</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>resoudre</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>ReportEditor manipule un payload realtime ; exhaustive-deps off peut desynchroniser l UI vs Supabase realtime.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">4725 lignes mais auto-genere (Supabase)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/database.types.ts">lib/database.types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>ignorer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Fichier auto-genere, a exclure des audits mais signale pour memoire.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">1473 lignes - pipeline IA monolithique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/ai-pipeline.ts">lib/engine/orchestrator/ai-pipeline.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Splitter en sous-modules (planner / executor / post-process) faciliterait le test isole et la review.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">948 lignes - taxonomie capabilities en un seul fichier const</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/capabilities/taxonomy.ts">lib/capabilities/taxonomy.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Const map enorme ; envisager decoupe par domaine (research, browse, comms, etc.).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">945 lignes - CockpitXClient.tsx monolithique</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx">app/(user)/cockpit-x/CockpitXClient.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Client cockpit principal a decouper en sous-composants (telemetry, agents, signals).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">880 lignes de Zod schemas reports</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/spec/schema.ts">lib/reports/spec/schema.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schemas reports a scinder par primitive (chart / table / kpi).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">860 lignes - health checks admin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/admin/health.ts">lib/admin/health.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>A factoriser par service category (auth, llm, supabase, jobs).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">smartChat() 291 lignes (router LLM)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/router.ts:113">lib/llm/router.ts:113</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Routing logic doit etre decomposable (provider-pick / fallback / circuit-breaker).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">buildDecision() 278 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/router.ts:404">lib/llm/router.ts:404</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Decision multi-criteres dense ; tests difficiles.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Fonction de 344 lignes dans llm/anthropic.ts</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/anthropic.ts:30">lib/llm/anthropic.ts:30</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Single function depasse largement le seuil 80 ; difficile a maintenir.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">createDefaultProviderLimitsStore() 463 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/rate-limiter.ts:120">lib/llm/rate-limiter.ts:120</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Factory geante ; a splitter en builder + helpers testables.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">buildTelemetry() 491 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/cockpit-x/CockpitXClient.tsx:199">app/(user)/cockpit-x/CockpitXClient.tsx:199</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Builder UI ultra-dense ; a decouper par sous-section telemetrie.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">CROSS_DOMAIN_TOOLS const list de 659 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/capabilities/taxonomy.ts:78">lib/capabilities/taxonomy.ts:78</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Liste statique ultra-longue ; charger depuis JSON ou decouper par domaine.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ScenarioCard() 404 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/SimulationStage.tsx:50">app/(user)/_stages/SimulationStage.tsx:50</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Composant carte simulation surdimensionne ; a scinder en sous-cards.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Composant principal 418 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/RightRailChat.tsx:15">app/(user)/_shell/RightRailChat.tsx:15</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Rail chat Kimi a decouper (header, body, composer, suggestions).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Bloc de 319 lignes dans ArtifactStage</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/ArtifactStage.tsx:200">app/(user)/_stages/ArtifactStage.tsx:200</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Stage artifact dense ; a modulariser par sous-section preview.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">NumberedRow() 306 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/cockpit/monthly-card-view.tsx:43">lib/cockpit/monthly-card-view.tsx:43</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Composant ligne numerotee trop charge ; a splitter.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Bloc principal 337 lignes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/metrics/page.tsx:101">app/admin/metrics/page.tsx:101</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Page admin metrics monolithique ; a decomposer en sections (latency, cost, quotas).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Profondeur d indentation 12 niveaux dans app/admin/page.tsx</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/admin/page.tsx">app/admin/page.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>12 niveaux d imbrication = early-return / extraction de helpers manquante.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Profondeur 10 sur app/login/page.tsx</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/login/page.tsx">app/login/page.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Page login imbriquee ; extraire les sous-composants OAuth/SSO.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Barrel exports LocalStorageProvider + R2StorageProvider non importes</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/assets/storage/index.ts">lib/engine/runtime/assets/storage/index.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Barrel d export jamais consomme ; supprimer ou consolider l usage interne.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">DUAL_APP_GROUPS export sans consommateur</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/agents/dual-apps.ts">lib/agents/dual-apps.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Constante exportee non referencee.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">getBrowserExecutor + type BrowserExecutor orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/browser/stagehand-executor.ts">lib/browser/stagehand-executor.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Helper executor browser jamais importe ; a confirmer mort puis purger.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">4 Zod schemas orphelins (tag/workflow/creative/persona)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/marketplace/types.ts">lib/marketplace/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schemas Zod exportes non consommes ; risque de drift vs validation effective.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">18 schemas/constantes Zod orphelins (waterfall, cohort, heatmap, sankey, bullet, radar, gantt...)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/spec/schema.ts">lib/reports/spec/schema.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Gros bloc de schemas reports inutilises ; nettoyer fait gagner ~150-200 lignes du fichier 880L.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">approvalModeSchema + approvalConfigSchema + ApprovalConfig orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/missions/types.ts">lib/engine/runtime/missions/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schemas approbation missions jamais consommes ; a supprimer ou activer.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">assetToFocal() + type AssetLike orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/ui/focal-mappers.ts:98">lib/ui/focal-mappers.ts:98</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mapper focal-object non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">DEFAULT_SPACE_ID + resolveSpaceId + ScopedMetadata orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/multi-tenant/types.ts:56">lib/multi-tenant/types.ts:56</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Helpers multi-tenant exportes mais aucun import - confirmer si la feature multi-tenant est gelee.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">recordVital() + VitalRating orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/monitoring/web-vitals-store.ts">lib/monitoring/web-vitals-store.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Store web-vitals non cable ; soit brancher dans instrumentation-client, soit supprimer.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">templateSchema + templateSummarySchema orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/templates/schema.ts">lib/reports/templates/schema.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schemas reports templates inutilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SECRET_MIN_LENGTH + SignedTokenPayload orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/sharing/signed-url.ts">lib/reports/sharing/signed-url.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Constantes signed-url non consommees ; nettoyer.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">validatePromptArtifact + loadPromptContent orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/prompt-guard.ts">lib/engine/runtime/prompt-guard.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Prompt-guard non utilise - feature jamais activee ou remplacee.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">revokeToken + clearTokens orphelins (deja re-exportes via index)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/auth/tokens.ts">lib/platform/auth/tokens.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Doublons d export tokens - confirmer la voie canonique via /index.ts.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">VOICE_TOOL_LABELS orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/voice/tool-defs.ts:101">lib/voice/tool-defs.ts:101</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Labels voice non consommes (probablement obsoletes vs nouvelle UI VoicePulse).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">THREAD_ID exporte mais non utilise en e2e</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/e2e/reports/fixtures.ts">e2e/reports/fixtures.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Fixture e2e orpheline.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">3 schemas zod orphelins (add/list/delete comment input)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/comments/store.ts">lib/reports/comments/store.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schemas zod store comments dupliques vs handlers route ; consolider source de verite.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">4 schemas zod orphelins versions report</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/versions/store.ts">lib/reports/versions/store.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schemas versions reports non consommes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">restoreVersionInputSchema orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/versions/restore.ts">lib/reports/versions/restore.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schema input restore orphelin.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">revokeApiKey() orpheline</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/auth/api-key.ts:182">lib/platform/auth/api-key.ts:182</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>API key revocation non cablee - soit exposer via UI admin, soit supprimer.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SWARM_NAMES orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/swarms/registry.ts">lib/swarms/registry.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Registry swarms non consomme.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">getActiveMissions + getDueMissions orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/planner/mission-engine.ts">lib/engine/planner/mission-engine.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Helpers planner mission jamais importes - code mort sur chemin missions ?</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">FormTextarea orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/FormField.tsx">app/(user)/components/ui/FormField.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Primitive UI non consommee.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SectionHeader orphelin (mais re-exporte via index)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/ui/SectionHeader.tsx">app/(user)/components/ui/SectionHeader.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Composant header non utilise - verifier consommation via barrel.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">LEFT_RAIL_ORDER + getStageLabel orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/registry.ts:238">app/(user)/_stages/registry.ts:238</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Registry stages : helpers d ordre + label non utilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">resetAppsCache orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/connectors/composio/apps.ts">lib/connectors/composio/apps.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Helper cache composio non consomme.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">getThreshold + setThreshold + getLimit + seedDefaults orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/settings/system.ts">lib/platform/settings/system.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Settings system helpers non consommes ; risque feature semi-implementee.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">5 helpers tenant settings orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/platform/settings/tenant.ts">lib/platform/settings/tenant.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Tout l API tenant-settings inutilise - feature gelee ?</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PROVIDER_IDS orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/providers/registry.ts:16">lib/providers/registry.ts:16</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Liste IDs providers non consommee.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PageLayout + CtCard + 3 styles constants orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_shell/PageLayout.tsx">app/(user)/_shell/PageLayout.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Shell layout helpers non consommes - pages ont migre sans purger l ancien layout.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">useOAuthExpiry orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/hooks/use-oauth-expiry.ts:86">app/hooks/use-oauth-expiry.ts:86</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Hook OAuth expiry non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ExpiringConnectionSchema orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/connections/oauth-refresh.ts">lib/connections/oauth-refresh.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Schema connections expiry non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Type PersistedCircuitState orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/llm/circuit-breaker.ts">lib/llm/circuit-breaker.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type circuit-breaker exporte non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">EmbeddingSourceKind orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/embeddings/store.ts">lib/embeddings/store.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type embedding source kind non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">StorageProviderType orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/assets/storage/types.ts">lib/engine/runtime/assets/storage/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type storage provider non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ActionType + ActionStatus orphelins (sur 359L)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/assets/types.ts">lib/assets/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types actions assets non consommes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AssetStorageKind + RuntimeAsset orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/assets/types.ts">lib/engine/runtime/assets/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types runtime assets non utilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AgentToolName orphelin (sur 558L)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/browser/agent-loop.ts">lib/browser/agent-loop.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type tool name browser non consomme.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">50+ types d events orphelins exportes (RunCreatedEvent ... StageRequestEvent)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/events/types.ts">lib/events/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Catalogue d events runtime : seuls quelques-uns sont utilises ; consolider via union ou supprimer les exports inutilises (~25% du fichier 551L).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Type ExecutionMode orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/capabilities/router.ts">lib/capabilities/router.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type execution mode non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ChipKind orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/chat-context.ts">stores/chat-context.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type chip kind chat non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ExpandBlockDetail orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/components/chat/WorkingDocument.tsx">app/(user)/components/chat/WorkingDocument.tsx</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type event detail non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">WorkingDocument type orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/working-document.ts">stores/working-document.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type store working-document non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PlanStepStatus + PlanStepState + PlanState orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/runtime.ts">stores/runtime.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types plan store non utilises ; doublons probables avec lib/engine/planner/types.ts.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AmbientSignalSeverity orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/cockpit/ambient-signals.ts">lib/cockpit/ambient-signals.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type severity ambient non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PersistedRunStatus + PersistedMissionRunStatus orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/state/types.ts">lib/engine/runtime/state/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types persistence run state non utilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">4 types Monthly Card row orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/cockpit/monthly-card.ts">lib/cockpit/monthly-card.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types monthly card non consommes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PreMeetingParticipant orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/cockpit/pre-meeting-intel.ts">lib/cockpit/pre-meeting-intel.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type participant pre-meeting non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">StageEntry orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/stage.ts">stores/stage.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type stage entry non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ChangeType orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/decisions/change-tracker.ts">lib/decisions/change-tracker.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type change tracker non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SelectionGoal orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/decisions/tool-selector.ts">lib/decisions/tool-selector.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type tool selector non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">AlertWebhookPayload + EmailMessage orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/notifications/channels.ts">lib/notifications/channels.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types canaux notifications non consommes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">RunStatus + RunAssetRef orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/runs/types.ts">lib/engine/runtime/runs/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types runs non utilises ; doublons potentiels avec domain/types.ts.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">5 types Inbox orphelins (Kind/Priority/Action/Suggested/Item)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/inbox/inbox-brief.ts">lib/inbox/inbox-brief.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Catalogue inbox brief non consomme ; feature inbox jamais branchee a l UI ?</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">FieldErrors orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/forms/validate.ts">lib/forms/validate.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type form errors non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ApprovalVote orphelin (sur fichier 635L)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/missions/approvals.ts">lib/missions/approvals.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type approvals vote non consomme.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ApplicableReportHint orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/orchestrator/system-prompt.ts">lib/engine/orchestrator/system-prompt.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type hint report system-prompt non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">KgNodeType + ExtractedEntity + ExtractedRelation orphelins (sur 559L)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/memory/kg.ts">lib/memory/kg.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types KG non utilises (mais KGStage de 577L existe - incoherence forte).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ComputerActionStatus orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/integrations/hearst-action-client.ts">lib/integrations/hearst-action-client.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type computer action status non consomme.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">MeasureFn + Measure orphelins (sur 427L)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/reports/engine/tabular.ts">lib/reports/engine/tabular.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types mesures tabular non utilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">PlanStepStatus + MissionMode + MissionStatus orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/planner/types.ts">lib/engine/planner/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types planner doublonnent ceux du stores/runtime - consolider source de verite.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">OutputClassification orphelin</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/output-validator.ts">lib/engine/runtime/output-validator.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Type validation output non utilise.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ToolCallState + RunState + TokenEstimate orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/chat-stage.ts">stores/chat-stage.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types chat-stage non consommes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">SelectionKind + Selection orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/selection.ts">stores/selection.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types store selection non utilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Surface + MessageAssetRef + Message + Thread orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/stores/navigation.ts">stores/navigation.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types navigation store non consommes ; doublons avec lib/domain/types.ts.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">WorkflowNodeKind + OnError + Edge + ToolHandler orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/workflows/types.ts">lib/workflows/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types workflows non consommes.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ServiceStatus + IntegrationType orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/integrations/types.ts">lib/integrations/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types integrations non utilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">29 types domain orphelins (Agent, Skill, Tool, Workflow, Run, Trace, ...)</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/domain/types.ts">lib/domain/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>lib/domain/types.ts exporte 29 types jamais importes ; enorme dette de types morts.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">JobScopeFields + MemoryIngestInput + AssetVariantInput orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/jobs/types.ts">lib/jobs/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types jobs non utilises.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">7 types architecture-map orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/architecture-map/types.ts">lib/architecture-map/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Feature architecture-map jamais branchee ?</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">7 types RightPanel* orphelins</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/ui/right-panel/types.ts">lib/ui/right-panel/types.ts</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>supprimer</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Types right-panel exportes mais non importes ; consolider avec aggregate.ts.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">3x TODO SSE backend route /api/v2/browser/sessions/[id]/steps non implementee</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/app/(user)/_stages/BrowserStage.tsx:326">app/(user)/_stages/BrowserStage.tsx:326</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>resoudre</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Stage browser depend d une route SSE absente - TODO recent (32h) mais bloque l UX live.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">TODO: brancher store assets sur export mission</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/missions/export-job.ts:141">lib/engine/runtime/missions/export-job.ts:141</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>resoudre</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Export job missions encore incomplet (5j) ; documente mais a resoudre.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">TODO: web_search tool format Anthropic non compatible OpenAI/Kimi</span>
+        
+      </div>
+      <div class="finding-path"><a class="fp" href="vscode://file//Users/adrienbeyondcrypto/Dev/Hearst Corporation/helm — hearst-os/lib/engine/runtime/delegate/api.ts:405">lib/engine/runtime/delegate/api.ts:405</a></div>
+      
+      <div class="finding-row"><span class="k">Suggéré</span><code>resoudre</code></div>
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Incompatibilite tool-format multi-provider - bloque la portabilite du delegate runtime.</span></div>
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name"></span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">3</span>
+          <span class="badge badge-p2">28</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">uuid: bounds-check manquant sur v3/v5/v6 (CVE-2026-41907, CVSS 7.5)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>10.0.0 (via @arcjet/next&gt;typeid-js) + 8.3.2 (via exceljs)</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>CVSS 7.5 (High). Dépendances transitives uniquement, pas d'appel direct v3/v5/v6 avec buffer externe attendu, mais à surveiller. Non patchable directement (upstream).</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">@types/node 5 majeures de retard (20→25)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>20.19.41</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Node 20 LTS bientôt EOL (avril 2026). Mettre à niveau les types pour aligner avec runtime cible.</span></div>
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">TypeScript 6.0 dispo (current 5.9)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>5.9.3</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Majeure récente, breaking changes possibles dans inférence. Planifier upgrade.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">qs: DoS via qs.stringify avec null/undefined en comma+encodeValuesOnly (CVE-2026-8723, CVSS 5.3)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>6.15.1 (via googleapis&gt;googleapis-common)</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Transitive googleapis. Vector très spécifique (arrayFormat:'comma' + encodeValuesOnly + null entry) probablement pas atteignable depuis notre code. Patch dispo (6.15.2).</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">jsdom 3 majeures de retard (26→29)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>26.1.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Utilisé en tests (vitest). 3 majeures = breaking changes API DOM possibles.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Electron 1 majeure de retard (41→42)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>41.6.1</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Surface sécurité native (Chromium). Major Electron = nouvelle Chromium baseline avec fixes CVE.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">googleapis 1 majeure de retard (171→172)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>171.4.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Major bump, vérifier breaking changes API Google.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@ai-sdk/anthropic mineur en retard (3.0.77 → 3.0.79)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>3.0.77</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@types/react mineur en retard (19.2.14 → 19.2.15)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>19.2.14</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">ai mineur en retard (6.0.182 → 6.0.191)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>6.0.182</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">lint-staged mineur en retard (17.0.4 → 17.0.5)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>17.0.4</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">react mineur en retard (19.2.4 → 19.2.6)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>19.2.4</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">react-dom mineur en retard (19.2.4 → 19.2.6)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>19.2.4</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">resend mineur en retard (6.12.3 → 6.12.4)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>6.12.3</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">vitest mineur en retard (4.1.6 → 4.1.7)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>4.1.6</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@aws-sdk/client-s3 mineur en retard (3.1047.0 → 3.1053.0)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>3.1047.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@aws-sdk/lib-storage mineur en retard (3.1047.0 → 3.1053.0)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>3.1047.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@aws-sdk/s3-request-presigner mineur en retard (3.1047.0 → 3.1053.0)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>3.1047.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@e2b/code-interpreter mineur en retard (2.4.2 → 2.5.0)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>2.4.2</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@supabase/supabase-js mineur en retard (2.105.4 → 2.106.2)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>2.105.4</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">bullmq mineur en retard (5.76.8 → 5.77.3)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>5.76.8</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">framer-motion mineur en retard (12.38.0 → 12.40.0)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>12.38.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">knip mineur en retard (6.13.1 → 6.14.2)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>6.13.1</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">openai mineur en retard (6.37.0 → 6.39.0)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>6.37.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">@anthropic-ai/sdk mineur en retard (0.95.2 → 0.98.0)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>0.95.2</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Mineur, généralement sûr. Inclut typiquement fixes/perf.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">pixelmatch déclaré en devDependencies mais 0 import</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>^7.2.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Aucune référence dans le code. Probablement résidu d'un script de visual-regression supprimé.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">pngjs déclaré en devDependencies mais 0 import</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>^7.0.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Aucune référence dans le code. Souvent couplé à pixelmatch.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">LGPL-3.0-or-later (transitive via sharp)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>1.2.4</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>LGPL impose dynamic linking / non-static distribution. OK pour usage SaaS Next.js (pas de distribution binaire user-side du libvips), mais à documenter si Electron embarque la lib.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">MPL-2.0 (build-time, transitif Tailwind v4)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>1.32.0</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>MPL-2.0 = copyleft fichier-par-fichier. Build-only, pas d'inclusion dans bundle distribué. Sans risque réel mais à noter.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">MPL-2.0 (build-time)</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>6.0.2</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Idem lightningcss. Build-only.</span></div>
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">Dual MIT OR GPL-3.0-or-later</span>
+        
+      </div>
+      
+      <div class="finding-row"><span class="k">Actuel</span><code>3.10.1</code></div>
+      
+      <div class="finding-row"><span class="k">Pourquoi</span><span>Dual license → consommer en MIT, sans risque. Documenter le choix MIT explicitement.</span></div>
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>P0 critiques</h3>
+              <ul></ul>
+            </div><div class="plan-batch">
+              <h3>P1 cohérence</h3>
+              <ul><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li></ul>
+            </div><div class="plan-batch">
+              <h3>P2 dettes</h3>
+              <ul><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li><li>[object Object]</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-25 21:55
+  </footer>
+</div>
+</body>
+</html>
