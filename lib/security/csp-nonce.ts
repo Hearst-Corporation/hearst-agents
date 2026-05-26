@@ -52,8 +52,10 @@ export function buildCsp(nonce: string, isDev: boolean): string {
     [
       "style-src",
       "'self'",
-      `'nonce-${nonce}'`,
-      // Fallback : 'unsafe-inline' requis pour styles SSR Next.js + Tailwind
+      // 'unsafe-inline' requis pour les styles inline JSX (style={{...}}), SSR Next.js,
+      // Tailwind, framer-motion. Volontairement SANS nonce : la spec CSP3 fait
+      // ignorer 'unsafe-inline' dès qu'un nonce est présent → tous les inline styles
+      // seraient bloqués (DOM cassé, clicks morts).
       "'unsafe-inline'",
       "https://api.fontshare.com",
       "https://fonts.googleapis.com",
