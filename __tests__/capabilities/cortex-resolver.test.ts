@@ -75,6 +75,64 @@ describe("cortex-resolver", () => {
     expect(result.tools).toEqual(["cortex_search"]);
   });
 
+  it("mappe gmail vers ses deux tools Helm (fetch + send)", async () => {
+    vi.stubEnv("CORTEX_URL", "https://cortex.hearst.app");
+    vi.stubEnv("CORTEX_PUBLIC_API_KEY", "pk-test");
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({
+        items: [{ slug: "gmail", runtime: "hive:tool:gmail" }],
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await resolveCapabilities({
+      tenantId: "adrien",
+      contextId: "adrien",
+      userId: "adrien",
+    });
+
+    expect(result.status).toBe("ok");
+    expect(result.tools).toEqual(["gmail_fetch_emails", "gmail_send_email"]);
+  });
+
+  it("mappe un lot de capabilities réelles et ignore les non mappées", async () => {
+    vi.stubEnv("CORTEX_URL", "https://cortex.hearst.app");
+    vi.stubEnv("CORTEX_PUBLIC_API_KEY", "pk-test");
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({
+        items: [
+          { slug: "gmail", runtime: "hive:tool:gmail" },
+          { slug: "web", runtime: "hive:tool:web" },
+          { slug: "sandbox", runtime: "hive:tool:sandbox" },
+          { slug: "shell", runtime: "hive:tool:shell" }, // pas d'équivalent Helm → ignoré
+          { slug: "supabase_sql", runtime: "hive:tool:supabase_sql" }, // idem
+        ],
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await resolveCapabilities({
+      tenantId: "adrien",
+      contextId: "adrien",
+      userId: "adrien",
+    });
+
+    expect(result.status).toBe("ok");
+    expect(result.tools).toEqual([
+      "gmail_fetch_emails",
+      "gmail_send_email",
+      "web_search",
+      "run_code",
+    ]);
+    // les capabilities sans tool Helm ne fuient pas
+    expect(result.tools).not.toContain("shell");
+    expect(result.tools).not.toContain("supabase_sql");
+  });
+
   it("retourne error contrôlé pour HTTP 500", async () => {
     vi.stubEnv("CORTEX_URL", "https://cortex.hearst.app");
     vi.stubEnv("CORTEX_PUBLIC_API_KEY", "pk-test");

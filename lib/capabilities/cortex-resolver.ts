@@ -24,16 +24,51 @@ const CORTEX_JWT_AUD = "cortex.hearst.app";
 const CORTEX_JWT_TTL_S = 300;
 
 /**
- * Mapping runtime/slug Cortex -> tool Helm réellement exposable.
+ * Mapping capability Cortex (slug canonique) -> tools Helm réellement exposables.
  *
- * Pilote actif : cortex_search.
- * Les autres capabilities sont volontairement ignorées tant qu'elles ne sont
- * pas explicitement mappées ici.
+ * Une capability Cortex peut exposer PLUSIEURS tools Helm (ex: `gmail` =
+ * fetch + send). On ne mappe QUE les capabilities dont Helm possède une
+ * implémentation réelle dans le toolset agent (`lib/engine/orchestrator/ai-pipeline.ts`).
+ * Les capabilities sans tool Helm (shell, supabase_sql, file, redis, vercel,
+ * cloudflare, git, github, posthog, deepseek, helm_call) restent volontairement
+ * NON mappées — on ne faux-expose jamais un tool inexistant.
  */
-const CORTEX_RUNTIME_TO_HELM_TOOL: Record<string, string> = {
-  "hive:tool:cortex_search": "cortex_search",
-  cortex_search: "cortex_search",
+const CAPABILITY_TO_HELM_TOOLS: Record<string, string[]> = {
+  // RAG / mémoire
+  cortex_search: ["cortex_search"],
+  memory: ["cortex_search", "query_knowledge_graph"],
+  // Mail / Drive (Google natif)
+  gmail: ["gmail_fetch_emails", "gmail_send_email"],
+  drive: ["googledrive_list_files"],
+  // Web
+  web: ["web_search"],
+  // Génération média
+  image: ["generate_image"],
+  tts: ["generate_audio"],
+  // Exécution code (sandbox E2B)
+  sandbox: ["run_code"],
+  // Communication (Resend)
+  email: ["send_email"],
+  // Observabilité
+  sentry: ["query_sentry_issues"],
+  axiom: ["query_axiom_logs"],
+  langfuse: ["query_langfuse_traces"],
+  // Jobs / events
+  inngest: ["schedule_inngest_job"],
+  // Browser
+  browser: ["start_browser"],
 };
+
+/**
+ * Index runtime/slug -> tools Helm. Accepte la forme runtime
+ * (`hive:tool:<slug>`) ET le slug nu, normalisés en minuscules.
+ */
+const CORTEX_RUNTIME_TO_HELM_TOOL: Record<string, string[]> = Object.fromEntries(
+  Object.entries(CAPABILITY_TO_HELM_TOOLS).flatMap(([slug, tools]) => [
+    [slug, tools] as [string, string[]],
+    [`hive:tool:${slug}`, tools] as [string, string[]],
+  ]),
+);
 
 type ResolveStatus = "ok" | "empty" | "error" | "skipped";
 
@@ -127,23 +162,23 @@ function normalizeRuntimeCandidate(value: string): string {
   return value.trim().toLowerCase();
 }
 
-function mapRecordToTool(record: RawCapabilityRecord): string | null {
+function mapRecordToTools(record: RawCapabilityRecord): string[] {
   const runtimeRaw = typeof record.runtime === "string" ? record.runtime : "";
   const slugRaw = typeof record.slug === "string" ? record.slug : "";
   const runtime = normalizeRuntimeCandidate(runtimeRaw);
   const slug = normalizeRuntimeCandidate(slugRaw);
 
-  // 1) runtime explicite (ex: hive:tool:cortex_search)
+  // 1) runtime explicite (ex: hive:tool:gmail)
   if (runtime && CORTEX_RUNTIME_TO_HELM_TOOL[runtime]) {
     return CORTEX_RUNTIME_TO_HELM_TOOL[runtime];
   }
 
-  // 2) fallback slug (ex: cortex_search)
+  // 2) fallback slug (ex: gmail)
   if (slug && CORTEX_RUNTIME_TO_HELM_TOOL[slug]) {
     return CORTEX_RUNTIME_TO_HELM_TOOL[slug];
   }
 
-  return null;
+  return [];
 }
 
 function contextIdToFallbackUserId(contextId: string): string {
@@ -243,13 +278,7 @@ export async function resolveCapabilities(
 
     const payload = (await res.json()) as unknown;
     const records = extractRecords(payload);
-    const tools = [
-      ...new Set(
-        records
-          .map((record) => mapRecordToTool(record))
-          .filter((tool): tool is string => typeof tool === "string"),
-      ),
-    ];
+    const tools = [...new Set(records.flatMap((record) => mapRecordToTools(record)))];
 
     if (tools.length === 0) {
       logger.info(
