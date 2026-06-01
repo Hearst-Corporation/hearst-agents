@@ -174,6 +174,64 @@ describe("runAiPipeline — domain filter", () => {
     expect(streamArgs.tools).toHaveProperty("request_connection");
   });
 
+  it("source cortex + allowlist vide => aucun tool exposé", async () => {
+    toAiTools.mockReturnValue({
+      SLACK_SEND_MESSAGE: {
+        inputSchema: {},
+        execute: vi.fn(),
+      },
+    });
+    buildNativeGoogleTools.mockResolvedValue({
+      gmail_fetch_emails: {
+        inputSchema: {},
+        execute: vi.fn(),
+      },
+    });
+
+    await runAiPipeline(makeEngine(), makeBus(), {
+      userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
+      message: "teste",
+      domain: "general",
+      _allowedToolsSource: "cortex",
+      _allowedTools: [],
+    });
+
+    const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
+    expect(Object.keys(streamArgs.tools)).toHaveLength(0);
+  });
+
+  it("source cortex + cortex_search => cortex_search autorisé uniquement", async () => {
+    toAiTools.mockReturnValue({
+      SLACK_SEND_MESSAGE: {
+        inputSchema: {},
+        execute: vi.fn(),
+      },
+    });
+    buildNativeGoogleTools.mockResolvedValue({
+      gmail_fetch_emails: {
+        inputSchema: {},
+        execute: vi.fn(),
+      },
+    });
+
+    await runAiPipeline(makeEngine(), makeBus(), {
+      userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
+      message: "cherche dans ma mémoire",
+      domain: "general",
+      _allowedToolsSource: "cortex",
+      _allowedTools: ["cortex_search"],
+    });
+
+    const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
+    expect(streamArgs.tools).toHaveProperty("cortex_search");
+    expect(streamArgs.tools).not.toHaveProperty("gmail_fetch_emails");
+    expect(streamArgs.tools).not.toHaveProperty("SLACK_SEND_MESSAGE");
+  });
+
   it("domain=developer → toAiTools receives only github", async () => {
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",

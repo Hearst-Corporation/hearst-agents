@@ -12,6 +12,10 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { isFeatureEnabled } from "@/lib/admin/settings";
 import { selectAgentForContext } from "@/lib/agents/agent-selector";
 import {
+  resolveCapabilities,
+  resolveCapabilityContextId,
+} from "@/lib/capabilities/cortex-resolver";
+import {
   type ExecutionDecision,
   resolveCapabilityScope,
   resolveExecutionMode,
@@ -94,6 +98,12 @@ interface OrchestrateInput {
   _capabilityDomain?: string;
   /** Injected by runPipeline — tools allowed for the current capability scope */
   _allowedTools?: string[];
+  /**
+   * Injected by runPipeline — source de la policy tools.
+   * - "legacy" : taxonomie locale (hardcoded)
+   * - "cortex" : résolution dynamique Context/Cortex
+   */
+  _allowedToolsSource?: "legacy" | "cortex";
   /** Injected by runPipeline — recurring intent detected, force schedule preview. */
   _scheduleDirective?: boolean;
   /** Prénom / nom de l'utilisateur connecté (depuis scope.userName). Fail-soft si absent. */
@@ -196,6 +206,7 @@ async function handleAiPipeline(
     abortSignal,
     // F-011 : passer les tools autorisés pour l'agent scope courant
     _allowedTools: input._allowedTools,
+    _allowedToolsSource: input._allowedToolsSource,
     // F-012 : passer missionId pour déclencher l'isolation scheduler
     missionId: input.missionId,
     // Profil utilisateur pour personnalisation du system prompt
@@ -278,6 +289,53 @@ async function runPipeline(
 
   input._capabilityDomain = capScope.domain;
   input._allowedTools = capScope.allowedTools;
+  input._allowedToolsSource = "legacy";
+
+  // ── Cortex capabilities resolution (Context -> allowed tools) ─────────────
+  // Remplace/complète la liste hardcodée locale si Cortex répond.
+  // Fallback contrôlé :
+  // - status=ok/empty/error -> mode "cortex" (empty possible)
+  // - status=skipped        -> mode strict sans tools, sauf override explicite
+  //   HELM_CAPABILITIES_LEGACY_FALLBACK=1 (debug local uniquement)
+  const contextId = resolveCapabilityContextId({
+    composioEntityId: input.composioEntityId,
+    tenantId: scope.tenantId,
+  });
+  const cortexCapabilities = await resolveCapabilities({
+    tenantId: scope.tenantId,
+    contextId,
+    userId: input.userId,
+  });
+
+  if (cortexCapabilities.status !== "skipped") {
+    input._allowedTools = cortexCapabilities.tools;
+    input._allowedToolsSource = "cortex";
+
+    logger.info(
+      {
+        status: cortexCapabilities.status,
+        httpStatus: cortexCapabilities.httpStatus,
+        reason: cortexCapabilities.reason,
+        toolsCount: cortexCapabilities.tools.length,
+      },
+      "[Orchestrator] Allowed tools resolved via Cortex",
+    );
+  } else {
+    const allowLegacyFallback = process.env.HELM_CAPABILITIES_LEGACY_FALLBACK === "1";
+    if (allowLegacyFallback) {
+      logger.warn(
+        { reason: cortexCapabilities.reason },
+        "[Orchestrator] Cortex resolver skipped — legacy fallback enabled",
+      );
+    } else {
+      input._allowedTools = [];
+      input._allowedToolsSource = "cortex";
+      logger.warn(
+        { reason: cortexCapabilities.reason },
+        "[Orchestrator] Cortex resolver skipped — strict mode (no tools exposed)",
+      );
+    }
+  }
 
   // ── Execution tier : borne les tools coûteux AVANT le LLM ──────────────
   // Consolide les signaux (action machine / intent complexe / recherche /
@@ -295,6 +353,8 @@ async function runPipeline(
       tier: executionTier,
       tierReason,
       scheduleDetected,
+      allowedToolsSource: input._allowedToolsSource ?? "legacy",
+      allowedToolsCount: input._allowedTools?.length ?? 0,
     },
     "[ExecutionMode] resolved",
   );

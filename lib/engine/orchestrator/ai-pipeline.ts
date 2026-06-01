@@ -121,6 +121,12 @@ export interface AiPipelineInput {
    */
   _allowedTools?: string[];
   /**
+   * Source de policy tools.
+   * - "legacy" : conserve les exceptions historiques (critical/cross-domain)
+   * - "cortex" : politique stricte issue de Context/Cortex
+   */
+  _allowedToolsSource?: "legacy" | "cortex";
+  /**
    * Mission ID — set quand le run est déclenché par le scheduler.
    * Déclenche l'isolation scheduler (retire les tools récursifs).
    */
@@ -649,7 +655,18 @@ export async function runAiPipeline(
   // qui ne les liste pas. Sans ça, un agent custom avec un allowedTools restreint
   // perd l'accès au vault et part en recherche web par défaut. Symétrique du fix
   // appliqué côté router (entry.tools + CROSS_DOMAIN_TOOLS).
-  if (input._allowedTools && input._allowedTools.length > 0) {
+  if (input._allowedToolsSource === "cortex") {
+    // Policy Cortex stricte:
+    // - [] => AUCUN tool exposé
+    // - Pas d'auto-ajout CRITICAL/CROSS_DOMAIN
+    // - Capability inconnue = ignorée (mapping déjà filtré en amont)
+    const allowedSet = new Set(expandAllowedToolsToRuntimeSlugs(input._allowedTools ?? []));
+    for (const name of Object.keys(aiTools)) {
+      if (!allowedSet.has(name)) {
+        delete (aiTools as Record<string, unknown>)[name];
+      }
+    }
+  } else if (input._allowedTools && input._allowedTools.length > 0) {
     const allowedSet = new Set([
       ...expandAllowedToolsToRuntimeSlugs(input._allowedTools),
       ...CROSS_DOMAIN_TOOLS,

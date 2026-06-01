@@ -553,6 +553,9 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 
 - Unified orchestrator: all requests go through the capability-first runtime.
 - `resolveCapabilityScope()` → domain/capability/provider resolution.
+- `resolveCapabilities()` (Cortex) → runtime tool allowlist from Context (`/api/capabilities/resolve`, header `x-cortex-tenant-id`).
+- Unknown Cortex capabilities are ignored (strict runtime/slug mapping only); `risk` is never trusted client-side.
+- Cortex empty/error/skip paths are controlled: by default, no tools are exposed (strict mode). Optional local override: `HELM_CAPABILITIES_LEGACY_FALLBACK=1`.
 - `resolveExecutionMode()` → maps scope to execution mode (direct_answer, workflow, custom_agent, managed_agent).
 - `capabilityGuard()` in `delegate()` → hard block (PERMISSION_DENIED) if agent is out-of-domain.
 - Planner validation: `step.agent` checked against taxonomy, remapped to valid agent if needed.
