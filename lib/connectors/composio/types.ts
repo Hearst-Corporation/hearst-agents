@@ -69,4 +69,11 @@ export interface DiscoveredTool {
   parameters: Record<string, unknown>;
   /** Toolkit slug this tool belongs to. */
   app: string;
+  /**
+   * When true, this tool is in the ESSENTIAL_READS registry for its toolkit
+   * and must be seeded into the filterToolsByDomain result BEFORE the
+   * round-robin fill so it survives the MAX_TOOLS=40 cap even in multi-app
+   * "general" scenarios where its bucket slot would otherwise be evicted.
+   */
+  essential?: boolean;
 }
