@@ -187,6 +187,22 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
   const dualAppGuidance = buildDualAppGuidance(connectedApps);
   const dualAppSection = dualAppGuidance ? `\n\n${dualAppGuidance}` : "";
 
+  // Mandat anti-refus : Kimi a tendance à répondre "X n'est pas connecté" alors
+  // que l'outil X est listé ci-dessus (faux refus capté par le détecteur
+  // Prompt-violation de l'AI pipeline). Les outils listés SONT connectés pour
+  // cet utilisateur, ce tour-ci → le modèle DOIT les appeler, pas les refuser.
+  const toolUsageMandate =
+    "RÈGLE ABSOLUE — les outils listés ci-dessus SONT connectés et opérationnels " +
+    "pour CET utilisateur, ce tour-ci. Si la demande est couverte par l'un d'eux " +
+    "(ex : lire/lister/chercher des emails → GMAIL_FETCH_EMAILS), tu DOIS appeler " +
+    "l'outil immédiatement. INTERDIT de répondre « X n'est pas connecté », « je n'ai " +
+    "pas accès », « il faut d'abord connecter X », « lag de propagation », « rafraîchis " +
+    "la page » quand l'outil X figure dans la liste — c'est faux. Le SEUL moyen de " +
+    "connaître l'état réel d'un outil est de L'APPELER : appelle-le, puis rapporte son " +
+    "VRAI résultat (succès comme erreur). N'invente JAMAIS un succès — si l'appel échoue " +
+    "réellement, donne l'erreur réelle renvoyée par l'outil. N'utilise request_connection " +
+    "que si AUCUN outil listé ne couvre la demande.";
+
   const toolListSection =
     composioTools.length > 0
       ? composioTools
@@ -194,6 +210,8 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
           .map((t) => `- ${t.name} : ${t.description.slice(0, 100)}`)
           .join("\n") +
         (composioTools.length > 120 ? `\n(+${composioTools.length - 120} autres actions)` : "") +
+        "\n\n" +
+        toolUsageMandate +
         "\n\n" +
         buildSlugStrictnessRule() +
         dualAppSection

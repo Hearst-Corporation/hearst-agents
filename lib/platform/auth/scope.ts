@@ -16,6 +16,7 @@ import { redactId } from "@/lib/utils/redact";
 import { API_KEY_PREFIX, verifyApiKey } from "./api-key";
 import { getUserId } from "./get-user-id";
 import { authOptions } from "./options";
+import { resolveImpersonationTenant } from "./tenant-resolve";
 
 export interface CanonicalScope {
   userId: string;
@@ -228,15 +229,27 @@ async function resolveBearerScope(
       return { matched: true, scope: null };
     }
 
-    // Log d'audit structuré, zéro secret : on n'expose jamais la clé brute ni
-    // les ids complets — uniquement les préfixes redacted + timestamp ISO.
+    // Tenant DB canonique : le slug forwardé ("adrien") n'est PAS un UUID et
+    // casserait les colonnes typées uuid (settings/permissions/logs). On le
+    // résout en UUID canonique pour la DB, tout en gardant le slug pour l'entity
+    // Composio. Frontière système Hive(slug) → Helm(UUID).
+    const { tenantUuid, source: tenantSource } = resolveImpersonationTenant(
+      trimmedTenant,
+      verified.tenantId,
+    );
+
+    // Log d'audit structuré, zéro secret : jamais la clé brute ni les ids
+    // complets — préfixes redacted + traçabilité du mapping tenant (input slug,
+    // UUID résolu, source du mapping, endpoint).
     console.info(
       JSON.stringify({
         event: "hive_impersonation_resolved",
         context,
         principalRedacted: redactId(verified.userId),
         impersonatedUserRedacted: redactId(trimmedUser),
-        tenantRedacted: redactId(trimmedTenant),
+        tenantInputRedacted: redactId(trimmedTenant),
+        tenantUuidRedacted: redactId(tenantUuid),
+        tenantSource,
         ts: new Date().toISOString(),
       }),
     );
@@ -245,9 +258,13 @@ async function resolveBearerScope(
       matched: true,
       scope: {
         userId: trimmedUser,
-        tenantId: trimmedTenant,
+        // Tenant DB canonique (UUID) — DB / settings / permissions / logs Helm.
+        // JAMAIS le slug brut ici (sinon `invalid input syntax for type uuid`).
+        tenantId: tenantUuid,
         // Convention existante : workspaceId = tenantId en mode service/backend.
-        workspaceId: trimmedTenant,
+        workspaceId: tenantUuid,
+        // Entity Composio = slug brut forwardé (`hive:adrien`) : identifiant
+        // externe sous lequel vivent les connexions OAuth. NE PAS substituer.
         composioEntityId: `hive:${trimmedTenant}`,
         impersonatedBy: verified.userId,
         isDevFallback: false,
