@@ -548,7 +548,14 @@ async function runPipeline(
     //   - if the routing only inferred the provider (no explicit mention),
     //     fall through to the AI pipeline so the model can clarify or
     //     answer without the missing provider.
-    if (!researchDetected && scopeRequiresProviders(capScope)) {
+    // Impersonation Hive : en mode `composioEntityId` (hive:<tenant>), les
+    // connexions de l'utilisateur vivent dans Composio sous cet entity — que le
+    // preflight control-plane (clé sur userId / tokens natifs Helm) ne sait PAS
+    // voir → faux "provider non connecté" qui court-circuite avant l'AI pipeline.
+    // On skippe donc ce gate déterministe et on laisse l'AI pipeline charger les
+    // tools Composio sous composioEntityId ; son propre `app_connect_required`
+    // (par tool, sur échec réel) reste le garde-fou précis.
+    if (!researchDetected && !input.composioEntityId && scopeRequiresProviders(capScope)) {
       const providerReq = getRequiredProvidersForInput(input.message);
       const userExplicitlyMentioned = providerReq !== null;
       const providersToCheck = providerReq?.providers ?? capScope.providers;
