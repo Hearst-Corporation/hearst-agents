@@ -29,6 +29,7 @@ const PERSIST_TYPES = new Set([
   "step_failed",
   "tool_call_started",
   "tool_call_completed",
+  "tool_call_failed",
   "app_connect_required",
   "mission_run_request",
   "delegate_enqueued",
@@ -36,6 +37,7 @@ const PERSIST_TYPES = new Set([
   "asset_generated",
   "orchestrator_log",
   "run_completed",
+  "run_aborted",
   "run_failed",
 ]);
 
@@ -48,7 +50,10 @@ const SKIP_TYPES = new Set([
 ]);
 
 function eventToLevel(type: string): "info" | "warning" | "error" {
-  if (type === "run_failed" || type === "step_failed") return "error";
+  if (type === "run_failed" || type === "step_failed" || type === "tool_call_failed") {
+    return "error";
+  }
+  if (type === "run_aborted") return "warning";
   if (type === "capability_blocked") return "warning";
   return "info";
 }

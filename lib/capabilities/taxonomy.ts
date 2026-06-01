@@ -740,6 +740,46 @@ export const CROSS_DOMAIN_TOOLS: string[] = [
   "start_computer_action",
 ];
 
+// Mapping canonique entre les noms génériques de la taxonomie et les slugs
+// réellement montés dans `aiTools`. Les slugs Composio restent ajoutés depuis
+// la discovery runtime ; cette map couvre les tools natifs et méta critiques.
+export const CANONICAL_TOOL_ALIASES: Record<string, string[]> = {
+  get_messages: ["gmail_fetch_emails"],
+  send_message: ["gmail_send_email"],
+  post_message: ["send_email"],
+  get_calendar_events: ["googlecalendar_list_events"],
+  get_files: ["googledrive_list_files"],
+  schedule_task: ["create_scheduled_mission"],
+  search_web: ["web_search"],
+  generate_report: ["research_report", "propose_report_spec"],
+  analyze_data: ["research_report", "run_code"],
+  export_excel: ["generate_excel"],
+  generate_image: ["generate_image"],
+  generate_video: ["generate_video"],
+  execute_code: ["run_code"],
+  parse_document: ["parse_document"],
+};
+
+export const CRITICAL_NATIVE_TOOLS: string[] = [
+  "gmail_fetch_emails",
+  "web_search",
+  "create_scheduled_mission",
+  "request_connection",
+];
+
+export function expandAllowedToolsToRuntimeSlugs(allowedTools: string[]): string[] {
+  return [
+    ...new Set(
+      allowedTools.flatMap((tool) => [
+        tool,
+        tool.toLowerCase(),
+        tool.toUpperCase(),
+        ...(CANONICAL_TOOL_ALIASES[tool] ?? []),
+      ]),
+    ),
+  ];
+}
+
 // ── Resolver Functions ──────────────────────────────────────
 
 const _allDomains = Object.keys(DOMAIN_TAXONOMY) as Domain[];

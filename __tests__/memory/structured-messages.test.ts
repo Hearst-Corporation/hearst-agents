@@ -86,7 +86,7 @@ describe("appendModelMessages — buffering", () => {
     appendModelMessages("c-1", [msg], scope);
 
     state.selectResult = { data: [], error: null };
-    const out = await getRecentModelMessages("c-1", 10);
+    const out = await getRecentModelMessages("c-1", 10, scope);
     expect(out).toHaveLength(1);
     expect(out[0]).toEqual(msg);
   });
@@ -106,7 +106,7 @@ describe("appendModelMessages — buffering", () => {
       ],
     };
     appendModelMessages("c-2", [assistant], scope);
-    const out = await getRecentModelMessages("c-2", 10);
+    const out = await getRecentModelMessages("c-2", 10, scope);
     expect(out).toHaveLength(1);
     expect(out[0].role).toBe("assistant");
     const parts = (out[0] as { content: Array<{ type: string }> }).content;
@@ -128,7 +128,7 @@ describe("appendModelMessages — buffering", () => {
       ],
     };
     appendModelMessages("c-3", [tool], scope);
-    const out = await getRecentModelMessages("c-3", 10);
+    const out = await getRecentModelMessages("c-3", 10, scope);
     expect(out).toHaveLength(1);
     expect(out[0].role).toBe("tool");
   });
@@ -144,7 +144,7 @@ describe("appendModelMessages — buffering", () => {
       ],
       scope,
     );
-    const out = await getRecentModelMessages("c-4", 10);
+    const out = await getRecentModelMessages("c-4", 10, scope);
     expect(out).toHaveLength(3);
     expect((out[0] as { content: string }).content).toBe("first");
     expect((out[2] as { content: string }).content).toBe("third");
@@ -155,7 +155,7 @@ describe("appendModelMessages — buffering", () => {
     appendModelMessages("c-5", [{ role: "user", content: "1" }], scope);
     appendModelMessages("c-5", [{ role: "assistant", content: "2" }], scope);
     appendModelMessages("c-5", [{ role: "user", content: "3" }], scope);
-    const out = await getRecentModelMessages("c-5", 10);
+    const out = await getRecentModelMessages("c-5", 10, scope);
     expect(out.map((m) => (m as { content: string }).content)).toEqual(["1", "2", "3"]);
   });
 
@@ -166,7 +166,7 @@ describe("appendModelMessages — buffering", () => {
       content: `m${i}`,
     }));
     appendModelMessages("c-window", msgs, scope);
-    const out = await getRecentModelMessages("c-window", 100);
+    const out = await getRecentModelMessages("c-window", 100, scope);
     expect(out).toHaveLength(24);
     expect((out[0] as { content: string }).content).toBe("m6");
   });
@@ -181,7 +181,7 @@ describe("appendModelMessages — buffering", () => {
       })),
       scope,
     );
-    const out = await getRecentModelMessages("c-limit", 3);
+    const out = await getRecentModelMessages("c-limit", 3, scope);
     expect(out).toHaveLength(3);
     expect((out[2] as { content: string }).content).toBe("m9");
   });
@@ -189,14 +189,14 @@ describe("appendModelMessages — buffering", () => {
   it("ignores empty conversationId", async () => {
     const { appendModelMessages, getRecentModelMessages } = await freshStore();
     appendModelMessages("", [{ role: "user", content: "x" }], scope);
-    const out = await getRecentModelMessages("", 10);
+    const out = await getRecentModelMessages("", 10, scope);
     expect(out).toEqual([]);
   });
 
   it("ignores empty modelMessages array", async () => {
     const { appendModelMessages, getRecentModelMessages } = await freshStore();
     appendModelMessages("c-empty", [], scope);
-    const out = await getRecentModelMessages("c-empty", 10);
+    const out = await getRecentModelMessages("c-empty", 10, scope);
     expect(out).toEqual([]);
   });
 
@@ -206,8 +206,12 @@ describe("appendModelMessages — buffering", () => {
     const scopeB: TenantScope = { tenantId: "tB", workspaceId: "w", userId: "u" };
     appendModelMessages("conv", [{ role: "user", content: "fromA" }], scopeA);
     appendModelMessages("conv", [{ role: "user", content: "fromB" }], scopeB);
-    const out = await getRecentModelMessages("conv", 10);
-    expect(out.length).toBeGreaterThanOrEqual(1);
+    const outA = await getRecentModelMessages("conv", 10, scopeA);
+    const outB = await getRecentModelMessages("conv", 10, scopeB);
+    expect(outA).toHaveLength(1);
+    expect((outA[0] as { content: string }).content).toBe("fromA");
+    expect(outB).toHaveLength(1);
+    expect((outB[0] as { content: string }).content).toBe("fromB");
   });
 });
 
@@ -228,7 +232,7 @@ describe("getRecentModelMessages — Supabase reads", () => {
       ],
       error: null,
     };
-    const out = await getRecentModelMessages("c-db", 10);
+    const out = await getRecentModelMessages("c-db", 10, scope);
     expect(out).toHaveLength(1);
     expect((out[0] as { content: string }).content).toBe("from db");
   });
@@ -237,7 +241,7 @@ describe("getRecentModelMessages — Supabase reads", () => {
     const { appendModelMessages, getRecentModelMessages } = await freshStore();
     state.selectResult = { data: [], error: null };
     appendModelMessages("c-buf", [{ role: "user", content: "buffered" }], scope);
-    const out = await getRecentModelMessages("c-buf", 10);
+    const out = await getRecentModelMessages("c-buf", 10, scope);
     expect(out).toHaveLength(1);
     expect((out[0] as { content: string }).content).toBe("buffered");
   });
@@ -252,7 +256,7 @@ describe("getRecentModelMessages — Supabase reads", () => {
       ],
       error: null,
     };
-    const out = await getRecentModelMessages("c-mix", 10);
+    const out = await getRecentModelMessages("c-mix", 10, scope);
     expect(out).toHaveLength(1);
     expect((out[0] as { content: string }).content).toBe("ok");
   });
@@ -261,7 +265,7 @@ describe("getRecentModelMessages — Supabase reads", () => {
     const { appendModelMessages, getRecentModelMessages } = await freshStore();
     state.selectResult = { data: null, error: { message: "boom" } };
     appendModelMessages("c-err", [{ role: "user", content: "buf-after-err" }], scope);
-    const out = await getRecentModelMessages("c-err", 10);
+    const out = await getRecentModelMessages("c-err", 10, scope);
     expect(out).toHaveLength(1);
     expect((out[0] as { content: string }).content).toBe("buf-after-err");
   });
@@ -269,7 +273,7 @@ describe("getRecentModelMessages — Supabase reads", () => {
   it("returns [] when both Supabase and buffer are empty", async () => {
     const { getRecentModelMessages } = await freshStore();
     state.selectResult = { data: [], error: null };
-    const out = await getRecentModelMessages("c-nothing", 10);
+    const out = await getRecentModelMessages("c-nothing", 10, scope);
     expect(out).toEqual([]);
   });
 });

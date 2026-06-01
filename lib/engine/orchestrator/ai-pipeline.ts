@@ -17,7 +17,11 @@ import type { ModelMessage, Tool } from "ai";
 import { jsonSchema, stepCountIs, streamText } from "ai";
 import { z } from "zod";
 import { type Asset, type AssetKind, storeAsset } from "@/lib/assets/types";
-import { CROSS_DOMAIN_TOOLS } from "@/lib/capabilities/taxonomy";
+import {
+  CRITICAL_NATIVE_TOOLS,
+  CROSS_DOMAIN_TOOLS,
+  expandAllowedToolsToRuntimeSlugs,
+} from "@/lib/capabilities/taxonomy";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
 import { filterToolsByDomain, isWriteAction } from "@/lib/connectors/composio/write-guard";
@@ -647,8 +651,9 @@ export async function runAiPipeline(
   // appliqué côté router (entry.tools + CROSS_DOMAIN_TOOLS).
   if (input._allowedTools && input._allowedTools.length > 0) {
     const allowedSet = new Set([
-      ...input._allowedTools,
+      ...expandAllowedToolsToRuntimeSlugs(input._allowedTools),
       ...CROSS_DOMAIN_TOOLS,
+      ...CRITICAL_NATIVE_TOOLS,
       ...filteredComposioToolNames,
     ]);
     for (const name of Object.keys(aiTools)) {
@@ -754,7 +759,7 @@ export async function runAiPipeline(
   // Fall back to the text-only client history otherwise.
   let priorMessages: ModelMessage[] = [];
   if (input.conversationId) {
-    priorMessages = await getRecentModelMessages(input.conversationId, 20);
+    priorMessages = await getRecentModelMessages(input.conversationId, 20, pipelineScope);
   }
   if (priorMessages.length === 0) {
     priorMessages = (input.conversationHistory ?? []).map(

@@ -232,14 +232,20 @@ async function persistMessage(
 
 // ── Structured (ModelMessage) persistence ────────────────────
 
-/** In-process buffer of structured messages keyed by `tenant::conversation`. */
+/** In-process buffer of structured messages keyed by `tenant::workspace::user::conversation`. */
 const MAX_BUFFERED_STRUCTURED = Number(process.env.MEMORY_BUFFER_MAX_STRUCTURED ?? "500");
-const structuredBuffer: Map<string, ModelMessage[]> = new Map();
+interface StructuredConversationBuffer {
+  userId: string;
+  tenantId: string;
+  workspaceId: string;
+  messages: ModelMessage[];
+}
+const structuredBuffer: Map<string, StructuredConversationBuffer> = new Map();
 
 // LRU helper for structured buffer
-function touchStructuredBuffer(key: string, messages: ModelMessage[]): void {
+function touchStructuredBuffer(key: string, conv: StructuredConversationBuffer): void {
   structuredBuffer.delete(key);
-  structuredBuffer.set(key, messages);
+  structuredBuffer.set(key, conv);
 
   if (structuredBuffer.size > MAX_BUFFERED_STRUCTURED) {
     const oldestKey = structuredBuffer.keys().next().value;
@@ -250,8 +256,8 @@ function touchStructuredBuffer(key: string, messages: ModelMessage[]): void {
   }
 }
 
-function structuredKey(conversationId: string, tenantId: string): string {
-  return `${tenantId}::${conversationId}::struct`;
+function structuredKey(conversationId: string, scope: TenantScope): string {
+  return `${scope.tenantId}::${scope.workspaceId}::${scope.userId}::${conversationId}::struct`;
 }
 
 function extractText(content: ModelMessage["content"]): string {
@@ -277,13 +283,22 @@ export function appendModelMessages(
   scope: TenantScope,
 ): void {
   if (!conversationId || modelMessages.length === 0) return;
+  if (!scope.userId) {
+    console.error("[Memory] Cannot buffer structured messages without authenticated userId");
+    return;
+  }
 
-  const key = structuredKey(conversationId, scope.tenantId);
-  const existing = structuredBuffer.get(key) ?? [];
+  const key = structuredKey(conversationId, scope);
+  const existing = structuredBuffer.get(key)?.messages ?? [];
   const next = [...existing, ...modelMessages].slice(-MAX_MESSAGES_PER_CONVERSATION);
 
   // Update LRU order for structured buffer
-  touchStructuredBuffer(key, next);
+  touchStructuredBuffer(key, {
+    userId: scope.userId,
+    tenantId: scope.tenantId,
+    workspaceId: scope.workspaceId,
+    messages: next,
+  });
 
   // Même pattern WAL Redis → Supabase pour les structured messages (tool
   // calls / tool results). La perte de ces rows casse les flows de
@@ -350,8 +365,10 @@ async function persistModelMessages(
 export async function getRecentModelMessages(
   conversationId: string,
   limit = 20,
-  scope?: TenantScope,
+  scope: TenantScope,
 ): Promise<ModelMessage[]> {
+  if (!conversationId) return [];
+
   const sb = db();
   if (sb) {
     try {
@@ -359,14 +376,12 @@ export async function getRecentModelMessages(
         .from("chat_messages")
         .select("role, content, payload, created_at")
         .eq("conversation_id", conversationId)
+        .eq("user_id", scope.userId)
+        .eq("tenant_id", scope.tenantId)
+        .eq("workspace_id", scope.workspaceId)
         .not("payload", "is", null)
         .order("created_at", { ascending: true })
         .limit(MAX_MESSAGES_PER_CONVERSATION);
-
-      // Filtre ownership si scope fourni — empêche la lecture cross-user (F-003)
-      if (scope?.userId) {
-        query = query.eq("user_id", scope.userId);
-      }
 
       const { data, error } = await query;
 
@@ -387,16 +402,15 @@ export async function getRecentModelMessages(
     }
   }
 
-  // In-process fallback — isolation par tenantId::conversationId (F-003)
-  if (scope) {
-    const key = structuredKey(conversationId, scope.tenantId);
-    return (structuredBuffer.get(key) ?? []).slice(-limit);
-  }
-
-  for (const [key, msgs] of structuredBuffer.entries()) {
-    if (key.includes(`::${conversationId}::struct`)) {
-      return msgs.slice(-limit);
-    }
+  const key = structuredKey(conversationId, scope);
+  const conv = structuredBuffer.get(key);
+  if (
+    conv &&
+    conv.userId === scope.userId &&
+    conv.tenantId === scope.tenantId &&
+    conv.workspaceId === scope.workspaceId
+  ) {
+    return conv.messages.slice(-limit);
   }
   return [];
 }

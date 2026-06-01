@@ -78,6 +78,23 @@ export class LogPersister {
           actor: "runtime",
           message: event.error,
         };
+      case "run_aborted":
+        return {
+          run_id: event.run_id,
+          at: event.timestamp,
+          level: "warning",
+          actor: "runtime",
+          message: event.reason ?? "run_aborted",
+        };
+      case "tool_call_failed":
+        return {
+          run_id: event.run_id,
+          step_id: event.step_id,
+          at: event.timestamp,
+          level: "error",
+          actor: "runtime",
+          message: `Tool ${event.tool} failed: ${event.error}`,
+        };
       case "retrieval_mode_inferred":
         return {
           run_id: event.run_id,

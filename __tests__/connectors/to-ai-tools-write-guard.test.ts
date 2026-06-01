@@ -69,13 +69,20 @@ describe("toAiTools — write-guard integration", () => {
         text: "hello",
       });
       expect(executeComposioAction).not.toHaveBeenCalled();
-      expect(typeof result).toBe("string");
+      expect(result).toMatchObject({
+        kind: "draft",
+        slug: "SLACK_SEND_MESSAGE",
+        args: { channel: "#dev", text: "hello" },
+      });
+      expect(result).toHaveProperty("_confirmationToken");
+      expect(typeof (result as { preview: string }).preview).toBe("string");
       // Le custom formatter Slack prend le relais → labels FR (Canal, Aperçu)
-      expect(result as string).toContain("SLACK");
-      expect((result as string).toLowerCase()).toContain("envoyer");
-      expect(result as string).toContain("#dev");
-      expect(result as string).toContain("hello");
-      expect((result as string).toLowerCase()).toContain("confirmer");
+      const preview = (result as { preview: string }).preview;
+      expect(preview).toContain("SLACK");
+      expect(preview.toLowerCase()).toContain("envoyer");
+      expect(preview).toContain("#dev");
+      expect(preview).toContain("hello");
+      expect(preview.toLowerCase()).toContain("confirmer");
     });
 
     it("does NOT call executeComposioAction when _preview is explicitly true", async () => {
@@ -86,7 +93,7 @@ describe("toAiTools — write-guard integration", () => {
         _preview: true,
       });
       expect(executeComposioAction).not.toHaveBeenCalled();
-      expect(result as string).toContain("SLACK");
+      expect((result as { preview: string }).preview).toContain("SLACK");
     });
   });
 
@@ -116,6 +123,46 @@ describe("toAiTools — write-guard integration", () => {
       expect(call.params).toEqual({ channel: "#dev", text: "hello" });
       expect(call.params).not.toHaveProperty("_preview");
       expect(call.params).not.toHaveProperty("_confirmationToken");
+    });
+
+    it("refuses _preview:false when _confirmationToken is missing", async () => {
+      const tools = toAiTools([writeTool], { userId: "user-1", tenantId: "tenant-1" });
+      const result = await callExecute(tools.SLACK_SEND_MESSAGE, {
+        channel: "#dev",
+        text: "hello",
+        _preview: false,
+      });
+
+      expect(executeComposioAction).not.toHaveBeenCalled();
+      expect(result).toMatchObject({
+        ok: false,
+        errorCode: "CONFIRMATION_REQUIRED",
+        error: "confirmation_token_required",
+      });
+    });
+
+    it("refuses _preview:false when _confirmationToken does not match args", async () => {
+      const ctx = { userId: "user-marie", tenantId: "tenant-marie" };
+      const tools = toAiTools([writeTool], ctx);
+      const token = issueConfirmationToken({
+        userId: ctx.userId,
+        tenantId: ctx.tenantId,
+        toolSlug: "SLACK_SEND_MESSAGE",
+        argsHash: hashToolArgs({ channel: "#dev", text: "original" }),
+      });
+
+      const result = await callExecute(tools.SLACK_SEND_MESSAGE, {
+        channel: "#dev",
+        text: "changed",
+        _preview: false,
+        _confirmationToken: token,
+      });
+
+      expect(executeComposioAction).not.toHaveBeenCalled();
+      expect(result).toMatchObject({
+        ok: false,
+        errorCode: "CONFIRMATION_INVALID",
+      });
     });
   });
 

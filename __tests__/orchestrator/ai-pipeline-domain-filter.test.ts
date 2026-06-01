@@ -18,14 +18,21 @@ const allTools: DiscoveredTool[] = [
   { name: "SLACK_SEND_MESSAGE", app: "slack", description: "msg", parameters: {} },
 ];
 
-const { getToolsForUser, toAiTools, buildAgentSystemPrompt, streamText, createAnthropic } =
-  vi.hoisted(() => ({
-    getToolsForUser: vi.fn(),
-    toAiTools: vi.fn(),
-    buildAgentSystemPrompt: vi.fn(),
-    streamText: vi.fn(),
-    createAnthropic: vi.fn(),
-  }));
+const {
+  getToolsForUser,
+  toAiTools,
+  buildAgentSystemPrompt,
+  streamText,
+  createAnthropic,
+  buildNativeGoogleTools,
+} = vi.hoisted(() => ({
+  getToolsForUser: vi.fn(),
+  toAiTools: vi.fn(),
+  buildAgentSystemPrompt: vi.fn(),
+  streamText: vi.fn(),
+  createAnthropic: vi.fn(),
+  buildNativeGoogleTools: vi.fn(),
+}));
 
 vi.mock("@/lib/connectors/composio/discovery", () => ({
   getToolsForUser,
@@ -38,6 +45,14 @@ vi.mock("@/lib/connectors/composio/to-ai-tools", () => ({
 vi.mock("@/lib/engine/orchestrator/system-prompt", () => ({
   buildAgentSystemPrompt,
   ORCHESTRATOR_MODEL: "kimi-k2.5",
+}));
+
+vi.mock("@/lib/tools/native/google", () => ({
+  buildNativeGoogleTools,
+  NATIVE_GOOGLE_TOOL_DESCRIPTORS: [
+    { name: "gmail_fetch_emails", description: "Fetch Gmail emails" },
+    { name: "gmail_send_email", description: "Send Gmail email" },
+  ],
 }));
 
 vi.mock("@ai-sdk/anthropic", () => ({
@@ -92,6 +107,7 @@ describe("runAiPipeline — domain filter", () => {
     streamText.mockReset();
 
     getToolsForUser.mockResolvedValue(allTools);
+    buildNativeGoogleTools.mockResolvedValue({});
     toAiTools.mockReturnValue({});
     buildAgentSystemPrompt.mockReturnValue("system prompt");
     streamText.mockReturnValue(makeStreamResult());
@@ -114,7 +130,7 @@ describe("runAiPipeline — domain filter", () => {
 
   it("préserve les slugs Composio réels après intersection _allowedTools", async () => {
     toAiTools.mockReturnValue({
-      GMAIL_FETCH_EMAILS: {
+      SLACK_SEND_MESSAGE: {
         inputSchema: {},
         execute: vi.fn(),
       },
@@ -130,8 +146,32 @@ describe("runAiPipeline — domain filter", () => {
     });
 
     const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
-    expect(streamArgs.tools).toHaveProperty("GMAIL_FETCH_EMAILS");
+    expect(streamArgs.tools).toHaveProperty("SLACK_SEND_MESSAGE");
     expect(streamArgs.tools).not.toHaveProperty("GITHUB_CREATE_ISSUE");
+  });
+
+  it("mappe les noms génériques vers les slugs runtime natifs critiques", async () => {
+    buildNativeGoogleTools.mockResolvedValue({
+      gmail_fetch_emails: {
+        inputSchema: {},
+        execute: vi.fn(),
+      },
+    });
+
+    await runAiPipeline(makeEngine(), makeBus(), {
+      userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
+      message: "liste mes emails et cherche sur le web",
+      domain: "communication",
+      _allowedTools: ["get_messages", "search_web", "schedule_task"],
+    });
+
+    const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
+    expect(streamArgs.tools).toHaveProperty("gmail_fetch_emails");
+    expect(streamArgs.tools).toHaveProperty("web_search");
+    expect(streamArgs.tools).toHaveProperty("create_scheduled_mission");
+    expect(streamArgs.tools).toHaveProperty("request_connection");
   });
 
   it("domain=developer → toAiTools receives only github", async () => {
