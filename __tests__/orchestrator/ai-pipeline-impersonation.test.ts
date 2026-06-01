@@ -77,6 +77,15 @@ function makeStreamResult() {
   };
 }
 
+function makeStreamResultWithEvents(events: unknown[]) {
+  return {
+    fullStream: (async function* () {
+      for (const event of events) yield event;
+    })(),
+    usage: Promise.resolve({ inputTokens: 0, outputTokens: 0 }),
+  };
+}
+
 const HELM_USER_ID = "helm-user-1";
 const HIVE_TENANT_ID = "99999999-8888-7777-6666-555555555555";
 const HIVE_ENTITY = `hive:${HIVE_TENANT_ID}`;
@@ -128,5 +137,51 @@ describe("runAiPipeline — impersonation Hive (composioEntityId)", () => {
     expect(getToolsForUser).toHaveBeenCalledWith(HELM_USER_ID);
     const ctx = toAiTools.mock.calls[0][1] as { userId: string; tenantId: string };
     expect(ctx.userId).toBe(HELM_USER_ID);
+  });
+
+  it("tool-error après tool-call émet tool_call_failed", async () => {
+    const bus = makeBus();
+    streamText.mockReturnValue(
+      makeStreamResultWithEvents([
+        {
+          type: "tool-call",
+          toolCallId: "call-gmail",
+          toolName: "GMAIL_FETCH_EMAILS",
+          input: {},
+        },
+        {
+          type: "tool-error",
+          toolCallId: "call-gmail",
+          toolName: "GMAIL_FETCH_EMAILS",
+          input: {},
+          error: new Error("composio timeout"),
+        },
+      ]),
+    );
+
+    await runAiPipeline(makeEngine(), bus, {
+      userId: HELM_USER_ID,
+      tenantId: HIVE_TENANT_ID,
+      workspaceId: HIVE_TENANT_ID,
+      message: "Liste mes emails Gmail",
+      domain: "communication",
+      composioEntityId: HIVE_ENTITY,
+    });
+
+    expect(bus.emit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "tool_call_started",
+        step_id: "call-gmail",
+        tool: "GMAIL_FETCH_EMAILS",
+      }),
+    );
+    expect(bus.emit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "tool_call_failed",
+        step_id: "call-gmail",
+        tool: "GMAIL_FETCH_EMAILS",
+        error: "composio timeout",
+      }),
+    );
   });
 });

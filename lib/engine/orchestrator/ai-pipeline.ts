@@ -1232,6 +1232,32 @@ export async function runAiPipeline(
           break;
         }
 
+        case "tool-error": {
+          clearToolWatchdog();
+          if (skippedToolCalls.has(event.toolCallId)) break;
+          const name = toolCallNames.get(event.toolCallId) ?? event.toolName;
+          const message =
+            event.error instanceof Error
+              ? event.error.message
+              : typeof event.error === "string"
+                ? event.error
+                : "Erreur outil";
+          eventBus.emit({
+            type: "tool_call_failed",
+            run_id: engine.id,
+            step_id: event.toolCallId,
+            tool: name ?? event.toolCallId,
+            providerId: "composio",
+            error: message,
+          });
+          eventBus.emit({
+            type: "orchestrator_log",
+            run_id: engine.id,
+            message: `Tool failed: ${name ?? event.toolCallId}`,
+          });
+          break;
+        }
+
         case "error":
           console.error("[AiPipeline] stream error:", event.error);
           break;
