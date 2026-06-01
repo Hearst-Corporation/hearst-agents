@@ -202,6 +202,57 @@ export function resolveCapabilityContextId(input: {
   return input.tenantId;
 }
 
+// ── Cache de résolution (perf) ───────────────────────────────────────────────
+// La liste des tools d'un contexte change très rarement. On cache le résultat
+// par (tenant, context) pour ne PAS refaire le round-trip Cortex (~0.8s) à chaque
+// message. TTL court → on reste réactif à un changement de permissions.
+const RESOLVE_CACHE_TTL_MS = 60_000;
+interface ResolveCacheEntry {
+  value: ResolveCapabilitiesResult;
+  expiresAt: number;
+}
+const resolveCache = new Map<string, ResolveCacheEntry>();
+
+/** Reset du cache — réservé aux tests. */
+export function _resetResolveCacheForTest(): void {
+  resolveCache.clear();
+}
+
+// ── Court-circuit (perf) ─────────────────────────────────────────────────────
+/**
+ * Contextes "full-grant" : ils ont déjà TOUT le toolset Helm → inutile de
+ * demander les permissions à Cortex (et ça économise le round-trip). Liste via
+ * env `HELM_CORTEX_FULL_GRANT_CONTEXTS` (CSV), jamais hardcodée en code.
+ */
+export function isFullGrantContext(contextId: string): boolean {
+  const raw = process.env.HELM_CORTEX_FULL_GRANT_CONTEXTS ?? "";
+  if (!raw) return false;
+  const set = new Set(
+    raw
+      .split(",")
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean),
+  );
+  return set.has(contextId.trim().toLowerCase());
+}
+
+/**
+ * Décide si on court-circuite la résolution Cortex pour ce run (perf) :
+ * - `full_grant_context` : le contexte a tout → on garde le toolset natif Helm
+ *   intent-scopé, zéro round-trip.
+ * - `conversational` : mode `direct_answer` (général, pas de provider, court) →
+ *   aucun tool requis → pas de round-trip.
+ * Sinon on résout via Cortex (sécurité multi-contexte, désormais cachée).
+ */
+export function shouldSkipCortexResolve(
+  executionMode: string,
+  contextId: string,
+): { skip: boolean; reason: string } {
+  if (isFullGrantContext(contextId)) return { skip: true, reason: "full_grant_context" };
+  if (executionMode === "direct_answer") return { skip: true, reason: "conversational" };
+  return { skip: false, reason: "resolve" };
+}
+
 export async function resolveCapabilities(
   input: ResolveCapabilitiesInput,
 ): Promise<ResolveCapabilitiesResult> {
@@ -229,6 +280,13 @@ export async function resolveCapabilities(
   if (Object.keys(authHeaders).length === 0) {
     logger.warn("[cortex-capabilities] auth Cortex absente — fallback legacy");
     return { status: "skipped", tools: [], reason: "missing_auth" };
+  }
+
+  // Cache hit → zéro round-trip réseau pour cette (tenant, context).
+  const cacheKey = `${tenantId}::${contextId}`;
+  const cached = resolveCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.value;
   }
 
   const controller = new AbortController();
@@ -289,7 +347,12 @@ export async function resolveCapabilities(
         },
         "[cortex-capabilities] no mappable tool",
       );
-      return { status: "empty", tools: [] };
+      const emptyResult: ResolveCapabilitiesResult = { status: "empty", tools: [] };
+      resolveCache.set(cacheKey, {
+        value: emptyResult,
+        expiresAt: Date.now() + RESOLVE_CACHE_TTL_MS,
+      });
+      return emptyResult;
     }
 
     logger.info(
@@ -300,7 +363,9 @@ export async function resolveCapabilities(
       },
       "[cortex-capabilities] resolved",
     );
-    return { status: "ok", tools };
+    const okResult: ResolveCapabilitiesResult = { status: "ok", tools };
+    resolveCache.set(cacheKey, { value: okResult, expiresAt: Date.now() + RESOLVE_CACHE_TTL_MS });
+    return okResult;
   } catch (err: unknown) {
     const errorName = err instanceof Error ? err.name : "UnknownError";
     logger.warn(

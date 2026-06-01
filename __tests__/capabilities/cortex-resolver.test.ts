@@ -1,7 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  _resetResolveCacheForTest,
+  isFullGrantContext,
   resolveCapabilities,
   resolveCapabilityContextId,
+  shouldSkipCortexResolve,
 } from "@/lib/capabilities/cortex-resolver";
 import { logger } from "@/lib/observability/logger";
 
@@ -9,6 +12,7 @@ describe("cortex-resolver", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.unstubAllEnvs();
+    _resetResolveCacheForTest();
   });
 
   it("mappe cortex_search depuis runtime hive:tool:cortex_search", async () => {
@@ -233,5 +237,52 @@ describe("cortex-resolver", () => {
     expect(logs).not.toContain("super-secret-token");
     expect(logs).not.toContain("https://cortex.hearst.app/api/capabilities/resolve");
     expect(logs).not.toContain("pk-test-secret-value");
+  });
+
+  it("cache : 2e appel même contexte ne refait pas le fetch", async () => {
+    vi.stubEnv("CORTEX_URL", "https://cortex.hearst.app");
+    vi.stubEnv("CORTEX_PUBLIC_API_KEY", "pk-test");
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({ items: [{ slug: "gmail", runtime: "hive:tool:gmail" }] }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const args = { tenantId: "adrien", contextId: "adrien", userId: "adrien" };
+    const first = await resolveCapabilities(args);
+    const second = await resolveCapabilities(args);
+
+    expect(first.tools).toEqual(["gmail_fetch_emails", "gmail_send_email"]);
+    expect(second.tools).toEqual(first.tools);
+    // un seul appel réseau : le 2e est servi par le cache
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("shouldSkipCortexResolve : court-circuit conversationnel (direct_answer)", () => {
+    const d = shouldSkipCortexResolve("direct_answer", "adrien");
+    expect(d.skip).toBe(true);
+    expect(d.reason).toBe("conversational");
+  });
+
+  it("shouldSkipCortexResolve : résout (pas de court-circuit) en tool_call hors full-grant", () => {
+    const d = shouldSkipCortexResolve("tool_call", "some-gated-context");
+    expect(d.skip).toBe(false);
+    expect(d.reason).toBe("resolve");
+  });
+
+  it("shouldSkipCortexResolve : court-circuit full-grant via env (prioritaire sur le mode)", () => {
+    vi.stubEnv("HELM_CORTEX_FULL_GRANT_CONTEXTS", "adrien, test2");
+    const d = shouldSkipCortexResolve("tool_call", "adrien");
+    expect(d.skip).toBe(true);
+    expect(d.reason).toBe("full_grant_context");
+  });
+
+  it("isFullGrantContext : insensible à la casse et aux espaces, vide si env absente", () => {
+    expect(isFullGrantContext("adrien")).toBe(false); // env non set
+    vi.stubEnv("HELM_CORTEX_FULL_GRANT_CONTEXTS", " Adrien , test2 ");
+    expect(isFullGrantContext("adrien")).toBe(true);
+    expect(isFullGrantContext("ADRIEN")).toBe(true);
+    expect(isFullGrantContext("autre")).toBe(false);
   });
 });

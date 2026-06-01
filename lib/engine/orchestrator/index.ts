@@ -14,6 +14,7 @@ import { selectAgentForContext } from "@/lib/agents/agent-selector";
 import {
   resolveCapabilities,
   resolveCapabilityContextId,
+  shouldSkipCortexResolve,
 } from "@/lib/capabilities/cortex-resolver";
 import {
   type ExecutionDecision,
@@ -301,39 +302,56 @@ async function runPipeline(
     composioEntityId: input.composioEntityId,
     tenantId: scope.tenantId,
   });
-  const cortexCapabilities = await resolveCapabilities({
-    tenantId: scope.tenantId,
-    contextId,
-    userId: input.userId,
-  });
-
-  if (cortexCapabilities.status !== "skipped") {
-    input._allowedTools = cortexCapabilities.tools;
-    input._allowedToolsSource = "cortex";
-
+  // ── Court-circuit perf (zéro round-trip Cortex quand inutile) ─────────────
+  // - conversationnel (mode direct_answer) : aucun tool requis.
+  // - contexte full-grant (env HELM_CORTEX_FULL_GRANT_CONTEXTS) : a déjà tout
+  //   → on garde le toolset natif Helm intent-scopé (capScope.allowedTools).
+  // Sinon : résolution Cortex (sécurité multi-contexte), désormais CACHÉE 60s.
+  const skipDecision = shouldSkipCortexResolve(decision.mode, contextId);
+  if (skipDecision.skip) {
     logger.info(
       {
-        status: cortexCapabilities.status,
-        httpStatus: cortexCapabilities.httpStatus,
-        reason: cortexCapabilities.reason,
-        toolsCount: cortexCapabilities.tools.length,
+        reason: skipDecision.reason,
+        mode: decision.mode,
+        allowedToolsCount: input._allowedTools?.length ?? 0,
       },
-      "[Orchestrator] Allowed tools resolved via Cortex",
+      "[Orchestrator] Cortex resolve court-circuité — toolset natif intent-scopé",
     );
   } else {
-    const allowLegacyFallback = process.env.HELM_CAPABILITIES_LEGACY_FALLBACK === "1";
-    if (allowLegacyFallback) {
-      logger.warn(
-        { reason: cortexCapabilities.reason },
-        "[Orchestrator] Cortex resolver skipped — legacy fallback enabled",
+    const cortexCapabilities = await resolveCapabilities({
+      tenantId: scope.tenantId,
+      contextId,
+      userId: input.userId,
+    });
+
+    if (cortexCapabilities.status !== "skipped") {
+      input._allowedTools = cortexCapabilities.tools;
+      input._allowedToolsSource = "cortex";
+
+      logger.info(
+        {
+          status: cortexCapabilities.status,
+          httpStatus: cortexCapabilities.httpStatus,
+          reason: cortexCapabilities.reason,
+          toolsCount: cortexCapabilities.tools.length,
+        },
+        "[Orchestrator] Allowed tools resolved via Cortex",
       );
     } else {
-      input._allowedTools = [];
-      input._allowedToolsSource = "cortex";
-      logger.warn(
-        { reason: cortexCapabilities.reason },
-        "[Orchestrator] Cortex resolver skipped — strict mode (no tools exposed)",
-      );
+      const allowLegacyFallback = process.env.HELM_CAPABILITIES_LEGACY_FALLBACK === "1";
+      if (allowLegacyFallback) {
+        logger.warn(
+          { reason: cortexCapabilities.reason },
+          "[Orchestrator] Cortex resolver skipped — legacy fallback enabled",
+        );
+      } else {
+        input._allowedTools = [];
+        input._allowedToolsSource = "cortex";
+        logger.warn(
+          { reason: cortexCapabilities.reason },
+          "[Orchestrator] Cortex resolver skipped — strict mode (no tools exposed)",
+        );
+      }
     }
   }
 
