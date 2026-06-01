@@ -159,11 +159,39 @@ function matchesNativeDeterministicTool(input: string): boolean {
   return NATIVE_TOOL_PATTERNS.some((p) => p.test(input));
 }
 
+// ── Memory / vault queries ───────────────────────────────────────────
+// Quand le message pointe vers la mémoire personnelle (Cortex vault,
+// notes Obsidian, souvenirs), le research path web-only est contre-productif.
+// On bypass → AI pipeline → cortex_search tool appelé par le LLM.
+// Patterns intentionnellement larges sur "ma mémoire / mon vault / mes notes"
+// mais pas sur "recherche" seul (qui reste légitime web).
+const MEMORY_QUERY_PATTERNS = [
+  // Mémoire explicite
+  /\b(dans|de|depuis)\s+(ma|mon|mes)\s+(m[eé]moire|vault|notes?|obsidian|journal)\b/i,
+  /\b(ma|mon|mes)\s+(m[eé]moire|vault|notes?|obsidian|journal)\b/i,
+  /\bcortex\b/i,
+  /\bvault\b/i,
+  // Verbes de rappel mémoire
+  /\b(souviens?|rappelle?(-toi)?|tu\s+sais)\b/i,
+  /\bqu[e']est-ce\s+que\s+tu\s+sais\b/i,
+  /\bce\s+que\s+tu\s+sais\b/i,
+  // "cherche dans mes notes / mon vault / ma mémoire"
+  /cherche\s+(dans|parmi)\s+(mes?|mon|ma)\b/i,
+  /\b(trouve|retrouve)\s+(dans|parmi)\s+(mes?|mon|ma)\b/i,
+];
+
+function isMemoryQuery(input: string): boolean {
+  return MEMORY_QUERY_PATTERNS.some((p) => p.test(input));
+}
+
 /**
  * Décide si une requête doit court-circuiter le research path.
  * Retourne `true` si la requête est mieux servie par streamText + tools
- * (catalogue cross-app via `propose_report_spec` ou tools natifs déterministes).
+ * (catalogue cross-app via `propose_report_spec`, tools natifs déterministes,
+ * ou query mémoire Cortex via `cortex_search`).
  */
 export function shouldBypassResearchPath(input: string): boolean {
-  return isCatalogueReportRequest(input) || matchesNativeDeterministicTool(input);
+  return (
+    isCatalogueReportRequest(input) || matchesNativeDeterministicTool(input) || isMemoryQuery(input)
+  );
 }

@@ -24,6 +24,13 @@ export interface CanonicalScope {
   isDevFallback: boolean;
   /** Prénom (ou nom complet) de l'utilisateur connecté, tel qu'exposé par le provider OAuth. */
   userName?: string;
+  /**
+   * true quand l'auth est passée par un service token (Bearer hsk_*) backend-to-backend.
+   * Les appels service-account n'ont PAS de cookie NextAuth : toute re-validation
+   * de session cookie (ex: heartbeat orchestrate) doit être skippée pour eux,
+   * sinon `getServerSession` renvoie null → faux `session_expired` mid-stream.
+   */
+  isServiceAccount?: boolean;
 }
 
 interface ResolveScopeOptions {
@@ -185,6 +192,7 @@ async function resolveBearerScope(
       tenantId: verified.tenantId,
       workspaceId: verified.tenantId,
       isDevFallback: false,
+      isServiceAccount: true,
     },
   };
 }

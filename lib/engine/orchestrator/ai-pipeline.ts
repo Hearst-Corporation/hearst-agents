@@ -17,6 +17,7 @@ import type { ModelMessage, Tool } from "ai";
 import { jsonSchema, stepCountIs, streamText } from "ai";
 import { z } from "zod";
 import { type Asset, type AssetKind, storeAsset } from "@/lib/assets/types";
+import { CROSS_DOMAIN_TOOLS } from "@/lib/capabilities/taxonomy";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
 import { filterToolsByDomain, isWriteAction } from "@/lib/connectors/composio/write-guard";
@@ -59,13 +60,22 @@ import { canonicalHash } from "@/lib/utils/canonical-hash";
 import { redactId } from "@/lib/utils/redact";
 import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
 
-// Schema for validating tool results from the AI pipeline
-const ToolResultSchema = z.object({
-  ok: z.boolean(),
-  errorCode: z.string().optional(),
-  error: z.string().optional(),
-  data: z.unknown().optional(),
-});
+// Schema for validating tool results from the AI pipeline.
+// Deux conventions de retour coexistent :
+//  - Tools Composio → enveloppe objet { ok, data, error? }
+//  - Tools natifs (cortex_search, web-search, generate_image…) → string
+//    humaine brute. L'AI SDK l'a déjà transmise au modèle ; une string est
+//    donc toujours un succès. Sans le membre z.string() de l'union, ces tools
+//    déclenchaient un faux "format inattendu" (tool_call_failed cosmétique).
+const ToolResultSchema = z.union([
+  z.string(),
+  z.object({
+    ok: z.boolean(),
+    errorCode: z.string().optional(),
+    error: z.string().optional(),
+    data: z.unknown().optional(),
+  }),
+]);
 
 export interface AiPipelineInput {
   userId: string;
@@ -614,8 +624,14 @@ export async function runAiPipeline(
   // Si l'agent scope définit une liste de tools autorisés, on restreint
   // le toolset effectif. Cela empêche un custom_agent de sortir de son
   // périmètre, même si le LLM hallucine un nom de tool hors-scope.
+  //
+  // EXCEPTION (2026-06-01) : les CROSS_DOMAIN_TOOLS (cortex_search = mémoire
+  // long-terme Cortex) restent TOUJOURS disponibles, même pour un custom_agent
+  // qui ne les liste pas. Sans ça, un agent custom avec un allowedTools restreint
+  // perd l'accès au vault et part en recherche web par défaut. Symétrique du fix
+  // appliqué côté router (entry.tools + CROSS_DOMAIN_TOOLS).
   if (input._allowedTools && input._allowedTools.length > 0) {
-    const allowedSet = new Set(input._allowedTools);
+    const allowedSet = new Set([...input._allowedTools, ...CROSS_DOMAIN_TOOLS]);
     for (const name of Object.keys(aiTools)) {
       if (!allowedSet.has(name)) {
         delete (aiTools as Record<string, unknown>)[name];
@@ -1159,7 +1175,10 @@ export async function runAiPipeline(
 
           const out = parseResult.data;
 
-          if (out.ok === false) {
+          // Tool natif (string) → toujours un succès. Sinon enveloppe Composio :
+          // on inspecte out.ok. Le `typeof out !== "string"` narrow aussi le
+          // type pour TS avant l'accès à out.ok.
+          if (typeof out !== "string" && out.ok === false) {
             // Tool returned an explicit error — emit tool_call_failed
             const errorMsg = out.error ?? out.errorCode ?? "Erreur inconnue";
             eventBus.emit({

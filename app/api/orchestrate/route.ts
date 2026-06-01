@@ -37,6 +37,7 @@ const SESSION_REVALIDATION_CHUNKS = 20;
 function withHeartbeat(
   stream: ReadableStream<Uint8Array>,
   expectedUserId: string,
+  skipSessionRevalidation = false,
 ): ReadableStream<Uint8Array> {
   const encoder = new TextEncoder();
   const reader = stream.getReader();
@@ -70,7 +71,10 @@ function withHeartbeat(
           chunkCount++;
           // Re-validation de session périodique — pas de latence si session valide
           // (NextAuth lit le JWT depuis le cookie, pas de DB round-trip).
-          if (chunkCount % SESSION_REVALIDATION_CHUNKS === 0) {
+          // Skippée pour les service tokens (Bearer hsk_*) : ils n'ont pas de
+          // cookie NextAuth, donc getServerSession renverrait null → faux
+          // session_expired qui coupe le stream mid-synthèse (proxy Hive→Helm).
+          if (!skipSessionRevalidation && chunkCount % SESSION_REVALIDATION_CHUNKS === 0) {
             try {
               const session = await getServerSession(authOptions);
               const sessionUserId = (session as unknown as Record<string, unknown>)?.userId as
@@ -230,7 +234,7 @@ export async function POST(req: NextRequest) {
     throw err;
   }
 
-  return new Response(withHeartbeat(stream, scope.userId), {
+  return new Response(withHeartbeat(stream, scope.userId, scope.isServiceAccount ?? false), {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
