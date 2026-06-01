@@ -14,8 +14,19 @@ import { describe, expect, it } from "vitest";
 function applyAllowedToolsFilter(
   aiTools: Record<string, unknown>,
   allowedTools: string[] | undefined,
+  source: "legacy" | "cortex" = "legacy",
 ): Record<string, unknown> {
   const result = { ...aiTools };
+  if (source === "cortex") {
+    const allowedSet = new Set(allowedTools ?? []);
+    for (const name of Object.keys(result)) {
+      if (!allowedSet.has(name)) {
+        delete result[name];
+      }
+    }
+    return result;
+  }
+
   if (allowedTools && allowedTools.length > 0) {
     const allowedSet = new Set(allowedTools);
     for (const name of Object.keys(result)) {
@@ -81,6 +92,16 @@ describe("F-011 — allowedTools intersection effectif", () => {
   it("ne filtre rien si _allowedTools est vide", () => {
     const result = applyAllowedToolsFilter(fullToolset, []);
     expect(Object.keys(result)).toHaveLength(Object.keys(fullToolset).length);
+  });
+
+  it("source Cortex + _allowedTools vide expose zéro tool", () => {
+    const result = applyAllowedToolsFilter(fullToolset, [], "cortex");
+    expect(Object.keys(result)).toHaveLength(0);
+  });
+
+  it("source Cortex + allowlist explicite expose uniquement les tools listés", () => {
+    const result = applyAllowedToolsFilter(fullToolset, ["get_messages"], "cortex");
+    expect(Object.keys(result)).toEqual(["get_messages"]);
   });
 
   it("retourne un toolset vide si _allowedTools ne matche aucun tool", () => {
