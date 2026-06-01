@@ -104,10 +104,18 @@ function extractRecords(payload: unknown): RawCapabilityRecord[] {
       (v): v is RawCapabilityRecord => typeof v === "object" && v !== null,
     );
   }
+  if (Array.isArray(obj.items)) {
+    return obj.items.filter((v): v is RawCapabilityRecord => typeof v === "object" && v !== null);
+  }
   if (obj.data && typeof obj.data === "object") {
     const dataObj = obj.data as Record<string, unknown>;
     if (Array.isArray(dataObj.capabilities)) {
       return dataObj.capabilities.filter(
+        (v): v is RawCapabilityRecord => typeof v === "object" && v !== null,
+      );
+    }
+    if (Array.isArray(dataObj.items)) {
+      return dataObj.items.filter(
         (v): v is RawCapabilityRecord => typeof v === "object" && v !== null,
       );
     }

@@ -53,6 +53,28 @@ describe("cortex-resolver", () => {
     expect(result.tools).toEqual([]);
   });
 
+  it("mappe cortex_search depuis la shape canonique Cortex items[]", async () => {
+    vi.stubEnv("CORTEX_URL", "https://cortex.hearst.app");
+    vi.stubEnv("CORTEX_PUBLIC_API_KEY", "pk-test");
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({
+        items: [{ slug: "cortex_search", runtime: "hive:tool:cortex_search" }],
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await resolveCapabilities({
+      tenantId: "adrien",
+      contextId: "adrien",
+      userId: "adrien",
+    });
+
+    expect(result.status).toBe("ok");
+    expect(result.tools).toEqual(["cortex_search"]);
+  });
+
   it("retourne error contrôlé pour HTTP 500", async () => {
     vi.stubEnv("CORTEX_URL", "https://cortex.hearst.app");
     vi.stubEnv("CORTEX_PUBLIC_API_KEY", "pk-test");
