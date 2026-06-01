@@ -77,6 +77,7 @@ describe("resolveScope — Bearer hsk_* early-return", () => {
       tenantId: TENANT_ID,
       workspaceId: TENANT_ID,
       isDevFallback: false,
+      isServiceAccount: true,
     });
     expect(mockVerifyApiKey).toHaveBeenCalledWith(VALID_RAW_KEY);
     expect(mockGetUserId).not.toHaveBeenCalled();
@@ -164,6 +165,157 @@ describe("resolveScope — Bearer hsk_* early-return", () => {
 
     expect(scope?.userId).toBe(OWNER_USER_ID);
     expect(scope?.tenantId).toBe(TENANT_ID);
+    expect(mockGetUserId).not.toHaveBeenCalled();
+  });
+});
+
+// ─── Impersonation Hive ───────────────────────────────────────────────────────
+
+const HIVE_USER_ID = "11111111-2222-3333-4444-555555555555";
+const HIVE_TENANT_ID = "99999999-8888-7777-6666-555555555555";
+
+/** headers list mock qui répond aussi aux headers x-hive-*. */
+function hiveHeadersMock(opts: {
+  auth: string | null;
+  hiveUserId?: string | null;
+  hiveTenantId?: string | null;
+}) {
+  return {
+    get: vi.fn((name: string) => {
+      const n = name.toLowerCase();
+      if (n === "authorization") return opts.auth;
+      if (n === "x-hive-user-id") return opts.hiveUserId ?? null;
+      if (n === "x-hive-tenant-id") return opts.hiveTenantId ?? null;
+      return null;
+    }),
+  };
+}
+
+describe("resolveScope — impersonation Hive (Bearer hsk_* scope=impersonate)", () => {
+  it("scope=impersonate + headers Hive valides → identité Hive + composioEntityId + impersonatedBy", async () => {
+    mockHeaders.mockResolvedValue(
+      hiveHeadersMock({
+        auth: `Bearer ${VALID_RAW_KEY}`,
+        hiveUserId: HIVE_USER_ID,
+        hiveTenantId: HIVE_TENANT_ID,
+      }),
+    );
+    mockVerifyApiKey.mockResolvedValue({
+      tenantId: TENANT_ID,
+      userId: OWNER_USER_ID,
+      scopes: ["read", "impersonate"],
+    });
+
+    const { resolveScope } = await import("@/lib/platform/auth/scope");
+    const scope = await resolveScope({ context: "test-impersonate-ok" });
+
+    expect(scope).toEqual({
+      userId: HIVE_USER_ID,
+      tenantId: HIVE_TENANT_ID,
+      workspaceId: HIVE_TENANT_ID,
+      composioEntityId: `hive:${HIVE_TENANT_ID}`,
+      impersonatedBy: OWNER_USER_ID,
+      isDevFallback: false,
+      isServiceAccount: true,
+    });
+    // Aucun fall-through session
+    expect(mockGetUserId).not.toHaveBeenCalled();
+    expect(mockGetServerSession).not.toHaveBeenCalled();
+  });
+
+  it("token SANS scope impersonate → headers Hive ignorés, comportement service inchangé", async () => {
+    // Headers Hive présents mais la clé ne porte PAS le scope impersonate :
+    // ils doivent être totalement ignorés, scope = clé (pas composioEntityId).
+    mockHeaders.mockResolvedValue(
+      hiveHeadersMock({
+        auth: `Bearer ${VALID_RAW_KEY}`,
+        hiveUserId: HIVE_USER_ID,
+        hiveTenantId: HIVE_TENANT_ID,
+      }),
+    );
+    mockVerifyApiKey.mockResolvedValue({
+      tenantId: TENANT_ID,
+      userId: OWNER_USER_ID,
+      scopes: ["read", "write"],
+    });
+
+    const { resolveScope } = await import("@/lib/platform/auth/scope");
+    const scope = await resolveScope({ context: "test-no-impersonate-scope" });
+
+    expect(scope).toEqual({
+      userId: OWNER_USER_ID,
+      tenantId: TENANT_ID,
+      workspaceId: TENANT_ID,
+      isDevFallback: false,
+      isServiceAccount: true,
+    });
+    expect(scope?.composioEntityId).toBeUndefined();
+    expect(scope?.impersonatedBy).toBeUndefined();
+  });
+
+  it("scope=impersonate + x-hive-user-id manquant → reject (null), pas de fall-through", async () => {
+    mockHeaders.mockResolvedValue(
+      hiveHeadersMock({
+        auth: `Bearer ${VALID_RAW_KEY}`,
+        hiveUserId: null,
+        hiveTenantId: HIVE_TENANT_ID,
+      }),
+    );
+    mockVerifyApiKey.mockResolvedValue({
+      tenantId: TENANT_ID,
+      userId: OWNER_USER_ID,
+      scopes: ["impersonate"],
+    });
+    mockGetUserId.mockResolvedValue("cookie-user");
+
+    const { resolveScope } = await import("@/lib/platform/auth/scope");
+    const scope = await resolveScope({ context: "test-impersonate-missing-user" });
+
+    expect(scope).toBeNull();
+    // Sécu : aucun fall-through cookie/session
+    expect(mockGetUserId).not.toHaveBeenCalled();
+    expect(mockGetServerSession).not.toHaveBeenCalled();
+  });
+
+  it("scope=impersonate + x-hive-tenant-id manquant → reject (null)", async () => {
+    mockHeaders.mockResolvedValue(
+      hiveHeadersMock({
+        auth: `Bearer ${VALID_RAW_KEY}`,
+        hiveUserId: HIVE_USER_ID,
+        hiveTenantId: null,
+      }),
+    );
+    mockVerifyApiKey.mockResolvedValue({
+      tenantId: TENANT_ID,
+      userId: OWNER_USER_ID,
+      scopes: ["impersonate"],
+    });
+
+    const { resolveScope } = await import("@/lib/platform/auth/scope");
+    const scope = await resolveScope({ context: "test-impersonate-missing-tenant" });
+
+    expect(scope).toBeNull();
+    expect(mockGetUserId).not.toHaveBeenCalled();
+  });
+
+  it("scope=impersonate + headers Hive vides/whitespace → reject (null)", async () => {
+    mockHeaders.mockResolvedValue(
+      hiveHeadersMock({
+        auth: `Bearer ${VALID_RAW_KEY}`,
+        hiveUserId: "   ",
+        hiveTenantId: HIVE_TENANT_ID,
+      }),
+    );
+    mockVerifyApiKey.mockResolvedValue({
+      tenantId: TENANT_ID,
+      userId: OWNER_USER_ID,
+      scopes: ["impersonate"],
+    });
+
+    const { resolveScope } = await import("@/lib/platform/auth/scope");
+    const scope = await resolveScope({ context: "test-impersonate-whitespace" });
+
+    expect(scope).toBeNull();
     expect(mockGetUserId).not.toHaveBeenCalled();
   });
 });

@@ -82,6 +82,12 @@ interface OrchestrateInput {
   missionContext?: string;
   tenantId?: string;
   workspaceId?: string;
+  /**
+   * Impersonation Hive — entity Composio à utiliser pour la discovery/exécution
+   * des tools. Présent uniquement sous Bearer hsk_* `impersonate` (`hive:<tenant>`).
+   * Absent pour les users Helm natifs → le pipeline retombe sur userId.
+   */
+  composioEntityId?: string;
   /** Price cap (USD) pour ce run — rejette si dépassé */
   max_cost_usd?: number;
   /** Injected by runPipeline — resolved capability domain */
@@ -194,6 +200,8 @@ async function handleAiPipeline(
     missionId: input.missionId,
     // Profil utilisateur pour personnalisation du system prompt
     userName: input.userName,
+    // Impersonation Hive : entity Composio (hive:<tenant>) si présent, sinon undefined
+    composioEntityId: input.composioEntityId,
   });
 }
 

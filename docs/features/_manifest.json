@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-01T02:42:54.174Z",
+  "generatedAt": "2026-06-01T05:34:05.944Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1832,
+    "testsExistants": 1839,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 333,
-    "cases": 3127,
+    "files": 334,
+    "cases": 3134,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -142,8 +142,8 @@
         "I-9. Variables d'env critiques",
         "I-10. `registerProviderUsage()` au signIn"
       ],
-      "testsExistantsCount": 110,
-      "testsOnDisk": 110,
+      "testsExistantsCount": 115,
+      "testsOnDisk": 115,
       "testFilesOnDisk": 13,
       "testsDocExistants": 3,
       "testsManquantsCount": 16,
@@ -212,9 +212,9 @@
         "I-17. ChatDock injecte `attached_asset_ids` depuis `attachedAssets`",
         "I-18. ApprovalInline pour writes — flow obligatoire"
       ],
-      "testsExistantsCount": 253,
-      "testsOnDisk": 253,
-      "testFilesOnDisk": 31,
+      "testsExistantsCount": 255,
+      "testsOnDisk": 255,
+      "testFilesOnDisk": 32,
       "testsDocExistants": 23,
       "testsManquantsCount": 27,
       "testGap": "moyen",

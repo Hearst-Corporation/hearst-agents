@@ -31,6 +31,20 @@ export interface CanonicalScope {
    * sinon `getServerSession` renvoie null → faux `session_expired` mid-stream.
    */
   isServiceAccount?: boolean;
+  /**
+   * Entity Composio à utiliser pour résoudre les tools / exécuter les actions.
+   * Présent UNIQUEMENT en impersonation Hive (`hive:<tenantId>`). Quand absent,
+   * les call-sites Composio retombent sur `userId` (comportement Helm natif).
+   * Ne change ni `COMPOSIO_API_KEY` ni le compte Composio — c'est le `userId`
+   * passé au SDK (`tools.get(entityId)` / `tools.execute({ userId: entityId })`).
+   */
+  composioEntityId?: string;
+  /**
+   * Service principal (api_keys.user_id) à l'origine d'une impersonation.
+   * Présent UNIQUEMENT quand le scope a été produit via un Bearer hsk_* portant
+   * le scope `impersonate`. Sert d'audit : qui a impersoné l'utilisateur Hive.
+   */
+  impersonatedBy?: string;
 }
 
 interface ResolveScopeOptions {
@@ -156,14 +170,28 @@ export async function resolveScope(
  * Mode service : `userId = api_keys.user_id` (obligatoire, rejected si null),
  * `tenantId = api_keys.tenant_id`, `workspaceId = tenantId` (one-to-one en mode
  * backend-to-backend).
+ *
+ * Mode impersonation Hive : si la clé porte le scope `impersonate`, le scope
+ * effectif n'est PLUS celui de la clé mais celui de l'utilisateur Hive cible,
+ * lu depuis les headers `x-hive-user-id` / `x-hive-tenant-id`. La clé reste
+ * l'autorité (`impersonatedBy = verified.userId`) ; l'identité runtime devient
+ * celle du user Hive. Tout header manquant/invalide → reject explicite (null),
+ * JAMAIS de fall-through cookie/session (une clé `impersonate` compromise ne
+ * doit pas retomber sur la session du navigateur courant).
  */
+const HIVE_IMPERSONATE_SCOPE = "impersonate";
+
 async function resolveBearerScope(
   context: string,
 ): Promise<{ matched: false } | { matched: true; scope: CanonicalScope | null }> {
   let authHeader: string | null = null;
+  let hiveUserId: string | null = null;
+  let hiveTenantId: string | null = null;
   try {
     const headersList = await headers();
     authHeader = headersList.get("authorization");
+    hiveUserId = headersList.get("x-hive-user-id");
+    hiveTenantId = headersList.get("x-hive-tenant-id");
   } catch {
     return { matched: false };
   }
@@ -183,6 +211,49 @@ async function resolveBearerScope(
       `[Scope] Bearer ${API_KEY_PREFIX} valide mais user_id null — rejected (${context}, tenant: ${redactId(verified.tenantId)})`,
     );
     return { matched: true, scope: null };
+  }
+
+  // ── Impersonation Hive ────────────────────────────────────────────────────
+  // Activée UNIQUEMENT si la clé porte le scope `impersonate`. Sans ce scope,
+  // les headers x-hive-* sont totalement ignorés → comportement service inchangé.
+  if (verified.scopes.includes(HIVE_IMPERSONATE_SCOPE)) {
+    const trimmedUser = hiveUserId?.trim();
+    const trimmedTenant = hiveTenantId?.trim();
+    if (!trimmedUser || !trimmedTenant) {
+      console.warn(
+        `[Scope] Bearer ${API_KEY_PREFIX} scope=${HIVE_IMPERSONATE_SCOPE} mais headers Hive ` +
+          `manquants/invalides — rejected sans fall-through (${context}, ` +
+          `principal: ${redactId(verified.userId)})`,
+      );
+      return { matched: true, scope: null };
+    }
+
+    // Log d'audit structuré, zéro secret : on n'expose jamais la clé brute ni
+    // les ids complets — uniquement les préfixes redacted + timestamp ISO.
+    console.info(
+      JSON.stringify({
+        event: "hive_impersonation_resolved",
+        context,
+        principalRedacted: redactId(verified.userId),
+        impersonatedUserRedacted: redactId(trimmedUser),
+        tenantRedacted: redactId(trimmedTenant),
+        ts: new Date().toISOString(),
+      }),
+    );
+
+    return {
+      matched: true,
+      scope: {
+        userId: trimmedUser,
+        tenantId: trimmedTenant,
+        // Convention existante : workspaceId = tenantId en mode service/backend.
+        workspaceId: trimmedTenant,
+        composioEntityId: `hive:${trimmedTenant}`,
+        impersonatedBy: verified.userId,
+        isDevFallback: false,
+        isServiceAccount: true,
+      },
+    };
   }
 
   return {

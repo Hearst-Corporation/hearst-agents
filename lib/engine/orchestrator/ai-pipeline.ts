@@ -127,6 +127,14 @@ export interface AiPipelineInput {
    * l'adresse. Absent/vide → prompt inchangé (fail-soft).
    */
   userName?: string;
+  /**
+   * Impersonation Hive — entity Composio à utiliser pour la discovery
+   * (`getToolsForUser`) ET l'exécution (`toAiTools`) des tools tiers. Présent
+   * uniquement sous Bearer hsk_* `impersonate` (`hive:<tenantId>`). Quand absent,
+   * on retombe sur `userId` → comportement Helm natif strictement inchangé.
+   * N'affecte PAS les tools natifs Google (backed par les tokens NextAuth de userId).
+   */
+  composioEntityId?: string;
 }
 
 // Orchestrateur via Hypercli (endpoint compatible Anthropic /v1/messages) :
@@ -471,6 +479,12 @@ export async function runAiPipeline(
   const resolvedTenantId: string = input.tenantId;
   const resolvedWorkspaceId: string = input.workspaceId;
 
+  // Impersonation Hive — entity Composio effective pour la discovery ET
+  // l'exécution des tools tiers. En impersonation, c'est `hive:<tenantId>` ;
+  // sinon (user Helm natif), on retombe sur userId → comportement inchangé.
+  // Les tools natifs Google restent câblés sur input.userId (tokens NextAuth).
+  const composioEntityId: string = input.composioEntityId ?? input.userId;
+
   // ── 1. Discover the two tool surfaces in parallel ──────────
   // - Native Google tools (Gmail / Calendar / Drive) backed by NextAuth
   //   tokens — the user gets these the moment they sign in via the Google
@@ -486,7 +500,7 @@ export async function runAiPipeline(
         console.error("[AiPipeline] native Google discovery failed:", err);
         return {} as Record<string, unknown>;
       }),
-      getToolsForUser(input.userId).catch((err) => {
+      getToolsForUser(composioEntityId).catch((err) => {
         console.error("[AiPipeline] Composio discovery failed:", err);
         return [] as Awaited<ReturnType<typeof getToolsForUser>>;
       }),
@@ -590,7 +604,7 @@ export async function runAiPipeline(
     ...computerActionTools,
     ...missionTools,
     ...meetingsTools,
-    ...toAiTools(filteredComposio, { userId: input.userId, tenantId: resolvedTenantId }),
+    ...toAiTools(filteredComposio, { userId: composioEntityId, tenantId: resolvedTenantId }),
     request_connection: buildRequestConnectionTool(engine, eventBus),
     create_scheduled_mission: buildCreateScheduledMissionTool(engine, eventBus, {
       userId: input.userId,

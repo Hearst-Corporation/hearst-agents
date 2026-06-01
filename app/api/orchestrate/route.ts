@@ -217,6 +217,9 @@ export async function POST(req: NextRequest) {
       workspaceId: scope.workspaceId,
       max_cost_usd: PRICE_CAP_USD,
       userName: scope.userName,
+      // Impersonation Hive : entity Composio dérivée du scope (présent uniquement
+      // sous Bearer hsk_* portant le scope `impersonate`). Absent = users natifs.
+      composioEntityId: scope.composioEntityId,
     });
   } catch (err) {
     if (err instanceof RateLimitExceededError) {
