@@ -12,6 +12,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
 
 const allTools: DiscoveredTool[] = [
+  { name: "GMAIL_FETCH_EMAILS", app: "gmail", description: "fetch", parameters: {} },
   { name: "GMAIL_SEND_EMAIL", app: "gmail", description: "send", parameters: {} },
   { name: "GITHUB_CREATE_ISSUE", app: "github", description: "issue", parameters: {} },
   { name: "SLACK_SEND_MESSAGE", app: "slack", description: "msg", parameters: {} },
@@ -106,9 +107,31 @@ describe("runAiPipeline — domain filter", () => {
     });
     expect(toAiTools).toHaveBeenCalledTimes(1);
     const passedTools = toAiTools.mock.calls[0][0] as DiscoveredTool[];
-    const apps = passedTools.map((t) => t.app).sort();
+    const apps = [...new Set(passedTools.map((t) => t.app))].sort();
     expect(apps).toEqual(["gmail", "slack"]);
     expect(apps).not.toContain("github");
+  });
+
+  it("préserve les slugs Composio réels après intersection _allowedTools", async () => {
+    toAiTools.mockReturnValue({
+      GMAIL_FETCH_EMAILS: {
+        inputSchema: {},
+        execute: vi.fn(),
+      },
+    });
+
+    await runAiPipeline(makeEngine(), makeBus(), {
+      userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
+      message: "liste mes emails",
+      domain: "communication",
+      _allowedTools: ["get_messages", "send_message"],
+    });
+
+    const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
+    expect(streamArgs.tools).toHaveProperty("GMAIL_FETCH_EMAILS");
+    expect(streamArgs.tools).not.toHaveProperty("GITHUB_CREATE_ISSUE");
   });
 
   it("domain=developer → toAiTools receives only github", async () => {
@@ -157,7 +180,7 @@ describe("runAiPipeline — domain filter", () => {
       domain: "communication",
     });
     const args = buildAgentSystemPrompt.mock.calls[0][0];
-    const apps = (args.composioTools as DiscoveredTool[]).map((t) => t.app).sort();
+    const apps = [...new Set((args.composioTools as DiscoveredTool[]).map((t) => t.app))].sort();
     expect(apps).toEqual(["gmail", "slack"]);
   });
 });

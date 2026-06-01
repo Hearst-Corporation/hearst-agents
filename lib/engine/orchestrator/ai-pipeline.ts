@@ -633,6 +633,7 @@ export async function runAiPipeline(
         }
       : {}),
   };
+  const filteredComposioToolNames = new Set(filteredComposio.map((tool) => tool.name));
 
   // ── F-011 : allowedTools intersection ──────────────────────
   // Si l'agent scope définit une liste de tools autorisés, on restreint
@@ -645,7 +646,11 @@ export async function runAiPipeline(
   // perd l'accès au vault et part en recherche web par défaut. Symétrique du fix
   // appliqué côté router (entry.tools + CROSS_DOMAIN_TOOLS).
   if (input._allowedTools && input._allowedTools.length > 0) {
-    const allowedSet = new Set([...input._allowedTools, ...CROSS_DOMAIN_TOOLS]);
+    const allowedSet = new Set([
+      ...input._allowedTools,
+      ...CROSS_DOMAIN_TOOLS,
+      ...filteredComposioToolNames,
+    ]);
     for (const name of Object.keys(aiTools)) {
       if (!allowedSet.has(name)) {
         delete (aiTools as Record<string, unknown>)[name];
