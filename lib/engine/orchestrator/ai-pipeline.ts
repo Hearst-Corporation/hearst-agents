@@ -660,7 +660,18 @@ export async function runAiPipeline(
     // - [] => AUCUN tool exposé
     // - Pas d'auto-ajout CRITICAL/CROSS_DOMAIN
     // - Capability inconnue = ignorée (mapping déjà filtré en amont)
-    const allowedSet = new Set(expandAllowedToolsToRuntimeSlugs(input._allowedTools ?? []));
+    //
+    // EXCEPTION Composio (parité avec le branch legacy) : les tools Composio qui
+    // ont survécu à filterToolsByDomain + write-guard (filteredComposioToolNames)
+    // ne doivent PAS être ré-évincés par la politique Cortex. Le profil de
+    // capabilities Cortex mappe uniquement des tools natifs Helm (ex: cortex_search,
+    // gmail_fetch_emails) — les slugs Composio uppercase (GMAIL_FETCH_EMAILS,
+    // GMAIL_LIST_THREADS…) ne figurent jamais dans CAPABILITY_TO_HELM_TOOLS et
+    // seraient donc tous supprimés sans cette exception.
+    const allowedSet = new Set([
+      ...expandAllowedToolsToRuntimeSlugs(input._allowedTools ?? []),
+      ...filteredComposioToolNames,
+    ]);
     for (const name of Object.keys(aiTools)) {
       if (!allowedSet.has(name)) {
         delete (aiTools as Record<string, unknown>)[name];

@@ -174,7 +174,11 @@ describe("runAiPipeline — domain filter", () => {
     expect(streamArgs.tools).toHaveProperty("request_connection");
   });
 
-  it("source cortex + allowlist vide => aucun tool exposé", async () => {
+  it("source cortex + allowlist vide => tools natifs Helm bloqués, Composio domain-filtered survivent", async () => {
+    // _allowedTools=[] bloque tous les tools natifs Helm.
+    // Les Composio déjà gated par filterToolsByDomain passent quand même :
+    // leurs slugs uppercase ne sont pas dans CAPABILITY_TO_HELM_TOOLS et ne
+    // peuvent pas être listés dans _allowedTools par Cortex.
     toAiTools.mockReturnValue({
       SLACK_SEND_MESSAGE: {
         inputSchema: {},
@@ -199,10 +203,17 @@ describe("runAiPipeline — domain filter", () => {
     });
 
     const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
-    expect(Object.keys(streamArgs.tools)).toHaveLength(0);
+    // Native Helm tool non listé → absent.
+    expect(streamArgs.tools).not.toHaveProperty("gmail_fetch_emails");
+    // Composio domain-filtered → présent même si _allowedTools est vide.
+    expect(streamArgs.tools).toHaveProperty("SLACK_SEND_MESSAGE");
   });
 
-  it("source cortex + cortex_search => cortex_search autorisé uniquement", async () => {
+  it("source cortex + cortex_search => cortex_search autorisé + Composio domain-filtered survivent", async () => {
+    // SLACK_SEND_MESSAGE est un tool Composio qui a passé filterToolsByDomain (domain=general).
+    // Avec la policy Cortex, les tools natifs Helm sont contrôlés par _allowedTools,
+    // MAIS les Composio déjà gated en amont par filterToolsByDomain ne doivent PAS
+    // être ré-évincés (leurs slugs uppercase ne figurent pas dans CAPABILITY_TO_HELM_TOOLS).
     toAiTools.mockReturnValue({
       SLACK_SEND_MESSAGE: {
         inputSchema: {},
@@ -227,9 +238,12 @@ describe("runAiPipeline — domain filter", () => {
     });
 
     const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
+    // Native Helm tool explicitement autorisé → présent.
     expect(streamArgs.tools).toHaveProperty("cortex_search");
+    // Native Google tool non listé dans _allowedTools → absent (contrôlé par Cortex).
     expect(streamArgs.tools).not.toHaveProperty("gmail_fetch_emails");
-    expect(streamArgs.tools).not.toHaveProperty("SLACK_SEND_MESSAGE");
+    // Composio tool domain-filtered → présent (gating Composio = domain filter, pas Cortex).
+    expect(streamArgs.tools).toHaveProperty("SLACK_SEND_MESSAGE");
   });
 
   it("domain=developer → toAiTools receives only github", async () => {
