@@ -196,6 +196,7 @@ async function handleAiPipeline(
   input: OrchestrateInput,
   scope: TenantScope,
   abortSignal?: AbortSignal,
+  executionMode?: string,
 ): Promise<void> {
   eventBus.emit({
     type: "orchestrator_log",
@@ -218,6 +219,9 @@ async function handleAiPipeline(
     personaId: input.personaId,
     missionContext: input.missionContext,
     abortSignal,
+    // PERF (2026-06-04) : mode d'exécution → en direct_answer, ai-pipeline saute
+    // la discovery Composio + l'injection des schémas de tools dans le prompt.
+    executionMode,
     // F-011 : passer les tools autorisés pour l'agent scope courant
     _allowedTools: input._allowedTools,
     _allowedToolsSource: input._allowedToolsSource,
@@ -837,7 +841,7 @@ async function runPipeline(
     // Every other execution mode flows through the same AI pipeline. The
     // model decides which provider tools to call (Gmail, Calendar, Slack…)
     // — there is no orchestrator-level pre-fetch of user data.
-    await handleAiPipeline(engine, eventBus, input, scope, abortController.signal);
+    await handleAiPipeline(engine, eventBus, input, scope, abortController.signal, decision.mode);
   } finally {
     if (abortController.signal.aborted) {
       eventBus.emit({
