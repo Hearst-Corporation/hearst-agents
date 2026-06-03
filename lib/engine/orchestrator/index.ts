@@ -153,6 +153,19 @@ export function orchestrate(db: SupabaseClient, input: OrchestrateInput): Readab
       // les runs longs (research, browser, video gen, meeting bot).
       sse.startHeartbeat(20_000);
 
+      // ── Signal d'accusé immédiat (perf TTFT perçu) ────────────────────────
+      // `runPipeline` fait du travail async avant le 1er event utile (WAL Redis,
+      // getRecentMessages, resolveCapabilities, RunEngine.create…) : ~2-3 s sur
+      // un cold start. Sans signal précoce, le client reste muet pendant ce
+      // temps. On émet donc un `orchestrator_log` SYNCHRONE dès l'ouverture du
+      // flux — il part en <50 ms après le TTFB réseau, AVANT tout I/O — pour que
+      // l'UI affiche un indicateur "réfléchit…" instantanément. Le `run_started`
+      // (avec run_id réel) suit dès que RunEngine est créé. Type déjà géré par
+      // l'adaptateur SSE → no-op visuel si le client ne l'affiche pas.
+      // run_id="" : placeholder — le RunEngine (et donc l'id réel) n'existe pas
+      // encore. L'adaptateur SSE de orchestrator_log ne lit que `message`.
+      eventBus.emit({ type: "orchestrator_log", run_id: "", message: "request_accepted" });
+
       runPipeline(db, eventBus, sse, input)
         .catch((err) => {
           console.error("[Orchestrator] pipeline error:", err);
