@@ -26,7 +26,7 @@ export const ORCHESTRATOR_MODEL = process.env.HYPERCLI_API_KEY
 // Model id pour l'endpoint OpenAI-compatible (/v1/chat/completions), utilisé par
 // l'AI pipeline (streamText). Pas de suffixe "-anthropic" : ce chemin évite le
 // thinking forcé de l'endpoint /messages (cf. ai-pipeline.ts). TTFT ~1,3 s vs ~12 s.
-export const ORCHESTRATOR_MODEL_OAI = "kimi-k2.6";
+export const ORCHESTRATOR_MODEL_OAI = process.env.ORCHESTRATOR_MODEL_OAI ?? "gpt-4o";
 
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
 
