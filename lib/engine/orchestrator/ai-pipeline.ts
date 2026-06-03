@@ -24,7 +24,11 @@ import {
 } from "@/lib/capabilities/taxonomy";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
-import { filterToolsByDomain, isWriteAction } from "@/lib/connectors/composio/write-guard";
+import {
+  DOMAIN_APP_ALLOWLIST,
+  filterToolsByDomain,
+  isWriteAction,
+} from "@/lib/connectors/composio/write-guard";
 import { upsertEmbedding } from "@/lib/embeddings/store";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import { createScheduledMission } from "@/lib/engine/runtime/missions/create-mission";
@@ -43,6 +47,7 @@ import { getRetrievedMemoryForUser } from "@/lib/memory/retrieval-context";
 import { appendModelMessages, getRecentModelMessages } from "@/lib/memory/store";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 import { flushLangfuse, startTrace } from "@/lib/observability/langfuse";
+import { perfMark } from "@/lib/observability/perf-mark";
 import { getDefaultPersona, getPersonaById, getPersonaForSurface } from "@/lib/personas/store";
 import { getApplicableReports } from "@/lib/reports/catalog";
 import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
@@ -169,10 +174,35 @@ export interface AiPipelineInput {
 // défini en prod). Inverser la priorité faisait échouer le build de la requête
 // → stream stalled 30 s (run_failed) en prod.
 const hyperKey = process.env.KIMI_API_KEY ?? process.env.HYPERCLI_API_KEY ?? "";
+
+// Custom fetch : injecte `enable_thinking: false` dans le body des appels chat
+// completions. MESURÉ (2026-06-03) : avec un gros system prompt, Kimi K2.6 émet
+// un bloc <think>…</think> inline dans le content (reasoning_field=0 mais
+// <think> dans le texte) que le SSEAdapter Helm doit DROP avant le 1er token
+// visible → ~3.3 s de TTFT perdu. `enable_thinking:false` ne supprime pas le
+// <think> (imposé modèle) mais le RACCOURCIT fortement → TTFT visible 2.2s→0.7s.
+// Le SDK @ai-sdk/openai v3 n'expose pas extraBody au niveau provider ; on passe
+// donc par le hook `fetch`. No-op sur les requêtes non-JSON.
+const hyperFetch: typeof fetch = async (input, init) => {
+  if (init?.body && typeof init.body === "string") {
+    try {
+      const parsed = JSON.parse(init.body);
+      if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
+        parsed.enable_thinking = false;
+        init = { ...init, body: JSON.stringify(parsed) };
+      }
+    } catch {
+      // body non-JSON → on ne touche pas.
+    }
+  }
+  return fetch(input, init);
+};
+
 const hypercli = createOpenAI({
   apiKey: hyperKey,
   baseURL:
     process.env.KIMI_BASE_URL ?? process.env.HYPERCLI_BASE_URL ?? "https://api.hypercli.com/v1",
+  fetch: hyperFetch,
 });
 // hypercli.chat(model) cible /v1/chat/completions (OpenAI-compat) — l'endpoint
 // SANS thinking forcé, contrairement à /v1/messages. C'est le cœur du fix TTFT.
@@ -185,7 +215,13 @@ const hypercli = createOpenAI({
 // bloquant : au-delà du budget, on continue sans (system prompt dégradé mais
 // run rapide). withTimeout borne chaque source à son budget propre.
 const PREFETCH_TOOLS_TIMEOUT_MS = Number(process.env.PREFETCH_TOOLS_TIMEOUT_MS ?? 4_000);
-const PREFETCH_MEMORY_TIMEOUT_MS = Number(process.env.PREFETCH_MEMORY_TIMEOUT_MS ?? 2_500);
+// Mémoire (briefing/KG/LTM) = enrichissement pur du system prompt. Mesuré en
+// local : `briefing` (Redis + LLM) timeoute quasi systématiquement et, comme
+// les 5 sources tournent en parallèle, c'est lui qui dictait le temps du
+// Promise.all (~2,5 s ajoutés AVANT le LLM à chaque tour). On serre à 800 ms :
+// si la mémoire n'est pas chaude, on part sans (réponse rapide) plutôt que de
+// faire patienter. Le briefing chaud (cache) reste injecté quand il répond vite.
+const PREFETCH_MEMORY_TIMEOUT_MS = Number(process.env.PREFETCH_MEMORY_TIMEOUT_MS ?? 800);
 
 function withTimeout<T>(p: Promise<T>, ms: number, label: string, fallback: T): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -564,7 +600,18 @@ export async function runAiPipeline(
         {} as Record<string, unknown>,
       ),
       withTimeout(
-        getToolsForUser(composioEntityId).catch((err) => {
+        // Pré-filtre apps sur domaine FORT : si le domaine résolu a une allowlist
+        // (developer/communication/finance/…), on restreint la discovery Composio
+        // à ces apps → évite N fetch per-toolkit inutiles. getToolsForUser
+        // intersecte `apps` avec les apps réellement connectées du user (no-op si
+        // aucune ne matche). Pour general/research (chat libre, cas le + fréquent),
+        // pas d'allowlist → discovery complète, filterToolsByDomain reste le filet.
+        getToolsForUser(
+          composioEntityId,
+          DOMAIN_APP_ALLOWLIST[input.domain ?? "general"]
+            ? { apps: DOMAIN_APP_ALLOWLIST[input.domain as string] }
+            : {},
+        ).catch((err) => {
           console.error("[AiPipeline] Composio discovery failed:", err);
           return [] as Awaited<ReturnType<typeof getToolsForUser>>;
         }),
@@ -1131,6 +1178,7 @@ export async function runAiPipeline(
     // 1er chunk lui-même n'arrive jamais après création du stream).
     armStreamWatchdog();
 
+    let _markedFirstToken = false;
     for await (const event of result.fullStream) {
       // P1-D — PAS de réarmement aveugle ici. Le watchdog token n'est (ré)armé
       // que sur `text-delta` (streaming de tokens LLM = phase où un stall est
@@ -1139,6 +1187,12 @@ export async function runAiPipeline(
       // Voir le commentaire DEUX PHASES sur armStreamWatchdog plus haut.
       switch (event.type) {
         case "text-delta": {
+          // PERF-MARK borne (a) : 1er token LLM produit en interne (vs réception
+          // client mesurée par _perf-local/measure.mjs). No-op si PERF_MARKS≠1.
+          if (!_markedFirstToken) {
+            perfMark(engine.id, "llm_first_token");
+            _markedFirstToken = true;
+          }
           // Le LLM streame des tokens : (ré)arme le watchdog token et coupe
           // tout garde-fou tool encore actif (1er text-delta après un
           // tool-result = le LLM a repris la main).

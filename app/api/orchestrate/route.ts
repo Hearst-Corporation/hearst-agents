@@ -7,6 +7,7 @@ import { ensureSchedulerStarted } from "@/lib/engine/runtime/missions/scheduler-
 import { RateLimitExceededError } from "@/lib/llm/errors";
 import { getTenantUsage, secondsUntilMidnightUtc } from "@/lib/llm/usage-tracker";
 import { MAX_MESSAGES_PER_CONVERSATION } from "@/lib/memory/store";
+import { perfMark } from "@/lib/observability/perf-mark";
 import { authOptions } from "@/lib/platform/auth/options";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
@@ -69,6 +70,10 @@ function withHeartbeat(
           if (done) break;
 
           chunkCount++;
+          // PERF-MARK borne (d) : 1er chunk re-lu par le wrapper withHeartbeat
+          // (la 2e couche de stream). Comparé à la borne (c) sse_enqueue : si
+          // l'écart est notable, la double couche coûte. No-op si PERF_MARKS≠1.
+          if (chunkCount === 1) perfMark(expectedUserId, "withheartbeat_first_chunk");
           // Re-validation de session périodique — pas de latence si session valide
           // (NextAuth lit le JWT depuis le cookie, pas de DB round-trip).
           // Skippée pour les service tokens (Bearer hsk_*) : ils n'ont pas de

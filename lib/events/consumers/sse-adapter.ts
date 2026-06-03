@@ -5,6 +5,7 @@
  * This adapter filters and maps them to a client-friendly format.
  */
 
+import { perfMark } from "@/lib/observability/perf-mark";
 import type { RunEventBus } from "../bus";
 import type { RunEvent } from "../types";
 
@@ -220,6 +221,9 @@ export class SSEAdapter {
   // State per-stream pour filter les balises <think>...</think> de Kimi.
   // Une instance d'adapter = un run = un état isolé.
   private thinkState: ThinkStripState = { inside: false, pending: "" };
+  // PERF-MARK : flags "1ère fois" pour ne marquer que le 1er text_delta.
+  private markedAdapterIn = false;
+  private markedEnqueue = false;
 
   constructor(bus: RunEventBus) {
     this.cleanup = bus.on((event) => this.handleEvent(event));
@@ -277,6 +281,12 @@ export class SSEAdapter {
   }
 
   private handleEvent(event: RunEvent): void {
+    // PERF-MARK borne (b) : 1er text_delta entrant dans le SSEAdapter (vs borne
+    // (a) llm_first_token). Mesure le délai emit→adapter. No-op si PERF_MARKS≠1.
+    if (event.type === "text_delta" && !this.markedAdapterIn) {
+      this.markedAdapterIn = true;
+      perfMark(event.run_id ?? "?", "sse_adapter_in");
+    }
     // Flush du buffer think-strip avant la fin du run : si du contenu restait
     // bufferisé (tail ambigu type "<" non suivi de tag), on l'émet en dernier
     // text_delta. Sinon il serait perdu (state.pending = "" au prochain run).
@@ -287,15 +297,21 @@ export class SSEAdapter {
     ) {
       const tail = flushThinkBuffer(this.thinkState);
       if (tail) {
-        this.send({ type: "text_delta", delta: tail });
+        this.send({ type: "text_delta", delta: tail }, event.run_id);
       }
     }
     const sse = this.toSSE(event);
-    if (sse) this.send(sse);
+    if (sse) this.send(sse, event.run_id);
   }
 
-  private send(data: Record<string, unknown>): void {
+  private send(data: Record<string, unknown>, runId?: string): void {
     if (!this.controller) return;
+    // PERF-MARK borne (c) : 1er enqueue effectif vers le client (vs borne (b)).
+    // Mesure le coût toSSE+stripThink. No-op si PERF_MARKS≠1.
+    if (data.type === "text_delta" && !this.markedEnqueue) {
+      this.markedEnqueue = true;
+      perfMark(runId ?? "?", "sse_enqueue");
+    }
     try {
       this.controller.enqueue(this.encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
     } catch {

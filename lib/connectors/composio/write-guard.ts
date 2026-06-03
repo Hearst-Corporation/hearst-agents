@@ -131,7 +131,7 @@ const ESSENTIAL_RESERVE = Math.floor(MAX_TOOLS / 2);
 
 // ── Domain → Composio app allowlist ──────────────────────────
 
-const DOMAIN_APP_ALLOWLIST: Record<string, string[]> = {
+export const DOMAIN_APP_ALLOWLIST: Record<string, string[]> = {
   communication: ["gmail", "slack", "outlook", "teams", "whatsapp", "telegram", "discord"],
   productivity: [
     "googlecalendar",

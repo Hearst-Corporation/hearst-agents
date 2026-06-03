@@ -106,6 +106,28 @@ const DOMAIN_TO_TOOL_CONTEXT: Record<Domain, ToolContext> = {
  * Surface override: if the user is on a specific surface (inbox, calendar, files),
  * that takes priority over keyword detection.
  */
+/**
+ * Champs de scope dérivés d'un domaine connu (sous-ensemble de CapabilityScope).
+ * Utilisé par le routing cognitif (domain-classifier) pour ré-appliquer la
+ * taxonomy après affinage LLM du domaine, sans re-scorer les mots-clés.
+ */
+export function scopeForDomain(
+  domain: Domain,
+): Pick<
+  CapabilityScope,
+  "domain" | "capabilities" | "providers" | "allowedTools" | "validAgents" | "toolContext"
+> {
+  const entry = DOMAIN_TAXONOMY[domain];
+  return {
+    domain,
+    capabilities: entry.capabilities,
+    providers: entry.providers,
+    allowedTools: [...entry.tools, ...CROSS_DOMAIN_TOOLS],
+    validAgents: entry.validAgents,
+    toolContext: DOMAIN_TO_TOOL_CONTEXT[domain],
+  };
+}
+
 export function resolveCapabilityScope(message: string, surface?: string): CapabilityScope {
   let domain: Domain;
 

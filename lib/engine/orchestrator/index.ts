@@ -16,10 +16,12 @@ import {
   resolveCapabilityContextId,
   shouldSkipCortexResolve,
 } from "@/lib/capabilities/cortex-resolver";
+import { classifyDomainLLM } from "@/lib/capabilities/domain-classifier";
 import {
   type ExecutionDecision,
   resolveCapabilityScope,
   resolveExecutionMode,
+  scopeForDomain,
   scopeRequiresProviders,
 } from "@/lib/capabilities/router";
 import { preflightConnector } from "@/lib/connectors/control-plane/preflight";
@@ -284,7 +286,34 @@ async function runPipeline(
   input._scheduleDirective = scheduleDetected;
 
   // ── 1. Capability-first routing ─────────────────────────────
-  const capScope = resolveCapabilityScope(input.message, input.surface);
+  // Chemin rapide : scoring mots-clés (O(1), 0 IA).
+  let capScope = resolveCapabilityScope(input.message, input.surface);
+
+  // Routing COGNITIF (fail-soft) : si les mots-clés n'ont rien tranché
+  // (domain="general") ET qu'on est sur le chat libre (pas de surface dédiée
+  // type inbox/calendar) avec un message non-trivial, on demande à un LLM léger
+  // (Kimi K2.5, cache LRU) de classer le domaine. Affine le pré-filtre tools +
+  // le mode d'exécution sans pénaliser les cas clairs (qui n'appellent pas le LLM).
+  const hasDedicatedSurface = Boolean(input.surface && input.surface !== "home");
+  if (!hasDedicatedSurface && capScope.domain === "general" && input.message.trim().length > 12) {
+    try {
+      const refined = await classifyDomainLLM(input.message, {
+        tenantId: scope.tenantId,
+        fallback: "general",
+      });
+      if (refined !== "general") {
+        logger.info(
+          { from: "general", to: refined },
+          "[Router] domaine affiné par classifieur LLM",
+        );
+        // Re-résout le scope avec le domaine affiné (réutilise la taxonomy).
+        capScope = { ...capScope, ...scopeForDomain(refined) };
+      }
+    } catch {
+      // fail-soft : on garde le scope mots-clés.
+    }
+  }
+
   const decision: ExecutionDecision = resolveExecutionMode(
     capScope,
     input.message,
