@@ -12,7 +12,7 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { createAnthropic } from "@ai-sdk/anthropic";
+import { createOpenAI } from "@ai-sdk/openai";
 import type { ModelMessage, Tool } from "ai";
 import { jsonSchema, stepCountIs, streamText } from "ai";
 import { z } from "zod";
@@ -62,7 +62,11 @@ import { buildSwarmTools } from "@/lib/tools/native/swarm";
 import { buildWebSearchTools } from "@/lib/tools/native/web-search";
 import { canonicalHash } from "@/lib/utils/canonical-hash";
 import { redactId } from "@/lib/utils/redact";
-import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
+import {
+  buildAgentSystemPrompt,
+  ORCHESTRATOR_MODEL,
+  ORCHESTRATOR_MODEL_OAI,
+} from "./system-prompt";
 
 // Schema for validating tool results from the AI pipeline.
 // Deux conventions de retour coexistent :
@@ -147,19 +151,25 @@ export interface AiPipelineInput {
   composioEntityId?: string;
 }
 
-// Orchestrateur via Hypercli (endpoint compatible Anthropic /v1/messages) :
-// Kimi K2.6 plutôt qu'Anthropic direct (compte Anthropic sans crédit).
-// Hypercli est drop-in Anthropic-compatible → on garde @ai-sdk/anthropic,
-// on change juste baseURL + clé. Fallback sur Anthropic direct si HYPERCLI absent.
-const USE_HYPERCLI = Boolean(process.env.HYPERCLI_API_KEY);
-const anthropic = createAnthropic({
-  apiKey: USE_HYPERCLI
-    ? (process.env.HYPERCLI_API_KEY ?? "")
-    : (process.env.ANTHROPIC_API_KEY ?? ""),
-  ...(USE_HYPERCLI
-    ? { baseURL: process.env.HYPERCLI_BASE_URL ?? "https://api.hypercli.com/v1" }
-    : {}),
+// Orchestrateur via Hypercli — endpoint OpenAI-compatible (/v1/chat/completions).
+//
+// ⚠️ On utilise DÉLIBÉRÉMENT l'endpoint OpenAI-compat et NON l'Anthropic-compat
+// (/v1/messages). Raison mesurée (2026-06-03) : sur /messages, Hypercli FORCE le
+// thinking de Kimi K2.6 (745-953 chars de reasoning avant le 1er token, non
+// désactivable — thinking:{type:disabled} ignoré) → TTFT ~11-16 s. Sur
+// /chat/completions, pas de thinking par défaut → TTFT ~1,3 s à charge égale
+// (gros system + 30 tools). Bascule = TTFT divisé par ~10.
+//
+// Le provider OpenAI-compat sert Kimi sous l'id "kimi-k2.6" (sans suffixe
+// "-anthropic", qui n'a de sens que pour l'endpoint /messages).
+const hyperKey = process.env.HYPERCLI_API_KEY ?? process.env.KIMI_API_KEY ?? "";
+const hypercli = createOpenAI({
+  apiKey: hyperKey,
+  baseURL:
+    process.env.HYPERCLI_BASE_URL ?? process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
 });
+// hypercli.chat(model) cible /v1/chat/completions (OpenAI-compat) — l'endpoint
+// SANS thinking forcé, contrairement à /v1/messages. C'est le cœur du fix TTFT.
 
 /**
  * Builds the `request_connection` tool that lets the model surface an inline
@@ -484,6 +494,13 @@ export async function runAiPipeline(
     runId: engine.id,
     conversationId: input.conversationId,
   });
+  // Observabilité perf : timestamp de départ pour calculer la latence E2E du
+  // pipeline, et accumulateurs tokens accessibles au point de complétion. Sans
+  // ça, les traces Langfuse remontaient latency=0 / totalCost=0 → impossible de
+  // détecter une régression de latence ou un run anormalement cher.
+  const pipelineStartedAt = Date.now();
+  let traceInputTokens = 0;
+  let traceOutputTokens = 0;
 
   // tenantId et workspaceId sont garantis non-vides à partir d'ici.
   const resolvedTenantId: string = input.tenantId;
@@ -964,11 +981,11 @@ export async function runAiPipeline(
     );
   }
 
-  // P0 — Retry + fallback : maxRetries=3 côté provider, fallback OpenAI
-  // si l'erreur survient en amont (création du stream impossible).
+  // P0 — Retry : maxRetries=3 côté provider (création du stream impossible →
+  // backoff automatique du SDK avant de propager l'erreur au circuit breaker).
   const runStream = () =>
     streamText({
-      model: anthropic(ORCHESTRATOR_MODEL),
+      model: hypercli.chat(ORCHESTRATOR_MODEL_OAI),
       system: systemPrompt,
       messages,
       tools: aiTools,
@@ -987,8 +1004,8 @@ export async function runAiPipeline(
   // Note: streamText ne passe pas par chatWithCircuitBreaker (API différente),
   // mais on garde la garde fail-fast via le helper isCircuitOpenFor pour
   // homogénéiser le call-site avec DUP12.
-  if (isCircuitOpenFor("anthropic", resolvedTenantId)) {
-    const msg = "[AiPipeline] Circuit breaker OPEN pour anthropic — requête annulée";
+  if (isCircuitOpenFor("kimi", resolvedTenantId)) {
+    const msg = "[AiPipeline] Circuit breaker OPEN pour kimi — requête annulée";
     console.error(msg);
     langfuseTrace?.update({ output: { status: "aborted", reason: "circuit_breaker_open" } });
     await engine.fail(msg);
@@ -1321,7 +1338,7 @@ export async function runAiPipeline(
             const stepInputTokens = ev.usage.inputTokens ?? 0;
             const stepOutputTokens = ev.usage.outputTokens;
             const stepCacheRead = ev.usage.cacheReadInputTokens ?? 0;
-            const stepCostUsd = computeCostUsd("anthropic", ORCHESTRATOR_MODEL, {
+            const stepCostUsd = computeCostUsd("kimi", ORCHESTRATOR_MODEL_OAI, {
               input_tokens: stepInputTokens,
               output_tokens: stepOutputTokens,
               cache_read_input_tokens: stepCacheRead,
@@ -1418,6 +1435,9 @@ export async function runAiPipeline(
     if (usage) {
       const totalInputTokens = usage.inputTokens ?? 0;
       const totalOutputTokens = usage.outputTokens ?? 0;
+      // Mémorise pour la trace Langfuse (cf. langfuseTrace.update au succès).
+      traceInputTokens = totalInputTokens;
+      traceOutputTokens = totalOutputTokens;
       // runCostUsd est déjà accumulé step par step — on l'utilise directement.
       eventBus.emit({
         type: "run_cost",
@@ -1425,8 +1445,8 @@ export async function runAiPipeline(
         input_tokens: totalInputTokens,
         output_tokens: totalOutputTokens,
         cost_usd: runCostUsd,
-        provider: "anthropic",
-        model: ORCHESTRATOR_MODEL,
+        provider: "kimi",
+        model: ORCHESTRATOR_MODEL_OAI,
       });
     }
 
@@ -1536,9 +1556,18 @@ export async function runAiPipeline(
       }
     }
 
-    defaultCircuitBreaker.recordSuccess("anthropic", resolvedTenantId);
+    defaultCircuitBreaker.recordSuccess("kimi", resolvedTenantId);
     await engine.complete();
-    langfuseTrace?.update({ output: { status: "completed", runId: engine.id } });
+    langfuseTrace?.update({
+      output: { status: "completed", runId: engine.id },
+      metadata: {
+        latencyMs: Date.now() - pipelineStartedAt,
+        costUsd: runCostUsd,
+        inputTokens: traceInputTokens,
+        outputTokens: traceOutputTokens,
+        model: ORCHESTRATOR_MODEL_OAI,
+      },
+    });
   } catch (err) {
     // P1-8 / P1-D — si l'abort vient d'un watchdog, on remonte une erreur
     // claire et explicite, traitée comme toute autre erreur stream. Deux
@@ -1553,7 +1582,7 @@ export async function runAiPipeline(
           : String(err);
     console.error("[AiPipeline] streamText failed:", msg);
     defaultCircuitBreaker.recordFailure(
-      "anthropic",
+      "kimi",
       err instanceof Error ? err : new Error(msg),
       resolvedTenantId,
     );

@@ -16,11 +16,17 @@ import { getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import type { Persona } from "@/lib/personas/types";
 
-// Hypercli (endpoint Anthropic-compatible) sert Kimi K2.6 sous l'id
-// "kimi-k2.6-anthropic". Sans Hypercli, fallback Anthropic direct (Sonnet 4.6).
+// Hypercli (endpoint Anthropic-compatible /v1/messages) sert Kimi K2.6 sous l'id
+// "kimi-k2.6-anthropic". Encore utilisé par le planner via chatWithCircuitBreaker
+// (KimiProvider) et run-research-report. Sans Hypercli, fallback Anthropic direct.
 export const ORCHESTRATOR_MODEL = process.env.HYPERCLI_API_KEY
   ? "kimi-k2.6-anthropic"
   : "claude-sonnet-4-6";
+
+// Model id pour l'endpoint OpenAI-compatible (/v1/chat/completions), utilisé par
+// l'AI pipeline (streamText). Pas de suffixe "-anthropic" : ce chemin évite le
+// thinking forcé de l'endpoint /messages (cf. ai-pipeline.ts). TTFT ~1,3 s vs ~12 s.
+export const ORCHESTRATOR_MODEL_OAI = "kimi-k2.6";
 
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
 

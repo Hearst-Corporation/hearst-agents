@@ -26,9 +26,15 @@ export const MODEL_PRICING: Record<string, { input: number; output: number; cach
   "gpt-4o-mini": { input: 0.15, output: 0.6, cacheRead: 0.075 },
   "gpt-4-turbo": { input: 10.0, output: 30.0, cacheRead: 5.0 },
   "gpt-4": { input: 30.0, output: 60.0, cacheRead: 15.0 },
-  // Kimi (Moonshot AI via hypercli) — tarifs approximatifs
+  // Kimi (Moonshot AI via hypercli) — tarifs approximatifs.
+  // L'orchestrateur passe par l'endpoint Anthropic-compat de Hypercli, qui sert
+  // le modèle sous l'id suffixé "-anthropic" (cf. ORCHESTRATOR_MODEL dans
+  // system-prompt.ts = "kimi-k2.6-anthropic"). On tarife AUSSI ces variantes,
+  // sinon le lookup tombait sur undefined → cost_usd=0 + cost cap jamais armé.
   [KIMI_MODELS.SONNET]: { input: 2.0, output: 8.0, cacheRead: 0 },
   [KIMI_MODELS.HAIKU]: { input: 2.0, output: 8.0, cacheRead: 0 },
+  "kimi-k2.6-anthropic": { input: 2.0, output: 8.0, cacheRead: 0 },
+  "kimi-k2.5-anthropic": { input: 2.0, output: 8.0, cacheRead: 0 },
   "kimi-k2": { input: 2.0, output: 8.0, cacheRead: 0 },
   // Google Gemini
   "gemini-2.0-flash": { input: 0.1, output: 0.4, cacheRead: 0.025 },
@@ -36,6 +42,16 @@ export const MODEL_PRICING: Record<string, { input: number; output: number; cach
   "gemini-1.5-pro": { input: 1.25, output: 5.0, cacheRead: 0.3125 },
   "gemini-1.5-flash": { input: 0.075, output: 0.3, cacheRead: 0.019 },
 };
+
+/**
+ * Normalise un model id pour le lookup pricing : strippe le suffixe de transport
+ * "-anthropic" (endpoint Anthropic-compat de Hypercli) afin que p.ex.
+ * "kimi-k2.7-anthropic" retombe sur "kimi-k2.7" si présent dans la table. Filet
+ * de sécurité pour les nouveaux modèles non encore listés explicitement.
+ */
+function normalizeModelId(model: string): string {
+  return model.replace(/-anthropic$/, "");
+}
 
 /**
  * Calcule le coût USD réel d'un appel LLM.
@@ -55,7 +71,7 @@ export function computeCostUsd(
     cache_read_input_tokens?: number;
   },
 ): number {
-  const pricing = MODEL_PRICING[model];
+  const pricing = MODEL_PRICING[model] ?? MODEL_PRICING[normalizeModelId(model)];
   if (!pricing) {
     console.warn(`[pricing] Unknown model "${model}" — cost_usd defaulted to 0`);
     return 0;

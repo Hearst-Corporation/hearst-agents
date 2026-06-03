@@ -2,5 +2,9 @@
   "framework": "nextjs",
   "installCommand": "pnpm install --frozen-lockfile && rm -rf node_modules/electron node_modules/electron-builder node_modules/@electron",
   "buildCommand": "pnpm run build",
+  "regions": ["fra1"],
+  "functions": {
+    "app/api/orchestrate/route.ts": { "maxDuration": 120 }
+  },
   "crons": [{ "path": "/api/cron/reap-stale-runs", "schedule": "*/5 * * * *" }]
 }

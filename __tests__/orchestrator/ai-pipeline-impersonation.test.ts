@@ -17,14 +17,15 @@ const allTools: DiscoveredTool[] = [
   { name: "SLACK_SEND_MESSAGE", app: "slack", description: "msg", parameters: {} },
 ];
 
-const { getToolsForUser, toAiTools, buildAgentSystemPrompt, streamText, createAnthropic } =
-  vi.hoisted(() => ({
+const { getToolsForUser, toAiTools, buildAgentSystemPrompt, streamText, createOpenAI } = vi.hoisted(
+  () => ({
     getToolsForUser: vi.fn(),
     toAiTools: vi.fn(),
     buildAgentSystemPrompt: vi.fn(),
     streamText: vi.fn(),
-    createAnthropic: vi.fn(),
-  }));
+    createOpenAI: vi.fn(),
+  }),
+);
 
 vi.mock("@/lib/connectors/composio/discovery", () => ({
   getToolsForUser,
@@ -37,10 +38,11 @@ vi.mock("@/lib/connectors/composio/to-ai-tools", () => ({
 vi.mock("@/lib/engine/orchestrator/system-prompt", () => ({
   buildAgentSystemPrompt,
   ORCHESTRATOR_MODEL: "kimi-k2.5",
+  ORCHESTRATOR_MODEL_OAI: "kimi-k2.6",
 }));
 
-vi.mock("@ai-sdk/anthropic", () => ({
-  createAnthropic: createAnthropic.mockReturnValue(() => ({ modelId: "stub" })),
+vi.mock("@ai-sdk/openai", () => ({
+  createOpenAI: createOpenAI.mockReturnValue({ chat: () => ({ modelId: "stub" }) }),
 }));
 
 vi.mock("ai", async (importOriginal) => {

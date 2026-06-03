@@ -23,14 +23,14 @@ const {
   toAiTools,
   buildAgentSystemPrompt,
   streamText,
-  createAnthropic,
+  createOpenAI,
   buildNativeGoogleTools,
 } = vi.hoisted(() => ({
   getToolsForUser: vi.fn(),
   toAiTools: vi.fn(),
   buildAgentSystemPrompt: vi.fn(),
   streamText: vi.fn(),
-  createAnthropic: vi.fn(),
+  createOpenAI: vi.fn(),
   buildNativeGoogleTools: vi.fn(),
 }));
 
@@ -45,6 +45,7 @@ vi.mock("@/lib/connectors/composio/to-ai-tools", () => ({
 vi.mock("@/lib/engine/orchestrator/system-prompt", () => ({
   buildAgentSystemPrompt,
   ORCHESTRATOR_MODEL: "kimi-k2.5",
+  ORCHESTRATOR_MODEL_OAI: "kimi-k2.6",
 }));
 
 vi.mock("@/lib/tools/native/google", () => ({
@@ -55,10 +56,10 @@ vi.mock("@/lib/tools/native/google", () => ({
   ],
 }));
 
-vi.mock("@ai-sdk/anthropic", () => ({
-  createAnthropic: createAnthropic.mockReturnValue(
-    // returns a model factory that accepts a model name and returns a stub
-    () => ({ modelId: "stub" }),
+vi.mock("@ai-sdk/openai", () => ({
+  createOpenAI: createOpenAI.mockReturnValue(
+    // returns a provider whose .chat(model) yields a stub language model
+    { chat: () => ({ modelId: "stub" }) },
   ),
 }));
 
