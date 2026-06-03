@@ -177,6 +177,31 @@ const hypercli = createOpenAI({
 // hypercli.chat(model) cible /v1/chat/completions (OpenAI-compat) — l'endpoint
 // SANS thinking forcé, contrairement à /v1/messages. C'est le cœur du fix TTFT.
 
+// ── Pré-fetch de contexte : timeout strict ───────────────────────────────────
+// Les 5 sources de contexte (tools Google/Composio + briefing + KG + LTM) sont
+// déjà fail-soft (.catch) mais SANS borne de temps → le plus lent dictait le
+// TTFT. Mesuré en prod : ~13,6 s bloqués ici avant le 1er token LLM (tenant
+// neuf, discovery/mémoire qui rament). Le contexte est un ENRICHISSEMENT, pas un
+// bloquant : au-delà du budget, on continue sans (system prompt dégradé mais
+// run rapide). withTimeout borne chaque source à son budget propre.
+const PREFETCH_TOOLS_TIMEOUT_MS = Number(process.env.PREFETCH_TOOLS_TIMEOUT_MS ?? 4_000);
+const PREFETCH_MEMORY_TIMEOUT_MS = Number(process.env.PREFETCH_MEMORY_TIMEOUT_MS ?? 2_500);
+
+function withTimeout<T>(p: Promise<T>, ms: number, label: string, fallback: T): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<T>((resolve) => {
+    timer = setTimeout(() => {
+      console.warn(
+        `[AiPipeline] prefetch "${label}" timed out after ${ms}ms — continuing degraded`,
+      );
+      resolve(fallback);
+    }, ms);
+  });
+  return Promise.race([p, timeout]).finally(() => {
+    if (timer) clearTimeout(timer);
+  });
+}
+
 /**
  * Builds the `request_connection` tool that lets the model surface an inline
  * OAuth connect card when the user asks for an action on an unconnected app.
@@ -526,41 +551,66 @@ export async function runAiPipeline(
   //   HubSpot, …).
   const [nativeGoogleTools, composioToolsRaw, briefingResult, kgContext, retrievedMemory] =
     await Promise.all([
-      buildNativeGoogleTools(input.userId, {
-        userId: input.userId,
-        tenantId: resolvedTenantId,
-      }).catch((err) => {
-        console.error("[AiPipeline] native Google discovery failed:", err);
-        return {} as Record<string, unknown>;
-      }),
-      getToolsForUser(composioEntityId).catch((err) => {
-        console.error("[AiPipeline] Composio discovery failed:", err);
-        return [] as Awaited<ReturnType<typeof getToolsForUser>>;
-      }),
+      withTimeout(
+        buildNativeGoogleTools(input.userId, {
+          userId: input.userId,
+          tenantId: resolvedTenantId,
+        }).catch((err) => {
+          console.error("[AiPipeline] native Google discovery failed:", err);
+          return {} as Record<string, unknown>;
+        }),
+        PREFETCH_TOOLS_TIMEOUT_MS,
+        "nativeGoogleTools",
+        {} as Record<string, unknown>,
+      ),
+      withTimeout(
+        getToolsForUser(composioEntityId).catch((err) => {
+          console.error("[AiPipeline] Composio discovery failed:", err);
+          return [] as Awaited<ReturnType<typeof getToolsForUser>>;
+        }),
+        PREFETCH_TOOLS_TIMEOUT_MS,
+        "composioTools",
+        [] as Awaited<ReturnType<typeof getToolsForUser>>,
+      ),
       // Briefing memory : fail-soft, jamais bloquant. Si Redis ou Anthropic
       // tombent, on continue sans contexte personnalisé.
-      generateBriefing({ userId: input.userId }).catch((err) => {
-        console.warn("[AiPipeline] briefing fetch failed:", err);
-        return null;
-      }),
+      withTimeout(
+        generateBriefing({ userId: input.userId }).catch((err) => {
+          console.warn("[AiPipeline] briefing fetch failed:", err);
+          return null;
+        }),
+        PREFETCH_MEMORY_TIMEOUT_MS,
+        "briefing",
+        null,
+      ),
       // Knowledge Graph context : fail-soft. Si Supabase tombe ou pas
       // d'entités, on continue sans (le user n'a peut-être encore rien
       // ingéré).
-      getKgContextForUser(input.userId, resolvedTenantId).catch((err) => {
-        console.warn("[AiPipeline] KG context fetch failed:", err);
-        return null;
-      }),
+      withTimeout(
+        getKgContextForUser(input.userId, resolvedTenantId).catch((err) => {
+          console.warn("[AiPipeline] KG context fetch failed:", err);
+          return null;
+        }),
+        PREFETCH_MEMORY_TIMEOUT_MS,
+        "kgContext",
+        null,
+      ),
       // Retrieved memory (LTM) : top-K embeddings sémantiques sur le
       // message courant. Fail-soft : sans OPENAI_API_KEY ou sans pgvector
       // upgradé, on continue avec une chaîne vide.
-      getRetrievedMemoryForUser({
-        userId: input.userId,
-        tenantId: resolvedTenantId,
-        currentMessage: input.message,
-      }).catch((err) => {
-        console.warn("[AiPipeline] retrieved memory fetch failed:", err);
-        return "";
-      }),
+      withTimeout(
+        getRetrievedMemoryForUser({
+          userId: input.userId,
+          tenantId: resolvedTenantId,
+          currentMessage: input.message,
+        }).catch((err) => {
+          console.warn("[AiPipeline] retrieved memory fetch failed:", err);
+          return "";
+        }),
+        PREFETCH_MEMORY_TIMEOUT_MS,
+        "retrievedMemory",
+        "",
+      ),
     ]);
 
   // Filter Composio tools to domain-relevant ones (prevents token explosion).
