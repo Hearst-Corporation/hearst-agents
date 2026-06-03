@@ -162,11 +162,17 @@ export interface AiPipelineInput {
 //
 // Le provider OpenAI-compat sert Kimi sous l'id "kimi-k2.6" (sans suffixe
 // "-anthropic", qui n'a de sens que pour l'endpoint /messages).
-const hyperKey = process.env.HYPERCLI_API_KEY ?? process.env.KIMI_API_KEY ?? "";
+//
+// Clé/URL : on prend KIMI_API_KEY / KIMI_BASE_URL EN PRIORITÉ — c'est le couple
+// que le KimiProvider historique (lib/llm/kimi.ts) utilise et qui est validé en
+// prod. HYPERCLI_* en fallback seulement (HYPERCLI_BASE_URL n'est même pas
+// défini en prod). Inverser la priorité faisait échouer le build de la requête
+// → stream stalled 30 s (run_failed) en prod.
+const hyperKey = process.env.KIMI_API_KEY ?? process.env.HYPERCLI_API_KEY ?? "";
 const hypercli = createOpenAI({
   apiKey: hyperKey,
   baseURL:
-    process.env.HYPERCLI_BASE_URL ?? process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
+    process.env.KIMI_BASE_URL ?? process.env.HYPERCLI_BASE_URL ?? "https://api.hypercli.com/v1",
 });
 // hypercli.chat(model) cible /v1/chat/completions (OpenAI-compat) — l'endpoint
 // SANS thinking forcé, contrairement à /v1/messages. C'est le cœur du fix TTFT.
