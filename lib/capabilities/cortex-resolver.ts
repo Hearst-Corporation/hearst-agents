@@ -6,7 +6,7 @@
  *
  * Sécurité :
  * - Header obligatoire `x-cortex-tenant-id`
- * - Mapping runtime/slug → tools Helm strictement contrôlé
+ * - Mapping runtime `hive:tool:<slug>` → tools Helm strictement contrôlé
  * - Les champs "risk" renvoyés par le client Cortex ne sont JAMAIS utilisés
  * - Sur erreur HTTP/réseau, on retourne un résultat contrôlé (tools vides)
  */
@@ -16,7 +16,8 @@ import { logger } from "@/lib/observability/logger";
 import { redactId } from "@/lib/utils/redact";
 
 const CORTEX_CAPABILITY_ENDPOINT = "/api/capabilities/resolve";
-const TIMEOUT_MS = 2_500;
+const DEFAULT_TIMEOUT_MS = 1_200;
+const DEFAULT_CACHE_TTL_MS = 300_000;
 
 // JWT Cortex — même contrat que le client mémoire (iss/aud/algo).
 const CORTEX_JWT_ISS = "cortex";
@@ -36,7 +37,8 @@ const CORTEX_JWT_TTL_S = 300;
 const CAPABILITY_TO_HELM_TOOLS: Record<string, string[]> = {
   // RAG / mémoire
   cortex_search: ["cortex_search"],
-  memory: ["cortex_search", "query_knowledge_graph"],
+  cortex_remember: ["cortex_remember"],
+  memory: ["cortex_search", "cortex_remember", "query_knowledge_graph"],
   // Mail / Drive (Google natif)
   gmail: ["gmail_fetch_emails", "gmail_send_email"],
   drive: ["googledrive_list_files"],
@@ -60,14 +62,11 @@ const CAPABILITY_TO_HELM_TOOLS: Record<string, string[]> = {
 };
 
 /**
- * Index runtime/slug -> tools Helm. Accepte la forme runtime
- * (`hive:tool:<slug>`) ET le slug nu, normalisés en minuscules.
+ * Index runtime -> tools Helm. Accepte uniquement la forme runtime explicite
+ * (`hive:tool:<slug>`), normalisée en minuscules.
  */
 const CORTEX_RUNTIME_TO_HELM_TOOL: Record<string, string[]> = Object.fromEntries(
-  Object.entries(CAPABILITY_TO_HELM_TOOLS).flatMap(([slug, tools]) => [
-    [slug, tools] as [string, string[]],
-    [`hive:tool:${slug}`, tools] as [string, string[]],
-  ]),
+  Object.entries(CAPABILITY_TO_HELM_TOOLS).map(([slug, tools]) => [`hive:tool:${slug}`, tools]),
 );
 
 type ResolveStatus = "ok" | "empty" | "error" | "skipped";
@@ -164,18 +163,10 @@ function normalizeRuntimeCandidate(value: string): string {
 
 function mapRecordToTools(record: RawCapabilityRecord): string[] {
   const runtimeRaw = typeof record.runtime === "string" ? record.runtime : "";
-  const slugRaw = typeof record.slug === "string" ? record.slug : "";
   const runtime = normalizeRuntimeCandidate(runtimeRaw);
-  const slug = normalizeRuntimeCandidate(slugRaw);
 
-  // 1) runtime explicite (ex: hive:tool:gmail)
   if (runtime && CORTEX_RUNTIME_TO_HELM_TOOL[runtime]) {
     return CORTEX_RUNTIME_TO_HELM_TOOL[runtime];
-  }
-
-  // 2) fallback slug (ex: gmail)
-  if (slug && CORTEX_RUNTIME_TO_HELM_TOOL[slug]) {
-    return CORTEX_RUNTIME_TO_HELM_TOOL[slug];
   }
 
   return [];
@@ -206,12 +197,21 @@ export function resolveCapabilityContextId(input: {
 // La liste des tools d'un contexte change très rarement. On cache le résultat
 // par (tenant, context) pour ne PAS refaire le round-trip Cortex (~0.8s) à chaque
 // message. TTL court → on reste réactif à un changement de permissions.
-const RESOLVE_CACHE_TTL_MS = 60_000;
 interface ResolveCacheEntry {
   value: ResolveCapabilitiesResult;
   expiresAt: number;
 }
 const resolveCache = new Map<string, ResolveCacheEntry>();
+
+function resolveTimeoutMs(): number {
+  const raw = Number.parseInt(process.env.HELM_CORTEX_RESOLVE_TIMEOUT_MS ?? "", 10);
+  return Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_TIMEOUT_MS;
+}
+
+function resolveCacheTtlMs(): number {
+  const raw = Number.parseInt(process.env.HELM_CORTEX_RESOLVE_CACHE_TTL_MS ?? "", 10);
+  return Number.isFinite(raw) && raw >= 0 ? raw : DEFAULT_CACHE_TTL_MS;
+}
 
 /** Reset du cache — réservé aux tests. */
 export function _resetResolveCacheForTest(): void {
@@ -290,7 +290,7 @@ export async function resolveCapabilities(
   }
 
   const controller = new AbortController();
-  const timerId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const timerId = setTimeout(() => controller.abort(), resolveTimeoutMs());
 
   try {
     const endpoint = `${baseUrl.replace(/\/$/, "")}${CORTEX_CAPABILITY_ENDPOINT}`;
@@ -350,7 +350,7 @@ export async function resolveCapabilities(
       const emptyResult: ResolveCapabilitiesResult = { status: "empty", tools: [] };
       resolveCache.set(cacheKey, {
         value: emptyResult,
-        expiresAt: Date.now() + RESOLVE_CACHE_TTL_MS,
+        expiresAt: Date.now() + resolveCacheTtlMs(),
       });
       return emptyResult;
     }
@@ -364,7 +364,7 @@ export async function resolveCapabilities(
       "[cortex-capabilities] resolved",
     );
     const okResult: ResolveCapabilitiesResult = { status: "ok", tools };
-    resolveCache.set(cacheKey, { value: okResult, expiresAt: Date.now() + RESOLVE_CACHE_TTL_MS });
+    resolveCache.set(cacheKey, { value: okResult, expiresAt: Date.now() + resolveCacheTtlMs() });
     return okResult;
   } catch (err: unknown) {
     const errorName = err instanceof Error ? err.name : "UnknownError";

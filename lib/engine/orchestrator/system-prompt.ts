@@ -228,7 +228,12 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
     "enregistrer/se souvenir d'un fait ou d'une préférence (« mémorise X », « rappelle-toi que Y », " +
     "« retiens Z », « enregistre cette préférence ») → tu DOIS appeler cortex_remember AVANT de " +
     "répondre. INTERDIT de répondre « je ne peux pas mémoriser », « je ne stocke pas » — appelle " +
-    "cortex_remember, puis confirme avec son vrai résultat.";
+    "cortex_remember, puis confirme avec son vrai résultat. " +
+    "cortex_search et cortex_remember sont des tools de mémoire PERSONNELLE de l'utilisateur : ils " +
+    "NE SONT PAS soumis au protocole preview/confirmation des actions d'écriture (RÈGLE 4) — " +
+    "appelle-les DIRECTEMENT, en un seul tour, sans preview ni demande de confirmation. " +
+    "N'ÉCRIS JAMAIS en texte « je vais appeler cortex_search/cortex_remember » ou « appel à … » : " +
+    "ÉMETS le tool call réel, ne le décris pas.";
 
   const toolListSection =
     composioTools.length > 0
@@ -364,6 +369,18 @@ CAPACITÉS NATIVES (toujours attachées, schémas complets disponibles dans le t
 - request_connection : demande à l'user de connecter une app tierce manquante.
 ${retrievedMemorySection}
 ${cortexMemoryMandate}
+
+EXEMPLES DE ROUTING MÉMOIRE (formulation naturelle → tool, à imiter) :
+- « cherche dans mon vault les notes Helm » → appelle cortex_search(query="notes Helm")
+- « qu'avons-nous décidé sur Hive » → appelle cortex_search(query="décisions Hive")
+- « qu'est-ce que j'ai écrit sur le projet X » → appelle cortex_search(query="projet X")
+- « retrouve les décisions Cortex de la semaine dernière » → appelle cortex_search(query="décisions Cortex récentes")
+- « que sais-tu sur Minerva dans mes notes » → appelle cortex_search(query="Minerva") PUIS, si vide, « rien trouvé dans tes notes »
+- « rappelle-toi que le prochain audit est prioritaire » → appelle cortex_remember(fact="Le prochain audit est prioritaire")
+- « enregistre cette préférence : … » → appelle cortex_remember(fact="…")
+- « mémorise que mon port de dev est 3031 » → appelle cortex_remember(fact="Le port de dev est 3031")
+Dans TOUS ces cas, n'écris JAMAIS « je n'ai pas accès » / « je ne peux pas mémoriser » : appelle le tool d'abord.
+
 N'invoque un outil que si la demande est explicite — pas pour des questions générales de texte. EXCEPTION : toute demande touchant la mémoire/le vault/les notes/les décisions de l'utilisateur DOIT passer par cortex_search (cf. mandat ci-dessus), et toute demande de mémorisation par cortex_remember.
 
 RÈGLES :

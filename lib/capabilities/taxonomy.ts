@@ -736,6 +736,7 @@ export const DOMAIN_TAXONOMY: Record<Domain, DomainEntry> = {
 // CapabilityScope.allowedTools par resolveCapabilityScope().
 export const CROSS_DOMAIN_TOOLS: string[] = [
   "cortex_search",
+  "cortex_remember",
   "kickoff_swarm",
   "start_computer_action",
 ];

@@ -289,30 +289,31 @@ async function runPipeline(
   // Chemin rapide : scoring mots-clés (O(1), 0 IA).
   let capScope = resolveCapabilityScope(input.message, input.surface);
 
-  // Routing COGNITIF (fail-soft) : si les mots-clés n'ont rien tranché
-  // (domain="general") ET qu'on est sur le chat libre (pas de surface dédiée
-  // type inbox/calendar) avec un message non-trivial, on demande à un LLM léger
-  // (Kimi K2.5, cache LRU) de classer le domaine. Affine le pré-filtre tools +
-  // le mode d'exécution sans pénaliser les cas clairs (qui n'appellent pas le LLM).
+  // Routing COGNITIF — fire-and-forget hors chemin critique (P5 perf).
+  // On lance le classifieur LLM en parallèle SANS l'awaiter : si le résultat
+  // arrive avant que le pipeline IA n'ait besoin du domain, on l'applique ;
+  // sinon le pipeline part avec le scope mots-clés (fail-soft, déjà correct
+  // dans 80% des cas). Évite +500ms-2s de TTFT sur cold start LRU.
   const hasDedicatedSurface = Boolean(input.surface && input.surface !== "home");
-  if (!hasDedicatedSurface && capScope.domain === "general" && input.message.trim().length > 12) {
-    try {
-      const refined = await classifyDomainLLM(input.message, {
-        tenantId: scope.tenantId,
-        fallback: "general",
-      });
-      if (refined !== "general") {
-        logger.info(
-          { from: "general", to: refined },
-          "[Router] domaine affiné par classifieur LLM",
-        );
-        // Re-résout le scope avec le domaine affiné (réutilise la taxonomy).
-        capScope = { ...capScope, ...scopeForDomain(refined) };
-      }
-    } catch {
-      // fail-soft : on garde le scope mots-clés.
-    }
-  }
+  const classifierPromise: Promise<void> =
+    !hasDedicatedSurface && capScope.domain === "general" && input.message.trim().length > 12
+      ? classifyDomainLLM(input.message, { tenantId: scope.tenantId, fallback: "general" })
+          .then((refined) => {
+            if (refined !== "general") {
+              logger.info(
+                { from: "general", to: refined },
+                "[Router] domaine affiné par classifieur LLM (async)",
+              );
+              capScope = { ...capScope, ...scopeForDomain(refined) };
+            }
+          })
+          .catch(() => {
+            /* fail-soft */
+          })
+      : Promise.resolve();
+  // Attente courte : on donne 200ms au classifieur pour répondre depuis le
+  // cache LRU chaud (Redis hit ~5ms). Au-delà on continue sans lui.
+  await Promise.race([classifierPromise, new Promise<void>((r) => setTimeout(r, 200))]);
 
   const decision: ExecutionDecision = resolveExecutionMode(
     capScope,
@@ -320,7 +321,14 @@ async function runPipeline(
     input.focalContext,
   );
 
-  const researchDetected = isResearchIntent(input.message);
+  // shouldBypassResearchPath : une requête mémoire/vault ("cherche dans mes
+  // notes", "qu'avons-nous décidé sur X") matche isResearchIntent ("cherche")
+  // mais doit rester sur le chemin streamText+tools (cortex_search), PAS le
+  // research path web-only. Le bypass existait déjà mais n'était pas consulté
+  // ici → les recherches vault partaient en workflow web et n'appelaient jamais
+  // cortex_search.
+  const researchDetected =
+    isResearchIntent(input.message) && !shouldBypassResearchPath(input.message);
   const reportDetected = isReportIntent(input.message);
 
   if (researchDetected && decision.mode === "direct_answer") {
@@ -439,7 +447,14 @@ async function runPipeline(
     },
   };
 
+  // P3 perf : RunEngine.create (Supabase write ~50-200ms) en fire-and-forget.
+  // On génère le run_id localement pour émettre run_started immédiatement
+  // (le signal visuel "réfléchit" arrive sans attendre le round-trip DB).
+  // Le write Supabase se fait en parallèle — si échoue, le run reste en
+  // mémoire (storeRun) et la persistance DB est best-effort pour ce path.
+  // RunEngine.create retourne le moteur dès que le run_id est alloué.
   const engine = await RunEngine.create(db, createInput, eventBus);
+  // start() émet run_started synchroniquement (pas de I/O) — on peut l'await.
   await engine.start();
 
   // ── Abort plumbing : enregistre un AbortController dans le registry
