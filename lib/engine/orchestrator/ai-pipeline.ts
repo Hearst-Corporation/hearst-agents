@@ -1183,6 +1183,10 @@ export async function runAiPipeline(
     // actually ran.
     const toolCallNames = new Map<string, string>();
     const skippedToolCalls = new Set<string>();
+    // Instrumentation tool execution : start ts par toolCallId → tool_execution_ms.
+    const toolCallStartedAt = new Map<string, number>();
+    // Nombre de tools réellement exposés au LLM ce tour-ci (toolset effectif).
+    const toolSurfaceCount = Object.keys(aiTools).length;
 
     // Loop detection: track tool calls with same name + args
     const toolCallLoopDetector = new Map<string, number>(); // key: toolName:argsHash -> count
@@ -1359,6 +1363,7 @@ export async function runAiPipeline(
             break;
           }
 
+          toolCallStartedAt.set(event.toolCallId, Date.now());
           eventBus.emit({
             type: "tool_call_started",
             run_id: engine.id,
@@ -1412,6 +1417,24 @@ export async function runAiPipeline(
           }
 
           const out = parseResult.data;
+
+          // ── Instrumentation tool execution (obs) ──────────────────────────
+          // tool_surface_count / tool_selected / tool_execution_ms / tool_result_size
+          // surfacés dans le log structuré existant (pas de nouveau système).
+          {
+            const startedAt = toolCallStartedAt.get(event.toolCallId);
+            const toolExecutionMs = startedAt ? Date.now() - startedAt : undefined;
+            const toolResultSize =
+              typeof out === "string" ? out.length : JSON.stringify(out).length;
+            toolCallStartedAt.delete(event.toolCallId);
+            console.info("[AiPipeline] tool_exec", {
+              run_id: engine.id,
+              tool_surface_count: toolSurfaceCount,
+              tool_selected: name ?? event.toolCallId,
+              tool_execution_ms: toolExecutionMs,
+              tool_result_size: toolResultSize,
+            });
+          }
 
           // Tool natif (string) → toujours un succès. Sinon enveloppe Composio :
           // on inspecte out.ok. Le `typeof out !== "string"` narrow aussi le
