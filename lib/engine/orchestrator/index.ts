@@ -642,6 +642,20 @@ async function runPipeline(
     backend: decision.backend,
   });
 
+  // Instrumentation décision de sélection (obs) : pourquoi un tool a (ou n'a
+  // pas) été choisi. tool_candidate_count = taille du toolset autorisé exposé
+  // au LLM ; direct_answer_reason = raison du mode quand aucun tool n'est appelé.
+  logger.info(
+    {
+      run_id: engine.id,
+      mode: decision.mode,
+      tool_candidate_count: input._allowedTools?.length ?? 0,
+      direct_answer_reason: decision.mode === "direct_answer" ? decision.reason : null,
+      allowed_tools_source: input._allowedToolsSource ?? "legacy",
+    },
+    "[ExecutionMode] selection",
+  );
+
   // ── 3. Capture assistant output for memory ─────────────────
   let assistantOutput = "";
   const unsubscribe = eventBus.on((event) => {

@@ -1429,8 +1429,12 @@ export async function runAiPipeline(
             toolCallStartedAt.delete(event.toolCallId);
             console.info("[AiPipeline] tool_exec", {
               run_id: engine.id,
+              tool_candidate_count: toolSurfaceCount,
               tool_surface_count: toolSurfaceCount,
               tool_selected: name ?? event.toolCallId,
+              // Le LLM a choisi ce tool parmi le toolset exposé (sélection auto,
+              // pas de toolChoice forcé hors create_scheduled_mission).
+              tool_selection_reason: "llm_auto_selection",
               tool_execution_ms: toolExecutionMs,
               tool_result_size: toolResultSize,
             });
