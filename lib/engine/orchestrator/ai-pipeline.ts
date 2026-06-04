@@ -1115,6 +1115,10 @@ export async function runAiPipeline(
     );
   }
 
+  // Status HTTP du provider LLM (renseigné par le case "error" du fullStream à
+  // partir de AI_APICallError.statusCode) — surfacé dans la trace d'échec.
+  let providerHttpStatus: number | undefined;
+
   // P0 — Retry : maxRetries=3 côté provider (création du stream impossible →
   // backoff automatique du SDK avant de propager l'erreur au circuit breaker).
   const runStream = () =>
@@ -1454,9 +1458,15 @@ export async function runAiPipeline(
           break;
         }
 
-        case "error":
+        case "error": {
+          // Capture le status HTTP provider (AI SDK AI_APICallError.statusCode)
+          // pour le surfacer dans la trace d'échec — sinon l'erreur réelle
+          // (ex. 400 enable_thinking) reste opaque.
+          const errAny = event.error as { statusCode?: number } | undefined;
+          if (typeof errAny?.statusCode === "number") providerHttpStatus = errAny.statusCode;
           console.error("[AiPipeline] stream error:", event.error);
           break;
+        }
 
         // Phase C2 — bascule du compteur runaway sur l'usage exact dès que
         // dispo (par step LLM), au lieu de garder l'estimate chars/3. Plus
@@ -1721,13 +1731,25 @@ export async function runAiPipeline(
         : err instanceof Error
           ? err.message
           : String(err);
-    console.error("[AiPipeline] streamText failed:", msg);
+    console.error("[AiPipeline] streamText failed:", msg, {
+      provider_http_status: providerHttpStatus,
+      model_id: ORCHESTRATOR_MODEL_OAI,
+      tenant_id_resolved: resolvedTenantId,
+    });
     defaultCircuitBreaker.recordFailure(
       "kimi",
       err instanceof Error ? err : new Error(msg),
       resolvedTenantId,
     );
-    langfuseTrace?.update({ output: { status: "failed", error: msg, runId: engine.id } });
+    langfuseTrace?.update({
+      output: { status: "failed", error: msg, runId: engine.id },
+      metadata: {
+        run_failed_error: msg,
+        provider_http_status: providerHttpStatus,
+        model_id: ORCHESTRATOR_MODEL_OAI,
+        tenant_id_resolved: resolvedTenantId,
+      },
+    });
     await engine.fail(msg);
   } finally {
     // P1-8 / P1-D — garantit qu'aucun timer watchdog (token NI tool) ne reste
