@@ -1203,6 +1203,24 @@ export async function runAiPipeline(
   }
 
   mark("llm_stream_start");
+  // Progression perçue (anti-blanc) : si aucun token n'arrive dans SLOW_WARN_MS,
+  // on émet un event de progression honnête (pas de faux contenu) pour que Hive
+  // affiche "ça travaille…" au lieu d'un blanc. Réémis toutes les SLOW_WARN_MS
+  // tant que le LLM/tool n'a rien produit. Clear au 1er token. NON-bloquant.
+  const SLOW_WARN_MS = 4_000;
+  let slowWarnTimer: ReturnType<typeof setInterval> | null = setInterval(() => {
+    eventBus.emit({
+      type: "orchestrator_log",
+      run_id: engine.id,
+      message: "tool_slow_warning",
+    });
+  }, SLOW_WARN_MS);
+  const clearSlowWarn = () => {
+    if (slowWarnTimer) {
+      clearInterval(slowWarnTimer);
+      slowWarnTimer = null;
+    }
+  };
   const result = runStream();
 
   try {
@@ -1284,6 +1302,7 @@ export async function runAiPipeline(
           if (!_markedFirstToken) {
             perfMark(engine.id, "llm_first_token");
             mark("first_token");
+            clearSlowWarn();
             _markedFirstToken = true;
           }
           // Le LLM streame des tokens : (ré)arme le watchdog token et coupe
@@ -1848,6 +1867,7 @@ export async function runAiPipeline(
     // P1-8 / P1-D — garantit qu'aucun timer watchdog (token NI tool) ne reste
     // actif (chemin succès, erreur, ou abort utilisateur).
     clearAllWatchdogs();
+    clearSlowWarn();
     // F-039 — flush Langfuse sur tous les chemins de sortie (succès, erreur,
     // abort watchdog). Cap 2 s pour ne pas bloquer le slot serverless.
     await flushLangfuse(2000);
