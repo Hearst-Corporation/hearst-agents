@@ -47,6 +47,7 @@ import { logger } from "@/lib/observability/logger";
 import { SYSTEM_CONFIG } from "@/lib/system/config";
 import { registerRun, unregisterRun } from "./abort-registry";
 import { runAiPipeline } from "./ai-pipeline";
+import { isPureConversational, runConversationalFastpath } from "./conversational-fastpath";
 import { classifyExecutionTier, gateToolsByTier } from "./execution-tier";
 import {
   getBlockedReasonForProviders,
@@ -488,6 +489,27 @@ async function runPipeline(
       delta: safety.userMessage,
     });
     await engine.complete();
+    return;
+  }
+
+  // ── Conversational fast-path (< 1s) ────────────────────────
+  // Smalltalk pur (salutation, merci, "qui es-tu") : aucun contexte ni tool
+  // requis. On court-circuite AVANT le pré-fetch mémoire/KG/LTM, la discovery
+  // Composio et le system prompt de ~4500 tokens — qui coûtent 1.5-3s pour rien.
+  // gpt-4.1-mini + prompt court ≈ 0.5-0.7s. Conservateur : au moindre signal
+  // d'action/donnée, isPureConversational retourne false → pipeline complet.
+  if (isPureConversational(input.message)) {
+    logger.info({ run_id: engine.id }, "[Orchestrator] conversational fast-path");
+    eventBus.emit({
+      type: "execution_mode_selected",
+      run_id: engine.id,
+      mode: "direct_answer",
+      reason: "Conversational fast-path",
+    });
+    await runConversationalFastpath(input.message, engine, eventBus, {
+      history: input.conversationHistory,
+      signal: abortController.signal,
+    });
     return;
   }
 
