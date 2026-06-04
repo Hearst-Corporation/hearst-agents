@@ -81,11 +81,19 @@ describe("CSP Nonce Helper (F-078-nonce)", () => {
     expect(csp).toContain("api.hypercli.com");
   });
 
-  it("should include nonce in style-src", () => {
+  it("should NOT include nonce in style-src (keeps 'unsafe-inline' effective)", () => {
+    // Décision sécurité/UX (commit 3cc803db) : style-src est volontairement SANS nonce.
+    // Spec CSP3 : dès qu'un nonce est présent, 'unsafe-inline' est ignoré par les
+    // navigateurs modernes → tous les styles inline JSX (style={{...}}), SSR Next.js,
+    // Tailwind et framer-motion seraient bloqués (DOM cassé, clicks morts).
+    // La protection XSS réelle vient du nonce sur script-src (cf. tests ci-dessus),
+    // pas de style-src. style-src doit donc garder 'unsafe-inline' SANS nonce.
     const nonce = generateNonce();
     const csp = buildCsp(nonce, false);
     const styleSrc = csp.split(";").find((d) => d.trim().startsWith("style-src"));
-    expect(styleSrc).toContain(`'nonce-${nonce}'`);
+    expect(styleSrc).toBeDefined();
+    expect(styleSrc).not.toContain(`'nonce-${nonce}'`);
+    expect(styleSrc).toContain("'unsafe-inline'");
   });
 
   it("should include default-src 'self'", () => {

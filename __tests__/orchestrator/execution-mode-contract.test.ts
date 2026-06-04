@@ -29,10 +29,14 @@ describe("resolveExecutionMode — contract snapshots", () => {
     expect(d.backend).toBe("hearst_runtime");
   });
 
-  it("memory request → custom_agent", () => {
+  it("memory request → direct_answer (native cortex tools)", () => {
+    // Contract changed in b210ba2a (fix(memory)): a pure memory intent stays on
+    // the native direct_answer path so the cortex_remember tool — the only tool
+    // that can persist memory, and which is absent from custom-agent toolsets —
+    // remains mounted. Routing memory to custom_agent excluded that tool.
     const scope = resolveCapabilityScope("Souviens-toi de mon adresse");
     const d = resolveExecutionMode(scope, "Souviens-toi de mon adresse");
-    expect(d.mode).toBe("custom_agent");
+    expect(d.mode).toBe("direct_answer");
   });
 
   it("calendar surface → workflow", () => {

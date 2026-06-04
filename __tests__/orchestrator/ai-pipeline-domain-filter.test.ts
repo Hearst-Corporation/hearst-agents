@@ -293,7 +293,17 @@ describe("runAiPipeline — domain filter", () => {
       domain: "communication",
     });
     const args = buildAgentSystemPrompt.mock.calls[0][0];
-    const apps = [...new Set((args.composioTools as DiscoveredTool[]).map((t) => t.app))].sort();
-    expect(apps).toEqual(["gmail", "slack"]);
+    // Les tools natifs Hearst (app:"hearst") sont volontairement ajoutés au
+    // descripteur du prompt (cf nativeHearstForPrompt dans ai-pipeline) pour que
+    // le modèle connaisse leur existence. Le filtrage par DOMAINE ne concerne que
+    // les tools Composio → on les isole pour l'assertion.
+    const composioApps = [
+      ...new Set(
+        (args.composioTools as DiscoveredTool[])
+          .map((t) => t.app)
+          .filter((app) => app !== "hearst"),
+      ),
+    ].sort();
+    expect(composioApps).toEqual(["gmail", "slack"]);
   });
 });

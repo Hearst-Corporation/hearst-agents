@@ -25,7 +25,6 @@ import {
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
 import {
-  DOMAIN_APP_ALLOWLIST,
   filterToolsByDomain,
   isWriteAction,
 } from "@/lib/connectors/composio/write-guard";
@@ -692,12 +691,10 @@ export async function runAiPipeline(
     input.executionMode === "direct_answer"
       ? Promise.resolve([] as Awaited<ReturnType<typeof getToolsForUser>>)
       : withTimeout(
-          getToolsForUser(
-            composioEntityId,
-            DOMAIN_APP_ALLOWLIST[input.domain ?? "general"]
-              ? { apps: DOMAIN_APP_ALLOWLIST[input.domain as string] }
-              : {},
-          ).catch((err) => {
+          // Pas de pré-filtre par apps ici : filterToolsByDomain (post-fetch)
+          // applique déjà le filtrage par domaine → un pré-filtre DOMAIN_APP_ALLOWLIST
+          // serait redondant. Aligné sur le contrat prod (origin/main).
+          getToolsForUser(composioEntityId).catch((err) => {
             console.error("[AiPipeline] Composio discovery failed:", err);
             return [] as Awaited<ReturnType<typeof getToolsForUser>>;
           }),

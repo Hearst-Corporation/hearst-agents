@@ -44,6 +44,7 @@ vi.mock("@/lib/connectors/composio/to-ai-tools", () => ({
 vi.mock("@/lib/connectors/composio/write-guard", () => ({
   filterToolsByDomain: (_tools: unknown[], _domain: string) => [],
   isWriteAction: () => false,
+  DOMAIN_APP_ALLOWLIST: {},
 }));
 vi.mock("@/lib/memory/briefing", () => ({ generateBriefing: vi.fn().mockResolvedValue(null) }));
 vi.mock("@/lib/memory/kg-context", () => ({
