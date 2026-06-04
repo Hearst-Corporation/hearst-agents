@@ -591,6 +591,16 @@ export async function runAiPipeline(
   let traceInputTokens = 0;
   let traceOutputTokens = 0;
 
+  // ── Timeline perf (obs) ───────────────────────────────────────────────────
+  // Marques relatives au début du pipeline pour isoler le segment lent
+  // (prefetch contexte vs 1er tour LLM vs synthèse). Loggué une fois en fin de
+  // run. Pas de nouveau système : un objet de timestamps + console.info.
+  const perfMarks: Record<string, number> = {};
+  const mark = (label: string) => {
+    if (!(label in perfMarks)) perfMarks[label] = Date.now() - pipelineStartedAt;
+  };
+  mark("pipeline_start");
+
   // tenantId et workspaceId sont garantis non-vides à partir d'ici.
   const resolvedTenantId: string = input.tenantId;
   const resolvedWorkspaceId: string = input.workspaceId;
@@ -691,6 +701,7 @@ export async function runAiPipeline(
     nativeGoogleToolsPromise,
     composioToolsRawPromise,
   ]);
+  mark("tools_prefetch_done");
 
   // Filter Composio tools to domain-relevant ones (prevents token explosion).
   const filteredComposio = filterToolsByDomain(composioToolsRaw, input.domain ?? "general");
@@ -1191,6 +1202,7 @@ export async function runAiPipeline(
     return;
   }
 
+  mark("llm_stream_start");
   const result = runStream();
 
   try {
@@ -1271,6 +1283,7 @@ export async function runAiPipeline(
           // client mesurée par _perf-local/measure.mjs). No-op si PERF_MARKS≠1.
           if (!_markedFirstToken) {
             perfMark(engine.id, "llm_first_token");
+            mark("first_token");
             _markedFirstToken = true;
           }
           // Le LLM streame des tokens : (ré)arme le watchdog token et coupe
@@ -1776,6 +1789,18 @@ export async function runAiPipeline(
     }
 
     defaultCircuitBreaker.recordSuccess("kimi", resolvedTenantId);
+    mark("run_done");
+    // Timeline perf consolidée — segments dérivés des marques pour isoler le
+    // goulot (prefetch contexte vs 1er token LLM vs synthèse post-tool).
+    console.info("[AiPipeline] perf_timeline", {
+      run_id: engine.id,
+      marks: perfMarks,
+      seg_prefetch_ms: (perfMarks.tools_prefetch_done ?? 0) - (perfMarks.pipeline_start ?? 0),
+      seg_build_to_stream_ms:
+        (perfMarks.llm_stream_start ?? 0) - (perfMarks.tools_prefetch_done ?? 0),
+      seg_llm_first_token_ms: (perfMarks.first_token ?? 0) - (perfMarks.llm_stream_start ?? 0),
+      seg_total_ms: perfMarks.run_done ?? 0,
+    });
     await engine.complete();
     langfuseTrace?.update({
       output: { status: "completed", runId: engine.id },
