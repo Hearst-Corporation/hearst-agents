@@ -918,8 +918,29 @@ export async function runAiPipeline(
     persona = null;
   }
 
+  // ── Descripteurs des tools NATIFS Hearst (cortex_search, web_search,
+  // kg_query, swarm, computer_action, missions, meetings, …) ─────────────
+  // Ils sont déjà dans `aiTools` (donc invocables) mais n'étaient PAS décrits
+  // au LLM : seuls nativeForPrompt (Google) + composioForPrompt l'étaient → le
+  // modèle ignorait leur existence et répondait direct_answer. On dérive le
+  // descripteur directement depuis aiTools (source de vérité du toolset effectif
+  // APRÈS les filtres allowedTools/scheduler) pour ne jamais annoncer un tool
+  // absent. On exclut les slugs Google/Composio (déjà couverts) et les méta-tools.
+  const describedNames = new Set<string>([
+    ...nativeForPrompt.map((t) => t.name),
+    ...composioForPrompt.map((t) => t.name),
+  ]);
+  const nativeHearstForPrompt = Object.entries(aiTools)
+    .filter(([name]) => !describedNames.has(name) && !filteredComposioToolNames.has(name))
+    .map(([name, tool]) => ({
+      name,
+      description: (tool as { description?: string }).description ?? name,
+      app: "hearst",
+      parameters: {} as Record<string, unknown>,
+    }));
+
   const systemPrompt = buildAgentSystemPrompt({
-    composioTools: [...nativeForPrompt, ...composioForPrompt],
+    composioTools: [...nativeForPrompt, ...nativeHearstForPrompt, ...composioForPrompt],
     surface: input.surface,
     scheduleDirective: input.scheduleDirective ?? false,
     applicableReports: applicableReports.length > 0 ? applicableReports : undefined,
