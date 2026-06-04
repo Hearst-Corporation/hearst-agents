@@ -45,6 +45,22 @@ const EXFIL_PATTERNS = [
   /\boublie\s+toutes?\s+(tes|les)\s+(instructions?|règles?)\b/i,
 ];
 
+// Capacités système NON disponibles dans Helm (aucun shell hôte, aucun accès
+// filesystem). Détectées AVANT le LLM (fast-path perf) : sans ça, gpt-4o met
+// ~11s à produire un refus pour une commande qu'aucun tool ne peut exécuter.
+// On refuse proprement et on propose la commande locale — jamais de faux output.
+const SHELL_PATTERNS = [
+  /\b(uname|pwd|df|whoami|ifconfig|ipconfig|netstat|ps\s+aux|lsof|top|htop)\b/i,
+  /\b(exec(ute|uter)?|lance[rz]?|run)\s+.{0,20}\b(commande?|command|bash|shell|sh|zsh|terminal|cmd)\b/i,
+  /\b(dans|sur|via)\s+(le\s+)?(terminal|shell|bash|une?\s+console)\b/i,
+  /\bcommande?\s+(syst[èe]me|shell|bash|terminal)\b/i,
+];
+const FILE_OP_PATTERNS = [
+  /\b(supprime[rz]?|efface[rz]?|delete|remove|rm)\s+.{0,30}\b(fichier|file|dossier|folder|directory|\/tmp|\/var|\/etc|\.txt|\.md|\.json|\.log)\b/i,
+  /\brm\s+-[rf]/i,
+  /\b(cr[ée]e[rz]?|create|[ée]cris?|write)\s+.{0,20}\bfichier\s+(sur|dans)\s+(mon|ton|le)\s+(disque|syst[èe]me|machine)\b/i,
+];
+
 // Mass-action soft / hard caps — the second number wins.
 const MASS_PATTERNS: Array<{ pattern: RegExp; recipients: number }> = [
   {
@@ -76,6 +92,34 @@ function normalizeForSafety(s: string): string {
 
 export function checkSafetyGate(message: string): SafetyVerdict {
   const normalized = normalizeForSafety(message);
+
+  // 0. Capacité système non disponible (shell / filesystem) — fast-path AVANT
+  // le LLM. Helm n'a ni shell hôte ni accès fichier : inutile de payer ~11s
+  // d'inférence pour un refus. On refuse net et on propose l'action locale.
+  for (const p of SHELL_PATTERNS) {
+    if (p.test(normalized) || p.test(message)) {
+      return {
+        kind: "refuse",
+        reason: "shell_unsupported",
+        userMessage:
+          "Je n'exécute pas de commandes système (pas de shell côté serveur). " +
+          "Ouvre un terminal sur ta machine et lance la commande directement — " +
+          "je peux te l'expliquer ou la préparer si besoin.",
+      };
+    }
+  }
+  for (const p of FILE_OP_PATTERNS) {
+    if (p.test(normalized) || p.test(message)) {
+      return {
+        kind: "refuse",
+        reason: "file_op_unsupported",
+        userMessage:
+          "Je ne manipule pas les fichiers de ta machine (pas d'accès filesystem côté serveur). " +
+          "Fais-le depuis ton terminal ou ton gestionnaire de fichiers — " +
+          "je peux te donner la commande exacte.",
+      };
+    }
+  }
 
   // 1. Hostile content — hard refusal. Testé sur le message normalisé ET original.
   for (const p of VIOLENT_PATTERNS) {
