@@ -799,6 +799,10 @@ export async function runAiPipeline(
   };
   const filteredComposioToolNames = new Set(filteredComposio.map((tool) => tool.name));
 
+  // Instrumentation surface tools (obs) — snapshot AVANT les filtres
+  // allowedTools / scheduler : nombre de tools candidats montés ce tour-ci.
+  const toolCandidates = Object.keys(aiTools);
+
   // ── F-011 : allowedTools intersection ──────────────────────
   // Si l'agent scope définit une liste de tools autorisés, on restreint
   // le toolset effectif. Cela empêche un custom_agent de sortir de son
@@ -859,6 +863,19 @@ export async function runAiPipeline(
       delete (aiTools as Record<string, unknown>)[name];
     }
   }
+
+  // Instrumentation surface tools (obs) — snapshot APRÈS tous les filtres
+  // (allowedTools F-011 + scheduler F-012). C'est le toolset réellement envoyé
+  // au LLM. On loggue les 3 vues alignées pour réconcilier l'écart observé entre
+  // tool_candidate_count (décision de mode) et tool_surface_count (exécution).
+  const toolsetSentToLlm = Object.keys(aiTools);
+  console.info("[AiPipeline] tool_surface", {
+    run_id: engine.id,
+    tool_candidates: toolCandidates.length,
+    toolset_after_mode_selection: input._allowedTools?.length ?? null,
+    toolset_sent_to_llm: toolsetSentToLlm.length,
+    allowed_tools_source: input._allowedToolsSource ?? "legacy",
+  });
 
   // ── 3. Build system prompt ──────────────────────────────────
   // Surface both tool families in the OUTILS section so the model knows
