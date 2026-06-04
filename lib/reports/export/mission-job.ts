@@ -26,7 +26,7 @@ import { exportPdf } from "./pdf";
 import { persistExport } from "./store";
 import { exportXlsx } from "./xlsx";
 
-export type ExportFormat = "pdf" | "xlsx";
+type ExportFormat = "pdf" | "xlsx";
 
 export interface ExportMissionInput {
   spec: ReportSpec;

@@ -17,7 +17,7 @@ import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 // ── Schémas Zod ───────────────────────────────────────────────
 
-export const createVersionInputSchema = z.object({
+const createVersionInputSchema = z.object({
   assetId: z.string().min(1).max(200),
   tenantId: z.string().min(1).max(120),
   spec: z.record(z.string(), z.unknown()),
@@ -28,21 +28,21 @@ export const createVersionInputSchema = z.object({
 });
 export type CreateVersionInput = z.infer<typeof createVersionInputSchema>;
 
-export const listVersionsInputSchema = z.object({
+const listVersionsInputSchema = z.object({
   assetId: z.string().min(1).max(200),
   tenantId: z.string().min(1).max(120),
   limit: z.number().int().min(1).max(200).default(50),
 });
 export type ListVersionsInput = z.infer<typeof listVersionsInputSchema>;
 
-export const getVersionInputSchema = z.object({
+const getVersionInputSchema = z.object({
   assetId: z.string().min(1).max(200),
   versionNumber: z.number().int().min(1),
   tenantId: z.string().min(1).max(120),
 });
 export type GetVersionInput = z.infer<typeof getVersionInputSchema>;
 
-export const getLatestVersionInputSchema = z.object({
+const getLatestVersionInputSchema = z.object({
   assetId: z.string().min(1).max(200),
   tenantId: z.string().min(1).max(120),
 });

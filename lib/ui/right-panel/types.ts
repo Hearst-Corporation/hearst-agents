@@ -5,7 +5,7 @@
  * Built from in-memory run store, mission store, and asset refs.
  */
 
-export interface RightPanelCurrentRun {
+interface RightPanelCurrentRun {
   id: string;
   status: string;
   executionMode?: string;
@@ -14,7 +14,7 @@ export interface RightPanelCurrentRun {
   pendingToolCalls?: number;
 }
 
-export interface RightPanelRun {
+interface RightPanelRun {
   id: string;
   input: string;
   status: string;
@@ -24,7 +24,7 @@ export interface RightPanelRun {
   completedAt?: number;
 }
 
-export interface RightPanelAsset {
+interface RightPanelAsset {
   id: string;
   name: string;
   type: string;
@@ -49,7 +49,7 @@ export interface RightPanelReportSuggestion {
   missingApps: ReadonlyArray<string>;
 }
 
-export interface RightPanelMission {
+interface RightPanelMission {
   id: string;
   name: string;
   input: string;
@@ -68,18 +68,18 @@ export interface RightPanelMission {
   lastError?: string;
 }
 
-export interface RightPanelSchedulerSummary {
+interface RightPanelSchedulerSummary {
   isLeader: boolean;
   mode: string;
 }
 
-export interface RightPanelMissionOpsSummary {
+interface RightPanelMissionOpsSummary {
   running: number;
   failed: number;
   blocked: number;
 }
 
-export interface RightPanelConnectorHealth {
+interface RightPanelConnectorHealth {
   healthy: number;
   degraded: number;
   disconnected: number;

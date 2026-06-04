@@ -25,7 +25,7 @@ import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 // ── Types publics ────────────────────────────────────────────────
 
-export interface PreMeetingParticipant {
+interface PreMeetingParticipant {
   /** Email RFC 5322 (lowercased). */
   email: string;
   /** Nom d'affichage si disponible (depuis Google attendees). */

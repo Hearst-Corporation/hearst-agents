@@ -29,7 +29,7 @@ export interface ReportComment {
   updatedAt: string;
 }
 
-export const addCommentInputSchema = z.object({
+const addCommentInputSchema = z.object({
   assetId: z.string().min(1).max(200),
   tenantId: z.string().min(1).max(120),
   userId: z.string().min(1).max(120),
@@ -38,7 +38,7 @@ export const addCommentInputSchema = z.object({
 });
 export type AddCommentInput = z.infer<typeof addCommentInputSchema>;
 
-export const listCommentsInputSchema = z.object({
+const listCommentsInputSchema = z.object({
   assetId: z.string().min(1).max(200),
   tenantId: z.string().min(1).max(120),
   blockRef: z.string().min(1).max(120).optional(),
@@ -46,7 +46,7 @@ export const listCommentsInputSchema = z.object({
 });
 export type ListCommentsInput = z.infer<typeof listCommentsInputSchema>;
 
-export const deleteCommentInputSchema = z.object({
+const deleteCommentInputSchema = z.object({
   commentId: z.string().min(1).max(120),
   userId: z.string().min(1).max(120),
   tenantId: z.string().min(1).max(120),

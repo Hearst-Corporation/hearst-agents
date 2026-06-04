@@ -66,7 +66,7 @@ export async function validatePromptArtifact(
   };
 }
 
-export async function loadPromptContent(sb: DB, artifactId: string): Promise<string> {
+async function loadPromptContent(sb: DB, artifactId: string): Promise<string> {
   const validation = await validatePromptArtifact(sb, artifactId);
   if (!validation.valid) {
     throw new RuntimeError("INVALID_INPUT", validation.error!);

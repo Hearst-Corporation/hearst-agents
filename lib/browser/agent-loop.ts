@@ -179,7 +179,7 @@ const SYSTEM_PROMPT = [
 
 // ── Types publics ────────────────────────────────────────────
 
-export type AgentToolName = "navigate" | "click" | "fill" | "wait" | "extract" | "done";
+type AgentToolName = "navigate" | "click" | "fill" | "wait" | "extract" | "done";
 
 export interface AgentStep {
   tool: AgentToolName;

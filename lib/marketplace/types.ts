@@ -15,7 +15,7 @@ export const MARKETPLACE_KINDS = ["workflow", "report_spec", "persona", "creativ
 export type MarketplaceKind = (typeof MARKETPLACE_KINDS)[number];
 
 /** Tag : alphanumérique + dash, 2-24 caractères, max 5 par template. */
-export const tagSchema = z
+const tagSchema = z
   .string()
   .min(2)
   .max(24)
@@ -41,7 +41,7 @@ const workflowEdgeSchema = z.object({
   condition: z.string().optional(),
 });
 
-export const workflowGraphSchema = z.object({
+const workflowGraphSchema = z.object({
   nodes: z.array(workflowNodeSchema).min(1),
   edges: z.array(workflowEdgeSchema),
   startNodeId: z.string().min(1),
@@ -54,7 +54,7 @@ export const workflowGraphSchema = z.object({
 // destiné à être consommé par VideoQuickLaunch ou AssetVariantTabs (clone
 // 1-clic du prompt vers le launcher). Tags + recommendedFor permettent
 // la reco contextuelle (persona active, vertical tenant).
-export const creativePromptPayloadSchema = z.object({
+const creativePromptPayloadSchema = z.object({
   prompt: z.string().min(1).max(2000),
   provider: z.enum(["runway", "heygen", "fal", "elevenlabs"]),
   kind: z.enum(["video", "image", "audio"]),
@@ -74,7 +74,7 @@ export type CreativePromptPayload = z.infer<typeof creativePromptPayloadSchema>;
 //
 // On ne valide que le sous-ensemble qu'on accepte de partager : pas de
 // userId/tenantId/createdAt (réinjectés à la clone), pas de isDefault.
-export const personaPayloadSchema = z.object({
+const personaPayloadSchema = z.object({
   name: z.string().min(1).max(80),
   description: z.string().max(280).optional(),
   tone: z.enum(["formal", "casual", "analytical", "creative", "direct"]).nullable().optional(),

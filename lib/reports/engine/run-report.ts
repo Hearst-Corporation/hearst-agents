@@ -80,7 +80,7 @@ function deriveSources(sources: ReadonlyArray<SourceRef>, fetchedAt: number): Re
  * Convention : best-effort. Une exception du dispatcher est loggée mais
  * NE casse PAS le report.
  */
-export type AlertDispatcher = (
+type AlertDispatcher = (
   input: Pick<DispatchAlertsInput, "tenantId" | "signals" | "report">,
 ) => Promise<DispatchAlertsResult>;
 

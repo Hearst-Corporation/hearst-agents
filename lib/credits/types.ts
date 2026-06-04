@@ -8,7 +8,7 @@
 
 import type { JobKind } from "@/lib/jobs/types";
 
-export type CreditOperation =
+type CreditOperation =
   | "purchase"
   | "refund"
   | "job_debit"

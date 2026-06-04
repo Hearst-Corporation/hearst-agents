@@ -98,7 +98,7 @@ export const voiceToolDefs: VoiceToolDef[] = [
 ];
 
 /** Label compact affichable dans le ContextRail. */
-export const VOICE_TOOL_LABELS: Record<string, string> = {
+const VOICE_TOOL_LABELS: Record<string, string> = {
   start_meeting_bot: "Meeting",
   start_simulation: "Simulation",
   generate_image: "Image",

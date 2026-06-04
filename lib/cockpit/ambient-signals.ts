@@ -32,7 +32,7 @@ export type AmbientSignalKind =
   | "variant_timeout"
   | "mission_silent";
 
-export type AmbientSignalSeverity = "info" | "warning";
+type AmbientSignalSeverity = "info" | "warning";
 
 export interface AmbientSignal {
   id: string;

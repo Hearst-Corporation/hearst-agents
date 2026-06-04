@@ -30,7 +30,7 @@ export type JobKind =
 
 // ── Payloads par JobKind (discriminated union) ───────────────
 
-export interface JobScopeFields {
+interface JobScopeFields {
   userId: string;
   tenantId: string;
   workspaceId: string;
@@ -112,14 +112,14 @@ export interface MeetingBotInput extends JobScopeFields {
   recordingPolicy: "all_participants_consent" | "user_only";
 }
 
-export interface MemoryIngestInput extends JobScopeFields {
+interface MemoryIngestInput extends JobScopeFields {
   jobKind: "memory-ingest";
   content: string;
   contentType: "conversation" | "asset" | "meeting" | "email";
   sourceRef: string;
 }
 
-export interface AssetVariantInput extends JobScopeFields {
+interface AssetVariantInput extends JobScopeFields {
   jobKind: "asset-variant";
   variantKind: "audio" | "video" | "slides" | "site" | "image";
   /** L'asset source dont on dérive le variant. */

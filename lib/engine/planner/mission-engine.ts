@@ -50,7 +50,7 @@ export function resumeMission(missionId: string): MissionDefinition | null {
 
 // ── Query helpers ───────────────────────────────────────────
 
-export { getActiveMissions, getDueMissions };
+export {  };
 
 // ── Schedule parsing (basic — production should use cron) ───
 

@@ -17,7 +17,7 @@ export type AnalyticsEventType =
   | "run_completed"
   | "run_failed";
 
-export interface AnalyticsEvent {
+interface AnalyticsEvent {
   type: AnalyticsEventType;
   userHash: string;
   timestamp: string;

@@ -34,7 +34,7 @@ export interface ApiAuthTenant {
 /**
  * Contexte complet passé au handler — tenant résolu + params route.
  */
-export interface ApiAuthContext<TParams = undefined> {
+interface ApiAuthContext<TParams = undefined> {
   tenant: ApiAuthTenant;
   params: TParams;
 }

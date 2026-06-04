@@ -77,7 +77,7 @@ export function missionToFocal(mission: MissionLike, threadId: string | null): F
 
 // ── Asset ────────────────────────────────────────────────────
 
-export interface AssetLike {
+interface AssetLike {
   id: string;
   name: string;
   type: string;
@@ -95,7 +95,7 @@ const ASSET_TYPE_MAP: Record<string, FocalObject["type"]> = {
   synthesis: "report",
 };
 
-export function assetToFocal(asset: AssetLike, threadId: string | null): FocalObject {
+function assetToFocal(asset: AssetLike, threadId: string | null): FocalObject {
   const now = Date.now();
   const focalType = ASSET_TYPE_MAP[asset.type.toLowerCase()] ?? "doc";
   const sizeChunk =

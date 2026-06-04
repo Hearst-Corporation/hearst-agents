@@ -41,7 +41,7 @@ const draftSpecSchema = z.object({
   narration: narrationSpecSchema.optional(),
 });
 
-export type ReportDraft = z.infer<typeof draftSpecSchema>;
+type ReportDraft = z.infer<typeof draftSpecSchema>;
 
 interface ProposeReportArgs extends ReportDraft {
   /** Toujours true en V1 — pour cohérence avec d'autres tools _preview. */

@@ -4,11 +4,11 @@
 
 export type ArtifactType = "chat_response" | "draft" | "memo" | "report" | "deliverable";
 
-export type ArtifactStatus = "draft" | "final";
+type ArtifactStatus = "draft" | "final";
 
-export type ArtifactFormat = "text" | "markdown" | "html" | "pdf_ready" | "json";
+type ArtifactFormat = "text" | "markdown" | "html" | "pdf_ready" | "json";
 
-export interface ArtifactSection {
+interface ArtifactSection {
   id: string;
   title: string;
   content: string;
@@ -16,7 +16,7 @@ export interface ArtifactSection {
   sources?: string[];
 }
 
-export interface ArtifactSourceRef {
+interface ArtifactSourceRef {
   id: string;
   source_type:
     | "email"
@@ -51,7 +51,7 @@ export interface Artifact {
   updated_at: string;
 }
 
-export interface ArtifactMetadata {
+interface ArtifactMetadata {
   template_id?: string;
   audience?: "self" | "team" | "exec" | "client";
   export_targets?: ("html" | "pdf" | "docx")[];

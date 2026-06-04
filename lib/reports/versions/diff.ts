@@ -15,7 +15,7 @@ import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-b
 
 // ── Types ─────────────────────────────────────────────────────
 
-export type DiffKind = "added" | "removed" | "changed";
+type DiffKind = "added" | "removed" | "changed";
 
 export interface VersionDiff {
   blockRef: string;

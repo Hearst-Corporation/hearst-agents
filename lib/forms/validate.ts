@@ -13,7 +13,7 @@ import type { ZodType } from "zod";
  *   if (!r.ok) { setErrors(r.errors); return; }
  *   void submit(r.data);
  */
-export type FieldErrors = Record<string, string>;
+type FieldErrors = Record<string, string>;
 
 export type ValidateResult<T> = { ok: true; data: T } | { ok: false; errors: FieldErrors };
 

@@ -10,7 +10,7 @@ import { type CanonicalScope, requireScope } from "@/lib/platform/auth/scope";
  * `scope` is guaranteed non-null (auth check passed). `params` is the
  * resolved Next.js 15 dynamic segments (await'd by the wrapper).
  */
-export interface ScopedContext<TParams = undefined> {
+interface ScopedContext<TParams = undefined> {
   scope: CanonicalScope;
   params: TParams;
 }
@@ -19,7 +19,7 @@ export interface ScopedContext<TParams = undefined> {
  * Context passed to an admin route handler. Same as ScopedContext + the
  * Supabase client returned by the permission guard.
  */
-export interface AdminContext<TParams = undefined> {
+interface AdminContext<TParams = undefined> {
   scope: CanonicalScope;
   db: SupabaseClient;
   params: TParams;

@@ -24,7 +24,7 @@ export interface AlertContext {
 }
 
 /** Enveloppe canonique envoyée aux webhooks. */
-export interface AlertWebhookPayload {
+interface AlertWebhookPayload {
   v: 1;
   emittedAt: number;
   tenantId: string;
@@ -207,7 +207,7 @@ export async function dispatchSlack(
 // interface claire et un stub qui logge structurellement. Un agent ultérieur
 // pourra remplacer `defaultEmailSender` par une vraie implémentation.
 
-export interface EmailMessage {
+interface EmailMessage {
   to: ReadonlyArray<string>;
   subject: string;
   text: string;

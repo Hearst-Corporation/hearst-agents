@@ -11,4 +11,4 @@ export const KIMI_MODELS = {
   SONNET: "kimi-k2.6",
 } as const;
 
-export type KimiModel = (typeof KIMI_MODELS)[keyof typeof KIMI_MODELS];
+type KimiModel = (typeof KIMI_MODELS)[keyof typeof KIMI_MODELS];

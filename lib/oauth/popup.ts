@@ -29,7 +29,7 @@ class WebPopupHandle implements PopupHandle {
   }
 }
 
-export interface PopupDriver {
+interface PopupDriver {
   open(): PopupHandle | null;
 }
 

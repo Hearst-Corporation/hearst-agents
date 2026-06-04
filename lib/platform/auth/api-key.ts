@@ -179,7 +179,7 @@ export async function verifyApiKey(rawKey: string): Promise<VerifiedApiKey | nul
  *
  * @throws Error si la mise à jour échoue.
  */
-export async function revokeApiKey(id: string): Promise<void> {
+async function revokeApiKey(id: string): Promise<void> {
   const sb = getUntypedClient();
   if (!sb) throw new Error("[api-key] Supabase client unavailable");
 

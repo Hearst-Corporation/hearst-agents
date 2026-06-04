@@ -8,7 +8,7 @@
 import { z } from "zod";
 import { reportSpecSchema } from "@/lib/reports/spec/schema";
 
-export const templateSchema = z.object({
+const templateSchema = z.object({
   id: z.string().uuid(),
   tenantId: z.string().min(1),
   createdBy: z.string().uuid(),
@@ -69,7 +69,7 @@ export type UpdateTemplateInput = z.infer<typeof updateTemplateInputSchema>;
 
 // ── DTO renvoyé aux clients (sans spec lourd pour les listes) ──
 
-export const templateSummarySchema = z.object({
+const templateSummarySchema = z.object({
   id: z.string().uuid(),
   tenantId: z.string().min(1),
   createdBy: z.string().uuid(),

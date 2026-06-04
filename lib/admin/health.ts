@@ -260,10 +260,10 @@ async function checkLLMHealth(): Promise<{
  *   - "down"           : timeout, erreur réseau ou HTTP 5xx
  *   - "not_configured" : env var absente — service simplement pas activé
  */
-export type ServiceStatus = "ok" | "degraded" | "down" | "not_configured";
+type ServiceStatus = "ok" | "degraded" | "down" | "not_configured";
 
 /** Catégorie pour grouper les services dans l'UI. */
-export type ServiceCategory =
+type ServiceCategory =
   | "llm"
   | "database"
   | "storage"
@@ -278,7 +278,7 @@ export type ServiceCategory =
   | "security"
   | "connectors";
 
-export interface ServiceCheck {
+interface ServiceCheck {
   name: string;
   category: ServiceCategory;
   status: ServiceStatus;

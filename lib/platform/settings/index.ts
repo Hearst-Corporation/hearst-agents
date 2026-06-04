@@ -20,7 +20,7 @@ export async function getCategorySettings(
   return Object.fromEntries(settings.map((s) => [s.key, s.value]));
 }
 
-export { getSettingValue, invalidateSettingsCache, setSettingValue } from "./cache";
+export {  invalidateSettingsCache } from "./cache";
 // Re-exports
 export { getAllSettings, getSetting, setSetting } from "./store";
 // System-level (feature flags, thresholds, limits)

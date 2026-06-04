@@ -15,7 +15,7 @@
  * champ — Phase 3 brancher le filtre `WHERE space_id = ?` route par route.
  * Voir `docs/features/spaces.md` pour la roadmap.
  */
-export type SpaceId = string;
+type SpaceId = string;
 
 /**
  * Default appliqué partout où `spaceId` n'est pas explicitement fourni.
@@ -24,7 +24,7 @@ export type SpaceId = string;
  *   - `DEFAULT_SPACE_ID` dans `lib/multi-tenant/active-space.ts`
  *   - `DEFAULT 'personal'` dans `supabase/migrations/0062_*`
  */
-export const DEFAULT_SPACE_ID: SpaceId = "personal";
+const DEFAULT_SPACE_ID: SpaceId = "personal";
 
 export interface TenantScope {
   tenantId: string;
@@ -40,7 +40,7 @@ export interface TenantScope {
   spaceId?: SpaceId;
 }
 
-export interface ScopedMetadata {
+interface ScopedMetadata {
   tenantId: string;
   workspaceId: string;
   userId?: string;
@@ -53,6 +53,6 @@ export interface ScopedMetadata {
  * `DEFAULT_SPACE_ID`. À utiliser systématiquement côté query Phase 3
  * pour éviter de tester `scope.spaceId ?? "personal"` partout.
  */
-export function resolveSpaceId(scope: Pick<TenantScope, "spaceId"> | null | undefined): SpaceId {
+function resolveSpaceId(scope: Pick<TenantScope, "spaceId"> | null | undefined): SpaceId {
   return scope?.spaceId ?? DEFAULT_SPACE_ID;
 }

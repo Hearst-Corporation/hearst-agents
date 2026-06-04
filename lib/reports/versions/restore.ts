@@ -20,7 +20,7 @@ import { createVersion, getVersion } from "@/lib/reports/versions/store";
 
 // ── Schéma ────────────────────────────────────────────────────
 
-export const restoreVersionInputSchema = z.object({
+const restoreVersionInputSchema = z.object({
   assetId: z.string().min(1).max(200),
   versionNumber: z.number().int().min(1),
   tenantId: z.string().min(1).max(120),
