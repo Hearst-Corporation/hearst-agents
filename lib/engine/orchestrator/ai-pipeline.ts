@@ -52,6 +52,7 @@ import { getDefaultPersona, getPersonaById, getPersonaForSurface } from "@/lib/p
 import { getApplicableReports } from "@/lib/reports/catalog";
 import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
 import { buildComputerActionTools } from "@/lib/tools/native/computer-action";
+import { buildCortexRememberTools } from "@/lib/tools/native/cortex-remember";
 import { buildCortexSearchTools } from "@/lib/tools/native/cortex-search";
 import { buildEnrichTools } from "@/lib/tools/native/enrich";
 import { buildExtrasMediaTools } from "@/lib/tools/native/extras-media";
@@ -739,6 +740,7 @@ export async function runAiPipeline(
     scope: pipelineScope,
   });
   const cortexSearchTools = buildCortexSearchTools({ scope: pipelineScope });
+  const cortexRememberTools = buildCortexRememberTools({ scope: pipelineScope });
   const swarmTools = buildSwarmTools({ scope: pipelineScope });
   const computerActionTools = buildComputerActionTools({ scope: pipelineScope });
   const missionTools = buildMissionTools({
@@ -761,6 +763,7 @@ export async function runAiPipeline(
     ...extrasMediaTools,
     ...kgQueryTools,
     ...cortexSearchTools,
+    ...cortexRememberTools,
     ...swarmTools,
     ...computerActionTools,
     ...missionTools,
