@@ -98,6 +98,14 @@ export interface AiPipelineInput {
   surface?: string;
   /** Resolved capability domain — used to filter Composio tools to relevant apps only. */
   domain?: string;
+  /**
+   * Mode d'exécution décidé par l'orchestrateur (capabilities router).
+   * "direct_answer" = conversationnel, l'orchestrateur a déjà statué qu'AUCUN
+   * tool n'est requis → on saute la discovery Composio (~1,5 s réseau) et on
+   * n'injecte pas les ~40 schémas de tools dans le prompt (~3 s de TTFT en moins).
+   * cortex_search (mémoire) reste exposé. Autres modes = toolset complet.
+   */
+  executionMode?: string;
   /** Recurring intent detected — prepends a forcing schedule directive to the prompt. */
   scheduleDirective?: boolean;
   /** Tenant scope for multi-tenant operations (mission creation etc.). */
@@ -676,20 +684,27 @@ export async function runAiPipeline(
     "nativeGoogleTools",
     {} as Record<string, unknown>,
   );
-  const composioToolsRawPromise = withTimeout(
-    getToolsForUser(
-      composioEntityId,
-      DOMAIN_APP_ALLOWLIST[input.domain ?? "general"]
-        ? { apps: DOMAIN_APP_ALLOWLIST[input.domain as string] }
-        : {},
-    ).catch((err) => {
-      console.error("[AiPipeline] Composio discovery failed:", err);
-      return [] as Awaited<ReturnType<typeof getToolsForUser>>;
-    }),
-    PREFETCH_TOOLS_TIMEOUT_MS,
-    "composioTools",
-    [] as Awaited<ReturnType<typeof getToolsForUser>>,
-  );
+  // PERF (2026-06-04) : en mode direct_answer l'orchestrateur a déjà statué
+  // "aucun tool requis" → on saute la discovery Composio (~1,5 s) ET l'injection
+  // des ~40 schémas dans le prompt (~33k tokens / ~3 s de TTFT). Les tools natifs
+  // (cortex_search, etc.) restent exposés via aiTools.
+  const composioToolsRawPromise =
+    input.executionMode === "direct_answer"
+      ? Promise.resolve([] as Awaited<ReturnType<typeof getToolsForUser>>)
+      : withTimeout(
+          getToolsForUser(
+            composioEntityId,
+            DOMAIN_APP_ALLOWLIST[input.domain ?? "general"]
+              ? { apps: DOMAIN_APP_ALLOWLIST[input.domain as string] }
+              : {},
+          ).catch((err) => {
+            console.error("[AiPipeline] Composio discovery failed:", err);
+            return [] as Awaited<ReturnType<typeof getToolsForUser>>;
+          }),
+          PREFETCH_TOOLS_TIMEOUT_MS,
+          "composioTools",
+          [] as Awaited<ReturnType<typeof getToolsForUser>>,
+        );
 
   // ── Await tools (Groupe B) — ici le overlap avec le build mémoire/historique ──
   // À ce stade, nativeGoogleToolsPromise et composioToolsRawPromise tournent
