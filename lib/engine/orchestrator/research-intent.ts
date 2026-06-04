@@ -175,6 +175,10 @@ const MEMORY_QUERY_PATTERNS = [
   /\b(souviens?|rappelle?(-toi)?|tu\s+sais)\b/i,
   /\bqu[e']est-ce\s+que\s+tu\s+sais\b/i,
   /\bce\s+que\s+tu\s+sais\b/i,
+  // Verbes de MÉMORISATION (write → cortex_remember). Sans ça, "mémorise que le
+  // client préfère les rapports courts" matche isResearchIntent ("rapport") et
+  // part en research web au lieu d'écrire en mémoire.
+  /\b(m[eé]morise[rz]?|retiens?|retenir|enregistre[rz]?|note[rz]?)\b/i,
   // "cherche dans mes notes / mon vault / ma mémoire"
   /cherche\s+(dans|parmi)\s+(mes?|mon|ma)\b/i,
   /\b(trouve|retrouve)\s+(dans|parmi)\s+(mes?|mon|ma)\b/i,

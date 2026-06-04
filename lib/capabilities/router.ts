@@ -255,7 +255,14 @@ export function resolveExecutionMode(
   const requiresReasoning = REASONING_PATTERNS.some((p) => lower.includes(p));
   const wordCount = message.split(/\s+/).filter(Boolean).length;
 
-  if (needsAutonomy || needsMemory) {
+  // Option A — Une mémorisation PURE ("mémorise X", "rappelle-toi que Y") est
+  // servie par le tool natif cortex_remember, disponible sur le chemin natif
+  // (direct_answer / tool_call) mais ABSENT du toolset des agents custom. La
+  // router vers custom_agent revenait à exclure le seul tool qui peut l'exécuter
+  // → le LLM répondait « je ne peux pas mémoriser ». On ne promeut donc PAS en
+  // custom_agent sur le seul signal mémoire : on laisse la requête descendre vers
+  // le chemin natif où cortex_remember est monté.
+  if (needsAutonomy) {
     return {
       mode: "custom_agent",
       reason: "Requires autonomous agent",
@@ -266,6 +273,22 @@ export function resolveExecutionMode(
 
   const hasProviders =
     scope.providers.length > 0 && scope.domain !== "general" && scope.domain !== "research";
+
+  // Intent mémoire (mémorise/rappelle-toi/recall) → mode direct_answer : c'est le
+  // SEUL mode qui court-circuite la résolution Cortex-policy stricte
+  // (shouldSkipCortexResolve) et conserve le toolset NATIF Helm complet (legacy),
+  // dont cortex_remember + cortex_search. Les autres modes (tool_call, workflow,
+  // custom_agent) déclenchent resolveCapabilities qui, pour un contexte au profil
+  // restreint, ne mappe pas cortex_remember → toolset vidé. Le LLM choisit ensuite
+  // le bon tool natif via le mandat + few-shot du system prompt.
+  if (needsMemory && !hasProviders) {
+    return {
+      mode: "direct_answer",
+      reason: "Memory intent — native cortex tools",
+      requiresReasoning,
+    };
+  }
+
   const isSimple = scope.domain === "general" && !hasProviders && wordCount <= 30 && !focalContext;
 
   if (isSimple) {
