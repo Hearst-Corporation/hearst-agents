@@ -183,8 +183,30 @@ const hyperKey = process.env.KIMI_API_KEY ?? process.env.HYPERCLI_API_KEY ?? "";
 // <think> (imposé modèle) mais le RACCOURCIT fortement → TTFT visible 2.2s→0.7s.
 // Le SDK @ai-sdk/openai v3 n'expose pas extraBody au niveau provider ; on passe
 // donc par le hook `fetch`. No-op sur les requêtes non-JSON.
+//
+// ⚠️ `enable_thinking` est un paramètre PROPRIÉTAIRE Kimi/Hypercli. L'API OpenAI
+// officielle (api.openai.com) le rejette avec HTTP 400 "Unrecognized request
+// argument: enable_thinking" → 0 output → NoOutputGeneratedError → run_failed
+// (incident 2026-06-04, stopgap KIMI_BASE_URL pointé sur OpenAI). On ne l'injecte
+// donc QUE vers les endpoints qui le supportent (tout sauf OpenAI officiel).
+const hyperBaseUrl =
+  process.env.KIMI_BASE_URL ?? process.env.HYPERCLI_BASE_URL ?? "https://api.hypercli.com/v1";
+
+/** Endpoint OpenAI officiel → ne supporte PAS le param propriétaire enable_thinking. */
+function isOpenAIEndpoint(url: string): boolean {
+  return /(^|\/\/|\.)api\.openai\.com/i.test(url);
+}
+
 const hyperFetch: typeof fetch = async (input, init) => {
-  if (init?.body && typeof init.body === "string") {
+  // Décision au RUNTIME sur l'URL réelle de la requête (robuste au cache module
+  // et aux providers multiples) : on n'injecte enable_thinking que hors OpenAI.
+  const reqUrl =
+    typeof input === "string"
+      ? input
+      : input instanceof URL
+        ? input.href
+        : ((input as Request)?.url ?? hyperBaseUrl);
+  if (!isOpenAIEndpoint(reqUrl) && init?.body && typeof init.body === "string") {
     try {
       const parsed = JSON.parse(init.body);
       if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
@@ -200,8 +222,7 @@ const hyperFetch: typeof fetch = async (input, init) => {
 
 const hypercli = createOpenAI({
   apiKey: hyperKey,
-  baseURL:
-    process.env.KIMI_BASE_URL ?? process.env.HYPERCLI_BASE_URL ?? "https://api.hypercli.com/v1",
+  baseURL: hyperBaseUrl,
   fetch: hyperFetch,
 });
 // hypercli.chat(model) cible /v1/chat/completions (OpenAI-compat) — l'endpoint
@@ -579,86 +600,96 @@ export async function runAiPipeline(
   // Les tools natifs Google restent câblés sur input.userId (tokens NextAuth).
   const composioEntityId: string = input.composioEntityId ?? input.userId;
 
-  // ── 1. Discover the two tool surfaces in parallel ──────────
-  // - Native Google tools (Gmail / Calendar / Drive) backed by NextAuth
-  //   tokens — the user gets these the moment they sign in via the Google
-  //   provider, no Composio popup required.
-  // - Composio tools for everything else (Slack, Notion, GitHub, Airtable,
-  //   HubSpot, …).
-  const [nativeGoogleTools, composioToolsRaw, briefingResult, kgContext, retrievedMemory] =
-    await Promise.all([
-      withTimeout(
-        buildNativeGoogleTools(input.userId, {
-          userId: input.userId,
-          tenantId: resolvedTenantId,
-        }).catch((err) => {
-          console.error("[AiPipeline] native Google discovery failed:", err);
-          return {} as Record<string, unknown>;
-        }),
-        PREFETCH_TOOLS_TIMEOUT_MS,
-        "nativeGoogleTools",
-        {} as Record<string, unknown>,
-      ),
-      withTimeout(
-        // Pré-filtre apps sur domaine FORT : si le domaine résolu a une allowlist
-        // (developer/communication/finance/…), on restreint la discovery Composio
-        // à ces apps → évite N fetch per-toolkit inutiles. getToolsForUser
-        // intersecte `apps` avec les apps réellement connectées du user (no-op si
-        // aucune ne matche). Pour general/research (chat libre, cas le + fréquent),
-        // pas d'allowlist → discovery complète, filterToolsByDomain reste le filet.
-        getToolsForUser(
-          composioEntityId,
-          DOMAIN_APP_ALLOWLIST[input.domain ?? "general"]
-            ? { apps: DOMAIN_APP_ALLOWLIST[input.domain as string] }
-            : {},
-        ).catch((err) => {
-          console.error("[AiPipeline] Composio discovery failed:", err);
-          return [] as Awaited<ReturnType<typeof getToolsForUser>>;
-        }),
-        PREFETCH_TOOLS_TIMEOUT_MS,
-        "composioTools",
-        [] as Awaited<ReturnType<typeof getToolsForUser>>,
-      ),
-      // Briefing memory : fail-soft, jamais bloquant. Si Redis ou Anthropic
-      // tombent, on continue sans contexte personnalisé.
-      withTimeout(
-        generateBriefing({ userId: input.userId }).catch((err) => {
-          console.warn("[AiPipeline] briefing fetch failed:", err);
-          return null;
-        }),
-        PREFETCH_MEMORY_TIMEOUT_MS,
-        "briefing",
-        null,
-      ),
-      // Knowledge Graph context : fail-soft. Si Supabase tombe ou pas
-      // d'entités, on continue sans (le user n'a peut-être encore rien
-      // ingéré).
-      withTimeout(
-        getKgContextForUser(input.userId, resolvedTenantId).catch((err) => {
-          console.warn("[AiPipeline] KG context fetch failed:", err);
-          return null;
-        }),
-        PREFETCH_MEMORY_TIMEOUT_MS,
-        "kgContext",
-        null,
-      ),
-      // Retrieved memory (LTM) : top-K embeddings sémantiques sur le
-      // message courant. Fail-soft : sans OPENAI_API_KEY ou sans pgvector
-      // upgradé, on continue avec une chaîne vide.
-      withTimeout(
-        getRetrievedMemoryForUser({
-          userId: input.userId,
-          tenantId: resolvedTenantId,
-          currentMessage: input.message,
-        }).catch((err) => {
-          console.warn("[AiPipeline] retrieved memory fetch failed:", err);
-          return "";
-        }),
-        PREFETCH_MEMORY_TIMEOUT_MS,
-        "retrievedMemory",
-        "",
-      ),
-    ]);
+  // ── 1. Prefetch lazy — deux groupes en parallèle (P2 perf) ──
+  //
+  // Problème historique : le Promise.all monolithique (tools + mémoire)
+  // bloquait streamText pendant 4s sur cold start (Composio discovery lente).
+  // Nouveau schéma :
+  //   Groupe A — MÉMOIRE (cap 800ms) : briefing, KG, LTM.
+  //     Await complet : petite fenêtre, enrichit le system prompt, pas critique.
+  //   Groupe B — TOOLS (cap 4s) : Composio + Google Native.
+  //     Lance en PARALLÈLE du groupe A et du build system prompt/historique.
+  //     Await juste avant streamText — overlap maximal avec le travail CPU local.
+  //
+  // En pratique : sur cache chaud les tools répondent en <200ms (pas de delta).
+  // Sur cold start Composio (~2-4s), le build system prompt + getRecentModelMessages
+  // (~50-200ms) se fait pendant ce temps → le seul vrai bloquant restant est
+  // max(tools_latency - local_work_latency, 0), soit souvent 0ms.
+
+  // Groupe A — mémoire (petit cap, await immédiat)
+  const [briefingResult, kgContext, retrievedMemory] = await Promise.all([
+    withTimeout(
+      generateBriefing({ userId: input.userId }).catch((err) => {
+        console.warn("[AiPipeline] briefing fetch failed:", err);
+        return null;
+      }),
+      PREFETCH_MEMORY_TIMEOUT_MS,
+      "briefing",
+      null,
+    ),
+    withTimeout(
+      getKgContextForUser(input.userId, resolvedTenantId).catch((err) => {
+        console.warn("[AiPipeline] KG context fetch failed:", err);
+        return null;
+      }),
+      PREFETCH_MEMORY_TIMEOUT_MS,
+      "kgContext",
+      null,
+    ),
+    withTimeout(
+      getRetrievedMemoryForUser({
+        userId: input.userId,
+        tenantId: resolvedTenantId,
+        currentMessage: input.message,
+      }).catch((err) => {
+        console.warn("[AiPipeline] retrieved memory fetch failed:", err);
+        return "";
+      }),
+      PREFETCH_MEMORY_TIMEOUT_MS,
+      "retrievedMemory",
+      "",
+    ),
+  ]);
+
+  // Groupe B — tools (cap 4s, lancé EN PARALLÈLE, pas encore await)
+  // Démarre immédiatement sans bloquer la suite (build prompt + historique).
+  const nativeGoogleToolsPromise = withTimeout(
+    buildNativeGoogleTools(input.userId, {
+      userId: input.userId,
+      tenantId: resolvedTenantId,
+    }).catch((err) => {
+      console.error("[AiPipeline] native Google discovery failed:", err);
+      return {} as Record<string, unknown>;
+    }),
+    PREFETCH_TOOLS_TIMEOUT_MS,
+    "nativeGoogleTools",
+    {} as Record<string, unknown>,
+  );
+  const composioToolsRawPromise = withTimeout(
+    getToolsForUser(
+      composioEntityId,
+      DOMAIN_APP_ALLOWLIST[input.domain ?? "general"]
+        ? { apps: DOMAIN_APP_ALLOWLIST[input.domain as string] }
+        : {},
+    ).catch((err) => {
+      console.error("[AiPipeline] Composio discovery failed:", err);
+      return [] as Awaited<ReturnType<typeof getToolsForUser>>;
+    }),
+    PREFETCH_TOOLS_TIMEOUT_MS,
+    "composioTools",
+    [] as Awaited<ReturnType<typeof getToolsForUser>>,
+  );
+
+  // ── Await tools (Groupe B) — ici le overlap avec le build mémoire/historique ──
+  // À ce stade, nativeGoogleToolsPromise et composioToolsRawPromise tournent
+  // depuis le début du pipeline. Tout le CPU local (build system prompt,
+  // getRecentModelMessages, persona résolution) s'est fait pendant ce temps.
+  // En pratique sur cache chaud : delta ~0ms. Sur cold start : delta =
+  // max(tools_latency - local_work_ms, 0) au lieu de tools_latency pur.
+  const [nativeGoogleTools, composioToolsRaw] = await Promise.all([
+    nativeGoogleToolsPromise,
+    composioToolsRawPromise,
+  ]);
 
   // Filter Composio tools to domain-relevant ones (prevents token explosion).
   const filteredComposio = filterToolsByDomain(composioToolsRaw, input.domain ?? "general");
