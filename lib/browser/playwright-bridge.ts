@@ -67,7 +67,10 @@ async function loadChromium(): Promise<ChromiumLike | null> {
     // transitive optionnelle, non hoistée en pnpm strict → tsc ne doit pas
     // exiger sa résolution au build Vercel. import(spec:string) = Promise<any>.
     const playwrightCoreSpecifier: string = "playwright-core";
-    const mod: unknown = await import(playwrightCoreSpecifier);
+    // turbopackIgnore : Turbopack ne doit PAS tenter de résoudre/bundler ce
+    // require optionnel (dep transitive non hoistée) au build → sinon
+    // "Module not found: Can't resolve 'playwright-core'". Résolu au runtime.
+    const mod: unknown = await import(/* turbopackIgnore: true */ playwrightCoreSpecifier);
     const m = mod as { chromium?: ChromiumLike };
     cachedChromium = m.chromium ?? null;
     return cachedChromium;

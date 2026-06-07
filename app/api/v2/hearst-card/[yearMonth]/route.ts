@@ -124,9 +124,11 @@ async function renderPngViaPlaywright(renderUrl: string): Promise<Buffer | null>
     // tsc n'exige plus la résolution du module au build Vercel (pnpm strict).
     const playwrightCoreSpecifier: string = "playwright-core";
     const playwrightSpecifier: string = "playwright";
+    // turbopackIgnore : require optionnels (devDeps absentes du runtime prod) —
+    // Turbopack ne doit pas tenter de les résoudre au build (skip PNG gracieux).
     const mod =
-      (await import(playwrightCoreSpecifier).catch(() => null)) ??
-      (await import(playwrightSpecifier).catch(() => null));
+      (await import(/* turbopackIgnore: true */ playwrightCoreSpecifier).catch(() => null)) ??
+      (await import(/* turbopackIgnore: true */ playwrightSpecifier).catch(() => null));
     if (!mod) {
       console.warn("[hearst-card] playwright non installé — skip PNG render");
       return null;
