@@ -65,11 +65,8 @@ import { buildSwarmTools } from "@/lib/tools/native/swarm";
 import { buildWebSearchTools } from "@/lib/tools/native/web-search";
 import { canonicalHash } from "@/lib/utils/canonical-hash";
 import { redactId } from "@/lib/utils/redact";
-import {
-  buildAgentSystemPrompt,
-  ORCHESTRATOR_MODEL,
-  ORCHESTRATOR_MODEL_OAI,
-} from "./system-prompt";
+import { buildLlmCandidates, type LlmCandidate } from "./llm-candidates";
+import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
 
 // Schema for validating tool results from the AI pipeline.
 // Deux conventions de retour coexistent :
@@ -162,16 +159,22 @@ export interface AiPipelineInput {
   composioEntityId?: string;
 }
 
-// Orchestrateur Kimi direct — endpoint OpenAI-compatible (/v1/chat/completions).
+// ── LLM provider config ───────────────────────────────────────────────────────
 //
-// On impose `KIMI_API_KEY` + `KIMI_BASE_URL` pour Kimi : plus de fallback implicite
-// vers Hypercli. Sans Kimi configuré, le pipeline utilise OpenAI explicitement.
-const llmRuntimeConfig = process.env.KIMI_API_KEY
-  ? resolveKimiRuntimeConfig()
-  : {
-      apiKey: process.env.OPENAI_API_KEY ?? "",
-      baseURL: process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1",
-    };
+// Stream B (robustesse routeur) : on construit une liste ordonnée de candidats
+// provider au lieu d'un unique llmClient statique. Le PREMIER candidat reproduit
+// exactement la logique existante (Kimi si KIMI_API_KEY, sinon OpenAI) ; les
+// suivants ne sont tentés qu'en cas d'échec de création/démarrage du stream.
+//
+// On garde `resolveKimiRuntimeConfig()` pour la validation au démarrage (throws
+// explicitement si KIMI_API_KEY présent mais KIMI_BASE_URL absent).
+if (process.env.KIMI_API_KEY) {
+  resolveKimiRuntimeConfig(); // fail-fast au démarrage si config incomplète
+}
+
+// Candidats : construits à chaque run (lecture des env vars). Le coût est
+// négligeable (quelques accès process.env) et cette approche simplifie les tests
+// qui peuvent manipuler les env vars entre les beforeEach sans cache à vider.
 
 // Custom fetch : injecte `enable_thinking: false` dans le body des appels chat
 // completions. MESURÉ (2026-06-03) : avec un gros system prompt, Kimi K2.6 émet
@@ -192,35 +195,45 @@ function isOpenAIEndpoint(url: string): boolean {
   return /(^|\/\/|\.)api\.openai\.com/i.test(url);
 }
 
-const hyperFetch: typeof fetch = async (input, init) => {
-  // Décision au RUNTIME sur l'URL réelle de la requête (robuste au cache module
-  // et aux providers multiples) : on n'injecte enable_thinking que hors OpenAI.
-  const reqUrl =
-    typeof input === "string"
-      ? input
-      : input instanceof URL
-        ? input.href
-        : ((input as Request)?.url ?? llmRuntimeConfig.baseURL);
-  if (!isOpenAIEndpoint(reqUrl) && init?.body && typeof init.body === "string") {
-    try {
-      const parsed = JSON.parse(init.body);
-      if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
-        parsed.enable_thinking = false;
-        init = { ...init, body: JSON.stringify(parsed) };
+/**
+ * Build a per-candidate hyperFetch that decides at runtime (on the actual
+ * request URL) whether to inject `enable_thinking: false`.
+ * Replicates the existing hyperFetch behaviour but is not bound to a single
+ * static baseURL.
+ */
+function makeCandidateFetch(candidateBaseURL: string | undefined): typeof fetch {
+  return async (input, init) => {
+    const reqUrl =
+      typeof input === "string"
+        ? input
+        : input instanceof URL
+          ? input.href
+          : ((input as Request)?.url ?? candidateBaseURL ?? "");
+    if (!isOpenAIEndpoint(reqUrl) && init?.body && typeof init.body === "string") {
+      try {
+        const parsed = JSON.parse(init.body);
+        if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
+          parsed.enable_thinking = false;
+          init = { ...init, body: JSON.stringify(parsed) };
+        }
+      } catch {
+        // body non-JSON → on ne touche pas.
       }
-    } catch {
-      // body non-JSON → on ne touche pas.
     }
-  }
-  return fetch(input, init);
-};
+    return fetch(input, init);
+  };
+}
 
-const llmClient = createOpenAI({
-  apiKey: llmRuntimeConfig.apiKey,
-  baseURL: llmRuntimeConfig.baseURL,
-  fetch: hyperFetch,
-});
-// llmClient.chat(model) cible /v1/chat/completions (OpenAI-compat).
+/** Build a createOpenAI client for a specific candidate. */
+function makeLlmClient(candidate: LlmCandidate) {
+  return createOpenAI({
+    apiKey: candidate.apiKey,
+    baseURL: candidate.baseURL,
+    fetch: makeCandidateFetch(candidate.baseURL),
+  });
+}
+// The primary candidate client (candidate[0]) is semantically equivalent to the
+// previous static llmClient — same apiKey/baseURL/fetch behaviour.
 
 // ── Pré-fetch de contexte : timeout strict ───────────────────────────────────
 // Les 5 sources de contexte (tools Google/Composio + briefing + KG + LTM) sont
@@ -1184,11 +1197,42 @@ export async function runAiPipeline(
   // partir de AI_APICallError.statusCode) — surfacé dans la trace d'échec.
   let providerHttpStatus: number | undefined;
 
+  // ── Stream B : boucle de fallback provider ──────────────────────────────────
+  //
+  // On itère les candidats LLM dans l'ordre (primaire en tête, fallbacks derrière).
+  // Pour chaque candidat :
+  //   1. On vérifie si le circuit breaker est OPEN → skip.
+  //   2. On tente de créer le stream (createOpenAI + streamText).
+  //   3. Si la création throw (erreur auth/réseau/provider) → candidat suivant.
+  //   4. Premier candidat = config actuelle → happy-path byte-identique.
+  //
+  // F002 — Circuit breaker guard : si TOUS les candidats sont circuit-OPEN
+  // ou si la liste ne contient qu'un candidat et qu'il est OPEN, on fail-fast.
+
+  // Filtre les candidats dont le circuit est ouvert.
+  const candidates = buildLlmCandidates();
+  const availableCandidates = candidates.filter(
+    (c) => !isCircuitOpenFor(c.providerKey, resolvedTenantId),
+  );
+
+  if (availableCandidates.length === 0) {
+    // Tous les circuits sont ouverts — reproduit le comportement exact du guard
+    // précédent (qui vérifiait uniquement "kimi") mais généralise à N providers.
+    const primaryKey = candidates[0]?.providerKey ?? "kimi";
+    const msg = `[AiPipeline] Circuit breaker OPEN pour ${primaryKey} (tous providers) — requête annulée`;
+    console.error(msg);
+    langfuseTrace?.update({ output: { status: "aborted", reason: "circuit_breaker_open" } });
+    await engine.fail(msg);
+    return;
+  }
+
   // P0 — Retry : maxRetries=3 côté provider (création du stream impossible →
   // backoff automatique du SDK avant de propager l'erreur au circuit breaker).
-  const runStream = () =>
-    streamText({
-      model: llmClient.chat(ORCHESTRATOR_MODEL_OAI),
+  /** Build a streamText call bound to a specific candidate. */
+  const makeStream = (candidate: LlmCandidate) => {
+    const client = makeLlmClient(candidate);
+    return streamText({
+      model: client.chat(candidate.modelId),
       system: systemPrompt,
       messages,
       tools: aiTools,
@@ -1201,18 +1245,63 @@ export async function runAiPipeline(
         ? { toolChoice: { type: "tool" as const, toolName: "create_scheduled_mission" } }
         : {}),
     });
+  };
 
-  // F002 — Circuit breaker guard avant le stream.
-  // Si le breaker est ouvert pour ce tenant, on coupe immédiatement.
-  // Note: streamText ne passe pas par chatWithCircuitBreaker (API différente),
-  // mais on garde la garde fail-fast via le helper isCircuitOpenFor pour
-  // homogénéiser le call-site avec DUP12.
-  if (isCircuitOpenFor("kimi", resolvedTenantId)) {
-    const msg = "[AiPipeline] Circuit breaker OPEN pour kimi — requête annulée";
-    console.error(msg);
-    langfuseTrace?.update({ output: { status: "aborted", reason: "circuit_breaker_open" } });
-    await engine.fail(msg);
-    return;
+  // Attempt to create the stream, trying each available candidate in order.
+  // On success, `activeCandidate` holds the provider that was actually used.
+  //
+  // NOTE — scope of this fallback: the loop below only catches SYNCHRONOUS
+  // errors thrown by makeStream() at creation time (e.g. SDK throws because
+  // the API key is syntactically invalid, or an unknown model id). In practice
+  // streamText() is lazy and rarely throws synchronously; it more commonly
+  // surfaces errors as async events inside `result.fullStream`.
+  //
+  // The real CROSS-REQUEST provider failover is handled by the circuit breaker
+  // (defaultCircuitBreaker / isCircuitOpenFor). When a mid-stream network error
+  // or provider HTTP 5xx occurs, the circuit records the failure; on the NEXT
+  // request the tripped provider is skipped entirely (filtered out of
+  // `availableCandidates` above), and the first healthy provider becomes
+  // primary. This means a provider outage is transparent to users starting
+  // from the second request after the trip, not mid-stream.
+  let activeCandidate: LlmCandidate = availableCandidates[0];
+  let result!: ReturnType<typeof makeStream>;
+  {
+    let streamCreated = false;
+    let lastStreamError: Error | null = null;
+    for (const candidate of availableCandidates) {
+      try {
+        result = makeStream(candidate);
+        // makeStream() is synchronous (streamText returns a lazy object) so
+        // it should not throw unless the SDK itself throws synchronously (rare).
+        // We treat any synchronous throw as a creation failure → next candidate.
+        activeCandidate = candidate;
+        streamCreated = true;
+        if (candidate !== availableCandidates[0]) {
+          console.warn(
+            `[AiPipeline] Fallback: using ${candidate.providerKey}/${candidate.modelId} ` +
+              `(primary ${availableCandidates[0].providerKey} failed to create stream)`,
+          );
+        }
+        break;
+      } catch (e) {
+        lastStreamError = e instanceof Error ? e : new Error(String(e));
+        console.error(
+          `[AiPipeline] Stream creation failed for ${candidate.providerKey}/${candidate.modelId}:`,
+          lastStreamError.message,
+        );
+        defaultCircuitBreaker.recordFailure(
+          candidate.providerKey,
+          lastStreamError,
+          resolvedTenantId,
+        );
+      }
+    }
+    if (!streamCreated) {
+      const msg = lastStreamError?.message ?? "All LLM candidates failed to create stream";
+      langfuseTrace?.update({ output: { status: "failed", error: msg } });
+      await engine.fail(msg);
+      return;
+    }
   }
 
   mark("llm_stream_start");
@@ -1234,7 +1323,6 @@ export async function runAiPipeline(
       slowWarnTimer = null;
     }
   };
-  const result = runStream();
 
   try {
     // Track active tool calls for event emission pairing.
@@ -1602,11 +1690,15 @@ export async function runAiPipeline(
             const stepInputTokens = ev.usage.inputTokens ?? 0;
             const stepOutputTokens = ev.usage.outputTokens;
             const stepCacheRead = ev.usage.cacheReadInputTokens ?? 0;
-            const stepCostUsd = computeCostUsd("kimi", ORCHESTRATOR_MODEL_OAI, {
-              input_tokens: stepInputTokens,
-              output_tokens: stepOutputTokens,
-              cache_read_input_tokens: stepCacheRead,
-            });
+            const stepCostUsd = computeCostUsd(
+              activeCandidate.providerKey,
+              activeCandidate.modelId,
+              {
+                input_tokens: stepInputTokens,
+                output_tokens: stepOutputTokens,
+                cache_read_input_tokens: stepCacheRead,
+              },
+            );
             runCostUsd += stepCostUsd;
 
             if (!runCostWarned && runCostUsd >= PRICE_WARN_USD) {
@@ -1709,8 +1801,8 @@ export async function runAiPipeline(
         input_tokens: totalInputTokens,
         output_tokens: totalOutputTokens,
         cost_usd: runCostUsd,
-        provider: "kimi",
-        model: ORCHESTRATOR_MODEL_OAI,
+        provider: activeCandidate.providerKey,
+        model: activeCandidate.modelId,
       });
     }
 
@@ -1820,7 +1912,7 @@ export async function runAiPipeline(
       }
     }
 
-    defaultCircuitBreaker.recordSuccess("kimi", resolvedTenantId);
+    defaultCircuitBreaker.recordSuccess(activeCandidate.providerKey, resolvedTenantId);
     mark("run_done");
     // Timeline perf consolidée — segments dérivés des marques pour isoler le
     // goulot (prefetch contexte vs 1er token LLM vs synthèse post-tool).
@@ -1844,7 +1936,7 @@ export async function runAiPipeline(
         costUsd: runCostUsd,
         inputTokens: traceInputTokens,
         outputTokens: traceOutputTokens,
-        model: ORCHESTRATOR_MODEL_OAI,
+        model: activeCandidate.modelId,
       },
     });
   } catch (err) {
@@ -1861,11 +1953,12 @@ export async function runAiPipeline(
           : String(err);
     console.error("[AiPipeline] streamText failed:", msg, {
       provider_http_status: providerHttpStatus,
-      model_id: ORCHESTRATOR_MODEL_OAI,
+      model_id: activeCandidate.modelId,
+      provider_key: activeCandidate.providerKey,
       tenant_id_resolved: resolvedTenantId,
     });
     defaultCircuitBreaker.recordFailure(
-      "kimi",
+      activeCandidate.providerKey,
       err instanceof Error ? err : new Error(msg),
       resolvedTenantId,
     );
@@ -1874,7 +1967,8 @@ export async function runAiPipeline(
       metadata: {
         run_failed_error: msg,
         provider_http_status: providerHttpStatus,
-        model_id: ORCHESTRATOR_MODEL_OAI,
+        model_id: activeCandidate.modelId,
+        provider_key: activeCandidate.providerKey,
         tenant_id_resolved: resolvedTenantId,
       },
     });

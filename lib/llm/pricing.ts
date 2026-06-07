@@ -24,6 +24,9 @@ export const MODEL_PRICING: Record<string, { input: number; output: number; cach
   // OpenAI
   "gpt-4o": { input: 2.5, output: 10.0, cacheRead: 1.25 },
   "gpt-4o-mini": { input: 0.15, output: 0.6, cacheRead: 0.075 },
+  // gpt-4.1 — source: https://openai.com/api/pricing (mai 2026)
+  // $2.00 / 1M input tokens, $8.00 / 1M output tokens, $0.50 / 1M cache-read tokens.
+  "gpt-4.1": { input: 2.0, output: 8.0, cacheRead: 0.5 },
   "gpt-4-turbo": { input: 10.0, output: 30.0, cacheRead: 5.0 },
   "gpt-4": { input: 30.0, output: 60.0, cacheRead: 15.0 },
   // Kimi (Moonshot AI via hypercli) — tarifs approximatifs.

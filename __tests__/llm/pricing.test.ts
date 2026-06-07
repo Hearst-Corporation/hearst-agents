@@ -40,6 +40,26 @@ describe("computeCostUsd", () => {
     expect(cost).toBeCloseTo(expected, 6);
   });
 
+  it("gpt-4.1 : 1M input + 1M output = $10 (input 2.0 + output 8.0)", () => {
+    const cost = computeCostUsd("openai", "gpt-4.1", {
+      input_tokens: 1_000_000,
+      output_tokens: 1_000_000,
+    });
+    // input: 1M * 2.0 / 1M = 2.0, output: 1M * 8.0 / 1M = 8.0
+    expect(cost).toBeCloseTo(10.0, 4);
+    expect(cost).toBeGreaterThan(0);
+  });
+
+  it("gpt-4.1 cost-cap : 10k input + 500 output ≈ $0.024", () => {
+    const cost = computeCostUsd("openai", "gpt-4.1", {
+      input_tokens: 10_000,
+      output_tokens: 500,
+    });
+    // input: 10k * 2.0 / 1M = 0.02, output: 500 * 8.0 / 1M = 0.004
+    expect(cost).toBeCloseTo(0.024, 6);
+    expect(cost).toBeGreaterThan(0);
+  });
+
   it("modèle inconnu retourne 0", () => {
     const cost = computeCostUsd("unknown", "gpt-9000-ultra", {
       input_tokens: 1_000_000,
