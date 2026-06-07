@@ -47,6 +47,7 @@ import { logger } from "@/lib/observability/logger";
 import { SYSTEM_CONFIG } from "@/lib/system/config";
 import { registerRun, unregisterRun } from "./abort-registry";
 import { runAiPipeline } from "./ai-pipeline";
+import { detectFastPathAction } from "./composio-fastpath";
 import { isPureConversational, runConversationalFastpath } from "./conversational-fastpath";
 import { classifyExecutionTier, gateToolsByTier } from "./execution-tier";
 import {
@@ -116,6 +117,10 @@ interface OrchestrateInput {
 
 const DEV_TENANT_ID = "dev-tenant";
 const DEV_WORKSPACE_ID = "dev-workspace";
+
+function shortId(id?: string): string | undefined {
+  return id ? id.slice(0, 8) : undefined;
+}
 
 function buildTenantScope(input: OrchestrateInput): TenantScope {
   if (!input.tenantId || !input.workspaceId) {
@@ -249,6 +254,7 @@ async function runPipeline(
   _sse: SSEAdapter,
   input: OrchestrateInput,
 ): Promise<void> {
+  const pipelineStartedAt = Date.now();
   const scope = buildTenantScope(input);
 
   // ── Memory: resolve conversationId from threadId if absent ──
@@ -325,6 +331,7 @@ async function runPipeline(
     input.message,
     input.focalContext,
   );
+  const routingResolvedMs = Date.now() - pipelineStartedAt;
 
   // shouldBypassResearchPath : une requête mémoire/vault ("cherche dans mes
   // notes", "qu'avons-nous décidé sur X") matche isResearchIntent ("cherche")
@@ -409,6 +416,7 @@ async function runPipeline(
       }
     }
   }
+  const capabilitiesResolvedMs = Date.now() - pipelineStartedAt;
 
   // ── Execution tier : borne les tools coûteux AVANT le LLM ──────────────
   // Consolide les signaux (action machine / intent complexe / recherche /
@@ -431,6 +439,16 @@ async function runPipeline(
     },
     "[ExecutionMode] resolved",
   );
+  console.info("[Orchestrator] latency_route", {
+    user_id: shortId(input.userId),
+    tenant_id: shortId(scope.tenantId),
+    mode: decision.mode,
+    domain: capScope.domain,
+    tier: executionTier,
+    routing_ms: routingResolvedMs,
+    capabilities_ms: capabilitiesResolvedMs,
+    allowed_tools_count: input._allowedTools?.length ?? 0,
+  });
 
   // ── 2. Create Run ──────────────────────────────────────────
   const createInput: CreateRunInput = {
@@ -461,6 +479,10 @@ async function runPipeline(
   const engine = await RunEngine.create(db, createInput, eventBus);
   // start() émet run_started synchroniquement (pas de I/O) — on peut l'await.
   await engine.start();
+  console.info("[Orchestrator] run_started_latency", {
+    run_id: engine.id,
+    elapsed_ms: Date.now() - pipelineStartedAt,
+  });
 
   // ── Abort plumbing : enregistre un AbortController dans le registry
   // global pour que POST /api/orchestrate/abort/[runId] puisse vraiment
@@ -496,6 +518,100 @@ async function runPipeline(
     return;
   }
 
+  // ── Composio fast-path (direct-API read, ~2-2.5s saved) ───────────────────
+  // Pour les ~5 intentions de lecture les plus fréquentes (Gmail, Calendar,
+  // Drive, Slack, GitHub), on détecte l'intent par regex AVANT le LLM et on
+  // exécute l'action Composio DIRECTEMENT — court-circuitant l'injection des
+  // schémas (~4500 tokens) + le tour LLM de routing.
+  //
+  // FEATURE FLAG : `HELM_COMPOSIO_FASTPATH=1` requis (défaut OFF).
+  // → Si le flag est absent (prod par défaut), ce bloc est entièrement sauté
+  //   et le comportement est IDENTIQUE à avant. C'est la garantie de sécurité.
+  //
+  // Garde-fous :
+  // - detectFastPathAction retourne null sur tout write ou référence contexte.
+  // - Tout échec Composio (res.ok=false, exception) → fall-through pipeline.
+  // - Jamais de message d'erreur user exposé ici : si ça échoue, l'agent prend.
+  // P1 — entity fallback : composioEntityId n'est peuplé qu'en impersonation
+  // Hive ; pour un user Helm natif il est undefined → on retombe sur userId,
+  // exactement comme ai-pipeline.ts:605 le fait pour le pipeline complet.
+  const fastPathEntity = input.composioEntityId ?? input.userId;
+  // P2a — ne pas court-circuiter quand une policy Cortex restreint les tools :
+  // si une allowlist restrictive est active, le pipeline complet applique le
+  // gating capabilities → on laisse tomber en fall-through ici.
+  const hasPolicyRestriction = Array.isArray(input._allowedTools) && input._allowedTools.length > 0;
+  if (process.env.HELM_COMPOSIO_FASTPATH === "1" && fastPathEntity && !hasPolicyRestriction) {
+    const fp = detectFastPathAction(input.message);
+    if (fp) {
+      logger.info(
+        { slug: fp.slug, entity: fastPathEntity, run_id: engine.id },
+        "[Orchestrator] composio fast-path triggered",
+      );
+      try {
+        const { executeComposioAction } = await import("@/lib/connectors/composio/client");
+        const res = await executeComposioAction({
+          action: fp.slug,
+          entityId: fastPathEntity,
+          params: fp.args,
+        });
+        if (res.ok) {
+          eventBus.emit({
+            type: "execution_mode_selected",
+            run_id: engine.id,
+            mode: "direct_answer",
+            reason: `Composio fast-path: ${fp.slug}`,
+          });
+          // Formatage minimal : on sérialise le résultat brut en texte lisible.
+          // Pas de tour LLM en phase 1 — l'agent le prendra si le format est
+          // trop brut (mais ~90% des cas c'est un JSON structuré exploitable).
+          const raw = typeof res.data === "string" ? res.data : JSON.stringify(res.data, null, 2);
+          eventBus.emit({
+            type: "text_delta",
+            run_id: engine.id,
+            delta: raw,
+          });
+          console.info("[Orchestrator] composio_fastpath_done", {
+            run_id: engine.id,
+            slug: fp.slug,
+            total_ms: Date.now() - pipelineStartedAt,
+          });
+          // P2b — persister la réponse assistant pour ne pas trouer l'historique.
+          // Le message USER a déjà été persisté en amont (~ligne 270).
+          // On reproduit le même pattern que storeAssistantMemory() (~ligne 798).
+          if (input.conversationId) {
+            await appendMessage(
+              input.conversationId,
+              {
+                role: "assistant",
+                content: raw,
+                createdAt: Date.now(),
+              },
+              scope,
+            );
+            void appendToSummary({
+              userId: input.userId,
+              role: "assistant",
+              content: raw,
+            });
+          }
+          await engine.complete();
+          return;
+        }
+        // res.ok=false → fall-through silencieux vers le pipeline complet
+        logger.warn(
+          { slug: fp.slug, error: res.error, errorCode: res.errorCode },
+          "[Orchestrator] composio fast-path miss — falling through to full pipeline",
+        );
+      } catch (err) {
+        // Exception → fall-through silencieux (jamais d'erreur user)
+        logger.warn(
+          { slug: fp.slug, err: err instanceof Error ? err.message : String(err) },
+          "[Orchestrator] composio fast-path exception — falling through to full pipeline",
+        );
+      }
+    }
+  }
+
   // ── Conversational fast-path (< 1s) ────────────────────────
   // Smalltalk pur (salutation, merci, "qui es-tu") : aucun contexte ni tool
   // requis. On court-circuite AVANT le pré-fetch mémoire/KG/LTM, la discovery
@@ -503,6 +619,7 @@ async function runPipeline(
   // gpt-4.1-mini + prompt court ≈ 0.5-0.7s. Conservateur : au moindre signal
   // d'action/donnée, isPureConversational retourne false → pipeline complet.
   if (isPureConversational(input.message)) {
+    const fastPathStartedAt = Date.now();
     logger.info({ run_id: engine.id }, "[Orchestrator] conversational fast-path");
     eventBus.emit({
       type: "execution_mode_selected",
@@ -513,6 +630,11 @@ async function runPipeline(
     await runConversationalFastpath(input.message, engine, eventBus, {
       history: input.conversationHistory,
       signal: abortController.signal,
+    });
+    console.info("[Orchestrator] conversational_fastpath_done", {
+      run_id: engine.id,
+      elapsed_ms: Date.now() - fastPathStartedAt,
+      total_ms: Date.now() - pipelineStartedAt,
     });
     return;
   }
