@@ -24,6 +24,7 @@ import {
 } from "@/lib/capabilities/taxonomy";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
+import { resolveToolRouterSession } from "@/lib/connectors/composio/tool-router";
 import { filterToolsByDomain, isWriteAction } from "@/lib/connectors/composio/write-guard";
 import { upsertEmbedding } from "@/lib/embeddings/store";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
@@ -720,6 +721,50 @@ export async function runAiPipeline(
 
   // Filter Composio tools to domain-relevant ones (prevents token explosion).
   const filteredComposio = filterToolsByDomain(composioToolsRaw, input.domain ?? "general");
+
+  // ── Stream D : Tool Router / MCP Composio (SCÉNARIO B — groundwork) ────────
+  //
+  // HELM_COMPOSIO_TOOL_ROUTER=1 active le chemin Tool Router. Par défaut (flag
+  // absent ou != "1") ce bloc est entièrement sauté : chemin actuel byte-identique.
+  //
+  // SCÉNARIO B (actif) : le SDK `ai` v6 (pas de client MCP exporté) n'expose pas de client MCP natif
+  // (`experimental_createMCPClient` absent). Le groundwork est posé (session
+  // résolue + mise en cache), mais la consommation des tools MCP à la demande
+  // est différée jusqu'à l'ajout du bridge (voir lib/connectors/composio/tool-router.ts).
+  // Le run continue TOUJOURS sur le chemin normal (injection des schémas Composio).
+  //
+  // Quand le bridge MCP sera disponible, remplacer ce bloc par l'appel au bridge
+  // et substituer `filteredComposio` par les tools MCP retournés.
+  if (process.env.HELM_COMPOSIO_TOOL_ROUTER === "1") {
+    try {
+      const session = await resolveToolRouterSession(composioEntityId);
+      if (session) {
+        // Session résolue : log + fallback (SCÉNARIO B — pas encore de bridge MCP)
+        console.info("[AiPipeline][ToolRouter] MCP session resolved", {
+          run_id: engine.id,
+          userId: composioEntityId,
+          sessionId: session.sessionId,
+          mcpUrl: session.mcpUrl,
+          scenario: "B",
+          status: "groundwork_only_bridge_pending",
+        });
+        // TODO(SCÉNARIO A) : quand le SDK `ai` expose experimental_createMCPClient,
+        // remplacer cette section par :
+        //   const mcpClient = experimental_createMCPClient({ transport: { type: 'sse', url: session.mcpUrl, headers: session.headers } });
+        //   const mcpTools = await mcpClient.tools();
+        //   // Puis utiliser mcpTools au lieu de toAiTools(filteredComposio, …) dans aiTools.
+        // En attendant : fallthrough sur le chemin normal (schémas injectés).
+      }
+      // null = pas de session (Composio non configuré, erreur réseau, etc.) → fallback silencieux
+    } catch (toolRouterErr) {
+      // Fail-soft absolu : toute exception dans ce bloc ne doit PAS interrompre le run.
+      const msg = toolRouterErr instanceof Error ? toolRouterErr.message : String(toolRouterErr);
+      console.warn(
+        `[AiPipeline][ToolRouter] Unexpected error — falling back to normal path: ${msg}`,
+      );
+    }
+  }
+  // ── Fin bloc Tool Router ─────────────────────────────────────────────────────
 
   const nativeCount = Object.keys(nativeGoogleTools).length;
   eventBus.emit({
