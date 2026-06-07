@@ -26,12 +26,32 @@ import { formatActionPreview, isWriteAction } from "./write-guard";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AiToolMap = Record<string, Tool<any, any>>;
 
+/**
+ * Retire récursivement les clés bruitées des schémas de paramètres Composio
+ * (`example`, `examples`, `deprecated`) avant de les passer à streamText({ tools }).
+ * Réduit réellement les tokens envoyés au LLM (c'est ici que les schémas voyagent).
+ * Ne mute pas l'original : clone systématique.
+ * NB : on conserve les `description` — le LLM en a besoin pour générer les bons args.
+ */
+export function stripSchemaNoise(params: unknown): unknown {
+  if (Array.isArray(params)) return params.map(stripSchemaNoise);
+  if (params !== null && typeof params === "object") {
+    const cleaned: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(params as Record<string, unknown>)) {
+      if (k === "example" || k === "examples" || k === "deprecated") continue;
+      cleaned[k] = stripSchemaNoise(v);
+    }
+    return cleaned;
+  }
+  return params;
+}
+
 function buildSchema(tool: DiscoveredTool, isWrite: boolean): Parameters<typeof jsonSchema>[0] {
-  const base = (
+  const rawParams =
     tool.parameters && typeof tool.parameters === "object"
       ? tool.parameters
-      : { type: "object", properties: {} }
-  ) as Record<string, unknown>;
+      : { type: "object", properties: {} };
+  const base = stripSchemaNoise(rawParams) as Record<string, unknown>;
 
   if (!isWrite) return base as Parameters<typeof jsonSchema>[0];
 

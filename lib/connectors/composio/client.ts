@@ -230,6 +230,19 @@ export async function executeComposioAction(call: ComposioCallParams): Promise<C
     );
   }
 
+  // Défaut max_results=10 pour GMAIL_FETCH_EMAILS uniquement : sans borne,
+  // Composio renvoie jusqu'à 100 emails → latence élevée + explosion tokens.
+  // Restriction au seul cas paginé : GMAIL_FETCH_MESSAGE_BY_*_ID ne pagine pas
+  // et ne doit PAS recevoir max_results (paramètre inattendu côté Composio).
+  let resolvedParams = call.params;
+  if (
+    resolvedAction === "GMAIL_FETCH_EMAILS" &&
+    !("max_results" in (call.params ?? {})) &&
+    !("maxResults" in (call.params ?? {}))
+  ) {
+    resolvedParams = { ...call.params, max_results: 10 };
+  }
+
   // F6 : backpressure avant tout appel réseau. Protège la clé partagée d'une
   // boucle runaway (impacterait toutes les surfaces). Envelope, jamais throw.
   if (rateLimitExceeded(call.entityId)) {
@@ -251,7 +264,7 @@ export async function executeComposioAction(call: ComposioCallParams): Promise<C
     const data = await Promise.race<unknown>([
       client.tools.execute(resolvedAction, {
         userId: call.entityId,
-        arguments: call.params,
+        arguments: resolvedParams,
         // SDK 0.6+ throw ComposioToolVersionRequiredError si on n'a pas pinné
         // de version par toolkit. On garde le comportement "latest" implicite
         // d'avant en bypassant le check. À durcir en pinning par toolkit

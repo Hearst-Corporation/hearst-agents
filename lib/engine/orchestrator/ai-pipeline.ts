@@ -24,10 +24,7 @@ import {
 } from "@/lib/capabilities/taxonomy";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
-import {
-  filterToolsByDomain,
-  isWriteAction,
-} from "@/lib/connectors/composio/write-guard";
+import { filterToolsByDomain, isWriteAction } from "@/lib/connectors/composio/write-guard";
 import { upsertEmbedding } from "@/lib/embeddings/store";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import { createScheduledMission } from "@/lib/engine/runtime/missions/create-mission";
@@ -35,6 +32,7 @@ import { addMission } from "@/lib/engine/runtime/missions/store";
 import { saveScheduledMission as persistMission } from "@/lib/engine/runtime/state/adapter";
 import type { RunEventBus } from "@/lib/events/bus";
 import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
+import { resolveKimiRuntimeConfig } from "@/lib/llm/kimi-config";
 import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
 import { computeCostUsd } from "@/lib/llm/pricing";
 import { isCircuitOpenFor } from "@/lib/llm/safe-chat";
@@ -164,24 +162,16 @@ export interface AiPipelineInput {
   composioEntityId?: string;
 }
 
-// Orchestrateur via Hypercli — endpoint OpenAI-compatible (/v1/chat/completions).
+// Orchestrateur Kimi direct — endpoint OpenAI-compatible (/v1/chat/completions).
 //
-// ⚠️ On utilise DÉLIBÉRÉMENT l'endpoint OpenAI-compat et NON l'Anthropic-compat
-// (/v1/messages). Raison mesurée (2026-06-03) : sur /messages, Hypercli FORCE le
-// thinking de Kimi K2.6 (745-953 chars de reasoning avant le 1er token, non
-// désactivable — thinking:{type:disabled} ignoré) → TTFT ~11-16 s. Sur
-// /chat/completions, pas de thinking par défaut → TTFT ~1,3 s à charge égale
-// (gros system + 30 tools). Bascule = TTFT divisé par ~10.
-//
-// Le provider OpenAI-compat sert Kimi sous l'id "kimi-k2.6" (sans suffixe
-// "-anthropic", qui n'a de sens que pour l'endpoint /messages).
-//
-// Clé/URL : on prend KIMI_API_KEY / KIMI_BASE_URL EN PRIORITÉ — c'est le couple
-// que le KimiProvider historique (lib/llm/kimi.ts) utilise et qui est validé en
-// prod. HYPERCLI_* en fallback seulement (HYPERCLI_BASE_URL n'est même pas
-// défini en prod). Inverser la priorité faisait échouer le build de la requête
-// → stream stalled 30 s (run_failed) en prod.
-const hyperKey = process.env.KIMI_API_KEY ?? process.env.HYPERCLI_API_KEY ?? "";
+// On impose `KIMI_API_KEY` + `KIMI_BASE_URL` pour Kimi : plus de fallback implicite
+// vers Hypercli. Sans Kimi configuré, le pipeline utilise OpenAI explicitement.
+const llmRuntimeConfig = process.env.KIMI_API_KEY
+  ? resolveKimiRuntimeConfig()
+  : {
+      apiKey: process.env.OPENAI_API_KEY ?? "",
+      baseURL: process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1",
+    };
 
 // Custom fetch : injecte `enable_thinking: false` dans le body des appels chat
 // completions. MESURÉ (2026-06-03) : avec un gros system prompt, Kimi K2.6 émet
@@ -197,9 +187,6 @@ const hyperKey = process.env.KIMI_API_KEY ?? process.env.HYPERCLI_API_KEY ?? "";
 // argument: enable_thinking" → 0 output → NoOutputGeneratedError → run_failed
 // (incident 2026-06-04, stopgap KIMI_BASE_URL pointé sur OpenAI). On ne l'injecte
 // donc QUE vers les endpoints qui le supportent (tout sauf OpenAI officiel).
-const hyperBaseUrl =
-  process.env.KIMI_BASE_URL ?? process.env.HYPERCLI_BASE_URL ?? "https://api.hypercli.com/v1";
-
 /** Endpoint OpenAI officiel → ne supporte PAS le param propriétaire enable_thinking. */
 function isOpenAIEndpoint(url: string): boolean {
   return /(^|\/\/|\.)api\.openai\.com/i.test(url);
@@ -213,7 +200,7 @@ const hyperFetch: typeof fetch = async (input, init) => {
       ? input
       : input instanceof URL
         ? input.href
-        : ((input as Request)?.url ?? hyperBaseUrl);
+        : ((input as Request)?.url ?? llmRuntimeConfig.baseURL);
   if (!isOpenAIEndpoint(reqUrl) && init?.body && typeof init.body === "string") {
     try {
       const parsed = JSON.parse(init.body);
@@ -228,13 +215,12 @@ const hyperFetch: typeof fetch = async (input, init) => {
   return fetch(input, init);
 };
 
-const hypercli = createOpenAI({
-  apiKey: hyperKey,
-  baseURL: hyperBaseUrl,
+const llmClient = createOpenAI({
+  apiKey: llmRuntimeConfig.apiKey,
+  baseURL: llmRuntimeConfig.baseURL,
   fetch: hyperFetch,
 });
-// hypercli.chat(model) cible /v1/chat/completions (OpenAI-compat) — l'endpoint
-// SANS thinking forcé, contrairement à /v1/messages. C'est le cœur du fix TTFT.
+// llmClient.chat(model) cible /v1/chat/completions (OpenAI-compat).
 
 // ── Pré-fetch de contexte : timeout strict ───────────────────────────────────
 // Les 5 sources de contexte (tools Google/Composio + briefing + KG + LTM) sont
@@ -668,40 +654,44 @@ export async function runAiPipeline(
       "",
     ),
   ]);
+  mark("memory_prefetch_done");
+
+  // PERF (2026-06-04) : en mode direct_answer l'orchestrateur a déjà statué
+  // "aucun provider externe requis" → on saute les discovery Google Native +
+  // Composio et l'injection des ~40 schémas dans le prompt. Les tools internes
+  // légers (cortex_search, cortex_remember, etc.) restent montés plus bas.
+  const shouldSkipExternalToolDiscovery = input.executionMode === "direct_answer";
 
   // Groupe B — tools (cap 4s, lancé EN PARALLÈLE, pas encore await)
   // Démarre immédiatement sans bloquer la suite (build prompt + historique).
-  const nativeGoogleToolsPromise = withTimeout(
-    buildNativeGoogleTools(input.userId, {
-      userId: input.userId,
-      tenantId: resolvedTenantId,
-    }).catch((err) => {
-      console.error("[AiPipeline] native Google discovery failed:", err);
-      return {} as Record<string, unknown>;
-    }),
-    PREFETCH_TOOLS_TIMEOUT_MS,
-    "nativeGoogleTools",
-    {} as Record<string, unknown>,
-  );
-  // PERF (2026-06-04) : en mode direct_answer l'orchestrateur a déjà statué
-  // "aucun tool requis" → on saute la discovery Composio (~1,5 s) ET l'injection
-  // des ~40 schémas dans le prompt (~33k tokens / ~3 s de TTFT). Les tools natifs
-  // (cortex_search, etc.) restent exposés via aiTools.
-  const composioToolsRawPromise =
-    input.executionMode === "direct_answer"
-      ? Promise.resolve([] as Awaited<ReturnType<typeof getToolsForUser>>)
-      : withTimeout(
-          // Pas de pré-filtre par apps ici : filterToolsByDomain (post-fetch)
-          // applique déjà le filtrage par domaine → un pré-filtre DOMAIN_APP_ALLOWLIST
-          // serait redondant. Aligné sur le contrat prod (origin/main).
-          getToolsForUser(composioEntityId).catch((err) => {
-            console.error("[AiPipeline] Composio discovery failed:", err);
-            return [] as Awaited<ReturnType<typeof getToolsForUser>>;
-          }),
-          PREFETCH_TOOLS_TIMEOUT_MS,
-          "composioTools",
-          [] as Awaited<ReturnType<typeof getToolsForUser>>,
-        );
+  const nativeGoogleToolsPromise = shouldSkipExternalToolDiscovery
+    ? Promise.resolve({} as Record<string, unknown>)
+    : withTimeout(
+        buildNativeGoogleTools(input.userId, {
+          userId: input.userId,
+          tenantId: resolvedTenantId,
+        }).catch((err) => {
+          console.error("[AiPipeline] native Google discovery failed:", err);
+          return {} as Record<string, unknown>;
+        }),
+        PREFETCH_TOOLS_TIMEOUT_MS,
+        "nativeGoogleTools",
+        {} as Record<string, unknown>,
+      );
+  const composioToolsRawPromise = shouldSkipExternalToolDiscovery
+    ? Promise.resolve([] as Awaited<ReturnType<typeof getToolsForUser>>)
+    : withTimeout(
+        // Pas de pré-filtre par apps ici : filterToolsByDomain (post-fetch)
+        // applique déjà le filtrage par domaine → un pré-filtre DOMAIN_APP_ALLOWLIST
+        // serait redondant. Aligné sur le contrat prod (origin/main).
+        getToolsForUser(composioEntityId).catch((err) => {
+          console.error("[AiPipeline] Composio discovery failed:", err);
+          return [] as Awaited<ReturnType<typeof getToolsForUser>>;
+        }),
+        PREFETCH_TOOLS_TIMEOUT_MS,
+        "composioTools",
+        [] as Awaited<ReturnType<typeof getToolsForUser>>,
+      );
 
   // ── Await tools (Groupe B) — ici le overlap avec le build mémoire/historique ──
   // À ce stade, nativeGoogleToolsPromise et composioToolsRawPromise tournent
@@ -904,11 +894,16 @@ export async function runAiPipeline(
   // Surface both tool families in the OUTILS section so the model knows
   // it can call gmail_send_email *or* a Composio Slack tool without
   // asking for any extra connection.
+  // Note: composioForPrompt only uses name/description/app — parameters are NOT
+  // serialised into the system prompt (system-prompt.ts reads those 3 fields only).
+  // Schema cleaning for token reduction happens in to-ai-tools.ts (buildSchema path)
+  // where the schemas are actually sent to the LLM via streamText({ tools }).
   const composioForPrompt = filteredComposio.map((t) => ({
     name: t.name,
-    description: t.description,
+    description:
+      t.description && t.description.length > 80 ? t.description.slice(0, 80) + "…" : t.description,
     app: t.app,
-    parameters: t.parameters,
+    parameters: t.parameters as Record<string, unknown>,
   }));
   const nativeForPrompt =
     nativeCount > 0
@@ -993,6 +988,12 @@ export async function runAiPipeline(
     persona,
     missionContext: input.missionContext,
     userProfile: input.userName || undefined,
+  });
+
+  eventBus.emit({
+    type: "orchestrator_log",
+    run_id: engine.id,
+    message: `system_prompt_size: ${systemPrompt.length} chars (~${Math.round(systemPrompt.length / 4)} tokens est.)`,
   });
 
   // ── 4. Build message history ────────────────────────────────
@@ -1187,7 +1188,7 @@ export async function runAiPipeline(
   // backoff automatique du SDK avant de propager l'erreur au circuit breaker).
   const runStream = () =>
     streamText({
-      model: hypercli.chat(ORCHESTRATOR_MODEL_OAI),
+      model: llmClient.chat(ORCHESTRATOR_MODEL_OAI),
       system: systemPrompt,
       messages,
       tools: aiTools,
@@ -1826,7 +1827,10 @@ export async function runAiPipeline(
     console.info("[AiPipeline] perf_timeline", {
       run_id: engine.id,
       marks: perfMarks,
-      seg_prefetch_ms: (perfMarks.tools_prefetch_done ?? 0) - (perfMarks.pipeline_start ?? 0),
+      seg_memory_prefetch_ms:
+        (perfMarks.memory_prefetch_done ?? 0) - (perfMarks.pipeline_start ?? 0),
+      seg_tools_prefetch_ms:
+        (perfMarks.tools_prefetch_done ?? 0) - (perfMarks.memory_prefetch_done ?? 0),
       seg_build_to_stream_ms:
         (perfMarks.llm_stream_start ?? 0) - (perfMarks.tools_prefetch_done ?? 0),
       seg_llm_first_token_ms: (perfMarks.first_token ?? 0) - (perfMarks.llm_stream_start ?? 0),

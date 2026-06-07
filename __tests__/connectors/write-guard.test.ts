@@ -172,17 +172,17 @@ describe("filterToolsByDomain", () => {
     expect(out.map((t) => t.app)).toEqual(["figma"]);
   });
 
-  it("general → all tools (≤ 40)", () => {
+  it("general → all tools (≤ 24)", () => {
     const out = filterToolsByDomain(allTools, "general");
     expect(out).toHaveLength(allTools.length);
   });
 
-  it("research → all tools (≤ 40)", () => {
+  it("research → all tools (≤ 24)", () => {
     const out = filterToolsByDomain(allTools, "research");
     expect(out).toHaveLength(allTools.length);
   });
 
-  it("caps general domain at 40 tools", () => {
+  it("caps general domain at 24 tools", () => {
     const fifty = Array.from({ length: 50 }, (_, i) => tool(`GENERIC_TOOL_${i}`, "gmail"));
     const out = filterToolsByDomain(fifty, "general");
     expect(out).toHaveLength(MAX_TOOLS);
@@ -193,19 +193,19 @@ describe("filterToolsByDomain", () => {
     expect(filterToolsByDomain([], "communication")).toEqual([]);
   });
 
-  it("unknown domain falls through to no-restriction (capped at 40)", () => {
+  it("unknown domain falls through to no-restriction (capped at 24)", () => {
     const out = filterToolsByDomain(allTools, "unknown_domain");
     expect(out).toHaveLength(allTools.length);
   });
 
   // Single read-heavy app (40 reads + 2 writes = 42 tools,
-  // cap at 40) — interleave guarantees both a read AND a write survive the cap.
+  // cap at 24) — interleave guarantees both a read AND a write survive the cap.
   //
   // FAILURE mode of the old "all-reads-first" sort: the sort puts all 40 reads
-  // first, they fill the 40-cap entirely, and GITHUB_CREATE_ISSUE is evicted.
+  // first, they fill the 24-cap entirely, and GITHUB_CREATE_ISSUE is evicted.
   // This test FAILS on that ordering and PASSES only with the interleave
   // (read0, write0, read1, write1, …) which places writes at slots 1 and 3.
-  it("write action survives the 40-cap even when ≥40 read tools exist in the same app", () => {
+  it("write action survives the 24-cap even when ≥40 read tools exist in the same app", () => {
     // 40 read tools (GET_00..GET_38 + LIST_PULLS) — in NATIVE (not alphabetical) order.
     // Composio v3 returns actions in native order; filterToolsByDomain cannot assume
     // alphabetical ordering.
@@ -216,7 +216,7 @@ describe("filterToolsByDomain", () => {
       tool("GITHUB_LIST_PULLS", "github"),
     ];
     // 2 write tools — in native order, they happen to appear before the reads here.
-    // Under the old "reads-first" sort, they land at positions 40 and 41 (evicted).
+    // Under the old "reads-first" sort, they land at positions 24 and 25 (evicted).
     const writes: DiscoveredTool[] = [
       tool("GITHUB_CREATE_ISSUE", "github"),
       tool("GITHUB_CREATE_PR", "github"),
@@ -238,13 +238,13 @@ describe("filterToolsByDomain", () => {
   });
 
   // Round-robin must not let a dominant app starve a minority.
-  // 45 github tools + 2 jira tools = 47 total, capped at 40.
-  // WITHOUT round-robin: github fills 40 slots and jira (last) is fully evicted.
+  // 45 github tools + 2 jira tools = 47 total, capped at 24.
+  // WITHOUT round-robin: github fills 24 slots and jira (last) is fully evicted.
   // WITH round-robin: layer 0 picks 1 github + 1 jira (github=35 remain), …
   // — jira is guaranteed to appear in the output.
   // This test FAILS on a naive first-come-first-served ordering and PASSES only
   // with the multi-layer round-robin.
-  it("round-robin distributes across apps — minority app (jira) survives when dominant (github) has ≥40 tools", () => {
+  it("round-robin distributes across apps — minority app (jira) survives when dominant (github) has ≥24 tools", () => {
     // 45 github tools: 40 reads + 5 writes (interleaved internally)
     const githubTools = [
       ...Array.from({ length: 5 }, (_, i) => tool(`GITHUB_CREATE_${i}`, "github")),
@@ -255,7 +255,7 @@ describe("filterToolsByDomain", () => {
     // 2 jira tools — without round-robin these would be evicted by github's 45
     const jiraTools = [tool("JIRA_GET_ISSUE", "jira"), tool("JIRA_LIST_PROJECTS", "jira")];
 
-    // Total = 47, cap = 40. Without round-robin jira gets 0 slots.
+    // Total = 47, cap = 24. Without round-robin jira gets 0 slots.
     const out = filterToolsByDomain([...githubTools, ...jiraTools], "developer");
     expect(out).toHaveLength(MAX_TOOLS);
 
@@ -270,23 +270,23 @@ describe("filterToolsByDomain", () => {
     expect(jiraNames).toContain("JIRA_LIST_PROJECTS");
   });
 
-  it("MAX_TOOLS cap is exactly 40 (not raised)", () => {
+  it("MAX_TOOLS cap is exactly 24 (not raised)", () => {
     // 60 tools from a single app — cap must cut at MAX_TOOLS
     const many = Array.from({ length: 60 }, (_, i) => tool(`GITHUB_GET_${i}`, "github"));
     const out = filterToolsByDomain(many, "developer");
     expect(out).toHaveLength(MAX_TOOLS);
   });
 
-  // Essential-reads survive the 40-cap.
+  // Essential-reads survive the 24-cap.
   //
   // Simulates the real scenario: getToolsForUser returns 45 noise READ actions
   // (names that isWriteAction returns false for) plus one essential read
   // (GITHUB_GET_A_REPOSITORY) PREPENDED at the front. Then filterToolsByDomain
-  // caps at 40. The essential must survive.
+  // caps at 24. The essential must survive.
   //
   // FAILS with APPEND (essential is at position 45 → evicted).
   // PASSES with PREPEND (essential is at position 0 → slot 0 → survives).
-  it("essential read survives 40-cap when prepended (fails with append)", () => {
+  it("essential read survives 24-cap when prepended (fails with append)", () => {
     // 45 non-essential READ-classified actions (GITHUB_GET_XX / GITHUB_LIST_YY
     // — isWriteAction returns false for all of them).
     const noiseReads = [
@@ -386,10 +386,10 @@ describe("filterToolsByDomain", () => {
     const slackWrite = tool("SLACK_SEND_MESSAGE", "slack");
 
     const allTools = [githubWrite, ...githubTools, slackWrite, ...slackTools, ...linearTools];
-    // Total = 1 + 60 + 1 + 60 + 21 = 143 tools, capped at 40.
+    // Total = 1 + 60 + 1 + 60 + 21 = 143 tools, capped at 24.
 
     const out = filterToolsByDomain(allTools, "general");
-    expect(out).toHaveLength(MAX_TOOLS); // still exactly 40
+    expect(out).toHaveLength(MAX_TOOLS); // still exactly 24
 
     const names = new Set(out.map((t) => t.name));
 
@@ -517,7 +517,7 @@ describe("filterToolsByDomain", () => {
         allTools.push(tool(`${app.toUpperCase()}_ESSENTIAL_${j}`, app, true));
       }
     }
-    // 8 × 34 = 272 total tools, capped at MAX_TOOLS (40).
+    // 8 × 34 = 272 total tools, capped at MAX_TOOLS (24).
 
     const out = filterToolsByDomain(allTools, "general");
 

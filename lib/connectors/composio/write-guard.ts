@@ -123,11 +123,13 @@ export function formatActionPreview(toolName: string, args: Record<string, unkno
 
 // ── Tool cap ─────────────────────────────────────────────────
 
-/** Maximum number of tools returned by filterToolsByDomain — exported so tests don't hardcode 40. */
-export const MAX_TOOLS = 40;
+/** Maximum number of tools returned by filterToolsByDomain — exported so tests don't hardcode 24. */
+export const MAX_TOOLS = 24;
 
-/** Slots reserved for essential tools — half the budget (cap, not a minimum). */
-const ESSENTIAL_RESERVE = Math.floor(MAX_TOOLS / 2);
+/** Slots reserved for essential tools — découplée de MAX_TOOLS — les essential-reads sont prioritaires.
+ * Doit rester à 20 pour garantir que les essential-reads multi-app passent la limite
+ * sans amputer les slots restants pour les writes non-essentiels. */
+const ESSENTIAL_RESERVE = 20;
 
 // ── Domain → Composio app allowlist ──────────────────────────
 
@@ -151,12 +153,12 @@ export const DOMAIN_APP_ALLOWLIST: Record<string, string[]> = {
 /**
  * Filter discovered tools to only those relevant for the given domain.
  * Returns all tools unchanged for "general" and "research" (no restriction).
- * Always caps at MAX_TOOLS (40) to prevent token explosion.
+ * Always caps at MAX_TOOLS (24) to prevent token explosion.
  *
  * Pour le domaine "general", on fait du round-robin par app : on garantit
  * qu'au moins 1 tool de chaque app connectée passe la limite avant qu'une
  * app n'en place 2. Sans ce ré-équilibrage, les apps avec beaucoup d'actions
- * (gmail, slack) saturaient les 40 premiers slots et masquaient l'existence
+ * (gmail, slack) saturaient les 24 premiers slots et masquaient l'existence
  * des apps minoritaires (notion, github, hubspot, figma) au LLM — qui
  * répondait alors "tu n'as que Gmail, Slack et Stripe" alors que 12 apps
  * étaient connectées.
@@ -244,7 +246,7 @@ export function filterToolsByDomain(
   //
   // WHY NOT "all reads first": with a read-heavy app (e.g. only GitHub, ~40
   // reads), a pure reads-first sort evicts ALL write actions (CREATE_ISSUE,
-  // CREATE_PR) from the 40-cap round-robin. Interleaving guarantees that BOTH
+  // CREATE_PR) from the 24-cap round-robin. Interleaving guarantees that BOTH
   // top reads AND top writes survive the cap regardless of per-app read/write
   // ratio.
   for (const [appKey, list] of byApp) {
