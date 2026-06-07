@@ -39,7 +39,7 @@ const WRITE_SIGNALS =
  * Le fast-path n'a accès ni à l'historique ni au vault → null.
  */
 const CONTEXT_SIGNALS =
-  /\b(hier|yesterday|précédent|previous|avant|d'après|based on|la réunion|le mail précédent|tout à l'heure|l'autre jour|dernier(?:e?s?)|last|ce matin|ce soir|cette nuit|l'email dont|ce dont|on a parlé|nous avons décidé|que j'ai (envoyé|reçu|écrit|dit))\b/i;
+  /\b(hier|yesterday|précédent|precedent|previous|avant|d'après|based on|la réunion|the meeting|le mail précédent|tout à l'heure|l'autre jour|ce matin|ce soir|cette nuit|l'email dont|ce dont|on a parlé|nous avons décidé|que j'ai (envoyé|reçu|écrit|dit)|I (sent|received|wrote|said)|ce mail|cet email|this email|that email)\b/i;
 
 // ── Patterns de détection par service ──────────────────────────────────────
 //

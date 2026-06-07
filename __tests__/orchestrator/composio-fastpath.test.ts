@@ -35,6 +35,24 @@ describe("Gmail", () => {
     const result = detectFastPathAction("affiche mes courriels");
     expect(result?.slug).toBe("GMAIL_FETCH_EMAILS");
   });
+
+  it('"lis mes 3 derniers emails" → GMAIL_FETCH_EMAILS (dernier = le plus récent, pas une back-référence)', () => {
+    const result = detectFastPathAction("lis mes 3 derniers emails");
+    expect(result).not.toBeNull();
+    expect(result?.slug).toBe("GMAIL_FETCH_EMAILS");
+  });
+
+  it('"montre mes derniers mails" → GMAIL_FETCH_EMAILS', () => {
+    const result = detectFastPathAction("montre mes derniers mails");
+    expect(result).not.toBeNull();
+    expect(result?.slug).toBe("GMAIL_FETCH_EMAILS");
+  });
+
+  it('"show my last emails" → GMAIL_FETCH_EMAILS (last = le plus récent)', () => {
+    const result = detectFastPathAction("show my last emails");
+    expect(result).not.toBeNull();
+    expect(result?.slug).toBe("GMAIL_FETCH_EMAILS");
+  });
 });
 
 // ── Google Calendar ──────────────────────────────────────────────────────────
@@ -171,8 +189,18 @@ describe("Guard contexte conversationnel — doit retourner null", () => {
     expect(detectFastPathAction("show me yesterday emails")).toBeNull();
   });
 
-  it('"the last email I sent" → null', () => {
+  it('"the last email I sent" → null (I sent = action passée, contexte)', () => {
+    // "last" seul n'est plus un signal contexte — mais "I sent" l'est.
     expect(detectFastPathAction("find the last email I sent")).toBeNull();
+  });
+
+  it('"based on the last meeting" → null (based on + the meeting = contexte KG)', () => {
+    expect(detectFastPathAction("based on the last meeting, show my calendar")).toBeNull();
+  });
+
+  it('"réponds au mail précédent" → null (write + précédent)', () => {
+    // write guard (répond) ET contexte (précédent) — null dans les deux cas
+    expect(detectFastPathAction("réponds au mail précédent")).toBeNull();
   });
 });
 
