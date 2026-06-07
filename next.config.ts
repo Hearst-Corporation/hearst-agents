@@ -35,6 +35,13 @@ const nextConfig: NextConfig = {
   // Requiert babel-plugin-react-compiler en devDep. Composants violant les Rules of React
   // peuvent être exclus via reactCompiler: { compilationMode: 'annotation' } + directive "use memo".
   reactCompiler: true,
+  // playwright-core / playwright = deps optionnelles chargées au RUNTIME via
+  // require dynamique (lib/browser/playwright-bridge.ts, fail-soft REST fallback).
+  // Sans ça, Turbopack tente de les bundler dans le build serveur (atteint via
+  // instrumentation → scheduler-init → ai-pipeline → hearst-actions → stagehand →
+  // playwright-bridge) → "Module not found: Can't resolve 'playwright-core'".
+  // serverExternalPackages les garde externes (require au runtime, pas bundlées).
+  serverExternalPackages: ["playwright-core", "playwright"],
   // Pin la racine workspace pour que Turbopack n'aille pas la déduire
   // depuis un package.json plus haut dans l'arbo (ex. ~/package.json).
   turbopack: {
