@@ -12,10 +12,10 @@
  *   - Reads only : tout slug write (CREATE/SEND/DELETE/UPDATE/…) → null.
  *   - Fail-soft TOTAL : aucun throw ne remonte (try/catch → null).
  *   - Aucun schéma de tool injecté dans les prompts K2.5 (noms seulement) → cheap.
- *   - Activé uniquement si `HELM_COMPOSIO_LITE_AGENT=1`.
+ *   - Activé par défaut (opt-out) ; kill-switch `HELM_COMPOSIO_LITE_AGENT=0`.
  *
- * FEATURE FLAG : `process.env.HELM_COMPOSIO_LITE_AGENT === "1"` (défaut OFF).
- * Quand OFF → ce module n'est jamais appelé, comportement inchangé.
+ * FEATURE FLAG : `process.env.HELM_COMPOSIO_LITE_AGENT !== "0"` (défaut ON, opt-out).
+ * Quand =0 → ce module n'est jamais appelé, comportement = pipeline complet.
  */
 
 import { executeComposioAction } from "@/lib/connectors/composio/client";

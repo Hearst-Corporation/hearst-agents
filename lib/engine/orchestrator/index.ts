@@ -536,10 +536,16 @@ async function runPipeline(
   // Hive ; pour un user Helm natif il est undefined → on retombe sur userId,
   // exactement comme ai-pipeline.ts:605 le fait pour le pipeline complet.
   const fastPathEntity = input.composioEntityId ?? input.userId;
-  // P2a — ne pas court-circuiter quand une policy Cortex restreint les tools :
-  // si une allowlist restrictive est active, le pipeline complet applique le
-  // gating capabilities → on laisse tomber en fall-through ici.
-  const hasPolicyRestriction = Array.isArray(input._allowedTools) && input._allowedTools.length > 0;
+  // P2a — ne pas court-circuiter quand une VRAIE policy Cortex restreint les tools.
+  // On ne skippe le fast-path que si la source est "cortex" (résolution dynamique
+  // Context/Cortex) — pas quand la source est "legacy" (allowlist par défaut
+  // hardcodée, ~8-10 entrées), qui n'est PAS une policy restrictive.
+  // Sans ce guard précis, le fast-path était systématiquement inerte car
+  // _allowedTools contient toujours des entrées legacy au moment de cette ligne.
+  const hasPolicyRestriction =
+    input._allowedToolsSource === "cortex" &&
+    Array.isArray(input._allowedTools) &&
+    input._allowedTools.length > 0;
   if (process.env.HELM_COMPOSIO_FASTPATH === "1" && fastPathEntity && !hasPolicyRestriction) {
     const fp = detectFastPathAction(input.message);
     if (fp) {
@@ -609,6 +615,86 @@ async function runPipeline(
           "[Orchestrator] composio fast-path exception — falling through to full pipeline",
         );
       }
+    }
+  }
+
+  // ── Composio lite-agent (Stream E — K2.5 classify+execute+summarize) ─────────
+  // Généralise le fast-path regex à TOUTES les apps connectées de l'user, via un
+  // appel K2.5 cheap (classify+resolve) qui reçoit uniquement les NOMS des read
+  // actions (jamais les schémas complets) + un appel K2.5 summarize pour la prose.
+  //
+  // FEATURE FLAG : ACTIVÉ PAR DÉFAUT (opt-out). Kill-switch : `HELM_COMPOSIO_LITE_AGENT=0`.
+  // → Le lite-agent traite toute lecture simple mono-tool (toutes apps connectées) en
+  //   prose (~9.7s) sans injecter les schémas. Reads-only, fail-soft TOTAL : au moindre
+  //   doute (write, multi-step, contexte, échec) il retombe sur le pipeline complet.
+  //
+  // Guards :
+  // - entity = composioEntityId ?? userId (impersonation Hive)
+  // - skip si _allowedToolsSource === "cortex" (policy Cortex restrictive)
+  // - skip si smalltalk pur (isPureConversational) → évite un classify K2.5 inutile ;
+  //   le fast-path conversationnel (plus bas) le prend pour ~0.5s
+  // - fail-soft : tryLiteAgent retourne null → fall-through silencieux
+  if (
+    process.env.HELM_COMPOSIO_LITE_AGENT !== "0" &&
+    fastPathEntity &&
+    !hasPolicyRestriction &&
+    !isPureConversational(input.message)
+  ) {
+    try {
+      const { tryLiteAgent } = await import("./lite-agent");
+      const liteResult = await tryLiteAgent({
+        message: input.message,
+        entityId: fastPathEntity,
+        conversationId: input.conversationId,
+      });
+      if (liteResult) {
+        logger.info(
+          { slug: liteResult.slug, entity: fastPathEntity, run_id: engine.id },
+          "[Orchestrator] lite-agent fast-path triggered",
+        );
+        eventBus.emit({
+          type: "execution_mode_selected",
+          run_id: engine.id,
+          mode: "direct_answer",
+          reason: `Lite-agent fast-path: ${liteResult.slug}`,
+        });
+        eventBus.emit({
+          type: "text_delta",
+          run_id: engine.id,
+          delta: liteResult.text,
+        });
+        console.info("[Orchestrator] lite_agent_done", {
+          run_id: engine.id,
+          slug: liteResult.slug,
+          total_ms: Date.now() - pipelineStartedAt,
+        });
+        // Persister la réponse assistant pour ne pas trouer l'historique.
+        if (input.conversationId) {
+          await appendMessage(
+            input.conversationId,
+            {
+              role: "assistant",
+              content: liteResult.text,
+              createdAt: Date.now(),
+            },
+            scope,
+          );
+          void appendToSummary({
+            userId: input.userId,
+            role: "assistant",
+            content: liteResult.text,
+          });
+        }
+        await engine.complete();
+        return;
+      }
+      // null → fall-through silencieux vers le pipeline complet
+    } catch (err) {
+      // Exception → fall-through silencieux (jamais d'erreur user)
+      logger.warn(
+        { err: err instanceof Error ? err.message : String(err) },
+        "[Orchestrator] lite-agent exception — falling through to full pipeline",
+      );
     }
   }
 
