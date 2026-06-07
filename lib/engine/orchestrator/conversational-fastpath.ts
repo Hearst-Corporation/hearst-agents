@@ -7,7 +7,7 @@
  * (salutation, remerciement, "qui es-tu") n'a besoin NI de contexte NI de tools.
  *
  * CE PATH : zéro pré-fetch, prompt court (~300 tok), 1 seul appel LLM
- * (gpt-4.1-mini) streamé directement. Mesuré : ~0.5-0.7s.
+ * léger streamé directement. Mesuré : ~0.5-0.7s selon provider.
  *
  * GARDE-FOU : `isPureConversational` est CONSERVATEUR — au moindre signal de
  * données/action/mémoire/recherche, il retourne false et on retombe sur le
@@ -18,9 +18,60 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
+import { resolveKimiRuntimeConfig } from "@/lib/llm/kimi-config";
 
-// Modèle léger dédié au smalltalk — surcharge possible via env.
-const FASTPATH_MODEL = process.env.CONVERSATIONAL_FASTPATH_MODEL ?? "gpt-4.1-mini";
+const OPENAI_BASE_URL = "https://api.openai.com/v1";
+
+export interface FastpathModelConfig {
+  provider: string;
+  apiKey: string;
+  baseURL: string;
+  model: string;
+}
+
+/**
+ * Sélectionne le modèle du fast-path sans toucher au moteur agentique.
+ *
+ * Priorité :
+ * 1. Env dédiée `CONVERSATIONAL_FASTPATH_*` pour bench Kimi/MiniMax isolé.
+ * 2. Kimi si `KIMI_API_KEY` existe (objectif actuel : Kimi 2.5 pour smalltalk).
+ * 3. OpenAI existant en fallback conservateur.
+ */
+export function resolveConversationalFastpathConfig(
+  env: Partial<NodeJS.ProcessEnv> = process.env,
+): FastpathModelConfig {
+  const explicitBaseUrl = env.CONVERSATIONAL_FASTPATH_BASE_URL;
+  const explicitApiKey = env.CONVERSATIONAL_FASTPATH_API_KEY;
+  const explicitModel = env.CONVERSATIONAL_FASTPATH_MODEL;
+
+  if (explicitApiKey || explicitBaseUrl || explicitModel) {
+    const baseURL = explicitBaseUrl ?? env.KIMI_BASE_URL ?? env.OPENAI_BASE_URL ?? OPENAI_BASE_URL;
+    const isOpenAI = baseURL === OPENAI_BASE_URL;
+    return {
+      provider: isOpenAI ? "openai" : "kimi",
+      apiKey: explicitApiKey ?? env.KIMI_API_KEY ?? env.OPENAI_API_KEY ?? "",
+      baseURL,
+      model: explicitModel ?? (isOpenAI ? "gpt-4.1-mini" : "kimi-k2.5"),
+    };
+  }
+
+  if (env.KIMI_API_KEY) {
+    const kimiConfig = resolveKimiRuntimeConfig(env);
+    return {
+      provider: "kimi",
+      apiKey: kimiConfig.apiKey,
+      baseURL: kimiConfig.baseURL,
+      model: "kimi-k2.5",
+    };
+  }
+
+  return {
+    provider: "openai",
+    apiKey: env.OPENAI_API_KEY ?? "",
+    baseURL: env.OPENAI_BASE_URL ?? OPENAI_BASE_URL,
+    model: "gpt-4.1-mini",
+  };
+}
 
 // Prompt MINIMAL : identité + langue + ton. Pas de catalogue de tools, pas de
 // règles d'orchestration — ce path ne fait jamais d'action.
@@ -73,16 +124,17 @@ export async function runConversationalFastpath(
   eventBus: RunEventBus,
   opts: { history?: Array<{ role: "user" | "assistant"; content: string }>; signal?: AbortSignal },
 ): Promise<void> {
+  const fastpathConfig = resolveConversationalFastpathConfig();
   const client = createOpenAI({
-    apiKey: process.env.KIMI_API_KEY ?? process.env.OPENAI_API_KEY ?? "",
-    baseURL: process.env.KIMI_BASE_URL ?? "https://api.openai.com/v1",
+    apiKey: fastpathConfig.apiKey,
+    baseURL: fastpathConfig.baseURL,
   });
 
   // Historique court (4 derniers tours max) pour la continuité conversationnelle.
   const recentHistory = (opts.history ?? []).slice(-4);
 
   const result = streamText({
-    model: client.chat(FASTPATH_MODEL),
+    model: client.chat(fastpathConfig.model),
     system: FASTPATH_SYSTEM_PROMPT,
     messages: [...recentHistory, { role: "user" as const, content: message }],
     temperature: 0.5,
