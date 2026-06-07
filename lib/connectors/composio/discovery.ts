@@ -57,7 +57,7 @@ const CATALOG_TOOLS_PER_APP = 100;
 // HOW TO ADD a toolkit: verify slugs via GET /api/v3/tools?toolkit_slug=<tk>&limit=400,
 // then add an entry keyed by the lowercase toolkit slug (e.g. "github", "notion").
 // Slugs verified against the API on 2026-06-01. Only add slugs confirmed present.
-const ESSENTIAL_READS: Record<string, string[]> = {
+export const ESSENTIAL_READS: Record<string, string[]> = {
   github: [
     "GITHUB_GET_A_REPOSITORY", // native index 324 — verified 2026-06-01
     "GITHUB_FIND_PULL_REQUESTS", // native index 236 — verified 2026-06-01
