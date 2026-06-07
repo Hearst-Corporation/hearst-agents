@@ -180,6 +180,38 @@ class ComposioTimeoutError extends Error {
   }
 }
 
+/**
+ * F6 — Rate-limit client-side par userId (defense-in-depth).
+ *
+ * Une boucle LLM ou un prompt malveillant peut tenter 100+ exécutions Composio
+ * dans un même stream `/api/orchestrate` → 504 (maxDuration 120s) ET risque de
+ * saturer le rate-limit account-wide de Composio (la clé est PARTAGÉE par toutes
+ * les surfaces : Hive/Helm/_front/_ingest — cf. docs/integrations/COMPOSIO.md).
+ * On borne donc le nombre d'exécutions par userId sur une fenêtre glissante.
+ *
+ * Limiteur PROCESS-LOCAL (serverless = par instance) : c'est un circuit-breaker
+ * contre les boucles runaway intra-stream, pas un quota distribué. Fenêtre + max
+ * overridables ; `COMPOSIO_RATE_MAX<=0` désactive (fail-open).
+ */
+const RATE_MAX = parseInt(process.env.COMPOSIO_RATE_MAX ?? "40", 10);
+const RATE_WINDOW_MS = parseInt(process.env.COMPOSIO_RATE_WINDOW_MS ?? "60000", 10);
+const execTimestamps = new Map<string, number[]>();
+
+/** true si `userId` a dépassé son quota sur la fenêtre ; sinon enregistre l'appel. */
+function rateLimitExceeded(userId: string): boolean {
+  if (!Number.isFinite(RATE_MAX) || RATE_MAX <= 0) return false; // désactivé
+  const now = Date.now();
+  const cutoff = now - RATE_WINDOW_MS;
+  const recent = (execTimestamps.get(userId) ?? []).filter((t) => t > cutoff);
+  if (recent.length >= RATE_MAX) {
+    execTimestamps.set(userId, recent); // persiste la fenêtre élaguée
+    return true;
+  }
+  recent.push(now);
+  execTimestamps.set(userId, recent);
+  return false;
+}
+
 export async function executeComposioAction(call: ComposioCallParams): Promise<ComposioResult> {
   const client = await getClient();
   if (!client) {
@@ -196,6 +228,19 @@ export async function executeComposioAction(call: ComposioCallParams): Promise<C
     console.warn(
       `[Composio] Slug alias: ${call.action} → ${resolvedAction} (LLM hallucination corrigée)`,
     );
+  }
+
+  // F6 : backpressure avant tout appel réseau. Protège la clé partagée d'une
+  // boucle runaway (impacterait toutes les surfaces). Envelope, jamais throw.
+  if (rateLimitExceeded(call.entityId)) {
+    console.warn(
+      `[Composio] rate limit dépassé: userId=${call.entityId} (>${RATE_MAX}/${Math.round(RATE_WINDOW_MS / 1000)}s)`,
+    );
+    return {
+      ok: false,
+      error: `Trop d'appels d'outils en peu de temps (>${RATE_MAX} sur ${Math.round(RATE_WINDOW_MS / 1000)}s). Réessaie dans un instant.`,
+      errorCode: "RATE_LIMITED",
+    };
   }
 
   try {

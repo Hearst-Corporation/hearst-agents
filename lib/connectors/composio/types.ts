@@ -26,6 +26,7 @@ export type ComposioErrorCode =
   | "ACTION_FAILED"
   | "UNKNOWN_SLUG"
   | "TIMEOUT"
+  | "RATE_LIMITED"
   | "UNKNOWN";
 
 export interface ComposioResult {

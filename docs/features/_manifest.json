@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-04T02:16:51.225Z",
+  "generatedAt": "2026-06-07T17:43:38.002Z",
   "total": 62,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 524,
-    "testsExistants": 1865,
+    "testsExistants": 1872,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 338,
-    "cases": 3179,
+    "files": 340,
+    "cases": 3186,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -212,9 +212,9 @@
         "I-17. ChatDock injecte `attached_asset_ids` depuis `attachedAssets`",
         "I-18. ApprovalInline pour writes — flow obligatoire"
       ],
-      "testsExistantsCount": 260,
-      "testsOnDisk": 260,
-      "testFilesOnDisk": 32,
+      "testsExistantsCount": 265,
+      "testsOnDisk": 265,
+      "testFilesOnDisk": 33,
       "testsDocExistants": 23,
       "testsManquantsCount": 27,
       "testGap": "moyen",
@@ -311,9 +311,9 @@
         "I-17. OAuth popup `window.open()` IMMÉDIAT au click",
         "I-18. `invalidateUserDiscovery` après OAuth + après disconnect"
       ],
-      "testsExistantsCount": 117,
-      "testsOnDisk": 117,
-      "testFilesOnDisk": 10,
+      "testsExistantsCount": 119,
+      "testsOnDisk": 119,
+      "testFilesOnDisk": 11,
       "testsDocExistants": 10,
       "testsManquantsCount": 24,
       "testGap": "moyen",
