@@ -25,7 +25,9 @@ export type PlanStatus =
   | "executing"
   | "completed"
   | "failed"
-  | "degraded";
+  | "degraded"
+  /** Terminal — l'utilisateur a refusé le gate d'approbation (HITL decline). */
+  | "declined";
 
 // ── Step kinds ──────────────────────────────────────────────
 
@@ -133,7 +135,7 @@ export interface PlanIntent {
 // ── Helpers ─────────────────────────────────────────────────
 
 export function isPlanTerminal(status: PlanStatus): boolean {
-  return status === "completed" || status === "failed";
+  return status === "completed" || status === "failed" || status === "declined";
 }
 
 export function getReadySteps(plan: ExecutionPlan): ExecutionPlanStep[] {

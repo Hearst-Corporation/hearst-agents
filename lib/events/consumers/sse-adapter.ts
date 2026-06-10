@@ -18,6 +18,16 @@ function defaultApprovalOptions(approvalId: string): HitlOption[] {
   ];
 }
 
+// Défaut sémantique pour le gate d'approbation d'un plan multi-step. La clé de
+// reprise est le plan_id : `confirm` → POST /api/v2/plans/{id}/approve,
+// `decline` → POST /api/v2/plans/{id}/decline (Hive route sur opt.kind).
+function defaultPlanApprovalOptions(planId: string): HitlOption[] {
+  return [
+    { id: `${planId}:approve`, label: "Approve", kind: "confirm" },
+    { id: `${planId}:decline`, label: "Decline", kind: "decline" },
+  ];
+}
+
 // Dérive la forme sémantique d'une clarification depuis ses options string
 // brutes. `kind: "other"` — une clarification ouverte n'a pas de sémantique
 // confirm/decline forte. `id` indexé pour rester stable et renvoyable à /resume.
@@ -676,13 +686,18 @@ export class SSEAdapter {
           providerId: event.providerId,
         };
       case "plan_step_awaiting_approval":
+        // Contrat HITL planner : `plan_id` = clé de reprise (approve/decline),
+        // `preview` = texte HITL, `options[].kind` = confirm→approve /
+        // decline→decline. Options custom de l'engine respectées si fournies.
         return {
           type: "plan_step_awaiting_approval",
+          run_id: event.run_id,
           plan_id: event.plan_id,
           step_id: event.step_id,
           preview: event.preview,
           kind: event.kind,
           providerId: event.providerId,
+          options: event.options ?? defaultPlanApprovalOptions(event.plan_id),
         };
       case "plan_step_failed":
         return {

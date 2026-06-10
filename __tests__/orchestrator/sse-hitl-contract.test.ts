@@ -152,6 +152,57 @@ describe("SSE HITL contract — clarification_requested", () => {
   });
 });
 
+describe("SSE HITL contract — plan_step_awaiting_approval (VRAI HITL planner)", () => {
+  it("émet run_id + plan_id (clé reprise) + preview + options confirm/decline par défaut", () => {
+    const { bus, frames } = captureFrames();
+    bus.emit({
+      type: "plan_step_awaiting_approval",
+      run_id: "run-plan-1",
+      plan_id: "plan-1",
+      step_id: "gate-1",
+      preview: "Envoyer le rapport à #general",
+      kind: "deliver",
+    });
+
+    const f = frameOf(frames, "plan_step_awaiting_approval");
+    expect(f).toBeDefined();
+    expect(f?.run_id).toBe("run-plan-1");
+    expect(f?.plan_id).toBe("plan-1"); // clé de reprise approve/decline
+    expect(f?.step_id).toBe("gate-1");
+    expect(f?.preview).toBe("Envoyer le rapport à #general");
+
+    const options = f?.options as Array<{ id: string; label: string; kind: string }>;
+    expect(Array.isArray(options)).toBe(true);
+    for (const opt of options) {
+      expect(typeof opt.id).toBe("string");
+      expect(["confirm", "decline", "cancel", "other"]).toContain(opt.kind);
+    }
+    // confirm → /approve, decline → /decline
+    expect(options.some((o) => o.kind === "confirm")).toBe(true);
+    expect(options.some((o) => o.kind === "decline")).toBe(true);
+    // id keyés sur le plan_id (clé de reprise)
+    expect(options.find((o) => o.kind === "confirm")?.id).toBe("plan-1:approve");
+    expect(options.find((o) => o.kind === "decline")?.id).toBe("plan-1:decline");
+  });
+
+  it("respecte des options custom fournies par l'engine", () => {
+    const { bus, frames } = captureFrames();
+    bus.emit({
+      type: "plan_step_awaiting_approval",
+      run_id: "run-plan-2",
+      plan_id: "plan-2",
+      step_id: "gate-2",
+      preview: "x",
+      kind: "deliver",
+      options: [{ id: "p2:approve", label: "Go", kind: "confirm" }],
+    });
+    const options = frameOf(frames, "plan_step_awaiting_approval")?.options as Array<{
+      kind: string;
+    }>;
+    expect(options.map((o) => o.kind)).toEqual(["confirm"]);
+  });
+});
+
 describe("SSE HITL contract — mission_run_request porte déjà mission_id", () => {
   it("expose mission_id (garanti)", () => {
     const { bus, frames } = captureFrames();

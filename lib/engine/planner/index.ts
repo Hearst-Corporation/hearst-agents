@@ -258,4 +258,30 @@ export function approvePlan(planId: string): ExecutionPlan | null {
   return plan;
 }
 
+/**
+ * Miroir de {@link approvePlan} pour le chemin HITL "decline".
+ *
+ * Un decline ARRÊTE le plan : pas de resume, statut terminal `declined`
+ * (cf. isPlanTerminal). Le gate d'approbation pending est marqué `skipped`.
+ * Retourne null si le plan est absent ou n'est pas en `awaiting_approval`
+ * (mêmes invariants que approvePlan — idempotence/garde de transition).
+ */
+export function declinePlan(planId: string): ExecutionPlan | null {
+  const plan = getPlan(planId);
+  if (!plan || plan.status !== "awaiting_approval") return null;
+
+  const gate = plan.steps.find((s) => s.kind === "wait_for_approval" && s.status === "pending");
+  if (gate) {
+    gate.status = "skipped";
+    gate.completedAt = Date.now();
+  }
+
+  plan.status = "declined";
+  plan.updatedAt = Date.now();
+  savePlan(plan);
+  logPlanEvent("plan_declined", { planId });
+
+  return plan;
+}
+
 // ── Step resolution ─────────────────────────────────────────

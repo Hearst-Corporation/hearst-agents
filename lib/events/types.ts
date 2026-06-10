@@ -181,6 +181,27 @@ export interface PlanStepCompletedEvent extends BaseEvent {
   providerId?: string;
 }
 
+/**
+ * CONTRAT HITL planner (consommé par Hive).
+ *
+ * Émis par run-planner-workflow (onApprovalRequired) quand un plan multi-step
+ * atteint son gate `wait_for_approval`. C'est le VRAI event HITL planner
+ * (`approval_requested` côté ApprovalManager est du code mort, sans call site).
+ *
+ * Champs GARANTIS sur le frame SSE :
+ *   - `run_id`         : toujours présent (BaseEvent).
+ *   - `plan_id`        : CLÉ DE REPRISE — Hive la renvoie à
+ *                        POST /api/v2/plans/{plan_id}/approve | /decline.
+ *   - `step_id`        : step engine d'origine (le gate).
+ *   - `preview`        : texte HITL à afficher (dest, payload résumé).
+ *   - `kind`           : kind du step en attente.
+ *   - `options[].kind` : sémantique du choix — `confirm` → route /approve,
+ *                        `decline` → route /decline. L'adapter fournit un
+ *                        défaut { confirm, decline } si l'engine n'en émet pas.
+ *
+ * Champ OPTIONNEL (fail-open, jamais inventé) :
+ *   - `providerId?`    : provider résolu pour le write, si déjà connu.
+ */
 export interface PlanStepAwaitingApprovalEvent extends BaseEvent {
   type: "plan_step_awaiting_approval";
   plan_id: string;
@@ -189,6 +210,12 @@ export interface PlanStepAwaitingApprovalEvent extends BaseEvent {
   preview: string;
   kind: string;
   providerId?: string;
+  /**
+   * Choix sémantiques proposés. Best-effort : défaut confirm/decline si
+   * l'engine n'en fournit pas. Toujours présent sur le frame SSE.
+   * `confirm` → /approve, `decline` → /decline.
+   */
+  options?: HitlOption[];
 }
 
 export interface PlanStepFailedEvent extends BaseEvent {
