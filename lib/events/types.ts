@@ -300,7 +300,11 @@ export interface AppConnectRequiredEvent extends BaseEvent {
 // Emitted when `run_mission` resolves a query to an existing mission.
 // The UI renders an inline confirm card with "Lancer maintenant" — clicking
 // it POSTs to /api/v2/missions/[id]/run.
-
+//
+// CONTRAT HITL : cet event porte DÉJÀ `mission_id` (garanti — c'est sa raison
+// d'être). Hive peut donc résoudre directement. Pas de `decision.id`/`options`
+// ajoutés ici : ce n'est pas un choix confirm/decline mais un lancement de
+// mission explicite (UI : un seul bouton "Lancer maintenant").
 export interface MissionRunRequestEvent extends BaseEvent {
   type: "mission_run_request";
   /** ID of the matched mission (DB uuid). */
@@ -313,12 +317,54 @@ export interface MissionRunRequestEvent extends BaseEvent {
   match_kind: "exact" | "prefix" | "substring";
 }
 
+// ── HITL option (shared) ─────────────────────────────────
+// Forme sémantique d'un choix présenté à l'utilisateur dans un event
+// Human-In-The-Loop (approval / clarification). Le `kind` permet au front
+// (Hive) de router la décision sans parser le label libre.
+
+export interface HitlOption {
+  /** Id stable du choix — sert de valeur renvoyée à /resume. */
+  id: string;
+  /** Libellé affiché. */
+  label: string;
+  /** Sémantique du choix — drive le routing de résolution côté Hive. */
+  kind: "confirm" | "decline" | "cancel" | "other";
+}
+
 // ── Approvals ────────────────────────────────────────────
 
+/**
+ * CONTRAT HITL (consommé par Hive → POST /api/missions/{id}/resume).
+ *
+ * Champs GARANTIS sur le frame SSE `approval_requested` :
+ *   - `run_id`            : toujours présent (BaseEvent).
+ *   - `approval_id`       : id de la décision (= `decision.id` côté Hive).
+ *   - `step_id`           : step engine d'origine.
+ *   - `options[].kind`    : sémantique du choix (confirm/decline/cancel/other).
+ *
+ * Champ OPTIONNEL (fail-open, jamais inventé) :
+ *   - `mission_id?`       : présent UNIQUEMENT si le run est rattaché à une
+ *                           mission (run déclenché par le scheduler / route
+ *                           /missions/[id]/run). Absent pour un chat libre.
+ *                           Hive : si absent → résolution no-op locale.
+ *
+ * `options` est best-effort : l'engine n'émet pas (encore) de choix custom,
+ * l'adapter fournit un défaut sensé { confirm, decline }.
+ */
 export interface ApprovalRequestedEvent extends BaseEvent {
   type: "approval_requested";
   step_id: string;
   approval_id: string;
+  /**
+   * Mission rattachée au run, si elle existe. Optionnel — fail-open.
+   * Résolu en amont (OrchestrateInput.missionId), jamais deviné.
+   */
+  mission_id?: string;
+  /**
+   * Choix sémantiques proposés. Best-effort : défaut confirm/decline si
+   * l'engine n'en fournit pas. Toujours présent sur le frame SSE.
+   */
+  options?: HitlOption[];
 }
 export interface ApprovalDecidedEvent extends BaseEvent {
   type: "approval_decided";
@@ -355,10 +401,39 @@ export interface TextDeltaEvent extends BaseEvent {
 
 // ── Clarification ────────────────────────────────────────
 
+/**
+ * CONTRAT HITL (consommé par Hive → POST /api/missions/{id}/resume).
+ *
+ * Champs GARANTIS sur le frame SSE `clarification_requested` :
+ *   - `run_id`            : toujours présent (BaseEvent).
+ *   - `question`          : texte de la question posée.
+ *   - `options?: string[]`: RÉTROCOMPAT — choix bruts (consommateurs existants).
+ *   - `option_choices[]`  : forme sémantique additionnelle { id, label, kind }
+ *                           dérivée de `options`. `kind` = "other" pour des
+ *                           clarifications ouvertes (pas de sémantique forte).
+ *                           `id` = approval/request id équivalent côté Hive.
+ *
+ * Champ OPTIONNEL (fail-open, jamais inventé) :
+ *   - `mission_id?`       : présent UNIQUEMENT si run rattaché à une mission.
+ *                           Absent pour un chat libre → Hive no-op local.
+ *
+ * On NE casse PAS `options: string[]` : `option_choices` est purement additif.
+ */
 export interface ClarificationRequestedEvent extends BaseEvent {
   type: "clarification_requested";
   question: string;
+  /** RÉTROCOMPAT — choix bruts string. Inchangé. */
   options?: string[];
+  /**
+   * Mission rattachée au run, si elle existe. Optionnel — fail-open.
+   * Résolu en amont (OrchestrateInput.missionId), jamais deviné.
+   */
+  mission_id?: string;
+  /**
+   * Forme sémantique additive des choix (non cassante). Dérivée de `options`.
+   * Présente sur le frame SSE dès qu'il y a au moins une option.
+   */
+  option_choices?: HitlOption[];
 }
 
 // ── Cost ─────────────────────────────────────────────────

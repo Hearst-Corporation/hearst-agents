@@ -7,7 +7,24 @@
 
 import { perfMark } from "@/lib/observability/perf-mark";
 import type { RunEventBus } from "../bus";
-import type { RunEvent } from "../types";
+import type { HitlOption, RunEvent } from "../types";
+
+// Défaut sémantique pour un approval sans choix custom : confirmer / décliner.
+// Best-effort — l'engine n'émet pas (encore) d'options personnalisées.
+function defaultApprovalOptions(approvalId: string): HitlOption[] {
+  return [
+    { id: `${approvalId}:confirm`, label: "Confirmer", kind: "confirm" },
+    { id: `${approvalId}:decline`, label: "Refuser", kind: "decline" },
+  ];
+}
+
+// Dérive la forme sémantique d'une clarification depuis ses options string
+// brutes. `kind: "other"` — une clarification ouverte n'a pas de sémantique
+// confirm/decline forte. `id` indexé pour rester stable et renvoyable à /resume.
+function deriveClarificationChoices(options?: string[]): HitlOption[] | undefined {
+  if (!options || options.length === 0) return undefined;
+  return options.map((label, i) => ({ id: `choice_${i}`, label, kind: "other" as const }));
+}
 
 // Unicode ranges covering pictographs, dingbats, transport, regional flags,
 // and the variation selector that often follows them. Conservative enough
@@ -224,8 +241,13 @@ export class SSEAdapter {
   // PERF-MARK : flags "1ère fois" pour ne marquer que le 1er text_delta.
   private markedAdapterIn = false;
   private markedEnqueue = false;
+  // Mission rattachée au run, si elle existe (résolue en amont via
+  // OrchestrateInput.missionId). Optionnel — fail-open : undefined pour un
+  // chat libre, et alors `mission_id` n'est PAS émis sur les events HITL.
+  private missionId?: string;
 
-  constructor(bus: RunEventBus) {
+  constructor(bus: RunEventBus, missionId?: string) {
+    this.missionId = missionId;
     this.cleanup = bus.on((event) => this.handleEvent(event));
   }
 
@@ -317,6 +339,16 @@ export class SSEAdapter {
     } catch {
       // stream closed
     }
+  }
+
+  /**
+   * Retourne `{ mission_id }` SI une mission est résolvable, sinon `{}`.
+   * Fail-open : on n'invente jamais de mission_id. Priorité au mission_id
+   * porté par l'event (stampé en amont), fallback sur celui de l'adapter.
+   */
+  private withMissionId(eventMissionId?: string): { mission_id?: string } {
+    const mid = eventMissionId ?? this.missionId;
+    return mid ? { mission_id: mid } : {};
   }
 
   /**
@@ -430,6 +462,7 @@ export class SSEAdapter {
       case "mission_run_request":
         return {
           type: "mission_run_request",
+          run_id: event.run_id,
           mission_id: event.mission_id,
           mission_name: event.mission_name,
           schedule_label: event.schedule_label,
@@ -451,11 +484,20 @@ export class SSEAdapter {
       }
 
       // ── Approvals (visible — user must act) ──────────────
+      // Contrat HITL : `run_id` + `approval_id` (= decision.id) + `step_id`
+      // toujours présents ; `options[].kind` toujours présent (défaut
+      // confirm/decline si l'engine n'en fournit pas) ; `mission_id` émis
+      // UNIQUEMENT si résolu en amont (fail-open).
       case "approval_requested":
         return {
           type: "approval_requested",
+          run_id: event.run_id,
           approval_id: event.approval_id,
           step_id: event.step_id,
+          options: event.options ?? defaultApprovalOptions(event.approval_id),
+          // Préfère le mission_id de l'event s'il a été stampé en amont,
+          // sinon celui résolu au niveau de l'adapter. Omis si aucun.
+          ...this.withMissionId(event.mission_id),
         };
       case "action_plan_proposed":
         return {
@@ -481,12 +523,20 @@ export class SSEAdapter {
         };
 
       // ── Clarification (visible — user must respond) ──────
-      case "clarification_requested":
+      // Contrat HITL : `run_id` + `question` toujours présents ; `options`
+      // (string[]) RÉTROCOMPAT inchangé ; `option_choices[]` forme sémantique
+      // additive (kind="other") ; `mission_id` émis uniquement si résolu.
+      case "clarification_requested": {
+        const optionChoices = event.option_choices ?? deriveClarificationChoices(event.options);
         return {
           type: "clarification_requested",
+          run_id: event.run_id,
           question: event.question,
           options: event.options,
+          ...(optionChoices ? { option_choices: optionChoices } : {}),
+          ...this.withMissionId(event.mission_id),
         };
+      }
 
       // ── Scheduled missions (visible — user sees automation) ─
       case "scheduled_mission_created":

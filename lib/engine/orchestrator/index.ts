@@ -149,7 +149,10 @@ function buildTenantScope(input: OrchestrateInput): TenantScope {
 export function orchestrate(db: SupabaseClient, input: OrchestrateInput): ReadableStream {
   const eventBus = new RunEventBus();
   eventBus.on((e) => globalRunBus.broadcast(e));
-  const sse = new SSEAdapter(eventBus);
+  // missionId résolu en amont (scheduler / route /missions/[id]/run). Permet
+  // au SSEAdapter de stamper `mission_id` sur les events HITL (approval /
+  // clarification) que Hive consomme. Fail-open : undefined pour un chat libre.
+  const sse = new SSEAdapter(eventBus, input.missionId);
   const logPersister = new LogPersister(db);
   const cleanupLogs = logPersister.attach(eventBus);
 
