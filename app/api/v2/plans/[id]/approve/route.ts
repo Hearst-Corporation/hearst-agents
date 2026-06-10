@@ -8,8 +8,10 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { approvePlan } from "@/lib/engine/planner/index";
 import { approveAndResume, type PipelineContext } from "@/lib/engine/planner/pipeline";
+import { getPlan } from "@/lib/engine/planner/store";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { redactId } from "@/lib/utils/redact";
 
 const log = withRoute("POST /api/v2/plans/[id]/approve");
 
@@ -43,6 +45,41 @@ export async function POST(
 
     if (!threadId) {
       return NextResponse.json({ error: "Missing required context: threadId" }, { status: 400 });
+    }
+
+    // Ownership check (fail-closed) — identique à decline + approve-step. Le plan
+    // in-memory porte user_id + tenant_id ; on vérifie AVANT toute mutation (anti-IDOR).
+    const plan = getPlan(planId);
+    if (!plan) {
+      log.warn({ planId }, "plan_not_found");
+      return NextResponse.json(
+        { error: "Plan not found or not awaiting approval" },
+        { status: 404 },
+      );
+    }
+
+    const userMatch = plan.userId === scope.userId;
+    const tenantMatch = !plan.tenantId || plan.tenantId === scope.tenantId;
+    if (!userMatch || !tenantMatch) {
+      log.warn(
+        {
+          event: "idor_attempt",
+          action: "approve",
+          planId,
+          userId: redactId(scope.userId),
+          tenantId: redactId(scope.tenantId),
+          ownerUserId: redactId(plan.userId),
+          userMatch,
+          tenantMatch,
+        },
+        "plan_approve_idor_blocked",
+      );
+      // Sécurité : 404 uniforme (pas 403) — n'expose pas l'existence d'un plan
+      // appartenant à un autre user. Le log audit ci-dessus reste intact.
+      return NextResponse.json(
+        { error: "Plan not found or not awaiting approval" },
+        { status: 404 },
+      );
     }
 
     // First, approve the plan

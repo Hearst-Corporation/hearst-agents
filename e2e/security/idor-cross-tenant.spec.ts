@@ -12,6 +12,7 @@
  *  - HEARST_E2E_TENANT_B_AGENT_ID
  *  - HEARST_E2E_TENANT_B_MISSION_ID
  *  - HEARST_E2E_TENANT_B_REPORT_ID
+ *  - HEARST_E2E_TENANT_B_PLAN_ID (UUID d'un plan en awaiting_approval tenant B)
  *
  * Skip-CI : ce test demande deux tenants pré-provisionnés. Run manuel.
  */
@@ -24,6 +25,7 @@ const RESOURCES = {
   agentId: process.env.HEARST_E2E_TENANT_B_AGENT_ID ?? "",
   missionId: process.env.HEARST_E2E_TENANT_B_MISSION_ID ?? "",
   reportId: process.env.HEARST_E2E_TENANT_B_REPORT_ID ?? "",
+  planId: process.env.HEARST_E2E_TENANT_B_PLAN_ID ?? "",
 };
 
 test.describe("@skip-ci IDOR cross-tenant — tenant A ne lit pas tenant B", () => {
@@ -66,5 +68,23 @@ test.describe("@skip-ci IDOR cross-tenant — tenant A ne lit pas tenant B", () 
     // absent, mauvais kind, et provenance.userId mismatch — évite la fuite
     // d'existence cross-tenant (le 403 révèle que l'asset existe).
     expect(res.status(), "doit retourner 404 sans révéler l'existence").toBe(404);
+  });
+
+  test("POST /api/v2/plans/[id]/approve (plan tenant B) → 404", async ({ request }) => {
+    test.skip(!RESOURCES.planId, "HEARST_E2E_TENANT_B_PLAN_ID manquant");
+    const res = await request.post(`/api/v2/plans/${RESOURCES.planId}/approve`, {
+      headers: authHeaders,
+      data: { threadId: "x" },
+    });
+    expect(res.status(), "ownership check: doit retourner 404 sans révéler l'existence").toBe(404);
+  });
+
+  test("POST /api/v2/plans/[id]/decline (plan tenant B) → 404", async ({ request }) => {
+    test.skip(!RESOURCES.planId, "HEARST_E2E_TENANT_B_PLAN_ID manquant");
+    const res = await request.post(`/api/v2/plans/${RESOURCES.planId}/decline`, {
+      headers: authHeaders,
+      data: { threadId: "x" },
+    });
+    expect(res.status(), "ownership check: doit retourner 404 sans révéler l'existence").toBe(404);
   });
 });
