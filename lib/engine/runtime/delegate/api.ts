@@ -7,6 +7,7 @@
  */
 
 import OpenAI from "openai";
+import { resolveKimiRuntimeConfig } from "@/lib/llm/kimi-config";
 import { capabilityGuard } from "@/lib/capabilities/guard";
 import type { Domain } from "@/lib/capabilities/taxonomy";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
@@ -326,9 +327,10 @@ async function executeAgentSync(
   stepId: string,
   input: DelegateInput,
 ): Promise<DelegateResult> {
+  const kimiConfig = resolveKimiRuntimeConfig();
   const client = new OpenAI({
-    apiKey: process.env.KIMI_API_KEY!,
-    baseURL: "https://api.hypercli.com/v1",
+    apiKey: kimiConfig.apiKey,
+    baseURL: kimiConfig.baseURL,
   });
   const userId = engine.getUserId();
 

@@ -1,14 +1,11 @@
 /**
- * Provider Kimi — Moonshot AI exposé via hypercli (proxy OpenAI-compatible).
+ * Provider Kimi — endpoint direct OpenAI-compatible configuré par env.
  *
- * ATTENTION : l'endpoint `https://api.hypercli.com/v1` est un proxy non-officiel.
- * Vérifier la disponibilité du service avant tout déploiement prod et surveiller
- * les éventuelles dérives de comportement par rapport à l'API Moonshot native.
- *
- * Modèles supportés : kimi-k2, kimi-k2.5, kimi-k2.6 (cf. lib/llm/pricing.ts)
+ * Modèles supportés : kimi-k2, kimi-k2.5, kimi-k2.6 (cf. lib/llm/pricing.ts).
  */
 
 import OpenAI from "openai";
+import { resolveKimiRuntimeConfig } from "./kimi-config";
 import { computeCostUsd } from "./pricing";
 import { defaultRateLimiter } from "./rate-limiter";
 import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "./timeout";
@@ -23,22 +20,10 @@ export class KimiProvider implements LLMProvider {
   private client: OpenAI;
 
   constructor() {
-    const apiKey = process.env.KIMI_API_KEY;
-    if (!apiKey) {
-      if (process.env.NODE_ENV === "test") {
-        // En test, on tolère l'absence de clé — le mock fetch prend le relais.
-        this.client = new OpenAI({
-          apiKey: "test-placeholder",
-          baseURL: process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
-          maxRetries: 0, // router.retryWithBackoff couvre la connexion initiale ; mid-stream 429 non-retryable de toute façon
-        });
-        return;
-      }
-      throw new Error("KIMI_API_KEY is not set — add it to .env.local");
-    }
+    const config = resolveKimiRuntimeConfig();
     this.client = new OpenAI({
-      apiKey,
-      baseURL: process.env.KIMI_BASE_URL ?? "https://api.hypercli.com/v1",
+      apiKey: config.apiKey,
+      baseURL: config.baseURL,
       maxRetries: 0,
     });
   }

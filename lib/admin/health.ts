@@ -413,7 +413,9 @@ function notConfigured(name: string, category: ServiceCategory): ServiceCheck {
 async function checkKimi(): Promise<ServiceCheck> {
   const key = process.env.KIMI_API_KEY;
   if (!key) return notConfigured("Kimi", "llm");
-  const res = await timedFetch("https://api.hypercli.com/v1/models", {
+  const baseURL = process.env.KIMI_BASE_URL;
+  if (!baseURL) return notConfigured("Kimi base URL", "llm");
+  const res = await timedFetch(`${baseURL.replace(/\/$/, "")}/models`, {
     Authorization: `Bearer ${key}`,
   });
   return fromHttp("Kimi", "llm", res, { okMessage: "models endpoint" });

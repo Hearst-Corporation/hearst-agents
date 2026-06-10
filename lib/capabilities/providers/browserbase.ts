@@ -1,4 +1,4 @@
-const BB_API_BASE = "https://www.browserbase.com/v1";
+const BB_API_BASE = "https://api.browserbase.com/v1";
 
 function getApiKey(): string {
   const key = process.env.BROWSERBASE_API_KEY;
@@ -77,8 +77,9 @@ export async function getSession(sessionId: string): Promise<{
 
 export async function stopSession(sessionId: string): Promise<void> {
   const res = await fetch(`${BB_API_BASE}/sessions/${sessionId}`, {
-    method: "DELETE",
-    headers: { "X-BB-API-Key": getApiKey() },
+    method: "POST",
+    headers: { "X-BB-API-Key": getApiKey(), "Content-Type": "application/json" },
+    body: JSON.stringify({ status: "REQUEST_RELEASE" }),
   });
 
   if (!res.ok && res.status !== 404) {

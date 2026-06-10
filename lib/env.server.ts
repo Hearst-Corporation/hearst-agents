@@ -54,14 +54,12 @@ function validateEnv(): void {
     );
   }
 
-  // Critical: Kimi API key obligatoire en prod pour les fonctions d'orchestration IA
-  // (run-research-report, delegate/api.ts) qui utilisent process.env.KIMI_API_KEY!
-  // (non-null assertion). Sans cette var, un throw TypeError non catchable en runtime.
-  if (isProd && !process.env.KIMI_API_KEY) {
+  // Critical: Kimi direct obligatoire en prod pour les fonctions d'orchestration IA.
+  if (isProd && (!process.env.KIMI_API_KEY || !process.env.KIMI_BASE_URL)) {
     throw new Error(
-      "[ENV ERROR] KIMI_API_KEY is required in production. " +
-        "Without it, AI orchestration (research reports, delegate API) will crash at runtime. " +
-        "Get the key from Hypercli dashboard and set KIMI_API_KEY in your environment.",
+      "[ENV ERROR] KIMI_API_KEY and KIMI_BASE_URL are required in production. " +
+        "Without them, AI orchestration (research reports, delegate API) will crash at runtime. " +
+        "Set the direct Kimi OpenAI-compatible endpoint and key in your environment.",
     );
   }
 

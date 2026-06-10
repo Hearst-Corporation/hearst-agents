@@ -29,6 +29,7 @@ import { createSession } from "@/lib/capabilities/providers/browserbase";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { parseJsonBody } from "@/lib/platform/http/parse-body";
+import { redactId } from "@/lib/utils/redact";
 
 const browserStartBodySchema = z
   .object({
@@ -40,6 +41,32 @@ const browserStartBodySchema = z
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+async function ensureBrowserOwnerUser(scope: { userId: string; tenantId: string }) {
+  const sb = requireServerSupabase();
+  const { data: existing, error: selectError } = await sb
+    .from("users")
+    .select("id")
+    .eq("id", scope.userId)
+    .maybeSingle();
+
+  if (selectError) throw selectError;
+  if (existing) return;
+
+  const syntheticEmail = `hive-${scope.userId.slice(0, 8)}@local.hearst.invalid`;
+  const { error: insertError } = await sb.from("users").insert({
+    id: scope.userId,
+    email: syntheticEmail,
+    name: "Hive user",
+    primary_tenant_id: scope.tenantId,
+    primary_workspace_id: scope.tenantId,
+    tenant_ids: [scope.tenantId],
+    provider: "hive",
+    provider_account_id: scope.userId,
+  });
+
+  if (insertError) throw insertError;
+}
 
 export async function POST(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "POST /api/v2/browser/start" });
@@ -65,18 +92,25 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "session_create_failed", message }, { status: 502 });
   }
 
-  // Tracker la session dans browser_sessions pour le ownership check (F-005)
+  // Tracker la session dans browser_sessions pour le ownership check (F-005).
+  // Sans cette ligne persistée, GET/DELETE /browser/[id] retournent 404.
   try {
     const sb = requireServerSupabase();
-    await sb.from("browser_sessions").insert({
+    await ensureBrowserOwnerUser(scope);
+    const { error: insertError } = await sb.from("browser_sessions").insert({
       session_id: session.sessionId,
       user_id: scope.userId,
       tenant_id: scope.tenantId,
     });
+    if (insertError) throw insertError;
   } catch (err) {
-    // Non-bloquant : la session Browserbase existe côté fournisseur, on
-    // continue sans ownership tracking plutôt que d'abandonner la session.
-    console.error("[BrowserStart] browser_sessions insert failed:", err);
+    console.error("[BrowserStart] browser_sessions insert failed", {
+      sessionId: redactId(session.sessionId),
+      userId: redactId(scope.userId),
+      tenantId: redactId(scope.tenantId),
+      err,
+    });
+    return NextResponse.json({ error: "browser_session_tracking_failed" }, { status: 500 });
   }
 
   // Lance Stagehand en fire-and-forget. Les actions sont émises sur le bus

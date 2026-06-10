@@ -20,6 +20,10 @@ export const maxDuration = 120;
 
 const HEARTBEAT_INTERVAL_MS = 20_000;
 
+function shortId(id?: string): string | undefined {
+  return id ? id.slice(0, 8) : undefined;
+}
+
 /**
  * Wrap un ReadableStream SSE pour injecter `: heartbeat\n\n` toutes les 20s.
  *
@@ -39,6 +43,7 @@ function withHeartbeat(
   stream: ReadableStream<Uint8Array>,
   expectedUserId: string,
   skipSessionRevalidation = false,
+  requestStartedAt?: number,
 ): ReadableStream<Uint8Array> {
   const encoder = new TextEncoder();
   const reader = stream.getReader();
@@ -74,6 +79,12 @@ function withHeartbeat(
           // (la 2e couche de stream). Comparé à la borne (c) sse_enqueue : si
           // l'écart est notable, la double couche coûte. No-op si PERF_MARKS≠1.
           if (chunkCount === 1) perfMark(expectedUserId, "withheartbeat_first_chunk");
+          if (chunkCount === 1 && requestStartedAt) {
+            console.info("[orchestrate] first_response_chunk", {
+              user_id: shortId(expectedUserId),
+              elapsed_ms: Date.now() - requestStartedAt,
+            });
+          }
           // Re-validation de session périodique — pas de latence si session valide
           // (NextAuth lit le JWT depuis le cookie, pas de DB round-trip).
           // Skippée pour les service tokens (Bearer hsk_*) : ils n'ont pas de
@@ -154,6 +165,7 @@ const orchestrateBodySchema = z.object({
 const PRICE_CAP_USD = 0.5; // par run orchestrate
 
 export async function POST(req: NextRequest) {
+  const requestStartedAt = Date.now();
   // Resolve full scope (userId + tenantId + workspaceId) via canonical scope resolver
   const { scope, error } = await requireScope({ context: "POST /api/orchestrate" });
   if (error || !scope) {
@@ -162,6 +174,7 @@ export async function POST(req: NextRequest) {
       { status: error?.status ?? 401, headers: { "Content-Type": "application/json" } },
     );
   }
+  const scopeResolvedMs = Date.now() - requestStartedAt;
 
   // Daily cost cap — no-op si ORCHESTRATE_COST_CAP_USD absent ou à 0
   const dailyCap = Number(process.env.ORCHESTRATE_COST_CAP_USD ?? 0);
@@ -200,6 +213,15 @@ export async function POST(req: NextRequest) {
   }
 
   const validatedAssetIds = parsed.data.attached_asset_ids;
+
+  console.info("[orchestrate] request_ready", {
+    user_id: shortId(scope.userId),
+    tenant_id: shortId(scope.tenantId),
+    conversation_id: shortId(parsed.data.conversation_id),
+    surface: parsed.data.surface ?? "unknown",
+    scope_ms: scopeResolvedMs,
+    parse_ms: Date.now() - requestStartedAt,
+  });
 
   const db = requireServerSupabase();
 
@@ -242,12 +264,15 @@ export async function POST(req: NextRequest) {
     throw err;
   }
 
-  return new Response(withHeartbeat(stream, scope.userId, scope.isServiceAccount ?? false), {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache, no-transform",
-      Connection: "keep-alive",
-      "X-Accel-Buffering": "no",
+  return new Response(
+    withHeartbeat(stream, scope.userId, scope.isServiceAccount ?? false, requestStartedAt),
+    {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive",
+        "X-Accel-Buffering": "no",
+      },
     },
-  });
+  );
 }

@@ -106,6 +106,7 @@ describe("runAiPipeline — domain filter", () => {
     toAiTools.mockReset();
     buildAgentSystemPrompt.mockReset();
     streamText.mockReset();
+    buildNativeGoogleTools.mockReset();
 
     getToolsForUser.mockResolvedValue(allTools);
     buildNativeGoogleTools.mockResolvedValue({});
@@ -127,6 +128,25 @@ describe("runAiPipeline — domain filter", () => {
     const apps = [...new Set(passedTools.map((t) => t.app))].sort();
     expect(apps).toEqual(["gmail", "slack"]);
     expect(apps).not.toContain("github");
+  });
+
+  it("direct_answer skips external tool discovery but keeps internal tools", async () => {
+    await runAiPipeline(makeEngine(), makeBus(), {
+      userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
+      message: "réponds simplement",
+      domain: "general",
+      executionMode: "direct_answer",
+    });
+
+    expect(getToolsForUser).not.toHaveBeenCalled();
+    expect(buildNativeGoogleTools).not.toHaveBeenCalled();
+    expect(toAiTools).toHaveBeenCalledWith([], { userId: "u1", tenantId: "t1" });
+
+    const streamArgs = streamText.mock.calls[0][0] as { tools: Record<string, unknown> };
+    expect(streamArgs.tools).toHaveProperty("cortex_search");
+    expect(streamArgs.tools).toHaveProperty("cortex_remember");
   });
 
   it("préserve les slugs Composio réels après intersection _allowedTools", async () => {

@@ -51,6 +51,16 @@ npm run validate     # typecheck + lint + test (à lancer avant tout patch)
 npx knip             # détection code mort (filtrer .claude/worktrees)
 ```
 
+## Latence Chat / Orchestrateur
+
+Le chemin `Hive → Helm → LLM/tools` est instrumenté sans contenu utilisateur :
+
+- `app/api/orchestrate/route.ts` : `request_ready` et `first_response_chunk`.
+- `lib/engine/orchestrator/index.ts` : routing, résolution capabilities, `run_started`, fast-path conversationnel.
+- `lib/engine/orchestrator/ai-pipeline.ts` : `perf_timeline` avec mémoire, tools, build→stream, premier token, total.
+
+Budgets UX : navigation `<100ms`, smalltalk premier token `<1s`, mémoire légère `1-2s`, tool simple `2-5s`. Le fast-path smalltalk utilise Kimi 2.5 par défaut si `KIMI_API_KEY` + `KIMI_BASE_URL` sont configurées, sinon `gpt-4.1-mini`. Kimi ne fallback plus vers Hypercli : `KIMI_BASE_URL` doit pointer vers l'endpoint direct OpenAI-compatible choisi. Pour bench MiniMax/Kimi sans toucher au pipeline agentique, utiliser `CONVERSATIONAL_FASTPATH_API_KEY`, `CONVERSATIONAL_FASTPATH_BASE_URL` et `CONVERSATIONAL_FASTPATH_MODEL`.
+
 ## Conventions de composants
 
 - **Une primitive par rôle** : bouton `<Action>`, bouton icône `<IconButton>`, carte `<PanelCard>`, modale via `useModalA11y`. Cherche dans `app/(user)/components/ui/` avant de créer.
@@ -1058,6 +1068,8 @@ Architecture : `lib/connectors/` (un connector par service), tokens chiffrés AE
 | `/api/v2/runs`, `/api/v2/runs/{id}`             | Runs v2 + timeline events                                 | User auth                             |
 | `/api/v2/assets/{id}`, `.../download`           | Asset detail + file download                              | User auth                             |
 | `/api/v2/missions`, `/api/v2/missions/[id]/run` | CRUD missions + Run Now                                   | User auth                             |
+| `/api/v2/browser`, `/api/v2/browser/{id}`       | Sessions Browserbase trackées + statut/stop               | User auth                             |
+| `/api/v2/voice/transcripts`                     | Liste des transcripts voice persistés                     | User auth                             |
 | `/api/v2/missions/ops`                          | Mission ops status (active, paused, errored)              | `read:missions` — ✅ **Phase 0D**     |
 | `/api/v2/scheduler/status`                      | Scheduler leadership & health                             | `read:scheduler` — ✅ **Phase 0D**    |
 | `/api/v2/plans/[id]/approve`                    | Approve plan + resume execution                           | `approve:plans` — ✅ **Phase 0D**     |

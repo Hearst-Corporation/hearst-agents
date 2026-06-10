@@ -85,6 +85,14 @@ describe("KimiProvider — validation env", () => {
 
     expect(() => new KimiProvider()).toThrow("KIMI_API_KEY is not set");
   });
+
+  it("lève une erreur explicite si KIMI_BASE_URL absent en production", () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("KIMI_API_KEY", "sk-production-kimi-key");
+    delete process.env.KIMI_BASE_URL;
+
+    expect(() => new KimiProvider()).toThrow("KIMI_BASE_URL is not set");
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -94,6 +102,7 @@ describe("KimiProvider — validation env", () => {
 describe("KimiProvider — baseURL override", () => {
   it("utilise KIMI_BASE_URL env si défini", async () => {
     const customBase = "https://my-custom-kimi-proxy.example.com/v1";
+    vi.stubEnv("KIMI_API_KEY", "sk-test-kimi-key");
     vi.stubEnv("KIMI_BASE_URL", customBase);
 
     const fetchMock = makeFetchMock(MOCK_COMPLETION);

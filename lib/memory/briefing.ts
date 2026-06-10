@@ -1,4 +1,5 @@
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { ORCHESTRATOR_MODEL_OAI } from "@/lib/engine/orchestrator/system-prompt";
 import { KIMI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { BRIEFING_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
@@ -71,12 +72,15 @@ export async function generateBriefing(params: {
   if (!summary) return GENERIC_BRIEFING;
 
   const { tenantId } = params;
+  const provider = process.env.KIMI_API_KEY ? "kimi" : "openai";
+  const model = process.env.KIMI_API_KEY ? KIMI_MODELS.HAIKU : ORCHESTRATOR_MODEL_OAI;
 
   return chatWithCircuitBreaker<{ text: string; audioScript: string }>({
+    provider,
     tenantId,
     context: "memory/briefing",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model,
       max_tokens: 500,
       messages: [
         { role: "system", content: BRIEFING_SYSTEM_PROMPT },
