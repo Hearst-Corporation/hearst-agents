@@ -19,7 +19,7 @@
  */
 
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
-import { createPlanFromIntent } from "@/lib/engine/planner";
+import { createPlanFromIntentAsync } from "@/lib/engine/planner";
 import {
   type ExecutorCallbacks,
   executePlan,
@@ -177,8 +177,8 @@ export async function runPlannerWorkflow(
 ): Promise<PlannerWorkflowResult> {
   const startedAt = Date.now();
 
-  // 1. Build plan
-  const plan = createPlanFromIntent({
+  // 1. Build plan (async: gpt-4o → fallback regex)
+  const plan = await createPlanFromIntentAsync({
     intent: input.message,
     threadId: input.threadId,
     userId: input.userId,

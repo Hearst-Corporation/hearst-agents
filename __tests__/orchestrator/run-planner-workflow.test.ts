@@ -6,19 +6,31 @@
  * - Feature flag isPlannerEnabled
  * - Plan multi-step → events émis dans l'ordre
  * - Plan paused sur approval gate
+ * - createPlanFromIntentAsync : LLM path + fallback regex
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// ── Mock generateStepsLLM so runPlannerWorkflow never hits a real LLM ────────
+// Dynamic import in createPlanFromIntentAsync means we mock the module.
+const mockGenerateStepsLLM = vi.fn();
+
+vi.mock("@/lib/engine/planner/llm-steps", () => ({
+  generateStepsLLM: (...args: unknown[]) => mockGenerateStepsLLM(...args),
+}));
+
 import {
   isComplexIntent,
   isPlannerEnabled,
   runPlannerWorkflow,
 } from "@/lib/engine/orchestrator/run-planner-workflow";
+import type { InferredStep } from "@/lib/engine/planner";
+import { createPlanFromIntentAsync } from "@/lib/engine/planner";
 import { clearAllPlannerStores } from "@/lib/engine/planner/store";
 import { RunEventBus } from "@/lib/events/bus";
 import type { RunEvent } from "@/lib/events/types";
 
-// ── Helpers ─────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────
 
 function makeMockEngine(runId = "run_test_42") {
   return {
@@ -38,7 +50,7 @@ function collectEvents(bus: RunEventBus): RunEvent[] {
   return events;
 }
 
-// ── isComplexIntent ─────────────────────────────────────────
+// ── isComplexIntent ──────────────────────────────────────────
 
 describe("isComplexIntent", () => {
   it("returns false for short messages", () => {
@@ -79,7 +91,7 @@ describe("isComplexIntent", () => {
   });
 });
 
-// ── isPlannerEnabled ────────────────────────────────────────
+// ── isPlannerEnabled ─────────────────────────────────────────
 
 describe("isPlannerEnabled", () => {
   const original = process.env.HEARST_ENABLE_PLANNER;
@@ -105,11 +117,111 @@ describe("isPlannerEnabled", () => {
   });
 });
 
-// ── runPlannerWorkflow ──────────────────────────────────────
+// ── createPlanFromIntentAsync ────────────────────────────────
+
+describe("createPlanFromIntentAsync", () => {
+  beforeEach(() => {
+    clearAllPlannerStores();
+    mockGenerateStepsLLM.mockReset();
+  });
+
+  const baseInput = {
+    intent: "envoie un rapport à l'équipe",
+    threadId: "thread-async-1",
+    userId: "user_async",
+    tenantId: "tenant_async",
+    workspaceId: "ws_async",
+  };
+
+  it("uses LLM steps when generateStepsLLM returns steps", async () => {
+    const llmSteps: InferredStep[] = [
+      { kind: "analyze", title: "Analyse LLM", expectedOutput: "analysis" },
+      {
+        kind: "deliver",
+        title: "Livraison",
+        capability: "messaging_send",
+        tool: "send_message",
+        expectedOutput: "confirmation",
+      },
+    ];
+    mockGenerateStepsLLM.mockResolvedValue(llmSteps);
+
+    const plan = await createPlanFromIntentAsync(baseInput);
+
+    // LLM steps were used (deliver → high-risk → gate inserted)
+    const kinds = plan.steps.map((s) => s.kind);
+    expect(kinds).toContain("analyze");
+    expect(kinds).toContain("deliver");
+  });
+
+  it("deliver step (high-risk send) triggers wait_for_approval gate + requiresApproval", async () => {
+    const llmSteps: InferredStep[] = [
+      { kind: "analyze", title: "Analyse", expectedOutput: "analysis" },
+      {
+        kind: "deliver",
+        title: "Envoi",
+        capability: "messaging_send",
+        tool: "send_message",
+        expectedOutput: "confirmation",
+      },
+    ];
+    mockGenerateStepsLLM.mockResolvedValue(llmSteps);
+
+    const plan = await createPlanFromIntentAsync({
+      ...baseInput,
+      // intent with HIGH_RISK keyword so assessRisk → "high" on deliver
+      intent: "envoie un email au team lead",
+    });
+
+    expect(plan.requiresApproval).toBe(true);
+    expect(plan.approvalStepId).toBeDefined();
+    const gate = plan.steps.find((s) => s.kind === "wait_for_approval");
+    expect(gate).toBeDefined();
+  });
+
+  it("falls back to regex inferSteps when generateStepsLLM returns null", async () => {
+    mockGenerateStepsLLM.mockResolvedValue(null);
+
+    const plan = await createPlanFromIntentAsync({
+      ...baseInput,
+      intent: "résume mes emails de la semaine",
+    });
+
+    // Regex inferSteps should produce at least a read + analyze
+    expect(plan.steps.length).toBeGreaterThan(0);
+    const kinds = plan.steps.map((s) => s.kind);
+    expect(kinds).toContain("read"); // résume/emails triggers read
+  });
+
+  it("sync createPlanFromIntent and async createPlanFromIntentAsync (null LLM) produce same step kinds", async () => {
+    mockGenerateStepsLLM.mockResolvedValue(null);
+
+    const { createPlanFromIntent } = await import("@/lib/engine/planner");
+    const intent = "synthétise un brief pour le board";
+    const sharedInput = {
+      intent,
+      threadId: "t1",
+      userId: "u1",
+      tenantId: "tenant1",
+      workspaceId: "ws1",
+    };
+
+    const syncPlan = createPlanFromIntent(sharedInput);
+    const asyncPlan = await createPlanFromIntentAsync(sharedInput);
+
+    const syncKinds = syncPlan.steps.map((s) => s.kind).sort();
+    const asyncKinds = asyncPlan.steps.map((s) => s.kind).sort();
+    expect(asyncKinds).toEqual(syncKinds);
+  });
+});
+
+// ── runPlannerWorkflow ───────────────────────────────────────
 
 describe("runPlannerWorkflow", () => {
   beforeEach(() => {
     clearAllPlannerStores();
+    // Default: LLM returns null → regex fallback (safe, no real LLM call)
+    mockGenerateStepsLLM.mockResolvedValue(null);
   });
 
   it("emits plan_preview with steps and cost", async () => {
@@ -193,5 +305,35 @@ describe("runPlannerWorkflow", () => {
     const awaiting = events.find((e) => e.type === "plan_step_awaiting_approval");
     expect(awaiting).toBeDefined();
     expect(result.paused).toBe(true);
+  });
+
+  it("uses LLM steps when generateStepsLLM returns non-null", async () => {
+    const llmSteps: InferredStep[] = [
+      { kind: "read", title: "Lecture LLM", capability: "messaging", expectedOutput: "messages" },
+      { kind: "synthesize", title: "Synthèse LLM", expectedOutput: "summary" },
+    ];
+    mockGenerateStepsLLM.mockResolvedValue(llmSteps);
+
+    const bus = new RunEventBus();
+    const events = collectEvents(bus);
+    const engine = makeMockEngine();
+
+    await runPlannerWorkflow(engine, bus, {
+      userId: "user_test",
+      tenantId: "tenant_test",
+      workspaceId: "ws_test",
+      threadId: "thread_test",
+      message: "Résume les messages Slack et envoie un brief",
+      connectedProviders: [],
+    });
+
+    const preview = events.find((e) => e.type === "plan_preview") as
+      | { steps: Array<{ kind: string }> }
+      | undefined;
+    expect(preview).toBeDefined();
+    const previewKinds = preview!.steps.map((s) => s.kind);
+    // LLM steps: read + synthesize should appear
+    expect(previewKinds).toContain("read");
+    expect(previewKinds).toContain("synthesize");
   });
 });

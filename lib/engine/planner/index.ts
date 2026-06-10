@@ -55,7 +55,7 @@ function assessRisk(kind: PlanStepKind, intent: string): StepRisk {
 
 // ── Step inference from intent ──────────────────────────────
 
-interface InferredStep {
+export interface InferredStep {
   kind: PlanStepKind;
   title: string;
   capability?: string;
@@ -166,10 +166,16 @@ function generateId(prefix: string): string {
   return `${prefix}_${Date.now()}_${++planCounter}`;
 }
 
-export function createPlanFromIntent(input: PlanIntent): ExecutionPlan {
-  const type = classifyPlanType(input.intent);
-  const inferred = inferSteps(input.intent, type);
-
+/**
+ * Internal — given pre-computed inferred steps, build and persist the full
+ * ExecutionPlan (gate insertion, approval logic, savePlan). Used by both the
+ * sync and async entry points so the gate/executor machinery is unchanged.
+ */
+function buildPlanFromSteps(
+  input: PlanIntent,
+  type: ReturnType<typeof classifyPlanType>,
+  inferred: InferredStep[],
+): ExecutionPlan {
   // POURQUOI : `dependsOn` est rempli en deuxième passe (boucle ci-dessous)
   // car les IDs des steps précédents ne sont pas connus pendant le map.
   const steps: ExecutionPlanStep[] = inferred.map((s) => {
@@ -236,6 +242,25 @@ export function createPlanFromIntent(input: PlanIntent): ExecutionPlan {
   logPlanEvent("plan_created", { planId: plan.id, type, stepCount: steps.length, approval });
 
   return plan;
+}
+
+/** Sync entry point — uses regex heuristic. Kept for tests and fallback. */
+export function createPlanFromIntent(input: PlanIntent): ExecutionPlan {
+  const type = classifyPlanType(input.intent);
+  return buildPlanFromSteps(input, type, inferSteps(input.intent, type));
+}
+
+/**
+ * Async entry point — tries gpt-4o first, falls back to regex on null.
+ * Gate / assessRisk / needsApproval live in buildPlanFromSteps and apply
+ * identically regardless of step source.
+ */
+export async function createPlanFromIntentAsync(input: PlanIntent): Promise<ExecutionPlan> {
+  const { generateStepsLLM } = await import("./llm-steps");
+  const type = classifyPlanType(input.intent);
+  const llmSteps = await generateStepsLLM(input.intent, type);
+  const inferred = llmSteps ?? inferSteps(input.intent, type);
+  return buildPlanFromSteps(input, type, inferred);
 }
 
 // ── Plan updates ────────────────────────────────────────────
