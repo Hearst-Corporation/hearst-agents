@@ -56,13 +56,21 @@ export function resolveConversationalFastpathConfig(
   }
 
   if (env.KIMI_API_KEY) {
-    const kimiConfig = resolveKimiRuntimeConfig(env);
-    return {
-      provider: "kimi",
-      apiKey: kimiConfig.apiKey,
-      baseURL: kimiConfig.baseURL,
-      model: "kimi-k2.5",
-    };
+    try {
+      const kimiConfig = resolveKimiRuntimeConfig(env);
+      return {
+        provider: "kimi",
+        apiKey: kimiConfig.apiKey,
+        baseURL: kimiConfig.baseURL,
+        model: "kimi-k2.5",
+      };
+    } catch {
+      // Config Kimi incomplète (ex: KIMI_BASE_URL absent) → dégrade proprement
+      // vers OpenAI. Le fast-path reste fonctionnel sans Kimi.
+      console.warn(
+        "[conversational-fastpath] Kimi config incomplete, falling back to OpenAI for fast-path.",
+      );
+    }
   }
 
   return {

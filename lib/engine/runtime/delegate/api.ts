@@ -12,9 +12,9 @@ import type { Domain } from "@/lib/capabilities/taxonomy";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import { readDriveFileContent, searchDriveFiles } from "@/lib/connectors/google/drive";
 import { searchEmails as searchGmail } from "@/lib/connectors/google/gmail";
-import { KIMI_MODELS } from "@/lib/llm/models";
 import { logger } from "@/lib/observability/logger";
 import { getTokens } from "@/lib/platform/auth/tokens";
+import { buildLlmCandidates } from "../../orchestrator/llm-candidates";
 import type { RunEngine } from "../engine";
 import type { StepActor } from "../engine/types";
 import type { DelegateInput, DelegateResult } from "./types";
@@ -326,9 +326,12 @@ async function executeAgentSync(
   stepId: string,
   input: DelegateInput,
 ): Promise<DelegateResult> {
+  // Sélection du provider actif : Kimi si KIMI_API_KEY configuré, sinon OpenAI.
+  // "fast" → gpt-4o-mini (équivalent coût/vitesse de kimi-k2.5 côté OpenAI).
+  const candidate = buildLlmCandidates(process.env, { modelClass: "fast" })[0];
   const client = new OpenAI({
-    apiKey: process.env.KIMI_API_KEY!,
-    baseURL: "https://api.hypercli.com/v1",
+    apiKey: candidate.apiKey,
+    baseURL: candidate.baseURL,
   });
   const userId = engine.getUserId();
 
@@ -396,7 +399,7 @@ async function executeAgentSync(
 
   if (useWebSearch) {
     const response = await client.chat.completions.create({
-      model: KIMI_MODELS.HAIKU,
+      model: candidate.modelId,
       max_tokens: 4096,
       messages: [
         { role: "system", content: systemPrompt },
@@ -414,7 +417,7 @@ async function executeAgentSync(
     };
   } else {
     const response = await client.chat.completions.create({
-      model: KIMI_MODELS.HAIKU,
+      model: candidate.modelId,
       max_tokens: 4096,
       messages: [
         { role: "system", content: systemPrompt },

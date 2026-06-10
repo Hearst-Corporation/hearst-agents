@@ -54,14 +54,15 @@ function validateEnv(): void {
     );
   }
 
-  // Critical: Kimi API key obligatoire en prod pour les fonctions d'orchestration IA
-  // (run-research-report, delegate/api.ts) qui utilisent process.env.KIMI_API_KEY!
-  // (non-null assertion). Sans cette var, un throw TypeError non catchable en runtime.
-  if (isProd && !process.env.KIMI_API_KEY) {
+  // Critical: au moins un provider LLM doit être configuré en prod pour les
+  // fonctions d'orchestration IA (run-research-report, delegate/api.ts).
+  // Kimi est désormais OPTIONNEL — OpenAI peut être primaire. L'absence des
+  // DEUX providers garantit un crash runtime non catchable.
+  if (isProd && !process.env.KIMI_API_KEY && !process.env.OPENAI_API_KEY) {
     throw new Error(
-      "[ENV ERROR] KIMI_API_KEY is required in production. " +
-        "Without it, AI orchestration (research reports, delegate API) will crash at runtime. " +
-        "Get the key from Hypercli dashboard and set KIMI_API_KEY in your environment.",
+      "[ENV ERROR] No LLM provider configured in production. " +
+        "Set OPENAI_API_KEY (primary) and/or KIMI_API_KEY. " +
+        "Without any provider, AI orchestration will crash at runtime.",
     );
   }
 

@@ -175,10 +175,18 @@ export interface AiPipelineInput {
 // exactement la logique existante (Kimi si KIMI_API_KEY, sinon OpenAI) ; les
 // suivants ne sont tentés qu'en cas d'échec de création/démarrage du stream.
 //
-// On garde `resolveKimiRuntimeConfig()` pour la validation au démarrage (throws
-// explicitement si KIMI_API_KEY présent mais KIMI_BASE_URL absent).
+// On garde `resolveKimiRuntimeConfig()` pour la validation au démarrage.
+// Kimi est désormais OPTIONNEL : si KIMI_API_KEY présent mais KIMI_BASE_URL absent,
+// on warn sans bloquer le boot (OpenAI prendra le relais via buildLlmCandidates).
 if (process.env.KIMI_API_KEY) {
-  resolveKimiRuntimeConfig(); // fail-fast au démarrage si config incomplète
+  try {
+    resolveKimiRuntimeConfig(); // fail-fast si config Kimi incomplète
+  } catch (err) {
+    console.warn(
+      "[ai-pipeline] Kimi config incomplete, falling back to OpenAI:",
+      err instanceof Error ? err.message : err,
+    );
+  }
 }
 
 // Candidats : construits à chaque run (lecture des env vars). Le coût est
