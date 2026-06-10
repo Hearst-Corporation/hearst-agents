@@ -18,7 +18,7 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
-import { resolveKimiRuntimeConfig } from "@/lib/llm/kimi-config";
+import { buildLlmCandidates } from "./llm-candidates";
 
 const OPENAI_BASE_URL = "https://api.openai.com/v1";
 
@@ -32,10 +32,16 @@ export interface FastpathModelConfig {
 /**
  * Sélectionne le modèle du fast-path sans toucher au moteur agentique.
  *
+ * Le fast-path ne traite QUE du conversationnel pur (isPureConversational),
+ * donc la classe de modèle est TOUJOURS "fast" — il consomme la MÊME source de
+ * vérité que le pipeline (`buildLlmCandidates`) pour rester cohérent avec le
+ * routing tier→modèle. Sans ça, un "bonjour" partait en gpt-4.1-mini hardcodé
+ * alors que le routing visait ORCHESTRATOR_MODEL_FAST → incohérence silencieuse.
+ *
  * Priorité :
  * 1. Env dédiée `CONVERSATIONAL_FASTPATH_*` pour bench Kimi/MiniMax isolé.
- * 2. Kimi si `KIMI_API_KEY` existe (objectif actuel : Kimi 2.5 pour smalltalk).
- * 3. OpenAI existant en fallback conservateur.
+ * 2. Le candidat "fast" du routing unifié (OpenAI primaire → ORCHESTRATOR_MODEL_FAST,
+ *    Kimi primaire → son modèle). Provider/model/clé/baseURL alignés sur le pipeline.
  */
 export function resolveConversationalFastpathConfig(
   env: Partial<NodeJS.ProcessEnv> = process.env,
@@ -55,29 +61,14 @@ export function resolveConversationalFastpathConfig(
     };
   }
 
-  if (env.KIMI_API_KEY) {
-    try {
-      const kimiConfig = resolveKimiRuntimeConfig(env);
-      return {
-        provider: "kimi",
-        apiKey: kimiConfig.apiKey,
-        baseURL: kimiConfig.baseURL,
-        model: "kimi-k2.5",
-      };
-    } catch {
-      // Config Kimi incomplète (ex: KIMI_BASE_URL absent) → dégrade proprement
-      // vers OpenAI. Le fast-path reste fonctionnel sans Kimi.
-      console.warn(
-        "[conversational-fastpath] Kimi config incomplete, falling back to OpenAI for fast-path.",
-      );
-    }
-  }
-
+  // Conversationnel = classe "fast" → même candidat que le pipeline pour le tier
+  // direct/memory. buildLlmCandidates garantit ≥1 candidat (fallback statique).
+  const candidate = buildLlmCandidates(env, { modelClass: "fast" })[0];
   return {
-    provider: "openai",
-    apiKey: env.OPENAI_API_KEY ?? "",
-    baseURL: env.OPENAI_BASE_URL ?? OPENAI_BASE_URL,
-    model: "gpt-4.1-mini",
+    provider: candidate.providerKey,
+    apiKey: candidate.apiKey,
+    baseURL: candidate.baseURL ?? OPENAI_BASE_URL,
+    model: candidate.modelId,
   };
 }
 
@@ -122,7 +113,8 @@ export function isPureConversational(message: string): boolean {
 }
 
 /**
- * Stream une réponse conversationnelle minimale via gpt-4.1-mini.
+ * Stream une réponse conversationnelle minimale via le modèle "fast" du routing
+ * (ORCHESTRATOR_MODEL_FAST quand OpenAI primaire).
  * Émet directement les text_delta sur l'eventBus, puis complète le run.
  * Aucun pré-fetch, aucun tool, aucun gros prompt.
  */
