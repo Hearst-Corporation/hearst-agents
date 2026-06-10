@@ -12,7 +12,12 @@
 import { describe, expect, it } from "vitest";
 import { resolveRetrievalMode } from "@/lib/capabilities/taxonomy";
 import { getRequiredProvidersForInput } from "@/lib/engine/orchestrator/provider-requirements";
-import { isReportIntent, isResearchIntent } from "@/lib/engine/orchestrator/research-intent";
+import {
+  isActionOrPlanIntent,
+  isReportIntent,
+  isResearchIntent,
+  shouldBypassResearchPath,
+} from "@/lib/engine/orchestrator/research-intent";
 
 // ── resolveRetrievalMode (replaces detectRetrievalMode) ─────
 
@@ -80,5 +85,77 @@ describe("isReportIntent — contract", () => {
 
   it("does not detect non-report", () => {
     expect(isReportIntent("Bonjour")).toBe(false);
+  });
+});
+
+// ── isActionOrPlanIntent — les 6 cas de la spec ───────────────
+
+describe("isActionOrPlanIntent — action/plan detection", () => {
+  // Les 3 cas qui DOIVENT rester research (false)
+  it("'Fais-moi un rapport sur le marché crypto' → NOT action (reste research)", () => {
+    expect(isActionOrPlanIntent("Fais-moi un rapport sur le marché crypto")).toBe(false);
+  });
+
+  it("'Résume-moi les dernières actus IA' → NOT action (reste research)", () => {
+    expect(isActionOrPlanIntent("Résume-moi les dernières actus IA")).toBe(false);
+  });
+
+  it("'Analyse la concurrence' → NOT action (reste research)", () => {
+    expect(isActionOrPlanIntent("Analyse la concurrence")).toBe(false);
+  });
+
+  // Les 3 cas qui DOIVENT bypasser (true)
+  it("'Envoie un email à test@example.com avec le résumé de la semaine' → IS action (bypass)", () => {
+    expect(
+      isActionOrPlanIntent("Envoie un email à test@example.com avec le résumé de la semaine"),
+    ).toBe(true);
+  });
+
+  it("'Crée un plan en plusieurs étapes : rédige le rapport puis publie sur Slack, demande mon approbation avant publication' → IS plan (bypass)", () => {
+    expect(
+      isActionOrPlanIntent(
+        "Crée un plan en plusieurs étapes : rédige le rapport puis publie sur Slack, demande mon approbation avant publication",
+      ),
+    ).toBe(true);
+  });
+
+  it("'Publie un post sur Slack #general' → IS action (bypass)", () => {
+    expect(isActionOrPlanIntent("Publie un post sur Slack #general")).toBe(true);
+  });
+});
+
+// ── shouldBypassResearchPath — les 6 cas identiques via le point d'entrée public ──
+
+describe("shouldBypassResearchPath — action intent integration", () => {
+  // Les 3 cas research — shouldBypassResearchPath doit retourner false (pas de bypass)
+  it("'Fais-moi un rapport sur le marché crypto' → does NOT bypass (research path)", () => {
+    expect(shouldBypassResearchPath("Fais-moi un rapport sur le marché crypto")).toBe(false);
+  });
+
+  it("'Résume-moi les dernières actus IA' → does NOT bypass (research path)", () => {
+    expect(shouldBypassResearchPath("Résume-moi les dernières actus IA")).toBe(false);
+  });
+
+  it("'Analyse la concurrence' → does NOT bypass (research path)", () => {
+    expect(shouldBypassResearchPath("Analyse la concurrence")).toBe(false);
+  });
+
+  // Les 3 cas action — shouldBypassResearchPath doit retourner true (bypass)
+  it("'Envoie un email à test@example.com avec le résumé de la semaine' → BYPASS (action)", () => {
+    expect(
+      shouldBypassResearchPath("Envoie un email à test@example.com avec le résumé de la semaine"),
+    ).toBe(true);
+  });
+
+  it("'Crée un plan en plusieurs étapes : rédige le rapport puis publie sur Slack, demande mon approbation avant publication' → BYPASS (plan)", () => {
+    expect(
+      shouldBypassResearchPath(
+        "Crée un plan en plusieurs étapes : rédige le rapport puis publie sur Slack, demande mon approbation avant publication",
+      ),
+    ).toBe(true);
+  });
+
+  it("'Publie un post sur Slack #general' → BYPASS (action)", () => {
+    expect(shouldBypassResearchPath("Publie un post sur Slack #general")).toBe(true);
   });
 });

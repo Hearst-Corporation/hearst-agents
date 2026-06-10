@@ -188,14 +188,75 @@ function isMemoryQuery(input: string): boolean {
   return MEMORY_QUERY_PATTERNS.some((p) => p.test(input));
 }
 
+// ── Action / plan intents ────────────────────────────────────────────
+// Verbes d'action WRITE ou de planification multi-étapes ancrés sur des
+// frontières de mots. Règle : un de ces patterns seul suffit — ils ne
+// peuvent pas être confondus avec une vraie recherche éditoriale.
+//
+// Borne critique : "rapport" / "résumé" / "analyse" SEULS ne sont PAS ici.
+// Un "envoie un email … avec le résumé de la semaine" matche "envoie" (action),
+// pas "résumé" (search). "Fais-moi un rapport sur le marché" ne matche rien
+// ici → reste research.
+const ACTION_INTENT_PATTERNS: RegExp[] = [
+  // Envoi email / message direct
+  /\benvoie\s+(un\b|le\b|la\b|les\b|à\b|ce\b|mon\b|ma\b|mes\b)/i,
+  /\benvoyer\s+(un\b|le\b|la\b|les\b|à\b|ce\b|mon\b|ma\b|mes\b)/i,
+  /\bemail\s+à\b/i,
+  /\bmail\s+à\b/i,
+  /\bsend\s+(an?\b|the\b|this\b|email\b|message\b|dm\b)/i,
+  // Publication / post
+  /\bpublie\s+(un\b|le\b|la\b|les\b|sur\b|dans\b|ce\b)/i,
+  /\bpublier\s+(un\b|le\b|la\b|les\b|sur\b|dans\b|ce\b)/i,
+  /\bposte\s+(un\b|le\b|la\b|les\b|sur\b|dans\b|ce\b)/i,
+  /\bposter\s+(un\b|le\b|la\b|les\b|sur\b|dans\b|ce\b)/i,
+  /\bpublish\b/i,
+  /\bpost\s+(to\b|on\b|in\b)/i,
+  /\bslack\b.*\bcanal\b|\bcanal\b.*\bslack\b/i,
+  /\bslack\s+#\w/i,
+  // DM / Slack direct
+  /\bdm\s+\w/i,
+  /\bslack\s+(à\b|to\b)/i,
+  // Planification multi-étapes
+  /\bcrée\s+un\s+plan\b/i,
+  /\bcréer\s+un\s+plan\b/i,
+  /\bcreate\s+a\s+plan\b/i,
+  /\bplan\s+en\s+plusieurs\s+[eé]tapes\b/i,
+  /\bplan\s+multi/i,
+  /\bmulti[- ]step\b/i,
+  /\b[eé]tapes\s*:/i,
+  /\bsteps\s*:/i,
+  /\borchestre\s+un\s+plan\b/i,
+  // Validation / approbation avant exécution
+  /\bdemande\s+(mon|ma|mes|son|leur)\s+approbation\b/i,
+  /\bapprobation\s+avant\b/i,
+  /\bv[eé]rifie\s+avant\s+d'ex[eé]cuter\b/i,
+  /\bask\s+(me\b|my\b|for)\s+approval\b/i,
+  /\bapproval\s+before\b/i,
+];
+
+/**
+ * Détecte un intent d'action write / envoi / publication / planification explicite.
+ * Si vrai, la requête ne doit PAS partir en research (elle contient un verbe
+ * d'action ancré, pas une demande de recherche éditoriale).
+ *
+ * "rapport"/"résumé"/"analyse" seuls ne triggent PAS cette fonction — ils
+ * restent potentiellement research. C'est le verbe d'action qui déclenche.
+ */
+export function isActionOrPlanIntent(input: string): boolean {
+  return ACTION_INTENT_PATTERNS.some((p) => p.test(input));
+}
+
 /**
  * Décide si une requête doit court-circuiter le research path.
  * Retourne `true` si la requête est mieux servie par streamText + tools
  * (catalogue cross-app via `propose_report_spec`, tools natifs déterministes,
- * ou query mémoire Cortex via `cortex_search`).
+ * query mémoire Cortex via `cortex_search`, ou intent d'action/plan explicite).
  */
 export function shouldBypassResearchPath(input: string): boolean {
   return (
-    isCatalogueReportRequest(input) || matchesNativeDeterministicTool(input) || isMemoryQuery(input)
+    isCatalogueReportRequest(input) ||
+    matchesNativeDeterministicTool(input) ||
+    isMemoryQuery(input) ||
+    isActionOrPlanIntent(input)
   );
 }
