@@ -125,6 +125,14 @@ export async function runConversationalFastpath(
   opts: { history?: Array<{ role: "user" | "assistant"; content: string }>; signal?: AbortSignal },
 ): Promise<void> {
   const fastpathConfig = resolveConversationalFastpathConfig();
+  // Trace explicite du modèle réellement emprunté par le fast-path — sans ça, on
+  // ne peut pas vérifier dans les logs que le routing tier→modèle s'applique
+  // (le fast-path court-circuite le pipeline qui, lui, logge déjà son candidat).
+  console.info("[conversational-fastpath] model_selected", {
+    run_id: engine.id,
+    provider: fastpathConfig.provider,
+    model: fastpathConfig.model,
+  });
   const client = createOpenAI({
     apiKey: fastpathConfig.apiKey,
     baseURL: fastpathConfig.baseURL,
