@@ -55,7 +55,8 @@ Rules:
 - "wait_for_approval" is reserved for the planner gate — do NOT include it in your output.
 - 1 to 6 steps maximum, in execution order.
 - Do NOT invent capabilities. If no capability applies, set "capability": null.
-- "title" is required and must be concise (≤ 60 chars).
+- "title" is required, must be concise (≤ 60 chars), and MUST be written in English.
+- All user-facing text in the output (title, expectedOutput) must be in English.
 - Use the plan type context: one_shot = single execution; mission = recurring; monitoring = event-driven watch.`;
 
 // ── Raw step shape from JSON ───────────────────────────────────
@@ -142,7 +143,7 @@ export async function generateStepsLLM(
     .filter((s): boolean => isValidKind(s.kind))
     .map((s) => ({
       kind: s.kind as PlanStepKind,
-      title: typeof s.title === "string" && s.title.trim().length > 0 ? s.title.trim() : "Étape",
+      title: typeof s.title === "string" && s.title.trim().length > 0 ? s.title.trim() : "Step",
       capability: typeof s.capability === "string" ? s.capability : undefined,
       tool: typeof s.tool === "string" ? s.tool : undefined,
       expectedOutput: typeof s.expectedOutput === "string" ? s.expectedOutput : undefined,

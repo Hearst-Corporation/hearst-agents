@@ -135,13 +135,21 @@ function extractRequiredApps(plan: ExecutionPlan): string[] {
 // ── Détection write action ─────────────────────────────────────
 // (Réservé Phase 2 : intercepter write steps high-risk en hors-gate.)
 
-function buildPreview(step: ExecutionPlanStep, intent: string): string {
-  const parts: string[] = [];
-  parts.push(`${step.title}`);
-  if (step.tool) parts.push(`tool: ${step.tool}`);
-  if (step.providerId) parts.push(`provider: ${step.providerId}`);
-  parts.push(`intent: ${intent.slice(0, 120)}`);
-  return parts.join(" · ");
+export function buildPreview(step: ExecutionPlanStep): string {
+  const kindLabel: Record<string, string> = {
+    read: "Read",
+    analyze: "Analyze",
+    synthesize: "Synthesize",
+    generate_asset: "Generate",
+    deliver: "Send",
+    schedule: "Schedule",
+    monitor: "Monitor",
+    wait_for_approval: "Approve",
+  };
+  const verb = kindLabel[step.kind] ?? "Execute";
+  const title = step.title.trim();
+  const base = `${verb}: ${title}`;
+  return [...base].length <= 140 ? base : [...base].slice(0, 137).join("") + "...";
 }
 
 // ── Workflow input ─────────────────────────────────────────────
@@ -255,7 +263,7 @@ export async function runPlannerWorkflow(
         run_id: engine.id,
         plan_id: planId,
         step_id: stepId,
-        preview: step ? buildPreview(step, input.message) : "Validation requise",
+        preview: step ? buildPreview(step) : "Approval required",
         kind: step?.kind ?? "wait_for_approval",
         providerId: step?.providerId,
       });

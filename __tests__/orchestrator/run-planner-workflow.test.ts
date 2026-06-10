@@ -20,6 +20,7 @@ vi.mock("@/lib/engine/planner/llm-steps", () => ({
 }));
 
 import {
+  buildPreview,
   isComplexIntent,
   isPlannerEnabled,
   runPlannerWorkflow,
@@ -49,6 +50,80 @@ function collectEvents(bus: RunEventBus): RunEvent[] {
   });
   return events;
 }
+
+// ── buildPreview ─────────────────────────────────────────────
+
+describe("buildPreview", () => {
+  it("returns English label prefixed with kind verb + step title", () => {
+    const step = {
+      id: "step-1",
+      kind: "deliver" as const,
+      title: "Send weekly report",
+      dependsOn: [],
+      risk: "high" as const,
+      status: "pending" as const,
+    };
+    const preview = buildPreview(step);
+    expect(preview).toBe("Send: Send weekly report");
+    expect(preview).not.toMatch(/intent/i);
+  });
+
+  it("never includes raw intent text", () => {
+    const step = {
+      id: "step-2",
+      kind: "analyze" as const,
+      title: "Analyse customer feedback",
+      dependsOn: [],
+      risk: "low" as const,
+      status: "pending" as const,
+    };
+    const rawIntent = "create a multi-step plan: draft a report and send to the board";
+    // buildPreview does not accept intent — confirm signature takes 1 arg
+    const preview = buildPreview(step);
+    expect(preview).not.toContain(rawIntent);
+    expect(preview).toContain("Analyse customer feedback");
+  });
+
+  it("produces English output for all known kinds", () => {
+    const kinds = [
+      "read",
+      "analyze",
+      "synthesize",
+      "generate_asset",
+      "deliver",
+      "schedule",
+      "monitor",
+      "wait_for_approval",
+    ] as const;
+    for (const kind of kinds) {
+      const step = {
+        id: `step-${kind}`,
+        kind,
+        title: "Do something important",
+        dependsOn: [],
+        risk: "low" as const,
+        status: "pending" as const,
+      };
+      const preview = buildPreview(step);
+      expect(preview).toMatch(/^[A-Z][a-z]+: /);
+      expect(preview.length).toBeLessThanOrEqual(140);
+    }
+  });
+
+  it("truncates long titles to ≤ 140 chars", () => {
+    const step = {
+      id: "step-long",
+      kind: "synthesize" as const,
+      title: "A".repeat(200),
+      dependsOn: [],
+      risk: "low" as const,
+      status: "pending" as const,
+    };
+    const preview = buildPreview(step);
+    expect(preview.length).toBeLessThanOrEqual(140);
+    expect(preview.endsWith("...")).toBe(true);
+  });
+});
 
 // ── isComplexIntent ──────────────────────────────────────────
 

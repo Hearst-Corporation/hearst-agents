@@ -158,7 +158,7 @@ export const useRuntimeStore = create<RuntimeState>()(
         case "approval_requested":
           set({
             coreState: "awaiting_approval",
-            flowLabel: "Validation requise",
+            flowLabel: "Approval required",
           });
           break;
         case "clarification_requested":
@@ -170,7 +170,7 @@ export const useRuntimeStore = create<RuntimeState>()(
         case "run_suspended": {
           const reason = event.reason as string;
           if (reason === "awaiting_approval") {
-            set({ coreState: "awaiting_approval", flowLabel: "Validation requise" });
+            set({ coreState: "awaiting_approval", flowLabel: "Approval required" });
           } else if (reason === "awaiting_clarification") {
             set({ coreState: "awaiting_clarification", flowLabel: "Précision requise" });
           }
@@ -280,7 +280,7 @@ export const useRuntimeStore = create<RuntimeState>()(
           if (!plan || plan.id !== planId) break;
           set({
             coreState: "awaiting_approval",
-            flowLabel: "Validation requise",
+            flowLabel: "Approval required",
             currentPlan: {
               ...plan,
               status: "awaiting_approval",

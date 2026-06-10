@@ -32,7 +32,7 @@ describe("Runtime Store - Approval/Clarification States", () => {
 
     const state = getRuntimeState();
     expect(state.coreState).toBe("awaiting_approval");
-    expect(state.flowLabel).toBe("Validation requise");
+    expect(state.flowLabel).toBe("Approval required");
   });
 
   it("should map clarification_requested to awaiting_clarification", () => {
@@ -60,7 +60,7 @@ describe("Runtime Store - Approval/Clarification States", () => {
 
     const state = getRuntimeState();
     expect(state.coreState).toBe("awaiting_approval");
-    expect(state.flowLabel).toBe("Validation requise");
+    expect(state.flowLabel).toBe("Approval required");
   });
 
   it("should map run_suspended with awaiting_clarification reason", () => {

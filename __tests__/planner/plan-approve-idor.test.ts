@@ -84,7 +84,7 @@ function makePlan(overrides?: Partial<ExecutionPlan>): ExecutionPlan {
       {
         id: "gate-1",
         kind: "wait_for_approval",
-        title: "Validation requise",
+        title: "Approval required",
         dependsOn: [],
         risk: "low",
         status: "pending",

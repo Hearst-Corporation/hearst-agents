@@ -210,7 +210,7 @@ function buildPlanFromSteps(
     const gate: ExecutionPlanStep = {
       id: gateId,
       kind: "wait_for_approval",
-      title: "Validation requise",
+      title: "Approval required",
       dependsOn: insertAt > 0 ? [steps[insertAt - 1].id] : [],
       risk: "low",
       status: "pending",

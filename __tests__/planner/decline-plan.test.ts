@@ -31,7 +31,7 @@ function makePlan(status: PlanStatus, gatePending = true): ExecutionPlan {
       {
         id: "gate-1",
         kind: "wait_for_approval",
-        title: "Validation requise",
+        title: "Approval required",
         dependsOn: [],
         risk: "low",
         status: gatePending ? "pending" : "done",
