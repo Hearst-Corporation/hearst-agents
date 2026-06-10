@@ -24,6 +24,7 @@ import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 import { logger } from "@/lib/observability/logger";
 import { searchWeb, type WebSearchResult } from "@/lib/tools/handlers/web-search";
+import { buildLlmCandidates } from "./llm-candidates";
 import { extractResearchQuery, isReportIntent } from "./research-intent";
 import { ORCHESTRATOR_MODEL } from "./system-prompt";
 
@@ -92,8 +93,10 @@ export async function runResearchReport(input: ResearchReportInput): Promise<voi
   // ── 1. Web search ──────────────────────────────────────────
   let searchResult: WebSearchResult;
   try {
-    if (!process.env.KIMI_API_KEY) {
-      throw new Error("Research synthesis unavailable — KIMI_API_KEY not configured");
+    if (!process.env.KIMI_API_KEY && !process.env.OPENAI_API_KEY) {
+      throw new Error(
+        "Research synthesis unavailable — no LLM provider (KIMI_API_KEY or OPENAI_API_KEY) configured",
+      );
     }
     searchResult = await searchWeb(query);
   } catch (err) {
@@ -318,14 +321,19 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     .map((r, i) => `[${i + 1}] ${r.title}\n${r.url}\n${r.snippet}`)
     .join("\n\n");
 
+  // Résout le provider actif (Kimi si configuré, OpenAI sinon) — tâche lourde
+  // → modelClass "strong" pour garantir un modèle capable de synthèse longue.
+  const candidate = buildLlmCandidates(process.env, { modelClass: "strong" })[0];
+
   type Ok = { ok: true; content: string };
   type Fail = { ok: false };
   const FAILED: Fail = { ok: false };
 
   const result = await chatWithCircuitBreaker<Ok | Fail>({
     context: "research-report/synthesize",
+    provider: candidate.providerKey,
     chatRequest: {
-      model: ORCHESTRATOR_MODEL,
+      model: candidate.modelId,
       max_tokens: 4096,
       messages: [
         { role: "system", content: RESEARCH_REPORT_SYSTEM_PROMPT },
@@ -338,8 +346,8 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     fallback: FAILED,
     parse: (res) => {
       defaultMetrics.recordCall({
-        provider: "kimi",
-        model: ORCHESTRATOR_MODEL,
+        provider: candidate.providerKey,
+        model: candidate.modelId,
         latencyMs: res.latency_ms,
         tokensIn: res.tokens_in,
         tokensOut: res.tokens_out,
@@ -349,7 +357,7 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
   });
 
   if (!result.ok) {
-    defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
+    defaultMetrics.recordError({ provider: candidate.providerKey, errorCode: "LLM_ERROR" });
     throw new Error("[ResearchReport] synthesis échouée — circuit ouvert ou LLM erreur");
   }
 
