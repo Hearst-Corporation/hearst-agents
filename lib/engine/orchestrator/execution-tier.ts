@@ -116,3 +116,33 @@ export function gateToolsByTier(allowedTools: string[], tier: ExecutionTier): st
     return requiredTier === undefined || requiredTier === tier;
   });
 }
+
+// ── Routing modèle par tier ──────────────────────────────────────────────────
+
+/**
+ * Table de correspondance tier → classe de modèle.
+ * direct/memory = "fast" (conversationnel, pas de tools lourds).
+ * action/swarm  = "strong" (exécution machine, orchestration multi-étapes).
+ */
+export const TIER_MODEL_CLASS: Record<ExecutionTier, "fast" | "strong"> = {
+  direct: "fast",
+  memory: "fast",
+  action: "strong",
+  swarm: "strong",
+};
+
+/**
+ * Retourne la classe de modèle correspondant au tier.
+ *
+ * Fail-soft → "strong" : un tier inconnu (undefined, null, valeur future) ne
+ * doit JAMAIS downgrader silencieusement vers le petit modèle. Mieux vaut
+ * dépenser un peu plus (strong) que rater une action ou un swarm critique
+ * parce qu'on a routé vers gpt-4o-mini par défaut.
+ */
+export function modelClassForTier(tier?: ExecutionTier | string | null): "fast" | "strong" {
+  if (tier && tier in TIER_MODEL_CLASS) {
+    return TIER_MODEL_CLASS[tier as ExecutionTier];
+  }
+  // Tier inconnu/absent → strong (fail-soft conservateur).
+  return "strong";
+}

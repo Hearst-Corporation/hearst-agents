@@ -49,7 +49,7 @@ import { registerRun, unregisterRun } from "./abort-registry";
 import { runAiPipeline } from "./ai-pipeline";
 import { detectFastPathAction } from "./composio-fastpath";
 import { isPureConversational, runConversationalFastpath } from "./conversational-fastpath";
-import { classifyExecutionTier, gateToolsByTier } from "./execution-tier";
+import { classifyExecutionTier, type ExecutionTier, gateToolsByTier } from "./execution-tier";
 import {
   getBlockedReasonForProviders,
   getRequiredProvidersForInput,
@@ -205,6 +205,7 @@ async function handleAiPipeline(
   scope: TenantScope,
   abortSignal?: AbortSignal,
   executionMode?: string,
+  executionTier?: ExecutionTier,
 ): Promise<void> {
   eventBus.emit({
     type: "orchestrator_log",
@@ -230,6 +231,8 @@ async function handleAiPipeline(
     // PERF (2026-06-04) : mode d'exécution → en direct_answer, ai-pipeline saute
     // la discovery Composio + l'injection des schémas de tools dans le prompt.
     executionMode,
+    // Tier d'exécution (zéro LLM) → routing modèle fast/strong + skip Composio memory.
+    executionTier,
     // F-011 : passer les tools autorisés pour l'agent scope courant
     _allowedTools: input._allowedTools,
     _allowedToolsSource: input._allowedToolsSource,
@@ -1129,7 +1132,15 @@ async function runPipeline(
     // Every other execution mode flows through the same AI pipeline. The
     // model decides which provider tools to call (Gmail, Calendar, Slack…)
     // — there is no orchestrator-level pre-fetch of user data.
-    await handleAiPipeline(engine, eventBus, input, scope, abortController.signal, decision.mode);
+    await handleAiPipeline(
+      engine,
+      eventBus,
+      input,
+      scope,
+      abortController.signal,
+      decision.mode,
+      executionTier,
+    );
   } finally {
     if (abortController.signal.aborted) {
       eventBus.emit({

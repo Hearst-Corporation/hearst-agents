@@ -37,8 +37,18 @@ export interface LlmCandidate {
  *
  * Accepts an optional env override so the function is unit-testable without
  * touching process.env.
+ *
+ * @param opts.modelClass - Classe de modèle pour le candidat primaire OpenAI.
+ *   "fast" → ORCHESTRATOR_MODEL_FAST (défaut : gpt-4o-mini) pour les tiers
+ *   conversationnels (direct/memory).
+ *   "strong" ou absent → ORCHESTRATOR_MODEL_OAI (défaut : gpt-4.1) — comportement
+ *   identique à l'appel sans opts (rétro-compatibilité TOTALE).
+ *   N'affecte PAS le fallback OpenAI (après Kimi) ni le fallback statique final.
  */
-export function buildLlmCandidates(env: Partial<NodeJS.ProcessEnv> = process.env): LlmCandidate[] {
+export function buildLlmCandidates(
+  env: Partial<NodeJS.ProcessEnv> = process.env,
+  opts?: { modelClass?: "fast" | "strong" },
+): LlmCandidate[] {
   const candidates: LlmCandidate[] = [];
 
   // ── 1. Kimi direct ────────────────────────────────────────────────────────
@@ -70,8 +80,12 @@ export function buildLlmCandidates(env: Partial<NodeJS.ProcessEnv> = process.env
   const openaiApiKey = env.OPENAI_API_KEY;
   if (openaiApiKey) {
     const isOpenAIPrimary = candidates.length === 0;
+    // Quand OpenAI est primaire, on route vers fast ou strong selon opts.modelClass.
+    // Quand OpenAI est fallback (après Kimi), OPENAI_FALLBACK_MODEL reste inchangé.
     const openaiModelId = isOpenAIPrimary
-      ? (env.ORCHESTRATOR_MODEL_OAI ?? "gpt-4.1")
+      ? opts?.modelClass === "fast"
+        ? (env.ORCHESTRATOR_MODEL_FAST ?? "gpt-4o-mini")
+        : (env.ORCHESTRATOR_MODEL_OAI ?? "gpt-4.1")
       : (env.OPENAI_FALLBACK_MODEL ?? "gpt-4.1");
     candidates.push({
       providerKey: "openai",

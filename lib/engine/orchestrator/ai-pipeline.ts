@@ -66,6 +66,7 @@ import { buildSwarmTools } from "@/lib/tools/native/swarm";
 import { buildWebSearchTools } from "@/lib/tools/native/web-search";
 import { canonicalHash } from "@/lib/utils/canonical-hash";
 import { redactId } from "@/lib/utils/redact";
+import { type ExecutionTier, modelClassForTier } from "./execution-tier";
 import { buildLlmCandidates, type LlmCandidate } from "./llm-candidates";
 import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
 
@@ -101,6 +102,13 @@ export interface AiPipelineInput {
    * cortex_search (mémoire) reste exposé. Autres modes = toolset complet.
    */
   executionMode?: string;
+  /**
+   * Tier d'exécution calculé par classifyExecutionTier (zéro LLM, regex pur).
+   * Utilisé pour sélectionner la classe de modèle (fast/strong) et étendre le
+   * skip cold-start Composio au tier "memory" (recall Cortex pur).
+   * Absent → comportement conservateur (strong, discovery complète).
+   */
+  executionTier?: ExecutionTier;
   /** Recurring intent detected — prepends a forcing schedule directive to the prompt. */
   scheduleDirective?: boolean;
   /** Tenant scope for multi-tenant operations (mission creation etc.). */
@@ -674,7 +682,10 @@ export async function runAiPipeline(
   // "aucun provider externe requis" → on saute les discovery Google Native +
   // Composio et l'injection des ~40 schémas dans le prompt. Les tools internes
   // légers (cortex_search, cortex_remember, etc.) restent montés plus bas.
-  const shouldSkipExternalToolDiscovery = input.executionMode === "direct_answer";
+  // PERF (tier-routing) : le tier "memory" = recall pur Cortex, aucun provider
+  // externe requis → même skip que direct_answer (évite le cold-start Composio).
+  const shouldSkipExternalToolDiscovery =
+    input.executionMode === "direct_answer" || input.executionTier === "memory";
 
   // Groupe B — tools (cap 4s, lancé EN PARALLÈLE, pas encore await)
   // Démarre immédiatement sans bloquer la suite (build prompt + historique).
@@ -1255,7 +1266,9 @@ export async function runAiPipeline(
   // ou si la liste ne contient qu'un candidat et qu'il est OPEN, on fail-fast.
 
   // Filtre les candidats dont le circuit est ouvert.
-  const candidates = buildLlmCandidates();
+  const candidates = buildLlmCandidates(process.env, {
+    modelClass: modelClassForTier(input.executionTier),
+  });
   const availableCandidates = candidates.filter(
     (c) => !isCircuitOpenFor(c.providerKey, resolvedTenantId),
   );
