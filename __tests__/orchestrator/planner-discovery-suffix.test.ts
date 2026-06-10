@@ -5,7 +5,7 @@ const { chatMock, createPlanSpy } = vi.hoisted(() => ({
   createPlanSpy: vi.fn(),
 }));
 
-// F002 — planner.ts utilise désormais getProvider("kimi").chat() via le router.
+// F002 — planner.ts utilise désormais getProvider("openai").chat() via le router.
 vi.mock("@/lib/llm/router", () => ({
   getProvider: (_name: string) => ({ chat: chatMock, name: _name }),
 }));
@@ -39,8 +39,8 @@ function fakeEngine() {
 }
 
 /**
- * Simule une réponse "text_response" de Kimi via le LLMProvider.
- * content est du JSON structuré avec tool_calls (format produit par Kimi
+ * Simule une réponse "text_response" de gpt-4o via le LLMProvider.
+ * content est du JSON structuré avec tool_calls (format produit par le modèle
  * quand guidé par le system prompt avec les schémas outils).
  */
 function okResponse(text = "ok") {
@@ -58,15 +58,18 @@ function okResponse(text = "ok") {
     tokens_in: 1,
     tokens_out: 1,
     latency_ms: 10,
-    model: "kimi-k2.5",
-    provider: "kimi",
+    model: "gpt-4o",
+    provider: "openai",
     cost_usd: 0,
   };
 }
 
 describe("planFromIntent — system prompt blocks", () => {
   beforeEach(() => {
-    process.env.KIMI_API_KEY = "sk-test";
+    // Planner utilise PLANNER_PROVIDER="openai" — pas besoin de KIMI_API_KEY.
+    delete process.env.KIMI_API_KEY;
+    delete process.env.PLANNER_PROVIDER;
+    delete process.env.PLANNER_MODEL;
     chatMock.mockReset().mockResolvedValue(okResponse());
   });
 

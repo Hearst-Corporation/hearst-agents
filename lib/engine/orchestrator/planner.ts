@@ -18,7 +18,7 @@ import type { Plan, PlanStep } from "@/lib/engine/runtime/plans/types";
 import { defaultMetrics } from "@/lib/llm/metrics";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { ChatMessage } from "@/lib/llm/types";
-import { ORCHESTRATOR_MODEL, ORCHESTRATOR_SYSTEM_PROMPT } from "./system-prompt";
+import { ORCHESTRATOR_SYSTEM_PROMPT, PLANNER_MODEL, PLANNER_PROVIDER } from "./system-prompt";
 
 export type PlanningResult =
   | { kind: "plan"; plan: Plan }
@@ -93,14 +93,12 @@ export async function planFromIntent(
     chatMessages.push({ role: "system", content: dynamicSuffix });
   }
 
-  // Convert Anthropic-style tools (input_schema) to OpenAI function tools
-  // KimiProvider.chat() utilise messages sans tool_calls — on passe les outils
-  // via le prompt system (suffix) plutôt que via un paramètre tools dédié.
-  // Pour conserver la compatibilité du parsing de réponse, on utilise
-  // chatWithCircuitBreaker (helper safe-chat) qui wrappe breaker + getProvider.
-  //
-  // Note: ChatRequest ne supporte pas nativement tool_choice/tools —
-  // le modèle Kimi produit du JSON structuré à partir du system prompt.
+  // Les outils sont transmis via le system prompt (suffix structuré) plutôt
+  // que via un paramètre tools dédié — ChatRequest ne supporte pas nativement
+  // tool_choice/tools. Le modèle produit du JSON structuré à partir du
+  // system prompt.
+  // chatWithCircuitBreaker (helper safe-chat) wrappe breaker + getProvider.
+  // Provider cible : PLANNER_PROVIDER (défaut "openai", modèle PLANNER_MODEL).
   type LlmOk = {
     ok: true;
     content: string;
@@ -113,9 +111,10 @@ export async function planFromIntent(
 
   const llmResult = await chatWithCircuitBreaker<LlmOk | LlmFail>({
     tenantId: opts.tenantId,
+    provider: PLANNER_PROVIDER,
     context: "orchestrator/planner",
     chatRequest: {
-      model: ORCHESTRATOR_MODEL,
+      model: PLANNER_MODEL,
       messages: chatMessages,
       max_tokens: 4096,
       temperature: 0,
@@ -131,16 +130,16 @@ export async function planFromIntent(
   });
 
   if (!llmResult.ok) {
-    const msg = "[Planner] kimi indisponible (circuit ouvert ou erreur LLM) — requête annulée";
+    const msg = "[Planner] LLM indisponible (circuit ouvert ou erreur) — requête annulée";
     console.error(msg);
-    defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
+    defaultMetrics.recordError({ provider: PLANNER_PROVIDER, errorCode: "LLM_ERROR" });
     return { kind: "error", error: msg };
   }
 
   const llmResponse = llmResult;
   defaultMetrics.recordCall({
-    provider: "kimi",
-    model: ORCHESTRATOR_MODEL,
+    provider: PLANNER_PROVIDER,
+    model: PLANNER_MODEL,
     latencyMs: llmResponse.latency_ms,
     tokensIn: llmResponse.tokens_in,
     tokensOut: llmResponse.tokens_out,
@@ -154,19 +153,25 @@ export async function planFromIntent(
   });
 
   // Planner uses the model's text response to extract tool call JSON.
-  // The KimiProvider returns content as plain text; we parse tool_calls
+  // The provider returns content as plain text; we parse tool_calls
   // from a structured JSON block the model emits inside the response.
   const responseContent = llmResponse.content;
 
-  // Attempt to parse as JSON tool call block produced by Kimi with system prompt guidance.
+  // Attempt to parse as JSON tool call block produced by the LLM with system
+  // prompt guidance, formatted as:
+  // { "tool_calls": [{ "function": { "name": "...", "arguments": "..." } }] }
+  // or as a raw text_response when no tool is needed.
+  // gpt-4o (and other OpenAI models) may wrap the JSON in ```json ... ``` fences
+  // — strip them defensively before parsing.
   let toolCall: { function: { name: string; arguments: string } } | undefined;
   let rawContent: string | undefined;
   try {
-    // Kimi (via hypercli) returns structured JSON for tool calls in the content
-    // field when system-prompted with tool schemas, formatted as:
-    // { "tool_calls": [{ "function": { "name": "...", "arguments": "..." } }] }
-    // or as a raw text_response when no tool is needed.
-    const parsed = JSON.parse(responseContent) as {
+    const cleaned = responseContent
+      .trim()
+      .replace(/^```(?:json)?\s*/i, "")
+      .replace(/\s*```$/i, "")
+      .trim();
+    const parsed = JSON.parse(cleaned) as {
       tool_calls?: Array<{ function: { name: string; arguments: string } }>;
       content?: string;
     };

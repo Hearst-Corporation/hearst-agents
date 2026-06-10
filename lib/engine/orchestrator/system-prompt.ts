@@ -26,6 +26,11 @@ export const ORCHESTRATOR_MODEL = process.env.KIMI_API_KEY ? "kimi-k2.6" : "clau
 export const ORCHESTRATOR_MODEL_OAI =
   process.env.ORCHESTRATOR_MODEL_OAI ?? (process.env.KIMI_API_KEY ? "kimi-k2.6" : "gpt-4.1");
 
+// Planner LLM : OpenAI par défaut (gpt-4o). Switch modèle via PLANNER_MODEL
+// (ex. PLANNER_MODEL=gpt-4.1), switch provider via PLANNER_PROVIDER.
+export const PLANNER_PROVIDER = process.env.PLANNER_PROVIDER ?? "openai";
+export const PLANNER_MODEL = process.env.PLANNER_MODEL ?? "gpt-4o";
+
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
 
 RÔLE :
