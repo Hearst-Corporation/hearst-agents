@@ -1464,6 +1464,16 @@ export async function runAiPipeline(
     // including synthetic retrieval / research.)
     let assistantTextBuffer = "";
 
+    // Dernier message d'échec d'un tool (résultat structuré { ok:false } OU
+    // tool-error SDK). Sert de fallback honnête si le tour se termine SANS
+    // aucun texte final du LLM (ex. il appelle gmail_fetch_emails, le tool
+    // renvoie une erreur, et le modèle ne génère pas de 2ᵉ tour). Garantit
+    // qu'un tour avec tool produit TOUJOURS une réponse — jamais une bulle vide.
+    let lastToolErrorMessage = "";
+    // Au moins un tool a été appelé ce tour-ci (pour distinguer "tour muet
+    // après tool" d'un vrai tour vide sans aucune activité).
+    let anyToolCalled = false;
+
     // Track streaming token count for runaway detection.
     // Estimate live char-based (1 token ≈ 3 chars en français — Claude
     // BPE tokenize ~3.0-3.5 ch/tok pour FR vs ~4.0 pour EN ; on prend la
@@ -1550,6 +1560,7 @@ export async function runAiPipeline(
           clearStreamWatchdog();
           armToolWatchdog();
 
+          anyToolCalled = true;
           toolCallNames.set(event.toolCallId, event.toolName);
 
           // Detect preview-mode write calls: write tool + _preview not explicitly false.
@@ -1652,19 +1663,42 @@ export async function runAiPipeline(
           // Determine if the tool call resulted in an error before emitting
           // the completion event. A failed result emits tool_call_failed AND
           // skips tool_call_completed so ChatStage can show the "Échec" badge.
+          //
+          // P2-b — un résultat qui NE MATCHE PAS `ToolResultSchema` (= ni string
+          // ni `{ ok }`) n'est PAS un échec : c'est la SHAPE DE SUCCÈS des tools
+          // natifs Google, qui renvoient un array/objet brut SANS `ok` (ex.
+          // getRecentEmails → tableau, sendEmail → { id, threadId }). On le
+          // traite donc comme SUCCÈS (aucun badge Échec, aucun lastToolErrorMessage).
+          // L'AI SDK a déjà transmis `event.output` au LLM ; on ne touche pas à
+          // la donnée reçue par le modèle — on ne décide ici QUE du badge UI.
+          // Seul `parseResult.success && data.ok === false` (échec EXPLICITE du
+          // tool, ex. erreur structurée de runGoogleTool) émet tool_call_failed.
           if (!parseResult.success) {
-            console.warn(
-              `[AiPipeline] Invalid tool result format for ${name ?? event.toolCallId}:`,
-              parseResult.error.issues,
+            console.info(
+              `[AiPipeline] Tool result for ${name ?? event.toolCallId} has no { ok } envelope ` +
+                `(native success shape) — treating as success.`,
             );
-            // Zod parse failure = malformed result — treat as failure
+            {
+              const startedAt = toolCallStartedAt.get(event.toolCallId);
+              const toolExecutionMs = startedAt ? Date.now() - startedAt : undefined;
+              const toolResultSize = JSON.stringify(event.output ?? null).length;
+              toolCallStartedAt.delete(event.toolCallId);
+              console.info("[AiPipeline] tool_exec", {
+                run_id: engine.id,
+                tool_candidate_count: toolSurfaceCount,
+                tool_surface_count: toolSurfaceCount,
+                tool_selected: name ?? event.toolCallId,
+                tool_selection_reason: "llm_auto_selection",
+                tool_execution_ms: toolExecutionMs,
+                tool_result_size: toolResultSize,
+              });
+            }
             eventBus.emit({
-              type: "tool_call_failed",
+              type: "tool_call_completed",
               run_id: engine.id,
               step_id: event.toolCallId,
               tool: name ?? event.toolCallId,
               providerId: "composio",
-              error: "Résultat du tool invalide (format inattendu)",
             });
             break;
           }
@@ -1699,6 +1733,16 @@ export async function runAiPipeline(
           if (typeof out !== "string" && out.ok === false) {
             // Tool returned an explicit error — emit tool_call_failed
             const errorMsg = out.error ?? out.errorCode ?? "Erreur inconnue";
+            // Conserve un message lisible pour le fallback fin-de-stream.
+            // Les tools natifs renvoient un champ `message` humain ; on le lit
+            // sur le RÉSULTAT BRUT (`event.output`) car ToolResultSchema strip
+            // les clés inconnues comme `message`. Fallback sur error/errorCode.
+            const rawOut = event.output as { message?: unknown } | null;
+            const humanMsg = rawOut?.message;
+            lastToolErrorMessage =
+              typeof humanMsg === "string" && humanMsg.trim().length > 0
+                ? humanMsg
+                : String(errorMsg);
             eventBus.emit({
               type: "tool_call_failed",
               run_id: engine.id,
@@ -1746,6 +1790,8 @@ export async function runAiPipeline(
               : typeof event.error === "string"
                 ? event.error
                 : "Erreur outil";
+          // Mémorise pour le fallback fin-de-stream (tour muet après tool).
+          lastToolErrorMessage = message;
           eventBus.emit({
             type: "tool_call_failed",
             run_id: engine.id,
@@ -1870,6 +1916,38 @@ export async function runAiPipeline(
         default:
           break;
       }
+    }
+
+    // ── Fallback fin-de-stream : JAMAIS de tour muet ────────────────────────
+    // Le SDK `ai` ré-injecte normalement un résultat d'erreur de tool au LLM,
+    // qui produit alors une réponse finale. Mais si le tour se termine SANS
+    // aucun texte (ex. le modèle appelle un tool, reçoit une erreur, et ne
+    // génère pas de 2ᵉ tour → `outputTokens` ≈ celui de l'appel tool seul),
+    // l'UI afficherait une bulle vide. On émet ici un message honnête :
+    //   - si un tool a échoué → on remonte SON erreur (déjà honnête, non
+    //     fabriquée — vient du résultat structuré du tool) ;
+    //   - sinon → un message neutre d'échec, jamais inventé.
+    // Respecte l'anti-fabrication : on ne synthétise aucune donnée, on ne fait
+    // que surfacer une erreur réelle ou un constat d'échec générique.
+    if (assistantTextBuffer.trim().length === 0) {
+      const fallbackText =
+        lastToolErrorMessage.trim().length > 0
+          ? lastToolErrorMessage.trim()
+          : anyToolCalled
+            ? "I couldn't complete that request. The tool returned no usable result."
+            : "I couldn't generate a response. Please try again or rephrase.";
+      console.warn(
+        `[AiPipeline] Empty assistant turn — emitting fallback. run=${engine.id} ` +
+          `anyToolCalled=${anyToolCalled} hadToolError=${lastToolErrorMessage.length > 0}`,
+      );
+      eventBus.emit({
+        type: "text_delta",
+        run_id: engine.id,
+        delta: fallbackText,
+      });
+      // Alimente le buffer pour que la persistance / l'ingest KG / LTM voient
+      // bien le message envoyé (cohérence avec ce que l'utilisateur a reçu).
+      assistantTextBuffer += fallbackText;
     }
 
     // P1-8 — stream terminé normalement : on désarme les watchdogs avant les

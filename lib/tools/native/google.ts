@@ -121,6 +121,84 @@ interface ListFilesArgs {
 const GMAIL_SEND_TOOL_SLUG = "gmail_send_email";
 const GCAL_CREATE_TOOL_SLUG = "googlecalendar_create_event";
 
+/** Timeout réseau par défaut sur tout appel Google (anti-hang). */
+const GOOGLE_NETWORK_TIMEOUT_MS = 10_000;
+
+/**
+ * Résultat d'erreur structuré, lisible par le LLM. Même convention que les
+ * tools Composio (`{ ok:false, error, ... }`) pour que le pipeline (et le
+ * modèle) le traite comme un échec exploitable plutôt qu'un throw silencieux.
+ */
+interface GoogleToolError {
+  ok: false;
+  error: string;
+  message: string;
+}
+
+/**
+ * Mappe une erreur connector Google → message honnête pour l'utilisateur.
+ * `getGoogleAuth` throw "not_authenticated" (aucun token) ou "token_revoked"
+ * (révoqué après échecs répétés). Les autres erreurs (réseau, 5xx Google,
+ * timeout) sont remontées telles quelles, sans fabrication.
+ */
+function toGoogleToolError(err: unknown, surface: string): GoogleToolError {
+  const raw = err instanceof Error ? err.message : String(err);
+
+  if (raw === "not_authenticated") {
+    return {
+      ok: false,
+      error: "google_not_connected",
+      message: `${surface} isn't connected for this account. Connect ${surface} to use this action.`,
+    };
+  }
+  if (raw === "token_revoked") {
+    return {
+      ok: false,
+      error: "google_token_revoked",
+      message: `Your Google access was revoked. Reconnect Google to continue using ${surface}.`,
+    };
+  }
+  if (raw === "google_timeout") {
+    return {
+      ok: false,
+      error: "google_timeout",
+      message: `${surface} didn't respond in time (timeout ${GOOGLE_NETWORK_TIMEOUT_MS / 1000}s). Please try again.`,
+    };
+  }
+  return {
+    ok: false,
+    error: "google_error",
+    message: `${surface} request failed: ${raw}`,
+  };
+}
+
+/**
+ * Exécute un appel connector Google avec :
+ *  - timeout dur (AbortController-équivalent via Promise.race) pour éviter
+ *    tout hang si l'API Google ne répond jamais ;
+ *  - capture de toute exception → résultat d'erreur structuré (JAMAIS de
+ *    throw qui ferait avorter le tour LLM sans réponse).
+ */
+async function runGoogleTool<T>(
+  surface: string,
+  fn: () => Promise<T>,
+): Promise<T | GoogleToolError> {
+  try {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const timeout = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => reject(new Error("google_timeout")), GOOGLE_NETWORK_TIMEOUT_MS);
+    });
+    try {
+      return await Promise.race([fn(), timeout]);
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
+  } catch (err) {
+    console.warn(`[native/google] ${surface} failed:`, err instanceof Error ? err.message : err);
+    return toGoogleToolError(err, surface);
+  }
+}
+
 /**
  * Build the native Google tool map for a user. Returns `{}` if the user
  * isn't connected to Google via NextAuth (no access token in user_tokens).
@@ -156,7 +234,7 @@ export async function buildNativeGoogleTools(
     }),
     execute: async (args: FetchEmailsArgs) => {
       const limit = Math.min(Math.max(args.limit ?? 10, 1), 25);
-      return getRecentEmails(userId, limit);
+      return runGoogleTool("Gmail", () => getRecentEmails(userId, limit));
     },
   };
 
@@ -203,13 +281,15 @@ export async function buildNativeGoogleTools(
         if (!result.ok) {
           return `Envoi refusé : token de confirmation invalide (${result.reason}). Refais d'abord un draft pour obtenir un nouveau token.`;
         }
-        return sendEmail(userId, {
-          to: args.to,
-          subject: args.subject,
-          body: args.body,
-          cc: args.cc,
-          bcc: args.bcc,
-        });
+        return runGoogleTool("Gmail", () =>
+          sendEmail(userId, {
+            to: args.to,
+            subject: args.subject,
+            body: args.body,
+            cc: args.cc,
+            bcc: args.bcc,
+          }),
+        );
       }
 
       // Pas de token → draft + émission du token (si scope présent).
@@ -249,9 +329,11 @@ export async function buildNativeGoogleTools(
     }),
     execute: async (args: ListEventsArgs) => {
       const limit = Math.min(Math.max(args.limit ?? 20, 1), 50);
-      if (args.scope === "today") return getTodayEvents(userId, limit);
+      if (args.scope === "today") {
+        return runGoogleTool("Google Calendar", () => getTodayEvents(userId, limit));
+      }
       const days = Math.min(Math.max(args.days ?? 7, 1), 60);
-      return getUpcomingEvents(userId, days, limit);
+      return runGoogleTool("Google Calendar", () => getUpcomingEvents(userId, days, limit));
     },
   };
 
@@ -292,14 +374,16 @@ export async function buildNativeGoogleTools(
         if (!result.ok) {
           return `Création refusée : token de confirmation invalide (${result.reason}). Refais d'abord un draft pour obtenir un nouveau token.`;
         }
-        return createCalendarEvent(userId, {
-          summary: args.summary,
-          start: args.start,
-          end: args.end,
-          description: args.description,
-          location: args.location,
-          attendees: args.attendees,
-        });
+        return runGoogleTool("Google Calendar", () =>
+          createCalendarEvent(userId, {
+            summary: args.summary,
+            start: args.start,
+            end: args.end,
+            description: args.description,
+            location: args.location,
+            attendees: args.attendees,
+          }),
+        );
       }
 
       const { _preview: _p2, _confirmationToken: _t2, ...draftArgs } = args;
@@ -333,7 +417,7 @@ export async function buildNativeGoogleTools(
     }),
     execute: async (args: ListFilesArgs) => {
       const limit = Math.min(Math.max(args.limit ?? 10, 1), 25);
-      return getRecentFiles(userId, limit);
+      return runGoogleTool("Google Drive", () => getRecentFiles(userId, limit));
     },
   };
 
