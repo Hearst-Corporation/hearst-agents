@@ -4,7 +4,9 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  isBusinessSurface,
   resolveCapabilityScope,
+  resolveExecutionMode,
   scopeRequiresProviders,
   validateAgentForScope,
 } from "@/lib/capabilities/router";
@@ -56,6 +58,45 @@ describe("resolveCapabilityScope", () => {
   it("surface home → no override", () => {
     const s = resolveCapabilityScope("Bonjour", "home");
     expect(s.domain).toBe("general");
+  });
+
+  // ── Fix 1a — surface conteneur "hive" ne court-circuite PAS le routing ──
+  it('container surface "hive" → keyword routing (NOT forced general)', () => {
+    const s = resolveCapabilityScope("Est-ce que t'as mes emails", "hive");
+    expect(s.domain).toBe("communication");
+    expect(s.domain).not.toBe("general");
+    expect(s.needsProviderData.gmail).toBe(true);
+  });
+
+  it('container surface "hive" with email prompt → execution mode is NOT direct_answer', () => {
+    const s = resolveCapabilityScope("Est-ce que t'as mes emails", "hive");
+    const decision = resolveExecutionMode(s, "Est-ce que t'as mes emails");
+    expect(decision.mode).not.toBe("direct_answer");
+  });
+
+  it('container surface "hive" with smalltalk → still general (no false provider)', () => {
+    const s = resolveCapabilityScope("Bonjour comment ça va", "hive");
+    expect(s.domain).toBe("general");
+    expect(s.needsProviderData.gmail).toBe(false);
+  });
+
+  it("unknown surface falls back to keyword routing", () => {
+    const s = resolveCapabilityScope("Quels sont mes rendez-vous demain ?", "some-unknown-surface");
+    expect(s.domain).toBe("productivity");
+  });
+});
+
+describe("isBusinessSurface", () => {
+  it("recognizes the 5 business surfaces", () => {
+    for (const surface of ["inbox", "calendar", "files", "finance", "research"]) {
+      expect(isBusinessSurface(surface)).toBe(true);
+    }
+  });
+
+  it("rejects container/unknown surfaces", () => {
+    for (const surface of ["hive", "home", "unknown", undefined, ""]) {
+      expect(isBusinessSurface(surface)).toBe(false);
+    }
   });
 });
 

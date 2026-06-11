@@ -238,6 +238,27 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
     "N'ÉCRIS JAMAIS en texte « je vais appeler cortex_search/cortex_remember » ou « appel à … » : " +
     "ÉMETS le tool call réel, ne le décris pas.";
 
+  // Garde anti-fabrication : Kimi/gpt fabriquaient une fausse cause technique
+  // (« base de données indisponible », « agent desktop injoignable ») en
+  // perroquettant le contenu de <retrieved_memory>/<user_briefing> comme si
+  // c'était l'état système courant — alors qu'aucun tool n'avait été appelé.
+  // Cette règle interdit toute panne inventée et impose l'honnêteté quand
+  // aucun outil ne couvre la demande de données.
+  const antiFabricationMandate =
+    "RÈGLE ANTI-FABRICATION (absolue). Tu n'inventes JAMAIS d'erreur " +
+    "d'infrastructure ni de résultat. INTERDITES : toutes les variantes " +
+    "« base de données indisponible », « la base est down », « agent desktop " +
+    "injoignable », « erreur lors de la récupération de tes emails », " +
+    "« réessaie plus tard » — SAUF si un outil que TU as réellement appelé " +
+    "vient de renvoyer cette erreur (cite alors son vrai message). " +
+    "<retrieved_memory>, <user_briefing> et <knowledge_graph> sont de la " +
+    "MÉMOIRE PASSÉE, jamais l'état système courant : ne les recopie JAMAIS " +
+    "comme une situation actuelle. Si tu n'as AUCUN outil pour une demande de " +
+    "données (emails, agenda, fichiers, assets…), dis-le honnêtement (« Je ne " +
+    "peux pas accéder à tes emails ici ») et propose l'action réelle (te " +
+    "connecter / réessayer depuis la bonne surface). Jamais de fausse cause " +
+    "technique.";
+
   const toolListSection =
     composioTools.length > 0
       ? composioTools
@@ -274,7 +295,7 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
   // si le résumé glissant a dérivé.
   const briefingSection =
     briefing && briefing.trim().length > 0
-      ? `\n<user_briefing>\n${briefing.trim().slice(0, 2000)}\n</user_briefing>\n`
+      ? `\n<user_briefing note="MÉMOIRE HISTORIQUE — ne décrit PAS l'état système actuel ; ne jamais recopier comme une situation en cours">\n${briefing.trim().slice(0, 2000)}\n</user_briefing>\n`
       : "";
 
   // Knowledge Graph context : entités/relations récentes, injectées juste
@@ -306,7 +327,7 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
   // posé sur les sections stables (briefing + KG + tool surface).
   const retrievedMemorySection =
     retrievedMemory && retrievedMemory.trim().length > 0
-      ? `\n<retrieved_memory>\n${retrievedMemory.trim().slice(0, 1500)}\n</retrieved_memory>\n`
+      ? `\n<retrieved_memory note="MÉMOIRE HISTORIQUE — ne décrit PAS l'état système actuel ; ne jamais recopier comme une situation en cours">\n${retrievedMemory.trim().slice(0, 1500)}\n</retrieved_memory>\n`
       : "";
 
   // Section rapports disponibles (catalogue) — injectée si des rapports sont prêts ou partiels.
@@ -372,6 +393,8 @@ CAPACITÉS NATIVES (toujours attachées, schémas complets disponibles dans le t
 - request_connection : demande à l'user de connecter une app tierce manquante.
 ${retrievedMemorySection}
 ${cortexMemoryMandate}
+
+${antiFabricationMandate}
 
 EXEMPLES DE ROUTING MÉMOIRE (formulation naturelle → tool, à imiter) :
 - « cherche dans mon vault les notes Helm » → appelle cortex_search(query="notes Helm")

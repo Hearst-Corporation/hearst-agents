@@ -83,6 +83,29 @@ const SCOPE_REASONING_KEYWORDS = [
   "step-by-step",
 ];
 
+// ── Business surfaces ───────────────────────────────────────
+//
+// Surfaces MÉTIER qui portent leur propre domaine (un override de surface
+// prime alors sur le scoring mots-clés). Toute autre surface — un CONTENEUR
+// comme "hive" (la seule surface user-facing, qui héberge tous les domaines),
+// "home", ou une surface inconnue — NE doit PAS forcer un domaine : elle se
+// comporte comme "home" → on retombe sur resolveDomain(message) (keyword
+// routing). Sans ça, `surfaceToDomain("hive")` tombait sur le `default:
+// "general"` et court-circuitait le routing → mode direct_answer → tools
+// jamais montés. Exporté pour réutilisation par l'orchestrateur (Fix 1a-bis),
+// pas de duplication.
+export const BUSINESS_SURFACES: ReadonlySet<string> = new Set([
+  "inbox",
+  "calendar",
+  "files",
+  "finance",
+  "research",
+]);
+
+export function isBusinessSurface(surface?: string): boolean {
+  return Boolean(surface) && BUSINESS_SURFACES.has(surface as string);
+}
+
 // ── Domain → ToolContext mapping ────────────────────────────
 
 const DOMAIN_TO_TOOL_CONTEXT: Record<Domain, ToolContext> = {
@@ -131,8 +154,11 @@ export function scopeForDomain(
 export function resolveCapabilityScope(message: string, surface?: string): CapabilityScope {
   let domain: Domain;
 
-  if (surface && surface !== "home") {
-    domain = surfaceToDomain(surface);
+  // Seule une surface MÉTIER connue (inbox/calendar/files/finance/research)
+  // force son domaine. Une surface conteneur/inconnue ("hive", "home", …) →
+  // keyword routing sur le message (comportement "home").
+  if (isBusinessSurface(surface)) {
+    domain = surfaceToDomain(surface as string);
   } else {
     domain = resolveDomain(message);
   }

@@ -19,6 +19,7 @@ import {
 import { classifyDomainLLM } from "@/lib/capabilities/domain-classifier";
 import {
   type ExecutionDecision,
+  isBusinessSurface,
   resolveCapabilityScope,
   resolveExecutionMode,
   scopeForDomain,
@@ -311,7 +312,12 @@ async function runPipeline(
   // arrive avant que le pipeline IA n'ait besoin du domain, on l'applique ;
   // sinon le pipeline part avec le scope mots-clés (fail-soft, déjà correct
   // dans 80% des cas). Évite +500ms-2s de TTFT sur cold start LRU.
-  const hasDedicatedSurface = Boolean(input.surface && input.surface !== "home");
+  // Seule une surface MÉTIER connue (inbox/calendar/files/finance/research)
+  // est "dédiée" → on lui fait confiance et on n'affine pas par LLM. Une
+  // surface conteneur comme "hive" (ou "home"/inconnue) NE l'est pas : on
+  // laisse le classifieur LLM affiner "general" → vrai domaine. Même set que
+  // resolveCapabilityScope (réutilisé depuis router.ts, pas de duplication).
+  const hasDedicatedSurface = isBusinessSurface(input.surface);
   const classifierPromise: Promise<void> =
     !hasDedicatedSurface && capScope.domain === "general" && input.message.trim().length > 12
       ? classifyDomainLLM(input.message, { tenantId: scope.tenantId, fallback: "general" })

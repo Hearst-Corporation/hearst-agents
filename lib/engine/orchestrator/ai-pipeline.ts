@@ -21,6 +21,7 @@ import {
   CRITICAL_NATIVE_TOOLS,
   CROSS_DOMAIN_TOOLS,
   expandAllowedToolsToRuntimeSlugs,
+  resolveDataIntent,
 } from "@/lib/capabilities/taxonomy";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
@@ -281,6 +282,36 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string, fallback: T): 
   return Promise.race([p, timeout]).finally(() => {
     if (timer) clearTimeout(timer);
   });
+}
+
+/**
+ * Décide si on saute la discovery des tools externes (Google natif + Composio).
+ *
+ * Optimisation perf : en mode `direct_answer` / tier `memory`, l'orchestrateur a
+ * statué « aucun provider externe requis » → on évite le cold-start Composio +
+ * l'injection des ~40 schémas. MAIS c'est exactement le piège qui faisait
+ * fabriquer « base de données indisponible » sur "hive" : une demande de
+ * données (emails/agenda/fichiers) mal-routée tombait en direct_answer et
+ * `gmail_fetch_emails` n'était jamais monté → 0 tool → réponse inventée.
+ *
+ * Défense en profondeur (Fix 1b) : si un data-intent est détecté sur le message
+ * (resolveDataIntent, word-boundary stricte), on NE saute PAS la discovery même
+ * en direct_answer/memory. Le routing reste la correction primaire (Fix 1a) ;
+ * ceci est le filet de sécurité indépendant du domaine résolu.
+ */
+export function shouldSkipExternalToolDiscovery(args: {
+  executionMode?: string;
+  executionTier?: string;
+  message: string;
+}): boolean {
+  const baseSkip = args.executionMode === "direct_answer" || args.executionTier === "memory";
+  if (!baseSkip) return false;
+
+  const dataIntent = resolveDataIntent(args.message ?? "");
+  const needsProviderData =
+    dataIntent.needsGmail || dataIntent.needsCalendar || dataIntent.needsDrive;
+  // Data-intent détecté → on remonte la discovery quand même (ne pas skipper).
+  return !needsProviderData;
 }
 
 /**
@@ -692,12 +723,18 @@ export async function runAiPipeline(
   // légers (cortex_search, cortex_remember, etc.) restent montés plus bas.
   // PERF (tier-routing) : le tier "memory" = recall pur Cortex, aucun provider
   // externe requis → même skip que direct_answer (évite le cold-start Composio).
-  const shouldSkipExternalToolDiscovery =
-    input.executionMode === "direct_answer" || input.executionTier === "memory";
+  // Fix 1b (défense en profondeur) : la décision passe par le helper exporté
+  // qui NE saute PAS la discovery si un data-intent (emails/agenda/fichiers) est
+  // détecté sur le message, même en direct_answer/memory.
+  const skipExternalToolDiscovery = shouldSkipExternalToolDiscovery({
+    executionMode: input.executionMode,
+    executionTier: input.executionTier,
+    message: input.message,
+  });
 
   // Groupe B — tools (cap 4s, lancé EN PARALLÈLE, pas encore await)
   // Démarre immédiatement sans bloquer la suite (build prompt + historique).
-  const nativeGoogleToolsPromise = shouldSkipExternalToolDiscovery
+  const nativeGoogleToolsPromise = skipExternalToolDiscovery
     ? Promise.resolve({} as Record<string, unknown>)
     : withTimeout(
         buildNativeGoogleTools(input.userId, {
@@ -711,7 +748,7 @@ export async function runAiPipeline(
         "nativeGoogleTools",
         {} as Record<string, unknown>,
       );
-  const composioToolsRawPromise = shouldSkipExternalToolDiscovery
+  const composioToolsRawPromise = skipExternalToolDiscovery
     ? Promise.resolve([] as Awaited<ReturnType<typeof getToolsForUser>>)
     : withTimeout(
         // Pas de pré-filtre par apps ici : filterToolsByDomain (post-fetch)

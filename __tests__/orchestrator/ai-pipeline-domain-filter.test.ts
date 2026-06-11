@@ -72,7 +72,10 @@ vi.mock("ai", async (importOriginal) => {
   };
 });
 
-import { runAiPipeline } from "@/lib/engine/orchestrator/ai-pipeline";
+import {
+  runAiPipeline,
+  shouldSkipExternalToolDiscovery,
+} from "@/lib/engine/orchestrator/ai-pipeline";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
 
@@ -325,5 +328,89 @@ describe("runAiPipeline — domain filter", () => {
       ),
     ].sort();
     expect(composioApps).toEqual(["gmail", "slack"]);
+  });
+
+  // ── Fix 1b — défense en profondeur : data-intent force la discovery ──
+  it("data-intent en direct_answer NE skippe PAS la discovery (Fix 1b)", async () => {
+    await runAiPipeline(makeEngine(), makeBus(), {
+      userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
+      // Demande de données (emails) qui aurait pu tomber en direct_answer
+      // sur une surface conteneur mal-routée.
+      message: "Est-ce que t'as mes emails",
+      domain: "general",
+      executionMode: "direct_answer",
+    });
+    // Discovery montée malgré direct_answer car data-intent (emails) détecté.
+    expect(getToolsForUser).toHaveBeenCalled();
+    expect(buildNativeGoogleTools).toHaveBeenCalled();
+  });
+});
+
+describe("shouldSkipExternalToolDiscovery (Fix 1b)", () => {
+  it("skip en direct_answer SANS data-intent", () => {
+    expect(
+      shouldSkipExternalToolDiscovery({
+        executionMode: "direct_answer",
+        message: "réponds simplement bonjour",
+      }),
+    ).toBe(true);
+  });
+
+  it("skip en tier memory SANS data-intent", () => {
+    expect(
+      shouldSkipExternalToolDiscovery({
+        executionTier: "memory",
+        message: "rappelle-moi ce qu'on a dit",
+      }),
+    ).toBe(true);
+  });
+
+  it("NE skippe PAS en direct_answer si data-intent emails", () => {
+    expect(
+      shouldSkipExternalToolDiscovery({
+        executionMode: "direct_answer",
+        message: "Est-ce que t'as mes emails",
+      }),
+    ).toBe(false);
+  });
+
+  it("NE skippe PAS en direct_answer si data-intent agenda", () => {
+    expect(
+      shouldSkipExternalToolDiscovery({
+        executionMode: "direct_answer",
+        message: "quels sont mes rendez-vous demain",
+      }),
+    ).toBe(false);
+  });
+
+  it("NE skippe PAS en tier memory si data-intent fichiers", () => {
+    expect(
+      shouldSkipExternalToolDiscovery({
+        executionTier: "memory",
+        message: "cherche dans mes fichiers Drive",
+      }),
+    ).toBe(false);
+  });
+
+  it("NE skippe PAS quand baseSkip est faux (workflow/tool_call)", () => {
+    expect(
+      shouldSkipExternalToolDiscovery({
+        executionMode: "workflow",
+        message: "réponds simplement",
+      }),
+    ).toBe(false);
+  });
+
+  it("word-boundary stricte : pas de faux-positif data-intent", () => {
+    // "emailler" ne doit pas matcher "email" comme fragment ; ici un message
+    // smalltalk sans vrai mot-clé data → skip preservé.
+    expect(
+      shouldSkipExternalToolDiscovery({
+        executionMode: "direct_answer",
+        message: "merci beaucoup, super travail",
+      }),
+    ).toBe(true);
   });
 });
