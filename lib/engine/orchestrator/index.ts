@@ -75,6 +75,14 @@ interface OrchestrateInput {
   threadId?: string;
   surface?: string;
   focalContext?: FocalContext;
+  /** Page context from the Hive surface (active space/view/mode + focused item).
+   *  Additive only — NOT used for routing (surface still drives that). */
+  pageContext?: {
+    page?: string;
+    activeView?: string;
+    mode?: string;
+    selectedItem?: { type?: string; id?: string; title?: string } | null;
+  };
   conversationHistory?: Array<{ role: "user" | "assistant"; content: string }>;
   /** B4 — assets droppés dans ChatInput. Le pipeline IA les injecte dans le user message. */
   attachedAssetIds?: string[];
@@ -478,6 +486,7 @@ async function runPipeline(
         ...(decision.backend ? { agent_backend: decision.backend } : {}),
         ...(input.missionId ? { mission_id: input.missionId } : {}),
         ...(input.focalContext ? { focal_context: input.focalContext } : {}),
+        ...(input.pageContext ? { page_context: input.pageContext } : {}),
       },
     },
   };

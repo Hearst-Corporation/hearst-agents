@@ -136,7 +136,7 @@ function withHeartbeat(
 // Primary boot is instrumentation.ts; this is a secondary guard.
 void ensureSchedulerStarted();
 
-const orchestrateBodySchema = z.object({
+export const orchestrateBodySchema = z.object({
   message: z.string().min(1).max(20_000),
   conversation_id: z.string().uuid().optional(),
   surface: z.string().optional(),
@@ -147,6 +147,23 @@ const orchestrateBodySchema = z.object({
       objectType: z.string(),
       title: z.string(),
       status: z.string(),
+    })
+    .optional(),
+  // Page context (Hive Patch 2B) — the active space/view/mode + focused item, distinct
+  // from focal_context. Fully tolerant (every field optional) so it can never break a
+  // request; surface routing is unchanged. Additive only.
+  page_context: z
+    .object({
+      page: z.string().optional(),
+      activeView: z.string().optional(),
+      mode: z.string().optional(),
+      selectedItem: z
+        .object({
+          type: z.string().optional(),
+          id: z.string().optional(),
+          title: z.string().optional(),
+        })
+        .nullish(),
     })
     .optional(),
   history: z
@@ -236,6 +253,7 @@ export async function POST(req: NextRequest) {
       surface: parsed.data.surface,
       threadId: parsed.data.thread_id,
       focalContext: parsed.data.focal_context,
+      pageContext: parsed.data.page_context ?? undefined,
       conversationHistory: cappedHistory.length > 0 ? cappedHistory : undefined,
       attachedAssetIds: validatedAssetIds,
       personaId: parsed.data.persona_id,
