@@ -52,7 +52,9 @@ export function computeCostUsd(
     cache_read_input_tokens?: number;
   },
 ): number {
-  const pricing = MODEL_PRICING[model];
+  // OpenAI renvoie parfois un ID daté (ex "gpt-4.1-2025-04-14") sur les appels
+  // non-streaming : on retombe sur l'ID de base en strippant le suffixe -YYYY-MM-DD.
+  const pricing = MODEL_PRICING[model] ?? MODEL_PRICING[model.replace(/-\d{4}-\d{2}-\d{2}$/, "")];
   if (!pricing) {
     console.warn(`[pricing] Unknown model "${model}" — cost_usd defaulted to 0`);
     return 0;
