@@ -8,6 +8,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { approvePlan } from "@/lib/engine/planner/index";
 import { approveAndResume, type PipelineContext } from "@/lib/engine/planner/pipeline";
+import { getPlan } from "@/lib/engine/planner/store";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 
@@ -45,7 +46,32 @@ export async function POST(
       return NextResponse.json({ error: "Missing required context: threadId" }, { status: 400 });
     }
 
-    // First, approve the plan
+    // IDOR guard (miroir de approve-step F-056) : vérifier l'ownership AVANT
+    // d'approuver. requireScope authentifie mais N'autorise PAS — sans ce check,
+    // n'importe quel user authentifié approuve le plan d'un autre par son id.
+    const existingPlan = getPlan(planId);
+    if (!existingPlan) {
+      log.warn({ planId }, "plan_not_found_or_not_awaiting_approval");
+      return NextResponse.json(
+        { error: "Plan not found or not awaiting approval" },
+        { status: 404 },
+      );
+    }
+    const userMatch = existingPlan.userId === userId;
+    const tenantMatch = !existingPlan.tenantId || existingPlan.tenantId === tenantId;
+    if (!userMatch || !tenantMatch) {
+      log.warn(
+        { event: "idor_attempt", action: "plan-approve", planId, userMatch, tenantMatch },
+        "plan_approve_idor_blocked",
+      );
+      // 404 uniforme (ne révèle pas l'existence d'un plan appartenant à un autre user).
+      return NextResponse.json(
+        { error: "Plan not found or not awaiting approval" },
+        { status: 404 },
+      );
+    }
+
+    // Ownership OK → approve the plan
     const approvedPlan = approvePlan(planId);
     if (!approvedPlan) {
       log.warn({ planId }, "plan_not_found_or_not_awaiting_approval");
