@@ -11,7 +11,7 @@
  */
 
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { DAILY_BRIEF_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import type { DailyBriefData, DailyBriefNarration } from "./types";
@@ -216,7 +216,7 @@ export async function generateDailyBriefNarration(
     tenantId,
     context: "daily-brief/narration",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.QUALITY,
       max_tokens: 1200,
       messages: [
         { role: "system", content: DAILY_BRIEF_SYSTEM_PROMPT },

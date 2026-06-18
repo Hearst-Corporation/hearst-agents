@@ -134,7 +134,7 @@ export async function tryLiteAgent(params: {
 
     const classifyPrompt = buildClassifyPrompt(message, compactList);
 
-    // Résoudre dynamiquement le provider/model : Kimi si KIMI_API_KEY présent, sinon OpenAI cheap.
+    // Résoudre dynamiquement le provider/model : OpenAI (nano par défaut).
     const liteAgentCfg = resolveConversationalFastpathConfig();
 
     // Race timeout ~3.5s pour ne pas pénaliser le TTFT si K2.5 est lent.
@@ -159,7 +159,7 @@ export async function tryLiteAgent(params: {
         fallback: null,
         parse: (res) => {
           let txt = res.content ?? "";
-          // Strip <think>…</think> reasoning blocks (Kimi quirk)
+          // Strip <think>…</think> reasoning blocks (legacy model quirk)
           txt = txt.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
           // Extract first JSON object
           const match = txt.match(/\{[\s\S]*\}/);

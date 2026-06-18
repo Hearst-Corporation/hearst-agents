@@ -5,7 +5,7 @@ const { chatMock, createPlanSpy } = vi.hoisted(() => ({
   createPlanSpy: vi.fn(),
 }));
 
-// F002 — planner.ts utilise désormais getProvider("kimi").chat() via le router.
+// F002 — planner.ts utilise désormais getProvider("openai").chat() via le router.
 vi.mock("@/lib/llm/router", () => ({
   getProvider: (_name: string) => ({ chat: chatMock, name: _name }),
 }));
@@ -58,15 +58,15 @@ function okResponse(text = "ok") {
     tokens_in: 1,
     tokens_out: 1,
     latency_ms: 10,
-    model: "kimi-k2.5",
-    provider: "kimi",
+    model: "gpt-4.1-nano",
+    provider: "openai",
     cost_usd: 0,
   };
 }
 
 describe("planFromIntent — system prompt blocks", () => {
   beforeEach(() => {
-    process.env.KIMI_API_KEY = "sk-test";
+    process.env.OPENAI_API_KEY = "sk-test";
     chatMock.mockReset().mockResolvedValue(okResponse());
   });
 
@@ -147,8 +147,8 @@ describe("planFromIntent — system prompt blocks", () => {
       tokens_in: 1,
       tokens_out: 1,
       latency_ms: 10,
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       cost_usd: 0,
     });
     const { planFromIntent: pf } = await import("@/lib/engine/orchestrator/planner");

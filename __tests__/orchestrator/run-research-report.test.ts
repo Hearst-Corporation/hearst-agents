@@ -77,7 +77,7 @@ beforeEach(() => {
   mocks.storeAssetMock.mockReset();
   mocks.searchWebMock.mockReset();
   mocks.generatePdfMock.mockReset();
-  process.env.KIMI_API_KEY = "sk-test-key";
+  process.env.OPENAI_API_KEY = "sk-test-key";
 });
 
 describe("runResearchReport — shape de l'asset persisté", () => {

@@ -44,8 +44,8 @@ vi.mock("@/lib/connectors/composio/to-ai-tools", () => ({
 
 vi.mock("@/lib/engine/orchestrator/system-prompt", () => ({
   buildAgentSystemPrompt,
-  ORCHESTRATOR_MODEL: "kimi-k2.5",
-  ORCHESTRATOR_MODEL_OAI: "kimi-k2.6",
+  ORCHESTRATOR_MODEL: "gpt-4.1-nano",
+  ORCHESTRATOR_MODEL_OAI: "gpt-4.1",
 }));
 
 vi.mock("@/lib/tools/native/google", () => ({

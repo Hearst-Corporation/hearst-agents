@@ -1,6 +1,6 @@
 /**
  * F002 Migration: stagehand-executor → LLM router
- * Vérifie que extractStructured utilise le router LLM et non new OpenAI(hypercli) hardcoded.
+ * Vérifie que extractStructured utilise le router LLM et non un client hardcoded.
  */
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -25,12 +25,12 @@ describe("stagehand-executor with LLM router (F002)", () => {
     expect(result.sessionId).toBe("sess-f002");
   });
 
-  it("extractStructured via browser context calls getProvider('kimi') when extracting", async () => {
+  it("extractStructured via browser context calls getProvider('openai') when extracting", async () => {
     // Mock le provider Kimi et le circuit breaker pour vérifier l'appel
     const mockChatResponse = {
       content: '{ "key": "value" }',
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 10,
       tokens_out: 5,
       cost_usd: 0.001,
@@ -38,7 +38,7 @@ describe("stagehand-executor with LLM router (F002)", () => {
     };
 
     const mockProvider = {
-      name: "kimi",
+      name: "openai",
       chat: vi.fn().mockResolvedValue(mockChatResponse),
       streamChat: vi.fn(),
     };
@@ -48,13 +48,13 @@ describe("stagehand-executor with LLM router (F002)", () => {
       .spyOn(CircuitBreakerModule.defaultCircuitBreaker, "isOpen")
       .mockResolvedValue(false);
 
-    // Les mocks sont en place. Si extractStructured était appelée, elle appellerait getProvider('kimi').
+    // Les mocks sont en place. Si extractStructured était appelée, elle appellerait getProvider('openai').
     expect(getProviderSpy).not.toHaveBeenCalled(); // N'a pas encore été appelée
     expect(isOpenSpy).not.toHaveBeenCalled(); // N'a pas encore été appelée
 
     // Un test réel nécessiterait un mock PlaywrightBridge ou playwright-core disponible.
     // Pour cette mission F002, l'important est que la signature et les imports sont corrects,
-    // et que le code compile sans `new OpenAI(hypercli)`.
+    // et que le code compile sans client hardcodé.
   });
 
   it("passes tenantId to circuit breaker in extractStructured", async () => {

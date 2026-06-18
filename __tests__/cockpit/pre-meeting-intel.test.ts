@@ -32,7 +32,7 @@ vi.mock("@/lib/platform/db/supabase", () => ({
 
 vi.mock("@/lib/llm/router", () => ({
   getProvider: vi.fn(() => ({
-    name: "kimi",
+    name: "openai",
     chat: mocks.anthropicCreate,
     streamChat: vi.fn(),
   })),
@@ -83,7 +83,7 @@ function buildFakeSupabase(opts: {
 describe("getPreMeetingIntel", () => {
   beforeEach(() => {
     Object.values(mocks).forEach((m) => m.mockReset());
-    process.env.KIMI_API_KEY = "fake-key";
+    process.env.OPENAI_API_KEY = "fake-key";
     __clearPreMeetingIntelCache();
   });
 
@@ -116,8 +116,8 @@ describe("getPreMeetingIntel", () => {
 
     mocks.anthropicCreate.mockResolvedValue({
       content: "Valider roadmap · Aligner équipes · Décider next call",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
@@ -161,8 +161,8 @@ describe("getPreMeetingIntel", () => {
 
     mocks.anthropicCreate.mockResolvedValue({
       content: "Tour de table · Définir prochaines étapes",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
@@ -205,8 +205,8 @@ describe("getPreMeetingIntel", () => {
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
       content: "",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
@@ -236,8 +236,8 @@ describe("getPreMeetingIntel", () => {
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
       content: "",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
@@ -269,8 +269,8 @@ describe("getPreMeetingIntel", () => {
     mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
       content: "Sync rapide",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,

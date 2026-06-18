@@ -17,7 +17,7 @@ const CTX = {
   runId: "run-1",
 };
 
-const ORIGINAL_KIMI = process.env.KIMI_API_KEY;
+const ORIGINAL_KIMI = process.env.OPENAI_API_KEY;
 
 describe("workflow handlers registry", () => {
   beforeEach(() => {
@@ -25,8 +25,8 @@ describe("workflow handlers registry", () => {
   });
 
   afterEach(() => {
-    if (ORIGINAL_KIMI === undefined) delete process.env.KIMI_API_KEY;
-    else process.env.KIMI_API_KEY = ORIGINAL_KIMI;
+    if (ORIGINAL_KIMI === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = ORIGINAL_KIMI;
   });
 
   it("expose les 5 handlers attendus", () => {
@@ -130,7 +130,7 @@ describe("workflow handlers registry", () => {
   });
 
   it("ai_draft_welcome_notes sans clé Kimi → degraded fallback", async () => {
-    delete process.env.KIMI_API_KEY;
+    delete process.env.OPENAI_API_KEY;
     const res = await executeWorkflowTool(
       "ai_draft_welcome_notes",
       {
@@ -156,7 +156,7 @@ describe("workflow handlers registry", () => {
   });
 
   it("ai_classify_priority sans clé Kimi → priority normal degraded", async () => {
-    delete process.env.KIMI_API_KEY;
+    delete process.env.OPENAI_API_KEY;
     const res = await executeWorkflowTool(
       "ai_classify_priority",
       { text: "Pas d'eau chaude depuis 1h" },

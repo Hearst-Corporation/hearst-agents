@@ -1,5 +1,5 @@
 /**
- * F002 — planner.ts : vérifie que getProvider("kimi") est appelé
+ * F002 — planner.ts : vérifie que getProvider("openai") est appelé
  * et que les hooks circuit breaker sont correctement câblés.
  */
 
@@ -66,8 +66,8 @@ const kimiTextResponse = {
   tokens_in: 100,
   tokens_out: 50,
   latency_ms: 200,
-  model: "kimi-k2.5",
-  provider: "kimi",
+  model: "gpt-4.1-nano",
+  provider: "openai",
   cost_usd: 0,
 };
 
@@ -77,7 +77,7 @@ describe("F002 — planner getProvider wiring", () => {
     mocks.isOpen.mockReset().mockReturnValue(false);
     mocks.recordSuccess.mockReset();
     mocks.recordFailure.mockReset();
-    process.env.KIMI_API_KEY = "sk-test";
+    process.env.OPENAI_API_KEY = "sk-test";
   });
 
   it("appelle getProvider(kimi).chat() pour résoudre l'intent", async () => {
@@ -106,7 +106,7 @@ describe("F002 — planner getProvider wiring", () => {
   it("appelle recordSuccess après un appel LLM réussi", async () => {
     await planFromIntent({} as never, fakeEngine(), "test", [], { tenantId: "t1" });
 
-    expect(mocks.recordSuccess).toHaveBeenCalledWith("kimi", "t1");
+    expect(mocks.recordSuccess).toHaveBeenCalledWith("openai", "t1");
   });
 
   it("appelle recordFailure si getProvider().chat() lève une erreur", async () => {
@@ -117,12 +117,12 @@ describe("F002 — planner getProvider wiring", () => {
     });
 
     expect(result.kind).toBe("error");
-    expect(mocks.recordFailure).toHaveBeenCalledWith("kimi", expect.any(Error), "tenant-fail");
+    expect(mocks.recordFailure).toHaveBeenCalledWith("openai", expect.any(Error), "tenant-fail");
   });
 
   it("propage le tenantId au circuit breaker (Phase 5)", async () => {
     await planFromIntent({} as never, fakeEngine(), "test", [], { tenantId: "tenant-phase5" });
 
-    expect(mocks.isOpen).toHaveBeenCalledWith("kimi", "tenant-phase5");
+    expect(mocks.isOpen).toHaveBeenCalledWith("openai", "tenant-phase5");
   });
 });

@@ -78,7 +78,7 @@ describe("CSP Nonce Helper (F-078-nonce)", () => {
     const csp = buildCsp(nonce, false);
     expect(csp).toContain("*.supabase.co");
     expect(csp).toContain("cloud.langfuse.com");
-    expect(csp).toContain("api.hypercli.com");
+    expect(csp).not.toContain("api.hypercli.com");
   });
 
   it("should NOT include nonce in style-src (keeps 'unsafe-inline' effective)", () => {

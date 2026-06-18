@@ -20,7 +20,7 @@ import { executeComposioAction, isComposioConfigured } from "@/lib/connectors/co
 import { getTodayEvents } from "@/lib/connectors/google/calendar";
 import { getRecentEmails } from "@/lib/connectors/google/gmail";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { formatFewShotBlock, INBOX_PRIORITY_FEWSHOT } from "@/lib/prompts/examples";
 
@@ -86,7 +86,7 @@ export interface InboxBrief {
 }
 
 const MAX_ITEMS = 10;
-const HAIKU_MODEL = KIMI_MODELS.HAIKU;
+const HAIKU_MODEL = OPENAI_MODELS.NANO;
 const TRUNCATE_SUMMARY = 80;
 
 interface RawEmail {

@@ -29,10 +29,10 @@ vi.mock("@/lib/llm/safe-chat", () => ({
 
 vi.mock("@/lib/engine/orchestrator/conversational-fastpath", () => ({
   resolveConversationalFastpathConfig: vi.fn(() => ({
-    provider: "kimi",
-    apiKey: "test-kimi-key",
-    baseURL: "https://api.moonshot.cn/v1",
-    model: "kimi-k2.5",
+    provider: "openai",
+    apiKey: "test-openai-key",
+    baseURL: "https://api.openai.com/v1",
+    model: "gpt-4.1-nano",
   })),
 }));
 
@@ -258,9 +258,9 @@ describe("tryLiteAgent", () => {
     expect(result?.text).toBe("Voici vos canaux Slack.");
   });
 
-  // ─── (k) Kimi OFF (pas de KIMI_API_KEY) → OpenAI cheap, pas d'échec ────────
+  // ─── (k) OpenAI seul (par défaut) → OpenAI cheap, pas d'échec ────────
   it("(k) Kimi OFF → lite-agent appelle le LLM avec un model OpenAI cheap (pas d'échec immédiat)", async () => {
-    // Simuler KIMI_API_KEY absent → resolveConversationalFastpathConfig retourne OpenAI
+    // Simuler OPENAI_API_KEY absent → resolveConversationalFastpathConfig retourne OpenAI
     mockResolveConversationalFastpathConfig.mockReturnValueOnce({
       provider: "openai",
       apiKey: "sk-test-openai",

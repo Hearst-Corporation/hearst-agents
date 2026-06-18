@@ -1,5 +1,5 @@
 /**
- * Handler `ai_draft_welcome_notes` — génère via Kimi une note de
+ * Handler `ai_draft_welcome_notes` — génère via LLM une note de
  * bienvenue personnalisée par guest VIP.
  *
  * Args attendus :
@@ -9,14 +9,10 @@
  *
  * Sortie :
  *  { notes: Array<{ guestName, room, note }> }
- *
- * Sans `KIMI_API_KEY`, on retourne `success: true` avec une note
- * fallback minimaliste — le workflow continue mais l'asset final sera
- * clairement marqué `degraded: true`.
  */
 
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { WorkflowHandler } from "./types";
 
@@ -66,15 +62,6 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args, ctx) => {
   const tone = typeof args.tone === "string" ? args.tone : "warm-professional";
   const includeRoom = args.includeRoomNumber !== false;
 
-  if (!process.env.KIMI_API_KEY) {
-    const notes = arrivals.map((a) => ({
-      guestName: a.guestName,
-      room: a.room ?? "",
-      note: fallbackNote(a),
-    }));
-    return { success: true, output: { notes, degraded: true, reason: "no_kimi_key" } };
-  }
-
   const fallbackNotes = arrivals.map((a) => ({
     guestName: a.guestName,
     room: a.room ?? "",
@@ -107,7 +94,7 @@ export const aiDraftWelcomeNotes: WorkflowHandler = async (args, ctx) => {
     tenantId,
     context: "workflows/ai-draft-welcome-notes",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 1500,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },

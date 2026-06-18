@@ -1,13 +1,12 @@
 /**
  * POST /api/v2/assets/diff
  *
- * Compare 2 assets et retourne un diff sémantique synthétisé via Kimi.
+ * Compare 2 assets et retourne un diff sémantique synthétisé via LLM.
  * Body : { assetIdA, assetIdB }
  * Return : { summary, differences: Array<{ kind, description }> }
  *
- * Fail-soft : si Kimi n'est pas configuré ou crash, on retombe sur
- * un diff naïf (titres + tailles contentRef) plutôt que de renvoyer une
- * 500.
+ * Fail-soft : si le LLM crash, on retombe sur un diff naïf
+ * (titres + tailles contentRef) plutôt que de renvoyer une 500.
  */
 
 import { type NextRequest, NextResponse } from "next/server";
@@ -15,7 +14,7 @@ import { z } from "zod";
 import { type Asset, loadAssetById } from "@/lib/assets/types";
 import { guardAndReserveCredits } from "@/lib/credits/client";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { requireScope } from "@/lib/platform/auth/scope";
 
@@ -77,11 +76,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Fallback déterministe si pas de clé Kimi
-  if (!process.env.KIMI_API_KEY) {
-    return NextResponse.json(naiveDiff(a, b));
-  }
-
   // Budget tenant — fail-closed avant appel LLM
   const jobId = `diff-${assetIdA}-${assetIdB}-${Date.now()}`;
   const creditGuard = await guardAndReserveCredits({
@@ -104,7 +98,7 @@ export async function POST(req: NextRequest) {
 
   const result = await llmDiff(a, b, scope.tenantId);
   if (!result) {
-    console.warn("[POST /api/v2/assets/diff] kimi indisponible, fallback naiveDiff");
+    console.warn("[POST /api/v2/assets/diff] LLM indisponible, fallback naiveDiff");
     return NextResponse.json(naiveDiff(a, b));
   }
   return NextResponse.json(result);
@@ -146,7 +140,7 @@ async function llmDiff(a: Asset, b: Asset, tenantId: string): Promise<DiffResult
     tenantId,
     context: "assets/diff",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 1024,
       messages: [
         {

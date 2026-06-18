@@ -14,7 +14,7 @@
  */
 
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 
 export interface MeetingActionItem {
@@ -68,7 +68,7 @@ const TRANSCRIPT_CAP = 30_000;
  *
  * Retourne `null` si :
  *   - transcript vide
- *   - provider kimi indisponible (circuit ouvert ou erreur)
+ *   - LLM indisponible (circuit ouvert ou erreur)
  *   - erreur LLM (logged warn)
  *
  * Le caller décide quoi faire avec null (afficher transcript brut, retry, etc.).
@@ -106,7 +106,7 @@ export async function generateMeetingDebrief(
     tenantId: input.tenantId,
     context: "meetings/debrief",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 1500,
       messages: [
         { role: "system", content: DEBRIEF_SYSTEM_PROMPT },

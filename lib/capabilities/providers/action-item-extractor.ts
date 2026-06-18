@@ -1,5 +1,5 @@
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { ACTION_ITEMS_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
 
@@ -41,16 +41,14 @@ export async function extractActionItems(
 > {
   if (!transcript.trim()) return [];
 
-  if (!process.env.KIMI_API_KEY) return [];
-
   type ActionItem = { action: string; owner?: string; deadline?: string };
   const empty: ActionItem[] = [];
 
   return chatWithCircuitBreaker<ActionItem[]>({
     tenantId,
-    context: "kimi/extract-action-items",
+    context: "openai/extract-action-items",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 1024,
       messages: [
         { role: "system", content: ACTION_ITEMS_SYSTEM_PROMPT },

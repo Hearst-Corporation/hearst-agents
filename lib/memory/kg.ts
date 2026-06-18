@@ -10,7 +10,7 @@
  */
 
 import type { Database } from "@/lib/database.types";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { formatFewShotBlock, KG_EXTRACTION_FEWSHOT } from "@/lib/prompts/examples";
@@ -78,7 +78,7 @@ const ENTITY_TYPES: ReadonlyArray<KgNodeType> = [
   "topic",
 ];
 
-const EXTRACTION_MODEL = KIMI_MODELS.HAIKU;
+const EXTRACTION_MODEL = OPENAI_MODELS.NANO;
 const EXTRACTION_MAX_TOKENS = 2048;
 
 // NOTE charte : prompt d'EXTRACTION structurée (entities/relations JSON),

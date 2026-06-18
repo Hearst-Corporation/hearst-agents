@@ -18,7 +18,7 @@
 import { randomUUID } from "node:crypto";
 import { globalRunBus } from "@/lib/events/global-bus";
 import type { BrowserAction, BrowserActionType } from "@/lib/events/types";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getBrowserContext, type PlaywrightBridge } from "./playwright-bridge";
 
@@ -494,14 +494,14 @@ async function extractStructured(opts: {
   const fallback = {
     instruction: opts.instruction,
     schema: opts.schema ?? null,
-    error: "kimi_circuit_breaker_open_or_failed",
+    error: "llm_circuit_breaker_open_or_failed",
   };
 
   return chatWithCircuitBreaker<unknown>({
     tenantId: opts.tenantId,
     context: "browser/stagehand-extract",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 2000,
       messages: [
         { role: "system", content: system },

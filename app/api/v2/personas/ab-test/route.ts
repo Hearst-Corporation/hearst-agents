@@ -5,14 +5,12 @@
  * Lance 2 appels LLM en parallèle avec deux personas différentes pour
  * comparer la voix produite. Pas d'historique, pas d'outils — la valeur
  * comparée est la voix sur un message simple.
- *
- * Fail-soft : si Kimi n'est pas configuré, on renvoie 503.
  */
 
 import { type NextRequest, NextResponse } from "next/server";
 import { abTestPersonaSchema } from "@/lib/contracts/personas";
 import { guardAndReserveCredits } from "@/lib/credits/client";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getPersonaById } from "@/lib/personas/store";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
@@ -21,7 +19,7 @@ import { parseJsonBody } from "@/lib/platform/http/parse-body";
 
 export const dynamic = "force-dynamic";
 
-const MODEL = KIMI_MODELS.HAIKU;
+const MODEL = OPENAI_MODELS.NANO;
 const MAX_TOKENS = 800;
 
 interface RunOk {
@@ -103,13 +101,6 @@ export async function POST(req: NextRequest) {
   const sysA = addonA ? `${baseSystem}\n\n${addonA}` : baseSystem;
   const sysB = addonB ? `${baseSystem}\n\n${addonB}` : baseSystem;
 
-  if (!process.env.KIMI_API_KEY) {
-    return NextResponse.json(
-      { error: "llm_unavailable", message: "KIMI_API_KEY non configuré." },
-      { status: 503 },
-    );
-  }
-
   // Budget tenant — 2 appels parallèles → coût × 2, fail-closed avant LLM
   const jobId = `ab-test-${personaIdA}-${personaIdB}-${Date.now()}`;
   const creditGuard = await guardAndReserveCredits({
@@ -139,7 +130,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         error: "llm_unavailable",
-        message: "Kimi indisponible (circuit ouvert ou erreur LLM) pour au moins une persona.",
+        message: "LLM indisponible (circuit ouvert ou erreur) pour au moins une persona.",
       },
       { status: 503 },
     );

@@ -25,7 +25,7 @@
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { searchEmbeddings } from "@/lib/embeddings/store";
 import { updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { formatFewShotBlock, MISSION_CONTEXT_FEWSHOT_FR } from "@/lib/prompts/examples";
@@ -401,7 +401,7 @@ export async function updateMissionContextSummary(opts: UpdateSummaryOpts): Prom
     tenantId,
     context: "mission-context/summary",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 600,
       messages: [
         { role: "system", content: MISSION_CONTEXT_SYSTEM_PROMPT },

@@ -93,14 +93,9 @@ export async function planFromIntent(
     chatMessages.push({ role: "system", content: dynamicSuffix });
   }
 
-  // Convert Anthropic-style tools (input_schema) to OpenAI function tools
-  // KimiProvider.chat() utilise messages sans tool_calls — on passe les outils
-  // via le prompt system (suffix) plutôt que via un paramètre tools dédié.
-  // Pour conserver la compatibilité du parsing de réponse, on utilise
-  // chatWithCircuitBreaker (helper safe-chat) qui wrappe breaker + getProvider.
-  //
-  // Note: ChatRequest ne supporte pas nativement tool_choice/tools —
-  // le modèle Kimi produit du JSON structuré à partir du system prompt.
+  // chatWithCircuitBreaker wrappe breaker + getProvider.
+  // ChatRequest ne supporte pas nativement tool_choice/tools —
+  // le modèle produit du JSON structuré à partir du system prompt.
   type LlmOk = {
     ok: true;
     content: string;
@@ -131,15 +126,15 @@ export async function planFromIntent(
   });
 
   if (!llmResult.ok) {
-    const msg = "[Planner] kimi indisponible (circuit ouvert ou erreur LLM) — requête annulée";
+    const msg = "[Planner] LLM indisponible (circuit ouvert ou erreur) — requête annulée";
     console.error(msg);
-    defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
+    defaultMetrics.recordError({ provider: "openai", errorCode: "LLM_ERROR" });
     return { kind: "error", error: msg };
   }
 
   const llmResponse = llmResult;
   defaultMetrics.recordCall({
-    provider: "kimi",
+    provider: "openai",
     model: ORCHESTRATOR_MODEL,
     latencyMs: llmResponse.latency_ms,
     tokensIn: llmResponse.tokens_in,
@@ -154,16 +149,16 @@ export async function planFromIntent(
   });
 
   // Planner uses the model's text response to extract tool call JSON.
-  // The KimiProvider returns content as plain text; we parse tool_calls
+  // The LLM returns content as plain text; we parse tool_calls
   // from a structured JSON block the model emits inside the response.
   const responseContent = llmResponse.content;
 
-  // Attempt to parse as JSON tool call block produced by Kimi with system prompt guidance.
+  // Attempt to parse as JSON tool call block produced by the LLM with system prompt guidance.
   let toolCall: { function: { name: string; arguments: string } } | undefined;
   let rawContent: string | undefined;
   try {
-    // Kimi (via hypercli) returns structured JSON for tool calls in the content
-    // field when system-prompted with tool schemas, formatted as:
+    // The LLM returns structured JSON for tool calls in the content field when
+    // system-prompted with tool schemas, formatted as:
     // { "tool_calls": [{ "function": { "name": "...", "arguments": "..." } }] }
     // or as a raw text_response when no tool is needed.
     const parsed = JSON.parse(responseContent) as {

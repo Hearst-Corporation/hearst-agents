@@ -16,19 +16,12 @@ import { getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import type { Persona } from "@/lib/personas/types";
 
-// Hypercli (endpoint Anthropic-compatible /v1/messages) sert Kimi K2.6 sous l'id
-// "kimi-k2.6-anthropic". Encore utilisé par le planner via chatWithCircuitBreaker
-// (KimiProvider) et run-research-report. Sans Hypercli, fallback Anthropic direct.
-export const ORCHESTRATOR_MODEL = process.env.HYPERCLI_API_KEY
-  ? "kimi-k2.6-anthropic"
-  : "claude-sonnet-4-6";
+// Orchestrator model — OpenAI-only. gpt-4.1 mesuré 2× plus rapide que gpt-4o en
+// tool-calling agentique (0.47s vs 0.8s en direct, 1.07s même avec gros system
+// prompt) à qualité de sélection égale (benchmark 2026-06-04). Surcharge via env.
+export const ORCHESTRATOR_MODEL = process.env.ORCHESTRATOR_MODEL_OAI ?? "gpt-4.1";
 
-// Model id pour l'endpoint OpenAI-compatible (/v1/chat/completions), utilisé par
-// l'AI pipeline (streamText). Pas de suffixe "-anthropic" : ce chemin évite le
-// thinking forcé de l'endpoint /messages (cf. ai-pipeline.ts). TTFT ~1,3 s vs ~12 s.
-// gpt-4.1 mesuré 2× plus rapide que gpt-4o en tool-calling agentique (0.47s vs
-// 0.8s en direct, 1.07s même avec gros system prompt) à qualité de sélection
-// égale (benchmark 2026-06-04). Surcharge possible via env.
+// Alias conservé pour la compatibilité interne (ai-pipeline.ts, llm-candidates.ts).
 export const ORCHESTRATOR_MODEL_OAI = process.env.ORCHESTRATOR_MODEL_OAI ?? "gpt-4.1";
 
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
@@ -196,7 +189,7 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
   const dualAppGuidance = buildDualAppGuidance(connectedApps);
   const dualAppSection = dualAppGuidance ? `\n\n${dualAppGuidance}` : "";
 
-  // Mandat anti-refus : Kimi a tendance à répondre "X n'est pas connecté" alors
+  // Mandat anti-refus : le LLM a tendance à répondre "X n'est pas connecté" alors
   // que l'outil X est listé ci-dessus (faux refus capté par le détecteur
   // Prompt-violation de l'AI pipeline). Les outils listés SONT connectés pour
   // cet utilisateur, ce tour-ci → le modèle DOIT les appeler, pas les refuser.

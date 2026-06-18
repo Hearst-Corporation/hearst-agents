@@ -23,7 +23,7 @@ vi.mock("@/lib/llm/circuit-breaker", () => ({
 }));
 
 vi.mock("@/lib/llm/router", () => ({
-  getProvider: () => ({ name: "kimi", chat: chatMock }),
+  getProvider: () => ({ name: "openai", chat: chatMock }),
 }));
 
 vi.mock("@/lib/observability/logger", () => ({
@@ -39,7 +39,7 @@ async function runCompressLike(llmOutput: string, conversationText: string): Pro
   return chatWithCircuitBreaker<string>({
     context: "memory/summary",
     chatRequest: {
-      model: "kimi-k2.5",
+      model: "gpt-4.1-nano",
       max_tokens: 250,
       messages: [{ role: "user", content: "noop" }],
     },
@@ -73,8 +73,8 @@ describe("F-104 — SummarySchema fallback", () => {
     const llmOutput = '{"summary":"Décision prise: lancer Hearst v2 lundi."}';
     chatMock.mockResolvedValue({
       content: llmOutput,
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 30,
       tokens_out: 25,
       cost_usd: 0,
@@ -101,8 +101,8 @@ describe("F-104 — SummarySchema fallback", () => {
 
     chatMock.mockResolvedValue({
       content: llmOutput,
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 30,
       tokens_out: 400,
       cost_usd: 0,
@@ -125,8 +125,8 @@ describe("F-104 — SummarySchema fallback", () => {
 
     chatMock.mockResolvedValue({
       content: llmOutput,
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 10,
       tokens_out: 10,
       cost_usd: 0,
@@ -149,8 +149,8 @@ describe("F-104 — SummarySchema fallback", () => {
 
     chatMock.mockResolvedValue({
       content: llmOutput,
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 30,
       tokens_out: 25,
       cost_usd: 0,

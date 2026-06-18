@@ -15,7 +15,7 @@ export function isCircuitOpenFor(provider: string, tenantId?: string): boolean {
 }
 
 export interface SafeChatOptions<T> {
-  /** Provider name (default "kimi"). */
+  /** Provider name (default "openai"). */
   provider?: string;
   /** Tenant ID for per-tenant circuit breaker isolation. */
   tenantId?: string;
@@ -46,7 +46,7 @@ export interface SafeChatOptions<T> {
  * with `recordFailure` in the catch branch.
  */
 export async function chatWithCircuitBreaker<T>(opts: SafeChatOptions<T>): Promise<T> {
-  const providerName = opts.provider ?? "kimi";
+  const providerName = opts.provider ?? "openai";
   if (defaultCircuitBreaker.isOpen(providerName, opts.tenantId)) {
     logger.warn(
       { provider: providerName, ctx: opts.context },

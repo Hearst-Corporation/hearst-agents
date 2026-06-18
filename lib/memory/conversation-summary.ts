@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { logger } from "@/lib/observability/logger";
 import { getRedis } from "@/lib/platform/redis/client";
@@ -59,7 +59,7 @@ async function compress(messages: MessageEntry[], tenantId?: string): Promise<st
     tenantId,
     context: "memory/summary",
     chatRequest: {
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.QUALITY,
       max_tokens: 250,
       messages: [
         { role: "system", content: CONV_SUMMARY_SYSTEM_PROMPT },

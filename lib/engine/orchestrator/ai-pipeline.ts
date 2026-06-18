@@ -33,7 +33,6 @@ import { addMission } from "@/lib/engine/runtime/missions/store";
 import { saveScheduledMission as persistMission } from "@/lib/engine/runtime/state/adapter";
 import type { RunEventBus } from "@/lib/events/bus";
 import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
-import { resolveKimiRuntimeConfig } from "@/lib/llm/kimi-config";
 import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
 import { computeCostUsd } from "@/lib/llm/pricing";
 import { isCircuitOpenFor } from "@/lib/llm/safe-chat";
@@ -163,78 +162,21 @@ export interface AiPipelineInput {
 // ── LLM provider config ───────────────────────────────────────────────────────
 //
 // Stream B (robustesse routeur) : on construit une liste ordonnée de candidats
-// provider au lieu d'un unique llmClient statique. Le PREMIER candidat reproduit
-// exactement la logique existante (Kimi si KIMI_API_KEY, sinon OpenAI) ; les
-// suivants ne sont tentés qu'en cas d'échec de création/démarrage du stream.
+// provider au lieu d'un unique llmClient statique. OpenAI est le provider principal ;
+// les fallbacks (Anthropic via shim) ne sont tentés qu'en cas d'échec du primaire.
 //
-// On garde `resolveKimiRuntimeConfig()` pour la validation au démarrage (throws
-// explicitement si KIMI_API_KEY présent mais KIMI_BASE_URL absent).
-if (process.env.KIMI_API_KEY) {
-  resolveKimiRuntimeConfig(); // fail-fast au démarrage si config incomplète
-}
-
 // Candidats : construits à chaque run (lecture des env vars). Le coût est
 // négligeable (quelques accès process.env) et cette approche simplifie les tests
 // qui peuvent manipuler les env vars entre les beforeEach sans cache à vider.
-
-// Custom fetch : injecte `enable_thinking: false` dans le body des appels chat
-// completions. MESURÉ (2026-06-03) : avec un gros system prompt, Kimi K2.6 émet
-// un bloc <think>…</think> inline dans le content (reasoning_field=0 mais
-// <think> dans le texte) que le SSEAdapter Helm doit DROP avant le 1er token
-// visible → ~3.3 s de TTFT perdu. `enable_thinking:false` ne supprime pas le
-// <think> (imposé modèle) mais le RACCOURCIT fortement → TTFT visible 2.2s→0.7s.
-// Le SDK @ai-sdk/openai v3 n'expose pas extraBody au niveau provider ; on passe
-// donc par le hook `fetch`. No-op sur les requêtes non-JSON.
-//
-// ⚠️ `enable_thinking` est un paramètre PROPRIÉTAIRE Kimi/Hypercli. L'API OpenAI
-// officielle (api.openai.com) le rejette avec HTTP 400 "Unrecognized request
-// argument: enable_thinking" → 0 output → NoOutputGeneratedError → run_failed
-// (incident 2026-06-04, stopgap KIMI_BASE_URL pointé sur OpenAI). On ne l'injecte
-// donc QUE vers les endpoints qui le supportent (tout sauf OpenAI officiel).
-/** Endpoint OpenAI officiel → ne supporte PAS le param propriétaire enable_thinking. */
-function isOpenAIEndpoint(url: string): boolean {
-  return /(^|\/\/|\.)api\.openai\.com/i.test(url);
-}
-
-/**
- * Build a per-candidate hyperFetch that decides at runtime (on the actual
- * request URL) whether to inject `enable_thinking: false`.
- * Replicates the existing hyperFetch behaviour but is not bound to a single
- * static baseURL.
- */
-function makeCandidateFetch(candidateBaseURL: string | undefined): typeof fetch {
-  return async (input, init) => {
-    const reqUrl =
-      typeof input === "string"
-        ? input
-        : input instanceof URL
-          ? input.href
-          : ((input as Request)?.url ?? candidateBaseURL ?? "");
-    if (!isOpenAIEndpoint(reqUrl) && init?.body && typeof init.body === "string") {
-      try {
-        const parsed = JSON.parse(init.body);
-        if (parsed && typeof parsed === "object" && Array.isArray(parsed.messages)) {
-          parsed.enable_thinking = false;
-          init = { ...init, body: JSON.stringify(parsed) };
-        }
-      } catch {
-        // body non-JSON → on ne touche pas.
-      }
-    }
-    return fetch(input, init);
-  };
-}
 
 /** Build a createOpenAI client for a specific candidate. */
 function makeLlmClient(candidate: LlmCandidate) {
   return createOpenAI({
     apiKey: candidate.apiKey,
     baseURL: candidate.baseURL,
-    fetch: makeCandidateFetch(candidate.baseURL),
   });
 }
-// The primary candidate client (candidate[0]) is semantically equivalent to the
-// previous static llmClient — same apiKey/baseURL/fetch behaviour.
+// The primary candidate client (candidate[0]) is OpenAI with gpt-4.1 (default).
 
 // ── Pré-fetch de contexte : timeout strict ───────────────────────────────────
 // Les 5 sources de contexte (tools Google/Composio + briefing + KG + LTM) sont
@@ -1261,9 +1203,8 @@ export async function runAiPipeline(
   );
 
   if (availableCandidates.length === 0) {
-    // Tous les circuits sont ouverts — reproduit le comportement exact du guard
-    // précédent (qui vérifiait uniquement "kimi") mais généralise à N providers.
-    const primaryKey = candidates[0]?.providerKey ?? "kimi";
+    // Tous les circuits sont ouverts — tous les providers sont indisponibles.
+    const primaryKey = candidates[0]?.providerKey ?? "openai";
     const msg = `[AiPipeline] Circuit breaker OPEN pour ${primaryKey} (tous providers) — requête annulée`;
     console.error(msg);
     langfuseTrace?.update({ output: { status: "aborted", reason: "circuit_breaker_open" } });

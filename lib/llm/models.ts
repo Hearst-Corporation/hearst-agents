@@ -1,14 +1,19 @@
 /**
- * Model identifiers — single source of truth for LLM provider model names.
+ * Model identifiers — single source of truth for OpenAI model names.
  *
- * Replaces ~22 dispersed `"kimi-k2.5"` literals (see AUDIT-2 DUP3a).
+ * Tier map:
+ *   NANO     → cheap/volume: classifiers, KG, memory, fast-path conversational
+ *   STANDARD → orchestrator/pipeline/planner (tool-calling)
+ *   QUALITY  → synthesis/research, daily-brief, conversation-summary, briefing
  */
 
-export const KIMI_MODELS = {
-  /** Default fast & cheap reasoning model (Moonshot Kimi K2.5). */
-  HAIKU: "kimi-k2.5",
-  /** Larger/quality reasoning model (Moonshot Kimi K2.6). */
-  SONNET: "kimi-k2.6",
+export const OPENAI_MODELS = {
+  /** Cheap / high-volume: classifiers, KG, memory, action-item extraction, fast-path. */
+  NANO: "gpt-4.1-nano",
+  /** Orchestrator / pipeline / planner — tool-calling. */
+  STANDARD: "gpt-4.1",
+  /** Quality non-tool: synthesis, research, daily-brief, briefing. */
+  QUALITY: "gpt-4o",
 } as const;
 
-type KimiModel = (typeof KIMI_MODELS)[keyof typeof KIMI_MODELS];
+export type OpenAIModel = (typeof OPENAI_MODELS)[keyof typeof OPENAI_MODELS];

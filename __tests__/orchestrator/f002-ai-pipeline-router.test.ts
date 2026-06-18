@@ -129,7 +129,7 @@ describe("F002 — ai-pipeline circuit breaker wiring", () => {
     mocks.recordSuccess.mockReset();
     mocks.recordFailure.mockReset();
     mocks.streamTextMock.mockReset();
-    process.env.KIMI_API_KEY = "sk-test";
+    process.env.OPENAI_API_KEY = "sk-test";
   });
 
   it("appelle engine.fail() immédiatement si le breaker est ouvert", async () => {
@@ -161,7 +161,7 @@ describe("F002 — ai-pipeline circuit breaker wiring", () => {
     });
 
     // L'AI pipeline tape désormais Kimi via Hypercli (/chat/completions), plus
-    // l'endpoint Anthropic-compat → la clé du circuit breaker est "kimi".
-    expect(mocks.isOpen).toHaveBeenCalledWith("kimi", "tenant-abc");
+    // l'endpoint Anthropic-compat → la clé du circuit breaker est "openai".
+    expect(mocks.isOpen).toHaveBeenCalledWith("openai", "tenant-abc");
   });
 });

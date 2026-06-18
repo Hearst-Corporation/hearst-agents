@@ -19,7 +19,7 @@ function stripEmoji(s: string): string {
   return s.replace(EMOJI_RE, "").replace(/[ \t]{2,}/g, " ");
 }
 
-// State machine per-stream : Kimi K2.5/K2.6 (via Hyperbolic) émet sa
+// State machine per-stream : les modèles à reasoning émettent leur
 // chain-of-thought dans `delta.content` entre balises `<think>...</think>`
 // AVANT le vrai contenu de la réponse. Le middleware Vercel AI fonctionne en
 // test isolé mais ne couvre pas tous les code paths (planner direct_response,
@@ -218,7 +218,7 @@ export class SSEAdapter {
   private cleanup: (() => void) | null = null;
   private encoder = new TextEncoder();
   private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
-  // State per-stream pour filter les balises <think>...</think> de Kimi.
+  // State per-stream pour filtrer les balises <think>...</think> des modèles à reasoning.
   // Une instance d'adapter = un run = un état isolé.
   private thinkState: ThinkStripState = { inside: false, pending: "" };
   // PERF-MARK : flags "1ère fois" pour ne marquer que le 1er text_delta.
@@ -438,9 +438,9 @@ export class SSEAdapter {
 
       // ── Text streaming ───────────────────────────────────
       // 1. Strip emoji glyphs (rule 7 system prompt, modèle slip parfois).
-      // 2. Strip <think>...</think> de Kimi K2.5/K2.6 (reasoning leak
-      //    via Hyperbolic CLI). Stateful per-stream — robuste au split sur
-      //    plusieurs deltas. Last line of defense, couvre tous les paths
+      // 2. Strip <think>...</think> des modèles à reasoning (reasoning leak).
+      //    Stateful per-stream — robuste au split sur plusieurs deltas.
+      //    Last line of defense, couvre tous les paths
       //    (ai-pipeline, planner, recovery) qui produisent des text_delta.
       case "text_delta": {
         const unthought = stripThinkTags(event.delta, this.thinkState);

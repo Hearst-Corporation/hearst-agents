@@ -1,5 +1,5 @@
 /**
- * F002 — run-research-report.ts : vérifie que getProvider("kimi") est appelé
+ * F002 — run-research-report.ts : vérifie que getProvider("openai") est appelé
  * dans synthesizeReport et que le circuit breaker est câblé.
  */
 
@@ -58,8 +58,8 @@ const kimiSynthResponse = {
   tokens_in: 500,
   tokens_out: 300,
   latency_ms: 800,
-  model: "kimi-k2.5",
-  provider: "kimi",
+  model: "gpt-4.1-nano",
+  provider: "openai",
   cost_usd: 0,
 };
 
@@ -84,7 +84,7 @@ describe("F002 — run-research-report getProvider wiring", () => {
     mocks.storeAssetMock.mockReset();
     mocks.searchWebMock.mockReset();
     mocks.generatePdfMock.mockReset().mockResolvedValue(null);
-    process.env.KIMI_API_KEY = "sk-test";
+    process.env.OPENAI_API_KEY = "sk-test";
 
     // Search returns short summary to force LLM synthesis path
     mocks.searchWebMock.mockResolvedValue({
@@ -124,7 +124,7 @@ describe("F002 — run-research-report getProvider wiring", () => {
 
     // Helper chatWithCircuitBreaker passe (provider, tenantId) — tenantId undefined
     // ici car synthesizeReport ne propage pas le scope.tenantId au breaker (legacy).
-    expect(mocks.recordSuccess).toHaveBeenCalledWith("kimi", undefined);
+    expect(mocks.recordSuccess).toHaveBeenCalledWith("openai", undefined);
   });
 
   it("lève une erreur si le breaker est ouvert (synthesis annulée)", async () => {
@@ -159,6 +159,6 @@ describe("F002 — run-research-report getProvider wiring", () => {
       scope: { tenantId: "t2", workspaceId: "w1", userId: "u1" },
     });
 
-    expect(mocks.recordFailure).toHaveBeenCalledWith("kimi", expect.any(Error), undefined);
+    expect(mocks.recordFailure).toHaveBeenCalledWith("openai", expect.any(Error), undefined);
   });
 });

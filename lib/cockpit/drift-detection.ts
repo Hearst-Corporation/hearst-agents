@@ -19,7 +19,7 @@
  */
 
 import { createHash } from "node:crypto";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -139,7 +139,7 @@ export async function analyzeMissionDrift(
 
 // ── Narration Haiku ────────────────────────────────────────
 
-const HAIKU_MODEL = KIMI_MODELS.HAIKU;
+const HAIKU_MODEL = OPENAI_MODELS.NANO;
 const NARRATION_TTL_MS = 60 * 60_000; // 1 h
 const MAX_LEN = 140;
 

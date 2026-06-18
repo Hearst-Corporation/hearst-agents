@@ -9,8 +9,8 @@ import { DEBRIEF_SYSTEM_PROMPT, generateMeetingDebrief } from "@/lib/meetings/de
 
 vi.mock("@/lib/llm/router", () => ({
   getProvider: vi.fn(() => ({
-    name: "kimi",
-    chat: vi.fn().mockRejectedValue(new Error("KIMI_API_KEY is not set")),
+    name: "openai",
+    chat: vi.fn().mockRejectedValue(new Error("OPENAI_API_KEY is not set")),
     streamChat: vi.fn(),
   })),
   resetLlmProviderCache: vi.fn(),

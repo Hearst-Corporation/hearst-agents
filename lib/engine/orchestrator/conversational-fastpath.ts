@@ -18,7 +18,6 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
-import { resolveKimiRuntimeConfig } from "@/lib/llm/kimi-config";
 
 const OPENAI_BASE_URL = "https://api.openai.com/v1";
 
@@ -33,9 +32,8 @@ export interface FastpathModelConfig {
  * Sélectionne le modèle du fast-path sans toucher au moteur agentique.
  *
  * Priorité :
- * 1. Env dédiée `CONVERSATIONAL_FASTPATH_*` pour bench Kimi/MiniMax isolé.
- * 2. Kimi si `KIMI_API_KEY` existe (objectif actuel : Kimi 2.5 pour smalltalk).
- * 3. OpenAI existant en fallback conservateur.
+ * 1. Env dédiée `CONVERSATIONAL_FASTPATH_*` pour override/benchmarking.
+ * 2. OpenAI gpt-4.1-nano (cheap, fast, adapté au smalltalk).
  */
 export function resolveConversationalFastpathConfig(
   env: Partial<NodeJS.ProcessEnv> = process.env,
@@ -45,23 +43,12 @@ export function resolveConversationalFastpathConfig(
   const explicitModel = env.CONVERSATIONAL_FASTPATH_MODEL;
 
   if (explicitApiKey || explicitBaseUrl || explicitModel) {
-    const baseURL = explicitBaseUrl ?? env.KIMI_BASE_URL ?? env.OPENAI_BASE_URL ?? OPENAI_BASE_URL;
-    const isOpenAI = baseURL === OPENAI_BASE_URL;
+    const baseURL = explicitBaseUrl ?? env.OPENAI_BASE_URL ?? OPENAI_BASE_URL;
     return {
-      provider: isOpenAI ? "openai" : "kimi",
-      apiKey: explicitApiKey ?? env.KIMI_API_KEY ?? env.OPENAI_API_KEY ?? "",
+      provider: "openai",
+      apiKey: explicitApiKey ?? env.OPENAI_API_KEY ?? "",
       baseURL,
-      model: explicitModel ?? (isOpenAI ? "gpt-4.1-mini" : "kimi-k2.5"),
-    };
-  }
-
-  if (env.KIMI_API_KEY) {
-    const kimiConfig = resolveKimiRuntimeConfig(env);
-    return {
-      provider: "kimi",
-      apiKey: kimiConfig.apiKey,
-      baseURL: kimiConfig.baseURL,
-      model: "kimi-k2.5",
+      model: explicitModel ?? "gpt-4.1-nano",
     };
   }
 
@@ -69,7 +56,7 @@ export function resolveConversationalFastpathConfig(
     provider: "openai",
     apiKey: env.OPENAI_API_KEY ?? "",
     baseURL: env.OPENAI_BASE_URL ?? OPENAI_BASE_URL,
-    model: "gpt-4.1-mini",
+    model: "gpt-4.1-nano",
   };
 }
 

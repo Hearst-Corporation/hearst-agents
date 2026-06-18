@@ -1,6 +1,6 @@
 /**
  * @deprecated Ce provider Anthropic est obsolète. L'application utilise
- * maintenant Kimi (Moonshot AI) via le SDK OpenAI-compatible.
+ * maintenant OpenAI via le SDK OpenAI-compatible.
  * Voir : lib/engine/orchestrator/ai-pipeline.ts, lib/engine/orchestrator/planner.ts
  * Ce fichier est conservé temporairement pour référence mais ne doit plus être utilisé.
  */

@@ -106,7 +106,7 @@ export async function getSystemHealth(
       details.llm = llmHealth.error;
     }
   } else {
-    checks.llm = true; // Not checked = OK
+    checks.llm = true; // Not checked = assumed OK
   }
 
   // Determine overall status
@@ -216,13 +216,13 @@ async function checkLLMHealth(): Promise<{
   const start = Date.now();
 
   try {
-    // Check Kimi API (primary provider)
-    const apiKey = process.env.KIMI_API_KEY;
+    // Check OpenAI API (primary provider)
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return {
         ok: false,
         latencyMs: 0,
-        error: "KIMI_API_KEY not configured",
+        error: "OPENAI_API_KEY not configured",
       };
     }
 
@@ -233,7 +233,7 @@ async function checkLLMHealth(): Promise<{
       return {
         ok: false,
         latencyMs: 0,
-        error: "Invalid KIMI_API_KEY format",
+        error: "Invalid OPENAI_API_KEY format",
       };
     }
 
@@ -409,15 +409,6 @@ function notConfigured(name: string, category: ServiceCategory): ServiceCheck {
 // ── Checks par service ─────────────────────────────────────────────────────
 // Reproduction adaptée de scripts/health-check.ts. NE PAS toucher au script
 // CLI : il reste la vérité source pour `npm run health`.
-
-async function checkKimi(): Promise<ServiceCheck> {
-  const key = process.env.KIMI_API_KEY;
-  if (!key) return notConfigured("Kimi", "llm");
-  const res = await timedFetch("https://api.hypercli.com/v1/models", {
-    Authorization: `Bearer ${key}`,
-  });
-  return fromHttp("Kimi", "llm", res, { okMessage: "models endpoint" });
-}
 
 async function checkOpenAI(): Promise<ServiceCheck> {
   const key = process.env.OPENAI_API_KEY;
@@ -773,7 +764,6 @@ async function checkComposio(): Promise<ServiceCheck> {
  */
 const SERVICE_CHECKS: Array<() => Promise<ServiceCheck>> = [
   // LLM
-  checkKimi,
   checkOpenAI,
   checkGemini,
   checkDeepseek,

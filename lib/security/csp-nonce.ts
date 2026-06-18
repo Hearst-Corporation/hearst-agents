@@ -73,7 +73,6 @@ export function buildCsp(nonce: string, isDev: boolean): string {
       "https://cloud.langfuse.com",
       "wss://*.supabase.co",
       "https://*.upstash.io",
-      "https://api.hypercli.com",
       "https://unpkg.com",
     ].join(" "),
     "frame-ancestors 'none'",

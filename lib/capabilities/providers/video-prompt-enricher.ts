@@ -3,7 +3,7 @@
  * pour la génération vidéo (Runway, principalement).
  *
  * Contrairement à `fal-prompt-enricher` (heuristique stylistique pour images
- * Flux), cet enricher utilise Kimi pour réécrire le prompt brut en
+ * Flux), cet enricher utilise le LLM pour réécrire le prompt brut en
  * direction cinématographique : palette, mouvement caméra, lumière, ambiance,
  * focale, format. Runway répond beaucoup mieux à un prompt structuré
  * "shot description" qu'à une description plate.
@@ -15,12 +15,12 @@
  * Le `diff` est un tableau de fragments ajoutés par l'enrichisseur, surface
  * pour l'UI qui veut afficher un highlight type "delta" inline.
  *
- * Fallback : si l'API Kimi est indisponible (pas de clé, erreur réseau),
+ * Fallback : si le modèle est indisponible (pas de clé, erreur réseau),
  * on retombe sur un enrichissement heuristique léger pour ne pas bloquer la
  * génération vidéo.
  */
 
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 
 export interface VideoPromptEnrichment {
@@ -31,7 +31,7 @@ export interface VideoPromptEnrichment {
   diff: string[];
 }
 
-const HAIKU_MODEL = KIMI_MODELS.HAIKU;
+const HAIKU_MODEL = OPENAI_MODELS.NANO;
 
 const SYSTEM_PROMPT = [
   "Tu es un directeur photo qui réécrit des prompts vidéo pour le modèle Runway Gen-3.",
@@ -52,7 +52,7 @@ const HEURISTIC_SUFFIX =
   "cinematic lighting, anamorphic lens, smooth camera movement, shallow depth of field, golden hour, 35mm film grain";
 
 /**
- * Enrichit un prompt vidéo brut. Tente Kimi, retombe sur heuristique.
+ * Enrichit un prompt vidéo brut. Tente le LLM, retombe sur heuristique.
  *
  * Provider-agnostique : le module ne dépend pas de Runway directement, on
  * pourra le réutiliser pour HeyGen / Veo si besoin (mêmes principes
@@ -67,10 +67,6 @@ export async function enrichVideoPrompt(
   const trimmed = rawPrompt.trim();
   if (!trimmed) {
     throw new Error("[video-prompt-enricher] rawPrompt is empty");
-  }
-
-  if (!process.env.KIMI_API_KEY) {
-    return heuristicFallback(trimmed);
   }
 
   const fallback = heuristicFallback(trimmed);

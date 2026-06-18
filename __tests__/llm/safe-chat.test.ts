@@ -4,7 +4,7 @@ const isOpenMock = vi.fn();
 const recordSuccessMock = vi.fn();
 const recordFailureMock = vi.fn();
 const chatMock = vi.fn();
-const getProviderMock = vi.fn((_name: string) => ({ name: "kimi", chat: chatMock }));
+const getProviderMock = vi.fn((_name: string) => ({ name: "openai", chat: chatMock }));
 
 vi.mock("@/lib/llm/circuit-breaker", () => ({
   defaultCircuitBreaker: {
@@ -50,7 +50,7 @@ describe("chatWithCircuitBreaker", () => {
       tenantId: "tenant-1",
       context: "test/open",
       chatRequest: {
-        model: "kimi-k2.5",
+        model: "gpt-4.1",
         max_tokens: 100,
         messages: [{ role: "user", content: "ping" }],
       },
@@ -62,15 +62,15 @@ describe("chatWithCircuitBreaker", () => {
     expect(chatMock).not.toHaveBeenCalled();
     expect(recordSuccessMock).not.toHaveBeenCalled();
     expect(recordFailureMock).not.toHaveBeenCalled();
-    expect(isOpenMock).toHaveBeenCalledWith("kimi", "tenant-1");
+    expect(isOpenMock).toHaveBeenCalledWith("openai", "tenant-1");
   });
 
   it("returns parsed response on success and records success", async () => {
     isOpenMock.mockReturnValue(false);
     chatMock.mockResolvedValue({
       content: "hello world",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1",
+      provider: "openai",
       tokens_in: 10,
       tokens_out: 5,
       cost_usd: 0,
@@ -81,7 +81,7 @@ describe("chatWithCircuitBreaker", () => {
       tenantId: "tenant-1",
       context: "test/success",
       chatRequest: {
-        model: "kimi-k2.5",
+        model: "gpt-4.1",
         max_tokens: 100,
         messages: [{ role: "user", content: "ping" }],
       },
@@ -91,7 +91,7 @@ describe("chatWithCircuitBreaker", () => {
 
     expect(result).toBe("HELLO WORLD");
     expect(chatMock).toHaveBeenCalledTimes(1);
-    expect(recordSuccessMock).toHaveBeenCalledWith("kimi", "tenant-1");
+    expect(recordSuccessMock).toHaveBeenCalledWith("openai", "tenant-1");
     expect(recordFailureMock).not.toHaveBeenCalled();
   });
 
@@ -104,7 +104,7 @@ describe("chatWithCircuitBreaker", () => {
       tenantId: "tenant-1",
       context: "test/failure",
       chatRequest: {
-        model: "kimi-k2.5",
+        model: "gpt-4.1",
         max_tokens: 100,
         messages: [{ role: "user", content: "ping" }],
       },
@@ -113,16 +113,16 @@ describe("chatWithCircuitBreaker", () => {
     });
 
     expect(result).toBeNull();
-    expect(recordFailureMock).toHaveBeenCalledWith("kimi", err, "tenant-1");
+    expect(recordFailureMock).toHaveBeenCalledWith("openai", err, "tenant-1");
     expect(recordSuccessMock).not.toHaveBeenCalled();
   });
 
-  it("uses default provider 'kimi' when none specified", async () => {
+  it("uses default provider 'openai' when none specified", async () => {
     isOpenMock.mockReturnValue(false);
     chatMock.mockResolvedValue({
       content: "ok",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1",
+      provider: "openai",
       tokens_in: 1,
       tokens_out: 1,
       cost_usd: 0,
@@ -132,7 +132,7 @@ describe("chatWithCircuitBreaker", () => {
     await chatWithCircuitBreaker({
       context: "test/default-provider",
       chatRequest: {
-        model: "kimi-k2.5",
+        model: "gpt-4.1",
         max_tokens: 10,
         messages: [{ role: "user", content: "ping" }],
       },
@@ -140,16 +140,16 @@ describe("chatWithCircuitBreaker", () => {
       parse: (res) => res.content,
     });
 
-    expect(isOpenMock).toHaveBeenCalledWith("kimi", undefined);
-    expect(getProviderMock).toHaveBeenCalledWith("kimi");
+    expect(isOpenMock).toHaveBeenCalledWith("openai", undefined);
+    expect(getProviderMock).toHaveBeenCalledWith("openai");
   });
 
   it("records failure once (no double-record) when parse() throws after a successful LLM call", async () => {
     isOpenMock.mockReturnValue(false);
     chatMock.mockResolvedValue({
       content: "ok",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1",
+      provider: "openai",
       tokens_in: 1,
       tokens_out: 1,
       cost_usd: 0,
@@ -161,7 +161,7 @@ describe("chatWithCircuitBreaker", () => {
       tenantId: "tenant-parse",
       context: "test/parse-throws",
       chatRequest: {
-        model: "kimi-k2.5",
+        model: "gpt-4.1",
         max_tokens: 10,
         messages: [{ role: "user", content: "ping" }],
       },
@@ -180,7 +180,7 @@ describe("chatWithCircuitBreaker", () => {
     expect(recordSuccessMock.mock.invocationCallOrder).toHaveLength(0);
     // recordFailure MUST be called exactly once, with the parse error
     expect(recordFailureMock).toHaveBeenCalledTimes(1);
-    expect(recordFailureMock).toHaveBeenCalledWith("kimi", parseErr, "tenant-parse");
+    expect(recordFailureMock).toHaveBeenCalledWith("openai", parseErr, "tenant-parse");
     // Et chatMock (le LLM) a bien été invoqué AVANT recordFailure : on
     // confirme la séquence chat → parse(throws) → recordFailure.
     const chatOrder = chatMock.mock.invocationCallOrder[0];
@@ -198,7 +198,7 @@ describe("chatWithCircuitBreaker", () => {
       tenantId: "tenant-x",
       context: "test/non-error",
       chatRequest: {
-        model: "kimi-k2.5",
+        model: "gpt-4.1",
         max_tokens: 10,
         messages: [{ role: "user", content: "ping" }],
       },
@@ -209,7 +209,7 @@ describe("chatWithCircuitBreaker", () => {
     expect(result).toBe("FB");
     expect(recordFailureMock).toHaveBeenCalledTimes(1);
     const callArgs = recordFailureMock.mock.calls[0];
-    expect(callArgs[0]).toBe("kimi");
+    expect(callArgs[0]).toBe("openai");
     expect(callArgs[1]).toBeInstanceOf(Error);
     expect((callArgs[1] as Error).message).toContain("plain string error");
     expect(callArgs[2]).toBe("tenant-x");

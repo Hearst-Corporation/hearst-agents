@@ -18,7 +18,7 @@
 
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { KgNode } from "@/lib/memory/kg";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
@@ -312,7 +312,7 @@ function buildKgSummary(node: KgNode | null, lastN: Array<{ label: string }>): s
 
 // ── Suggestion d'agenda via Haiku ────────────────────────────────
 
-const HAIKU_MODEL = KIMI_MODELS.HAIKU;
+const HAIKU_MODEL = OPENAI_MODELS.NANO;
 const SUGGESTED_AGENDA_MAX = 200;
 
 const AGENDA_PROMPT = [

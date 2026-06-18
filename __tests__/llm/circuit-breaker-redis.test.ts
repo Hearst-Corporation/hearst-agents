@@ -207,7 +207,7 @@ describe("RedisCircuitStore", () => {
   it("hydrates in-memory cache from Redis on first async get()", async () => {
     // Prépopule Redis avec un état OPEN (simule un état persisté avant cold start)
     const sharedStore: MockRedisStore = {
-      "circuit-breaker:kimi": {
+      "circuit-breaker:openai": {
         value: JSON.stringify({ status: "OPEN", failures: 7, openedAt: Date.now() - 1000 }),
       },
     };
@@ -215,16 +215,16 @@ describe("RedisCircuitStore", () => {
     const store = new RedisCircuitStore(redis);
 
     // Avant hydration : getSync retourne null (cache vide)
-    expect(store.getSync("kimi")).toBeNull();
+    expect(store.getSync("openai")).toBeNull();
 
     // Après hydration async
-    const state = await store.get("kimi");
+    const state = await store.get("openai");
     expect(state).not.toBeNull();
     expect(state?.status).toBe("OPEN");
     expect(state?.failures).toBe(7);
 
     // Maintenant getSync doit aussi retourner l'état hydraté
-    const syncState = store.getSync("kimi");
+    const syncState = store.getSync("openai");
     expect(syncState?.status).toBe("OPEN");
     expect(syncState?.failures).toBe(7);
   });

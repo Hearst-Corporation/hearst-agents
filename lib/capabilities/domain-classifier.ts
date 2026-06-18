@@ -10,12 +10,12 @@
  * cas ambigus (mots-clés non concluants → "general"), avec :
  *   - cache LRU process-local (même message normalisé → 0 appel)
  *   - fail-soft strict : LLM down/timeout/réponse invalide → fallback "general"
- *   - modèle rapide (Kimi K2.5) via le circuit-breaker existant
+ *   - modèle rapide (nano) via le circuit-breaker existant
  *
  * Résultat : routing cognitif sur l'ambigu, sans pénaliser les 90% de cas clairs.
  */
 
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import { logger } from "@/lib/observability/logger";
 import type { Domain } from "./taxonomy";
@@ -98,11 +98,11 @@ export async function classifyDomainLLM(
     tenantId: opts.tenantId,
     context: "domain-classifier",
     chatRequest: {
-      // max_tokens large : Kimi insère un bloc <think>…</think> même pour une
-      // classification triviale (mesuré). Avec un budget trop petit (8), le
+      // max_tokens large : certains modèles à reasoning insèrent un bloc <think>…</think>
+      // même pour une classification triviale. Avec un budget trop petit (8), le
       // thinking consomme tout et `content` revient VIDE → fallback systématique.
       // On laisse de la marge puis on strippe le <think> au parse.
-      model: KIMI_MODELS.HAIKU, // rapide
+      model: OPENAI_MODELS.NANO, // rapide
       max_tokens: 512,
       temperature: 0,
       messages: [
@@ -113,10 +113,10 @@ export async function classifyDomainLLM(
     fallback,
     parse: (res) => {
       let txt = res.content ?? "";
-      // Strip le reasoning <think>…</think> (Kimi/Hypercli) avant d'extraire le slug.
+      // Strip le reasoning <think>…</think> (modèles à reasoning) avant d'extraire le slug.
       txt = txt.replace(/<think>[\s\S]*?<\/think>/gi, "");
       const raw = txt.toLowerCase().replace(/[^a-z]/g, "");
-      // match exact OU domaine contenu dans la sortie (robuste si Kimi ajoute un mot).
+      // match exact OU domaine contenu dans la sortie (robuste si le modèle ajoute un mot).
       const match = DOMAINS.find((d) => d === raw) ?? DOMAINS.find((d) => raw.includes(d));
       if (!match) {
         logger.warn({ raw: txt.slice(0, 40) }, "domain_classifier_invalid_output");

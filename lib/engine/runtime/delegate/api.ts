@@ -12,7 +12,7 @@ import type { Domain } from "@/lib/capabilities/taxonomy";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import { readDriveFileContent, searchDriveFiles } from "@/lib/connectors/google/drive";
 import { searchEmails as searchGmail } from "@/lib/connectors/google/gmail";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { logger } from "@/lib/observability/logger";
 import { getTokens } from "@/lib/platform/auth/tokens";
 import type { RunEngine } from "../engine";
@@ -327,8 +327,7 @@ async function executeAgentSync(
   input: DelegateInput,
 ): Promise<DelegateResult> {
   const client = new OpenAI({
-    apiKey: process.env.KIMI_API_KEY!,
-    baseURL: "https://api.hypercli.com/v1",
+    apiKey: process.env.OPENAI_API_KEY!,
   });
   const userId = engine.getUserId();
 
@@ -396,13 +395,13 @@ async function executeAgentSync(
 
   if (useWebSearch) {
     const response = await client.chat.completions.create({
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 4096,
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userContent },
       ],
-      // TODO: web_search tool format Anthropic non compatible OpenAI/Kimi
+      // TODO: web_search tool format Anthropic non compatible OpenAI
       // tools: [{ type: "function", function: { name: "web_search", description: "Search the web" } }],
     });
 
@@ -414,7 +413,7 @@ async function executeAgentSync(
     };
   } else {
     const response = await client.chat.completions.create({
-      model: KIMI_MODELS.HAIKU,
+      model: OPENAI_MODELS.NANO,
       max_tokens: 4096,
       messages: [
         { role: "system", content: systemPrompt },

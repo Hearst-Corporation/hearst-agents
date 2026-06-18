@@ -5,7 +5,7 @@
  *   1. Embedder la question via OpenAI (text-embedding-3-small)
  *   2. Top-K nodes via pgvector (sourceKinds: ["kg_node"])
  *   3. Fetch nodes complets + edges connectés (limit 50, weight DESC)
- *   4. Si withNarrative : Kimi résume en 2-3 phrases
+ *   4. Si withNarrative : LLM résume en 2-3 phrases
  *
  * Scope strict : userId+tenantId. Cross-thread (le KG est global per user).
  */
@@ -14,7 +14,7 @@ import type { Tool } from "ai";
 import { jsonSchema } from "ai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { searchEmbeddings } from "@/lib/embeddings/store";
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
 import type { TenantScope } from "@/lib/multi-tenant/types";
@@ -35,7 +35,7 @@ interface QueryKgResult {
   narrative: string | null;
 }
 
-const NARRATIVE_MODEL = KIMI_MODELS.HAIKU;
+const NARRATIVE_MODEL = OPENAI_MODELS.NANO;
 const NARRATIVE_MAX_TOKENS = 400;
 
 export async function runKgQuery(
@@ -101,7 +101,7 @@ export async function runKgQuery(
 
   // 3. Optional narrative
   let narrative: string | null = null;
-  if (params.withNarrative && nodes.length > 0 && process.env.KIMI_API_KEY) {
+  if (params.withNarrative && nodes.length > 0) {
     const tenantId = scope.tenantId;
     const nodeById = new Map(nodes.map((n) => [n.id, n]));
     const factsLines = [
@@ -181,7 +181,7 @@ export function buildKgQueryTools(opts: { scope: TenantScope }): AiToolMap {
         withNarrative: {
           type: "boolean",
           description:
-            "Si true, génère un résumé narratif Kimi (2-3 phrases). Default false " +
+            "Si true, génère un résumé narratif (2-3 phrases). Default false " +
             "(juste les nodes/edges bruts, plus rapide).",
         },
         limit: {

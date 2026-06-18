@@ -1,20 +1,18 @@
 /**
  * Handler `ai_classify_priority` — classification rapide d'une service request
- * en priorité {urgent | normal | low} via Kimi.
+ * en priorité {urgent | normal | low} via LLM.
  *
  * Args :
  *  - text: string
  *  - type?: string
  *  - categories?: string[]  (default ["urgent", "normal", "low"])
- *  - model?: string  (default KIMI_MODELS.HAIKU, cf lib/llm/models.ts)
+ *  - model?: string  (default OPENAI_MODELS.NANO, cf lib/llm/models.ts)
  *
  * Sortie :
  *  { priority: "urgent" | "normal" | "low", reasoning?: string }
- *
- * Sans clé Kimi → priority = "normal" + degraded.
  */
 
-import { KIMI_MODELS } from "@/lib/llm/models";
+import { OPENAI_MODELS } from "@/lib/llm/models";
 import { chatWithCircuitBreaker } from "@/lib/llm/safe-chat";
 import type { WorkflowHandler } from "./types";
 
@@ -54,15 +52,8 @@ export const aiClassifyPriority: WorkflowHandler = async (args, ctx) => {
     };
   }
 
-  if (!process.env.KIMI_API_KEY) {
-    return {
-      success: true,
-      output: { priority: "normal" as Priority, degraded: true, reason: "no_kimi_key" },
-    };
-  }
-
-  const rawModel = typeof args.model === "string" ? args.model : KIMI_MODELS.HAIKU;
-  const model = rawModel.startsWith("claude-") ? KIMI_MODELS.HAIKU : rawModel;
+  const rawModel = typeof args.model === "string" ? args.model : OPENAI_MODELS.NANO;
+  const model = rawModel.startsWith("claude-") ? OPENAI_MODELS.NANO : rawModel;
 
   const userPrompt = [`Type : ${type ?? "(non précisé)"}`, "", `Texte de la request :`, text].join(
     "\n",

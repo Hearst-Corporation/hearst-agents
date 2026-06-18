@@ -92,9 +92,6 @@ export async function runResearchReport(input: ResearchReportInput): Promise<voi
   // ── 1. Web search ──────────────────────────────────────────
   let searchResult: WebSearchResult;
   try {
-    if (!process.env.KIMI_API_KEY) {
-      throw new Error("Research synthesis unavailable — KIMI_API_KEY not configured");
-    }
     searchResult = await searchWeb(query);
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Web search failed";
@@ -338,7 +335,7 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     fallback: FAILED,
     parse: (res) => {
       defaultMetrics.recordCall({
-        provider: "kimi",
+        provider: "openai",
         model: ORCHESTRATOR_MODEL,
         latencyMs: res.latency_ms,
         tokensIn: res.tokens_in,
@@ -349,7 +346,7 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
   });
 
   if (!result.ok) {
-    defaultMetrics.recordError({ provider: "kimi", errorCode: "LLM_ERROR" });
+    defaultMetrics.recordError({ provider: "openai", errorCode: "LLM_ERROR" });
     throw new Error("[ResearchReport] synthesis échouée — circuit ouvert ou LLM erreur");
   }
 

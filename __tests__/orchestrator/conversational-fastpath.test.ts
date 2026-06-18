@@ -15,22 +15,18 @@ describe("conversational fast-path", () => {
     expect(isPureConversational("bonjour, envoie un message Slack")).toBe(false);
   });
 
-  it("uses Kimi 2.5 by default when Kimi is configured", () => {
-    expect(
-      resolveConversationalFastpathConfig({
-        KIMI_API_KEY: "kimi-key",
-        KIMI_BASE_URL: "https://kimi.example/v1",
-      }).model,
-    ).toBe("kimi-k2.5");
+  it("uses gpt-4.1-nano by default with OpenAI key", () => {
+    const config = resolveConversationalFastpathConfig({
+      OPENAI_API_KEY: "sk-openai",
+    });
+    expect(config.model).toBe("gpt-4.1-nano");
+    expect(config.provider).toBe("openai");
   });
 
-  it("keeps OpenAI mini fallback when Kimi is not configured", () => {
-    const config = resolveConversationalFastpathConfig({
-      OPENAI_API_KEY: "openai-key",
-    });
-
-    expect(config.baseURL).toBe("https://api.openai.com/v1");
-    expect(config.model).toBe("gpt-4.1-mini");
+  it("uses gpt-4.1-nano with no env vars (default)", () => {
+    const config = resolveConversationalFastpathConfig({});
+    expect(config.model).toBe("gpt-4.1-nano");
+    expect(config.provider).toBe("openai");
   });
 
   it("allows an isolated fast-path provider override", () => {
@@ -38,12 +34,11 @@ describe("conversational fast-path", () => {
       CONVERSATIONAL_FASTPATH_API_KEY: "minimax-key",
       CONVERSATIONAL_FASTPATH_BASE_URL: "https://minimax.example/v1",
       CONVERSATIONAL_FASTPATH_MODEL: "minimax-m2.5",
-      KIMI_API_KEY: "kimi-key",
-      KIMI_BASE_URL: "https://kimi.example/v1",
+      OPENAI_API_KEY: "sk-openai",
     });
 
     expect(config).toEqual({
-      provider: "kimi",
+      provider: "openai",
       apiKey: "minimax-key",
       baseURL: "https://minimax.example/v1",
       model: "minimax-m2.5",

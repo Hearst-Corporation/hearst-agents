@@ -112,7 +112,7 @@ const routerMocks = vi.hoisted(() => ({
 
 vi.mock("@/lib/llm/router", () => ({
   getProvider: vi.fn(() => ({
-    name: "kimi",
+    name: "openai",
     chat: routerMocks.chatFn,
     streamChat: vi.fn(),
   })),
@@ -264,8 +264,8 @@ describe("analyzeMissionDrift — fail-soft", () => {
 
 describe("generateDriftNarration", () => {
   it("retourne fallback FR ≤140ch quand provider throw (pas de clé)", async () => {
-    delete process.env.KIMI_API_KEY;
-    routerMocks.chatFn.mockRejectedValue(new Error("KIMI_API_KEY is not set"));
+    delete process.env.OPENAI_API_KEY;
+    routerMocks.chatFn.mockRejectedValue(new Error("OPENAI_API_KEY is not set"));
     // Titre unique pour éviter un cache hit d'un test précédent.
     const text = await generateDriftNarration("Mission unique fallback A", 4);
     expect(text.length).toBeGreaterThan(0);
@@ -274,15 +274,15 @@ describe("generateDriftNarration", () => {
     expect(text).toContain("4");
   });
 
-  it("appelle Kimi quand env var KIMI_API_KEY présente, output trimé ≤140ch FR", async () => {
+  it("appelle Kimi quand env var OPENAI_API_KEY présente, output trimé ≤140ch FR", async () => {
     // generateDriftNarration délègue à lib/memory/briefing.ts qui utilise
-    // KIMI_API_KEY ou fallback. On simule la présence d'une clé.
-    process.env.KIMI_API_KEY = "sk-test-kimi";
+    // LLM disponible.
+    process.env.OPENAI_API_KEY = "sk-test-kimi";
     routerMocks.chatFn.mockResolvedValue({
       content:
         "Veille concurrence semble figée depuis 5 runs — peut-être à re-évaluer ou à enrichir avec un nouveau signal pertinent.",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
@@ -296,12 +296,12 @@ describe("generateDriftNarration", () => {
   });
 
   it("clip à 140 chars si Kimi renvoie un texte trop long", async () => {
-    process.env.KIMI_API_KEY = "sk-test-kimi";
+    process.env.OPENAI_API_KEY = "sk-test-kimi";
     const longText = "A".repeat(300);
     routerMocks.chatFn.mockResolvedValue({
       content: longText,
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
@@ -312,11 +312,11 @@ describe("generateDriftNarration", () => {
   });
 
   it("cache 1h : 2e call avec mêmes args ne re-call pas Kimi", async () => {
-    process.env.KIMI_API_KEY = "sk-test-kimi";
+    process.env.OPENAI_API_KEY = "sk-test-kimi";
     routerMocks.chatFn.mockResolvedValue({
       content: "Mission cachée semble stagner.",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
@@ -329,7 +329,7 @@ describe("generateDriftNarration", () => {
   });
 
   it("fallback si Kimi throw", async () => {
-    process.env.KIMI_API_KEY = "sk-test-kimi";
+    process.env.OPENAI_API_KEY = "sk-test-kimi";
     routerMocks.chatFn.mockRejectedValue(new Error("rate limit"));
     const text = await generateDriftNarration("Mission rate-limit-test Y", 6);
     expect(text.length).toBeGreaterThan(0);
@@ -338,11 +338,11 @@ describe("generateDriftNarration", () => {
   });
 
   it("fallback si Kimi renvoie un block vide", async () => {
-    process.env.KIMI_API_KEY = "sk-test-kimi";
+    process.env.OPENAI_API_KEY = "sk-test-kimi";
     routerMocks.chatFn.mockResolvedValue({
       content: "   ",
-      model: "kimi-k2.5",
-      provider: "kimi",
+      model: "gpt-4.1-nano",
+      provider: "openai",
       tokens_in: 0,
       tokens_out: 0,
       cost_usd: 0,
