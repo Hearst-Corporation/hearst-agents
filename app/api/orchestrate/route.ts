@@ -164,6 +164,13 @@ export const orchestrateBodySchema = z.object({
           title: z.string().optional(),
         })
         .nullish(),
+      // Context-navigate signal (Hive → Helm).
+      // currentContext : contexte actif côté surface — Helm n'émet pas de navigation
+      //   vers ce même contexte (évite une boucle page-refresh).
+      // availableContexts : liste des contextes valides côté surface — Helm ne mappe
+      //   jamais vers un contexte absent de cette liste (opaque, taxonomy du client).
+      currentContext: z.string().optional(),
+      availableContexts: z.array(z.string()).max(50).optional(),
     })
     .optional(),
   history: z

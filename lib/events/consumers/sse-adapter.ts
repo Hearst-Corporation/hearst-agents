@@ -623,6 +623,11 @@ export class SSEAdapter {
           message: event.message,
         };
 
+      // ── Context navigation (visible — Hive change de contexte) ──
+      // Passe-plat : contextId est opaque, Helm ne connaît pas la taxonomy.
+      case "context_navigate":
+        return { type: "context_navigate", contextId: event.contextId };
+
       // ── Stage routing (visible — téléporte l'utilisateur) ─
       case "stage_request":
         return { type: "stage_request", stage: event.stage };
