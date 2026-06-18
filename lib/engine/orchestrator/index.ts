@@ -74,6 +74,19 @@ interface OrchestrateInput {
   threadId?: string;
   surface?: string;
   focalContext?: FocalContext;
+  /** Page context from the Hive surface (active space/view/mode + focused item).
+   *  Additive only — NOT used for routing (surface still drives that).
+   *  currentContext / availableContexts : utilisés pour le signal context_navigate. */
+  pageContext?: {
+    page?: string;
+    activeView?: string;
+    mode?: string;
+    selectedItem?: { type?: string; id?: string; title?: string } | null;
+    /** Contexte actif côté surface (opaque). Évite d'émettre un navigate no-op. */
+    currentContext?: string;
+    /** Liste des contextes valides côté surface (opaque). Max 50. */
+    availableContexts?: string[];
+  };
   conversationHistory?: Array<{ role: "user" | "assistant"; content: string }>;
   /** B4 — assets droppés dans ChatInput. Le pipeline IA les injecte dans le user message. */
   attachedAssetIds?: string[];
@@ -117,6 +130,62 @@ interface OrchestrateInput {
 
 const DEV_TENANT_ID = "dev-tenant";
 const DEV_WORKSPACE_ID = "dev-workspace";
+
+// ── Context-navigate mapping ──────────────────────────────────────────────────
+// Table CONSERVATRICE : on ne mappe QUE les correspondances évidentes domaine→contexte.
+// Les domaines non listés (finance, crm, design, developer, analysis, general…) → null.
+// Les contextIds sont des strings OPAQUES que la surface (Hive) aura fournies dans
+// availableContexts — Helm ne les invente JAMAIS, il vérifie juste l'inclusion.
+const DOMAIN_TO_CONTEXT: Readonly<Record<string, string>> = {
+  communication: "inbox",
+  documents: "documents",
+  media: "media",
+  research: "reports",
+  productivity: "missions",
+};
+
+/**
+ * Détermine le contextId cible pour un domaine donné, en s'assurant qu'il est
+ * présent dans availableContexts et différent de currentContext.
+ *
+ * Fonction PURE — aucun side-effect, testable isolément.
+ *
+ * @param domain           - Domaine résolu par le router (capScope.domain).
+ * @param availableContexts - Liste des contextes valides fournis par la surface.
+ * @param currentContext   - Contexte actif côté surface (opaque). Si absent → pas de filtre.
+ * @returns contextId à émettre, ou null si aucun signal confiant.
+ */
+export function pickNavigateContext(
+  domain: string,
+  availableContexts: string[],
+  currentContext?: string,
+): string | null {
+  const target = DOMAIN_TO_CONTEXT[domain];
+  if (!target) return null;
+  if (!availableContexts.includes(target)) return null;
+  if (currentContext !== undefined && target === currentContext) return null;
+  return target;
+}
+
+/** Émet `context_navigate` si les conditions sont réunies. Best-effort — appelé dans un try/catch. */
+function emitContextNavigate(
+  runId: string,
+  domain: string,
+  pageContext: OrchestrateInput["pageContext"],
+  eventBus: RunEventBus,
+): void {
+  const availableContexts = pageContext?.availableContexts;
+  if (!Array.isArray(availableContexts) || availableContexts.length === 0) return;
+
+  const contextId = pickNavigateContext(domain, availableContexts, pageContext?.currentContext);
+  if (!contextId) return;
+
+  eventBus.emit({
+    type: "context_navigate",
+    run_id: runId,
+    contextId,
+  });
+}
 
 function shortId(id?: string): string | undefined {
   return id ? id.slice(0, 8) : undefined;
@@ -875,6 +944,23 @@ async function runPipeline(
     reason: decision.reason,
     backend: decision.backend,
   });
+
+  // ── Context-navigate signal (best-effort, non-bloquant) ────────────────────
+  // Émet un `context_navigate` UNIQUEMENT si :
+  //   1. La surface a fourni une liste de contextes disponibles (availableContexts).
+  //   2. Le domaine résolu mappe vers un contexte cible CONFIANT (table ci-dessous).
+  //   3. La cible est présente dans availableContexts (taxonomy opaque du client).
+  //   4. La cible est différente du contexte actif (évite un navigate no-op).
+  // Tout autre domaine (finance, crm, design, developer, analysis, general…) →
+  // on n'émet rien : mieux vaut le silence que naviguer au mauvais endroit.
+  try {
+    emitContextNavigate(engine.id, capScope.domain, input.pageContext, eventBus);
+  } catch (err) {
+    logger.warn(
+      { err: err instanceof Error ? err.message : String(err) },
+      "[Orchestrator] context_navigate émission échouée — ignoré (best-effort)",
+    );
+  }
 
   // Instrumentation décision de sélection (obs) : pourquoi un tool a (ou n'a
   // pas) été choisi. tool_candidate_count = taille du toolset autorisé exposé

@@ -90,7 +90,12 @@ export type RunEvent =
   | BrowserTaskFailedEvent
   | BrowserTakeOverEvent
   // Run cost summary (émis après run_completed)
-  | RunCostEvent;
+  | RunCostEvent
+  // Context navigation — Helm signale à la surface (Hive) de se déplacer vers
+  // un contexte cible. contextId est OPAQUE : Helm ne connaît pas la taxonomy
+  // du consommateur — il émet uniquement si la cible figure dans
+  // availableContexts (fournie par la surface dans la requête).
+  | ContextNavigateEvent;
 
 // ── Base ─────────────────────────────────────────────────
 
@@ -532,6 +537,18 @@ export interface BrowserTaskFailedEvent extends BaseEvent {
 export interface BrowserTakeOverEvent extends BaseEvent {
   type: "browser_take_over";
   sessionId: string;
+}
+
+// ── Context navigation ───────────────────────────────────
+// Émis par runPipeline APRÈS résolution du domaine, si le domaine mappe
+// vers un contexte connu dans la liste fournie par la surface (Hive).
+// contextId est une string OPAQUE — Helm ne valide pas la taxonomy client.
+// Émis SEULEMENT si : mapping confiant + cible dans availableContexts + cible ≠ currentContext.
+
+export interface ContextNavigateEvent extends BaseEvent {
+  type: "context_navigate";
+  /** Id opaque du contexte cible (défini par la surface consommatrice, ex : "inbox"). */
+  contextId: string;
 }
 
 // ── Stage routing ────────────────────────────────────────

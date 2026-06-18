@@ -125,7 +125,7 @@ function withHeartbeat(
 // Primary boot is instrumentation.ts; this is a secondary guard.
 void ensureSchedulerStarted();
 
-const orchestrateBodySchema = z.object({
+export const orchestrateBodySchema = z.object({
   message: z.string().min(1).max(20_000),
   conversation_id: z.string().uuid().optional(),
   surface: z.string().optional(),
@@ -136,6 +136,30 @@ const orchestrateBodySchema = z.object({
       objectType: z.string(),
       title: z.string(),
       status: z.string(),
+    })
+    .optional(),
+  // Page context (Hive Patch 2B) — the active space/view/mode + focused item, distinct
+  // from focal_context. Fully tolerant (every field optional) so it can never break a
+  // request; surface routing is unchanged. Additive only.
+  page_context: z
+    .object({
+      page: z.string().optional(),
+      activeView: z.string().optional(),
+      mode: z.string().optional(),
+      selectedItem: z
+        .object({
+          type: z.string().optional(),
+          id: z.string().optional(),
+          title: z.string().optional(),
+        })
+        .nullish(),
+      // Context-navigate signal (Hive → Helm).
+      // currentContext : contexte actif côté surface — Helm n'émet pas de navigation
+      //   vers ce même contexte (évite une boucle page-refresh).
+      // availableContexts : liste des contextes valides côté surface — Helm ne mappe
+      //   jamais vers un contexte absent de cette liste (opaque, taxonomy du client).
+      currentContext: z.string().optional(),
+      availableContexts: z.array(z.string()).max(50).optional(),
     })
     .optional(),
   history: z
@@ -217,6 +241,9 @@ export async function POST(req: NextRequest) {
       conversationHistory: cappedHistory.length > 0 ? cappedHistory : undefined,
       attachedAssetIds: validatedAssetIds,
       personaId: parsed.data.persona_id,
+      // Page context (Hive → Helm) : porte availableContexts/currentContext utilisés
+      // par emitContextNavigate. Additif/tolérant ; absent = aucun signal navigate.
+      pageContext: parsed.data.page_context,
       // missionId n'est pas accepté depuis le chat public — ownership validé via /api/v2/missions/[id]/run
       tenantId: scope.tenantId,
       workspaceId: scope.workspaceId,
