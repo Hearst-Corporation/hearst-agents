@@ -21,9 +21,6 @@ import type { Persona } from "@/lib/personas/types";
 // prompt) à qualité de sélection égale (benchmark 2026-06-04). Surcharge via env.
 export const ORCHESTRATOR_MODEL = process.env.ORCHESTRATOR_MODEL_OAI ?? "gpt-4.1";
 
-// Alias conservé pour la compatibilité interne (ai-pipeline.ts, llm-candidates.ts).
-export const ORCHESTRATOR_MODEL_OAI = process.env.ORCHESTRATOR_MODEL_OAI ?? "gpt-4.1";
-
 export const ORCHESTRATOR_SYSTEM_PROMPT = `Tu es le Principal Orchestrator de Hearst OS.
 
 RÔLE :
