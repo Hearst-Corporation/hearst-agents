@@ -5,154 +5,168 @@
  * `goto + observe + extract`. Pas de plan multi-step, pas de click ni de
  * fill, pas de raisonnement par tour. Cette boucle change ça :
  *
- *   1. On pose à Claude Sonnet une description de tâche + le contexte page
+ *   1. On pose au modèle OpenAI une description de tâche + le contexte page
  *      courant (URL, title, snippet HTML cleané).
- *   2. Claude choisit un outil parmi { navigate, click, fill, wait, extract,
- *      done } via le mécanisme `tool_use` natif de l'API Anthropic.
+ *   2. Le modèle choisit un outil parmi { navigate, click, fill, wait, extract,
+ *      done } via le function-calling natif de l'API OpenAI.
  *   3. On exécute le tool via `PlaywrightPage`, on streame un event sur le
- *      bus pour le live action log, on append le tool_result à la
+ *      bus pour le live action log, on append le tool result à la
  *      conversation.
  *   4. Loop jusqu'à `done` ou cap maxSteps (default 15).
  *
  * Pourquoi ce pattern (vs frameworks tiers comme Stagehand SDK) :
- *  - zéro nouvelle dépendance (on a déjà `@anthropic-ai/sdk`)
+ *  - zéro nouvelle dépendance (on a déjà `openai`)
  *  - contrôle total sur les events streamés (compat ActionLog UI)
- *  - prompt cache éphémère 5 min sur le system prompt → coûts maîtrisés
  *
  * Fail-soft : chaque tool exécution est try/catch, l'erreur est rebouclée
- * comme `tool_result` à Claude qui peut décider de retry ou abandonner.
+ * comme tool result au modèle qui peut décider de retry ou abandonner.
+ *
+ * LLM = OpenAI uniquement (Kimi & Anthropic retirés 2026-06-19). Une action
+ * par tour garantie via `parallel_tool_calls: false`.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
-import type {
-  Tool as AnthropicTool,
-  MessageParam,
-  ToolResultBlockParam,
-  ToolUseBlock,
-} from "@anthropic-ai/sdk/resources/messages";
+import OpenAI from "openai";
 import { fenceUntrusted, getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 import { assertSafeUrl, SsrfBlockedError } from "@/lib/security/ssrf-guard";
 import type { PlaywrightPage } from "./playwright-bridge";
 
-// ── Tool definitions (Anthropic schema) ──────────────────────
+// ── Tool definitions (OpenAI function schema) ────────────────
 
-const TOOLS: AnthropicTool[] = [
+const TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
-    name: "navigate",
-    description:
-      "Navigate the browser to a URL. Use ONLY for absolute URLs (https://...). Returns the new page state.",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        url: {
-          type: "string" as const,
-          description: "Full URL to navigate to (must start with http:// or https://).",
+    type: "function",
+    function: {
+      name: "navigate",
+      description:
+        "Navigate the browser to a URL. Use ONLY for absolute URLs (https://...). Returns the new page state.",
+      parameters: {
+        type: "object",
+        properties: {
+          url: {
+            type: "string",
+            description: "Full URL to navigate to (must start with http:// or https://).",
+          },
+          reason: {
+            type: "string",
+            description: "Why this navigation is needed, in one short sentence.",
+          },
         },
-        reason: {
-          type: "string" as const,
-          description: "Why this navigation is needed, in one short sentence.",
-        },
+        required: ["url", "reason"],
       },
-      required: ["url", "reason"],
     },
   },
   {
-    name: "click",
-    description:
-      "Click on a page element. Selector can be CSS (`button.cta`, `#submit`) or text-based (`text=Sign in`).",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        selector: {
-          type: "string" as const,
-          description:
-            "CSS selector or `text=...` selector. Prefer stable attributes (`data-testid`, `aria-label`) over fragile classes.",
+    type: "function",
+    function: {
+      name: "click",
+      description:
+        "Click on a page element. Selector can be CSS (`button.cta`, `#submit`) or text-based (`text=Sign in`).",
+      parameters: {
+        type: "object",
+        properties: {
+          selector: {
+            type: "string",
+            description:
+              "CSS selector or `text=...` selector. Prefer stable attributes (`data-testid`, `aria-label`) over fragile classes.",
+          },
+          reason: {
+            type: "string",
+            description: "Why this click is needed, in one short sentence.",
+          },
         },
-        reason: {
-          type: "string" as const,
-          description: "Why this click is needed, in one short sentence.",
-        },
+        required: ["selector", "reason"],
       },
-      required: ["selector", "reason"],
     },
   },
   {
-    name: "fill",
-    description: "Fill a form input with a value. Selector targets the input element.",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        selector: {
-          type: "string" as const,
-          description: "CSS selector of the input/textarea/contenteditable to fill.",
+    type: "function",
+    function: {
+      name: "fill",
+      description: "Fill a form input with a value. Selector targets the input element.",
+      parameters: {
+        type: "object",
+        properties: {
+          selector: {
+            type: "string",
+            description: "CSS selector of the input/textarea/contenteditable to fill.",
+          },
+          value: {
+            type: "string",
+            description: "Text value to type into the input.",
+          },
+          reason: {
+            type: "string",
+            description: "Why this fill is needed.",
+          },
         },
-        value: {
-          type: "string" as const,
-          description: "Text value to type into the input.",
-        },
-        reason: {
-          type: "string" as const,
-          description: "Why this fill is needed.",
-        },
+        required: ["selector", "value", "reason"],
       },
-      required: ["selector", "value", "reason"],
     },
   },
   {
-    name: "wait",
-    description:
-      "Pause the loop for N milliseconds — use after a click that triggers an async load. Cap 5000ms.",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        ms: {
-          type: "number" as const,
-          description: "Milliseconds to wait (max 5000).",
+    type: "function",
+    function: {
+      name: "wait",
+      description:
+        "Pause the loop for N milliseconds — use after a click that triggers an async load. Cap 5000ms.",
+      parameters: {
+        type: "object",
+        properties: {
+          ms: {
+            type: "number",
+            description: "Milliseconds to wait (max 5000).",
+          },
+          reason: {
+            type: "string",
+            description: "Why we need to wait.",
+          },
         },
-        reason: {
-          type: "string" as const,
-          description: "Why we need to wait.",
-        },
+        required: ["ms", "reason"],
       },
-      required: ["ms", "reason"],
     },
   },
   {
-    name: "extract",
-    description:
-      "Extract structured data from the current page. Use this near the end of a task when you have the data you need.",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        instruction: {
-          type: "string" as const,
-          description:
-            "What to extract, in natural language (e.g. 'product price and availability').",
+    type: "function",
+    function: {
+      name: "extract",
+      description:
+        "Extract structured data from the current page. Use this near the end of a task when you have the data you need.",
+      parameters: {
+        type: "object",
+        properties: {
+          instruction: {
+            type: "string",
+            description:
+              "What to extract, in natural language (e.g. 'product price and availability').",
+          },
+          schema: {
+            type: "object",
+            description: "Optional JSON Schema describing the target shape.",
+          },
         },
-        schema: {
-          type: "object" as const,
-          description: "Optional JSON Schema describing the target shape.",
-        },
+        required: ["instruction"],
       },
-      required: ["instruction"],
     },
   },
   {
-    name: "done",
-    description: "Terminate the loop. Call this when the task is complete or impossible.",
-    input_schema: {
-      type: "object" as const,
-      properties: {
-        summary: {
-          type: "string" as const,
-          description: "One-sentence summary of what was accomplished (or why it failed).",
+    type: "function",
+    function: {
+      name: "done",
+      description: "Terminate the loop. Call this when the task is complete or impossible.",
+      parameters: {
+        type: "object",
+        properties: {
+          summary: {
+            type: "string",
+            description: "One-sentence summary of what was accomplished (or why it failed).",
+          },
+          success: {
+            type: "boolean",
+            description: "true if task completed successfully, false otherwise.",
+          },
         },
-        success: {
-          type: "boolean" as const,
-          description: "true if task completed successfully, false otherwise.",
-        },
+        required: ["summary", "success"],
       },
-      required: ["summary", "success"],
     },
   },
 ];
@@ -195,15 +209,15 @@ export interface AgentLoopOptions {
   page: PlaywrightPage;
   /** Cap sur le nombre d'actions (défaut 15, max 30). */
   maxSteps?: number;
-  /** Override modèle (défaut Sonnet 4.6 — le plus précis pour tool_use). */
+  /** Override modèle (défaut gpt-4.1 — le plus précis pour le function-calling). */
   model?: string;
   /** Signal d'abort externe (ex: Take Over). */
   abortSignal?: AbortSignal;
   /** Callback appelé après chaque step exécuté — sert à émettre les events
    *  côté stagehand-executor sans coupler ce module au runBus. */
   onStep?: (step: AgentStep) => void;
-  /** Override pour les tests : substitue le client Anthropic. */
-  anthropicClient?: Anthropic;
+  /** Override pour les tests : substitue le client OpenAI. */
+  openaiClient?: OpenAI;
 }
 
 export interface AgentLoopResult {
@@ -278,7 +292,7 @@ interface ExecuteToolOpts {
   page: PlaywrightPage;
   toolName: string;
   input: Record<string, unknown>;
-  anthropicClient: Anthropic;
+  openaiClient: OpenAI;
 }
 
 interface ExecuteToolResult {
@@ -339,7 +353,7 @@ async function executeTool(opts: ExecuteToolOpts): Promise<ExecuteToolResult> {
           page,
           instruction,
           schema: input.schema as Record<string, unknown> | undefined,
-          anthropicClient: opts.anthropicClient,
+          openaiClient: opts.openaiClient,
         });
         return { ok: true, data };
       }
@@ -367,7 +381,7 @@ interface ExtractStructuredOpts {
   page: PlaywrightPage;
   instruction: string;
   schema?: Record<string, unknown>;
-  anthropicClient: Anthropic;
+  openaiClient: OpenAI;
 }
 
 async function extractStructured(opts: ExtractStructuredOpts): Promise<unknown> {
@@ -393,14 +407,15 @@ async function extractStructured(opts: ExtractStructuredOpts): Promise<unknown> 
     cleaned,
   ].join("\n");
 
-  const msg = await opts.anthropicClient.messages.create({
-    model: "claude-haiku-4-5-20251001",
+  const completion = await opts.openaiClient.chat.completions.create({
+    model: process.env.BROWSER_EXTRACT_MODEL ?? "gpt-4o-mini",
     max_tokens: 2000,
-    system,
-    messages: [{ role: "user", content: user }],
+    messages: [
+      { role: "system", content: system },
+      { role: "user", content: user },
+    ],
   });
-  const textBlock = msg.content[0];
-  const text = textBlock?.type === "text" ? textBlock.text.trim() : "";
+  const text = completion.choices[0]?.message?.content?.trim() ?? "";
   const m = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
   if (!m) return { instruction: opts.instruction, raw: text };
   try {
@@ -415,8 +430,9 @@ async function extractStructured(opts: ExtractStructuredOpts): Promise<unknown> 
 const NO_PROGRESS_LIMIT = 5;
 
 export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopResult> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  const client = opts.anthropicClient ?? (apiKey ? new Anthropic({ apiKey }) : null);
+  const apiKey = process.env.OPENAI_API_KEY;
+  const baseURL = process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1";
+  const client = opts.openaiClient ?? (apiKey ? new OpenAI({ apiKey, baseURL }) : null);
 
   const result: AgentLoopResult = {
     steps: [],
@@ -428,23 +444,20 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopRes
 
   if (!client) {
     result.aborted = true;
-    result.summary = "ANTHROPIC_API_KEY absent — agent loop désactivé.";
+    result.summary = "OPENAI_API_KEY absent — agent loop désactivé.";
     return result;
   }
 
   const maxSteps = Math.max(1, Math.min(opts.maxSteps ?? 15, 30));
-  const model = opts.model ?? "claude-sonnet-4-6";
+  const model = opts.model ?? process.env.BROWSER_AGENT_MODEL ?? "gpt-4.1";
 
   // On démarre la conversation avec le contexte page initial.
   const context = await buildContextMessage(opts.page);
-  const messages: MessageParam[] = [
+  const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+    { role: "system", content: SYSTEM_PROMPT },
     {
       role: "user",
-      content: [
-        { type: "text", text: `Tâche : ${opts.task}` },
-        { type: "text", text: context },
-        { type: "text", text: "Choisis ta première action." },
-      ],
+      content: `Tâche : ${opts.task}\n\n${context}\n\nChoisis ta première action.`,
     },
   ];
 
@@ -459,39 +472,44 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopRes
 
     let response;
     try {
-      response = await client.messages.create({
+      response = await client.chat.completions.create({
         model,
         max_tokens: 1024,
-        system: SYSTEM_PROMPT,
-        tools: TOOLS,
         messages,
+        tools: TOOLS,
+        tool_choice: "auto",
+        // Une seule action par tour (parité avec l'ancien comportement Anthropic).
+        parallel_tool_calls: false,
       });
     } catch (err) {
       result.aborted = true;
-      result.summary = `Anthropic call failed: ${err instanceof Error ? err.message : String(err)}`;
+      result.summary = `OpenAI call failed: ${err instanceof Error ? err.message : String(err)}`;
       break;
     }
 
-    // Cherche le bloc tool_use (Claude peut écrire un text + un tool_use)
-    const toolUseBlock = response.content.find((b): b is ToolUseBlock => b.type === "tool_use");
+    const assistantMsg = response.choices[0]?.message;
+    const toolCall = assistantMsg?.tool_calls?.[0];
 
-    if (!toolUseBlock) {
-      // Pas de tool_use — Claude a fini de répondre en texte. On termine.
-      const textBlock = response.content.find((b) => b.type === "text");
-      const text = textBlock && textBlock.type === "text" ? textBlock.text : "";
-      result.summary = text.slice(0, 280) || "(no summary)";
+    if (!assistantMsg || !toolCall || toolCall.type !== "function") {
+      // Pas de tool call — le modèle a fini de répondre en texte. On termine.
+      result.summary = (assistantMsg?.content ?? "").slice(0, 280) || "(no summary)";
       break;
     }
 
-    const toolName = toolUseBlock.name;
-    const toolInput = (toolUseBlock.input ?? {}) as Record<string, unknown>;
+    const toolName = toolCall.function.name;
+    let toolInput: Record<string, unknown> = {};
+    try {
+      toolInput = JSON.parse(toolCall.function.arguments || "{}") as Record<string, unknown>;
+    } catch {
+      /* arguments malformés → objet vide, le tool renverra une erreur exploitable */
+    }
 
     const tStart = Date.now();
     const exec = await executeTool({
       page: opts.page,
       toolName,
       input: toolInput,
-      anthropicClient: client,
+      openaiClient: client,
     });
     const durationMs = Date.now() - tStart;
 
@@ -508,14 +526,13 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopRes
       result.extractedData = exec.data;
     }
 
-    // Append assistant tool_use + user tool_result à la conversation
-    messages.push({ role: "assistant", content: response.content });
-    const toolResult: ToolResultBlockParam = {
-      type: "tool_result",
-      tool_use_id: toolUseBlock.id,
+    // Append assistant (avec tool_calls) + tool result à la conversation.
+    messages.push(assistantMsg);
+    messages.push({
+      role: "tool",
+      tool_call_id: toolCall.id,
       content: JSON.stringify(exec).slice(0, 4000),
-      is_error: !exec.ok,
-    };
+    });
 
     if (exec.terminal) {
       // Tool `done` — on termine la boucle
@@ -543,10 +560,7 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<AgentLoopRes
         ? `Result: ${JSON.stringify(exec).slice(0, 200)}`
         : await buildContextMessage(opts.page);
 
-    messages.push({
-      role: "user",
-      content: [toolResult, { type: "text", text: nextContext }],
-    });
+    messages.push({ role: "user", content: nextContext });
   }
 
   if (!result.summary) {

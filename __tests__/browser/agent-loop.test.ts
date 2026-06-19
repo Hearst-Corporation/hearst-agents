@@ -1,5 +1,5 @@
 /**
- * Browser Agent Loop (vague 9, action #4) — tests avec Anthropic mocké.
+ * Browser Agent Loop (vague 9, action #4) — tests avec OpenAI mocké.
  *
  * Couvre :
  *  - Sequence multi-step : navigate → click → done
@@ -8,7 +8,7 @@
  *  - abort signal stoppe la boucle
  *  - 5 échecs consécutifs → abort no-progress
  *  - max steps respecté
- *  - Pas de clé Anthropic → abort propre
+ *  - Pas de clé OpenAI → abort propre
  */
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -16,55 +16,70 @@ import { runAgentLoop } from "@/lib/browser/agent-loop";
 import type { PlaywrightPage } from "@/lib/browser/playwright-bridge";
 import { createFakePage } from "@/lib/browser/playwright-bridge";
 
-// ── Helpers : mock Anthropic ─────────────────────────────────
+// ── Helpers : mock OpenAI ────────────────────────────────────
 
 interface ScriptedToolCall {
   name: string;
   input: Record<string, unknown>;
 }
 
+type OpenAIClientParam = Parameters<typeof runAgentLoop>[0]["openaiClient"];
+
+/** Construit une réponse chat.completions au format OpenAI avec un tool_call. */
+function toolCallResponse(idx: number, name: string, input: Record<string, unknown>) {
+  return {
+    id: `chatcmpl-${idx}`,
+    choices: [
+      {
+        index: 0,
+        finish_reason: "tool_calls" as const,
+        message: {
+          role: "assistant" as const,
+          content: null,
+          tool_calls: [
+            {
+              id: `call_${idx}`,
+              type: "function" as const,
+              function: { name, arguments: JSON.stringify(input) },
+            },
+          ],
+        },
+      },
+    ],
+  };
+}
+
+/** Réponse texte seule (pas de tool_call) → termine la boucle. */
+function textResponse(idx: number, text: string) {
+  return {
+    id: `chatcmpl-${idx}`,
+    choices: [
+      {
+        index: 0,
+        finish_reason: "stop" as const,
+        message: { role: "assistant" as const, content: text, tool_calls: undefined },
+      },
+    ],
+  };
+}
+
 /**
- * Simule un client Anthropic qui retourne une séquence prédéfinie de
- * tool_use blocks. Chaque appel à `messages.create` renvoie la prochaine
- * étape de `script`. Quand le script est épuisé, retourne un end_turn vide.
+ * Simule un client OpenAI qui retourne une séquence prédéfinie de tool_calls.
+ * Chaque appel à `chat.completions.create` renvoie la prochaine étape de
+ * `script`. Quand le script est épuisé, retourne une réponse texte vide.
  */
 function makeMockClient(script: ScriptedToolCall[]) {
   let cursor = 0;
   return {
-    messages: {
-      create: vi.fn(async () => {
-        const next = script[cursor];
-        cursor += 1;
-        if (!next) {
-          return {
-            id: `msg-end-${cursor}`,
-            type: "message" as const,
-            role: "assistant" as const,
-            model: "claude-sonnet-4-6",
-            content: [{ type: "text" as const, text: "Done." }],
-            stop_reason: "end_turn" as const,
-            stop_sequence: null,
-            usage: { input_tokens: 10, output_tokens: 5 },
-          };
-        }
-        return {
-          id: `msg-${cursor}`,
-          type: "message" as const,
-          role: "assistant" as const,
-          model: "claude-sonnet-4-6",
-          content: [
-            {
-              type: "tool_use" as const,
-              id: `toolu_${cursor}`,
-              name: next.name,
-              input: next.input,
-            },
-          ],
-          stop_reason: "tool_use" as const,
-          stop_sequence: null,
-          usage: { input_tokens: 100, output_tokens: 50 },
-        };
-      }),
+    chat: {
+      completions: {
+        create: vi.fn(async () => {
+          const next = script[cursor];
+          cursor += 1;
+          if (!next) return textResponse(cursor, "Done.");
+          return toolCallResponse(cursor, next.name, next.input);
+        }),
+      },
     },
   };
 }
@@ -106,7 +121,7 @@ describe("runAgentLoop", () => {
     const result = await runAgentLoop({
       task: "Open https://acme.com",
       page,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
 
     expect(result.steps).toHaveLength(2);
@@ -130,7 +145,7 @@ describe("runAgentLoop", () => {
     const result = await runAgentLoop({
       task: "x",
       page,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
 
     expect(result.steps[0].result.ok).toBe(false);
@@ -147,7 +162,7 @@ describe("runAgentLoop", () => {
     await runAgentLoop({
       task: "Click submit",
       page,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(page.click).toHaveBeenCalledWith(
       "button.submit",
@@ -167,7 +182,7 @@ describe("runAgentLoop", () => {
     await runAgentLoop({
       task: "Fill email",
       page,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(page.fill).toHaveBeenCalledWith(
       "input[name=email]",
@@ -181,64 +196,26 @@ describe("runAgentLoop", () => {
     const page = makeSpyPage({
       content: vi.fn(async () => fakeContent),
     });
-    // Mock extract returns valid JSON via Haiku call
+    // Séquence : extract (tool_call) → JSON (texte, appel interne) → done (tool_call)
     const client = {
-      messages: {
-        create: vi
-          .fn()
-          // 1er appel : tool_use extract
-          .mockResolvedValueOnce({
-            id: "m1",
-            type: "message" as const,
-            role: "assistant" as const,
-            model: "x",
-            content: [
-              {
-                type: "tool_use" as const,
-                id: "tu1",
-                name: "extract",
-                input: { instruction: "page title and price" },
-              },
-            ],
-            stop_reason: "tool_use" as const,
-            stop_sequence: null,
-            usage: { input_tokens: 100, output_tokens: 30 },
-          })
-          // 2e appel : Haiku interne pour extractStructured retourne JSON
-          .mockResolvedValueOnce({
-            id: "m2",
-            type: "message" as const,
-            role: "assistant" as const,
-            model: "x",
-            content: [{ type: "text" as const, text: '{"title":"Acme","price":"$99"}' }],
-            stop_reason: "end_turn" as const,
-            stop_sequence: null,
-            usage: { input_tokens: 200, output_tokens: 20 },
-          })
-          // 3e appel : tool_use done
-          .mockResolvedValueOnce({
-            id: "m3",
-            type: "message" as const,
-            role: "assistant" as const,
-            model: "x",
-            content: [
-              {
-                type: "tool_use" as const,
-                id: "tu2",
-                name: "done",
-                input: { summary: "Extracted", success: true },
-              },
-            ],
-            stop_reason: "tool_use" as const,
-            stop_sequence: null,
-            usage: { input_tokens: 10, output_tokens: 5 },
-          }),
+      chat: {
+        completions: {
+          create: vi
+            .fn()
+            .mockResolvedValueOnce(
+              toolCallResponse(1, "extract", { instruction: "page title and price" }),
+            )
+            .mockResolvedValueOnce(textResponse(2, '{"title":"Acme","price":"$99"}'))
+            .mockResolvedValueOnce(
+              toolCallResponse(3, "done", { summary: "Extracted", success: true }),
+            ),
+        },
       },
     };
     const result = await runAgentLoop({
       task: "Extract title and price",
       page,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(result.extractedData).toEqual({ title: "Acme", price: "$99" });
     expect(result.success).toBe(true);
@@ -256,7 +233,7 @@ describe("runAgentLoop", () => {
       task: "Spam click",
       page,
       maxSteps: 5,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(result.steps).toHaveLength(5);
     expect(result.aborted).toBe(true);
@@ -275,7 +252,7 @@ describe("runAgentLoop", () => {
       task: "x",
       page,
       onStep,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(onStep).toHaveBeenCalledTimes(3);
     expect(onStep.mock.calls[0][0].tool).toBe("navigate");
@@ -286,28 +263,13 @@ describe("runAgentLoop", () => {
   it("abort via signal externe stoppe immédiatement", async () => {
     const controller = new AbortController();
     const client = {
-      messages: {
-        create: vi.fn(async () => {
-          // Abort right before the first response
-          controller.abort();
-          return {
-            id: "m1",
-            type: "message" as const,
-            role: "assistant" as const,
-            model: "x",
-            content: [
-              {
-                type: "tool_use" as const,
-                id: "tu1",
-                name: "navigate",
-                input: { url: "https://x.com", reason: "x" },
-              },
-            ],
-            stop_reason: "tool_use" as const,
-            stop_sequence: null,
-            usage: { input_tokens: 10, output_tokens: 5 },
-          };
-        }),
+      chat: {
+        completions: {
+          create: vi.fn(async () => {
+            controller.abort();
+            return toolCallResponse(1, "navigate", { url: "https://x.com", reason: "x" });
+          }),
+        },
       },
     };
     const page = makeSpyPage();
@@ -317,7 +279,7 @@ describe("runAgentLoop", () => {
       task: "x",
       page,
       abortSignal: controller.signal,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(result.aborted).toBe(true);
     expect(result.summary).toContain("interrompu");
@@ -335,7 +297,7 @@ describe("runAgentLoop", () => {
       task: "x",
       page,
       maxSteps: 20,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(result.aborted).toBe(true);
     expect(result.summary).toContain("échec");
@@ -343,39 +305,32 @@ describe("runAgentLoop", () => {
     expect(result.steps.length).toBeLessThanOrEqual(5);
   });
 
-  it("retourne aborted sans clé Anthropic ni client mocké", async () => {
-    const original = process.env.ANTHROPIC_API_KEY;
-    delete process.env.ANTHROPIC_API_KEY;
+  it("retourne aborted sans clé OpenAI ni client mocké", async () => {
+    const original = process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_API_KEY;
     try {
       const page = makeSpyPage();
       const result = await runAgentLoop({ task: "x", page });
       expect(result.aborted).toBe(true);
-      expect(result.summary).toContain("ANTHROPIC_API_KEY");
+      expect(result.summary).toContain("OPENAI_API_KEY");
     } finally {
-      if (original) process.env.ANTHROPIC_API_KEY = original;
+      if (original) process.env.OPENAI_API_KEY = original;
     }
   });
 
-  it("text-only response (pas de tool_use) termine la boucle", async () => {
+  it("text-only response (pas de tool_call) termine la boucle", async () => {
     const client = {
-      messages: {
-        create: vi.fn(async () => ({
-          id: "m1",
-          type: "message" as const,
-          role: "assistant" as const,
-          model: "x",
-          content: [{ type: "text" as const, text: "Je n'ai pas assez d'info pour agir." }],
-          stop_reason: "end_turn" as const,
-          stop_sequence: null,
-          usage: { input_tokens: 10, output_tokens: 10 },
-        })),
+      chat: {
+        completions: {
+          create: vi.fn(async () => textResponse(1, "Je n'ai pas assez d'info pour agir.")),
+        },
       },
     };
     const page = makeSpyPage();
     const result = await runAgentLoop({
       task: "x",
       page,
-      anthropicClient: client as unknown as Parameters<typeof runAgentLoop>[0]["anthropicClient"],
+      openaiClient: client as unknown as OpenAIClientParam,
     });
     expect(result.steps).toHaveLength(0);
     expect(result.summary).toContain("pas assez");

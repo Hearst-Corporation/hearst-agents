@@ -163,7 +163,7 @@ function emitFailed(runId: string, sessionId: string, error: string, totalAction
 // Implémentation par défaut : si `testActions` est fourni, replay scripté.
 // Sinon, on lance le vrai agent loop LLM-driven (vague 9, action #4) :
 //  - prefetch URL d'entrée si présente dans la task (heuristique inchangée)
-//  - délègue à `runAgentLoop` (Sonnet + tool_use) pour la suite
+//  - délègue à `runAgentLoop` (OpenAI + function-calling) pour la suite
 //  - émet un browser_action par step exécuté
 // Le mode "stub-light" (playwright-core indispo) reste : on émet juste un
 // event navigate déterministe pour ne pas casser l'UI.
@@ -261,7 +261,7 @@ class DefaultBrowserExecutor implements BrowserExecutor {
         summary = `Replay test : ${opts.testActions.length} actions`;
       } else {
         // Mode live : on essaye de connecter Playwright via Browserbase,
-        // puis on délègue à `runAgentLoop` (Sonnet + tool_use) qui pilote
+        // puis on délègue à `runAgentLoop` (OpenAI + function-calling) qui pilote
         // la page step-by-step. Chaque step exécuté est mappé en
         // `browser_action` event pour l'ActionLog UI.
         //

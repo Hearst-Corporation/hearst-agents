@@ -4,17 +4,17 @@
  * Reçoit STRICTEMENT les scalaires + top-N rows du payload (jamais le raw)
  * pour rester sous le budget de tokens. Le prompt système est cacheable.
  *
- * Coût cible : ~600 output tokens (Sonnet 4-6) + ~3-5k input cached → <$0.05.
+ * Coût cible : ~600 output tokens (gpt-4.1) + ~3-5k input → <$0.05.
  */
 
-import { createAnthropic } from "@ai-sdk/anthropic";
+import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { formatFewShotBlock, NARRATION_FEWSHOT_FR } from "@/lib/prompts/examples";
 import type { NarrationSpec, ReportSpec } from "@/lib/reports/spec/schema";
 import type { RenderPayload } from "./render-blocks";
 
-const NARRATE_MODEL = "claude-sonnet-4-6";
+const NARRATE_MODEL = process.env.NARRATE_MODEL ?? "gpt-4.1";
 
 /**
  * Presets de narration — 4 combinaisons nommées qui couvrent 95 % des cas.
@@ -75,30 +75,24 @@ export async function narrate(input: NarrateInput): Promise<NarrateResult | null
   const narrationSpec = input.spec.narration;
   if (!narrationSpec) return null;
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return {
-      text: "[narration indisponible — ANTHROPIC_API_KEY manquant]",
+      text: "[narration indisponible — OPENAI_API_KEY manquant]",
       inputTokens: 0,
       outputTokens: 0,
       cached: false,
     };
   }
 
-  const anthropic = createAnthropic({ apiKey });
+  const openai = createOpenAI({ apiKey, baseURL: process.env.OPENAI_BASE_URL });
 
   const systemPrompt = buildSystemPrompt(input.spec.meta.persona, narrationSpec);
   const userPrompt = buildUserPrompt(input.spec, input.payload);
 
   const result = await generateText({
-    model: anthropic(NARRATE_MODEL),
-    system: {
-      role: "system" as const,
-      content: systemPrompt,
-      providerOptions: {
-        anthropic: { cacheControl: { type: "ephemeral" } },
-      },
-    },
+    model: openai(NARRATE_MODEL),
+    system: systemPrompt,
     messages: [{ role: "user" as const, content: userPrompt }],
     maxOutputTokens: narrationSpec.maxTokens,
     temperature: 0.4,
