@@ -153,6 +153,10 @@ export async function getRuns(params?: {
       query = query.eq("user_id", params.userId);
     }
 
+    if (params?.tenantId) {
+      query = query.eq("tenant_id", params.tenantId);
+    }
+
     if (params?.missionId) {
       query = query.filter("metadata->>'missionId'", "eq", params.missionId);
     }
@@ -170,16 +174,24 @@ export async function getRuns(params?: {
   }
 }
 
-export async function getRunById(runId: string): Promise<PersistedRunRecord | null> {
+export async function getRunById(
+  runId: string,
+  opts?: { tenantId?: string },
+): Promise<PersistedRunRecord | null> {
   const sb = db();
   if (!sb) return null;
 
   try {
-    const { data, error } = await sb
+    let query = sb
       .from("runs")
       .select("id, input, status, metadata, user_id, created_at, finished_at")
-      .eq("id", runId)
-      .single();
+      .eq("id", runId);
+
+    if (opts?.tenantId) {
+      query = query.eq("tenant_id", opts.tenantId);
+    }
+
+    const { data, error } = await query.single();
 
     if (error || !data) return null;
     return toRunRecord(data);

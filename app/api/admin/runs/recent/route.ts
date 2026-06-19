@@ -10,13 +10,13 @@ export const dynamic = "force-dynamic";
 export const GET = withAdmin(
   "GET /api/admin/runs/recent",
   { resource: "runs", action: "read" },
-  async (req) => {
+  async (req, { scope }) => {
     const url = new URL(req.url);
     const limit = Math.min(parseInt(url.searchParams.get("limit") ?? "10", 10) || 10, 50);
     // F-109: Never trust userId from query params — use admin's scope only.
 
     try {
-      const runs = await getRuns({ limit });
+      const runs = await getRuns({ limit, tenantId: scope.tenantId });
       return NextResponse.json({ runs });
     } catch (e) {
       log.error({ err: redactedError(e) }, "runs_recent_fetch_failed");
