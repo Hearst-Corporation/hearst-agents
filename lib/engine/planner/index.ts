@@ -258,4 +258,22 @@ export function approvePlan(planId: string): ExecutionPlan | null {
   return plan;
 }
 
+export function declinePlan(planId: string): ExecutionPlan | null {
+  const plan = getPlan(planId);
+  if (!plan || plan.status !== "awaiting_approval") return null;
+
+  const gate = plan.steps.find((s) => s.kind === "wait_for_approval" && s.status === "pending");
+  if (gate) {
+    gate.status = "skipped";
+    gate.completedAt = Date.now();
+  }
+
+  plan.status = "failed";
+  plan.updatedAt = Date.now();
+  savePlan(plan);
+  logPlanEvent("plan_declined", { planId });
+
+  return plan;
+}
+
 // ── Step resolution ─────────────────────────────────────────
