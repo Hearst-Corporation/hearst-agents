@@ -11,7 +11,7 @@ export const createAgentSchema = z.object({
     .regex(/^[a-z0-9-]+$/)
     .optional(),
   description: z.string().max(2000).optional(),
-  model_provider: z.enum(["openai", "anthropic"]).default("openai"),
+  model_provider: z.literal("openai").default("openai"),
   model_name: z.string().min(1).default("gpt-4o"),
   system_prompt: z.string().default(""),
   temperature: z.number().min(0).max(2).default(0.7),
@@ -23,7 +23,13 @@ export const createAgentSchema = z.object({
   metadata: jsonField,
 });
 
+// `model_provider` est omis de l'update : immuable post-création (toujours "openai"
+// via createAgentSchema), et un agent legacy renvoyant son provider courant ne
+// doit pas prendre un 400. L'omit précède le .partial() pour que TypeScript
+// retire le champ du type inféré — zod stripera silencieusement toute valeur
+// `model_provider` soumise à l'update.
 export const updateAgentSchema = createAgentSchema
+  .omit({ model_provider: true })
   .partial()
   .refine((d) => Object.keys(d).length > 0, "At least one field required");
 
@@ -52,8 +58,6 @@ export const createToolSchema = z.object({
 export const chatRequestSchema = z.object({
   message: z.string().min(1).max(100000),
   conversation_id: z.string().uuid().optional(),
-  smart_routing: z.boolean().optional(),
-  model_goal: z.enum(["reliability", "speed", "cost", "balanced"]).optional(),
 });
 
 // ── Memory ──────────────────────────────────────────────

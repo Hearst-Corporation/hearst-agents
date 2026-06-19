@@ -1,12 +1,11 @@
 import { createHash } from "node:crypto";
 import type { NextRequest } from "next/server";
 import type { Json } from "@/lib/database.types";
-import type { ModelGoal } from "@/lib/decisions/model-selector";
 import { chatRequestSchema, err, parseBody } from "@/lib/domain";
 import { RunTracer } from "@/lib/engine/runtime";
 import type { AgentGuardPolicy } from "@/lib/engine/runtime/prompt-guard";
 import type { ChatMessage, ModelDecision } from "@/lib/llm";
-import { getProvider, smartStreamChat } from "@/lib/llm";
+import { getProvider } from "@/lib/llm";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
@@ -225,8 +224,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       });
     }
 
-    const useSmartRouting = parsed.data.smart_routing === true;
-    const modelGoal: ModelGoal = parsed.data.model_goal ?? "balanced";
+    // Verrou OpenAI — les agents custom ne routent JAMAIS vers Anthropic/Gemini/Composer.
+    // Si un agent existant a un provider non-openai en DB, on le rapatrie sur openai + modèle par défaut.
+    const SAFE_OPENAI_MODEL = process.env.AGENT_DEFAULT_OPENAI_MODEL ?? "gpt-4o";
+    const effProvider = "openai";
+    const effModel = agent.model_provider === "openai" ? agent.model_name : SAFE_OPENAI_MODEL;
 
     const encoder = new TextEncoder();
     const llmStart = Date.now();
@@ -235,67 +237,35 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       async start(controller) {
         let fullContent = "";
         let modelDecision: ModelDecision | undefined;
-        let actualModelUsed = `${agent.model_provider}/${agent.model_name}`;
+        let actualModelUsed = `${effProvider}/${effModel}`;
         let finalCostUsd = 0;
         let finalTokensIn = 0;
         let finalTokensOut = 0;
 
         try {
           try {
-            if (useSmartRouting) {
-              const smartStream = smartStreamChat(sb, {
-                goal: modelGoal,
-                agent_provider: agent.model_provider,
-                agent_model: agent.model_name,
-                messages,
-                temperature: agent.temperature,
-                max_tokens: agent.max_tokens,
-                top_p: agent.top_p,
-                tracer,
-                userId: scope.userId,
-                tenantId: scope.tenantId,
-              });
+            const provider = getProvider(effProvider);
+            const stream = provider.streamChat({
+              model: effModel,
+              messages,
+              temperature: agent.temperature,
+              max_tokens: agent.max_tokens,
+              top_p: agent.top_p,
+              stream: true,
+            });
 
-              for await (const chunk of smartStream) {
-                if (chunk.decision) modelDecision = chunk.decision;
-                if (chunk.profile_used) actualModelUsed = chunk.profile_used;
-                fullContent += chunk.delta;
-                controller.enqueue(
-                  encoder.encode(
-                    `data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`,
-                  ),
-                );
-                if (chunk.done) {
-                  finalCostUsd = chunk.cost_usd ?? 0;
-                  finalTokensIn = chunk.tokens_in ?? 0;
-                  finalTokensOut = chunk.tokens_out ?? 0;
-                  break;
-                }
-              }
-            } else {
-              const provider = getProvider(agent.model_provider);
-              const stream = provider.streamChat({
-                model: agent.model_name,
-                messages,
-                temperature: agent.temperature,
-                max_tokens: agent.max_tokens,
-                top_p: agent.top_p,
-                stream: true,
-              });
-
-              for await (const chunk of stream) {
-                fullContent += chunk.delta;
-                controller.enqueue(
-                  encoder.encode(
-                    `data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`,
-                  ),
-                );
-                if (chunk.done) {
-                  finalCostUsd = chunk.cost_usd ?? 0;
-                  finalTokensIn = chunk.tokens_in ?? 0;
-                  finalTokensOut = chunk.tokens_out ?? 0;
-                  break;
-                }
+            for await (const chunk of stream) {
+              fullContent += chunk.delta;
+              controller.enqueue(
+                encoder.encode(
+                  `data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`,
+                ),
+              );
+              if (chunk.done) {
+                finalCostUsd = chunk.cost_usd ?? 0;
+                finalTokensIn = chunk.tokens_in ?? 0;
+                finalTokensOut = chunk.tokens_out ?? 0;
+                break;
               }
             }
           } catch (streamErr) {
@@ -328,8 +298,6 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
             input: {
               messages_count: messages.length,
               system_prompt_length: systemPrompt.length,
-              smart_routing: useSmartRouting,
-              model_goal: useSmartRouting ? modelGoal : undefined,
               was_overridden: modelDecision?.was_overridden ?? false,
             },
             fn: async () => ({
@@ -352,7 +320,6 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
             output_trust: validation?.trust ?? "unverified",
             output_classification: validation?.classification ?? "valid",
             output_score: validation?.score ?? 1,
-            smart_routing: useSmartRouting,
             model_decision: modelDecision
               ? {
                   selected: `${modelDecision.selected_provider}/${modelDecision.selected_model}`,

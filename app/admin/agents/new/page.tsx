@@ -7,14 +7,10 @@ import { Action, FieldError, fieldA11yProps, ValidatedForm } from "@/app/(user)/
 import { toast } from "@/app/hooks/use-toast";
 import { createAgentSchema } from "@/lib/domain/schemas";
 
-const providers = [
-  { value: "openai", label: "OpenAI" },
-  { value: "anthropic", label: "Anthropic" },
-];
+const providers = [{ value: "openai", label: "OpenAI" }];
 
 const defaultModels: Record<string, string[]> = {
   openai: ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "o3-mini"],
-  anthropic: ["claude-sonnet-4-6", "claude-3-5-haiku-20241022", "claude-opus-4-20250514"],
 };
 
 const DEFAULT_TEMPERATURE = 0.7;
