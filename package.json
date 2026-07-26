@@ -56,7 +56,10 @@
     "battle:next": "node scripts/battle-next.mjs",
     "battle:mark": "node scripts/battle-mark.mjs",
     "prepare": "simple-git-hooks || true",
-    "kill:zombies": "bash scripts/kill-node-zombies.sh"
+    "kill:zombies": "bash scripts/kill-node-zombies.sh",
+    "lint:fast": "oxlint src",
+    "quality:dead": "knip",
+    "quality:dup": "jscpd src --threshold 100 --reporters consoleFull"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged && pnpm run features:manifest && git add docs/features/_manifest.json"
@@ -130,10 +133,12 @@
     "electron": "^41.5.1",
     "electron-builder": "^26.8.1",
     "esbuild": "^0.28.0",
+    "jscpd": "^5.0.12",
     "jsdom": "^26.0.0",
     "knip": "^6.12.2",
     "lint-staged": "^17.0.3",
     "madge": "^8.0.0",
+    "oxlint": "^1.75.0",
     "playwright": "^1.59.1",
     "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4",
