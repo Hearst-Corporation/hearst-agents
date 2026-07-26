@@ -87,3 +87,20 @@ This repo has Claude Code customizations in `.claude/`:
 | `CONTRIBUTING.md` | Full command reference, visual regression setup, e2e tags. |
 | `RUNBOOK.md` | Incident procedures: Vercel deploy KO, Sentry, Arcjet, Supabase down. |
 | `TROUBLESHOOTING.md` | Dev errors: stale tsc cache, HMR broken, Electron env, port conflicts. |
+
+<!-- HEARST-GOVERNANCE:START -->
+## Gouvernance — ordre de lecture obligatoire
+Ce projet est rattaché à la gouvernance centrale Hearst via `.hearst/governance.json`
+(repo `Hearst-Corporation/governance`, ref figée au SHA canonique). Avant toute intervention,
+lire dans cet ordre :
+
+1. `.hearst/governance.json`
+2. doctrine globale
+3. règles globales
+4. doctrine projet (`doctrine/projects/hearst-os.md` dans le repo governance)
+5. règles projet (`rules/projects/hearst-os.md` dans le repo governance)
+6. AGENTS.md / CLAUDE.md local (ce fichier)
+7. mission active
+
+Les règles locales complètent — sans les affaiblir — la doctrine et les règles globales.
+<!-- HEARST-GOVERNANCE:END -->
