@@ -1,0 +1,14 @@
+{
+  "completedSteps": [
+    "governanceRead",
+    "governancePr",
+    "projectPr",
+    "projectFilesWritten"
+  ],
+  "data": {
+    "frozenSha": "e5a7d088ff13abf07e77bd830bb270c59aa1f5ce",
+    "governancePrUrl": "https://github.com/Hearst-Corporation/governance/pull/38",
+    "projectPrUrl": "https://github.com/Hearst-Corporation/hearst-agents/pull/55",
+    "hasUnresolvedArbitrage": true
+  }
+}
